@@ -257,7 +257,7 @@
                                 <div class="col-md-12 clear">
 
                                     <div class="col-sm-12">
-                                        <a href="javascript:void(0);" onclick="checkHasUnitID()"><b> Click here to view/Print a summary of monthly Charges for your selected Unit.</b></a>
+                                        <a href="javascript:void(0);" onclick="checkHasUnitIDCoApplicant()"><b> Click here to view/Print a summary of monthly Charges for your selected Unit.</b></a>
                                     </div>
 
                                 </div>
@@ -360,7 +360,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="txtEmail" class="star">Email</label>
-                                    <input type="text" class="form-control" id="txtEmail" onchange="checkEmailAreadyExist()" value="@Model.Email" placeholder="Email">
+                                    <input type="text" class="form-control" id="txtEmail" onchange="checkEmailAreadyExistCoApplicant()" value="@Model.Email" placeholder="Email">
                                 </div>
                             </div>
 
@@ -1230,7 +1230,7 @@
                                         <h3 class="panel-title">FIRST TELL US WHO WILL BE LIVING WITH YOU </h3>
                                     </div>
                                     <div class="col-md-12 clear">
-                                        <div id="tblApplicant" class="proerty-th">
+                                        <div id="tblApplicantCoApplicant" class="proerty-th">
                                         </div>
                                     </div>
                                     <div class="panel-heading">
@@ -1621,7 +1621,7 @@
                             </div>
                             
                             <div class="col-sm-12">
-                                <div class="col-sm-4">
+                                <div class="col-sm-4" id="divIdType">
                                     <div class="form-group">
                                         <label for="ddlDocumentType" class="star">ID Type</label>
                                         <select id="ddlDocumentTypePersonal" class="form-control " style="width:100%!important"></select>
@@ -1647,7 +1647,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                <div class="col-sm-4">
+                                <div class="col-sm-4" id="divUploadIdType">
                                     <div class="form-group">
                                         <label class="star">Upload <span id="lblUploadIdentity"></span></label><br />
                                         <input type="file" name="fileUploadIdentity" id="fileUploadIdentity" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
@@ -1669,7 +1669,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="ddlEverBeenEvicted" class="star">Have you ever been evicted?</label>
-                                        <select id="ddlEverBeenEvicted" class="form-control" style="width:100%!important" onchange="ddlEverBeenEvictedFunction();">
+                                        <select id="ddlEverBeenEvicted" class="form-control" style="width:100%!important" onchange="ddlEverBeenEvictedFunctionCoApplicant();">
                                             <option value="1" selected="selected">No</option>
                                             <option value="2">Yes</option>
                                         </select>
@@ -1678,7 +1678,7 @@
                                 <div class="col-sm-4" id="divEverBeenConvicted">
                                     <div class="form-group">
                                         <label for="ddlEverBeenConvicted" class="star">Have you ever been convicted of a felony?</label>
-                                        <select id="ddlEverBeenConvicted" class="form-control" style="width:100%!important" onchange="ddlEverBeenConvictedFunction();">
+                                        <select id="ddlEverBeenConvicted" class="form-control" style="width:100%!important" onchange="ddlEverBeenConvictedFunctionCoApplicant();">
                                             <option value="1" selected="selected">No</option>
                                             <option value="2">Yes</option>
                                         </select>
@@ -1690,7 +1690,7 @@
                                             Do you have any criminal charges pending, awaiting
                                             disposition, or looming in any way?
                                         </label>
-                                        <select id="ddlAnyCriminalCharges" class="form-control" style="width:100%!important" onchange="ddlAnyCriminalChargesFunction();">
+                                        <select id="ddlAnyCriminalCharges" class="form-control" style="width:100%!important" onchange="ddlAnyCriminalChargesFunctionCoApplicant();">
                                             <option value="1" selected="selected">No</option>
                                             <option value="2">Yes</option>
                                         </select>
@@ -1739,7 +1739,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label for="ddlReferredByAnotherResident" class="star">Referred by another Resident?</label>
-                                        <select id="ddlReferredByAnotherResident" class="form-control" style="width:100%!important" onchange="ddlReferredByAnotherResidentFunction();">
+                                        <select id="ddlReferredByAnotherResident" class="form-control" style="width:100%!important" onchange="ddlReferredByAnotherResidentFunctionCoApplicant();">
                                             <option value="1" selected="selected">No</option>
                                             <option value="2">Yes</option>
                                         </select>
@@ -3647,7 +3647,7 @@
                                     </div>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnPrintSummary" onclick="printSummary()"><i class="fa fa-print"></i> Print</button>
+                                    <button type="submit" class="btn btn-primary" id="btnPrintSummary" onclick="printSummaryCoApplicant()"><i class="fa fa-print"></i> Print</button>
                                 </div>
                             </div>
                             <div class="col-sm-12">
@@ -3878,7 +3878,7 @@
                                     </table>
 
                                 </div>
-                                <center><button type="submit" class="btn btn-primary hidden" id="btnsendemail" onclick="sendCoappEmail(15,15)"> Send Email</button></center>
+                                <center><button type="submit" class="btn btn-primary hidden" id="btnsendemail" onclick="sendCoappEmailCoApplicant(15,15)"> Send Email</button></center>
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
@@ -3972,8 +3972,8 @@
                                             <label class="info-text pull-left hidden" style="color:#4d738a" id="lblsignin">Your Lease Agreement generated successfull at Bluemoon. Please click on continue button. Lease ID: @Model.EnvelopeID</label>
                                             <br />
 
-                                            <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()">Process Online Leasing Application</a>
-                                            <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
+                                            <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocumentCoApplicant()">Process Online Leasing Application</a>
+                                            <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocumentCoApplicant()" disabled="disabled">Download Leasing Application</a>
 
                                         </div>
                                     </div>
@@ -4104,7 +4104,7 @@
                     Note: Check and save
                 </div>
                 <div class="col-sm-4 text-right">
-                    <button type="submit" class="btn btn-primary" onclick="saveupdateStorage()"><i class="fa fa-check-square"></i> SAVE</button>
+                    <button type="submit" class="btn btn-primary" onclick="saveupdateStorageCoApplicant()"><i class="fa fa-check-square"></i> SAVE</button>
                 </div>
             </div>
             <div class="modal-footer-custom">
@@ -4200,7 +4200,7 @@
                         </div>
                     </div>
                     <div class="pull-right text-center">
-                        <button type="submit" class="btn btn-primary" onclick="saveupdatePetPlace()"><i class="fa fa-check-square"></i> SAVE</button>
+                        <button type="submit" class="btn btn-primary" onclick="saveupdatePetPlaceCoApplicant()"><i class="fa fa-check-square"></i> SAVE</button>
                     </div>
 
                 </div>
@@ -4309,7 +4309,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12">
+                <div class="col-sm-12 hidden">
 
                     <div class="col-sm-4" id="divPopIDType">
                         <div class="form-group">
@@ -4397,7 +4397,7 @@
             </div>
             <div class="modal-footer-custom">
                 <div class="col-sm-12 text-center">
-                    <button type="submit" class="btn btn-primary" onclick="saveupdateApplicant()">Save</button>
+                    <button type="submit" class="btn btn-primary" onclick="saveupdateApplicantCoApplicant()">Save</button>
                 </div>
             </div>
         </div>
@@ -4520,7 +4520,7 @@
                     <p>Note: There is a $15 one-time charge for each vehicle registration which entitles you to easy access decal</p>
                 </div>
                 <div class="col-sm-12 text-center">
-                    <button type="submit" class="btn btn-primary" onclick="saveupdateVehicle()"><i class="fa fa-envelope-o"></i> Save</button>
+                    <button type="submit" class="btn btn-primary" onclick="saveupdateVehicleCoApplicant()"><i class="fa fa-envelope-o"></i> Save</button>
                 </div>
 
 
@@ -4601,7 +4601,7 @@
                 </div>
                 <div class="col-sm-12 text-center">
                     <div class="pull-right text-center">
-                        <button type="submit" class="btn btn-primary" onclick="saveupdatePet()"><i class="fa fa-envelope-o"></i> Save</button>
+                        <button type="submit" class="btn btn-primary" onclick="saveupdatePetCoApplicant()"><i class="fa fa-envelope-o"></i> Save</button>
                     </div>
                 </div>
             </div>
@@ -4809,7 +4809,7 @@
                 </div>
             </div>
             <div class="col-sm-12 text-center">
-                <button type="button" class="btn btn-primary" onclick="saveupdateApplicantHistory()"><i class="fa fa-save"></i> Save</button>
+                <button type="button" class="btn btn-primary" onclick="saveupdateApplicantHistoryCoApplicant()"><i class="fa fa-save"></i> Save</button>
             </div>
 
         </div>
@@ -5326,7 +5326,7 @@
             <div class="modal-footer-custom">
                 <div class="col-sm-12 text-center">
                     <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary pull-right" onclick="saveEmployerHistory()" style="margin-right: 10px;">Save</button>
+                    <button type="submit" class="btn btn-primary pull-right" onclick="saveEmployerHistoryCoApplicant()" style="margin-right: 10px;">Save</button>
                 </div>
             </div>
         </div>
@@ -5827,15 +5827,15 @@
         var dtMinEnd = new Date();
         $('#txtMDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtMinStart, endDate: dtMinEnd, maxViewMode: 2, autoclose: true });
 
-        $("#txtPhoneNumber").val(formatPhoneFax('@Model.Phone'));
-        $("#lblFNLPhone").text(formatPhoneFax('@Model.Phone'));
+        $("#txtPhoneNumber").val(formatPhoneFaxCoApplicant('@Model.Phone'));
+        $("#lblFNLPhone").text(formatPhoneFaxCoApplicant('@Model.Phone'));
     });
 
     $(document).ready(function () {
         $("#apartimg_2").maphilight();
         $("#ddlRoom").val(@Model.Bedroom);
         $("#ddlRoom").trigger('change');
-        getPropertyModelUnitList(1, 8);
+        //getPropertyModelUnitList(1, 8);
         $("#ddlGender").on("change", function () {
             if ($(this).val() == 3) {
                 $("#txtOtherGender").attr("disabled", false);
@@ -5862,7 +5862,7 @@
                 $("#lblProrated_PetRent").text('0.00');
             }
         });
-        fillMarketSourceDDL();
+        fillMarketSourceDDLACoApplicant();
         if (@Model.ProspectId != 0) {
             if (@Model.HasPropertyList==1) {
                 getPropertyUnitDetails(@Model.PropertyId);
@@ -5917,7 +5917,7 @@
             $("#divstep3save").addClass("hidden");
             $("#divstep3").removeClass("hidden");
             getTransationLists(@Model.ID);
-            getApplicantLists();
+            getApplicantListsCoApplicant();
 
             //$("#carddetails").addClass("hidden");
         }

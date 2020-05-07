@@ -96,18 +96,6 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="col-sm-3">
-
-                                            <div class="form-group">
-                                                <label class="star">Application Fees</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-btn">
-                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
-                                                    </span>
-                                                    <input id="txtApplicationFees" class="form-control form-control-small" value="@Model.ApplicationFees" type="text" onkeypress="return isNumber(event)" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label class="star">Admin Fees</label>
                                                 <div class="input-group">
@@ -121,16 +109,42 @@
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
-                                                <label class="star">Guarantor Fees</label>
+                                                <label class="star">Application Fees</label>
                                                 <div class="input-group">
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
                                                     </span>
-                                                    <input id="txtGuarantorFees" class="form-control form-control-small" value="@Model.GuarantorFees" type="text" onkeypress="return isNumber(event)" />
+                                                    <input id="txtApplicationFees" class="form-control form-control-small" value="@Model.ApplicationFees" type="text" onkeypress="return isNumber(event)" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Application Credit Fees</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtAppCCCheck" class="form-control form-control-small" value="@Model.AppCCCheckFees" type="text" onkeypress="return isNumber(event)" />
                                                 </div>
                                             </div>
 
                                         </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Application Backgroung Fees</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtAppBGCheckFees" class="form-control form-control-small" value="@Model.AppBGCheckFees" type="text" onkeypress="return isNumber(event)" />
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label class="star">Pest Control Fees</label>
@@ -141,7 +155,39 @@
                                                     <input id="txtPestControlFees" class="form-control form-control-small" value="@Model.PestControlFees" type="text" onkeypress="return isNumber(event)" />
                                                 </div>
                                             </div>
-
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Guarantor Fees</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtGuarantorFees" class="form-control form-control-small" value="@Model.GuarantorFees" type="text" onkeypress="return isNumber(event)" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Guarantor Credit Fees</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtGuarCCCheck" class="form-control form-control-small" value="@Model.GuaCCCheckFees" type="text" onkeypress="return isNumber(event)" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Guarantor Background Fees</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtGuarBGCheck" class="form-control form-control-small" value="@Model.GuaBGCheckFees" type="text" onkeypress="return isNumber(event)" />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
@@ -411,8 +457,8 @@
                                                 <th style="background-color: #c7cdd5;color:#3d3939; width:4%;" onclick="sortTable('Building')" class='text-center'>Model <i class="fa fa-sort-alpha-desc"></i></th>
 
                                                 <th style="background-color: #c7cdd5;color:#3d3939; width:6%;" class='text-center' onclick="sortTable('Rent')">Rent <i class="fa fa-sort-amount-desc"></i></th>
-                                                <th style="background-color: #c7cdd5;color:#3d3939; width:2%;" class='text-center'>Bath</th>
                                                 <th style="background-color: #c7cdd5;color:#3d3939;  width:2%;" class='text-center'>Bed</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939; width:2%;" class='text-center'>Bath</th>
                                                 <th style="background-color: #c7cdd5;color:#3d3939;  width:6%;" class='text-center' onclick="sortTable('InteriorArea')">Interior SF <i class="fa fa-sort-numeric-desc"></i></th>
                                                 <th style="background-color: #c7cdd5;color:#3d3939;  width:6%;" class='text-center' onclick="sortTable('BalconyArea')">Balcony SF <i class="fa fa-sort-numeric-desc"></i></th>
 

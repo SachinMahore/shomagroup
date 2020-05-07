@@ -851,7 +851,10 @@
           <Property Name="AdminFees" Type="money" />
           <Property Name="PetDNAAmt" Type="money" />
           <Property Name="ProcessingFees" Type="money" />
-          <Property Name="BGCheckFees" Type="money" />
+          <Property Name="AppCCCheckFees" Type="money" />
+          <Property Name="AppBGCheckFees" Type="money" />
+          <Property Name="GuaCCCheckFees" Type="money" />
+          <Property Name="GuaBGCheckFees" Type="money" />
         </EntityType>
         <EntityType Name="tbl_PropertyFloor">
           <Key>
@@ -3222,6 +3225,11 @@
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_Vehicle" EntitySet="tbl_Vehicle" />
           </AssociationSet>
+          <EntitySet Name="tbl_Applicant" EntityType="ShomaRMEntitiesModel.tbl_Applicant" />
+          <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />
+          </AssociationSet>
           <EntitySet Name="tbl_Properties" EntityType="ShomaRMEntitiesModel.tbl_Properties" />
           <AssociationSet Name="FK_tbl_CashReceipts_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
@@ -3322,11 +3330,6 @@
           <AssociationSet Name="FK_tbl_WorkOrder_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_WorkOrder_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
-          </AssociationSet>
-          <EntitySet Name="tbl_Applicant" EntityType="ShomaRMEntitiesModel.tbl_Applicant" />
-          <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow">
-            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
-            <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
@@ -3513,7 +3516,7 @@
           <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" FromRole="tbl_CashReceipts" ToRole="tbl_Login" />
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Properties" FromRole="tbl_CashReceipts" ToRole="tbl_Properties" />
           <NavigationProperty Name="tbl_Properties1" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_PropertyUnits" FromRole="tbl_CashReceipts" ToRole="tbl_Properties" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="tbl_CausingIssue">
           <Key>
             <PropertyRef Name="CausingIssueID" />
@@ -5607,6 +5610,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_Applicant">
+          <Key>
+            <PropertyRef Name="ApplicantID" />
+          </Key>
+          <Property Name="ApplicantID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Relationship" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoveInPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MoveInCharge" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MonthlyPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MonthlyPayment" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OtherGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Paid" Type="Int32" />
+          <Property Name="AddedBy" Type="Int64" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="CreditPaid" Type="Int32" />
+          <Property Name="BackGroundPaid" Type="Int32" />
+          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
+        </EntityType>
+        <Association Name="FK_tbl_Applicant_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Applicant" Role="tbl_Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Applicant">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityType Name="tbl_Properties">
           <Key>
             <PropertyRef Name="PID" />
@@ -5642,7 +5683,10 @@
           <Property Name="AdminFees" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="PetDNAAmt" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="ProcessingFees" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="BGCheckFees" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AppCCCheckFees" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AppBGCheckFees" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GuaCCCheckFees" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GuaBGCheckFees" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="tbl_CashReceipts" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_CashReceipts" />
           <NavigationProperty Name="tbl_CashReceipts1" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_PropertyUnits" FromRole="tbl_Properties" ToRole="tbl_CashReceipts" />
           <NavigationProperty Name="tbl_City" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_City" FromRole="tbl_Properties" ToRole="tbl_City" />
@@ -5968,44 +6012,6 @@
             </Principal>
             <Dependent Role="tbl_WorkOrder">
               <PropertyRef Name="PropertyID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="tbl_Applicant">
-          <Key>
-            <PropertyRef Name="ApplicantID" />
-          </Key>
-          <Property Name="ApplicantID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
-          <Property Name="Gender" Type="Int32" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="TenantID" Type="Int64" />
-          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Relationship" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MoveInPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="MoveInCharge" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="MonthlyPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="MonthlyPayment" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="OtherGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Paid" Type="Int32" />
-          <Property Name="AddedBy" Type="Int64" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="CreditPaid" Type="Int32" />
-          <Property Name="BackGroundPaid" Type="Int32" />
-          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
-        </EntityType>
-        <Association Name="FK_tbl_Applicant_tbl_ApplyNow">
-          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Applicant" Role="tbl_Applicant" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_Applicant">
-              <PropertyRef Name="TenantID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7640,10 +7646,39 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Applicant">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Applicant">
+              <MappingFragment StoreEntitySet="tbl_Applicant">
+                <ScalarProperty Name="BackGroundPaid" ColumnName="BackGroundPaid" />
+                <ScalarProperty Name="CreditPaid" ColumnName="CreditPaid" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
+                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
+                <ScalarProperty Name="MonthlyPercentage" ColumnName="MonthlyPercentage" />
+                <ScalarProperty Name="MoveInCharge" ColumnName="MoveInCharge" />
+                <ScalarProperty Name="MoveInPercentage" ColumnName="MoveInPercentage" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Properties">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Properties">
               <MappingFragment StoreEntitySet="tbl_Properties">
-                <ScalarProperty Name="BGCheckFees" ColumnName="BGCheckFees" />
+                <ScalarProperty Name="GuaBGCheckFees" ColumnName="GuaBGCheckFees" />
+                <ScalarProperty Name="GuaCCCheckFees" ColumnName="GuaCCCheckFees" />
+                <ScalarProperty Name="AppBGCheckFees" ColumnName="AppBGCheckFees" />
+                <ScalarProperty Name="AppCCCheckFees" ColumnName="AppCCCheckFees" />
                 <ScalarProperty Name="ProcessingFees" ColumnName="ProcessingFees" />
                 <ScalarProperty Name="PetDNAAmt" ColumnName="PetDNAAmt" />
                 <ScalarProperty Name="AdminFees" ColumnName="AdminFees" />
@@ -7675,32 +7710,6 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="PID" ColumnName="PID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Applicant">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Applicant">
-              <MappingFragment StoreEntitySet="tbl_Applicant">
-                <ScalarProperty Name="BackGroundPaid" ColumnName="BackGroundPaid" />
-                <ScalarProperty Name="CreditPaid" ColumnName="CreditPaid" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
-                <ScalarProperty Name="Paid" ColumnName="Paid" />
-                <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
-                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
-                <ScalarProperty Name="MonthlyPercentage" ColumnName="MonthlyPercentage" />
-                <ScalarProperty Name="MoveInCharge" ColumnName="MoveInCharge" />
-                <ScalarProperty Name="MoveInPercentage" ColumnName="MoveInPercentage" />
-                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

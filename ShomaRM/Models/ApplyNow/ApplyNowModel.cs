@@ -715,6 +715,10 @@ namespace ShomaRM.Models
             ShomaRMEntities db = new ShomaRMEntities();
 
             var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == ID).FirstOrDefault();
+            var tenentUID = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var tenantData = db.tbl_TenantOnline.Where(p => p.ParentTOID == tenentUID).FirstOrDefault();
+            var applicantData = db.tbl_Applicant.Where(p => p.UserID == tenentUID).FirstOrDefault();
+
             int stepcomp = 0;
             stepcomp = onlineProspectData.StepCompleted ?? 0;
             if (stepcomp < StepCompleted)
@@ -724,12 +728,13 @@ namespace ShomaRM.Models
 
             if (onlineProspectData != null)
             {
-                onlineProspectData.StepCompleted = stepcomp;
-                db.SaveChanges();
+                if (applicantData.Type == "Primary Applicant ")
+                {
+                    onlineProspectData.StepCompleted = stepcomp;
+                    db.SaveChanges();
+                }
             }
-            var tenentUID = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
-            var tenantData = db.tbl_TenantOnline.Where(p => p.ParentTOID == tenentUID).FirstOrDefault();
-            var applicantData = db.tbl_Applicant.Where(p => p.UserID == tenentUID).FirstOrDefault();
+            
             if (tenantData != null)
             {
                 tenantData.StepCompleted = stepcomp;

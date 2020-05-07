@@ -313,10 +313,10 @@ namespace ShomaRM.Areas.Tenant.Models
                             db.SaveChanges();
                         }
                     }
-                    var getLoginDet = db.tbl_Login.Where(p => p.Email == getAppldata.Email).FirstOrDefault();
-                    if (getLoginDet != null)
-                    {
-                        var getTenantOnline = db.tbl_TenantOnline.Where(p => p.ParentTOID == getLoginDet.UserID).FirstOrDefault();
+                    //var getLoginDet = db.tbl_Login.Where(p => p.Email == getAppldata.Email).FirstOrDefault();
+                    //if (getLoginDet != null)
+                    //{
+                        var getTenantOnline = db.tbl_TenantOnline.Where(p => p.ParentTOID == userid).FirstOrDefault();
                         if (getTenantOnline != null)
                         {
                             getTenantOnline.SSN = model.SSN;
@@ -332,7 +332,7 @@ namespace ShomaRM.Areas.Tenant.Models
                             getTenantOnline.Country = model.Country;
                             db.SaveChanges();
                         }
-                    }
+                    //}
 
                     db.SaveChanges();
                     string reportHTML = "";
@@ -344,10 +344,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
 
                         var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
-                        string payid = new EncryptDecrypt().EncryptText(getAppldata.ApplicantID.ToString() + ",4," + propertDet.BGCheckFees.Value.ToString("0.00"));
+                        string payid = new EncryptDecrypt().EncryptText(getAppldata.ApplicantID.ToString() + ",4," + propertDet.AppCCCheckFees.Value.ToString("0.00"));
                         reportHTML = reportHTML.Replace("[%CoAppType%]", model.Type);
                         reportHTML = reportHTML.Replace("[%EmailHeader%]", "Payment Link for Credit Check");
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", "Please pay your fees $" + propertDet.BGCheckFees.Value.ToString("0.00") + " for credit check to continue the Online Application Process.<br/><br/>");
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", "Please pay your fees $" + propertDet.AppCCCheckFees.Value.ToString("0.00") + " for credit check to continue the Online Application Process.<br/><br/>");
                         reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
                         reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
                         body = reportHTML;
@@ -913,7 +913,7 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             ApplicantModel model = new ApplicantModel();
-
+            var ptotid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
             string bat = "";
             if (chargetype == 1)
             {
@@ -976,7 +976,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.ApplicantAddedBy = getApplicantDet.AddedBy;
                 model.ApplicantUserId = getApplicantDet.UserID;
                 //New
-                var getTenantOnline = db.tbl_TenantOnline.Where(p => p.Email == getApplicantDet.Email).FirstOrDefault();
+                var getTenantOnline = db.tbl_TenantOnline.Where(p =>  p.ParentTOID==ptotid).FirstOrDefault();
 
                 if (!string.IsNullOrWhiteSpace(getTenantOnline.IDNumber))
                 {
@@ -1080,7 +1080,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.ApplicantAddedBy = getApplicantDet.AddedBy;
                 model.ApplicantUserId = getApplicantDet.UserID;
                 //New
-                var getTenantOnline = db.tbl_TenantOnline.Where(p => p.Email == getApplicantDet.Email).FirstOrDefault();
+                
+                var getTenantOnline = db.tbl_TenantOnline.Where(p =>  p.ParentTOID== ptotid).FirstOrDefault();
 
                 if (!string.IsNullOrWhiteSpace(getTenantOnline.IDNumber))
                 {

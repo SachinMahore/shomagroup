@@ -244,8 +244,9 @@ var fillPUList = function (pagenumber, sortby, orderby) {
                     html += "<td style='width:4%;'>" + value.Building + "</td>";
 
                     html += "<td style='width:6%;cursor:pointer!important;' id='avUnitRent_" + value.UID + "' onclick='editUnitRent(" + value.UID + ")' data-udate='" + value.Current_Rent + "' data-ulrid='" + value.ULRID+"'> " + formatMoney(parseFloat(value.Current_Rent).toFixed(2)) + " <i class='fa fa-edit  pull-right' style='margin: 6px;'></i> </td>";
-                    html += "<td style='width:2%;'>" + value.Bathroom + "</td>";
                     html += "<td style='width:2%;'>" + value.Bedroom + "</td>";
+                    html += "<td style='width:2%;'>" + value.Bathroom + "</td>";
+                   
                     html += "<td style='width:6%;'>" + value.InteriorArea + "</td>";
                     html += "<td style='width:6%;'>" + value.BalconyArea + "</td>";
 
@@ -446,6 +447,13 @@ function SaveUpdateProperty() {
     var dnaPetFees = unformatText($("#txtDNAPetFee").val());
     var processingFees = unformatText($("#txtProcessingFee").val());
     var propertyFile = $("#hndFileUploadPropertyPicture").val();
+
+    var applicationCCFees = unformatText($("#txtAppCCCheck").val());
+    var applicationBGFees = unformatText($("#txtAppBGCheckFees").val());
+
+    var guarantorCCFees = unformatText($("#txtGuarCCCheck").val());
+    var guarantorBGFees = unformatText($("#txtGuarBGCheck").val());
+
     if (title == "") {
         msg += " Please enter Property Title .<br />";
     }
@@ -474,12 +482,40 @@ function SaveUpdateProperty() {
     if (!applicationFees) {
         msg += " Please enter Application Fees.<br />";
     }
+    if (!applicationCCFees) {
+        msg += " Please enter Application Credit Fees.<br />";
+    }
+    if (!applicationBGFees) {
+        msg += " Please enter Application Background Fees.<br />";
+    }
+
+    var appFees = parseFloat(applicationFees);
+    var appCCBGFees = parseFloat(applicationCCFees) + parseFloat(applicationBGFees);
+
+    if (appFees != appCCBGFees) {
+        msg += " Application Fees should be equal to sum of Application Credit Fees and Application Background Fees.<br />";
+    }
+    
     if (!adminFees) {
         msg += " Please enter Admin Fees.<br />";
     }
     if (!guarantorFees) {
         msg += " Please enter Guarantor Fees.<br />";
     }
+    if (!guarantorCCFees) {
+        msg += " Please enter Guarantor Credit Fees.<br />";
+    }
+    if (!guarantorBGFees) {
+        msg += " Please enter Guarantor Background Fees.<br />";
+    }
+
+    var guarFees = parseFloat(guarantorFees);
+    var guarCCBGFees = parseFloat(guarantorCCFees) + parseFloat(guarantorBGFees);
+
+    if (guarFees != guarCCBGFees) {
+        msg += " Guarantor Fees should be equal to sum of Guarantor Credit Fees and Guarantor Background Fees.<br />";
+    }
+
     if (!pestControlFess) {
         msg += " Please enter Pest Control.<br />";
     }
@@ -530,6 +566,11 @@ function SaveUpdateProperty() {
     $formData.append('DNAPetFees', dnaPetFees);
     $formData.append('ProcessingFees', processingFees);
     $formData.append('Picture', propertyFile);
+
+    $formData.append('AppCCCheckFees', applicationCCFees);
+    $formData.append('AppBGCheckFees', applicationBGFees);
+    $formData.append('GuaCCCheckFees', guarantorCCFees);
+    $formData.append('GuaBGCheckFees', guarantorBGFees);
 
     var addAmenity = "";
     if (addAmenityArray.length > 0) {
@@ -1449,6 +1490,14 @@ var onFocusProperty = function () {
         .focus(function () {
             $("#txtApplicationFees").val(unformatText($("#txtApplicationFees").val()));
         });
+    $("#txtAppCCCheck").focusout(function () { $("#txtAppCCCheck").val(formatMoney($("#txtAppCCCheck").val())); })
+        .focus(function () {
+            $("#txtAppCCCheck").val(unformatText($("#txtAppCCCheck").val()));
+        });
+    $("#txtAppBGCheckFees").focusout(function () { $("#txtAppBGCheckFees").val(formatMoney($("#txtAppBGCheckFees").val())); })
+        .focus(function () {
+            $("#txtAppBGCheckFees").val(unformatText($("#txtAppBGCheckFees").val()));
+        });
 
     $("#txtAdminFees").focusout(function () { $("#txtAdminFees").val(formatMoney($("#txtAdminFees").val())); })
         .focus(function () {
@@ -1458,6 +1507,14 @@ var onFocusProperty = function () {
     $("#txtGuarantorFees").focusout(function () { $("#txtGuarantorFees").val(formatMoney($("#txtGuarantorFees").val())); })
         .focus(function () {
             $("#txtGuarantorFees").val(unformatText($("#txtGuarantorFees").val()));
+        });
+    $("#txtGuarCCCheck").focusout(function () { $("#txtGuarCCCheck").val(formatMoney($("#txtGuarCCCheck").val())); })
+        .focus(function () {
+            $("#txtGuarCCCheck").val(unformatText($("#txtGuarCCCheck").val()));
+        });
+    $("#txtGuarBGCheck").focusout(function () { $("#txtGuarBGCheck").val(formatMoney($("#txtGuarBGCheck").val())); })
+        .focus(function () {
+            $("#txtGuarBGCheck").val(unformatText($("#txtGuarBGCheck").val()));
         });
 
     $("#txtPestControlFees").focusout(function () { $("#txtPestControlFees").val(formatMoney($("#txtPestControlFees").val())); })

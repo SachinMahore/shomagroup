@@ -2459,6 +2459,8 @@
     <Content Include="Content\timepicki.js" />
     <Content Include="Content\zabuto_calendar.js" />
     <Content Include="DatabaseChanges\01-05-2020\AddColumn_Applicant_ProcedureChange.sql" />
+    <Content Include="DatabaseChanges\04-05-2020\Add_Column In Table.sql" />
+    <Content Include="DatabaseChanges\07-05-2020\Add Column In tbl_Properties.sql" />
     <Content Include="DatabaseChanges\09-04-2020\usp_GetClientModelUnitList.sql" />
     <Content Include="DatabaseChanges\09-04-2020\usp_GetPropertyModelUnitList.sql" />
     <Content Include="DatabaseChanges\09-04-2020\usp_GetPropertyUnitListCord.sql" />
@@ -2785,7 +2787,6 @@
     <Folder Include="Areas\Tenant\Views\ServiceRequest\" />
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
-    <Folder Include="DatabaseChanges\04-05-2020\" />
     <Folder Include="Logs\" />
     <Folder Include="Views\BackgroundScreening\" />
     <Folder Include="Views\ShomaBase\" />

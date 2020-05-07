@@ -846,7 +846,10 @@
     <Property Name="AdminFees" Type="money" />
     <Property Name="PetDNAAmt" Type="money" />
     <Property Name="ProcessingFees" Type="money" />
-    <Property Name="BGCheckFees" Type="money" />
+    <Property Name="AppCCCheckFees" Type="money" />
+    <Property Name="AppBGCheckFees" Type="money" />
+    <Property Name="GuaCCCheckFees" Type="money" />
+    <Property Name="GuaBGCheckFees" Type="money" />
   </EntityType>
   <EntityType Name="tbl_PropertyFloor">
     <Key>

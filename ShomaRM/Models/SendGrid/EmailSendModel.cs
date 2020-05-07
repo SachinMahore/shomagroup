@@ -10,13 +10,14 @@ using System.IO;
 using System.Data;
 using System.Data.Common;
 using LoggerEngine;
+using System.Web.Configuration;
 
 namespace ShomaRM.Models
 {
     public class EmailSendModel
     {
-        public string s_username = "nirvitech";
-        public string s_password = "@17nirvi18#";
+        public string s_username = WebConfigurationManager.AppSettings["SendGridUserName"];
+        public string s_password = WebConfigurationManager.AppSettings["SendGridPassword"];
 
 
         public void SendEmail(string ToEmail, string Subject, string Body)

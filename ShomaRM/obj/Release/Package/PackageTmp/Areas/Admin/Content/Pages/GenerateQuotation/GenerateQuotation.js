@@ -914,41 +914,6 @@ var SaveGenerateQuotation = function () {
         }
     }
 
-    //Sachin M 30 apr 
-    if (ssncheck.length < 9) {
-        msg += "SSN number must be 9 digit </br>";
-    }
-
-    if (!idType || idType == "0") {
-        msg += "Please select Document Type </br>";
-    }
-
-    if (!idState || idState == "0") {
-        msg += "Please select Document Issue State </br>";
-    }
-
-    if (idNumber.length < 5) {
-        msg += "ID Number should be greater then 4 digit </br>";
-    }
-
-    if (!country || country == "0") {
-        msg += "Please select Country </br>";
-    }
-
-    if (!homeAddress1) {
-        msg += "Please Fill Address 1 </br>";
-    }
-
-    if (!stateHome || stateHome == "0") {
-        msg += "Please Select State </br>";
-    }
-    if (!cityHome) {
-        msg += "Please Fill City </br>";
-    }
-    if (!zipHome) {
-        msg += "Please Fill Zip </br>";
-    }
-
 
     if (!password) {
         msg += "Please fill the Password </br>";

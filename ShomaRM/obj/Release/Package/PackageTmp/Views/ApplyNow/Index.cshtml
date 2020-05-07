@@ -26,6 +26,7 @@
 <input type="hidden" id="HndAddParkingCount" value="0" />
 <input type="hidden" id="hndDocumentTypePersonal" value="0" />
 <input type="hidden" id="hndCreditPaid" value="@Model.CreditPaid" />
+<input type="hidden" id="hndStorageOrderBy" value="ASC" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -700,7 +701,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-4">
-                                        <span id="">Pet Non-refundable Deposit: </span>
+                                        <span id="spPetNRDeposit">Pet Non-refundable Deposit: </span>
                                     </div>
                                     <div class="col-sm-2">
                                         $<span id="lblPetDeposit">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
@@ -971,7 +972,8 @@
 
                                                 </div>
                                                 <div class="col-sm-7">
-                                                    $<span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/per applicant</span>
+                                                    $<span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/per applicant</span><br />
+                                                    <span style="font-size:12px">(Credit Check: $@((Model.AppCCCheckFees ?? 0).ToString("0.00")) + Background Check: $@((Model.AppBGCheckFees ?? 0).ToString("0.00")))</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -979,8 +981,9 @@
                                                     &nbsp;
                                                 </div>
                                                 <div class="col-sm-7">
-                                                    $<span id="lblFNLGautantorFee" style="text-decoration:underline;font-weight:bold;">@((Model.GuarantorFees ?? 0).ToString("0.00"))/Guarantor (if needed)</span>
-                                                </div>
+                                                    $<span id="lblFNLGautantorFee" style="text-decoration:underline;font-weight:bold;">@((Model.GuarantorFees ?? 0).ToString("0.00"))/Guarantor (if needed)</span><br />
+                                                    <span style="font-size:12px">(Credit Check: $@((Model.GuaCCCheckFees ?? 0).ToString("0.00")) + Background Check: $@((Model.GuaBGCheckFees ?? 0).ToString("0.00")))</span>
+</div>
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
@@ -1011,7 +1014,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span> Pet Non-Refundable Deposit: </span>
+                                                    <span id="spfpetd">Pet Non-Refundable Deposit: </span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     $<span style="text-decoration:underline;font-weight:bold;" id="fpetd">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
@@ -1027,7 +1030,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span>Vehicle Registration: </span>
+                                                    <span id="spanVechReg">Vehicle Registration@(((Model.VehicleRegistration ?? 0) / 15) > 0 ? " (" + ((Model.VehicleRegistration ?? 0) / 15).ToString() + " Vehicle)" : ""): @(((Model.VehicleRegistration ?? 0) / 15) > 0 ? " (" + ((Model.VehicleRegistration ?? 0) / 15).ToString() + " Vehicle)" : "")</span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span>
@@ -1299,29 +1302,37 @@
                                         </div>
                                         <div class="col-sm-12 clear">&nbsp;</div>
                                         <div class="col-sm-12 clear">
-                                            <div class="col-sm-2"></div>
-                                            <div class="col-sm-3">
-                                                <span>Online Non-refundable Application Fee</span>
+                                            <div class="col-sm-12 text-center">
+                                                <span>Online Non-refundable Application Fee &nbsp;</span>: <span>$@((Model.ApplicationFees ?? 0).ToString("0.00"))/per Applicant/ Co-Applicant  (Credit Check:$@((Model.AppCCCheckFees ?? 0).ToString("0.00")) + Background Check:@((Model.AppBGCheckFees ?? 0).ToString("0.00")))</span>
                                             </div>
-                                            <div class="col-sm-1"></div>
-                                            <div class="col-sm-3">
-                                                <span>$@((Model.ApplicationFees ?? 0).ToString("0.00"))/per Applicant/ Co-Applicant</span>
-                                            </div>
-                                            <div class="col-sm-2"></div>
                                         </div>
+                                        @*<div class="col-sm-12 clear">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-3">
+                <span>Online Non-refundable Application Fee</span>
+            </div>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-3">
+                <span>$@((Model.ApplicationFees ?? 0).ToString("0.00"))/per Applicant/ Co-Applicant  (Credit Check:$@((Model.AppCCCheckFees ?? 0).ToString("0.00")) + Background Check:@((Model.AppBGCheckFees ?? 0).ToString("0.00")))</span>
+            </div>
+            <div class="col-sm-2"></div>
+        </div>*@
                                         <div class="col-sm-12 clear">
+                                            <div class="col-sm-12 text-center">
+                                                <span>Online Non-refundable Guarantor Fee &nbsp;</span>: <span>&nbsp;$@((Model.GuarantorFees ?? 0).ToString("0.00")) (Credit Check:$@((Model.GuaCCCheckFees ?? 0).ToString("0.00")) + Background Check:@((Model.GuaBGCheckFees ?? 0).ToString("0.00")))</span>
+                                            </div>
+                                        </div>
+                                        @*<div class="col-sm-12 clear">
                                             <div class="col-sm-2"></div>
-
                                             <div class="col-sm-3">
                                                 <span>Online Non-refundable Guarantor Fee &nbsp;</span>
-
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
-                                                <span>&nbsp;$@((Model.GuarantorFees ?? 0).ToString("0.00"))</span>
+                                                <span>&nbsp;$@((Model.GuarantorFees ?? 0).ToString("0.00")) (Credit Check:$@((Model.GuaCCCheckFees ?? 0).ToString("0.00")) + Background Check:@((Model.GuaBGCheckFees ?? 0).ToString("0.00")))</span>
                                             </div>
                                             <div class="col-sm-2"></div>
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -1394,7 +1405,7 @@
                                         <div class="col-md-3"></div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-8">
-                                                <span>Vehicle Registration: </span>
+                                                <span id="spanVechReg1">Vehicle Registration@(((Model.VehicleRegistration ?? 0) / 15) > 0 ? " (" + ((Model.VehicleRegistration ?? 0) / 15).ToString() + " Vehicle)" : ""): </span>
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
@@ -1412,7 +1423,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-8">
-                                                <span>Pet Deposit: </span>
+                                                <span id="spPetNRDep6">Pet Non-refundable Deposit: </span>
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
@@ -4200,10 +4211,10 @@
                         <table class="" cellspacing="0" style="width:100%;">
                             <thead>
                                 <tr>
-                                    <th class="pds-cityname" onclick="sortTableStorage(0)" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;cursor: pointer;">Storage</th>
-                                    <th class="pds-cityname" onclick="sortTableStorage(1)" style="background-color: #c7cdd5;color:#3d3939;width:48%;text-align:center;cursor: pointer;">Description</th>
-                                    <th class="pds-cityname" onclick="sortTableStorage(2)" style="background-color: #c7cdd5;color:#3d3939;width:16%;text-align:center;cursor: pointer;">Charges</th>
-                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;cursor: pointer;">Add</th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;cursor: pointer;" onclick="sortTableStorage1('Storage1Storage')">Storage <i id="SortIconStorage1Storage"></i></th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:48%;text-align:center;cursor: pointer;" onclick="sortTableStorage1('Storage1Description')">Description <i id="SortIconStorage1Description"></i></th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:16%;text-align:center;cursor: default;">Charges <i id="SortIconStorage1Charges"></i></th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;cursor: default;">Add</th>
                                 </tr>
                             </thead>
                         </table>
@@ -4425,7 +4436,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12">
+                <div class="col-sm-12 hidden">
 
                     <div class="col-sm-4" id="divPopIDType">
                         <div class="form-group">
@@ -4960,7 +4971,7 @@
                         <td colspan="2">
 
                             <p style="font-size:small; color:#838383;">Before you proceed, we want to let you know that Sanctuary uses a third-party screening company which utilizes certain guidelines to qualify applicants for residency in our community.  Before you apply, we want to inform you of some of the criteria, so you can determine your options. </p>
-                            <p style="font-size:small; color:#838383;"><b>The rental application fee per applicant and co-applicant is @((Model.ApplicationFees ?? 0).ToString("0.00")) and is non-refundable.  If a Guarantor is provided, the Guarantor must also complete an application and pay a non-refundable fee of @((Model.GuarantorFees ?? 0).ToString("0.00")).</b> Because there are no exceptions, it is important that you review this document carefully before applying, making certain that to the best of your knowledge you meet the rental qualifications shown below. </p>
+                            <p style="font-size:small; color:#838383;"><b>The rental application fee per applicant and co-applicant is $@((Model.ApplicationFees ?? 0).ToString("0.00")) (Credit Check:$@((Model.AppCCCheckFees ?? 0).ToString("0.00")) + Background Check:$ @((Model.AppBGCheckFees ?? 0).ToString("0.00"))) and is non-refundable.  If a Guarantor is provided, the Guarantor must also complete an application and pay a non-refundable fee of @((Model.GuarantorFees ?? 0).ToString("0.00")).</b> Because there are no exceptions, it is important that you review this document carefully before applying, making certain that to the best of your knowledge you meet the rental qualifications shown below. </p>
                             <p style="font-size:small; color:#838383;">Additionally, we want to make sure you are happy with your decision to join our community, so we put together this list of Rules and Policies created to ensure a safe and enjoyable environment for all residents.  Before you proceed to apply, you will be kindly asked to accept the Rules and Policies  </p>
                             <p style="font-size:small; color:#838383;">Masmar Management, LLC, Sanctuary’s property management, does not discriminate against persons based on race, color, religion, national origin, familial status, or disability.  Although all residents are subjected to the screening process, nothing contained in these requirements shall constitute representation by Masmar that all residents and occupants currently residing in our community have met or currently meet these guidelines.</p>
 
@@ -5410,7 +5421,10 @@
                                 </thead>
                                 <tr>
                                     <td>APPLICATION FEE : </td>
-                                    <td>$ <span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/per applicant</span></td>
+                                    <td>
+                                        $ <span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/per applicant</span>
+                                        <br />$ <span style="text-decoration:underline;font-weight:bold;">Credit Check:$@((Model.ApplicationFees ?? 0).ToString("0.00")) + Background Check: $@((Model.AppBGCheckFees ?? 0).ToString("0.00"))</span>
+                                    </td>
                                     <td>Security Deposit ** </td>
                                     <td>$ <span style="text-decoration:underline;font-weight:bold;" id="fdepo">@((Model.Deposit ?? 0).ToString("0.00"))</span></td>
                                 </tr>
@@ -5429,7 +5443,7 @@
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td><span>Vehicle Registration: </span></td>
+                                    <td><span>Vehicle Registration@(((Model.VehicleRegistration ?? 0) / 15) > 0 ?" ("+ ((Model.VehicleRegistration ?? 0) / 15).ToString()+" Vehicle)":""): </span></td>
                                     <td>$ <span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span></td>
                                 </tr>
                                 <tr>
@@ -6176,12 +6190,12 @@
 
 
         $('#ddlApplicantGender').on('change', function () {
-            if ($(this).val() == 2) {
-                $("#lbl_txtApplicantMiddleName").addClass("star");
-            }
-            else {
-                $("#lbl_txtApplicantMiddleName").removeClass("star");
-            }
+            //if ($(this).val() == 2) {
+            //    $("#lbl_txtApplicantMiddleName").addClass("star");
+            //}
+            //else {
+            //    $("#lbl_txtApplicantMiddleName").removeClass("star");
+            //}
             if ($(this).val() == '3') {
                 $('#txtApplicantOtherGender').removeAttr('disabled', 'disabled');
             }

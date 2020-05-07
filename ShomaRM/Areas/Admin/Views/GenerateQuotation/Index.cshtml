@@ -310,7 +310,6 @@
                                     <div class="panel-heading">
                                         <p style="font-size: 12px; padding-top:10px;">We are now ready to select your personalized options. But before we do,<br>let's make sure you are registered so you don't loose all your information.</p>
                                         <p style="font-size: 12px; padding-top:10px;">Enter and register your information and a quote will then be provided to you.</p>
-                                        <p style="font-size: 12px; padding-top:10px;">REGISTER BELOW OR <a href="javascript:void(0);" id="btnsignInAppl">SIGN IN</a></p>
 
                                     </div>
                                 </div>
@@ -370,90 +369,6 @@
                                 <div class="form-group">
                                     <label for="txtEmail" class="star">Email</label>
                                     <input type="text" class="form-control" id="txtEmail" onchange="checkEmailAreadyExistGenerateQuo()" value="@Model.Email" placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="col-sm-4" id="divSSNNumberReg">
-                                <div class="form-group">
-                                    <label id="lblSSNNumberReg" for="txtSSNNumberReg" class="star">SSN#</label>
-                                    <input class="form-control form-control-small" id="txtSSNNumberReg" data-value="" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="ddlIDTypeReg" class="star">Document Type</label>
-                                    <select id="ddlIDTypeReg" class=" form-control" style="width:100%!important">
-                                        <option value="0">Select</option>
-                                        <option value="1">Driver's License</option>
-                                        <option value="2">Military ID</option>
-                                        <option value="4">State Issued ID</option>
-                                        <option value="3">Passport</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="ddlStateIDDocReg" class="star">State</label>
-                                    <select id="ddlStateIDDocReg" class=" form-control" style="width:100%!important">
-                                        <option value="0">--Select State--</option>
-                                        @foreach (var state in Model.StateList)
-                                        {
-                                            <option value="@state.ID">@state.StateName</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label id="lblIDNumberReg" for="txtIDNumberReg" class="star">ID Number</label>
-                                    <input class="form-control form-control-small" id="txtIDNumberReg" data-value="" maxlength="25" />
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="txtCountryReg" class="star">Country</label>
-                                    <select id="txtCountryReg" class="form-control">
-                                        @foreach (var country in Model.CountryList)
-                                        {
-                                            <option value="@country.ID">@country.CountryName</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="txtAddress1Reg" class="star">Address 1</label>
-                                    <input id="txtAddress1Reg" type="text" class="form-control form-control-small" maxlength="300" />
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="txtAddress2Reg">Address Line 2</label>
-                                    <input id="txtAddress2Reg" type="text" class="form-control form-control-small" maxlength="300" />
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="star"> State :</label>
-                                    <select id="ddlStateReg" class="form-control">
-                                        <option value="0">--Select State--</option>
-                                        @foreach (var state in Model.StateList)
-                                        {
-                                            <option value="@state.ID">@state.StateName</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="star"> City :</label>
-                                    <input id="ddlCityReg" type="text" class="form-control form-control-small" maxlength="100" />
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="txtZipReg" class="star">Zip</label>
-                                    <input class="form-control form-control-small" id="txtZipReg" maxlength="7" />
                                 </div>
                             </div>
                             <div class="col-sm-4">

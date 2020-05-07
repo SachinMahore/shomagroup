@@ -66,7 +66,11 @@ namespace ShomaRM.Models
         public Nullable<decimal> ConvergentAmt { get; set; }
         public Nullable<decimal> AdminFees { get; set; }
         public Nullable<decimal> ApplicationFees { get; set; }
+        public Nullable<decimal> AppCCCheckFees { get; set; }
+        public Nullable<decimal> AppBGCheckFees { get; set; }
         public Nullable<decimal> GuarantorFees { get; set; }
+        public Nullable<decimal> GuaCCCheckFees { get; set; }
+        public Nullable<decimal> GuaBGCheckFees { get; set; }
         public Nullable<decimal> VehicleRegistration { get; set; }
         public Nullable<decimal> Prorated_Rent { get; set; }
         public int LeaseTerm { get; set; }
@@ -120,6 +124,8 @@ namespace ShomaRM.Models
         public string MiddleInitial { get; set; }
 
         public int CreditPaid { get; set; }
+
+        
 
         public string SaveOnlineProspect(OnlineProspectModule model)
         {
@@ -700,6 +706,14 @@ namespace ShomaRM.Models
             model.IsRentalPolicy = 0;
             model.IsRentalQualification = 0;
 
+            model.ApplicationFees =0;
+            model.AppCCCheckFees = 0;
+            model.AppBGCheckFees = 0;
+
+            model.GuarantorFees = 0;
+            model.GuaCCCheckFees = 0;
+            model.GuaBGCheckFees = 0;
+
             var propDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
             if (propDet != null)
             {
@@ -708,9 +722,17 @@ namespace ShomaRM.Models
                 model.PestAmt = propDet.PestControlFees ?? 0;
                 model.TrashAmt = propDet.TrashFees ?? 0;
                 model.AdminFees = propDet.AdminFees ?? 0;
-                model.ApplicationFees = propDet.ApplicationFees ?? 0;
-                model.GuarantorFees = propDet.GuarantorFees ?? 0;
+               
+                
                 model.ProcessingFees = propDet.ProcessingFees ?? 0;
+
+                model.ApplicationFees = propDet.ApplicationFees ?? 0;
+                model.AppCCCheckFees = propDet.AppCCCheckFees ?? 0;
+                model.AppBGCheckFees = propDet.AppBGCheckFees ?? 0;
+
+                model.GuarantorFees = propDet.GuarantorFees ?? 0;
+                model.GuaCCCheckFees = propDet.GuaCCCheckFees ?? 0;
+                model.GuaBGCheckFees = propDet.GuaBGCheckFees ?? 0;
             }
             else
             {
@@ -720,7 +742,13 @@ namespace ShomaRM.Models
                 model.TrashAmt = 0;
                 model.AdminFees = 0;
                 model.ApplicationFees = 0;
-                model.GuarantorFees =  0;
+                model.AppCCCheckFees = 0;
+                model.AppBGCheckFees = 0;
+
+                model.GuarantorFees = 0;
+                model.GuaCCCheckFees = 0;
+                model.GuaBGCheckFees = 0;
+
                 model.ProcessingFees = 0;
             }
 
