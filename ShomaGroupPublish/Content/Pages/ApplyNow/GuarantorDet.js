@@ -3835,7 +3835,7 @@ var getApplicantListsGuarantor = function () {
                         // html += "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>";
                     }
 
-                    html += "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: In progress</b></label></center></div>";
+                    html += "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: " + elementValue.ComplStatus +"</b></label></center></div>";
                     html += "</div></div>";
                 }
                 else {
@@ -3845,7 +3845,7 @@ var getApplicantListsGuarantor = function () {
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
 
                         "<label>Primary Applicant</label><br/>" +
-                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: In progress</b></label></center></div>" +
+                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: " + elementValue.ComplStatus +"</b></label></center></div>" +
                         "</div></div>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
@@ -6598,6 +6598,33 @@ var onFocusApplyNow = function () {
         .focus(function () {
             $("#txtManagementCompanyPhone2").val(unformatText($("#txtManagementCompanyPhone2").val()));
         });
+    $("#txtApplicantSSNNumber").focusin(function () {
+        getEncDecValue(this, 1);
+    }).focusout(function () {
+        var ssn = $(this).val();
+        if (ssn.length < 9) {
+            alert("SSN must be 9 digit");
+            return;
+        }
+        if (ssn.length > 4) {
+            getEncDecValue(this, 2);
+            $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+        }
+    });
+
+    $("#txtApplicantIDNumber").focusin(function () {
+        getEncDecValue(this, 1);
+    }).focusout(function () {
+        var idnumber = $(this).val();
+        if (idnumber.length < 5) {
+            alert("ID Number should be greater then 4 digit");
+            return;
+        }
+        if (idnumber.length > 4) {
+            getEncDecValue(this, 2);
+            $(this).val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
+        }
+    });
 };
 
 function formatPhoneFax(phonefax) {

@@ -116,6 +116,8 @@ namespace ShomaRM.Data
         public Nullable<int> IsProprNoticeLeaseAgreement { get; set; }
         public Nullable<long> ParentTOID { get; set; }
         public Nullable<int> StepCompleted { get; set; }
+        public Nullable<int> IsRentalPolicy { get; set; }
+        public Nullable<int> IsRentalQualification { get; set; }
     
         public virtual tbl_ApplyNow tbl_ApplyNow { get; set; }
     }

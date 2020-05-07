@@ -1397,6 +1397,8 @@
           <Property Name="IsProprNoticeLeaseAgreement" Type="int" />
           <Property Name="ParentTOID" Type="bigint" />
           <Property Name="StepCompleted" Type="int" />
+          <Property Name="IsRentalPolicy" Type="int" />
+          <Property Name="IsRentalQualification" Type="int" />
         </EntityType>
         <EntityType Name="tbl_TenantParking">
           <Key>
@@ -5510,6 +5512,8 @@
           <Property Name="ParentTOID" Type="Int64" />
           <Property Name="StepCompleted" Type="Int32" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_TenantOnline" ToRole="tbl_ApplyNow" />
+          <Property Name="IsRentalPolicy" Type="Int32" />
+          <Property Name="IsRentalQualification" Type="Int32" />
         </EntityType>
         <Association Name="FK_tbl_TenantOnline_tbl_ApplyNow">
           <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
@@ -7472,6 +7476,8 @@
           <EntitySetMapping Name="tbl_TenantOnline">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantOnline">
               <MappingFragment StoreEntitySet="tbl_TenantOnline">
+                <ScalarProperty Name="IsRentalQualification" ColumnName="IsRentalQualification" />
+                <ScalarProperty Name="IsRentalPolicy" ColumnName="IsRentalPolicy" />
                 <ScalarProperty Name="StepCompleted" ColumnName="StepCompleted" />
                 <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
                 <ScalarProperty Name="IsProprNoticeLeaseAgreement" ColumnName="IsProprNoticeLeaseAgreement" />

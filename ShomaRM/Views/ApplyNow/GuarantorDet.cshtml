@@ -1248,7 +1248,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 @(Model.CreditPaid != 0 ? "hidden" : "")">
-                                <h3 class="panel-title pull-right">Please Pay Credit Check Fees, Please check mail for more detail.</h3>
+                                <h3 class="panel-title pull-right">Please Pay Credit Check Fees, Please fill Information to get the Credit Pay Link, if alerady filled please check email for detail.</h3>
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
@@ -3680,7 +3680,7 @@
                                     </div>
                                     <div class="col-sm-8">
 
-                                        <button type="submit" class="btn btn-primary" id="btnpaynow" onclick="savePayment()" disabled>Pay Now</button>
+                                        <button type="submit" class="btn btn-primary" id="btnpaynow" onclick="savePayment()">Pay Now</button>
                                     </div>
 
                                 </div>
@@ -5787,13 +5787,13 @@
              //Sachin Mahore 23 Apr 2020
             showCurrentStep(6, 6);
             if (@Model.IsRentalPolicy== "1" && @Model.IsRentalQualification== "1") {
-               // showCurrentStep(7, 7);
+               showCurrentStep(@Model.StepCompleted, @Model.StepCompleted);
                 $("#hndShowTermPolicy").val(0);
                 $("#chkAgreeTermsPolicy").iCheck('check');
             }
             else {
                 $("#hndShowTermPolicy").val(1);
-                showCurrentStep(3, 3);
+                showCurrentStep(6, 6);
             }
 
 

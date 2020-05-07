@@ -5,7 +5,7 @@ var tenantOnlineID = 0;
 //Sachin Mahore 21 Apr 2020
 $(document).ready(function () {
     onFocusApplyNow();
-    isCreditPaidBackgroundPaid();
+    //isCreditPaidBackgroundPaid();
     localStorage.removeItem("CheckReload");
     fillMarketSourceDDLA();
 
@@ -564,7 +564,16 @@ function checkFormstatus() {
 }
 var totalAmt = 0;
 var goToStep = function (stepid, id, calldataupdate) {
-
+    if (stepid > 7) {
+        if ($("#hndCreditPaid").val() == 0) {
+            $.alert({
+                title: "",
+                content: "Please Pay Credit Check Fees, Please fill Information to get the Credit Pay Link, if alerady filled please check email for detail.",
+                type: 'red'
+            });
+            return;
+        }
+    }
     if (stepid == "6") {
         getApplicantLists();
 
@@ -2042,6 +2051,7 @@ var SaveOnlineProspect = function () {
                 $("#hdnStepCompleted").val(2);
                 $("#hdnOPId").val(0);
                 $("#hndUID").val(0);
+                alert("Form")
                 showCurrentStep(2, 2);
                 var floorNoSearch = $("#hndFloorNo").val();
                 var bedRoomSearch = $("#hndBedRoom").val();
@@ -2218,15 +2228,15 @@ function savePayment() {
         return;
 
     }
-    if (isSummarychecked != "1") {
-        $("#divLoader").hide();
-        $.alert({
-            title: "",
-            content: "Please ACCEPT AGREEMENTS </br>",
-            type: 'red'
-        });
-        return;
-    }
+    //if (isSummarychecked != "1") {
+    //    $("#divLoader").hide();
+    //    $.alert({
+    //        title: "",
+    //        content: "Please ACCEPT AGREEMENTS </br>",
+    //        type: 'red'
+    //    });
+    //    return;
+    //}
     if ($("#hndTransMethod").val() == 2) {
         var paymentMethod = 2;
         var propertyId = $("#hndUID").val();
@@ -4162,9 +4172,7 @@ var getApplicantLists = function () {
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                         "<label> " + elementValue.Type + " </label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
-                        //"<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
-                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: " + ComplStatus+"</b></label></center></div>" +
-                        "</div></div>"
+                        "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                 }
                 else if (elementValue.ApplicantAddedBy == $('#hndCoAppUserId').val()) {
                     html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
@@ -4174,8 +4182,7 @@ var getApplicantLists = function () {
                         "<label> " + elementValue.Type + " </label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
                         "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
-                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: " + ComplStatus +"</b></label></center></div>" +
-                        "</div></div>"
+                        "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                 }
                 else if (elementValue.Type != "Primary Applicant") {
                     if ((elementValue.ApplicantAddedBy == $('#hndCoAppUserId').val()) && (elementValue.Type == "Minor")) {
@@ -4186,8 +4193,7 @@ var getApplicantLists = function () {
                             "<label> " + elementValue.Type + " </label><br/>" +
                             "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
                             "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
-                            "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status:  " + ComplStatus +"</b></label></center></div>" +
-                            "</div></div>"
+                            "</div><div><center><label><b>Status:  " + elementValue.ComplStatus +"</b></label></center></div></div>"
                     }
                     else {
                         html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
@@ -4195,23 +4201,21 @@ var getApplicantLists = function () {
                             "<img src='/Content/assets/img/user.png'></div>" +
                             "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                             "<label> " + elementValue.Type + " </label><br/>" +
-                            "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status:  " + ComplStatus +"</b></label></center></div>" +
-                            "</div></div>";
+                            "<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;" +
+                            "</div><div><center><label><b>Status:  " + elementValue.ComplStatus +"</b></label></center></div></div>";
                     }
                 }
                 else {
-                    html += "<div class='col-sm-4 box-two proerty-item'>" +
+                    html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
                         "<div class='form-group col-sm-3'><br>" +
                         "<img src='/Content/assets/img/user.png'></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
-
-                        "<label>Primary Applicant</label><br/>" +
-                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status:  " + ComplStatus +"</b></label></center></div>" +
-                        "</div></div>";
+                        "<label> " + elementValue.Type + " </label><br/>" +
+                        "<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;" +
+                        "</div><div><center><label><b>Status:  " + elementValue.ComplStatus + "</b></label></center></div></div>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
-                    //Amit's work 17-10
-                    //prhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + "<br /><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></td><td style='width:30%; padding:6px;'><input type='text' id='txtpayper" + elementValue.ApplicantID + "' style='width:40% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MoveInPercentage + "'/>(%)<input type='text' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 40% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MoveInCharge + "'/>($)</td><td style='width:30%; padding:6px;'><input type='text' id='txtpayperMo" + elementValue.ApplicantID + "' style='width: 40% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MonthlyPercentage + "'/>(%)<input type='text' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 40% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MonthlyPayment + "'/>($)</td></tr>";
+                  
                     prhtml += "<tr data-id='" + elementValue.ApplicantID + "'>" +
                         "<td style='width:18%; padding:6px;'>" + elementValue.Type + "<br /><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></td>" +
                         "<td style='width:30%;'>" +
@@ -4416,24 +4420,6 @@ var getApplicantLists = function () {
                 });
                 localStorage.setItem("percentageMo", sumMo);
 
-                //Guarantor
-                //Minor
-                //Primary Applicant
-                //Co-Applicant
-
-                //if (elementValue.Type == "Co-Applicant") {
-                //    noofCapl += 1;
-                //}
-                //else if (elementValue.Type == "Minor") {
-                //    noofminor += 1;
-                //}
-                //else if (elementValue.Type == "Primary Applicant") {
-                //    noofapl += 1;
-                //}
-                //else {
-                //    noofgur += 1;
-                //}
-
             });
             $.ajax({
                 url: "/Applicant/GetCoApplicantList",
@@ -4469,7 +4455,6 @@ var getApplicantLists = function () {
                     console.log("Applicant:" + totalAppl + " Co-app:" + totalCoAppl + " Minor:" + totalMinor);
                     if (nofbed == 1) {
                         total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
-                        console.log("Condtion1: " + total + " Total People: " + totalPeople);
                         if (totalCoAppl <= parseInt(totalPeople) - 1) {
                             if (total <= parseInt(totalPeople) - 1) {
                                 $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
@@ -4513,9 +4498,7 @@ var getApplicantLists = function () {
                         }
                     }
                     else if (nofbed == 3) {
-
                         total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
-                        console.log("Condtion3: " + total + " Total People: " + totalPeople);
                         if (total <= parseInt(totalPeople) - 1) {
                             if (totalCoAppl < 3) {
                                 if (total < parseInt(totalPeople)) {
@@ -4541,7 +4524,6 @@ var getApplicantLists = function () {
                 }
             });
             $("#totalFinalFees").text("$" + parseFloat(totalFinalFees).toFixed(2));
-
         }
     });
 };
@@ -7318,7 +7300,33 @@ var onFocusApplyNow = function () {
         .focus(function () {
             $("#txtManagementCompanyPhone2").val(unformatText($("#txtManagementCompanyPhone2").val()));
         });
+    $("#txtApplicantSSNNumber").focusin(function () {
+        getEncDecValue(this, 1);
+    }).focusout(function () {
+        var ssn = $(this).val();
+        if (ssn.length < 9) {
+            alert("SSN must be 9 digit");
+            return;
+        }
+        if (ssn.length > 4) {
+            getEncDecValue(this, 2);
+            $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+        }
+    });
 
+    $("#txtApplicantIDNumber").focusin(function () {
+        getEncDecValue(this, 1);
+    }).focusout(function () {
+        var idnumber = $(this).val();
+        if (idnumber.length < 5) {
+            alert("ID Number should be greater then 4 digit");
+            return;
+        }
+        if (idnumber.length > 4) {
+            getEncDecValue(this, 2);
+            $(this).val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
+        }
+    });
 };
 
 function formatPhoneFax(phonefax) {
@@ -8266,37 +8274,38 @@ var getEncDecValue = function (txtBox, encdec) {
     }
 };
 
-var isCreditPaidBackgroundPaid = function () {
-    $("#divLoader").show();
-    var model = {
-        TenantID: $("#hdnOPId").val()
-    };
-    $.ajax({
-        url: '/Applicant/IsCreditPaidBackgroundPaid',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $("#divLoader").hide();
-            if (response.Msg.CreditPaid == "0") {
-                $("#btnCreditPaidContinue").addClass("hidden");
-                $("#divCreditPaidContinue").removeClass("hidden");
-                $("#ali8,#ali9,#ali10,#ali11,#ali12,#ali13,#ali14,#ali15,#ali16").removeAttr("onclick");
-            }
-            else {
-                $("#btnCreditPaidContinue").removeClass("hidden");
-                $("#divCreditPaidContinue").addClass("hidden");
-                $("#ali8").attr("onclick", "goToStep(8,8,0)");
-                $("#ali9").attr("onclick", "goToStep(9,9,0)");
-                $("#ali10").attr("onclick", "goToStep(10,10,0)");
-                $("#ali11").attr("onclick", "goToStep(11,11,0)");
-                $("#ali12").attr("onclick", "goToStep(12,12,0)");
-                $("#ali13").attr("onclick", "goToStep(13,13,0)");
-                $("#ali14").attr("onclick", "goToStep(14,14,0)");
-                $("#ali15").attr("onclick", "goToStep(15,15,0)");
-                $("#ali16").attr("onclick", "goToStep(16,16,0)");
-            }
-        }
-    });
-}
+//var isCreditPaidBackgroundPaid = function () {
+//    $("#divLoader").show();
+//    var model = {
+//        TenantID: $("#hdnOPId").val()
+//    };
+//    $.ajax({
+//        url: '/Applicant/IsCreditPaidBackgroundPaid',
+//        type: "post",
+//        contentType: "application/json utf-8",
+//        data: JSON.stringify(model),
+//        dataType: "JSON",
+//        success: function (response) {
+//            $("#divLoader").hide();
+//            if (response.Msg.CreditPaid == "0") {
+//                alert("Here");
+//                $("#btnCreditPaidContinue").addClass("hidden");
+//                $("#divCreditPaidContinue").removeClass("hidden");
+//                $("#ali8,#ali9,#ali10,#ali11,#ali12,#ali13,#ali14,#ali15,#ali16").removeAttr("onclick");
+//            }
+//            else {
+//                $("#btnCreditPaidContinue").removeClass("hidden");
+//                $("#divCreditPaidContinue").addClass("hidden");
+//                $("#ali8").attr("onclick", "goToStep(8,8,0)");
+//                $("#ali9").attr("onclick", "goToStep(9,9,0)");
+//                $("#ali10").attr("onclick", "goToStep(10,10,0)");
+//                $("#ali11").attr("onclick", "goToStep(11,11,0)");
+//                $("#ali12").attr("onclick", "goToStep(12,12,0)");
+//                $("#ali13").attr("onclick", "goToStep(13,13,0)");
+//                $("#ali14").attr("onclick", "goToStep(14,14,0)");
+//                $("#ali15").attr("onclick", "goToStep(15,15,0)");
+//                $("#ali16").attr("onclick", "goToStep(16,16,0)");
+//            }
+//        }
+//    });
+//}

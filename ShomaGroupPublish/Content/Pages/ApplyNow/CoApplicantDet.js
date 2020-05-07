@@ -4163,7 +4163,7 @@ var getApplicantLists = function () {
                         "<label> " + elementValue.Type + " </label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
                         //"<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
-                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: " + ComplStatus+"</b></label></center></div>" +
+                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: " + elementValue.ComplStatus+"</b></label></center></div>" +
                         "</div></div>"
                 }
                 else if (elementValue.ApplicantAddedBy == $('#hndCoAppUserId').val()) {
@@ -4174,7 +4174,7 @@ var getApplicantLists = function () {
                         "<label> " + elementValue.Type + " </label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
                         "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
-                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: " + ComplStatus +"</b></label></center></div>" +
+                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: " + elementValue.ComplStatus +"</b></label></center></div>" +
                         "</div></div>"
                 }
                 else if (elementValue.Type != "Primary Applicant") {
@@ -4186,7 +4186,7 @@ var getApplicantLists = function () {
                             "<label> " + elementValue.Type + " </label><br/>" +
                             "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
                             "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
-                            "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status:  " + ComplStatus +"</b></label></center></div>" +
+                            "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status:  " + elementValue.ComplStatus +"</b></label></center></div>" +
                             "</div></div>"
                     }
                     else {
@@ -4195,7 +4195,7 @@ var getApplicantLists = function () {
                             "<img src='/Content/assets/img/user.png'></div>" +
                             "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                             "<label> " + elementValue.Type + " </label><br/>" +
-                            "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status:  " + ComplStatus +"</b></label></center></div>" +
+                            "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status:  " + elementValue.ComplStatus +"</b></label></center></div>" +
                             "</div></div>";
                     }
                 }
@@ -4206,7 +4206,7 @@ var getApplicantLists = function () {
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
 
                         "<label>Primary Applicant</label><br/>" +
-                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status:  " + ComplStatus +"</b></label></center></div>" +
+                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status:  " + elementValue.ComplStatus +"</b></label></center></div>" +
                         "</div></div>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
@@ -7318,7 +7318,33 @@ var onFocusApplyNow = function () {
         .focus(function () {
             $("#txtManagementCompanyPhone2").val(unformatText($("#txtManagementCompanyPhone2").val()));
         });
+    $("#txtApplicantSSNNumber").focusin(function () {
+        getEncDecValue(this, 1);
+    }).focusout(function () {
+        var ssn = $(this).val();
+        if (ssn.length < 9) {
+            alert("SSN must be 9 digit");
+            return;
+        }
+        if (ssn.length > 4) {
+            getEncDecValue(this, 2);
+            $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+        }
+    });
 
+    $("#txtApplicantIDNumber").focusin(function () {
+        getEncDecValue(this, 1);
+    }).focusout(function () {
+        var idnumber = $(this).val();
+        if (idnumber.length < 5) {
+            alert("ID Number should be greater then 4 digit");
+            return;
+        }
+        if (idnumber.length > 4) {
+            getEncDecValue(this, 2);
+            $(this).val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
+        }
+    });
 };
 
 function formatPhoneFax(phonefax) {

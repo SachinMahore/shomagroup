@@ -695,6 +695,13 @@ namespace ShomaRM.Models
                         }
                         applyNow.StepCompleted = stepcomp;
                         db.SaveChanges();
+                        var tenentUID = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+                        var tenantData = db.tbl_TenantOnline.Where(p => p.ParentTOID == tenentUID).FirstOrDefault();
+                        if (tenantData != null)
+                        {
+                            tenantData.StepCompleted = stepcomp;
+                            db.SaveChanges();
+                        }
                     }
                 }
 
@@ -821,89 +828,7 @@ namespace ShomaRM.Models
 
                     getAppldata.StepCompleted = model.StepCompleted;
 
-                    if (model.StepCompleted == 10)
-                    {
-                        if (getAppldata.StepCompleted == null)
-                        {
-                            getAppldata.StepCompleted = 10;
-                            string reportHTML = "";
-                            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
-                            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
-
-                            reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
-
-                            string phonenumber = applyNow.Phone;
-                            if (model != null)
-                            {
-                                reportHTML = reportHTML.Replace("[%EmailHeader%]", "Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application");
-                                reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application on " + DateTime.Now + "</p>");
-
-                                reportHTML = reportHTML.Replace("[%TenantName%]", applyNow.FirstName + " " + applyNow.LastName);
-                                reportHTML = reportHTML.Replace("[%TenantAddress%]", applyNow.Address);
-                                reportHTML = reportHTML.Replace("[%LeaseStartDate%]", DateTime.Now.ToString());
-                                reportHTML = reportHTML.Replace("[%LeaseEndDate%]", DateTime.Now.AddMonths(13).ToString());
-                                reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
-
-                                reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
-
-                                message = "Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application";
-                            }
-                            string body = reportHTML;
-                            new EmailSendModel().SendEmail(applyNow.Email, "Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application", body);
-                            if (SendMessage == "yes")
-                            {
-                                new TwilioService().SMS(phonenumber, message);
-                            }
-                        }
-                    }
-                    if (model.StepCompleted == 17)
-                    {
-                        getAppldata.StepCompleted = 17;
-                        string reportHTML = "";
-                        string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
-                        reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
-
-                        reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
-
-                        string phonenumber = applyNow.Phone;
-                        if (model != null)
-                        {
-                            reportHTML = reportHTML.Replace("[%EmailHeader%]", "Co-applicant (" + model.FirstName + " " + model.LastName + ") has Finished the application");
-                            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Co-applicant (" + model.FirstName + " " + model.LastName + ") has finished the application on " + DateTime.Now + "</p>");
-
-                            reportHTML = reportHTML.Replace("[%TenantName%]", applyNow.FirstName + " " + applyNow.LastName);
-                            reportHTML = reportHTML.Replace("[%TenantAddress%]", applyNow.Address);
-                            reportHTML = reportHTML.Replace("[%LeaseStartDate%]", DateTime.Now.ToString());
-                            reportHTML = reportHTML.Replace("[%LeaseEndDate%]", DateTime.Now.AddMonths(13).ToString());
-                            reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
-
-                            reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
-
-                            message = "Co-applicant (" + model.FirstName + " " + model.LastName + ") has started the application";
-                        }
-                        string body = reportHTML;
-                        new EmailSendModel().SendEmail(applyNow.Email, "Co-applicant (" + model.FirstName + " " + model.LastName + ") has Finished the application", body);
-                        if (SendMessage == "yes")
-                        {
-                            new TwilioService().SMS(phonenumber, message);
-                        }
-                    }
-
-
                     db.SaveChanges();
-
-                    //if (applyNow != null)
-                    //{
-                    //    int stepcomp = 0;
-                    //    stepcomp = applyNow.StepCompleted ?? 0;
-                    //    if (stepcomp < model.StepCompleted)
-                    //    {
-                    //        stepcomp = model.StepCompleted;
-                    //    }
-                    //    applyNow.StepCompleted = stepcomp;
-                    //    db.SaveChanges();
-                    //}
-
                 }
 
                 var saveApplicantGender = db.tbl_Applicant.Where(p => p.Email == model.Email).FirstOrDefault();
@@ -921,7 +846,6 @@ namespace ShomaRM.Models
 
                 msg = "Applicant Updated Successfully";
             }
-
 
             db.Dispose();
             return msg;
