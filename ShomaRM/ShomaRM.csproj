@@ -2785,6 +2785,7 @@
     <Folder Include="Areas\Tenant\Views\ServiceRequest\" />
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
+    <Folder Include="DatabaseChanges\04-05-2020\" />
     <Folder Include="Logs\" />
     <Folder Include="Views\BackgroundScreening\" />
     <Folder Include="Views\ShomaBase\" />
