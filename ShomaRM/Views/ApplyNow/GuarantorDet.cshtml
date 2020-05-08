@@ -15,7 +15,7 @@
 <input type="hidden" id="hndHistory" value="0" />
 <input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
 <input type="hidden" id="hdnEmployerHistory" value="0" />
-<input type="hidden" id="hdnStepCompleted" value="6" />
+<input type="hidden" id="hdnStepCompleted" value="@Model.StepCompleted" />
 <input type="hidden" id="hndShowTermPolicy" value="1" />
 <input type="hidden" id="hndShowPaymentPolicy" value="1" />
 <input type="hidden" id="hndShowPropertyDetails" value="0" />
@@ -1626,7 +1626,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                <div class="col-sm-4">
+                                <div id="divIDDOcumentType" class="col-sm-4">
                                     <div class="form-group">
                                         <label for="ddlDocumentType" class="star">ID Type</label>
                                         <select id="ddlDocumentTypePersonal" class="form-control " style="width:100%!important"></select>
@@ -2047,13 +2047,13 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Supervisor Name</label>
+                                        <label class="star">Supervisor Name</label>
                                         <input id="txtSupervisiorName" class="form-control form-control-small" type="text" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Supervisor Phone</label>
+                                        <label class="star">Supervisor Phone</label>
                                         <input id="txtSupervisiorPhone" class="form-control form-control-small" type="text" onkeypress="return isOnlyNumber(event)" maxlength="10" />
                                     </div>
                                 </div>
@@ -3567,6 +3567,13 @@
                                                 <th style="text-align:center;"></th>
                                                 <th></th>
                                             </tr>
+                                            <tr>
+                                                <th>Guarantor</th>
+                                                <th><span id="spanGuarantorName"></span></th>
+                                                <th>Online Application Fee</th>
+                                                <th style="text-align:center;"><span id="spanGuarantorFees"></span></th>
+                                                <th></th>
+                                            </tr>
                                         </thead>
                                         <tbody></tbody>
                                     </table>
@@ -3688,7 +3695,7 @@
                                 <div class="col-sm-12 hidden" id="Divtranslist">
 
                                     <div class="col-sm-12">
-                                        <table id="tblTransaction_Guarantor" class="table-bordered table-responsive hidden" width="100%">
+                                        <table id="tblTransaction_Guarantor" class="table-bordered table-responsive" width="100%">
                                             <thead>
                                                 <tr>
 
@@ -5138,13 +5145,13 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label>Supervisor Name</label>
+                                <label class="star">Supervisor Name</label>
                                 <input id="txtSupervisiorNameHEI" class="form-control form-control-small" type="text" />
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label>Supervisor Phone</label>
+                                <label class="star">Supervisor Phone</label>
                                 <input id="txtSupervisiorPhoneHEI" class="form-control form-control-small" type="text" onkeypress="return isOnlyNumber(event)" maxlength="10" />
                             </div>
                         </div>

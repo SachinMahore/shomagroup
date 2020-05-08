@@ -3827,7 +3827,7 @@ var addApplicantCoApplicant = function (at) {
         $('#txtMDateOfBirth').addClass("hidden");
         $('#txtGDateOfBirth').addClass('hidden');
 
-        $("#appphone").addClass("hidden");
+        $("#appphone").removeClass("hidden");
         $("#appemail").removeClass("hidden");
         $("#txtApplicantPhone").val("");
         $("#txtApplicantEmail").val("");

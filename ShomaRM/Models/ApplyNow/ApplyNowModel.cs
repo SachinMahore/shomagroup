@@ -550,15 +550,15 @@ namespace ShomaRM.Models
                             string reportHTMLbc = "";
                             reportHTMLbc = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect5.html");
                             reportHTMLbc = reportHTMLbc.Replace("[%ServerURL%]", serverURL);
-                            sub = "Background Process Approved and Complete Online Application";
-                            reportHTMLbc = reportHTMLbc.Replace("[%EmailHeader%]", "Background Process Approved and Complete Online Application");
+                            sub = "Credit Check Approved and Complete Online Application";
+                            reportHTMLbc = reportHTMLbc.Replace("[%EmailHeader%]", "Credit Check Approved and Complete Online Application");
                             reportHTMLbc = reportHTMLbc.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Congratulation! Your application for credit check is approved. Please complete your Online Application by clicking below link</p>");
                             reportHTMLbc = reportHTMLbc.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
                             reportHTMLbc = reportHTMLbc.Replace("[%TenantEmail%]", GetCoappDet.Email);
                             reportHTMLbc = reportHTMLbc.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
                             string bodybc = reportHTMLbc;
-                            new EmailSendModel().SendEmail(GetCoappDet.Email, "Background Process Approved", bodybc);
-                            message = "Credit Process Approved. Please check the email for detail.";
+                            new EmailSendModel().SendEmail(GetCoappDet.Email, "Credit Check Approved", bodybc);
+                            message = "Credit Check Approved. Please check the email for detail.";
                             if (SendMessage == "yes")
                             {
                                 new TwilioService().SMS(phonenumber, message);

@@ -860,7 +860,6 @@ namespace ShomaRM.Areas.Tenant.Models
             {
                 var saveTransaction = new tbl_Transaction()
                 {
-
                     TenantID = transDetails.TenantID,
                     Revision_Num = transDetails.Revision_Num,
                     Transaction_Type = transDetails.Transaction_Type,

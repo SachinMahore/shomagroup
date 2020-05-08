@@ -710,60 +710,41 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
         var msg = "";
         if (id == "9") {
-            // var msg = '';
-            var grandPercentage = localStorage.getItem("percentage");
-            var grandPercentageMo = localStorage.getItem("percentageMo");
+            $("#popApplicantSummary").modal("hide");
+            SaveUpdateStep(9);
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").removeClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
+            $("#step17").addClass("hidden");
 
-            if (grandPercentage != 100 || grandPercentageMo != 100) {
-                msg = "For Move In Charges and Monthly Payment the total must equal 100% in order to continue.";
-            }
-            else {
-                $("#popApplicantSummary").modal("hide");
-                saveupdatePaymentResponsibility(9);  //Amit's work
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").removeClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
-                $("#step17").addClass("hidden");
-
-
-                $("#li9").addClass("active");
-                $("#li8").removeClass("active");
-                $("#li7").removeClass("active");
-                $("#li10").removeClass("active");
-                $("#li11").removeClass("active");
-                $("#li12").removeClass("active");
-                $("#li13").removeClass("active");
-                $("#li14").removeClass("active");
-                $("#li15").removeClass("active");
-                $("#li16").removeClass("active");
-                $("#li17").removeClass("active");
-            }
-
-            if (msg != "") {
-                $.alert({
-                    title: "",
-                    content: msg,
-                    type: 'red'
-                });
-            }
+            $("#li9").addClass("active");
+            $("#li8").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+            $("#li13").removeClass("active");
+            $("#li14").removeClass("active");
+            $("#li15").removeClass("active");
+            $("#li16").removeClass("active");
+            $("#li17").removeClass("active");
         }
     }
     if (stepid == "11") {
         if (parseInt($("#hdnStepCompleted").val()) < 9) {
-            alert($("#hdnStepCompleted").val());
             var msg = getStepCompletedMsgGuarantor(parseInt($("#hdnStepCompleted").val()) + 4, 11);
             $.alert({
                 title: "",
@@ -845,9 +826,9 @@ var goToStep = function (stepid, id, calldataupdate) {
                 if ($("#ddlStatePersonal").val() == "0") {
                     msg += "Please Select The State </br>";
                 }
-            }
-            if ($("#ddlDocumentTypePersonal").val() == "0") {
-                msg += "Please Select The Id Type </br>";
+                if ($("#ddlDocumentTypePersonal").val() == "0") {
+                    msg += "Please Select The Id Type </br>";
+                }
             }
 
             if (!$("#txtIDNumber").val()) {
@@ -975,6 +956,16 @@ var goToStep = function (stepid, id, calldataupdate) {
 
 
             }
+            if (!$("#txtSupervisiorName").val()) {
+                msg += "Please Fill The Supervisor Name </br>";
+            }
+            if (!$("#txtSupervisiorPhone").val()) {
+                msg += "Please Fill The Supervisor Phone </br>";
+            }
+
+
+
+
             if ($("#hndHasTaxReturnFile").val() == "0") {
                 if (document.getElementById('fileUploadTaxReturn').files.length == '0') {
                     msg += "Please Upload last 3 paystubs or if self-employed last 2 year's Federal Tax Returns </br>";
@@ -1031,9 +1022,9 @@ var goToStep = function (stepid, id, calldataupdate) {
             }
             if ($('#txtSupervisiorPhone').val() != '') {
                 if ($('#txtSupervisiorPhone').val().length < 10) {
-                    msg += "Please enter 10 digit mobile number </br>";
+                    msg += "Please enter 10 digit Phone number </br>";
                 }
-            }
+            } 
             if ($("#txtSupervisiorEmail").val() != '') {
                 if (!validateEmail($("#txtSupervisiorEmail").val())) {
                     msg += "Please Fill Valid Email </br>";
@@ -2753,12 +2744,9 @@ var getTransationLists = function (userid) {
 
                 $("#btnpaynext").removeProp("disabled");
                 var html = "<tr data-value=" + elementValue.TransID + ">";
-                //html += "<td>" + elementValue.TransID + "</td>";
-                //html += "<td>" + elementValue.TenantIDString + "</td>";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
                 html += "<td>$" + parseFloat(elementValue.Charge_Amount).toFixed(2) + "</td>";
                 html += "<td>" + elementValue.Transaction_Type + "</td>";
-                //html += "<td>" + elementValue.Charge_Type + "</td>";
                 html += "<td>" + elementValue.Description + "</td>";
                 html += "<td>Paid</td>";
                 html += "</tr>";
@@ -4939,12 +4927,6 @@ var getTenantOnlineListGuarantor = function (id) {
             $("#AQCriminalChargPenDetails").text(response.model.CriminalChargPenDetails);
             $("#AQReferredResidentName").text(response.model.ReferredResidentName);
 
-
-
-
-
-
-
             $("#summCredateF").text(response.model.MoveInDateFromTxt);
             $("#summCRE").text(response.model.HomeAddress1 + " , " + response.model.HomeAddress2);
             $("#summECountry").text(response.model.CityHome);
@@ -4953,7 +4935,6 @@ var getTenantOnlineListGuarantor = function (id) {
             $("#summreCou").text(response.model.CountryString);
             $("#summMrent").text("$ " + formatMoney(response.model.MonthlyPayment));
             $("#summReson").text(response.model.Reason);
-
 
             $("#summECountry").text(response.model.CountryString);
             $("#summEmployerName").text(response.model.EmployerName);
@@ -4971,10 +4952,6 @@ var getTenantOnlineListGuarantor = function (id) {
             $("#summEmerCountry").text(response.model.EmergencyCountryString);
             $("#summEmerAddd").text(response.model.EmergencyAddress1 + "  " + response.model.EmergencyAddress2);
             /// End
-
-
-
-
 
             //if ($("#ddlIsInter").val() == 1) {
             //    $("#passportDiv").removeClass("hidden");
@@ -5237,14 +5214,14 @@ var getTenantOnlineListGuarantor = function (id) {
             }
 
             $("#divLoaderFullData").hide();
-            //var modelstep = $("#hdnStepCompleted").val();
-            //var stepcompleted = parseInt(response.model.StepCompleted);
-            //if (modelstep < stepcompleted) {
-            //    $("#hdnStepCompleted").val(stepcompleted);
-            //} else {
-            //    stepcompleted = modelstep;
-            //}
-            //showCurrentStep(stepcompleted, stepcompleted);
+            var modelstep = $("#hdnStepCompleted").val();
+            var stepcompleted = parseInt(response.model.StepCompleted);
+            if (modelstep < stepcompleted) {
+                $("#hdnStepCompleted").val(stepcompleted);
+            } else {
+                stepcompleted = modelstep;
+            }
+            showCurrentStep(stepcompleted, stepcompleted);
         }
     });
 };
@@ -7154,8 +7131,12 @@ var saveEmployerHistory = function () {
     if (!annualIncomeHei) {
         msg += 'Please Fill Annual Income</br>';
     }
-
-    if (supervisorPhoneHei) {
+    if (!supervisorNameHei) {
+        msg += 'Please Fill Supervisor Name</br>';
+    }
+    if (!supervisorPhoneHei) {
+        msg += 'Please Fill SupervisorPhone</br>';
+    }else if (supervisorPhoneHei) {
         if (supervisorPhoneHei.length < 10) {
             msg += "Please enter 10 digit supervisor phone number </br>";
         }
@@ -7626,11 +7607,13 @@ var ddlDocumentTypePersonal = function (id) {
     option += '<option value="2">Military ID</option>';
     option += '<option value="4">State Issued ID</option>';
     $('#divIDState').removeClass("hidden");
+    $('#divIDDOcumentType').removeClass("hidden");
     if (id == '0') {
         option += '<option value="3">Passport</option>';
     }
     else {
         $('#divIDState').addClass("hidden");
+        $('#divIDDOcumentType').addClass("hidden");
     }
     $('#ddlDocumentTypePersonal').append(option);
     $('#ddlDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());

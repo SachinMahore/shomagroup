@@ -410,6 +410,15 @@ namespace ShomaRM.Areas.Admin.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<TransactionModel> lstpr = new List<TransactionModel>();
+
+            int userid= ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var appData = db.tbl_Applicant.Where(p => p.UserID == userid).FirstOrDefault();
+            long appid = 0;
+            if(appData!=null)
+            {
+                appid = appData.ApplicantID;
+            }
+
             try
             {
                 DataTable dtTable = new DataTable();
@@ -424,6 +433,11 @@ namespace ShomaRM.Areas.Admin.Models
                     paramTID.ParameterName = "TenantID";
                     paramTID.Value = TenantID;
                     cmd.Parameters.Add(paramTID);
+
+                    DbParameter paramAID = cmd.CreateParameter();
+                    paramAID.ParameterName = "AppID";
+                    paramAID.Value = appid;
+                    cmd.Parameters.Add(paramAID);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
