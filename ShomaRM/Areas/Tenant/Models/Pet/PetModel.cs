@@ -31,10 +31,27 @@ namespace ShomaRM.Areas.Tenant.Models
 
         public string SaveUpdatePet(PetModel model)
         {
-
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
             int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
+
+            long petsNumber = 0;
+            var petData = db.tbl_TenantPet.Where(p => p.TenantID == TenantID).Count();
+            var numOfPets = db.tbl_TenantPetPlace.Where(p => p.TenantID == model.TenantID).FirstOrDefault();
+
+            if (numOfPets != null)
+            {
+                petsNumber = (numOfPets.PetPlaceID ?? 0);
+            }
+            if (model.PetID == 0)
+            {
+                if (petData>= petsNumber)
+                {
+                    msg = "-1,Allowed Pets Are Already Entered";
+                    return msg;
+                }
+            }
+            
             if (model.PetID == 0)
             {
                 var savePet = new tbl_TenantPet()
@@ -78,13 +95,11 @@ namespace ShomaRM.Areas.Tenant.Models
                     getPetdata.VetsName = model.VetsName;
                 }
                 db.SaveChanges();
-                msg = "Pet Updated Successfully";
+                msg = model.TenantID.ToString() + ",Pet Updated Successfully";
             }
 
             db.Dispose();
             return msg;
-
-
         }
 
         public List<PetModel> GetPetList(long TenantID)

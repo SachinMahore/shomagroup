@@ -2428,7 +2428,7 @@ function savePayment() {
         };
         $.alert({
             title: "",
-            content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFees()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFees())).toFixed(2) + ". Do you want to Pay Now?",
+            content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesCoApplicant()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesCoApplicant())).toFixed(2) + ". Do you want to Pay Now?",
             type: 'blue',
             buttons: {
                 yes: {
@@ -5055,8 +5055,11 @@ var saveupdatePetCoApplicant = function () {
             msg += "Please Upload Pet Vaccination Certificate</br>";
         }
     }
-    if (weight > "40") {
-        msg += "Weight must be upto 40 lbs.</br>";
+    if (!weight) {
+        msg += "Enter Pet Weight</br>";
+    }
+    if (weight > 40) {
+        msg += "Weight must be upto 40 lbs</br>";
     }
     if (msg != "") {
         $("#divLoader").hide();
@@ -5092,21 +5095,25 @@ var saveupdatePetCoApplicant = function () {
         dataType: 'json',
         success: function (response) {
             $("#divLoader").hide();
-            localStorage.setItem('tenantIds', response.Msg);
+            var tId = response.Msg.split(',');
+            if (tId[0] == -1) {
+                $.alert({
+                    title: "",
+                    content: tId[1],
+                    type: 'blue'
+                });
+            } else {
+                localStorage.setItem('tenantIds', response.Msg);
+                var str = localStorage.getItem('tenantIds');
+                document.getElementById('hdnOPId').value = tId[0];
+                getPetLists();
+                $.alert({
+                    title: "",
+                    content: "Progress Saved.",
+                    type: 'blue'
+                });
+            }
 
-            var str = localStorage.getItem('tenantIds');
-            var tId = str.split(',');
-            document.getElementById('hdnOPId').value = tId[0];
-            //$("#hdnOPId").val(tId[0]);
-            getPetListsCoApplicant();
-            $.alert({
-                title: "",
-                content: "Progress Saved.",
-                type: 'blue'
-            });
-
-
-            //$("#popPet").PopupWindow("close");
             $("#popPet").modal("hide");
         }
     });

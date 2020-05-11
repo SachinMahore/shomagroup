@@ -385,7 +385,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/22/2020 17:25:06</publishTime>
     </File>
     <File Include="Areas/Admin/Views/ProspectVerification/EditProspect.cshtml">
-      <publishTime>04/30/2020 07:05:01</publishTime>
+      <publishTime>05/11/2020 19:10:51</publishTime>
     </File>
     <File Include="Areas/Admin/Views/ProspectVerification/Index.cshtml">
       <publishTime>04/24/2020 13:16:17</publishTime>
@@ -856,10 +856,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/08/2020 17:41:33</publishTime>
     </File>
     <File Include="bin/ShomaRM.dll">
-      <publishTime>05/11/2020 10:08:12</publishTime>
+      <publishTime>05/11/2020 19:18:47</publishTime>
     </File>
     <File Include="bin/ShomaRM.pdb">
-      <publishTime>05/11/2020 10:08:12</publishTime>
+      <publishTime>05/11/2020 19:18:47</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
       <publishTime>04/18/2020 15:13:46</publishTime>
@@ -7051,10 +7051,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2019 17:16:58</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/ApplyNow.js">
-      <publishTime>05/11/2020 09:56:17</publishTime>
+      <publishTime>05/11/2020 19:14:33</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/CoApplicantDet.js">
-      <publishTime>05/11/2020 10:01:07</publishTime>
+      <publishTime>05/11/2020 14:59:23</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/DocumentVerification.js">
       <publishTime>01/30/2020 13:11:54</publishTime>
@@ -7090,13 +7090,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/30/2020 13:11:54</publishTime>
     </File>
     <File Include="Content/Templates/ApplicationPrintTemplate.html">
-      <publishTime>05/09/2020 18:38:52</publishTime>
+      <publishTime>05/11/2020 18:28:08</publishTime>
     </File>
     <File Include="Content/Templates/AppSummary.html">
       <publishTime>04/30/2020 15:24:11</publishTime>
     </File>
     <File Include="Content/Templates/CoapplicantApplicationPrintTemplate.html">
-      <publishTime>05/01/2020 11:48:19</publishTime>
+      <publishTime>05/11/2020 18:28:32</publishTime>
     </File>
     <File Include="Content/Templates/EmailTemplate.html">
       <publishTime>04/30/2020 15:24:11</publishTime>
@@ -7129,7 +7129,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/30/2020 15:24:11</publishTime>
     </File>
     <File Include="Content/Templates/GuarantorPrintTemplate.html">
-      <publishTime>05/01/2020 11:48:07</publishTime>
+      <publishTime>05/11/2020 18:28:53</publishTime>
     </File>
     <File Include="Content/Templates/images/divider.png">
       <publishTime>04/30/2020 15:24:11</publishTime>
@@ -7165,7 +7165,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/09/2020 16:20:36</publishTime>
     </File>
     <File Include="Content/Templates/images/tower_background.png">
-      <publishTime>05/09/2020 17:15:04</publishTime>
+      <publishTime>05/11/2020 18:26:50</publishTime>
     </File>
     <File Include="Content/Templates/images/twitter%402x.png">
       <publishTime>04/30/2020 15:24:11</publishTime>
@@ -7174,7 +7174,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/30/2020 15:24:11</publishTime>
     </File>
     <File Include="Content/Templates/QuotationPrint.html">
-      <publishTime>04/30/2020 20:03:51</publishTime>
+      <publishTime>05/11/2020 18:17:57</publishTime>
     </File>
     <File Include="Content/Templates/RecurringTerms.html">
       <publishTime>04/30/2020 15:24:11</publishTime>
@@ -7208,6 +7208,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="DatabaseChanges/09-04-2020/usp_GetPropertyUnitListCord.sql">
       <publishTime>04/13/2020 20:11:47</publishTime>
+    </File>
+    <File Include="DatabaseChanges/09-05-2020/Stored Procedure Change.sql">
+      <publishTime>05/11/2020 10:37:31</publishTime>
     </File>
     <File Include="DatabaseChanges/10-04-2020/New Columns.sql">
       <publishTime>04/13/2020 20:11:32</publishTime>
@@ -7384,7 +7387,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/11/2020 10:02:28</publishTime>
     </File>
     <File Include="Views/ApplyNow/Index.cshtml">
-      <publishTime>05/11/2020 09:57:06</publishTime>
+      <publishTime>05/11/2020 19:12:22</publishTime>
     </File>
     <File Include="Views/ApplyNow/PrintSummary.cshtml">
       <publishTime>01/30/2020 13:11:58</publishTime>
@@ -7465,7 +7468,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/30/2020 13:11:58</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/11/2020 09:44:28</publishTime>
+      <publishTime>05/11/2020 19:07:36</publishTime>
     </File>
   </ItemGroup>
 </Project>

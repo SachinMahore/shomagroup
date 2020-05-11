@@ -719,10 +719,10 @@ namespace ShomaRM.Areas.Tenant.Models
             var getApplicantDet = db.tbl_Applicant.Where(p => p.ApplicantID == id).FirstOrDefault();
             var getTenantDet = db.tbl_ApplyNow.Where(p => p.ID == getApplicantDet.TenantID).FirstOrDefault();
             var getAppliTransDet = db.tbl_Transaction.Where(p => p.TenantID == getTenantDet.UserId && p.Transaction_Type == transType).FirstOrDefault();
-            if(ptotid==0)
-            {
+            //if(ptotid==0)
+            //{
                 ptotid = getApplicantDet.UserID??0;
-            }
+            //}
             //var getAppliTransDet = db.tbl_Transaction.Where(p => p.TenantID == getTenantDet.UserId && p.Batch == id.ToString() && p.Charge_Type == chargetype).FirstOrDefault();
             if (getAppliTransDet == null)
             {
@@ -827,7 +827,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.ZipHome = getTenantOnline.ZipHome;
                 model.MiddleName = getTenantOnline.MiddleInitial;
             }
-            else if (getAppliTransDet != null && (chargetype == 4|| chargetype==5))
+            else if (getAppliTransDet != null && chargetype != 0)
             {
                 DateTime? dobDateTime = null;
                 try

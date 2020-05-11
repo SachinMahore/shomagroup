@@ -1377,6 +1377,7 @@ namespace ShomaRM.Models
 
             var allPmtReceived = 1;
             var allPetAdded = 1;
+            long petsNumber = 0;
 
             foreach(var ad in applicantData)
             {
@@ -1386,7 +1387,13 @@ namespace ShomaRM.Models
                 }
             }
 
-            if((numOfPets.PetPlaceID??0)!=petData)
+            if (numOfPets != null)
+            {
+                petsNumber = (numOfPets.PetPlaceID ?? 0);
+            }
+
+
+            if (petsNumber != petData && petsNumber > 0)
             {
                 allPetAdded = 0;
             }
