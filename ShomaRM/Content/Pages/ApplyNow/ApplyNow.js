@@ -3,6 +3,8 @@ var numberOfDays = 0;
 var QuoteExpires = "";
 var tenantOnlineID = 0;
 var addApplicntArray = [];
+var addUpArray = [];
+var nofup = 0;
 $(document).ready(function () {
     onFocusApplyNow();
     localStorage.removeItem("CheckReload");
@@ -33,8 +35,7 @@ $(document).ready(function () {
     });
 
     
-    var addUpArray = [];
-    var nofup = 0;
+  
    
     $('input[type=checkbox]').on('ifChanged', function (event) {
         addUpArray = [];
@@ -6388,16 +6389,10 @@ var saveupdateTenantOnline = function (stepcompleted) {
         }
     }
 
-   //var  addUpArray1 = [];
-   // $('.empup').each(function (i, obj) {
-   //     if ($(obj).is(':checked')) {
-   //         addUpArray1.push(1);
-   //     }
-   // });
-
-   // if (addUpArray1.length < 2) {
-   //     msg += "Please Select any  two of the three options (tax return, paystubs, and bank statements)";
-   // }
+ 
+    if (nofup < 2) {
+        msg += "Please Select any  two of the three options (tax return, paystubs, and bank statements)";
+    }
     if (msg != "") {
         $.alert({
             title: "",
@@ -6929,6 +6924,27 @@ var getTenantOnlineList = function (id) {
             } else {
                 $("#hndHasTaxReturnFile3").val("0");
             }
+            if (response.model.TaxReturn4 != "") {
+                if (response.model.TaxReturn4 == "0") {
+                    $("#hndHasTaxReturnFile4").val("0");
+                }
+                else {
+                    $("#hndHasTaxReturnFile4").val("1");
+                }
+            } else {
+                $("#hndHasTaxReturnFile4").val("0");
+            }
+            if (response.model.TaxReturn5 != "") {
+                if (response.model.TaxReturn5 == "0") {
+                    $("#hndHasTaxReturnFile5").val("0");
+                }
+                else {
+                    $("#hndHasTaxReturnFile5").val("1");
+                }
+            } else {
+                $("#hndHasTaxReturnFile5").val("0");
+            }
+            
             //alert(response.model.HaveVehicle + "  " + response.model.HavePet);
             if (response.model.HaveVehicle == true) {
                 $("#chkDontHaveVehicle").iCheck('check');
