@@ -15,12 +15,7 @@ namespace ShomaRM.ApiService
     {
         public static async Task<string> AccessTokenGenerator()
         {
-            //string clientId = "4602e498-8df3-4d6e-b211-284e3fd76b7e"; // Your Azure AD Application ID  
-            //string clientSecret = "?mS6@xcikjNJAK1CIttjTR.sP3fK0k:K"; // Client secret generated in your App  
-            //string authority = "https://login.microsoftonline.com/a3099140-4bfe-444c-8a10-930a101406a1"; // Azure AD App Tenant ID  
-            ////string resourceUrl = "api://4602e498-8df3-4d6e-b211-284e3fd76b7e"; // Your Dynamics 365 Organization URL 
-
-
+          
             string clientId = ConfigurationManager.AppSettings["ClientId"]; // Your Azure AD Application ID  
             string clientSecret = ConfigurationManager.AppSettings["ClientSecret"]; // Client secret generated in your App  
             string authority = "https://login.microsoftonline.com/"+ConfigurationManager.AppSettings["ClientTenantId"] +"/oauth2/v2.0/token"; // Azure AD App Tenant ID  
@@ -69,7 +64,6 @@ namespace ShomaRM.ApiService
             var message = new HttpRequestMessage(httpMethod, requestUri);
 
          
-            //message.Headers.Add("Content-Type", "application/json");
 
             // Passing AccessToken in Authentication header  
             message.Headers.Add("Authorization", $"Bearer {Token.access_token}");
