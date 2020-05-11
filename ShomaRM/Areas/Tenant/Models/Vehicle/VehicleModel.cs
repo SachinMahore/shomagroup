@@ -166,13 +166,13 @@ namespace ShomaRM.Areas.Tenant.Models
                 lstProp.Add(new VehicleModel
                 {
                     Vehicle_ID = pl.Vehicle_ID,
-                    License = pl.License,
-                    Make = pl.Make,
-                    VModel = pl.Model,
-                    Year = pl.Year,
-                    Color = pl.Color,
-                    State = State,
-                    VehicleRegistration = pl.VehicleRegistration,
+                    License = !string.IsNullOrWhiteSpace(pl.License) ? pl.License : "",
+                    Make = !string.IsNullOrWhiteSpace(pl.Make) ? pl.Make : "",
+                    VModel = !string.IsNullOrWhiteSpace(pl.Model) ? pl.Model : "",
+                    Year = !string.IsNullOrWhiteSpace(pl.Year) ? pl.Year : "",
+                    Color = !string.IsNullOrWhiteSpace(pl.Color) ? pl.Color : "",
+                    State = !string.IsNullOrWhiteSpace(State) ? State : "",
+                    VehicleRegistration = !string.IsNullOrWhiteSpace(pl.VehicleRegistration) ? pl.VehicleRegistration : "",
                     OwnerName = !string.IsNullOrWhiteSpace(pl.OwnerName) ? pl.OwnerName : "",
                     Notes = !string.IsNullOrWhiteSpace(pl.Notes) ? pl.Notes : ""
                 });
@@ -180,7 +180,6 @@ namespace ShomaRM.Areas.Tenant.Models
             }
             return lstProp;
         }
-
         public string DeleteTenantVehicle(long VID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -251,33 +250,33 @@ namespace ShomaRM.Areas.Tenant.Models
 
         public VehicleModel GetVehicleInfo(long VehicleId)
         {
-                ShomaRMEntities db = new ShomaRMEntities();
-                var vehicleInfo = db.tbl_Vehicle.Where(co => co.Vehicle_ID == VehicleId).FirstOrDefault();
-                VehicleModel model = new VehicleModel();
+            ShomaRMEntities db = new ShomaRMEntities();
+            var vehicleInfo = db.tbl_Vehicle.Where(co => co.Vehicle_ID == VehicleId).FirstOrDefault();
+            VehicleModel model = new VehicleModel();
             if (vehicleInfo != null)
             {
                 model.Vehicle_ID = vehicleInfo.Vehicle_ID;
                 model.TenantID = vehicleInfo.TenantID;
-                model.License = vehicleInfo.License;
-                model.State = vehicleInfo.State;
-                model.Make = vehicleInfo.Make;
-                model.Color = vehicleInfo.Color;
+                model.License = !string.IsNullOrWhiteSpace(vehicleInfo.License) ? vehicleInfo.License : "";
+                model.State = !string.IsNullOrWhiteSpace(vehicleInfo.State) ? vehicleInfo.State : "";
+                model.Make = !string.IsNullOrWhiteSpace(vehicleInfo.Make) ? vehicleInfo.Make : "";
+                model.Color = !string.IsNullOrWhiteSpace(vehicleInfo.Color) ? vehicleInfo.Color : "";
                 model.ProspectID = vehicleInfo.ProspectID;
-                model.Year = vehicleInfo.Year;
-                model.VehicleRegistration = vehicleInfo.VehicleRegistration;
-                model.OwnerName = vehicleInfo.OwnerName;
-                model.Notes = vehicleInfo.Notes;
-                model.OriginalVehicleRegistation = vehicleInfo.OriginalVehicleReg;
-                model.VModel = vehicleInfo.Model;
-                model.Tag = vehicleInfo.Tag;
+                model.Year = !string.IsNullOrWhiteSpace(vehicleInfo.Year) ? vehicleInfo.Year : "";
+                model.VehicleRegistration = !string.IsNullOrWhiteSpace(vehicleInfo.VehicleRegistration) ? vehicleInfo.VehicleRegistration : "";
+                model.OwnerName = !string.IsNullOrWhiteSpace(vehicleInfo.OwnerName) ? vehicleInfo.OwnerName : "";
+                model.Notes = !string.IsNullOrWhiteSpace(vehicleInfo.Notes) ? vehicleInfo.Notes : "";
+                model.OriginalVehicleRegistation = !string.IsNullOrWhiteSpace(vehicleInfo.OriginalVehicleReg) ? vehicleInfo.OriginalVehicleReg : "";
+                model.VModel = !string.IsNullOrWhiteSpace(vehicleInfo.Model) ? vehicleInfo.Model : "";
+                model.Tag = !string.IsNullOrWhiteSpace(vehicleInfo.Tag) ? vehicleInfo.Tag : "";
                 var getParkingName = db.tbl_Parking.Where(co => co.ParkingID == vehicleInfo.ParkingID).FirstOrDefault();
                 model.ParkingName = getParkingName == null ? "" : !string.IsNullOrWhiteSpace(getParkingName.ParkingName) ? getParkingName.ParkingName : "";
                 long stateS = Convert.ToInt64(model.State);
                 var stateStr = db.tbl_State.Where(co => co.ID == stateS).FirstOrDefault();
-                model.StateString = stateStr.StateName;
+                model.StateString = !string.IsNullOrWhiteSpace(stateStr.StateName) ? stateStr.StateName : "";
             }
 
-                return model;
+            return model;
         }
 
         public List<VehicleModel> GetProfileVehicleList(long TenantID)

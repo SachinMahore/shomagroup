@@ -417,8 +417,18 @@ namespace ShomaRM.Controllers
             {
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+        }
 
-
+        public ActionResult SendPayLinkEmailApplyNow(long ProspectId, long ApplicationID, decimal ChargeAmount, int ChargeType, string Email)
+        {
+            try
+            {
+                return Json(new { model = new OnlineProspectModule().SendPayLinkEmailApplyNow(ProspectId, ApplicationID, ChargeAmount, ChargeType, Email) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult PrintSummary()
@@ -1026,6 +1036,17 @@ namespace ShomaRM.Controllers
             try
             {
                 return Json(new { result = new TenantOnlineModel().GetEncDecSSNPassportIDNum(EncDecVal, EncDec) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult CheckApplicationStatus(long TenantID)
+        {
+            try
+            {
+                return Json(new { result = new TenantOnlineModel().CheckApplicationStatus(TenantID) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

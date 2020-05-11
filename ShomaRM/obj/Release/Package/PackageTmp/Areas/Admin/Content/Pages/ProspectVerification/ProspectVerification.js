@@ -807,7 +807,7 @@ var goToStep = function (stepid, id) {
     if (stepid == "18") {
         if (id == "18") {
             $("#subMenu").addClass("hidden");
-
+            refreshStatuses();
 
             $("#li7").addClass("active");
             $("#li6").addClass("active");
@@ -2227,6 +2227,7 @@ var SaveLeaseDocumentVerification = function () {
 }
 var totPaid = 0;
 var getTransationLists = function (userid) {
+    $("#divLoader").show();
     var model = {
 
         TenantID: userid,
@@ -2238,7 +2239,7 @@ var getTransationLists = function (userid) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-
+            
             $("#tblTransaction>tbody").empty();
             $("#tblAdminFee>tbody").empty();
             var adminFeesPaid = 0;
@@ -2279,10 +2280,11 @@ var getTransationLists = function (userid) {
                 adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)'><span>Send Reminder to Pay Administration Fees </span></button></td>";
                 $("#tblAdminFee>tbody").append(adhtml);
             }
-            if (totPaid >= parseFloat($("#txtPayment").val()) + parseFloat(totalFinalFees))
+            if (totPaid >= parseFloat($("#txtPayment").val()))
             {
                 $("#btnC2Tenant").removeAttr("disabled");
             }
+            $("#divLoader").hide();
         }
     });
 }

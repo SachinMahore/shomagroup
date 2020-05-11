@@ -84,7 +84,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Tenant> tbl_Tenant { get; set; }
         public virtual DbSet<tbl_TenantEventJoin> tbl_TenantEventJoin { get; set; }
         public virtual DbSet<tbl_TenantEventJoinApprove> tbl_TenantEventJoinApprove { get; set; }
-        public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
         public virtual DbSet<tbl_TenantMonthlyPayments> tbl_TenantMonthlyPayments { get; set; }
         public virtual DbSet<tbl_TenantParking> tbl_TenantParking { get; set; }
         public virtual DbSet<tbl_TenantPetPlace> tbl_TenantPetPlace { get; set; }
@@ -100,17 +99,18 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_SMSMessages> tbl_SMSMessages { get; set; }
         public virtual DbSet<tbl_TenantFob> tbl_TenantFob { get; set; }
         public virtual DbSet<tbl_Prospect> tbl_Prospect { get; set; }
-        public virtual DbSet<tbl_MoveInChecklist> tbl_MoveInChecklist { get; set; }
         public virtual DbSet<tbl_ESignatureKeys> tbl_ESignatureKeys { get; set; }
         public virtual DbSet<tbl_ApplicantHistory> tbl_ApplicantHistory { get; set; }
         public virtual DbSet<tbl_EmployerHistory> tbl_EmployerHistory { get; set; }
         public virtual DbSet<tbl_Login> tbl_Login { get; set; }
         public virtual DbSet<tbl_BackgroundScreening> tbl_BackgroundScreening { get; set; }
-        public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
         public virtual DbSet<tbl_Parking> tbl_Parking { get; set; }
         public virtual DbSet<tbl_TenantPet> tbl_TenantPet { get; set; }
         public virtual DbSet<tbl_Vehicle> tbl_Vehicle { get; set; }
         public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
         public virtual DbSet<tbl_Properties> tbl_Properties { get; set; }
+        public virtual DbSet<tbl_MoveInChecklist> tbl_MoveInChecklist { get; set; }
+        public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
+        public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
     }
 }

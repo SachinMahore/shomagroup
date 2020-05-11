@@ -250,7 +250,10 @@ namespace ShomaRM.Areas.Tenant.Models
                         message = "Thank you for your guest reservation request. We will inform you on email. Please check the email for detail.";
                         if (SendMessage == "yes")
                         {
-                            new TwilioService().SMS(phonenumber, message);
+                            if (!string.IsNullOrWhiteSpace(phonenumber))
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
                         }
                     }
                     else
@@ -269,14 +272,15 @@ namespace ShomaRM.Areas.Tenant.Models
                         message = "Thank you for your guest reservation request. We will inform you on email. Please check the email for detail.";
                         if (SendMessage == "yes")
                         {
-                            new TwilioService().SMS(phonenumber, message);
+                            if (!string.IsNullOrWhiteSpace(phonenumber))
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
                         }
-
                     }
                 }
                 else
                 {
-
                     string reportHTMLTag = "";
                     string filePathTag = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTMLTag = System.IO.File.ReadAllText(filePathTag + "EmailTemplateAmenity.html");
@@ -291,17 +295,17 @@ namespace ShomaRM.Areas.Tenant.Models
                     message = "Your status regarding guest reservation is sent on email. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
-
-
             }
 
             db.Dispose();
             return msg;
         }
-
 
         public GuestRegistrationModel gotiGuestList(long TagId)
         {

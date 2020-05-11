@@ -72,6 +72,54 @@ namespace ShomaRM.Areas.Tenant.Models
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
             int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var mainappdet = db.tbl_ApplyNow.Where(c => c.ID == model.TenantID).FirstOrDefault();
+            var countCoApp = db.tbl_Applicant.Where(p => p.TenantID == model.TenantID && p.Type == "Co-Applicant").Count();
+            var countMinor = db.tbl_Applicant.Where(p => p.TenantID == model.TenantID && p.Type == "Minor").Count();
+            var countGuar = db.tbl_Applicant.Where(p => p.TenantID == model.TenantID && p.Type == "Guarantor").Count();
+            var unitDet = db.tbl_PropertyUnits.Where(p => p.UID == mainappdet.PropertyId).FirstOrDefault();
+            if (model.ApplicantID == 0)
+            {
+                if (model.Type != "Guarantor")
+                {
+                    if ((unitDet.Bedroom ?? 0) == 1)
+                    {
+                        if (countCoApp == 1 || countMinor == 1)
+                        {
+                            msg = "Occupancy is already filled. Can not add " + model.Type;
+                            return msg;
+                        }
+                    }
+                    if ((unitDet.Bedroom ?? 0) == 2)
+                    {
+                        if (countCoApp + countMinor > 3)
+                        {
+                            msg = "Occupancy is already filled. Can not add " + model.Type;
+                            return msg;
+                        }
+                    }
+                    if ((unitDet.Bedroom ?? 0) == 3)
+                    {
+                        if (countCoApp > 3 && countMinor > 3)
+                        {
+                            msg = "Occupancy is already filled. Can not add " + model.Type;
+                            return msg;
+                        }
+                        else if (countCoApp + countMinor > 5)
+                        {
+                            msg = "Occupancy is already filled. Can not add " + model.Type;
+                            return msg;
+                        }
+                    }
+                }
+                else
+                {
+                    if (countGuar == 1)
+                    {
+                        msg = model.Type + " is already added.";
+                        return msg;
+                    }
+                }
+            }
             if (model.DateOfBirth == Convert.ToDateTime("01/01/0001 12:00:00 AM"))
             {
                 model.DateOfBirth = null;
@@ -103,7 +151,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 db.tbl_Applicant.Add(saveApplicant);
                 db.SaveChanges();
 
-                var mainappdet = db.tbl_ApplyNow.Where(c => c.ID == model.TenantID).FirstOrDefault();
+                
                 string pass = "";
                 string _allowedChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*";
 
@@ -219,7 +267,10 @@ namespace ShomaRM.Areas.Tenant.Models
 
                         if (SendMessage == "yes")
                         {
-                            new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added As Co-applicant. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                            if (!string.IsNullOrWhiteSpace(model.Phone))
+                            {
+                                new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added As Co-applicant. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                            }
                         }
                     }
                 }
@@ -243,7 +294,10 @@ namespace ShomaRM.Areas.Tenant.Models
 
                         if (SendMessage == "yes")
                         {
-                            new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added As Guarantor. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                            if (!string.IsNullOrWhiteSpace(model.Phone))
+                            {
+                                new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added As Guarantor. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                            }
                         }
                     }
                 }
@@ -267,7 +321,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     }
                 }
 
-                msg = "Applicant Saved Successfully";
+                msg = "Progress Saved.";
             }
             else
             {
@@ -281,7 +335,6 @@ namespace ShomaRM.Areas.Tenant.Models
                     getAppldata.Phone = model.Phone;
                     getAppldata.Email = model.Email;
 
-                    var mainappdet = db.tbl_ApplyNow.Where(c => c.ID == model.TenantID).FirstOrDefault();
                     var userdata = db.tbl_Login.Where(p => p.UserID == getAppldata.UserID).FirstOrDefault();
 
                     string pass = "";
@@ -366,7 +419,10 @@ namespace ShomaRM.Areas.Tenant.Models
                         new EmailSendModel().SendEmail(model.Email, "Payment Link for Credit Check", body);
                         if (SendMessage == "yes")
                         {
-                            new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Payment Link for Credit Check. Please check the email for detail.");
+                            if (!string.IsNullOrWhiteSpace(model.Phone))
+                            {
+                                new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Payment Link for Credit Check. Please check the email for detail.");
+                            }
                         }
                     }
                     else if ((getAppldata.CreditPaid ?? 0) == 0 && oldemail != model.Email)
@@ -395,7 +451,10 @@ namespace ShomaRM.Areas.Tenant.Models
 
                                 if (SendMessage == "yes")
                                 {
-                                    new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added As Co-applicant. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                                    if (!string.IsNullOrWhiteSpace(model.Phone))
+                                    {
+                                        new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added As Co-applicant. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                                    }
                                 }
                             }
                         }
@@ -419,14 +478,17 @@ namespace ShomaRM.Areas.Tenant.Models
 
                                 if (SendMessage == "yes")
                                 {
-                                    new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added As Guarantor. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                                    if (!string.IsNullOrWhiteSpace(model.Phone))
+                                    {
+                                        new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added As Guarantor. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                                    }
                                 }
                             }
                         }
                     }
 
                 }
-                msg = "Applicant Updated Successfully";
+                msg = "Progress Saved.";
             }
 
             db.Dispose();
@@ -445,17 +507,22 @@ namespace ShomaRM.Areas.Tenant.Models
             decimal guarCreditFees = 0;
             decimal guarBackGroundFees = 0;
 
+            appCreditFees = propertyData.AppCCCheckFees ?? 0;
+            appBackGroundFees = propertyData.AppCCCheckFees ?? 0;
+            guarCreditFees = propertyData.AppCCCheckFees ?? 0;
+            guarBackGroundFees = propertyData.AppCCCheckFees ?? 0;
+
             foreach (var ap in applicantDataList)
             {
                 string compl = "";
                 string Rel = "";
                 if ((ap.CreditPaid ?? 0) == 0)
                 {
-                    compl = "In Progress (Credit Fees Not Paid)";
+                    compl = "In Progress (Credit Check Not Done)";
                 }
-                else if ((ap.Paid ?? 0) == 0)
+                else if ((ap.BackGroundPaid ?? 0) == 0)
                 {
-                    compl = "In Progress (Application Fees Not Paid)";
+                    compl = "In Progress (Background Check Not Done)";
                 }
                 else
                 {
@@ -489,8 +556,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     ApplicantID = ap.ApplicantID,
                     FirstName = ap.FirstName,
                     LastName = ap.LastName,
-                    Phone = ap.Phone,
-                    Email = ap.Email,
+                    Phone = !string.IsNullOrWhiteSpace(ap.Phone) ? ap.Phone : "",
+                    Email = !string.IsNullOrWhiteSpace(ap.Email) ? ap.Email : "",
                     Type = ap.Type,
                     Gender = ap.Gender,
                     MoveInPercentage = ap.MoveInPercentage != null ? ap.MoveInPercentage : 0,
@@ -506,9 +573,13 @@ namespace ShomaRM.Areas.Tenant.Models
                     GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : "",
                     Paid = ap.Paid == null ? 0 : ap.Paid,
                     AddedBy = ap.AddedBy,
-                    CreditPaid = CreditPaid ?? 0
+                    CreditPaid = ap.CreditPaid ?? 0,
+                    BackGroundPaid = ap.BackGroundPaid ?? 0,
+                    AppCreditFees = propertyData.AppCCCheckFees,
+                    AppBackGroundFees = propertyData.AppBGCheckFees,
+                    GuarCreditFees = propertyData.GuaCCCheckFees,
+                    GuarBackGroundFees = propertyData.GuaBGCheckFees,
                 });
-
             }
             return lstAppli;
         }
@@ -517,6 +588,19 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<ApplicantModel> lstProp = new List<ApplicantModel>();
+
+            var propertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+            var applicantDataList = db.tbl_Applicant.Where(p => p.TenantID == TenantID).ToList();
+            decimal appCreditFees = 0;
+            decimal appBackGroundFees = 0;
+            decimal guarCreditFees = 0;
+            decimal guarBackGroundFees = 0;
+
+            appCreditFees = propertyData.AppCCCheckFees ?? 0;
+            appBackGroundFees = propertyData.AppCCCheckFees ?? 0;
+            guarCreditFees = propertyData.AppCCCheckFees ?? 0;
+            guarBackGroundFees = propertyData.AppCCCheckFees ?? 0;
+
             long addedby = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
             var CoAppDataList = db.tbl_Applicant.Where(p => p.TenantID == TenantID).ToList();
             foreach (var ap in CoAppDataList)
@@ -525,11 +609,11 @@ namespace ShomaRM.Areas.Tenant.Models
                 string Rel = "";
                 if ((ap.CreditPaid ?? 0) == 0)
                 {
-                    compl = "In Progress (Credit Fees Not Paid)";
+                    compl = "In Progress (Credit Check Not Done)";
                 }
                 else if ((ap.Paid ?? 0) == 0)
                 {
-                    compl = "In Progress (Application Fees Not Paid)";
+                    compl = "In Progress (Background Check Not Done)";
                 }
                 else
                 {
@@ -562,8 +646,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     ApplicantID = ap.ApplicantID,
                     FirstName = ap.FirstName,
                     LastName = ap.LastName,
-                    Phone = ap.Phone,
-                    Email = ap.Email,
+                    Phone = !string.IsNullOrWhiteSpace(ap.Phone) ? ap.Phone : "",
+                    Email = !string.IsNullOrWhiteSpace(ap.Email) ? ap.Email : "",
                     Type = ap.Type,
                     Gender = ap.Gender,
                     MoveInPercentage = ap.MoveInPercentage != null ? ap.MoveInPercentage : 0,
@@ -579,8 +663,14 @@ namespace ShomaRM.Areas.Tenant.Models
                     GenderString = ap.Gender == 1 ? "Male" : ap.Gender == 2 ? "Female" : ap.Gender == 3 ? "Other" : "",
                     Paid = ap.Paid == null ? 0 : ap.Paid,
                     AddedBy = addedby,
+                    CreditPaid = ap.CreditPaid ?? 0,
+                    BackGroundPaid = ap.BackGroundPaid ?? 0,
+                    AppCreditFees = propertyData.AppCCCheckFees,
+                    AppBackGroundFees = propertyData.AppBGCheckFees,
+                    GuarCreditFees = propertyData.GuaCCCheckFees,
+                    GuarBackGroundFees = propertyData.GuaBGCheckFees,
                     ApplicantUserId = ap.UserID,
-                    ApplicantAddedBy = ap.AddedBy
+                    ApplicantAddedBy = ap.AddedBy??0
                 });
             }
 
@@ -611,6 +701,10 @@ namespace ShomaRM.Areas.Tenant.Models
             if (chargetype == 4)
             {
                 bat = "4";
+            }
+            if (chargetype == 5)
+            {
+                bat = "5";
             }
             //var getApplicantDet = db.tbl_Applicant.Where(p => p.ApplicantID == id).FirstOrDefault();
             //var getTenantDet = db.tbl_ApplyNow.Where(p => p.ID == getApplicantDet.TenantID).FirstOrDefault();
@@ -733,6 +827,109 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.ZipHome = getTenantOnline.ZipHome;
                 model.MiddleName = getTenantOnline.MiddleInitial;
             }
+            else if (getAppliTransDet != null && (chargetype == 4|| chargetype==5))
+            {
+                DateTime? dobDateTime = null;
+                try
+                {
+                    dobDateTime = Convert.ToDateTime(getApplicantDet.DateOfBirth);
+                }
+                catch
+                {
+                }
+
+                model.DateOfBirthTxt = dobDateTime == null ? "" : (dobDateTime.Value.ToString("MM/dd/yyyy") != "01/01/0001" ? dobDateTime.Value.ToString("MM/dd/yyyy") : "");
+                model.FirstName = getApplicantDet.FirstName;
+                model.LastName = getApplicantDet.LastName;
+                model.Phone = getApplicantDet.Phone;
+                model.Email = getApplicantDet.Email;
+                model.Gender = getApplicantDet.Gender;
+                model.Type = getApplicantDet.Type;
+                model.Relationship = getApplicantDet.Relationship;
+                model.MoveInPercentage = getApplicantDet.MoveInPercentage;
+                model.MoveInCharge = getApplicantDet.MoveInCharge;
+                model.MonthlyPercentage = getApplicantDet.MonthlyPercentage;
+                model.MonthlyPayment = getApplicantDet.MonthlyPayment;
+                model.OtherGender = getApplicantDet.OtherGender;
+                model.TenantID = getApplicantDet.TenantID;
+                model.ApplicantAddedBy = getApplicantDet.AddedBy;
+                model.ApplicantUserId = getApplicantDet.UserID;
+                //New
+                var getTenantOnline = db.tbl_TenantOnline.Where(p => p.ParentTOID == ptotid).FirstOrDefault();
+
+                if (!string.IsNullOrWhiteSpace(getTenantOnline.IDNumber))
+                {
+                    try
+                    {
+                        model.IDNumberEnc = getTenantOnline.IDNumber;
+                        string decryptedIDNumber = new EncryptDecrypt().DecryptText(getTenantOnline.IDNumber);
+                        int idnumlength = decryptedIDNumber.Length > 4 ? decryptedIDNumber.Length - 4 : 0;
+                        string maskidnumber = "";
+                        for (int i = 0; i < idnumlength; i++)
+                        {
+                            maskidnumber += "*";
+                        }
+                        if (decryptedIDNumber.Length > 4)
+                        {
+                            model.IDNumber = maskidnumber + decryptedIDNumber.Substring(decryptedIDNumber.Length - 4, 4);
+                        }
+                        else
+                        {
+                            model.IDNumber = decryptedIDNumber;
+                        }
+                    }
+                    catch
+                    {
+                        model.IDNumberEnc = "";
+                        model.IDNumber = "";
+                    }
+
+                }
+                else
+                {
+                    model.IDNumberEnc = "";
+                    model.IDNumber = "";
+                }
+
+                if (!string.IsNullOrWhiteSpace(getTenantOnline.SSN))
+                {
+                    try
+                    {
+                        model.SSNEnc = getTenantOnline.SSN;
+                        string decryptedSSN = new EncryptDecrypt().DecryptText(getTenantOnline.SSN);
+                        if (decryptedSSN.Length > 5)
+                        {
+                            model.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
+                        }
+                        else
+                        {
+                            model.SSN = decryptedSSN;
+                        }
+                    }
+                    catch
+                    {
+                        model.SSNEnc = "";
+                        model.SSN = "";
+                    }
+
+                }
+                else
+                {
+                    model.SSNEnc = "";
+                    model.SSN = ""; ;
+                }
+
+                model.IDType = getTenantOnline.IDType;
+                model.State = getTenantOnline.State;
+                model.MiddleName = getTenantOnline.MiddleInitial;
+                model.Country = !string.IsNullOrWhiteSpace(getTenantOnline.Country) ? getTenantOnline.Country : "1";
+                model.StateHome = getTenantOnline.StateHome ?? 0;
+                model.HomeAddress1 = getTenantOnline.HomeAddress1;
+                model.HomeAddress2 = getTenantOnline.HomeAddress2;
+                model.CityHome = getTenantOnline.CityHome;
+                model.ZipHome = getTenantOnline.ZipHome;
+                model.MiddleName = getTenantOnline.MiddleInitial;
+            }
             else if (getAppliTransDet != null && chargetype == 0)
             {
 
@@ -762,8 +959,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.ApplicantAddedBy = getApplicantDet.AddedBy;
                 model.ApplicantUserId = getApplicantDet.UserID;
                 //New
-                
-                var getTenantOnline = db.tbl_TenantOnline.Where(p =>  p.ParentTOID== ptotid).FirstOrDefault();
+
+                var getTenantOnline = db.tbl_TenantOnline.Where(p => p.ParentTOID == ptotid).FirstOrDefault();
 
                 if (!string.IsNullOrWhiteSpace(getTenantOnline.IDNumber))
                 {
@@ -844,7 +1041,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.FirstName = getApplicantDet.FirstName;
                 model.LastName = getApplicantDet.LastName;
                 model.FeesPaidType = GetChargeType(getAppliTransDet.Charge_Type ?? 0);
-                model.Type = "5";
+                model.Type = "100";
             }
             return model;
         }
@@ -987,8 +1184,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.ApplicantID = getGuarantorData.ApplicantID;
                 model.FirstName = getGuarantorData.FirstName;
                 model.LastName = getGuarantorData.LastName;
-                model.Phone = getGuarantorData.Phone;
-                model.Email = getGuarantorData.Email;
+                model.Phone = !string.IsNullOrWhiteSpace(getGuarantorData.Phone) ? getGuarantorData.Phone : "";
+                model.Email = !string.IsNullOrWhiteSpace(getGuarantorData.Email) ? getGuarantorData.Email : "";
                 model.Type = getGuarantorData.Type;
                 model.Gender = getGuarantorData.Gender;
                 model.MoveInPercentage = getGuarantorData.MoveInPercentage != null ? getGuarantorData.MoveInPercentage : 0;

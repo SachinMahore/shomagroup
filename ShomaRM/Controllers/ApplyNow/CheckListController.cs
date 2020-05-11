@@ -419,9 +419,13 @@ namespace ShomaRM.Controllers
                         reportHTMLCoapp = reportHTMLCoapp.Replace("[%TenantName%]", apptdata.FirstName + " " + apptdata.LastName);
                         string bodyCoapp = reportHTMLCoapp;
                         new EmailSendModel().SendEmail(apptdata.Email, "Review and Sign your application", bodyCoapp);
+                        
                         if (SendMessage == "yes")
                         {
-                            new TwilioService().SMS(apptdata.Phone, "Review and Sign your application. Please check the email for Move In charges Payment Link.");
+                            if (!string.IsNullOrWhiteSpace(apptdata.Phone))
+                            {
+                                new TwilioService().SMS(apptdata.Phone, "Review and Sign your application. Please check the email for Move In charges Payment Link.");
+                            }
                         }
                     }
                    

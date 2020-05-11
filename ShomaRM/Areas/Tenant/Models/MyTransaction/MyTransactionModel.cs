@@ -1023,7 +1023,10 @@ namespace ShomaRM.Areas.Tenant.Models
                         message = subject + ". Please check the email for detail.";
                         if (SendMessage == "yes")
                         {
-                            new TwilioService().SMS(phonenumber, message);
+                            if (!string.IsNullOrWhiteSpace(phonenumber))
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
                         }
                     }
                 }
@@ -1315,7 +1318,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     message = "Your Reservation Fee payment has been received. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
                 else if (model.IsAmeDepoPay == 0)
@@ -1342,7 +1348,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     message = "Your Reservation Fee payment has been received. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
                 else if (model.IsAmeDepoPay == 3)
@@ -1360,7 +1369,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     message = "Your Reservation Deposit payment has been received. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
 
@@ -1489,7 +1501,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 message = "Service Repair payment has been received. Please check the email for detail.";
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
 
                 msg = "1";

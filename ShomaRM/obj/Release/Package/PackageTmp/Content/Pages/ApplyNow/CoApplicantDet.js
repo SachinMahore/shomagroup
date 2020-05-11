@@ -2,6 +2,7 @@
 var numberOfDaysCoApplicant = 0;
 var QuoteExpiresCoApplicant = "";
 var tenantOnlineIDCoApplicant = 0;
+var addApplicntArrayCoapplicant = [];
 //Sachin Mahore 21 Apr 2020
 $(document).ready(function () {
     onFocusCoApplicant();
@@ -47,6 +48,12 @@ $(document).ready(function () {
         $('#lblUpload2').text('Fedral Tax Return 2');
         $('#lblUpload3').text('Fedral Tax Return 3');
     }
+    else if ($("#rbtnBankStatement").is(":checked")) {
+        $('#divUpload3').removeClass('hidden');
+        $('#lblUpload1').text('Bank Statement 1');
+        $('#lblUpload2').text('Bank Statement 2');
+        $('#lblUpload3').text('Bank Statement 3');
+    }
 
     $('input[type=radio]').on('ifChanged', function (event) {
 
@@ -62,6 +69,12 @@ $(document).ready(function () {
             $('#lblUpload1').text('Fedral Tax Return 1');
             $('#lblUpload2').text('Fedral Tax Return 2');
             $('#lblUpload3').text('Fedral Tax Return 3');
+        }
+        else if ($("#rbtnBankStatement").is(":checked")) {
+            $('#divUpload3').removeClass('hidden');
+            $('#lblUpload1').text('Bank Statement 1');
+            $('#lblUpload2').text('Bank Statement 2');
+            $('#lblUpload3').text('Bank Statement 3');
         }
     });
     if ($("#rbtnPaystubHEI").is(":checked")) {
@@ -395,6 +408,7 @@ $(document).ready(function () {
             $("#passportDiv").removeClass("hidden");
             $("#divSSNNumber").addClass("col-sm-4 hidden");
             $("#divCountryOfOrigin").removeClass("hidden");
+
         }
         else {
             $("#passportDiv").addClass("hidden");
@@ -554,6 +568,22 @@ $(document).ready(function () {
     spanAppSummaryClose.onclick = function () {
         modalAppSummary.style.display = "none";
     }
+    $("#ddlRentOwn").on("change", function () {
+        if (this.value == '1') {
+            $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone").addClass("star");
+        }
+        else if (this.value == '2') {
+            $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone").removeClass("star");
+        }
+    });
+    $("#ddlRentOwn2").on("change", function () {
+        if (this.value == '1') {
+            $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2").addClass("star");
+        }
+        else if (this.value == '2') {
+            $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2").removeClass("star");
+        }
+    });
 });
 
 var cancel = function () {
@@ -829,25 +859,30 @@ var goToStep = function (stepid, id, calldataupdate) {
                     msg += "Please select the country of origin</br>";
                 }
             } else {
-                if ($("#ddlStatePersonal").val() == "0") {
-                    msg += "Please Select The State </br>";
+                if (!$("#txtSSNNumber").val()) {
+                    msg += "Please Fill The SSN number </br>";
                 }
-            }
-            if ($("#ddlIsInter").val() == '0') {
-                if ($("#ddlDocumentTypePersonal").val() == "0") {
-                    msg += "Please Select The Id Type </br>";
-                }
-                if ($("#hndHasIdentityFile").val() == "0") {
-                    if (document.getElementById('fileUploadIdentity').files.length == '0') {
-                        var idType = document.getElementById('lblUploadIdentity').innerHTML;
-                        msg += "Please Upload The " + idType + " </br>";
+                else {
+                    if ($("#txtSSNNumber").val().length < 9) {
+                        msg += "SSN number must be 9 digit </br>";
                     }
                 }
+                if ($("#ddlDocumentTypePersonal").val() == '0') {
+                    msg += "Please select ID Type</br>";
+                }
+
+                if ($("#ddlStatePersonal").val() == '0') {
+                    msg += "Please select ID Issued State</br>";
+                }
             }
-            
 
             if (!$("#txtIDNumber").val()) {
-                msg += "Please Fill The  Id Number </br>";
+                msg += "Please Fill The ID Number </br>";
+            }
+            else {
+                if ($("#txtIDNumber").val().length < 5) {
+                    msg += "ID Number should be greater then 4 digit </br>";
+                }
             }
             
             if ($("#ddlEverBeenEvicted").val() == "2") {
@@ -960,25 +995,20 @@ var goToStep = function (stepid, id, calldataupdate) {
             if (!$("#txtMoveInDateFrom").val()) {
                 msg += "Please Fill Move In Date </br>";
             }
-            if (!$("#txtApartmentCommunity").val()) {
-                msg += "Please Fill Apartment Community </br>";
-            }
-
-            //if (unformatTextCoApplicant($("#txtSupervisiorPhone").val())) {
-            //    if (unformatTextCoApplicant($("#txtSupervisiorPhone").val()).length < 10) {
-            //        msg += "Please enter 10 digit supervisor phone number </br>";
-            //    }
-            //}
-
-            if (!$("#txtManagementCompany").val()) {
-                msg += "Please Fill Management Company </br>";
-            }
-            if (!unformatTextCoApplicant($("#txtManagementCompanyPhone").val())) {
-                msg += "Please Fill Management Company Phone</br>";
-            }
-            else {
-                if (unformatTextCoApplicant($("#txtManagementCompanyPhone").val()).length < 10) {
-                    msg += "Please enter 10 digit management company phone number </br>";
+            if ($("#ddlRentOwn").val() == '1') {
+                if (!$("#txtApartmentCommunity").val()) {
+                    msg += "Please Fill Apartment Community </br>";
+                }
+                if (!$("#txtManagementCompany").val()) {
+                    msg += "Please Fill Management Company </br>";
+                }
+                if (!unformatText($("#txtManagementCompanyPhone").val())) {
+                    msg += "Please Fill Management Company Phone</br>";
+                }
+                else {
+                    if (unformatText($("#txtManagementCompanyPhone").val()).length < 10) {
+                        msg += "Please enter 10 digit management company phone number </br>";
+                    }
                 }
             }
             if (msg == "") {
@@ -1069,6 +1099,16 @@ var goToStep = function (stepid, id, calldataupdate) {
             if ($("#txtAnnualIncome").val() == '0.00') {
                 msg += "Please Fill The Annual Income </br>";
             }
+            if (!$("#txtSupervisiorName").val()) {
+                msg += "Please Fill The Supervisior Name </br>";
+            }
+
+            if (!$("#txtSupervisiorPhone").val()) {
+                msg += "Please Fill The Supervisior Phone </br>";
+            } else if (unformatText($("#txtSupervisiorPhone").val()).length < 10) {
+                msg += "Please Fill The 10 digit Supervisior Phone </br>";
+            }
+
             if ($("#hndHasTaxReturnFile").val() == "0") {
                 if (document.getElementById('fileUploadTaxReturn').files.length == '0') {
                     msg += "Please Upload last 3 paystubs or if self-employed last 2 year's Federal Tax Returns </br>";
@@ -1105,6 +1145,26 @@ var goToStep = function (stepid, id, calldataupdate) {
                     if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
                         var upLabel5 = $('#lblUpload2').text();
                         msg += "Please Upload " + upLabel5 + " </br>";
+                    }
+                }
+            }
+            if ($("#rbtnBankStatement").is(":checked")) {
+                if ($("#hndHasTaxReturnFile1").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
+                        var upLabel6 = $('#lblUpload1').text();
+                        msg += "Please Upload " + upLabel + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile2").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
+                        var upLabel7 = $('#lblUpload2').text();
+                        msg += "Please Upload " + upLabel2 + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile3").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn3').files.length == '0') {
+                        var upLabel8 = $('#lblUpload3').text();
+                        msg += "Please Upload " + upLabel3 + " </br>";
                     }
                 }
             }
@@ -2219,180 +2279,200 @@ var SaveCheckPolicy = function (stepcompleted) {
     });
 }
 function savePayment() {
-    $("#divLoader").show();
-    var msg = "";
-    var isSummarychecked = $("#chkAgreeSummarry").is(":checked") ? "1" : "0";
-    if ($("#hndTransMethod").val() == "0") {
+    if ($("#chkTermsAndCondition").is(':unchecked')) {
         $("#divLoader").hide();
         $.alert({
             title: "",
-            content: "Please Select Payment Method</br>",
+            content: "Please accept Terms & Condition </br>",
             type: 'red'
         });
         return;
-
     }
-    //if (isSummarychecked != "1") {
-    //    $("#divLoader").hide();
-    //    $.alert({
-    //        title: "",
-    //        content: "Please ACCEPT AGREEMENTS </br>",
-    //        type: 'red'
-    //    });
-    //    return;
-    //}
-    if ($("#hndTransMethod").val() == 2) {
-        var paymentMethod = 2;
-        var propertyId = $("#hndUID").val();
-        var nameonCard = $("#txtNameonCard").val();
-        var cardNumber = $("#txtCardNumber").val();
-        var cardMonth = $("#ddlcardmonth").val();
-        var cardYear = $("#ddlcardyear").val();
-        var ccvNumber = $("#txtCCVNumber").val();
-        var prospectID = $("#hdnOPId").val();
-        var amounttoPay = unformatTextCoApplicant($("#totalFinalFees").text());
-        var description = "Online Application Non Refundable fees";
-        var glTrans_Description = $("#payDes").text();
-        var routingNumber = $("#txtRoutingNumber").val();
-        var bankName = $("#txtBankName").val();
-
-        if (!nameonCard) {
-            msg += "Please Enter Name on Card</br>";
-        }
-        if (cardNumber == "" || cardNumber.length != 16) {
-            msg += "Please enter your 16 digit Card Number</br>";
-        }
-        if (cardMonth == "0") {
-            msg += "Please enter Card Month</br>";
-        }
-        if (cardYear == "0") {
-            msg += "Please enter Card Year</br>";
-        }
-        if (ccvNumber < 3) {
-            msg += "Please enter CVV Number and It must be 3 digit long</br>";
-        }
-
-        var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
-        var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-
-        GivenDate = new Date(GivenDate);
-        CurrentDate = new Date(CurrentDate);
-
-        if (GivenDate < CurrentDate) {
-            msg += "Your Credit Card Expired..</br>";
-        }
-
-        if (msg != "") {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: msg,
-                type: 'red'
-            });
-            return;
-        }
+    $("#divLoader").show();
+    var msg = "";
+    if (unformatText($("#totalFinalFees").text()) == 0) {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Please Select to Pay </br>",
+            type: 'red'
+        });
+        return;
     } else {
-        var paymentMethod = 1;
-        var propertyId = $("#hndUID").val();
-        var nameonCard = $("#txtAccountName").val();
-        var cardNumber = $("#txtAccountNumber").val();
-        var cardMonth = 0;
-        var cardYear = 0;
-        var routingNumber = $("#txtRoutingNumber").val();
-        var ccvNumber = $("#txtRoutingNumber").val();
-        var bankName = $("#txtBankName").val();
-        var prospectID = $("#hdnOPId").val();
-        var amounttoPay = unformatTextCoApplicant($("#totalFinalFees").text());
-        var description = "Online Application Non Refundable fees";
-        var glTrans_Description = $("#payDes").text();
-        if (bankName == "") {
-            msg += "Please Enter Bank Name</br>";
-        }
-        if (nameonCard == "") {
-            msg += "Please Enter Account Name</br>";
-        }
-        if (cardNumber == "") {
-            msg += "Please Enter Account Number</br>";
-        }
-        if (ccvNumber == "") {
-            msg += "Please Enter Routing Number</br>";
-        }
-        if (msg != "") {
+        var isSummarychecked = $("#chkAgreeSummarry").is(":checked") ? "1" : "0";
+        if ($("#hndTransMethod").val() == "0") {
             $("#divLoader").hide();
             $.alert({
                 title: "",
-                content: msg,
+                content: "Please Select Payment Method</br>",
+                type: 'red'
+            });
+            return;
+
+        }
+
+        if (isSummarychecked != "1") {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: "Please ACCEPT AGREEMENTS </br>",
                 type: 'red'
             });
             return;
         }
-    }
+        if ($("#hndTransMethod").val() == 2) {
+            var paymentMethod = 2;
+            var propertyId = $("#hndUID").val();
+            var nameonCard = $("#txtNameonCard").val();
+            var cardNumber = $("#txtCardNumber").val();
+            var cardMonth = $("#ddlcardmonth").val();
+            var cardYear = $("#ddlcardyear").val();
+            var ccvNumber = $("#txtCCVNumber").val();
+            var prospectID = $("#hdnOPId").val();
+            var amounttoPay = unformatText($("#totalFinalFees").text());
+            var description = "Online Application Non Refundable fees";
+            var glTrans_Description = $("#payDes").text();
+            var routingNumber = $("#txtRoutingNumber").val();
+            var bankName = $("#txtBankName").val();
 
+            if (!nameonCard) {
+                msg += "Please Enter Name on Card</br>";
+            }
+            if (cardNumber == "" || cardNumber.length != 16) {
+                msg += "Please enter your 16 digit Card Number</br>";
+            }
+            if (cardMonth == "0") {
+                msg += "Please enter Card Month</br>";
+            }
+            if (cardYear == "0") {
+                msg += "Please enter Card Year</br>";
+            }
+            if (ccvNumber < 3) {
+                msg += "Please enter CVV Number and It must be 3 digit long</br>";
+            }
 
-    var model = {
-        PID: propertyId,
-        Name_On_Card: nameonCard,
-        CardNumber: cardNumber,
-        AccountNumber: cardNumber,
-        CardMonth: cardMonth,
-        CardYear: cardYear,
-        CCVNumber: ccvNumber,
-        Charge_Amount: amounttoPay,
-        ProspectID: prospectID,
-        Description: description,
-        GL_Trans_Description: glTrans_Description,
-        RoutingNumber: routingNumber,
-        BankName: bankName,
-        PaymentMethod: paymentMethod,
-        AcceptSummary: isSummarychecked,
-        AID: addApplicntArray,
-    };
-    $.alert({
-        title: "",
-        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesCoApplicant()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesCoApplicant())).toFixed(2) + ". Do you want to Pay Now?",
-        type: 'blue',
-        buttons: {
-            yes: {
-                text: 'Yes',
-                action: function (yes) {
-                    $.ajax({
-                        url: "/ApplyNow/SaveCoGuPaymentDetails/",
-                        type: "post",
-                        contentType: "application/json utf-8",
-                        data: JSON.stringify(model),
-                        dataType: "JSON",
-                        success: function (response) {
-                            $("#divLoader").hide();
-                            if (response.Msg == "1") {
-                                $("#carddetails").addClass("hidden");
-                                $(".payNext").removeAttr("disabled");
-                                $("#ResponseMsg").html("Payment Successfull");
-                                $.alert({
-                                    title: "",
-                                    content: "Payment Successfull",
-                                    type: 'red'
-                                });
-                                getTransationLists($("#hdnUserId").val());
-                                getApplicantListsCoApplicant();
-                            } else {
-                                $.alert({
-                                    title: "",
-                                    content: "Payment Failed",
-                                    type: 'red'
-                                });
-                            }
-                        }
-                    });
-                }
-            },
-            no: {
-                text: 'No',
-                action: function (no) {
-                    $("#divLoader").hide();
-                }
+            var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
+            var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+
+            GivenDate = new Date(GivenDate);
+            CurrentDate = new Date(CurrentDate);
+
+            if (GivenDate < CurrentDate) {
+                msg += "Your Credit Card Expired..</br>";
+            }
+
+            if (msg != "") {
+                $("#divLoader").hide();
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+                return;
+            }
+        } else {
+            var paymentMethod = 1;
+            var propertyId = $("#hndUID").val();
+            var nameonCard = $("#txtAccountName").val();
+            var cardNumber = $("#txtAccountNumber").val();
+            var cardMonth = 0;
+            var cardYear = 0;
+            var routingNumber = $("#txtRoutingNumber").val();
+            var ccvNumber = $("#txtRoutingNumber").val();
+            var bankName = $("#txtBankName").val();
+            var prospectID = $("#hdnOPId").val();
+            var amounttoPay = unformatText($("#totalFinalFees").text());
+            var description = "Online Application Non Refundable fees";
+            var glTrans_Description = $("#payDes").text();
+            if (bankName == "") {
+                msg += "Please Enter Bank Name</br>";
+            }
+            if (nameonCard == "") {
+                msg += "Please Enter Account Name</br>";
+            }
+            if (cardNumber == "") {
+                msg += "Please Enter Account Number</br>";
+            }
+            if (ccvNumber == "") {
+                msg += "Please Enter Routing Number</br>";
+            }
+            if (msg != "") {
+                $("#divLoader").hide();
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+                return;
             }
         }
-    });
+
+
+        var model = {
+            PID: propertyId,
+            Name_On_Card: nameonCard,
+            CardNumber: cardNumber,
+            AccountNumber: cardNumber,
+            CardMonth: cardMonth,
+            CardYear: cardYear,
+            CCVNumber: ccvNumber,
+            Charge_Amount: amounttoPay,
+            ProspectID: prospectID,
+            Description: description,
+            GL_Trans_Description: glTrans_Description,
+            RoutingNumber: routingNumber,
+            BankName: bankName,
+            PaymentMethod: paymentMethod,
+            AcceptSummary: isSummarychecked,
+            lstApp: addApplicntArrayCoapplicant,
+        };
+        $.alert({
+            title: "",
+            content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFees()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFees())).toFixed(2) + ". Do you want to Pay Now?",
+            type: 'blue',
+            buttons: {
+                yes: {
+                    text: 'Yes',
+                    action: function (yes) {
+                        $.ajax({
+                            url: "/ApplyNow/SavePaymentDetails/",
+                            type: "post",
+                            contentType: "application/json utf-8",
+                            data: JSON.stringify(model),
+                            dataType: "JSON",
+                            success: function (response) {
+                                $("#divLoader").hide();
+                                if (response.Msg == "1") {
+                                    //$("#carddetails").addClass("hidden");
+                                    $(".payNext").removeAttr("disabled");
+                                    $("#ResponseMsg").html("Payment Successfull");
+                                    $.alert({
+                                        title: "",
+                                        content: "Payment Successfull",
+                                        type: 'red'
+                                    });
+                                    getTransationLists($("#hdnUserId").val());
+                                    getApplicantLists();
+                                } else {
+                                    $.alert({
+                                        title: "",
+                                        content: "Payment Failed",
+                                        type: 'red'
+                                    });
+                                }
+                            }
+                        });
+                    }
+                },
+                no: {
+                    text: 'No',
+                    action: function (no) {
+                        $("#divLoader").hide();
+                    }
+                }
+            }
+        });
+    }
 }
 var getApplyNowListCoApplicant = function (id) {
     $("#divLoader").show();
@@ -3272,22 +3352,24 @@ var getTransationLists = function (userid) {
 
             $.each(response.model, function (elementType, elementValue) {
                 $("#Divtranslist").removeClass("hidden");
-
                 $("#btnpaynext").removeProp("disabled");
                 var html = "<tr data-value=" + elementValue.TransID + ">";
-                //html += "<td>" + elementValue.TransID + "</td>";
-                //html += "<td>" + elementValue.TenantIDString + "</td>";
+                html += "<td>" + elementValue.ApplicantName + "(" + elementValue.ApplicantType + ")</td>";
                 html += "<td>" + elementValue.Transaction_DateString + "</td>";
                 html += "<td>$" + parseFloat(elementValue.Charge_Amount).toFixed(2) + "</td>";
                 html += "<td>" + elementValue.Transaction_Type + "</td>";
-                //html += "<td>" + elementValue.Charge_Type + "</td>";
                 html += "<td>" + elementValue.Description + "</td>";
                 html += "<td>Paid</td>";
                 html += "</tr>";
                 $("#tblTransaction>tbody").append(html);
                 paidamt += parseFloat(elementValue.Charge_Amount);
             });
-
+            setTimeout(function () {
+                if ((paidamt == (totpaid + totnotpaid)) && (totpaid + totnotpaid) > 0) {
+                    $("#carddetails").addClass("hidden");
+                    //$("#getting-startedTimeRemainingClock").addClass("hidden");
+                }
+            }, 1500);
 
         }
     });
@@ -3827,7 +3909,7 @@ var addApplicantCoApplicant = function (at) {
         $('#txtMDateOfBirth').addClass("hidden");
         $('#txtGDateOfBirth').addClass('hidden');
 
-        $("#appphone").addClass("hidden");
+        $("#appphone").removeClass("hidden");
         $("#appemail").removeClass("hidden");
         $("#txtApplicantPhone").val("");
         $("#txtApplicantEmail").val("");
@@ -3874,8 +3956,8 @@ var addApplicantCoApplicant = function (at) {
         $("#appemail").addClass("hidden");
     }
     else if (at == 3) {
-        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
-        modal.find('.modal-content').css("height", "530px");
+        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+        modal.find('.modal-content').css("height", "350px");
         modal.find('.modal-title').text('Add Guarantor');
         $("#popApplicant").modal("show");
         $("#ddlApplicantType").text("Guarantor");
@@ -3896,7 +3978,7 @@ var addApplicantCoApplicant = function (at) {
         $('#txtADateOfBirth').addClass("hidden");
         $('#txtMDateOfBirth').addClass('hidden');
 
-        $("#appphone").addClass("hidden");
+        $("#appphone").removeClass("hidden");
         $("#appemail").removeClass("hidden");
         $("#txtApplicantPhone").val('');
         $("#txtApplicantEmail").val('');
@@ -4149,7 +4231,7 @@ var saveupdateApplicantCoApplicant = function () {
     });
 }
 var totpaid = 0;
-var addApplicntArray = 0;
+var totnotpaid = 0;
 var getApplicantListsCoApplicant = function () {
     var model = {
 
@@ -4163,6 +4245,7 @@ var getApplicantListsCoApplicant = function () {
         dataType: "JSON",
         success: function (response) {
             totpaid = 0;
+            totnotpaid = 0;
             $("#tblApplicantCoApplicant").empty();
             $("#tblApplicant15>tbody").empty();
             $("#tblApplicant15p>tbody").empty();
@@ -4260,35 +4343,126 @@ var getApplicantListsCoApplicant = function () {
                         "</div >" +
                         "</td></tr>";
                 }
-                if (elementValue.Type == "Co-Applicant") {
-                    if (elementValue.Paid == "0") {
-                        if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
-                            totpaid += parseFloat(applicantFees);
-                        }
-                        else {
-                            totpaid += parseFloat(guarantorFees);
+                // Commented By Vijay
+                //if (elementValue.Type == "Co-Applicant") {
+                //    if (elementValue.Paid == "0") {
+                //        if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
+                //            totpaid += parseFloat(applicantFees);
+                //        }
+                //        else {
+                //            totpaid += parseFloat(guarantorFees);
+                //        }
+                //    }
+
+                //    if (elementValue.Paid == "0") {
+
+                //        totalFinalFees += parseFloat(applicantFees);
+                //        addApplicntArray = elementValue.ApplicantID;
+                //        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;'></td><td></td></tr>";
+
+                //    } else {
+
+                //        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;'>Paid</td><td></td></tr>";
+
+                //    }
+                //}
+                //if (elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
+                //    //Sachin's work 22-10
+                //    $("#btnsendemail").removeClass("hidden");
+                //    if (elementValue.Email != null) {
+                //        emailhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:18%; padding:6px;'>" + elementValue.Email + " </td><td style='width:30%; padding:6px;'><input type='checkbox' onclick='addEmail(\"" + elementValue.Email + "\")' id='chkEmail" + elementValue.ApplicantID + "' style='width:25%; border:1px solid;' /></td></tr>";
+                //    }
+                //}
+
+                if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
+
+                    //Code Commented and Modified Vijay //
+
+                    //if (elementValue.Paid == "0") {
+                    //    if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
+                    //        totpaid += parseFloat(applicantFees);
+                    //    }
+                    //    else {
+                    //        totpaid += parseFloat(guarantorFees);
+                    //    }
+                    //}
+                    // sachin m changes 28 Apr 3:47 PM
+                    //if (elementValue.Paid == "0") {
+                    //    if (elementValue.Type == "Primary Applicant") {
+                    //        totalFinalFees += parseFloat(applicantFees);
+                    //        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;'><input type='checkbox' id='chkPayAppFees' checked disabled/></td><td></td></tr>";
+                    //    } else if (elementValue.Type == "Guarantor") {
+                    //        // totalFinalFees += parseFloat(guarantorFees);
+                    //        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + guarantorFees + "</td><td style='width:14%; padding:6px;'><input type='checkbox' class='chkPayAppFees" + elementValue.ApplicantID + "' id='chkPayAppFees" + elementValue.ApplicantID + "' onclick='addAppFess(" + guarantorFees + "," + elementValue.ApplicantID + ")'/></td><td><input type='button' id='btnSendPayLink" + elementValue.ApplicantID + "' style='width:150px;' onclick='sendPayLinkEmail(\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
+                    //    } else {
+                    //        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;'><input type='checkbox' class='chkPayAppFees" + elementValue.ApplicantID + "' id='chkPayAppFees" + elementValue.ApplicantID + "' onclick='addAppFess(" + applicantFees + "," + elementValue.ApplicantID + ")'/></td><td><input type='button' id='btnSendPayLink" + elementValue.ApplicantID + "' style='width:150px;' onclick='sendPayLinkEmail(\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
+                    //    }
+                    //} else {
+                    //    if (elementValue.Type == "Primary Applicant") {
+                    //        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
+                    //    } else if (elementValue.Type == "Guarantor") {
+                    //        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + guarantorFees + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
+                    //    } else {
+                    //        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
+                    //    }
+                    //}
+
+                    if (elementValue.Type == "Co-Applicant") {
+                        if (parseInt($("#hndCoAppUserId").val()) == parseInt(elementValue.ApplicantAddedBy) || parseInt($("#hndCoAppUserId").val()) == parseInt(elementValue.ApplicantUserId) ) {
+                            if (parseInt(elementValue.CreditPaid) == 1) {
+                                totpaid += parseFloat(elementValue.AppCreditFees);
+                                pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:40%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + " (Credit Check)</td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.AppCreditFees).toFixed(2) + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
+                            }
+                            else {
+                                if (parseInt($("#hndCoAppUserId").val()) == parseInt(elementValue.ApplicantUserId)) {
+                                    addApplicntArrayCoapplicant.push({ ApplicantID: elementValue.ApplicantID, Type: 4 });
+                                    totalFinalFees += parseFloat(elementValue.AppCreditFees);
+                                    pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:40%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + " (Credit Check)</td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.AppCreditFees).toFixed(2) + "</td><td style='width:14%; padding:6px;'><input type='checkbox' id='chkPayAppFees' checked disabled/></td><td></td></tr>";
+                                } else {
+                                    pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:40%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + " (Credit Check)</td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.AppCreditFees).toFixed(2) + "</td><td style='width:14%; padding:6px;'><input type='checkbox' class='chkPayAppFees" + elementValue.ApplicantID + "4' id='chkPayAppFees" + elementValue.ApplicantID + "' onclick='addAppFess(" + elementValue.AppCreditFees + "," + elementValue.ApplicantID + ",4)'/></td><td><input type='button' id='btnSendPayLink" + elementValue.ApplicantID + "4' style='width:150px;' onclick='sendPayLinkEmailCoApplicant(" + elementValue.AppCreditFees + "," + elementValue.ApplicantID + ",4,\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
+                                }
+                                totnotpaid += parseFloat(elementValue.AppCreditFees);
+                            }
+                            if (parseInt(elementValue.BackGroundPaid) == 1) {
+                                totpaid += parseFloat(elementValue.AppBackGroundFees);
+                                pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:40%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + " (Background Check)</td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.AppBackGroundFees).toFixed(2) + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
+                            }
+                            else {
+                                if (parseInt($("#hndCoAppUserId").val()) == parseInt(elementValue.ApplicantUserId)) {
+                                    totalFinalFees += parseFloat(elementValue.AppBackGroundFees);
+                                    addApplicntArrayCoapplicant.push({ ApplicantID: elementValue.ApplicantID, Type: 5 });
+                                    pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:40%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + " (Background Check)</td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.AppBackGroundFees).toFixed(2) + "</td><td style='width:14%; padding:6px;'><input type='checkbox' id='chkPayAppFees'  checked disabled/></td><td></td></tr>";
+                                } else {
+                                    pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:40%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + " (Background Check)</td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.AppBackGroundFees).toFixed(2) + "</td><td style='width:14%; padding:6px;'><input type='checkbox' class='chkPayAppFees" + elementValue.ApplicantID + "5' id='chkPayAppFees" + elementValue.ApplicantID + "' onclick='addAppFess(" + elementValue.AppBackGroundFees + "," + elementValue.ApplicantID + ",5)'/></td><td><input type='button' id='btnSendPayLink" + elementValue.ApplicantID + "5' style='width:150px;' onclick='sendPayLinkEmailCoApplicant(" + elementValue.AppBackGroundFees + "," + elementValue.ApplicantID + ",5,\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
+                                }
+                                totnotpaid += parseFloat(elementValue.AppBackGroundFees);
+                            }
                         }
                     }
-
-                    if (elementValue.Paid == "0") {
-
-                        totalFinalFees += parseFloat(applicantFees);
-                        addApplicntArray = elementValue.ApplicantID;
-                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;'></td><td></td></tr>";
-
-                    } else {
-
-                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:14%; padding:6px;'>$" + applicantFees + "</td><td style='width:14%; padding:6px;'>Paid</td><td></td></tr>";
-
+                    else if (elementValue.Type == "Guarantor") {
+                        if (parseInt($("#hndCoAppUserId").val()) == parseInt(elementValue.ApplicantAddedBy) || parseInt($("#hndCoAppUserId").val()) == parseInt(elementValue.ApplicantUserId)) {
+                            if (parseInt(elementValue.CreditPaid) == 1) {
+                                totpaid += parseFloat(elementValue.GuarCreditFees);
+                                pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:40%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + " (Credit Check)</td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.GuarCreditFees).toFixed(2) + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
+                            }
+                            else {
+                                pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:40%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + " (Credit Check)</td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.GuarCreditFees).toFixed(2) + "</td><td style='width:14%; padding:6px;'><input type='checkbox' class='chkPayAppFees" + elementValue.ApplicantID + "4' id='chkPayAppFees" + elementValue.ApplicantID + "' onclick='addAppFess(" + elementValue.GuarCreditFees + "," + elementValue.ApplicantID + ",4)'/></td><td><input type='button' id='btnSendPayLink" + elementValue.ApplicantID + "4' style='width:150px;' onclick='sendPayLinkEmailCoApplicant(" + elementValue.GuarCreditFees + "," + elementValue.ApplicantID + ",4,\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
+                                totnotpaid += parseFloat(elementValue.GuarCreditFees);
+                            }
+                            if (parseInt(elementValue.BackGroundPaid) == 1) {
+                                totpaid += parseFloat(elementValue.GuarCreditFees);
+                                pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:40%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + " (Backgroung Check)</td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.GuarBackGroundFees).toFixed(2) + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
+                            }
+                            else {
+                                pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + " </td><td style='width:40%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + " (Background Check)</td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.GuarBackGroundFees).toFixed(2) + "</td><td style='width:14%; padding:6px;'><input type='checkbox' class='chkPayAppFees" + elementValue.ApplicantID + "5' id='chkPayAppFees" + elementValue.ApplicantID + "' onclick='addAppFess(" + elementValue.GuarBackGroundFees + "," + elementValue.ApplicantID + ",5)'/></td><td><input type='button' id='btnSendPayLink" + elementValue.ApplicantID + "5' style='width:150px;' onclick='sendPayLinkEmailCoApplicant(" + elementValue.GuarBackGroundFees + "," + elementValue.ApplicantID + ",5,\"" + elementValue.Email + "\")' value='Send Payment Link'/></td></tr>";
+                                totnotpaid += parseFloat(elementValue.GuarBackGroundFees);
+                            }
+                        }
                     }
                 }
-                if (elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
-                    //Sachin's work 22-10
-                    $("#btnsendemail").removeClass("hidden");
-                    if (elementValue.Email != null) {
-                        emailhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:18%; padding:6px;'>" + elementValue.Email + " </td><td style='width:30%; padding:6px;'><input type='checkbox' onclick='addEmail(\"" + elementValue.Email + "\")' id='chkEmail" + elementValue.ApplicantID + "' style='width:25%; border:1px solid;' /></td></tr>";
-                    }
-                }
+
+                // Modification
+
 
                 if (elementValue.Type == "Minor") {
                     $("#tblApplicantMinor").append(html);
@@ -4450,7 +4624,6 @@ var getApplicantListsCoApplicant = function () {
                 data: JSON.stringify(model),
                 dataType: "JSON",
                 success: function (response) {
-                    console.log(JSON.stringify(response));
                     $.each(response.model, function (elementType, elementValue) {
                         if (elementValue.Type == "Co-Applicant") {
                             noofCapl += 1;
@@ -4543,23 +4716,28 @@ var getApplicantListsCoApplicant = function () {
                             test = "";
                         }
                     }
+                    if (noofgur == 0) {
+                        $("#tblApplicantGuarantor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(3)'><i class='fa fa-plus-circle'></i> Add Guarantor</a></label></div></div></div></div>");
+                    }
                 }
+
             });
             $("#totalFinalFees").text("$" + parseFloat(totalFinalFees).toFixed(2));
         }
     });
 };
-var addAppFess = function (appFees, appid) {
-    var totfees = unformatTextCoApplicant($("#totalFinalFees").text());
-
-    if ($(".chkPayAppFees" + appid).is(':checked')) {
-        $("#btnSendPayLink" + appid).addClass("hidden");
+var addAppFess = function (appFees, appid, type) {
+    var totfees = unformatText($("#totalFinalFees").text());
+    if ($(".chkPayAppFees" + appid + type).is(':checked')) {
+        $("#btnSendPayLink" + appid + type).addClass("hidden");
         totfees = parseFloat(totfees) + parseFloat(appFees);
         $("#totalFinalFees").text("$" + parseFloat(totfees).toFixed(2));
+        addApplicntArrayCoapplicant.push({ ApplicantID: appid, Type: type });
     } else {
         totfees = parseFloat(totfees) - parseFloat(appFees);
         $("#totalFinalFees").text("$" + parseFloat(totfees).toFixed(2));
-        $("#btnSendPayLink" + appid).removeClass("hidden");
+        $("#btnSendPayLink" + appid + type).removeClass("hidden");
+        addApplicntArrayCoapplicant.pop({ ApplicantID: appid, Type: type });
     }
 }
 var goToEditApplicant = function (aid) {
@@ -4626,21 +4804,20 @@ var goToEditApplicant = function (aid) {
                     $("#ddlApplicantState").val(response.model.StateHome).change();
                     $("#txtApplicantCity").val(response.model.CityHome);
                     $("#txtApplicantZip2").val(response.model.ZipHome);
-
-
-
                 }
                 else if (response.model.Type == "Co-Applicant") {
                     if (response.model.ApplicantAddedBy == $('#hndCoAppUserId').val()) {
                         $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
-                        modal.find('.modal-content').css("height", "300px");
-                        modal.find('.modal-title').text('Edit Minor');
+                        modal.find('.modal-content').css("height", "350px");
+                        modal.find('.modal-title').text('Edit Co-Applicant');
                         $("#popApplicant").modal("show");
-                        $("#ddlApplicantType").text("Minor");
+                        $("#ddlApplicantType").text("Co-Applicant");
                         $("#ddlARelationship").empty();
                         opt = "<option value='0'>Select Relationship</option>";
-                        opt += "<option value='1'>Family Member</option>";
-                        opt += "<option value='2'>Child</option>";
+                        opt += "<option value='1'>Spouse</option>";
+                        opt += "<option value='2'>Partner</option>";
+                        opt += "<option value='3'>Adult Child</option>";
+                        opt += "<option value='4'>Friend/Roommate</option>";
                         $("#ddlARelationship").append(opt);
                         $("#ddlARelationship").val(response.model.Relationship).change();
 
@@ -4653,13 +4830,31 @@ var goToEditApplicant = function (aid) {
                             $("#txtApplicantOtherGender").val('');
                         }
 
-                        $("#txtMDateOfBirth").removeClass("hidden").val(response.model.DateOfBirthTxt);
+                        $("#txtADateOfBirth").removeClass("hidden").val(response.model.DateOfBirthTxt);
                         $('#txtHDateOfBirth').addClass("hidden");
-                        $('#txtADateOfBirth').addClass("hidden");
+                        $('#txtMDateOfBirth').addClass("hidden");
                         $('#txtGDateOfBirth').addClass('hidden');
 
-                        $("#appphone").addClass("hidden");
-                        $("#appemail").addClass("hidden");
+                        $("#appphone").removeClass("hidden");
+                        $("#appemail").removeClass("hidden");
+                        $("#txtApplicantPhone").val(formatPhoneFaxCoApplicant(response.model.Phone));
+                        $("#txtApplicantEmail").val(response.model.Email);
+
+                        $("#txtApplicantSSNNumber").val(response.model.SSN);
+                        $("#txtApplicantSSNNumber").attr("data-value", response.model.SSNEnc);
+
+                        $("#ddlApplicantDocumentTypePersonal").val(response.model.IDType).change();
+                        $("#ddlApplicantStateDoc").val(response.model.State).change();
+                        $("#txtApplicantIDNumber").val(response.model.IDNumber);
+                        $("#txtApplicantIDNumber").attr("data-value", response.model.IDNumberEnc);
+
+                        $("#txtApplicantCountry").val(response.model.Country);
+                        $("#txtApplicantCountry").trigger('change');
+                        $("#txtAddressLine1").val(response.model.HomeAddress1);
+                        $("#txtAddressLine2").val(response.model.HomeAddress2);
+                        $("#ddlApplicantState").val(response.model.StateHome).change();
+                        $("#txtApplicantCity").val(response.model.CityHome);
+                        $("#txtApplicantZip2").val(response.model.ZipHome);
                         $("#hndNewCoApp").val("1");
                     }
                     else {
@@ -4715,8 +4910,8 @@ var goToEditApplicant = function (aid) {
                     }
                 }
                 else if (response.model.Type == "Guarantor") {
-                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
-                    modal.find('.modal-content').css("height", "530px");
+                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+                    modal.find('.modal-content').css("height", "350px");
                     modal.find('.modal-title').text('Edit Guarantor');
                     $("#popApplicant").modal("show");
                     $("#ddlApplicantType").text("Guarantor");
@@ -4741,7 +4936,7 @@ var goToEditApplicant = function (aid) {
                     $('#txtADateOfBirth').addClass("hidden");
                     $('#txtMDateOfBirth').addClass('hidden');
 
-                    $("#appphone").addClass("hidden");
+                    $("#appphone").removeClass("hidden");
                     $("#appemail").removeClass("hidden");
                     $("#txtApplicantPhone").val(formatPhoneFaxCoApplicant(response.model.Phone));
                     $("#txtApplicantEmail").val(response.model.Email);
@@ -5433,10 +5628,12 @@ var saveupdateTenantOnlineCoapplicant = function (stepcompleted) {
     $formData.append('IsProprNoticeLeaseAgreement', properNoticeLeaseAgreement);
 
     if ($("#rbtnPaystub").is(":checked")) {
-        $formData.append('IsPaystub', true);
+        $formData.append('IsPaystub', 1);
     }
     else if ($("#rbtnFedralTax").is(":checked")) {
-        $formData.append('IsPaystub', false);
+        $formData.append('IsPaystub', 0);
+    } else if ($("#rbtnBankStatement").is(":checked")) {
+        $formData.append('IsPaystub', 2);
     }
 
     $.ajax({
@@ -5520,6 +5717,8 @@ var getTenantOnlineListCoApplicant = function (id) {
         success: function (response) {
 
             $("#ddlIsInter").val(response.model.IsInternational).change();
+            $("#txtEmailNew").val(response.model.Email);
+            $("#txtMobileNumber").val(formatPhoneFaxCoApplicant(response.model.Mobile));
             $("#hndDocumentTypePersonal").val(response.model.IDType);
             //new
             $("#ddlCountryOfOrigin").val(response.model.CountryOfOrigin);
@@ -5672,7 +5871,7 @@ var getTenantOnlineListCoApplicant = function (id) {
             //setTimeout(function () {
 
             $("#txtZip").val(response.model.ZipHome);
-            $("#ddlRentOwn").val(response.model.RentOwn);
+            $("#ddlRentOwn").val(response.model.RentOwn).change();
             //$("#txtMoveInDate").val(response.model.MoveInDateTxt);
             $("#txtMonthlyPayment").val(formatMoneyCoApplicant(response.model.MonthlyPayment));
             $("#txtReasonforleaving").val(response.model.Reason);
@@ -5862,12 +6061,13 @@ var getTenantOnlineListCoApplicant = function (id) {
             }
             //alert(response.model.IsPaystub);
 
-            if (response.model.IsPaystub == true) {
-
+            if (response.model.IsPaystub == 1) {
                 $("#rbtnPaystub").iCheck('check');
             }
-            else {
+            else if (response.model.IsPaystub == 0) {
                 $("#rbtnFedralTax").iCheck('check');
+            } else {
+                $("#rbtnBankStatement").iCheck('check');
             }
 
             $("#divLoaderFullData").hide();
@@ -6309,18 +6509,20 @@ var saveupdateApplicantHistoryCoApplicant = function () {
     if ($("#txtMoveInDateTo2").val() == '') {
         msg += 'Please Fill Move Out Date</br>';
     }
-    if (!$("#txtApartmentCommunity2").val()) {
-        msg += "Please Fill Apartment Community </br>";
-    }
-    if (!$("#txtManagementCompany2").val()) {
-        msg += "Please Fill Management Company </br>";
-    }
-    if (!unformatTextCoApplicant($("#txtManagementCompanyPhone2").val())) {
-        msg += "Please Fill Management Company Phone</br>";
-    }
-    else {
-        if (unformatTextCoApplicant($("#txtManagementCompanyPhone2").val()).length < 10) {
-            msg += "Please Fill Valid Management Company Phone </br>";
+    if ($("#ddlRentOwn2").val() == '1') {
+        if (!$("#txtApartmentCommunity2").val()) {
+            msg += "Please Fill Apartment Community </br>";
+        }
+        if (!$("#txtManagementCompany2").val()) {
+            msg += "Please Fill Management Company </br>";
+        }
+        if (!unformatText($("#txtManagementCompanyPhone2").val())) {
+            msg += "Please Fill Management Company Phone</br>";
+        }
+        else {
+            if (unformatText($("#txtManagementCompanyPhone2").val()).length < 10) {
+                msg += "Please Fill Valid Management Company Phone </br>";
+            }
         }
     }
     if (msg != '') {
@@ -6440,7 +6642,7 @@ var getApplicantHistoryInfoCoApplicant = function (id) {
             fillStateDDL_Home2CoApplicant(response.model.Country, response.model.StateHome);
             $("#ddlCityHome2").val(response.model.CityHome);
             $("#txtZip2").val(response.model.ZipHome);
-            $("#ddlRentOwn2").val(response.model.RentOwn);
+            $("#ddlRentOwn2").val(response.model.RentOwn).change();
             $("#txtMoveInDateFrom2").val(response.model.MoveInDateFromTxt);
             $("#txtMoveInDateTo2").val(response.model.MoveInDateToTxt);
             $("#txtMonthlyPayment2").val(response.model.MonthlyPayment);
@@ -6555,11 +6757,14 @@ var sendCoappEmailCoApplicant = function () {
         }
     });
 };
-
-var sendPayLinkEmailCoApplicant = function (emil) {
+var sendPayLinkEmailCoApplicant = function (chargeamount, appid, chargetype, email) {
 
     var model = {
-        Email: emil, ProspectId: $("#hdnOPId").val()
+        ProspectId: $("#hdnOPId").val(),
+        ApplicationID: appid,
+        ChargeAmount: chargeamount,
+        ChargeType: chargetype,
+        Email: email
     };
 
     $.alert({
@@ -6572,7 +6777,7 @@ var sendPayLinkEmailCoApplicant = function (emil) {
                 action: function (yes) {
                     $("#divLoader").show();
                     $.ajax({
-                        url: "/ApplyNow/SendPayLinkEmail",
+                        url: "/ApplyNow/SendPayLinkEmailApplyNow",
                         type: "post",
                         contentType: "application/json utf-8",
                         data: JSON.stringify(model),
@@ -6596,6 +6801,46 @@ var sendPayLinkEmailCoApplicant = function (emil) {
         }
     });
 };
+//var sendPayLinkEmailCoApplicant = function (emil) {
+
+//    var model = {
+//        Email: emil, ProspectId: $("#hdnOPId").val()
+//    };
+
+//    $.alert({
+//        title: "",
+//        content: "Are you sure to send Payment Link Email?",
+//        type: 'blue',
+//        buttons: {
+//            yes: {
+//                text: 'Yes',
+//                action: function (yes) {
+//                    $("#divLoader").show();
+//                    $.ajax({
+//                        url: "/ApplyNow/SendPayLinkEmail",
+//                        type: "post",
+//                        contentType: "application/json utf-8",
+//                        data: JSON.stringify(model),
+//                        dataType: "JSON",
+//                        success: function (response) {
+//                            $("#divLoader").hide();
+//                            $.alert({
+//                                title: "",
+//                                content: "Email Sent Successfully",
+//                                type: 'blue',
+//                            });
+//                        }
+//                    });
+//                }
+//            },
+//            no: {
+//                text: 'No',
+//                action: function (no) {
+//                }
+//            }
+//        }
+//    });
+//};
 var haveVehicleCoApplicant = function () {
     $("#divLoader").show();
     var ProspectID = $("#hdnOPId").val();
@@ -8211,18 +8456,15 @@ var ddlDocumentTypePersonalCoapplicant = function (id) {
     var option = '<option value="0">Select</option>';
     option += '<option value="1">Drivers License</option>';
     option += '<option value="2">Military ID</option>';
-    option += '<option value="3">Passport</option>';
     option += '<option value="4">State Issued ID</option>';
     $('#divIDState').removeClass("hidden");
-    $('#divIdType').removeClass("hidden");
-    $('#divUploadIdType').removeClass("hidden");
+    $('#divIDDocumentType').removeClass("hidden");
     if (id == '0') {
-
+        option += '<option value="3">Passport</option>';
     }
     else {
         $('#divIDState').addClass("hidden");
-        $('#divIdType').addClass("hidden");
-        $('#divUploadIdType').addClass("hidden");
+        $('#divIDDocumentType').addClass("hidden");
     }
     $('#ddlDocumentTypePersonal').append(option);
     $('#ddlDocumentTypePersonal').val($("#hndDocumentTypePersonal").val());

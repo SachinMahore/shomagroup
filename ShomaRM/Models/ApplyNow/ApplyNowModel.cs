@@ -71,10 +71,11 @@ namespace ShomaRM.Models
             int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.PID != 0)
             {
+                var GetApplicantData = db.tbl_Applicant.Where(p => p.UserID == userid).FirstOrDefault();
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
-                var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
+                var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ApplicantID == GetApplicantData.ApplicantID).FirstOrDefault();
                 var GetPropertyDetails = db.tbl_Properties.Where(P => P.PID == 8).FirstOrDefault();
-
+                
                 decimal processingFees = 0;
 
                 if(GetPropertyDetails!=null)
@@ -114,12 +115,23 @@ namespace ShomaRM.Models
                             var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == coapp.ApplicantID).FirstOrDefault();
                             if (coappliList != null)
                             {
-                                coappliList.Paid = 1;
+                                if(coapp.Type=="4")
+                                {
+                                    coappliList.CreditPaid = 1;
+                                }
+                                if(coapp.Type=="5")
+                                {
+                                    coappliList.BackGroundPaid = 1;
+                                }
+                                if ((coappliList.CreditPaid ?? 0) == 1 && (coappliList.BackGroundPaid ?? 0) == 1)
+                                {
+                                    coappliList.Paid = 1;
+                                }
                                 db.SaveChanges();
-
                             }
                         }
                     }
+                    string opid = "1";
                     if (GetPayDetails != null)
                     {
                         GetPayDetails.Name_On_Card = model.Name_On_Card;
@@ -129,9 +141,9 @@ namespace ShomaRM.Models
                         GetPayDetails.CCVNumber = encrytpedRoutingNumber;
                         GetPayDetails.ProspectId = model.ProspectId;
                         GetPayDetails.PaymentMethod = model.PaymentMethod;
-                        GetPayDetails.ApplicantID = 0;
+                        GetPayDetails.ApplicantID = GetApplicantData.ApplicantID;
                         db.SaveChanges();
-
+                        opid = GetPayDetails.ID.ToString();
                     }
                     else
                     {
@@ -145,17 +157,18 @@ namespace ShomaRM.Models
                             CCVNumber = !string.IsNullOrWhiteSpace(model.CCVNumber) ? new EncryptDecrypt().EncryptText(model.CCVNumber) : "",
                             ProspectId = model.ProspectId,
                             PaymentMethod = model.PaymentMethod,
-                            ApplicantID = 0,
-                    };
+                            ApplicantID = GetApplicantData.ApplicantID,
+                        };
                         db.tbl_OnlinePayment.Add(savePaymentDetails);
                         db.SaveChanges();
+                        opid = savePaymentDetails.ID.ToString();
                     }
                     var saveTransaction = new tbl_Transaction()
                     {
 
                         TenantID = userid,
                         Revision_Num = 1,
-                        Transaction_Type = "1",
+                        Transaction_Type = opid,
                         Transaction_Date = DateTime.Now,
                         Run = 1,
                         LeaseID = 0,
@@ -165,7 +178,6 @@ namespace ShomaRM.Models
                         Description = model.Description + "| TransID: " + strlist[1],
                         Charge_Date = DateTime.Now,
                         Charge_Type = 1,
-
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
                         Miscellaneous_Amount = processingFees,
@@ -209,7 +221,10 @@ namespace ShomaRM.Models
                     message = "Online Application Completed and Payment of $"+ model.Charge_Amount + " Received. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                     msg = "1";
                 }
@@ -217,7 +232,6 @@ namespace ShomaRM.Models
                 {
                     msg = "0";
                 }
-
             }
 
             db.Dispose();
@@ -267,7 +281,7 @@ namespace ShomaRM.Models
                 if (strlist[1] != "000000")
                 {
                     //Added by Sachin M 29 Apr 5:16PM
-                   
+                    string opid = "1";
                     if (GetPayDetails != null)
                     {
                         GetPayDetails.Name_On_Card = model.Name_On_Card;
@@ -279,7 +293,7 @@ namespace ShomaRM.Models
                         GetPayDetails.PaymentMethod = model.PaymentMethod;
                         GetPayDetails.ApplicantID = 0;
                         db.SaveChanges();
-
+                        opid = GetPayDetails.ID.ToString();
                     }
                     else
                     {
@@ -297,13 +311,14 @@ namespace ShomaRM.Models
                         };
                         db.tbl_OnlinePayment.Add(savePaymentDetails);
                         db.SaveChanges();
+                        opid = savePaymentDetails.ID.ToString();
                     }
                     var saveTransaction = new tbl_Transaction()
                     {
 
                         TenantID = userid,
                         Revision_Num = 1,
-                        Transaction_Type = "1",
+                        Transaction_Type = opid,
                         Transaction_Date = DateTime.Now,
                         Run = 1,
                         LeaseID = 0,
@@ -362,7 +377,10 @@ namespace ShomaRM.Models
                     message = "Online Application Completed and Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                     msg = "1";
                 }
@@ -436,7 +454,11 @@ namespace ShomaRM.Models
                     {
                         bat = "4";
                     }
-                        long paid = 0;
+                    if (model.FromAcc == 5)
+                    {
+                        bat = "5";
+                    }
+                    long paid = 0;
                     var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId && P.ApplicantID == model.AID).FirstOrDefault();
                     if (GetPayDetails == null)
                     {
@@ -521,7 +543,10 @@ namespace ShomaRM.Models
                             message = "Online Application Completed and Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
                             if (SendMessage == "yes")
                             {
-                                new TwilioService().SMS(phonenumber, message);
+                                if (!string.IsNullOrWhiteSpace(phonenumber))
+                                {
+                                    new TwilioService().SMS(phonenumber, message);
+                                }
                             }
                         }
                        else if (model.FromAcc == 4)
@@ -541,7 +566,10 @@ namespace ShomaRM.Models
                             message = "Credit Check Fees Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
                             if (SendMessage == "yes")
                             {
-                                new TwilioService().SMS(phonenumber, message);
+                                if (!string.IsNullOrWhiteSpace(phonenumber))
+                                {
+                                    new TwilioService().SMS(phonenumber, message);
+                                }
                             }
                             string pass = "";
                             pass = new EncryptDecrypt().DecryptText(UserData.Password);
@@ -561,7 +589,43 @@ namespace ShomaRM.Models
                             message = "Credit Check Approved. Please check the email for detail.";
                             if (SendMessage == "yes")
                             {
-                                new TwilioService().SMS(phonenumber, message);
+                                if (!string.IsNullOrWhiteSpace(phonenumber))
+                                {
+                                    new TwilioService().SMS(phonenumber, message);
+                                }
+                            }
+                        }
+                        else if (model.FromAcc == 5)
+                        {
+                            GetCoappDet.BackGroundPaid = 1;
+                            GetCoappDet.Paid=1;
+                            db.SaveChanges();
+
+                            filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+                            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                            reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                            message = "";
+                            phonenumber = GetCoappDet.Phone;
+                            if (model != null)
+                            {
+                                reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Background Check Payment Received");
+                                reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
+
+                                reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
+
+                                reportHTML = reportHTML.Replace("[%TenantEmail%]", GetCoappDet.Email);
+
+                            }
+                            string body = reportHTML;
+
+                            new EmailSendModel().SendEmail(GetCoappDet.Email, "Application Completed and Background Check Payment Received", body);
+                            message = "Online Application Completed and Background Check Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
+                            if (SendMessage == "yes")
+                            {
+                                if (!string.IsNullOrWhiteSpace(phonenumber))
+                                {
+                                    new TwilioService().SMS(phonenumber, message);
+                                }
                             }
                         }
                         else
@@ -580,7 +644,10 @@ namespace ShomaRM.Models
                             message = "Administration Fees Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
                             if (SendMessage == "yes")
                             {
-                                new TwilioService().SMS(phonenumber, message);
+                                if (!string.IsNullOrWhiteSpace(phonenumber))
+                                {
+                                    new TwilioService().SMS(phonenumber, message);
+                                }
                             }
                             var currentUser = new CurrentUser();
                             currentUser.UserID = Convert.ToInt32(GetProspectData.UserId);
@@ -645,7 +712,10 @@ namespace ShomaRM.Models
                 message = "Your password change link has been sent to your email. Please check the email for detail.";
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
             }
             return model;
@@ -766,7 +836,10 @@ namespace ShomaRM.Models
                     new EmailSendModel().SendEmail(onlineProspectData.Email, applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application", body);
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
             }
@@ -1576,7 +1649,10 @@ namespace ShomaRM.Models
 
                     //if (SendMessage == "yes")
                     //{
-                    //    new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                    //    if (!string.IsNullOrWhiteSpace(model.Phone))
+                    //    {
+                    //        new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                    //    }
                     //}
                 }
                 msg = "Email send successfully";

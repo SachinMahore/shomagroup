@@ -690,6 +690,9 @@
     <Property Name="IsCheckWater" Type="int" />
     <Property Name="CreatedDate" Type="datetime" />
     <Property Name="IsCheckSD" Type="int" />
+    <Property Name="PreMoveInDate" Type="datetime" />
+    <Property Name="PreMoveInTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="Movers" Type="int" />
   </EntityType>
   <EntityType Name="tbl_MoveInPayment">
     <Key>
@@ -1270,7 +1273,7 @@
     <Property Name="HavePet" Type="bit" />
     <Property Name="PassportDocumentOriginalFile" Type="varchar" MaxLength="500" />
     <Property Name="IdentityDocumentOriginalFile" Type="varchar" MaxLength="500" />
-    <Property Name="IsPaystub" Type="bit" />
+    <Property Name="IsPaystub" Type="int" />
     <Property Name="ProfilePicture" Type="varchar" MaxLength="500" />
     <Property Name="OrginalProfilePicture" Type="varchar" MaxLength="500" />
     <Property Name="IsAgreePostDisclaimer" Type="int" />
@@ -1377,7 +1380,7 @@
     <Property Name="HavePet" Type="bit" />
     <Property Name="PassportDocumentOriginalFile" Type="varchar" MaxLength="500" />
     <Property Name="IdentityDocumentOriginalFile" Type="varchar" MaxLength="500" />
-    <Property Name="IsPaystub" Type="bit" />
+    <Property Name="IsPaystub" Type="int" />
     <Property Name="CountryOfOrigin" Type="bigint" />
     <Property Name="Evicted" Type="int" />
     <Property Name="EvictedDetails" Type="varchar" MaxLength="500" />

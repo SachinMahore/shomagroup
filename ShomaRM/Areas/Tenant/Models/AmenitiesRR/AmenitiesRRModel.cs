@@ -556,7 +556,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     new ShomaRM.Models.EmailSendModel().SendEmail(GetTenantData.Email, "Amenity Reservation Request Status", body);
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
             }

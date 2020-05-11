@@ -330,7 +330,10 @@ namespace ShomaRM.Areas.Admin.Models
                             message = "This is a confirmation message for your appointment. Please check the email for detail.";
                             if (SendMessage == "yes")
                             {
-                                new TwilioService().SMS(phonenumber, message);
+                                if (!string.IsNullOrWhiteSpace(phonenumber))
+                                {
+                                    new TwilioService().SMS(phonenumber, message);
+                                }
                             }
 
                             string reportHTMLAgent = "";
@@ -346,15 +349,15 @@ namespace ShomaRM.Areas.Admin.Models
                             new EmailSendModel().SendEmail(info.Email, "Appointment for " + prospData.FirstName + " " + prospData.LastName + " on " + model.RequiredDateText, bodyAg);
 
                             string message1 = "Please to be informed that a meeting has been scheduled. Please check the email for detail.";
+
                             if (SendMessage == "yes")
                             {
-                                new TwilioService().SMS(phonenumber, message1);
+                                if (!string.IsNullOrWhiteSpace(phonenumber))
+                                {
+                                    new TwilioService().SMS(phonenumber, message);
+                                }
                             }
-
-
                         }
-                      
-
                     }
                     else
                     {
@@ -376,10 +379,12 @@ namespace ShomaRM.Areas.Admin.Models
                         message = "This is a cancellation message for your shoma appointment. Please check the email for detail.";
                         if (SendMessage == "yes")
                         {
-                            new TwilioService().SMS(phonenumber, message);
+                            if (!string.IsNullOrWhiteSpace(phonenumber))
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
                         }
                     }
-
                 };
             }
             return msg;

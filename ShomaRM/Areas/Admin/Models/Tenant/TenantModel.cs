@@ -462,12 +462,13 @@ namespace ShomaRM.Areas.Admin.Models
             }
             string body = reportHTML;
             new EmailSendModel().SendEmail(model.OfficeEmail, "Tenant Registration Successfull", body);
-
             if (SendMessage == "yes")
             {
-                new TwilioService().SMS(phonenumber, message);
+                if (!string.IsNullOrWhiteSpace(phonenumber))
+                {
+                    new TwilioService().SMS(phonenumber, message);
+                }
             }
-
             db.Dispose();
             return model.ID;
         }
@@ -1170,13 +1171,14 @@ namespace ShomaRM.Areas.Admin.Models
 
                             string coappbody = reportCoappHTML;
                             new EmailSendModel().SendEmail(tl.Email, "Tenant Account Created Successfully", coappbody);
-
                             if (SendMessage == "yes")
                             {
-                                new TwilioService().SMS(tl.Phone, "Tenant Account Created Successfully and credentials has been sent on your email. Please check the email for detail.");
+                                if (!string.IsNullOrWhiteSpace(tl.Phone))
+                                {
+                                    new TwilioService().SMS(tl.Phone, "Tenant Account Created Successfully and credentials has been sent on your email. Please check the email for detail.");
+                                }
                             }
                         }
-
 
                         var getCoappPayMeth = db.tbl_OnlinePayment.Where(p => p.ProspectId == model.ProspectID && p.ApplicantID==tl.ApplicantID).FirstOrDefault();
                         long coapppaid = 0;
@@ -1420,7 +1422,10 @@ namespace ShomaRM.Areas.Admin.Models
 
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
                 msg = model.TenantID.ToString();
             }

@@ -61,6 +61,8 @@ namespace ShomaRM.Areas.Admin.Models
         public string TCardExpirationMonth { get; set; }
         public string TCardExpirationYear { get; set; }
         public string TransactionDateString { get; set; }
+        public string ApplicantName { get; set; }
+        public string ApplicantType { get; set; }
 
         public int BuildPaganationTransactionList(TransactionSearchModel model)
         {
@@ -501,6 +503,8 @@ namespace ShomaRM.Areas.Admin.Models
                     pr.Charge_Type = dr["Charge_Type"].ToString();
                     pr.Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString());
                     pr.TBankName = dr["TBankName"].ToString();
+                    pr.ApplicantName =dr["ApplicantName"].ToString();
+                    pr.ApplicantType = dr["ApplicantType"].ToString();
 
                     lstpr.Add(pr);
                 }

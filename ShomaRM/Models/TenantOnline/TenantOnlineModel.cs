@@ -121,7 +121,7 @@ namespace ShomaRM.Models
         public string UploadOriginalPassportName { get; set; }
         public string tempIdentityUpload { get; set; }
         public string UploadOriginalIdentityName { get; set; }
-        public bool IsPaystub { get; set; }
+        public int IsPaystub { get; set; }
         public string StatePersonalString { get; set; }
         public string StateHomeString { get; set; }
         public string CountryString { get; set; }
@@ -475,7 +475,7 @@ namespace ShomaRM.Models
                     lstpr.UploadOriginalFileName3 = dr["TaxReturnOrginalFile3"].ToString();
                     lstpr.UploadOriginalPassportName = dr["PassportDocumentOriginalFile"].ToString();
                     lstpr.UploadOriginalIdentityName = dr["IdentityDocumentOriginalFile"].ToString();
-                    lstpr.IsPaystub = Convert.ToBoolean(dr["IsPaystub"].ToString());
+                    lstpr.IsPaystub = Convert.ToInt32(dr["IsPaystub"].ToString());
 
                     lstpr.CountryOfOrigin = Convert.ToInt64(dr["CountryOfOrigin"].ToString());
                     lstpr.Evicted = Convert.ToInt32(dr["Evicted"].ToString());
@@ -1366,6 +1366,46 @@ namespace ShomaRM.Models
                 db.Database.Connection.Close();
                 throw ex;
             }
+        }
+        public string CheckApplicationStatus(long TenantID)
+        {
+            string result = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+            var applicantData = db.tbl_Applicant.Where(p => p.TenantID == TenantID).ToList();
+            var numOfPets = db.tbl_TenantPetPlace.Where(p => p.TenantID == TenantID).FirstOrDefault();
+            var petData = db.tbl_TenantPet.Where(p => p.TenantID == TenantID).Count();
+
+            var allPmtReceived = 1;
+            var allPetAdded = 1;
+
+            foreach(var ad in applicantData)
+            {
+                if((ad.CreditPaid??0)==0 || (ad.BackGroundPaid ?? 0) == 0)
+                {
+                    allPmtReceived = 0;
+                }
+            }
+
+            if((numOfPets.PetPlaceID??0)!=petData)
+            {
+                allPetAdded = 0;
+            }
+
+            if(allPmtReceived!=1)
+            {
+                result += "Full Application Payment Is Not Received<br/>";
+            }
+
+            if (allPetAdded != 1)
+            {
+                result += "All Pet Information Is Not Added<br/>";
+            }
+
+            if(result!="")
+            {
+                result += "<br/>Please Complete All Requirement To Submit Complete Application<br/>";
+            }
+            return result;
         }
     }
 

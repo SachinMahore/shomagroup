@@ -26,5 +26,8 @@ namespace ShomaRM.Data
         public Nullable<int> IsCheckWater { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> IsCheckSD { get; set; }
+        public Nullable<System.DateTime> PreMoveInDate { get; set; }
+        public string PreMoveInTime { get; set; }
+        public Nullable<int> Movers { get; set; }
     }
 }

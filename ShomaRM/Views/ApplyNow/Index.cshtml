@@ -1747,7 +1747,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                <div class="col-sm-4">
+                                <div id="divIDDocumentType" class="col-sm-4">
                                     <div class="form-group">
                                         <label for="ddlDocumentType" class="star">ID Type</label>
                                         <select id="ddlDocumentTypePersonal" class="form-control " style="width:100%!important"></select>
@@ -2164,13 +2164,13 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Supervisor Name</label>
+                                        <label class="star">Supervisor Name</label>
                                         <input id="txtSupervisiorName" class="form-control form-control-small" type="text" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Supervisor Phone</label>
+                                        <label class="star">Supervisor Phone</label>
                                         <input id="txtSupervisiorPhone" class="form-control form-control-small" type="text" onkeypress="return isOnlyNumber(event)" maxlength="10" />
                                     </div>
                                 </div>
@@ -2183,15 +2183,19 @@
                             </div>
 
                             <div class="col-sm-12">
+                                @*<p>Upload last 3 paystubs or if self-employed last 2 year's Fedral Tax Returns or 3 consecutive bank statements</p>*@
                                 <p>Upload last 3 paystubs or if self-employed last 2 year's Fedral Tax Returns</p>
                             </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <input id="rbtnPaystub" class="form-control form-control-small" type="radio" name="tax" />
-                                        <label for="rbtnPaystub">Paystub</label>
+                                        <label for="rbtnPaystub">Paystub</label>&nbsp;&nbsp;
                                         <input id="rbtnFedralTax" class="form-control form-control-small" type="radio" name="tax" checked="checked" />
                                         <label for="rbtnFedralTax">Fedral Tax Return</label>
+                                        &nbsp;&nbsp;
+                                        <input id="rbtnBankStatement" class="form-control form-control-small hidden" name="taxAAAA"  />
+                                        <label for="rbtnBankStatement" class="hidden">Bank Statements</label>
                                     </div>
                                 </div>
                             </div>
@@ -3814,19 +3818,23 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody></tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="5"> <div class="dot-hr"></div></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th><b>Total Payble Amount</b></th>
+                                                        <th><b><label id="totalFinalFees" style="font-weight: bold;"></label></b></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
                                             </table>
 
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-12">
-                                        <div class="dot-hr"></div>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <div class="col-sm-5"><b>Total Payble Amount</b></div>
-                                        <div class="col-sm-2" style="margin-left: 30px;"><b><label id="totalFinalFees"></label></b></div>
-                                    </div>
-
                                     <input type="hidden" id="hndTransID" value="0" />
                                     <input type="hidden" id="hndTransMethod" value="2" />
                                     <div class="col-sm-12">
@@ -3912,7 +3920,7 @@
                                         </div>
                                         <div class="form-group col-sm-2">
                                             <label for="txtCcvNumber" class="star">CVV Number</label>
-                                            <input type="password" class="form-control" id="txtCCVNumber" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="@Model.CCVNumber">
+                                            <input type="password" class="form-control" id="txtCCVNumber" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
                                         </div>
 
                                     </div>
@@ -3920,11 +3928,13 @@
                                     <div class="col-sm-12">
                                         <div class="dot-hr"></div>
                                     </div>
-                                    <div class="col-sm-8">
-
-                                        <button type="submit" class="btn btn-primary" id="btnpaynow" onclick="savePayment()" disabled>Pay Now</button>
+                                    <div class="col-sm-12" style="margin-bottom:20px">
+                                        <input type="checkbox" id="chkTermsAndCondition">
+                                        <span class="chektext">
+                                            I agree to the
+                                            <span class="span1"><a id="ShowTermsAndCondition" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <button type="submit" class="btn btn-primary" id="btnpaynow" onclick="savePayment()" disabled>Pay Now</button>
+                                        </span>
                                     </div>
-
                                 </div>
 
                                 <div class="col-sm-12 hidden" id="Divtranslist">
@@ -3936,14 +3946,12 @@
                                         <table id="tblTransaction" class="table-bordered table-responsive" width="100%">
                                             <thead>
                                                 <tr>
-
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">Name</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Trans Date</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Amount</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Trans Type</th>
-
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Description</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Status</th>
-                                                    @*<th style="background-color: #c7cdd5;color:#3d3939">Created Date</th>*@
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -4902,13 +4910,13 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label id="lbl_txtManagementCompany2" class="star">Management Company</label>
+                            <label id="lbl_txtManagementCompany2" class="star">Landlord/Management Company</label>
                             <input class="form-control form-control-small" id="txtManagementCompany2" max="500" />
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label id="lbl_txtManagementCompanyPhone2" class="star">Management Company Phone</label>
+                            <label id="lbl_txtManagementCompanyPhone2" class="star">Landlord/Management Company Phone</label>
                             <input class="form-control form-control-small" id="txtManagementCompanyPhone2" maxlength="10" onkeypress="return isNumber(event)" />
                         </div>
                     </div>
@@ -5214,13 +5222,13 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label>Supervisor Name</label>
+                                <label class="star">Supervisor Name</label>
                                 <input id="txtSupervisiorNameHEI" class="form-control form-control-small" type="text" />
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label>Supervisor Phone</label>
+                                <label class="star">Supervisor Phone</label>
                                 <input id="txtSupervisiorPhoneHEI" class="form-control form-control-small" type="text" onkeypress="return isOnlyNumber(event)" maxlength="10" />
                             </div>
                         </div>
@@ -5582,6 +5590,16 @@
             </div>
             <div class="modal-footer-custom">
                 <button id="quotePrint" class="btn btn-primary" onclick="print('divQuotes')"> Print</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal " id="modalTermsCondition" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
+    <div class="modal-dialog" style="width:1100px">
+        <div class="modal-content" style="width: 100% !important;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <div class="modal-body text-center">
+                <div><iframe src="~/Content/assets/img/Document/TermAndCondition.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
             </div>
         </div>
     </div>
@@ -6054,12 +6072,12 @@
         });
 
         $("#ddlGenderReg").on("change", function () {
-            if ($(this).val() == 2) {
-                $("#lblMiddleInitialReg").addClass("star");
-            }
-            else {
-                $("#lblMiddleInitialReg").removeClass("star");
-            }
+            //if ($(this).val() == 2) {
+            //    $("#lblMiddleInitialReg").addClass("star");
+            //}
+            //else {
+            //    $("#lblMiddleInitialReg").removeClass("star");
+            //}
             if ($(this).val() == 3) {
                 $("#txtOtherGenderReg").attr("disabled", false);
             }

@@ -476,7 +476,10 @@ namespace ShomaRM.Areas.Admin.Models
                                 new EmailSendModel().SendEmail(app.Email, "Move In charges Payment Link", bodyCoapp);
                                 if (SendMessage == "yes")
                                 {
-                                    new TwilioService().SMS(app.Phone, "Congratulations ! Your Application is Approved. Please check the email for Move In charges Payment Link.");
+                                    if (!string.IsNullOrWhiteSpace(app.Phone))
+                                    {
+                                        new TwilioService().SMS(app.Phone, "Congratulations ! Your Application is Approved. Please check the email for Move In charges Payment Link.");
+                                    }
                                 }
                             }
                         }
@@ -504,9 +507,11 @@ namespace ShomaRM.Areas.Admin.Models
                 new EmailSendModel().SendEmail(Email, sub, body);
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
-
             }
 
             msg = "Email Send Successfully";
@@ -547,7 +552,10 @@ namespace ShomaRM.Areas.Admin.Models
                 new EmailSendModel().SendEmail(GetTenantDet.Email, "Reminder to Pay Administration Fees", body);
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
             }
             else if (RemType == 2)
@@ -576,7 +584,10 @@ namespace ShomaRM.Areas.Admin.Models
                     new EmailSendModel().SendEmail(apptdata.Email, "Reminder Review and Sign your application", body);
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
             }
@@ -939,7 +950,10 @@ namespace ShomaRM.Areas.Admin.Models
 
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
             }
             db.Dispose();
