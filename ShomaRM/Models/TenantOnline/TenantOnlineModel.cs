@@ -117,6 +117,7 @@ namespace ShomaRM.Models
         public string UploadOriginalFileName2 { get; set; }
         public string tempUpload3 { get; set; }
         public string UploadOriginalFileName3 { get; set; }
+       
         public string tempPassportUpload { get; set; }
         public string UploadOriginalPassportName { get; set; }
         public string tempIdentityUpload { get; set; }
@@ -158,6 +159,24 @@ namespace ShomaRM.Models
 
         public string CreatedDateString { get; set; }
         public string ExpireDate { get; set; }
+        //sachin m 11 may
+        public string TaxReturn4 { get; set; }
+        public string TaxReturn5 { get; set; }
+        public string TaxReturn6 { get; set; }
+        public string TaxReturn7 { get; set; }
+        public string TaxReturn8 { get; set; }
+        public string tempUpload4 { get; set; }
+        public string UploadOriginalFileName4 { get; set; }
+        public string tempUpload5 { get; set; }
+        public string UploadOriginalFileName5 { get; set; }
+        public string tempUpload6 { get; set; }
+        public string UploadOriginalFileName6 { get; set; }
+        public string tempUpload7 { get; set; }
+        public string UploadOriginalFileName7 { get; set; }
+        public string tempUpload8 { get; set; }
+        public string UploadOriginalFileName8 { get; set; }
+        public int IsFedralTax { get; set; }
+        public int IsBankState { get; set; }
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -539,6 +558,20 @@ namespace ShomaRM.Models
                     lstpr.StringReferredBrokerMerchant = Convert.ToInt32(dr["ReferredBrokerMerchant"]) == 1 ? "No" : "Yes";
                     lstpr.stringIsProprNoticeLeaseAgreement = Convert.ToInt32(dr["IsProprNoticeLeaseAgreement"]) == 1 ? "Yes" : "No";
 
+                    //sachin m 11 may
+                    lstpr.TaxReturn4 = dr["TaxReturn4"].ToString();
+                    lstpr.TaxReturn5 = dr["TaxReturn5"].ToString();
+                    lstpr.TaxReturn6 = dr["TaxReturn6"].ToString();
+                    lstpr.TaxReturn7 = dr["TaxReturn7"].ToString();
+                    lstpr.TaxReturn8 = dr["TaxReturn8"].ToString();
+                    lstpr.UploadOriginalFileName4 = dr["TaxReturnOrginalFile4"].ToString();
+                    lstpr.UploadOriginalFileName5 = dr["TaxReturnOrginalFile5"].ToString();
+                    lstpr.UploadOriginalFileName6 = dr["TaxReturnOrginalFile6"].ToString();
+                    lstpr.UploadOriginalFileName7 = dr["TaxReturnOrginalFile7"].ToString();
+                    lstpr.UploadOriginalFileName8 = dr["TaxReturnOrginalFile8"].ToString();
+                    lstpr.IsFedralTax = Convert.ToInt32(dr["IsFedralTax"].ToString());
+                    lstpr.IsBankState = Convert.ToInt32(dr["IsBankState"].ToString());
+
                     var stepCompleted = Convert.ToInt32(dr["StepCompleted"].ToString());
                     lstpr.StepCompleted = stepCompleted;
                 }
@@ -676,6 +709,20 @@ namespace ShomaRM.Models
                     getAppldata.ManagementCompany = model.ManagementCompany;
                     getAppldata.ManagementCompanyPhone = model.ManagementCompanyPhone;
                     getAppldata.IsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement;
+
+                    //sachin m 11 may
+                    getAppldata.TaxReturn4 = model.TaxReturn4;
+                    getAppldata.TaxReturn5 = model.TaxReturn5;
+                    getAppldata.TaxReturn6 = model.TaxReturn6;
+                    getAppldata.TaxReturn7 = model.TaxReturn7;
+                    getAppldata.TaxReturn8 = model.TaxReturn8;
+                    getAppldata.TaxReturnOrginalFile4 = model.UploadOriginalFileName4;
+                    getAppldata.TaxReturnOrginalFile5 = model.UploadOriginalFileName5;
+                    getAppldata.TaxReturnOrginalFile6 = model.UploadOriginalFileName6;
+                    getAppldata.TaxReturnOrginalFile7 = model.UploadOriginalFileName7;
+                    getAppldata.TaxReturnOrginalFile8 = model.UploadOriginalFileName8;
+                    getAppldata.IsFedralTax = model.IsFedralTax;
+                    getAppldata.IsBankState = model.IsBankState;
 
                     db.SaveChanges();
                     //Sachin Mahore 21 Apr 2020
@@ -1026,6 +1073,190 @@ namespace ShomaRM.Models
             }
             return tenantModelU3;
         }
+
+
+        public TenantOnlineModel SaveTaxUpload4(HttpPostedFileBase fileBaseUpload4, TenantOnlineModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel tenantModelU3 = new TenantOnlineModel();
+            if (model.ProspectID != 0)
+            {
+                string filePath = "";
+                string fileName = "";
+                string sysFileName = "";
+                string Extension = "";
+
+                if (fileBaseUpload4 != null && fileBaseUpload4.ContentLength > 0)
+                {
+                    filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
+                    DirectoryInfo di = new DirectoryInfo(filePath);
+                    FileInfo _FileInfo = new FileInfo(filePath);
+                    if (!di.Exists)
+                    {
+                        di.Create();
+                    }
+                    fileName = fileBaseUpload4.FileName;
+                    Extension = Path.GetExtension(fileBaseUpload4.FileName);
+                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload4.FileName);
+                    fileBaseUpload4.SaveAs(filePath + "//" + sysFileName);
+                    if (!string.IsNullOrWhiteSpace(fileBaseUpload4.FileName))
+                    {
+                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
+
+                    }
+                    tenantModelU3.tempUpload4 = sysFileName.ToString();
+                    tenantModelU3.UploadOriginalFileName4 = fileName;
+                }
+
+            }
+            return tenantModelU3;
+        }
+        public TenantOnlineModel SaveTaxUpload5(HttpPostedFileBase fileBaseUpload5, TenantOnlineModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel tenantModelU3 = new TenantOnlineModel();
+            if (model.ProspectID != 0)
+            {
+                string filePath = "";
+                string fileName = "";
+                string sysFileName = "";
+                string Extension = "";
+
+                if (fileBaseUpload5 != null && fileBaseUpload5.ContentLength > 0)
+                {
+                    filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
+                    DirectoryInfo di = new DirectoryInfo(filePath);
+                    FileInfo _FileInfo = new FileInfo(filePath);
+                    if (!di.Exists)
+                    {
+                        di.Create();
+                    }
+                    fileName = fileBaseUpload5.FileName;
+                    Extension = Path.GetExtension(fileBaseUpload5.FileName);
+                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload5.FileName);
+                    fileBaseUpload5.SaveAs(filePath + "//" + sysFileName);
+                    if (!string.IsNullOrWhiteSpace(fileBaseUpload5.FileName))
+                    {
+                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
+
+                    }
+                    tenantModelU3.tempUpload5 = sysFileName.ToString();
+                    tenantModelU3.UploadOriginalFileName5 = fileName;
+                }
+
+            }
+            return tenantModelU3;
+        }
+        public TenantOnlineModel SaveTaxUpload6(HttpPostedFileBase fileBaseUpload6, TenantOnlineModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel tenantModelU3 = new TenantOnlineModel();
+            if (model.ProspectID != 0)
+            {
+                string filePath = "";
+                string fileName = "";
+                string sysFileName = "";
+                string Extension = "";
+
+                if (fileBaseUpload6 != null && fileBaseUpload6.ContentLength > 0)
+                {
+                    filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
+                    DirectoryInfo di = new DirectoryInfo(filePath);
+                    FileInfo _FileInfo = new FileInfo(filePath);
+                    if (!di.Exists)
+                    {
+                        di.Create();
+                    }
+                    fileName = fileBaseUpload6.FileName;
+                    Extension = Path.GetExtension(fileBaseUpload6.FileName);
+                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload6.FileName);
+                    fileBaseUpload6.SaveAs(filePath + "//" + sysFileName);
+                    if (!string.IsNullOrWhiteSpace(fileBaseUpload6.FileName))
+                    {
+                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
+
+                    }
+                    tenantModelU3.tempUpload6 = sysFileName.ToString();
+                    tenantModelU3.UploadOriginalFileName6 = fileName;
+                }
+
+            }
+            return tenantModelU3;
+        }
+        public TenantOnlineModel SaveTaxUpload7(HttpPostedFileBase fileBaseUpload7, TenantOnlineModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel tenantModelU3 = new TenantOnlineModel();
+            if (model.ProspectID != 0)
+            {
+                string filePath = "";
+                string fileName = "";
+                string sysFileName = "";
+                string Extension = "";
+
+                if (fileBaseUpload7 != null && fileBaseUpload7.ContentLength > 0)
+                {
+                    filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
+                    DirectoryInfo di = new DirectoryInfo(filePath);
+                    FileInfo _FileInfo = new FileInfo(filePath);
+                    if (!di.Exists)
+                    {
+                        di.Create();
+                    }
+                    fileName = fileBaseUpload7.FileName;
+                    Extension = Path.GetExtension(fileBaseUpload7.FileName);
+                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload7.FileName);
+                    fileBaseUpload7.SaveAs(filePath + "//" + sysFileName);
+                    if (!string.IsNullOrWhiteSpace(fileBaseUpload7.FileName))
+                    {
+                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
+
+                    }
+                    tenantModelU3.tempUpload7 = sysFileName.ToString();
+                    tenantModelU3.UploadOriginalFileName7 = fileName;
+                }
+
+            }
+            return tenantModelU3;
+        }
+        public TenantOnlineModel SaveTaxUpload8(HttpPostedFileBase fileBaseUpload8, TenantOnlineModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel tenantModelU3 = new TenantOnlineModel();
+            if (model.ProspectID != 0)
+            {
+                string filePath = "";
+                string fileName = "";
+                string sysFileName = "";
+                string Extension = "";
+
+                if (fileBaseUpload8 != null && fileBaseUpload8.ContentLength > 0)
+                {
+                    filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
+                    DirectoryInfo di = new DirectoryInfo(filePath);
+                    FileInfo _FileInfo = new FileInfo(filePath);
+                    if (!di.Exists)
+                    {
+                        di.Create();
+                    }
+                    fileName = fileBaseUpload8.FileName;
+                    Extension = Path.GetExtension(fileBaseUpload8.FileName);
+                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload8.FileName);
+                    fileBaseUpload8.SaveAs(filePath + "//" + sysFileName);
+                    if (!string.IsNullOrWhiteSpace(fileBaseUpload8.FileName))
+                    {
+                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
+
+                    }
+                    tenantModelU3.tempUpload8 = sysFileName.ToString();
+                    tenantModelU3.UploadOriginalFileName8 = fileName;
+                }
+
+            }
+            return tenantModelU3;
+        }
+
+
         public TenantOnlineModel SaveUploadPassport(HttpPostedFileBase fileBaseUploadPassport, TenantOnlineModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
