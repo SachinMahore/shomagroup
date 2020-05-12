@@ -519,6 +519,98 @@ namespace ShomaRM.Controllers
             }
         }
 
+
+        //sachin m 11 may
+        public ActionResult TaxFileUpload6(TenantOnlineModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload6 = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload6 = Request.Files[i];
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SaveTaxUpload6(fileBaseUpload6, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult TaxFileUpload7(TenantOnlineModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload7 = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload7 = Request.Files[i];
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SaveTaxUpload7(fileBaseUpload7, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult TaxFileUpload8(TenantOnlineModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload8 = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload8 = Request.Files[i];
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SaveTaxUpload8(fileBaseUpload8, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult TaxFileUpload4(TenantOnlineModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload4 = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload4 = Request.Files[i];
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SaveTaxUpload4(fileBaseUpload4, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult TaxFileUpload5(TenantOnlineModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload5 = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload5 = Request.Files[i];
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SaveTaxUpload5(fileBaseUpload5, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult UploadPassport(TenantOnlineModel model)
         {
             try

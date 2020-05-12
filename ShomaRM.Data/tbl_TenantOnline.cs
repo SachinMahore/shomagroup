@@ -118,6 +118,18 @@ namespace ShomaRM.Data
         public Nullable<int> StepCompleted { get; set; }
         public Nullable<int> IsRentalPolicy { get; set; }
         public Nullable<int> IsRentalQualification { get; set; }
+        public string TaxReturn4 { get; set; }
+        public string TaxReturn5 { get; set; }
+        public string TaxReturn6 { get; set; }
+        public string TaxReturn7 { get; set; }
+        public string TaxReturn8 { get; set; }
+        public string TaxReturnOrginalFile4 { get; set; }
+        public string TaxReturnOrginalFile5 { get; set; }
+        public string TaxReturnOrginalFile6 { get; set; }
+        public string TaxReturnOrginalFile7 { get; set; }
+        public string TaxReturnOrginalFile8 { get; set; }
+        public Nullable<int> IsFedralTax { get; set; }
+        public Nullable<int> IsBankState { get; set; }
     
         public virtual tbl_ApplyNow tbl_ApplyNow { get; set; }
     }
