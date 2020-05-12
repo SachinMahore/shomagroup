@@ -1053,5 +1053,18 @@ namespace ShomaRM.Controllers
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetTenantOnlineListProspectVerification(int id, long TenantID)
+        {
+            try
+            {
+                return Json(new { model = new TenantOnlineModel().GetTenantOnlineListProspectVerification(id, TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
     }
 }

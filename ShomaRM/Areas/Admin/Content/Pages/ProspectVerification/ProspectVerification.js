@@ -3791,10 +3791,10 @@ var saveupdateTenantOnline = function () {
 };
 var getTenantOnlineList = function (id) {
     var model = {
-        id: id
+        id: id, TenantID: $("#hndApplicantUserId").val()
     };
     $.ajax({
-        url: '/ApplyNow/GetTenantOnlineList',
+        url: '/ApplyNow/GetTenantOnlineListProspectVerification',
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
