@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ShomaRM.Areas.Tenant.Models;
 
 namespace ShomaRM.Areas.Admin.Controllers
 {
@@ -99,6 +100,33 @@ namespace ShomaRM.Areas.Admin.Controllers
             {
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+        }
+        public ActionResult SaveUpdateApplicantGenerateQuotation(ApplicantModel model)
+        {
+            try
+            {
+                return Json(new { model = new ApplicantModel().SaveUpdateApplicantGenerateQuotation(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+
+        public ActionResult GetApplicantDetailsGenerateQuotation(int id, int FromAcc)
+        {
+            try
+            {
+                return Json(new { model = new ApplicantModel().GetApplicantDetailsGenerateQuotation(id, FromAcc) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
         }
     }
 }

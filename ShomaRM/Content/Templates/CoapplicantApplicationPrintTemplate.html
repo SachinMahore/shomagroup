@@ -3,72 +3,66 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Co-application Summary</title>
+    <title>Application Summary</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
-        body {
-            font-size: 12px;
-            padding: 1px;
-            margin: 1px;
-            font-family: Tahoma;
-            background: #f1f1f1;
-            color: black;
-            width: 100%;
-        }
+    @font-face { font-family: 'Montserrat-Regular'; src: url('[%ServerURL%]/Content/assets/font/Montserrat-Regular.otf') format('opentype'); }
+    @font-face { font-family: 'Montserrat-Medium'; src: url('[%ServerURL%]/Content/assets/font/Montserrat-Medium.otf') format('opentype'); }
+    @font-face { font-family: 'Montserrat-SemiBold'; src: url('[%ServerURL%]/Content/assets/font/Montserrat-SemiBold.otf') format('opentype'); }
+    body { font-size: 12px; padding: 1px; margin: 1px; font-family: Montserrat-Regular; width: 100%; }
 
         .layout-section {
+            background-image: url('[%ServerURL%]/Content/Templates/images/tower_background.png');
+            background-size: contain;
+            background-repeat: no-repeat;
             margin: 0 auto;
             display: table;
             height: auto;
-            background: #fff;
             padding-bottom: 30px;
             width: 100%
         }
 
-        .heder {
-            width: 100%;
-            background: #4D738A;
-            height: 100px;
-            border: 1px solid #000;
-            color: #fff;
+    .heder { background-image: url('[%ServerURL%]/Content/Templates/images/Header_quote_background.png'); width: 100%; height: 150px; }
+        .heder-img {
+            width: 40%;
         }
-
+        .heder-img img {
+            width: 75%;
+            padding-left: 75px;
+        }
+        .heder-text {
+            width: 60%;
+            font-family: Montserrat-SemiBold;
+            color: #fff;
+            font-size: 30px;
+            text-align: center;
+        }
         .heder-detail {
             width: 100%;
-            border: 1px solid #000;
         }
         .heder-detail-repeat {
             width: 100%;
-            border-top: 1px solid #000;
-            border-left: 1px solid #000;
-            border-right: 1px solid #000;
+            
         }
 
         .heder-data {
             width: 100%;
-            border: 1px solid #000;
             color: #fff;
         }
 
         .heder-data-repeat {
             width: 100%;
-            border-top: 1px solid #000;
-            border-left: 1px solid #000;
-            border-right: 1px solid #000;
             color: #fff;
         }
         .border-tbody {
-            border: 1px solid #000;
+            
         }
 
         .border-tbody-repeat {
-            border-top: 1px solid #000;
-            border-left: 1px solid #000;
-            border-right: 1px solid #000;
+            
         }
         .logo-section {
-            background: #fff;
             width: 30%;
             padding-left: 10px;
             height: 100px;
@@ -79,16 +73,13 @@
         }
 
         table, th, td {
-            color: black;
+            color: #838384;
             border-collapse: collapse;
             width: 100%;
         }
 
         th, td {
-            padding: 5px;
-            padding-bottom: 2px;
-            font-family: Tahoma;
-            color: black;
+            padding: 10px;
             text-align: left;
         }
 
@@ -97,52 +88,56 @@
         }
 
         .text-white-bold-center {
-            background: #4D738A;
+            background: #7fbc42;
             color: #fff;
             text-align: center;
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 16px;
+            font-family:Montserrat-SemiBold;
+            padding:10px;
+         
         }
         .td-pet-bold-center {
             color: #000;
             text-align: center;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             width: 33.33%;
-            border: 1px solid #000;
+            border: 1px solid #838384;
         }
         .td-pet {
             color: #000;
             text-align: center;
             font-size: 12px;
             width: 33.33%;
-            border: 1px solid #000;
+            border: 1px solid #838384;
         }
         .td-vehicle-bold-center {
             color: #000;
             text-align: center;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             width: 16.66%;
-            border:1px solid #000;
+            border: 1px solid #838384;
         }
         .td-vehicle {
             color: #000;
             text-align: center;
             font-size: 12px;
             width: 16.66%;
-            border:1px solid #000;
+            border: 1px solid #838384;
         }
 
         .detail-section-header {
             width: 28.5%;
-            font-weight: bold;
             text-align: right;
+            font-family:Montserrat-SemiBold;
+            font-size:12px;
         }
 
         .detail-section-data {
             width: 21%;
             height: 25px;
+            font-size:12px;
         }
 
         .detail-section-gap {
@@ -153,9 +148,23 @@
         }
         .additional-question {
             width: 90%;
+            font-size:12px;
         }
         .additional-answer {
             width: 10%;
+            font-size: 12px;
+        }
+        .footer{
+            width:100%;
+        }
+
+        .footer-img {
+            width: 100%;
+            text-align: center;
+        }
+        .footer-img img{
+            height:75px;
+            
         }
     </style>
 </head>
@@ -164,39 +173,23 @@
         <table class="heder">
             <tbody>
                 <tr>
-                    <td class="logo-section"><img src="[%ServerURL%]/Content/Templates/images/logo.png" width="150" height="100" /></td>
-                    <td class="address-section">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td class="text-white-bold-center">Application for "Sanctuary at Doral"</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-white">9400 NW 41st Street,</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-white">Doral, FL, 33178</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-white">Phone No: 786.437.8658</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
+                    <td class="heder-img">
+                        <img src="[%ServerURL%]/Content/Templates/images/sanctuary_logo_white.png" />
                     </td>
+                    <td class="heder-text">APPLICATION SUMMARY</td>
                 </tr>
             </tbody>
         </table>
-        <div style="padding-top:20px">
+        <div>
             <table class="heder-detail">
                 <thead class="heder-data">
                     <tr>
-                        <td colspan="5" class="text-white-bold-center">Appartment Information</td>
+                        <td colspan="5" class="text-white-bold-center">Apartment Information</td>
                     </tr>
                 </thead>
                 <tbody class="heder-data">
                     <tr>
-                        <td class="detail-section-header">Appartment:</td>
+                        <td class="detail-section-header">Apartment:</td>
                         <td class="detail-section-data">[%UnitNo%]</td>
                         <td class="detail-section-gap"></td>
                         <td class="detail-section-header Bold black-text">Move In Date:</td>
@@ -237,7 +230,7 @@
             <table class="heder-detail">
                 <thead class="heder-data">
                     <tr>
-                        <td colspan="5" class="text-white-bold-center">Co-applicant Information</td>
+                        <td colspan="5" class="text-white-bold-center">Applicant Information</td>
                     </tr>
                 </thead>
                 <tbody class="heder-data-repeat border-tbody">
@@ -350,7 +343,7 @@
                         <td class="detail-section-data">[%OtherMgmtCompanyPhone%]</td>
                     </tr>
                     <tr>
-                        <td colspan="5" style="border-top:1px solid #000000;"></td>
+                        <td colspan="5"></td>
                     </tr>
                 </tbody>
                 [%PRHEnd%]
@@ -441,10 +434,42 @@
                         <td class="detail-section-data">$[%OtherAnnualAddIncome%]</td>
                     </tr>
                     <tr>
-                        <td colspan="5" style="border-top:1px solid #000000;"></td>
+                        <td colspan="5"></td>
                     </tr>
                 </tbody>
                 [%PEHEnd%]
+            </table>
+        </div>
+        <div style="padding-top:20px">
+            <table class="heder-detail">
+                <thead class="heder-data">
+                    <tr>
+                        <td colspan="5" class="text-white-bold-center">Emergency Information</td>
+                    </tr>
+                </thead>
+                <tbody class="heder-data-repeat border-tbody">
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Name:</td>
+                        <td class="detail-section-data">[%EmergencyName%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header">Relationship:</td>
+                        <td class="detail-section-data">[%EmergencyRelationship%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Phone:</td>
+                        <td class="detail-section-data">[%EmergencyHomePhone%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Email: </td>
+                        <td class="detail-section-data">[%EmergencyEmail%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Country: </td>
+                        <td class="detail-section-data">[%EmergencyCountry%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Address:</td>
+                        <td class="detail-section-data">[%EmergencyAddress%]</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
         <div style="padding-top:20px">
@@ -516,10 +541,19 @@
                         <td class="additional-question">Broker or Merchant referred</td>
                         <td class="additional-answer">[%ReferredBrokerMerchant%]</td>
                     </tr>
-                    
+
                 </tbody>
             </table>
         </div>
+        <table class="footer">
+            <tbody>
+                <tr>
+                    <td class="footer-img">
+                        <img src="[%ServerURL%]/Content/Templates/images/Shoma_mgmt_icons.png" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

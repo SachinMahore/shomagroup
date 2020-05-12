@@ -108,6 +108,7 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<int> IsCheckSD { get; set; }
         public Nullable<decimal> VehicleRegistration { get; set; }
         public decimal MoveInChargesFMIT { get; set; }
+        public long? ApplicantUserId { get; set; }
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -657,6 +658,7 @@ namespace ShomaRM.Areas.Admin.Models
             ShomaRMEntities db = new ShomaRMEntities();
 
             ProspectVerificationModel model = new ProspectVerificationModel();
+            model.ApplicantUserId = Id;
             model.ProspectId = 0;
             model.IsApplyNow = 1;
             model.IsApplyNowStatus = "New";

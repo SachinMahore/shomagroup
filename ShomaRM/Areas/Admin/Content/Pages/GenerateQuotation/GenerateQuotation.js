@@ -154,7 +154,7 @@ $(document).ready(function () {
     });
 
     $("#btnStorage").on("click", function (event) {
-        fillStorageList();
+        fillStorageListGenQuot("ASC", "Storage1Storage");
         $("#popStorage").PopupWindow("open");
     });
 
@@ -653,9 +653,59 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step17").addClass("hidden");
         }
     }
+    if (stepid == "7") {
+        if (parseInt($("#hdnStepCompleted").val()) < 5) {
+            var msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 7);
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+        if (id == "7") {
+            $("#subMenu").removeClass("hidden");
+            //SaveCheckPolicy(7);
+            $("#as6").removeAttr("onclick");
+            $("#as6").attr("onclick", "goToStep(7,7,0)");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").removeClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
+            $("#step17").addClass("hidden");
+
+            $("#li1").addClass("active");
+            $("#li2").addClass("active");
+            $("#li3").addClass("active");
+            $("#li4").addClass("active");
+            $("#li7").addClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+            $("#li13").removeClass("active");
+            $("#li14").removeClass("active");
+            $("#li15").removeClass("active");
+            $("#li16").removeClass("active");
+            $("#li17").removeClass("active");
+        }
+    }
 };
 var getStepCompletedMsg = function (currentstep, clickstep) {
-    var stepArray = [{ StepID: 2, StepName: "Select Unit" }, { StepID: 3, StepName: "Complete Registration" }, { StepID: 4, StepName: "Select Options" }, { StepID: 5, StepName: "Quotation" }, { StepID: 6, StepName: "Policies & Conditions" }, { StepID: 7, StepName: "Applicants" }, { StepID: 8, StepName: "Responsibility" }, { StepID: 9, StepName: "Personal Info" }, { StepID: 10, StepName: "Residence History" }, { StepID: 11, StepName: "Employment and Income" }, { StepID: 12, StepName: "Emergency Contacts" }, { StepID: 13, StepName: "Vehicle Info" }, { StepID: 14, StepName: "Pet Info" }, { StepID: 15, StepName: "Payment" }, { StepID: 16, StepName: "Lease" }];
+    var stepArray = [{ StepID: 2, StepName: "Select Unit" }, { StepID: 3, StepName: "Complete Registration" }, { StepID: 4, StepName: "Select Options" }, { StepID: 5, StepName: "Quotation" }/*, { StepID: 6, StepName: "Policies & Conditions" }*/, { StepID: 7, StepName: "Applicants" }, { StepID: 8, StepName: "Responsibility" }, { StepID: 9, StepName: "Personal Info" }, { StepID: 10, StepName: "Residence History" }, { StepID: 11, StepName: "Employment and Income" }, { StepID: 12, StepName: "Emergency Contacts" }, { StepID: 13, StepName: "Vehicle Info" }, { StepID: 14, StepName: "Pet Info" }, { StepID: 15, StepName: "Payment" }, { StepID: 16, StepName: "Lease" }];
     var clickstepname = "";
     var remainingstepname = "";
 
@@ -834,6 +884,41 @@ var showCurrentStep = function (stepid, id) {
         $("#step17").addClass("hidden");
 
     }
+    if (stepid == "7") {
+
+        $("#subMenu").removeClass("hidden");
+        $("#as6").removeAttr("onclick");
+        $("#as6").attr("onclick", "goToStep(7,7,0)");
+        $("#step2").addClass("hidden");
+        $("#step1").addClass("hidden");
+        $("#step4").addClass("hidden");
+        $("#step3").addClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").removeClass("hidden");
+        $("#step8").addClass("hidden");
+        $("#step9").addClass("hidden");
+        $("#step10").addClass("hidden");
+        $("#step11").addClass("hidden");
+        $("#step12").addClass("hidden");
+        $("#step13").addClass("hidden");
+        $("#step14").addClass("hidden");
+        $("#step15").addClass("hidden");
+        $("#step16").addClass("hidden");
+        $("#step17").addClass("hidden");
+
+        $("#li7").addClass("active");
+        $("#li8").removeClass("active");
+        $("#li9").removeClass("active");
+        $("#li10").removeClass("active");
+        $("#li11").removeClass("active");
+        $("#li12").removeClass("active");
+        $("#li13").removeClass("active");
+        $("#li14").removeClass("active");
+        $("#li15").removeClass("active");
+        $("#li16").removeClass("active");
+        $("#li17").removeClass("active");
+    }
 };
 var SaveGenerateQuotation = function () {
     $("#divLoader").show();
@@ -985,7 +1070,7 @@ var SaveGenerateQuotation = function () {
                 $("#hdnOPId").val(idmsg[0]);
                 $("#lblQuoteID").text("#" + idmsg[0]);
 
-
+                getApplicantListsGenerateQuotation();
                 getApplyNowListGenerateQuotation(idmsg[0]);
                 getTenantOnlineListGenerateQuotation(idmsg[0], idmsg[2]);
                 $("#hndIsRegister").val("1");
@@ -2246,10 +2331,11 @@ var fillParkingList = function () {
         }
     });
 }
-var fillStorageList = function () {
+var fillStorageListGenQuot = function (orderby, sortby) {
+
     $("#divLoader").show();
     var tenantID = $("#hdnOPId").val();
-    var param = { TenantID: tenantID };
+    var param = { TenantID: tenantID, OrderBy: orderby, SortBy: sortby };
     $.ajax({
         url: '/Storage/GetStorageList',
         method: "post",
@@ -2492,124 +2578,124 @@ var saveupdateFOB = function () {
 }
 var saveupdatePetPlace = function () {
     $("#divLoader").show();
-    var isAgree = $("#chkAgreePetTerms").is(":checked") ? "1" : "0";
-    if (isAgree == "0") {
-        if (addPetPlaceArray.length > 0) {
-            $.alert({
-                title: "",
-                content: "Please agree to the pet policy",
-                type: 'red'
-            })
-            return;
-        }
-    }
-    var tenantID = $("#hdnOPId").val();
-    var param = { PropertyID: 8, TenantID: tenantID, lstTPetPlace: addPetPlaceArray };
-    $.ajax({
-        url: "/PetManagement/SaveUpdateTenantPetPlace",
-        method: "post",
-        data: JSON.stringify(param),
-        contentType: "application/json; charset=utf-8", // content type sent to server
-        dataType: "json", //Expected data format from server
-        success: function (response) {
-            if (response.result == 0) {
-                $.alert({
-                    title: "",
-                    content: response.msg,
-                    type: 'red'
-                });
-                addStorageArray = [];
-                $("#lblpetplace").text(0);
-                fillPetPlaceList();
-            } else {
-                $.alert({
-                    title: "",
-                    content: "Progress Saved.",
-                    type: 'blue'
-                });
-                $("#popPetPlace").modal("hide");
+    if (addPetPlaceArray.length > 0) {
+        var tenantID = $("#hdnOPId").val();
+        var param = { PropertyID: 8, TenantID: tenantID, lstTPetPlace: addPetPlaceArray };
+        $.ajax({
+            url: "/PetManagement/SaveUpdateTenantPetPlace",
+            method: "post",
+            data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8", // content type sent to server
+            dataType: "json", //Expected data format from server
+            success: function (response) {
+                if (response.result == 0) {
+                    $.alert({
+                        title: "",
+                        content: response.msg,
+                        type: 'red'
+                    });
+                    addStorageArray = [];
+                    $("#lblpetplace").text(0);
+                    fillPetPlaceList();
+                } else {
+                    $.alert({
+                        title: "",
+                        content: "Progress Saved.",
+                        type: 'blue'
+                    });
+                    $("#popPetPlace").modal("hide");
+                    $("#divLoader").hide();
+                    totalAmt = parseFloat(totalAmt) - parseFloat(unformatText($("#lblPetFee").text()));
+                    $("#lblPetDeposit").text("0.00");
+                    $("#lblPetDNAAmt").text("0.00");
+                    $("#lbpetdna6").text("0.00");
+
+                    $("#fpetd").text("0.00");
+                    $("#lbpetd6").text("0.00");
+                    $("#fpetdna").text("0.00");
+                    $("#lblPetFee").text(formatMoney(parseFloat(response.totalPetPlaceAmt).toFixed(2)));
+                    $("#lblMonthly_PetRent").text(parseFloat(response.totalPetPlaceAmt).toFixed(2));
+                    $("#lblProrated_PetRent").text(parseFloat(parseFloat(response.totalPetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+
+                    $("#lblpetplace").text(addPetPlaceArray.length > 0 ? addPetPlaceArray[0].PetPlaceID : 0);
+                    if (parseInt(response.numOfPet) == 1) {
+                        $("#spanPetDNAFee1").text("Pet DNA Fee x 1 Pets:");
+                        $("#spanPetDNAFee2").text("Pet DNA Fee x 1 Pets:");
+                        $("#spanPetDNAFee3").text("Pet DNA Fee x 1 Pets:");
+                        $("#spanPetDNAFee4").text("Pet DNA Fee x 1 Pets:");
+
+                        $("#lblPetDeposit").text(formatMoney("500.00"));
+                        $("#lblPetDNAAmt").text(parseFloat(response.petDNAFees).toFixed(2));
+                        $("#lbpetdna6").text(parseFloat(response.petDNAFees).toFixed(2));
+                        $("#fpetdna").text(parseFloat(response.petDNAFees).toFixed(2));
+
+                        $("#fpetd").text("500.00");
+                        $("#lbpetd6").text("500.00");
+                        $("#hndPetPlaceID").val(1);
+                        $("#btnAddPet").removeAttr("disabled");
+                        $("#hndPetPlaceCount").val(1);
+                        checkAndDeletePet(1);
+                    } else if (parseInt(response.numOfPet) == 2) {
+                        $("#spanPetDNAFee1").text("Pet DNA Fee x 2 Pets:");
+                        $("#spanPetDNAFee2").text("Pet DNA Fee x 2 Pets:");
+                        $("#spanPetDNAFee3").text("Pet DNA Fee x 2 Pets:");
+                        $("#spanPetDNAFee4").text("Pet DNA Fee x 2 Pets:");
+                        $("#lblPetDeposit").text(formatMoney("750.00"));
+
+                        $("#lblPetDNAAmt").text((parseFloat(response.petDNAFees) * parseInt(response.numOfPet)).toFixed(2));
+                        $("#lbpetdna6").text((parseFloat(response.petDNAFees) * parseInt(response.numOfPet)).toFixed(2));
+                        $("#fpetdna").text((parseFloat(response.petDNAFees) * parseInt(response.numOfPet)).toFixed(2));
+
+                        $("#fpetd").text("750.00");
+                        $("#lbpetd6").text("750.00");
+                        $("#hndPetPlaceID").val(2);
+                        $("#btnAddPet").removeAttr("disabled");
+                        $("#hndPetPlaceCount").val(2);
+                    }
+                    else {
+                        $("#spanPetDNAFee1").text("Pet DNA Fee:");
+                        $("#spanPetDNAFee2").text("Pet DNA Fee:");
+                        $("#spanPetDNAFee3").text("Pet DNA Fee:");
+                        $("#spanPetDNAFee4").text("Pet DNA Fee:");
+                        $("#hndPetPlaceID").val(0);
+                        $("#btnAddPet").css("background-color", "#B4ADA5").attr("disabled", "disabled");
+                        $("#hndPetPlaceCount").val(0);
+                        checkAndDeletePet(3);
+                    }
+
+                    totalAmt = (parseFloat(response.totalPetPlaceAmt) + parseFloat(totalAmt)).toFixed(2);
+                    $("#lbltotalAmount").text(formatMoney(totalAmt));
+                    $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
+                    $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+                    $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+                    $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+
+                    $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+                    $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+                }
+
+                //totalAmt = (parseFloat(response.totalPetPlaceAmt) + parseFloat(totalAmt)).toFixed(2);
+                //$("#lbltotalAmount").text(formatMoney(totalAmt));
+                //$("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
+                //$("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+                //$("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+                //$("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+                //$("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) +  parseFloat($("#lblVehicleFees").text(), 10)  + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+                //$("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) +  parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+
                 $("#divLoader").hide();
-                totalAmt = parseFloat(totalAmt) - parseFloat(unformatText($("#lblPetFee").text()));
-                $("#lblPetDeposit").text("0.00");
-                $("#lblPetDNAAmt").text("0.00");
-                $("#lbpetdna6").text("0.00");
-
-                $("#fpetd").text("0.00");
-                $("#lbpetd6").text("0.00");
-                $("#fpetdna").text("0.00");
-                $("#lblPetFee").text(formatMoney(parseFloat(response.totalPetPlaceAmt).toFixed(2)));
-                $("#lblMonthly_PetRent").text(parseFloat(response.totalPetPlaceAmt).toFixed(2));
-                $("#lblProrated_PetRent").text(parseFloat(parseFloat(response.totalPetPlaceAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-
-                $("#lblpetplace").text(addPetPlaceArray.length > 0 ? addPetPlaceArray[0].PetPlaceID : 0);
-                if (parseInt(response.numOfPet) == 1) {
-                    $("#spanPetDNAFee1").text("Pet DNA Fee x 1 Pets:");
-                    $("#spanPetDNAFee2").text("Pet DNA Fee x 1 Pets:");
-                    $("#spanPetDNAFee3").text("Pet DNA Fee x 1 Pets:");
-                    $("#spanPetDNAFee4").text("Pet DNA Fee x 1 Pets:");
-
-                    $("#lblPetDeposit").text(formatMoney("500.00"));
-                    $("#lblPetDNAAmt").text(parseFloat(response.petDNAFees).toFixed(2));
-                    $("#lbpetdna6").text(parseFloat(response.petDNAFees).toFixed(2));
-                    $("#fpetdna").text(parseFloat(response.petDNAFees).toFixed(2));
-
-                    $("#fpetd").text("500.00");
-                    $("#lbpetd6").text("500.00");
-                    $("#hndPetPlaceID").val(1);
-                    $("#btnAddPet").removeAttr("disabled");
-                    $("#hndPetPlaceCount").val(1);
-                    checkAndDeletePet(1);
-                } else if (parseInt(response.numOfPet) == 2) {
-                    $("#spanPetDNAFee1").text("Pet DNA Fee x 2 Pets:");
-                    $("#spanPetDNAFee2").text("Pet DNA Fee x 2 Pets:");
-                    $("#spanPetDNAFee3").text("Pet DNA Fee x 2 Pets:");
-                    $("#spanPetDNAFee4").text("Pet DNA Fee x 2 Pets:");
-                    $("#lblPetDeposit").text(formatMoney("750.00"));
-
-                    $("#lblPetDNAAmt").text((parseFloat(response.petDNAFees) * parseInt(response.numOfPet)).toFixed(2));
-                    $("#lbpetdna6").text((parseFloat(response.petDNAFees) * parseInt(response.numOfPet)).toFixed(2));
-                    $("#fpetdna").text((parseFloat(response.petDNAFees) * parseInt(response.numOfPet)).toFixed(2));
-
-                    $("#fpetd").text("750.00");
-                    $("#lbpetd6").text("750.00");
-                    $("#hndPetPlaceID").val(2);
-                    $("#btnAddPet").removeAttr("disabled");
-                    $("#hndPetPlaceCount").val(2);
-                }
-                else {
-                    $("#spanPetDNAFee1").text("Pet DNA Fee:");
-                    $("#spanPetDNAFee2").text("Pet DNA Fee:");
-                    $("#spanPetDNAFee3").text("Pet DNA Fee:");
-                    $("#spanPetDNAFee4").text("Pet DNA Fee:");
-                    $("#hndPetPlaceID").val(0);
-                    $("#btnAddPet").css("background-color", "#B4ADA5").attr("disabled", "disabled");
-                    $("#hndPetPlaceCount").val(0);
-                    checkAndDeletePet(3);
-                }
-
-                totalAmt = (parseFloat(response.totalPetPlaceAmt) + parseFloat(totalAmt)).toFixed(2);
-                $("#lbltotalAmount").text(formatMoney(totalAmt));
-                $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
-                $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-                $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-                $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-
-                $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-                $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
             }
-
-            //totalAmt = (parseFloat(response.totalPetPlaceAmt) + parseFloat(totalAmt)).toFixed(2);
-            //$("#lbltotalAmount").text(formatMoney(totalAmt));
-            //$("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
-            //$("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            //$("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            //$("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            //$("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) +  parseFloat($("#lblVehicleFees").text(), 10)  + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-            //$("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) +  parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-
-
-        }
-    });
+        });
+    }
+    else {
+        $.alert({
+            title: "",
+            content: "Please select the pet",
+            type: 'red'
+        })
+        $("#divLoader").hide();
+        return;
+    }
 }
 var saveupdateStorage = function () {
     $("#divLoader").show();
@@ -2740,7 +2826,7 @@ var addApplicant = function (at) {
         //$("#popApplicant").PopupWindow("setTitle", "Add Guarantor");
         var modal = $(popApplicant);
         modal.find('.modal-title').text('Add Guarantor');
-        $("#appphone").addClass("hidden");
+        $("#appphone").removeClass("hidden");
         $("#appemail").removeClass("hidden");
         $("#apprelationship").removeClass("hidden");
         $('#txtGDateOfBirth').removeClass("hidden");
@@ -2843,9 +2929,9 @@ var saveupdateApplicant = function () {
         }
     }
 
-    if (!dob) {
-        msg += "Enter Applicant DateOfBirth</br>";
-    }
+    //if (!dob) {
+    //    msg += "Enter Applicant DateOfBirth</br>";
+    //}
     if (agender == '0') {
         msg += "Select The Gender </br>";
     }
@@ -2902,7 +2988,7 @@ var saveupdateApplicant = function () {
     };
 
     $.ajax({
-        url: "/Tenant/Applicant/SaveUpdateApplicant/",
+        url: "/Admin/GenerateQuotation/SaveUpdateApplicantGenerateQuotation/",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -2924,7 +3010,6 @@ var totpaid = 0;
 
 var getApplicantListsGenerateQuotation = function () {
     var model = {
-
         TenantID: $("#hdnOPId").val(),
     }
     $.ajax({
@@ -2954,7 +3039,27 @@ var getApplicantListsGenerateQuotation = function () {
             var applicantFees = $("#lblApplicationFees").text();
             var guarantorFees = $("#lblGuarantorFees").text();
 
+            var nofbed = $("#lblBed").text();
+            var allowedAppli = 0;
+            var allowedMinor = 0;
+            var totalPeople = (parseInt(nofbed) * 2);
+
+
             $.each(response.model, function (elementType, elementValue) {
+
+                if (elementValue.Type == "Co-Applicant") {
+                    noofCapl += 1;
+                }
+                else if (elementValue.Type == "Minor") {
+                    noofminor += 1;
+                }
+                else if (elementValue.Type == "Primary Applicant") {
+                    noofapl += 1;
+                }
+                else {
+                    noofgur += 1;
+                }
+
                 var html = '';
                 var prhtml = '';
                 var pprhtml = '';
@@ -2967,8 +3072,7 @@ var getApplicantListsGenerateQuotation = function () {
                         "<label> " + elementValue.Type + " </label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
                         "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
-                        "<div style='border: 2px solid #E6E6E6;'><center><label><b>Status: In progress</b></label></center></div>" +
-                        "</div></div>";
+                        "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                 }
                 else {
                     html += "<div class='col-sm-4 box-two proerty-item'>" +
@@ -2977,8 +3081,8 @@ var getApplicantListsGenerateQuotation = function () {
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
 
                         "<label>Primary Applicant</label><br/>" +
-                        "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label><br/><div style='border: 2px solid #E6E6E6;'><center><label><b>Status: In progress</b></label></center></div>" +
-                        "</div></div>";
+                        "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>" +
+                        "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
                     //Amit's work 17-10
@@ -3181,19 +3285,6 @@ var getApplicantListsGenerateQuotation = function () {
                     $("#txtpayamtMo" + elementValue.ApplicantID).val(formatMoney(unformatText($("#txtpayamtMo" + elementValue.ApplicantID).val())));
                 });
 
-                //$(":input").on("keyup", function (e) {
-                //    var id = this.id;
-                //    var totalPercentage = 100;
-                //    if (id == "txtpayper" + elementValue.ApplicantID) {
-                //        if ($(":input").hasClass("payper")) {
-                //            var payperLength = $(this).length;
-                //            if (payperLength == 1) {
-                //                $(id).val(totalPercentage);
-                //            }
-                //        }
-                //    }
-                //});
-
                 var sum = parseFloat(0);
                 $(".payper").each(function () {
                     sum += parseFloat(this.value);
@@ -3206,148 +3297,71 @@ var getApplicantListsGenerateQuotation = function () {
 
                 });
                 localStorage.setItem("percentageMo", sumMo);
-
-                //Guarantor
-                //Minor
-                //Primary Applicant
-                //Co-Applicant
-
-                //if (elementValue.Type == "Co-Applicant") {
-                //    noofCapl += 1;
-                //}
-                //else if (elementValue.Type == "Minor") {
-                //    noofminor += 1;
-                //}
-                //else if (elementValue.Type == "Primary Applicant") {
-                //    noofapl += 1;
-                //}
-                //else {
-                //    noofgur += 1;
-                //}
-
             });
-
-            $.ajax({
-                url: "/Applicant/GetCoApplicantList",
-                type: "post",
-                contentType: "application/json utf-8",
-                data: JSON.stringify(model),
-                dataType: "JSON",
-                success: function (response) {
-                    $.each(response.model, function (elementType, elementValue) {
-                        if (elementValue.Type == "Co-Applicant") {
-                            noofCapl += 1;
-                        }
-                        else if (elementValue.Type == "Minor") {
-                            noofminor += 1;
-                        }
-                        else if (elementValue.Type == "Primary Applicant") {
-                            noofapl += 1;
-                        }
-                        else {
-                            noofgur += 1;
-                        }
-                    });
-
-                    var nofbed = $("#lblBed").text();
-                    var allowedAppli = 0;
-                    var allowedMinor = 0;
-                    var totalPeople = (parseInt(nofbed) * 2);
-                    var totalAppl = noofapl;
-                    var newtotalAppl = (parseInt(noofapl) - 1);
-                    var totalCoAppl = noofCapl;
-                    var totalMinor = noofminor;
-                    var total = 0;
-                    //console.log("Applicant:" + totalAppl + " Co-app:" + totalCoAppl + " Minor:" + totalMinor);
-
-                    if (nofbed == 1) {
-                        total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
-                        //console.log("Condtion1: " + total + "Total People: " + totalPeople);
-                        if (totalCoAppl <= parseInt(totalPeople) - 1) {
-                            if (total <= parseInt(totalPeople) - 1) {
-                                $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
-                            }
-                            else {
-                                var test = "";
-                            }
-                        }
-                        if (totalMinor <= parseInt(totalPeople) - 1) {
-                            if (total <= parseInt(totalPeople) - 1) {
+            var totalAppl = noofapl;
+            var newtotalAppl = (parseInt(noofapl) - 1);
+            var totalCoAppl = noofCapl;
+            var totalMinor = noofminor;
+            var total = 0;
+            if (nofbed == 1) {
+                total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
+                if (totalCoAppl <= parseInt(totalPeople) - 1) {
+                    if (total <= parseInt(totalPeople) - 1) {
+                        $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                    }
+                }
+                if (totalMinor <= parseInt(totalPeople) - 1) {
+                    if (total <= parseInt(totalPeople) - 1) {
+                        $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                    }
+                }
+            }
+            else if (nofbed == 2) {
+                total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
+                if (total <= parseInt(totalPeople) - 1) {
+                    if (totalCoAppl < 2) {
+                        if (total < parseInt(totalPeople)) {
+                            $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                            if (totalMinor <= 1) {
                                 $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
                             }
-                            else {
-                                test = "";
-                            }
                         }
                     }
-                    else if (nofbed == 2) {
-                        total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
-                        //console.log("Condtion2: " + total + "Total People: " + totalPeople);
-                        if (total <= parseInt(totalPeople) - 1) {
-                            if (totalCoAppl < 2) {
-                                if (total < parseInt(totalPeople)) {
-                                    $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
-                                    if (totalMinor <= 1) {
-                                        $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
-                                    }
-                                }
+                    else if (totalMinor < 2) {
+                        if (total < parseInt(totalPeople)) {
+                            $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                            if (totalCoAppl <= 1) {
+                                $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
                             }
-                            else if (totalMinor < 2) {
-                                if (total < parseInt(totalPeople)) {
-                                    $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
-                                    if (totalCoAppl <= 1) {
-                                        $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
-                                    }
-                                }
-                            }
-                        }
-                        else {
-                            test = "";
-                        }
-                    }
-                    else if (nofbed == 3) {
-                        total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
-                        ///console.log("Condtion3: " + total + "Total People: " + totalPeople + "Total People: " + totalPeople);
-
-                        if (total <= parseInt(totalPeople) - 1) {
-                            if (totalCoAppl < 3) {
-                                if (total < parseInt(totalPeople)) {
-                                    $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
-                                    if (totalMinor <= 2) {
-                                        $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
-                                    }
-                                }
-                            }
-                            else if (totalMinor < 3) {
-                                if (total < parseInt(totalPeople)) {
-                                    $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
-                                    if (totalCoAppl <= 2) {
-                                        $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
-                                    }
-                                }
-                            }
-                        }
-                        else {
-                            test = "";
                         }
                     }
                 }
-            });
-
-
-
-            //var nofbed = $("#lblBed").text();
-            //if ((parseInt(nofbed) * 2) <= noofapl) {
-            //    var test = "";
-            //} else {
-            //    $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
-            //    $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
-            //}
-            $("#totalFinalFees").text("$" + parseFloat(totalFinalFees).toFixed(2));
-
+            }
+            else if (nofbed == 3) {
+                total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
+                if (total <= parseInt(totalPeople) - 1) {
+                    if (totalCoAppl < 3) {
+                        if (total < parseInt(totalPeople)) {
+                            $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                            if (totalMinor <= 2) {
+                                $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                            }
+                        }
+                    }
+                    else if (totalMinor < 3) {
+                        if (total < parseInt(totalPeople)) {
+                            $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                            if (totalCoAppl <= 2) {
+                                $("#tblApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                            }
+                        }
+                    }
+                }
+            }
             if (noofgur == 0) {
                 $("#tblApplicantGuarantor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicant(3)'><i class='fa fa-plus-circle'></i> Add Guarantor</a></label></div></div></div></div>");
             }
+            $("#totalFinalFees").text("$" + parseFloat(totalFinalFees).toFixed(2));
         }
     });
 };
@@ -3377,7 +3391,7 @@ var goToEditApplicant = function (aid) {
         $("#hndApplicantID").val(aid);
         var model = { id: aid, FromAcc: 0 };
         $.ajax({
-            url: "/Tenant/Applicant/GetApplicantDetails",
+            url: "/Admin/GenerateQuotation/GetApplicantDetailsGenerateQuotation",
             type: "post",
             contentType: "application/json utf-8",
             data: JSON.stringify(model),
@@ -3513,9 +3527,9 @@ var goToEditApplicant = function (aid) {
                     //dtMin.setFullYear(new Date().getFullYear() - 18);
                     //var dtEnd = new Date();
                     //$('#txtMDateOfBirth').datepicker({ viewMode: "years", startDate: dtMin, endDate: dtEnd, autoclose: true });
-                    $("#txtApplicantOtherGender").addClass("hidden");
+                    //$("#txtApplicantOtherGender").addClass("hidden");
 
-                    $("#ddlARelationship").addClass("hidden");
+                    //$("#ddlARelationship").addClass("hidden");
                     $("#ddlApplicantDocumentTypePersonal").addClass("hidden");
                     $("#ddlApplicantStateDoc").addClass("hidden");
                     $("#ddlApplicantState").addClass("hidden");
@@ -7178,4 +7192,37 @@ var sendQuotationEmail = function () {
             }
         }
     });
+};
+
+var sortTableStorageGenQuot = function (sortby) {
+    var orderby = $('#hndStorageOrderBy').val();
+
+    if (orderby == "ASC") {
+        $("#SortIconStorage1Storage").removeClass('fa fa-sort-down');
+        $("#SortIconStorage1Storage").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconStorage1Description").removeClass('fa fa-sort-down');
+        $("#SortIconStorage1Description").removeClass('fa fa-sort-up fa-lg');
+        if (sortby == 'Storage1Storage') {
+            $("#SortIconStorage1Storage").addClass('fa fa-sort-up fa-lg');
+        }
+        if (sortby == 'Storage1Description') {
+            $("#SortIconStorage1Description").addClass('fa fa-sort-up fa-lg');
+        }
+        $('#hndStorageOrderBy').val('DESC');
+        fillStorageListGenQuot("ASC", sortby);
+    }
+    else if (orderby == "DESC") {
+        $("#SortIconStorage1Storage").removeClass('fa fa-sort-down');
+        $("#SortIconStorage1Storage").removeClass('fa fa-sort-up fa-lg');
+        $("#SortIconStorage1Description").removeClass('fa fa-sort-down');
+        $("#SortIconStorage1Description").removeClass('fa fa-sort-up fa-lg');
+        if (sortby == 'Storage1Storage') {
+            $("#SortIconStorage1Storage").addClass('fa fa-sort-down fa-lg');
+        }
+        if (sortby == 'Storage1Description') {
+            $("#SortIconStorage1Description").addClass('fa fa-sort-down fa-lg');
+        }
+        $('#hndStorageOrderBy').val('ASC');
+        fillStorageListGenQuot("DESC", sortby);
+    }
 };

@@ -2428,7 +2428,7 @@ function savePayment() {
         };
         $.alert({
             title: "",
-            content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFees()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFees())).toFixed(2) + ". Do you want to Pay Now?",
+            content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesCoApplicant()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesCoApplicant())).toFixed(2) + ". Do you want to Pay Now?",
             type: 'blue',
             buttons: {
                 yes: {
