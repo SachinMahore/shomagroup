@@ -30,7 +30,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Amenities> tbl_Amenities { get; set; }
         public virtual DbSet<tbl_AmenityPriceRange> tbl_AmenityPriceRange { get; set; }
         public virtual DbSet<tbl_AmenityReservation> tbl_AmenityReservation { get; set; }
-        public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_AuditHistory> tbl_AuditHistory { get; set; }
         public virtual DbSet<tbl_AuditHistoryDetail> tbl_AuditHistoryDetail { get; set; }
         public virtual DbSet<tbl_BankAccount> tbl_BankAccount { get; set; }
@@ -103,7 +102,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_ApplicantHistory> tbl_ApplicantHistory { get; set; }
         public virtual DbSet<tbl_EmployerHistory> tbl_EmployerHistory { get; set; }
         public virtual DbSet<tbl_Login> tbl_Login { get; set; }
-        public virtual DbSet<tbl_BackgroundScreening> tbl_BackgroundScreening { get; set; }
         public virtual DbSet<tbl_Parking> tbl_Parking { get; set; }
         public virtual DbSet<tbl_TenantPet> tbl_TenantPet { get; set; }
         public virtual DbSet<tbl_Vehicle> tbl_Vehicle { get; set; }
@@ -112,5 +110,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_MoveInChecklist> tbl_MoveInChecklist { get; set; }
         public virtual DbSet<tbl_TenantInfo> tbl_TenantInfo { get; set; }
         public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
+        public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
+        public virtual DbSet<tbl_BackgroundScreening> tbl_BackgroundScreening { get; set; }
     }
 }

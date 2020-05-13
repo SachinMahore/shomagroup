@@ -109,6 +109,7 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<decimal> VehicleRegistration { get; set; }
         public decimal MoveInChargesFMIT { get; set; }
         public long? ApplicantUserId { get; set; }
+        public string Notes { get; set; }
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -355,7 +356,7 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
-        public string SaveScreeningStatus(string Email, long ProspectId, string Status)
+        public string SaveScreeningStatus(string Email, long ProspectId, string Status, string Notes)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             //var tenantData = db.tbl_TenantOnline.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
@@ -415,6 +416,7 @@ namespace ShomaRM.Areas.Admin.Models
                 {
                     GetTenantDet.IsApplyNow = 5;
                     GetTenantDet.Status = Status;
+                    GetTenantDet.Notes = Notes;
                     db.SaveChanges();
                 }
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == GetTenantDet.PropertyId).FirstOrDefault();
@@ -430,7 +432,22 @@ namespace ShomaRM.Areas.Admin.Models
                 reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantDet.FirstName + " " + GetTenantDet.LastName);
                 var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
                 string sub = "Online Application Status";
-                if (Status == "Approved")
+
+
+                //sachin 13 may
+                var saveBGCC = new tbl_BackgroundScreening()
+                {
+                    TenantId =Convert.ToInt32(tenantData.ID),
+                    Type = "0",
+                    OrderID = Convert.ToInt32(ProspectId),
+                    Status = Status,
+                    Notes = Notes,
+                };
+                db.tbl_BackgroundScreening.Add(saveBGCC);
+                db.SaveChanges();
+
+
+                if (Status == "BCApproved")
                 {
 
                     string payid = new EncryptDecrypt().EncryptText(GetCoappDet.ApplicantID.ToString() + ",3," + propertDet.AdminFees.Value.ToString("0.00"));
@@ -442,7 +459,7 @@ namespace ShomaRM.Areas.Admin.Models
 
 
                 }
-                else if (Status == "Denied")
+                else if (Status == "BCDenied")
                 {
                     reportHTML = reportHTML.Replace("[%Status%]", "Sorry ! Your Application is Denied");
                     reportHTML = reportHTML.Replace("[%StatusDet%]", "We are sorry that your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community.");
@@ -450,7 +467,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                     message = "Sorry ! Your Application is Denied. Please check the email for detail.";
                 }
-                else if (Status == "Signed")
+                else if (Status == "BCSigned")
                 {
                     sub = "Lease has been finalized : Pay your Move In Charges & Accept Move In Checklist";
 
@@ -600,7 +617,7 @@ namespace ShomaRM.Areas.Admin.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             var GetTenantDet = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
-            string result = SaveScreeningStatus(Email, GetTenantDet.ID, Status);
+            string result = SaveScreeningStatus(Email, GetTenantDet.ID, Status,"");
             db.Dispose();
 
         }
@@ -715,7 +732,7 @@ namespace ShomaRM.Areas.Admin.Models
                     model.EnvelopeID = (!string.IsNullOrWhiteSpace(GetProspectData.EnvelopeID) ? GetProspectData.EnvelopeID : "");
                     model.EsignatureID = (!string.IsNullOrWhiteSpace(GetProspectData.EsignatureID) ? GetProspectData.EsignatureID : "");
 
-
+                    model.Notes = GetProspectData.Notes == null ? "" : GetProspectData.Notes;
                     //model.LeaseTerm = GetProspectData.LeaseTerm ?? 12;
 
                     var leaseDet = db.tbl_LeaseTerms.Where(p => p.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
