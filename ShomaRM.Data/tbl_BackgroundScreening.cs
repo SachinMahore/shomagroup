@@ -20,5 +20,6 @@ namespace ShomaRM.Data
         public int OrderID { get; set; }
         public string Status { get; set; }
         public string PDFUrl { get; set; }
+        public string Notes { get; set; }
     }
 }

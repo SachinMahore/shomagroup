@@ -130,6 +130,10 @@ namespace ShomaRM.Data
         public string TaxReturnOrginalFile8 { get; set; }
         public Nullable<int> IsFedralTax { get; set; }
         public Nullable<int> IsBankState { get; set; }
+        public Nullable<int> ResidenceStatus { get; set; }
+        public string ResidenceNotes { get; set; }
+        public Nullable<int> EmpStatus { get; set; }
+        public string EmpNotes { get; set; }
     
         public virtual tbl_ApplyNow tbl_ApplyNow { get; set; }
     }

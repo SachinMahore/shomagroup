@@ -739,6 +739,7 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "14") {
         if (id == "14") {
+           
             $("#li3").addClass("active");
             $("#li18").addClass("active");
             $("#li4").addClass("active");
@@ -807,6 +808,9 @@ var goToStep = function (stepid, id) {
     if (stepid == "17") {
         if (id == "17") {
             refreshStatuses();
+           
+            getPreviousAddressInfo();
+            getPreviousEmpInfo();
             //getTransationLists($("#hdnUserId").val());
             //getSignedLists($("#hdnOPId").val());
             $("#subMenu").addClass("hidden");
@@ -2941,6 +2945,9 @@ var getApplicantLists = function () {
 
                 if (elementValue.Type == "Primary Applicant") {
                     $("#hndPriAppFullName").val(elementValue.FirstName + " " + elementValue.LastName + "(Primary Applicant)");
+                    //$("#pappnameRes").text(elementValue.FirstName + " " + elementValue.LastName + "(Primary Applicant)");
+                    //$("#pappnameemp").text(elementValue.FirstName + " " + elementValue.LastName + "(Primary Applicant)");
+
                 }
 
                 if (elementValue.Type != "Primary Applicant") {
@@ -3906,6 +3913,34 @@ var getTenantOnlineList = function (id) {
             $("#ddlStateContact").text(response.model.EmergencyStateHomeString);
 
             $("#txtEmergencyZip").text(response.model.EmergencyZipHome);
+
+
+            ////sachin m 12 may
+            //$("#summCredateF").text(response.model.MoveInDateFromTxt);
+            //$("#summCRE").text(response.model.HomeAddress1 + " , " + response.model.HomeAddress2);
+            //$("#summreCou").text(response.model.CountryString);
+            //$("#summMrent").text("$ " + formatMoney(response.model.MonthlyPayment));
+            //$("#summReson").text(response.model.Reason);
+            //$("#suACuminty").text(response.model.ApartmentCommunity);
+            //$("#sumAManagementCompany").text(response.model.ManagementCompany);
+            //$("#sumAManagementCompanyPhone").text(formatPhoneFax(response.model.ManagementCompanyPhone));
+
+            //$("#summEstartdatep").text(response.model.StartDateTxt);
+            //$("#summECountry").text(response.model.CountryString);
+            //$("#summEmployerName").text(response.model.EmployerName);
+            //$("#summOfficeAdd").text(response.model.OfficeAddress1);
+            //$("#summOfficeC").text(response.model.OfficeCity);
+            //$("#summJobTitle").text(response.model.JobTitle);
+            //$("#summAdditionalI").text("$ " + formatMoney(response.model.AdditionalIncome));
+            //$("#summSalaryp").text("$ " + formatMoney(response.model.Income));
+            //$("#summSupNa").text(response.model.SupervisorName);
+            //$("#summSupMob").text(formatPhoneFax(response.model.SupervisorPhone));
+            //$("#summEAddre1").text(response.model.OfficeAddress1 + ", " + response.model.OfficeAddress2);
+
+
+
+
+            $("#sumAIsProprNoticeLeaseAgreement").text(response.model.stringIsProprNoticeLeaseAgreement);
             //17082019 - start
             $("#ddlCityHome").text(response.model.CityHome);
             $("#ddlCityContact").text(response.model.EmergencyCityHome);
@@ -4339,10 +4374,10 @@ var saveupdateApplicantHistory = function () {
 var getApplicantHistoryList = function () {
 
     var model = {
-        TenantID: $("#hdnOPId").val()
+        TenantID: $("#hdnOPId").val(), UserID: $("#hndApplicantUserId").val()
     };
     $.ajax({
-        url: "/ApplyNow/GetApplicantHistoryList",
+        url: "/ApplyNow/GetApplicantHistoryListPV",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -4371,6 +4406,173 @@ var getApplicantHistoryList = function () {
         }
     });
 };
+
+//sachin m 13 may
+var getPreviousAddressInfo = function () {
+
+    var model = {
+        id: $("#hdnOPId").val()
+    };
+    $.ajax({
+        url: "/ApplyNow/GetAppResidenceHistory",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            //console.log(JSON.stringify(response))
+            $("#tblResidenceStatus>tbody").empty();
+            $.each(response.model, function (elementType, elementValue) {
+                var html = "<tr id='tr_" + elementValue.ID + "' data-value='" + elementValue.ID + "'>";
+                html += "<td>" + elementValue.FirstName + " (" + elementValue.AppType +")</td>";
+                html += "<td>" + elementValue.MoveInDateFromTxt + "</td>";
+                html += "<td>$" + elementValue.MonthlyPayment + "</td>";
+                html += "<td>" + elementValue.ManagementCompany + "</td>";
+                html += "<td>" + elementValue.ManagementCompanyPhone + "</td>";
+                html += "<td>" + elementValue.HomeAddress1 + "," + elementValue.HomeAddress2 +"- " + elementValue.ZipHome + "</td>";
+                html += "<td>" + elementValue.CountryString + "</td>";
+
+                html += "<td>" + elementValue.ApartmentCommunity + "</td>";
+                html += "<td><select id='ddlResidanceStatus" + elementValue.ID + "' class='form-control'><option value='0'>Select</option><option value='1'>Approved</option><option value='2'>Denied</option><option value='3'>Conditional</option></select></td>";
+                html += "<td><input type='text' id='txtResNotes" + elementValue.ID + "' class='form-control' value='" + elementValue.ResidenceNotes + "' /></td>";
+
+                html += "<td class='text-center'>";
+                html += "<button  id='btnupdateResStatus' class='btn btn-primary' onclick='updateResStatus(" + elementValue.ID + ")'>Save</button>";
+                html += "</tr>";
+                $("#tblResidenceStatus>tbody").append(html);
+                //$("#ddlResidanceStatus" + id).val(elementValue.ResidenceStatus)
+            });
+        }
+    });
+};
+var getPreviousEmpInfo = function () {
+
+    var model = {
+        id: $("#hdnOPId").val()
+    };
+    $.ajax({
+        url: "/ApplyNow/GetAppEmpHistory",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            //console.log(JSON.stringify(response))
+            $("#tblEmpStatus>tbody").empty();
+            $.each(response.model, function (elementType, elementValue) {
+                var html = "<tr id='tr_" + elementValue.ID + "' data-value='" + elementValue.ID + "'>";
+                html += "<td>" + elementValue.FirstName + " (" + elementValue.AppType + ")</td>";
+                html += "<td>" + elementValue.MoveInDateFromTxt + "</td>";
+                html += "<td>" + elementValue.EmployerName + "</td>";
+                html += "<td>" + elementValue.SupervisorPhone + "</td>";
+                html += "<td>" + elementValue.SupervisorName + "</td>";
+                html += "<td>" + elementValue.OfficeAddress1 + "," + elementValue.OfficeAddress2 + "- " + elementValue.OfficeZip + "</td>";
+                html += "<td>" + elementValue.JobTitle + "</td>";
+                html += "<td>$" + elementValue.Income + "</td>";
+                html += "<td>$" + elementValue.AdditionalIncome + "</td>";
+                html += "<td><select id='ddlEmpStatus" + elementValue.ID + "' class='form-control'><option value='0'>Select</option><option value='1'>Approved</option><option value='2'>Denied</option><option value='3'>Conditional</option></select></td>";
+                html += "<td><input type='text' id='txtEmpNotes" + elementValue.ID + "' class='form-control' value='" + elementValue.EmpNotes + "' /></td>";
+
+                html += "<td class='text-center'>";
+                html += "<button  id='btnupdateResStatus' class='btn btn-primary' onclick='updateEmpStatus(" + elementValue.ID + ")'>Save</button>";
+                html += "</tr>";
+                $("#tblEmpStatus>tbody").append(html);
+            });
+        }
+    });
+};
+var updateResStatus = function (id) {
+    $("#divLoader").show();
+    var msg = '';
+    
+    var resstatus = $("#ddlResidanceStatus" + id).val();
+    var resnotes = $("#txtResNotes" + id).val();
+  
+    if ($("#txtResNotes" + id).val() == '') {
+        msg += 'Please Fill Residence Notes</br>';
+    }
+
+    if (msg != '') {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'blue'
+        });
+        return
+    }
+    var model = {
+        ID: id,
+        ResidenceStatus: resstatus,
+        ResidenceNotes: resnotes,     
+    };
+
+    $.ajax({
+        url: "/ApplyNow/UpdateResStatus",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+        
+            $.alert({
+                title: "",
+                content: "Progress Saved.",
+                type: 'blue'
+            });
+            
+        }
+    });
+};
+var updateEmpStatus = function (id) {
+    $("#divLoader").show();
+    var msg = '';
+
+    var empstatus = $("#ddlEmpStatus" + id).val();
+    var empnotes = $("#txtEmpNotes" + id).val();
+   
+    if ($("#txtEmpNotes" + id).val() == '') {
+        msg += 'Please Fill Employment Notes</br>';
+    }
+
+    if (msg != '') {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'blue'
+        });
+        return
+    }
+    var model = {
+        ID: id,
+        EmpStatus: empstatus,
+        EmpNotes: empnotes,
+    };
+
+    $.ajax({
+        url: "/ApplyNow/UpdateEmpStatus",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+
+            $.alert({
+                title: "",
+                content: "Progress Saved.",
+                type: 'blue'
+            });
+
+        }
+    });
+};
+
+
+
+
 
 var getApplicantHistoryInfo = function (id) {
     var model = {
@@ -4999,7 +5201,7 @@ var getVehicleInfo = function (id) {
 var SaveScreeningStatus = function () {
     var emil = $("#txtEmail").text();
     var model = {
-        Email: emil, ProspectId: $("#hdnOPId").val(), Status: $("#ddlStatus").val()
+        Email: emil, ProspectId: $("#hdnOPId").val(), Status: $("#ddlStatus").val(), Notes: $("#txtStatusNotes").val()
     };
 
     $.alert({

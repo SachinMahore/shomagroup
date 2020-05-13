@@ -255,11 +255,52 @@ namespace ShomaRM.Areas.Tenant.Models
                 throw ex;
             }
         }
+        
         public EmployerHistoryModel GetPriousEmploymentInfo(int id)
         {
             EmployerHistoryModel model = new EmployerHistoryModel();
             ShomaRMEntities db = new ShomaRMEntities();
             long ptoid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var PriousEmploymentdata = db.tbl_EmployerHistory.Where(co => co.TenantId == id && co.ParentTOID == ptoid).OrderByDescending(s => s.HEIID).FirstOrDefault();
+
+            if (PriousEmploymentdata != null)
+            {
+                var countryName = db.tbl_Country.Where(co => co.ID == PriousEmploymentdata.Country).FirstOrDefault();
+                var StateName = db.tbl_State.Where(co => co.ID == PriousEmploymentdata.State).FirstOrDefault();
+
+                model.HEIID = PriousEmploymentdata.HEIID;
+                model.EmployerName = !string.IsNullOrWhiteSpace(PriousEmploymentdata.EmployerName) ? PriousEmploymentdata.EmployerName : "";
+                model.JobTitle = !string.IsNullOrWhiteSpace(PriousEmploymentdata.JobTitle) ? PriousEmploymentdata.JobTitle : "";
+                model.JobType = PriousEmploymentdata.JobType;
+                model.StartDate = PriousEmploymentdata.StartDate;
+                model.TerminationDate = PriousEmploymentdata.TerminationDate;
+                model.AnnualIncome = PriousEmploymentdata.AnnualIncome;
+                model.AddAnnualIncome = PriousEmploymentdata.AddAnnualIncome;
+                model.SupervisorName = !string.IsNullOrWhiteSpace(PriousEmploymentdata.SupervisorName) ? PriousEmploymentdata.SupervisorName : "";
+                model.SupervisorPhone = PriousEmploymentdata.SupervisorPhone;
+                model.SupervisorEmail = !string.IsNullOrWhiteSpace(PriousEmploymentdata.SupervisorEmail) ? PriousEmploymentdata.SupervisorEmail : "";
+                model.Country = PriousEmploymentdata.Country;
+                model.Address1 = !string.IsNullOrWhiteSpace(PriousEmploymentdata.Address1) ? PriousEmploymentdata.Address1 : "";
+                model.Address2 = !string.IsNullOrWhiteSpace(PriousEmploymentdata.Address2) ? PriousEmploymentdata.Address2 : "";
+                model.State = PriousEmploymentdata.State;
+                model.City = !string.IsNullOrWhiteSpace(PriousEmploymentdata.City) ? PriousEmploymentdata.City : "";
+                model.Zip = !string.IsNullOrWhiteSpace(PriousEmploymentdata.Zip) ? PriousEmploymentdata.Zip : "";
+                model.StartDateString = PriousEmploymentdata.StartDate != null ? PriousEmploymentdata.StartDate.Value.ToString("MM/dd/yyyy") : "";
+                model.TerminationDateString = PriousEmploymentdata.TerminationDate != null ? PriousEmploymentdata.TerminationDate.Value.ToString("MM/dd/yyyy") : "";
+                model.TerminationReason = !string.IsNullOrWhiteSpace(PriousEmploymentdata.TerminationReason) ? PriousEmploymentdata.TerminationReason : "";
+                model.CountryName = countryName != null ? countryName.CountryName : "";
+                model.StateName = StateName != null ? StateName.StateName : "";
+                model.JobTypeName = PriousEmploymentdata.JobType == 1 ? "Permanent" : PriousEmploymentdata.JobType == 2 ? "Contract Basis" : "";
+            }
+            return model;
+        }
+        
+
+        public EmployerHistoryModel GetPriousEmploymentInfoPV(int id, long UserID)
+        {
+            EmployerHistoryModel model = new EmployerHistoryModel();
+            ShomaRMEntities db = new ShomaRMEntities();
+            long ptoid = UserID;
             var PriousEmploymentdata = db.tbl_EmployerHistory.Where(co => co.TenantId == id && co.ParentTOID == ptoid).OrderByDescending(s => s.HEIID).FirstOrDefault();
 
             if (PriousEmploymentdata != null)
