@@ -27,7 +27,15 @@ namespace ShomaRM.Controllers
         {
             if (!string.IsNullOrEmpty(id))
             {
-                ViewBag.PID = Convert.ToInt32(id);
+                try
+                {
+                    ViewBag.PID = Convert.ToInt32(id);
+                }
+                catch
+                {
+                    ViewBag.PID = 0;
+                    id = "0";
+                }
             }
             else
             {

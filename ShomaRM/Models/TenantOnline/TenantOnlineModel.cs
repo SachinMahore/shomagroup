@@ -875,6 +875,19 @@ namespace ShomaRM.Models
 
                     getAppldata.StepCompleted = model.StepCompleted;
 
+                    getAppldata.TaxReturn4 = model.TaxReturn4;
+                    getAppldata.TaxReturn5 = model.TaxReturn5;
+                    getAppldata.TaxReturn6 = model.TaxReturn6;
+                    getAppldata.TaxReturn7 = model.TaxReturn7;
+                    getAppldata.TaxReturn8 = model.TaxReturn8;
+                    getAppldata.TaxReturnOrginalFile4 = model.UploadOriginalFileName4;
+                    getAppldata.TaxReturnOrginalFile5 = model.UploadOriginalFileName5;
+                    getAppldata.TaxReturnOrginalFile6 = model.UploadOriginalFileName6;
+                    getAppldata.TaxReturnOrginalFile7 = model.UploadOriginalFileName7;
+                    getAppldata.TaxReturnOrginalFile8 = model.UploadOriginalFileName8;
+                    getAppldata.IsFedralTax = model.IsFedralTax;
+                    getAppldata.IsBankState = model.IsBankState;
+
                     db.SaveChanges();
                 }
 

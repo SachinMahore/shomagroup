@@ -5,11 +5,111 @@ var tenantOnlineID = 0;
 var addApplicntArray = [];
 var addUpArray = [];
 var nofup = 0;
+var rbtnClick = "";
 $(document).ready(function () {
     onFocusApplyNow();
     localStorage.removeItem("CheckReload");
     fillMarketSourceDDLA();
+    if ($("#rbtnPaystub").on('ifChanged', function () {
+        rbtnClick = "Paystub";
+    }));
+    if ($("#rbtnBankStatement").on('ifChanged', function () {
+        rbtnClick = "BankStatement";
+    }));
+    if ($("#rbtnFedralTax").on('ifChanged', function () {
+        rbtnClick = "FedralTax";
+    }));
 
+    if ($("#rbtnPaystub").is(":checked")) {
+        $('#divUpload3').removeClass('hidden');
+    }
+    else {
+        $('#divUpload3').addClass('hidden');
+    }
+    if ($("#rbtnBankStatement").is(":checked")) {
+        $('#divBankUpload').removeClass('hidden');
+    }
+    else {
+        $('#divBankUpload').addClass('hidden');
+    }
+    if ($("#rbtnFedralTax").is(":checked")) {
+        $('#divFederalTax').removeClass('hidden');
+    }
+    else {
+        $('#divFederalTax').addClass('hidden');
+    }
+
+    $('input[type=checkbox]').on('ifChanged', function (event) {
+        addUpArray = [];
+        $('.empup').each(function (i, obj) {
+            if ($(obj).is(':checked')) {
+                addUpArray.push(1);
+            }
+        });
+
+        nofup = addUpArray.length;
+        if ($("#rbtnPaystub").is(":checked")) {
+            if (nofup < 3) {
+                $('#divUpload3').removeClass('hidden');
+            } else {
+                if (rbtnClick == "Paystub") {
+                    setTimeout(function () {
+                        $("#rbtnPaystub").prop("checked", false);
+                        $("#rbtnPaystub").parent().removeClass("checked");
+                        $.alert({
+                            title: "",
+                            content: "Please Select any two of the three options (tax return, paystubs, and bank statements).<br/> If you want to select Paystub then please uncheck from any one of the selected items.",
+                            type: 'red'
+                        })
+                    }, 200);
+                    return;
+                }
+            }
+        }
+        else {
+            $('#divUpload3').addClass('hidden');
+        }
+        if ($("#rbtnBankStatement").is(":checked")) {
+            if (nofup < 3) {
+                $('#divBankUpload').removeClass('hidden');
+            } else {
+                if (rbtnClick == "BankStatement") {
+                    setTimeout(function () {
+                        $("#rbtnBankStatement").prop("checked", false);
+                        $("#rbtnBankStatement").parent().removeClass("checked");
+                        $.alert({
+                            title: "",
+                            content: "Please Select any  two of the three options (tax return, paystubs, and bank statements).<br/> If you want to select Bank Statement then please uncheck from any one of the selected items.",
+                            type: 'red'
+                        })
+                    }, 200);
+                    return;
+                }
+            }
+        } else {
+            $('#divBankUpload').addClass('hidden');
+        }
+        if ($("#rbtnFedralTax").is(":checked")) {
+            if (nofup < 3) {
+                $('#divFederalTax').removeClass('hidden');
+            } else {
+                if (rbtnClick == "FedralTax") {
+                    setTimeout(function () {
+                        $("#rbtnFedralTax").prop("checked", false);
+                        $("#rbtnFedralTax").parent().removeClass("checked");
+                        $.alert({
+                            title: "",
+                            content: "Please Select any  two of the three options (tax return, paystubs, and bank statements).<br/> If you want to select Fedral Tax then please uncheck from any one of the selected items.",
+                            type: 'red'
+                        })
+                    }, 200);
+                    return;
+                }
+            }
+        } else {
+            $('#divFederalTax').addClass('hidden');
+        }
+    });
     $("#popRentalQualification").modal("hide");
     checkExpiry();
     $("#chkAgreePetTerms").on('ifChanged', function (event) {
@@ -34,68 +134,6 @@ $(document).ready(function () {
         }
     });
 
-    
-  
-   
-    $('input[type=checkbox]').on('ifChanged', function (event) {
-        addUpArray = [];
-        $('.empup').each(function (i, obj) {
-            if ($(obj).is(':checked')) {
-                addUpArray.push(1);
-            }
-        });
-
-        nofup = addUpArray.length;
-
-        if ($("#rbtnPaystub").is(":checked")) {
-            if (nofup < 3) {
-                $('#divUpload3').removeClass('hidden');
-            } else {
-               // $("#rbtnPaystub").prop("checked", false);
-                $.alert({
-                    title: "",
-                    content: "Please Select any  two of the three options (tax return, paystubs, and bank statements)",
-                    type: 'red'
-                })
-                return;
-            }
-        }
-        else {
-            $('#divUpload3').addClass('hidden');
-        }
-        if ($("#rbtnBankStatement").is(":checked")) {
-            if (nofup < 3) {
-                $('#divBankUpload').removeClass('hidden');
-            } else {
-               // $("#rbtnBankStatement").prop("checked", false);
-                $.alert({
-                    title: "",
-                    content: "Please Select any  two of the three options (tax return, paystubs, and bank statements)",
-                    type: 'red'
-                })
-                return;
-            }
-        } else {
-            $('#divBankUpload').addClass('hidden');
-        }
-        if ($("#rbtnFedralTax").is(":checked")) {
-            if (nofup < 3) {
-                $('#divFederalTax').removeClass('hidden');
-            } else {
-              //  $("#rbtnFedralTax").prop("checked", false);
-                $.alert({
-                    title: "",
-                    content: "Please Select any  two of the three options (tax return, paystubs, and bank statements)",
-                    type: 'red'
-                })
-                return;
-            }
-        } else {
-            $('#divFederalTax').addClass('hidden');
-        }
-
-        console.log(addUpArray)
-    });
     
     if ($("#rbtnPaystubHEI").is(":checked")) {
         $('#divUpload3HEI').removeClass('hidden');
@@ -405,7 +443,7 @@ $(document).ready(function () {
         if ($("#chkDontHaveVehicle").is(":checked")) {
             $("#btnAddVehicle").attr("disabled", true);
             $("#btnAddVehicle").css("background-color", "#b4ada5");
-            deleteVehiclesListOnCheck();
+            //deleteVehiclesListOnCheck();
             haveVehicle();
         }
         else if ($("#chkDontHaveVehicle").is(":not(:checked)")) {
@@ -829,6 +867,8 @@ function checkFormstatus() {
 }
 var totalAmt = 0;
 var goToStep = function (stepid, id, calldataupdate) {
+    $.jTimeout.setTimeOutAfter(780);
+    //$.jTimeout().reset();
     if (stepid > 7) {
         if ($("#hndCreditPaid").val() == 0) {
             $.alert({
@@ -1336,6 +1376,7 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "9") {
+        $.jTimeout.setTimeOutAfter(180);
         if (parseInt($("#hdnStepCompleted").val()) < 8) {
             msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 9);
             $.alert({
@@ -1399,6 +1440,8 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "10") {
+       
+
         if (parseInt($("#hdnStepCompleted").val()) < 9) {
             msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 10);
             $.alert({
@@ -1931,6 +1974,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 return;
             }
             else {
+                SaveUpdateStep(13);
                 saveupdateTenantOnline(13);
                 $("#step2").addClass("hidden");
                 $("#step1").addClass("hidden");
@@ -1975,12 +2019,12 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
 
         var petAdded = $("#tblPet tbody tr").length;
-        console.log($("#hndPetPlaceCount").val());
+        
         if ($("#hndPetPlaceCount").val() == 0) {
-            $("#chkDontHavePetDiv").removeClass("hidden");
+            //$("#chkDontHavePetDiv").removeClass("hidden");
             $("#btnAddPet").prop("disabled", false);
         } else {
-            $("#chkDontHavePetDiv").addClass("hidden");
+            //$("#chkDontHavePetDiv").addClass("hidden");
             $("#btnAddPet").prop("disabled", false);
             if (petAdded == 0) {
                 $.alert({
@@ -1990,7 +2034,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 });
             }
             else {
-                $("#chkDontHavePetDiv").removeClass("hidden");
+                //$("#chkDontHavePetDiv").removeClass("hidden");
                 $("#btnAddPet").css("background-color", "#B4ADA5").prop("disabled", true);
                 SaveUpdateStep(14);
                 getTenantPetPlaceData();
@@ -2185,7 +2229,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         });
                     }
                     else {
-                        $("#chkDontHavePetDiv").removeClass("hidden");
+                        //$("#chkDontHavePetDiv").removeClass("hidden");
                         $("#btnAddPet").css("background-color", "#B4ADA5").prop("disabled", true);
                         $("#subMenu").removeClass("hidden");
                         SaveUpdateStep(15);
@@ -2226,7 +2270,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                     }
                 }
                 else {
-                    $("#chkDontHavePetDiv").removeClass("hidden");
+                    //$("#chkDontHavePetDiv").removeClass("hidden");
                     $("#subMenu").removeClass("hidden");
                     SaveUpdateStep(15);
                     tenantOnlineID = $("#hdnOPId").val();
@@ -4083,9 +4127,10 @@ var getPropertyUnitList = function (modelname,filldata) {
     $("#hndIsModelSelected").val(1);
     $("#imgFloorPlan").attr("src", "/content/assets/img/plan/" + modelname + ".jpg");
     $("#imgFloorPlan2").attr("src", "/content/assets/img/plan/" + modelname + "Det.jpg");
-    $("#lblUnitNo").text("Model: #" + modelname);
     $("#ModelCompare").modal("hide");
+    $("#lblUnitNo").text("");
 
+    $("#lblUnitNo").text("Model: #" + modelname);
     $("#divLoader").show();
     var maxrent = 0;
     if ($("#txtMaxRent").val() == "0") {
@@ -6140,25 +6185,21 @@ var saveupdatePet = function () {
         dataType: 'json',
         success: function (response) {
             $("#divLoader").hide();
-            var tId = response.Msg.split(',');
-            if (tId[0] == -1) {
-                $.alert({
-                    title: "",
-                    content: tId[1],
-                    type: 'blue'
-                });
-            } else {
-                localStorage.setItem('tenantIds', response.Msg);
-                var str = localStorage.getItem('tenantIds');
-                document.getElementById('hdnOPId').value = tId[0];
-                getPetLists();
-                $.alert({
-                    title: "",
-                    content: "Progress Saved.",
-                    type: 'blue'
-                });
-            }
+            localStorage.setItem('tenantIds', response.Msg);
 
+            var str = localStorage.getItem('tenantIds');
+            var tId = str.split(',');
+            document.getElementById('hdnOPId').value = tId[0];
+            //$("#hdnOPId").val(tId[0]);
+            getPetLists();
+            $.alert({
+                title: "",
+                content: response.Msg,
+                type: 'blue'
+            });
+
+
+            //$("#popPet").PopupWindow("close");
             $("#popPet").modal("hide");
         }
     });
@@ -6290,6 +6331,7 @@ var saveupdateVehicle = function () {
     var vstate = $("#ddlVState").val();
     var vfileUploadVehicleRegistation = $("#fileUploadVehicleRegistation").val();
     var prospectID = $("#hdnOPId").val();
+
     var vehicleRegistration = document.getElementById("fileUploadVehicleRegistation");
     var vOwnerName = $("#txtVehicleOwnerName").val();
     var vNotes = $("#txtVehicleNote").val();
@@ -6339,6 +6381,9 @@ var saveupdateVehicle = function () {
     $formData.append('Notes', vNotes);
     $formData.append('Tag', vtag);
     $formData.append('ParkingID', parkspace);
+    $formData.append('VehicleType', vtype);
+
+
 
     $formData.append('VehicleRegistration', vRegistationCert);
     $formData.append('OriginalVehicleRegistation', vOriginalRegistationCert);
@@ -6354,7 +6399,7 @@ var saveupdateVehicle = function () {
             $("#divLoader").hide();
             $.alert({
                 title: "",
-                content: "Progress Saved.",
+                content: response.Msg,
                 type: 'blue',
             });
 
@@ -6365,7 +6410,7 @@ var saveupdateVehicle = function () {
         }
     });
 
-}
+};
 
 var getVehicleLists = function () {
     $("#divLoader").show();
@@ -8651,7 +8696,7 @@ var getTenantPetPlaceData = function () {
 
             if (valueCount == 0 && tenantCount == 0) {
                 $("#tblPet>tbody").empty();
-                $("#chkDontHavePetDiv").removeClass("hidden");
+                //$("#chkDontHavePetDiv").removeClass("hidden");
                 $("#chkDontHavePet").iCheck('check');
                 $("#btnAddPet").attr("disabled", true);
                 $("#btnAddPet").css("background-color", "#b4ada5");
@@ -10065,7 +10110,7 @@ var editVehicle = function (id) {
         success: function (response) {
             $("#popVehicle").modal("show");
             $("#txtVehicleOwnerName").val(response.model.OwnerName);
-            $("#ddlVehicleType").val(response.model.Type);
+            $("#ddlVehicleType").val(response.model.VehicleType);
             $("#ddlVehicleyear").val(response.model.Year);
             $("#txtVehicleMake").val(response.model.Make);
             $("#txtVehicleModel").val(response.model.VModel);
@@ -10077,6 +10122,12 @@ var editVehicle = function (id) {
             $("#txtVehicleNote").html(response.model.Notes);
             $("#VehicleRegistationShow").html(response.model.OriginalVehicleRegistation);
             $("#hndVehicleID").val(response.model.Vehicle_ID);
+            $('#ddlParking').empty();
+            var dhtml = "<option value='" + response.model.ParkingID + "' selected='selected' data-value='" + response.model.ParkingID + "'>" + response.model.ParkingName + "</option>";
+            $('#ddlParking').append(dhtml);
+
+            $("#hndVehicleRegistation").val(response.model.VehicleRegistration);
+            $("#hndOriginalVehicleRegistation").val(response.model.OriginalVehicleRegistation);
         }
     });
 };

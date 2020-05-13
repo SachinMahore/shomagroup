@@ -31,47 +31,86 @@ namespace ShomaRM.Areas.Tenant.Models
         public int ParkingID { get; set; }
         public string ParkingName { get; set; }
 
+        public Nullable<int> VehicleType { get; set; }
+
         public string SaveUpdateVehicle(VehicleModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
             int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
-            if (model.Vehicle_ID == 0)
+            var tenantProperty = db.tbl_ApplyNow.Where(p => p.ID == model.TenantID).FirstOrDefault();
+            var propertyUnit = db.tbl_PropertyUnits.Where(p => p.UID == tenantProperty.PropertyId).FirstOrDefault();
+            int? TotalSpace = 0;
+            int? newAvailSpace = 0;
+            if (tenantProperty != null)
             {
-                var saveVehicle = new tbl_Vehicle()
+                if (propertyUnit != null)
                 {
-                    VehicleRegistration = model.VehicleRegistration,
-                    OriginalVehicleReg = model.OriginalVehicleRegistation,
-                    Vehicle_ID = model.Vehicle_ID,
-                    TenantID = model.TenantID,
-                    Make = model.Make,
-                    Model = model.VModel,
-                    Year = model.Year,
-                    Color = model.Color,
-                    License = model.License,
-                    State = model.State,
-                    OwnerName = model.OwnerName,
-                    Notes = model.Notes,
-                    Tag=model.Tag,
-                    ParkingID=model.ParkingID,
-                    AddedBy = userid,
-                };
-                db.tbl_Vehicle.Add(saveVehicle);
-                db.SaveChanges();
+                    if (propertyUnit.Bedroom == 1)
+                    {
+                        newAvailSpace = 1;
+                    }
+                    else if (propertyUnit.Bedroom == 2)
+                    {
+                        newAvailSpace = 1;
+                    }
+                    else if (propertyUnit.Bedroom == 3)
+                    {
+                        newAvailSpace = 2;
+                    }
+                    TotalSpace = tenantProperty.AdditionalParking + newAvailSpace;
+                }
 
-                var ParkingInfo = db.tbl_Parking.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
-                ParkingInfo.Status = 1;
-                ParkingInfo.AddedBy = userid;
-                db.SaveChanges();
-                msg = "Vehicle Saved Successfully";
+            }
+
+            var availableList = db.tbl_Vehicle.Where(p => p.TenantID == model.TenantID).ToList();
+
+
+            if (availableList.Count < TotalSpace)
+            {
+                if (model.Vehicle_ID == 0)
+                {
+                    var saveVehicle = new tbl_Vehicle()
+                    {
+                        VehicleRegistration = model.VehicleRegistration,
+                        OriginalVehicleReg = model.OriginalVehicleRegistation,
+                        Vehicle_ID = model.Vehicle_ID,
+                        TenantID = model.TenantID,
+                        Make = model.Make,
+                        Model = model.VModel,
+                        Year = model.Year,
+                        Color = model.Color,
+                        License = model.License,
+                        State = model.State,
+                        OwnerName = model.OwnerName,
+                        Notes = model.Notes,
+                        Tag = model.Tag,
+                        ParkingID = model.ParkingID,
+                        AddedBy = userid,
+                        VehicleType = model.VehicleType
+                    };
+                    db.tbl_Vehicle.Add(saveVehicle);
+                    db.SaveChanges();
+
+                    var ParkingInfo = db.tbl_Parking.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
+                    ParkingInfo.Status = 1;
+                    ParkingInfo.AddedBy = userid;
+                    db.SaveChanges();
+                    msg = "Vehicle Saved Successfully";
+                }
+
             }
             else
+            {
+                msg = "You can not add Vehicle Due to Un-available Vehicle Space";
+            }
+            if (model.Vehicle_ID != 0)
             {
                 var getVehdata = db.tbl_Vehicle.Where(p => p.Vehicle_ID == model.Vehicle_ID).FirstOrDefault();
                 if (getVehdata != null)
                 {
-                    VehicleRegistration = model.VehicleRegistration;
-                    OriginalVehicleRegistation = model.OriginalVehicleRegistation;
+                    getVehdata.VehicleRegistration = model.VehicleRegistration;
+                    getVehdata.OriginalVehicleReg = model.OriginalVehicleRegistation;
                     getVehdata.Vehicle_ID = model.Vehicle_ID;
                     getVehdata.TenantID = model.TenantID;
                     getVehdata.Make = model.Make;
@@ -82,14 +121,14 @@ namespace ShomaRM.Areas.Tenant.Models
                     getVehdata.State = model.State;
                     getVehdata.OwnerName = model.OwnerName;
                     getVehdata.Notes = model.Notes;
-                   // getVehdata.Tag = model.Tag;
+                    // getVehdata.Tag = model.Tag;
                     getVehdata.ParkingID = model.ParkingID;
+                    getVehdata.VehicleType = model.VehicleType;
 
                 }
                 db.SaveChanges();
                 msg = "Vehicle Updated Successfully";
             }
-
             db.Dispose();
             return msg;
 
@@ -174,7 +213,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     State = !string.IsNullOrWhiteSpace(State) ? State : "",
                     VehicleRegistration = !string.IsNullOrWhiteSpace(pl.VehicleRegistration) ? pl.VehicleRegistration : "",
                     OwnerName = !string.IsNullOrWhiteSpace(pl.OwnerName) ? pl.OwnerName : "",
-                    Notes = !string.IsNullOrWhiteSpace(pl.Notes) ? pl.Notes : ""
+                    Notes = !string.IsNullOrWhiteSpace(pl.Notes) ? pl.Notes : "",
+                    VehicleType = pl.VehicleType != null ? pl.VehicleType : 0
                 });
 
             }
@@ -271,9 +311,11 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.Tag = !string.IsNullOrWhiteSpace(vehicleInfo.Tag) ? vehicleInfo.Tag : "";
                 var getParkingName = db.tbl_Parking.Where(co => co.ParkingID == vehicleInfo.ParkingID).FirstOrDefault();
                 model.ParkingName = getParkingName == null ? "" : !string.IsNullOrWhiteSpace(getParkingName.ParkingName) ? getParkingName.ParkingName : "";
+                model.ParkingID = Convert.ToInt16(getParkingName.ParkingID);
                 long stateS = Convert.ToInt64(model.State);
                 var stateStr = db.tbl_State.Where(co => co.ID == stateS).FirstOrDefault();
                 model.StateString = !string.IsNullOrWhiteSpace(stateStr.StateName) ? stateStr.StateName : "";
+                model.VehicleType = vehicleInfo.VehicleType != null ? vehicleInfo.VehicleType : 0;
             }
 
             return model;
@@ -306,7 +348,8 @@ namespace ShomaRM.Areas.Tenant.Models
                             State = vehState.StateName,
                             VehicleRegistration = pl.VehicleRegistration,
                             OwnerName = pl.OwnerName,
-                            Notes = pl.Notes
+                            Notes = pl.Notes,
+                            VehicleType = pl.VehicleType
                         });
 
                     }
@@ -338,7 +381,8 @@ namespace ShomaRM.Areas.Tenant.Models
                         License = model.License,
                         State = model.State,
                         OwnerName = model.OwnerName,
-                        Notes = model.Notes
+                        Notes = model.Notes,
+                        VehicleType = model.VehicleType
 
                     };
                     db.tbl_Vehicle.Add(saveVehicle);
@@ -364,6 +408,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         getVehdata.State = model.State;
                         getVehdata.OwnerName = model.OwnerName;
                         getVehdata.Notes = model.Notes;
+                        getVehdata.VehicleType = model.VehicleType;
 
                     }
                     db.SaveChanges();
