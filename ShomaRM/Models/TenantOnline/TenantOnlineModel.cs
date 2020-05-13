@@ -177,6 +177,15 @@ namespace ShomaRM.Models
         public string UploadOriginalFileName8 { get; set; }
         public int IsFedralTax { get; set; }
         public int IsBankState { get; set; }
+        //sachin m 13 may
+        public List<ApplicantHistoryModel> lstaph { get; set; }
+        public string StateString { get; set; }
+        public string RentOwnString { get; set; }
+        public string AppType { get; set; }
+        public Nullable<int> ResidenceStatus { get; set; }
+        public string ResidenceNotes { get; set; }
+        public Nullable<int> EmpStatus { get; set; }
+        public string EmpNotes { get; set; }
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -1994,6 +2003,198 @@ namespace ShomaRM.Models
                 db.Database.Connection.Close();
                 throw ex;
             }
+        }
+
+        public List<TenantOnlineModel> GetAppResidenceHistory(int id)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel model = new TenantOnlineModel();
+            List<TenantOnlineModel> lstpr = new List<TenantOnlineModel>();
+            var coapplist = db.tbl_TenantOnline.Where(p => p.ProspectID == id).ToList();
+            if (coapplist != null)
+            {
+                foreach (var cl in coapplist)
+                {
+                    TenantOnlineModel ahm = new TenantOnlineModel();
+                    List<ApplicantHistoryModel> lstahm = new List<ApplicantHistoryModel>();
+                    DateTime? stdtFrom = null;
+                    try
+                    {
+
+                        stdtFrom = Convert.ToDateTime(cl.MoveInDateFrom);
+                    }
+                    catch
+                    {
+
+                    }
+                    ahm.ID = cl.ID;
+                    var apptype = db.tbl_Applicant.Where(c => c.UserID == cl.ParentTOID).FirstOrDefault();
+                    ahm.AppType = apptype.Type;
+                    ahm.FirstName = cl.FirstName + " " + cl.LastName;
+                    ahm.Country = cl.Country;
+                    ahm.StateHome = cl.StateHome;
+                    ahm.CityHome = cl.CityHome;
+                    ahm.ZipHome = cl.ZipHome;
+                    ahm.RentOwn = cl.RentOwn;
+                    ahm.HomeAddress1 = cl.HomeAddress1;
+                    ahm.HomeAddress2 = cl.HomeAddress2;
+                    ahm.MoveInDateFromTxt = stdtFrom == null ? "" : stdtFrom.Value.ToString("MM/dd/yyy");
+                    ahm.MonthlyPayment = !string.IsNullOrWhiteSpace(cl.MonthlyPayment) ? cl.MonthlyPayment : "";
+                    ahm.Reason = !string.IsNullOrWhiteSpace(cl.Reason) ? cl.Reason : "";
+                    var stateStr = db.tbl_State.Where(co => co.ID == cl.StateHome).FirstOrDefault();
+                    ahm.StateString = stateStr.StateName;
+                    int ctryString = Convert.ToInt32(ahm.Country);
+                    var countryStr = db.tbl_Country.Where(co => co.ID == ctryString).FirstOrDefault();
+                    ahm.CountryString = countryStr.CountryName;
+                    ahm.RentOwnString = ahm.RentOwn == 1 ? "Rent" : ahm.RentOwn == 2 ? "Own" : "";
+                    ahm.ApartmentCommunity = !string.IsNullOrWhiteSpace(cl.ApartmentCommunity) ? cl.ApartmentCommunity : "";
+                    ahm.ManagementCompany = !string.IsNullOrWhiteSpace(cl.ManagementCompany) ? cl.ManagementCompany : "";
+                    ahm.ManagementCompanyPhone = !string.IsNullOrWhiteSpace(cl.ManagementCompanyPhone) ? cl.ManagementCompanyPhone : "";
+                    ahm.IsProprNoticeLeaseAgreement = cl.IsProprNoticeLeaseAgreement;
+                    ahm.stringIsProprNoticeLeaseAgreement = ahm.IsProprNoticeLeaseAgreement == 1 ? "Yes" : "No";
+                    ahm.ResidenceStatus = cl.ResidenceStatus==null?0: cl.ResidenceStatus;
+                    ahm.ResidenceNotes = cl.ResidenceNotes==null?"":cl.ResidenceNotes;
+                    
+                    lstpr.Add(ahm);
+                }
+
+            }
+
+            return lstpr;
+
+        }
+        public List<TenantOnlineModel> GetAppEmpHistory(int id)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel model = new TenantOnlineModel();
+            List<TenantOnlineModel> lstpr = new List<TenantOnlineModel>();
+            var coapplist = db.tbl_TenantOnline.Where(p => p.ProspectID == id).ToList();
+            if (coapplist != null)
+            {
+                foreach (var cl in coapplist)
+                {
+                    TenantOnlineModel ahm = new TenantOnlineModel();
+                    List<ApplicantHistoryModel> lstahm = new List<ApplicantHistoryModel>();
+                    DateTime? stdtFrom = null;
+                    try
+                    {
+
+                        stdtFrom = Convert.ToDateTime(cl.StartDate);
+                    }
+                    catch
+                    {
+
+                    }
+                    ahm.ID = cl.ID;
+                    var apptype = db.tbl_Applicant.Where(c => c.UserID == cl.ParentTOID).FirstOrDefault();
+                    ahm.AppType = apptype.Type;
+                    ahm.FirstName = cl.FirstName + " " + cl.LastName;
+                 
+                    ahm.EmployerName = !string.IsNullOrWhiteSpace(cl.EmployerName) ? cl.EmployerName : "";
+                    ahm.JobTitle = !string.IsNullOrWhiteSpace(cl.JobTitle) ? cl.JobTitle : "";
+                    ahm.JobType = cl.JobType;
+                    ahm.MoveInDateFromTxt = stdtFrom == null ? "" : stdtFrom.Value.ToString("MM/dd/yyy");
+
+                    ahm.Income = cl.Income;
+                    ahm.AdditionalIncome = cl.AdditionalIncome;
+                    ahm.SupervisorName = !string.IsNullOrWhiteSpace(cl.SupervisorName) ? cl.SupervisorName : "";
+                    ahm.SupervisorPhone = cl.SupervisorPhone;
+                    ahm.SupervisorEmail = !string.IsNullOrWhiteSpace(cl.SupervisorEmail) ? cl.SupervisorEmail : "";
+                    ahm.Country = cl.Country;
+                    ahm.OfficeAddress1 = !string.IsNullOrWhiteSpace(cl.OfficeAddress1) ? cl.OfficeAddress1 : "";
+                    ahm.OfficeAddress2 = !string.IsNullOrWhiteSpace(cl.OfficeAddress2) ? cl.OfficeAddress2 : "";
+                    ahm.State = cl.State;
+                    ahm.OfficeCity = !string.IsNullOrWhiteSpace(cl.OfficeCity) ? cl.OfficeCity : "";
+                    ahm.OfficeZip = !string.IsNullOrWhiteSpace(cl.OfficeZip) ? cl.OfficeZip : "";
+                    ahm.StartDateTxt = cl.StartDate != null ? cl.StartDate.Value.ToString("MM/dd/yyyy") : "";
+
+                    long cid = Convert.ToInt64(cl.OfficeCountry);
+                    var countryName = db.tbl_Country.Where(co => co.ID ==cid).FirstOrDefault();
+                    var StateName = db.tbl_State.Where(co => co.ID == cl.OfficeState).FirstOrDefault();
+
+                    ahm.CountryString = countryName != null ? countryName.CountryName : "";
+                    ahm.StateHomeString = StateName != null ? StateName.StateName : "";
+                
+                    ahm.EmpStatus = cl.EmpStatus == null ? 0 : cl.EmpStatus;
+                    ahm.EmpNotes = cl.EmpNotes==null ? "" : cl.EmpNotes;
+                    lstpr.Add(ahm);
+                }
+
+            }
+
+            return lstpr;
+
+        }
+
+        //Sachin Mahore 13 may 2020
+        public string UpdateResStatus(long ID, int ResidenceStatus, string ResidenceNotes)
+        {
+
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (ID != 0)
+            {
+
+                var getdata = db.tbl_TenantOnline.Where(p => p.ID == ID).FirstOrDefault();
+                if (getdata != null)
+                {
+                    getdata.ResidenceStatus = ResidenceStatus;
+                    getdata.ResidenceNotes = ResidenceNotes;
+                }
+                db.SaveChanges();
+
+                msg = "Residence Status Saved Successfully";
+            }
+            db.Dispose();
+            return msg;
+        }
+        public string UpdateEmpStatus(long ID, int EmpStatus, string EmpNotes)
+        {
+
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (ID != 0)
+            {
+
+                var getdata = db.tbl_TenantOnline.Where(p => p.ID == ID).FirstOrDefault();
+                if (getdata != null)
+                {
+                    getdata.EmpStatus = EmpStatus;
+                    getdata.EmpNotes = EmpNotes;
+                }
+                db.SaveChanges();
+
+                msg = "Employment Status Saved Successfully";
+            }
+            db.Dispose();
+            return msg;
+        }
+        public string UpdateBGCCStatus(int ID,int TenantID, int Status, string Notes)
+        {
+
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (ID != 0)
+            {
+
+                var saveBGCC = new tbl_BackgroundScreening()
+                {
+                    TenantId = TenantID,
+                    Type="0",
+                    OrderID = ID,
+                    Status = Status.ToString(),
+                    Notes = Notes,
+                };
+                db.tbl_BackgroundScreening.Add(saveBGCC);
+                db.SaveChanges();
+
+                msg = " Status Saved Successfully";
+            }
+            db.Dispose();
+            return msg;
         }
     }
 

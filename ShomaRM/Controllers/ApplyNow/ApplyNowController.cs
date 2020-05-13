@@ -375,7 +375,20 @@ namespace ShomaRM.Controllers
 
 
         }
+        //Sachin M 12 may
+        public ActionResult GetApplicantHistoryListPV(long TenantID, long UserID)
+        {
+            try
+            {
+                return Json(new { model = new ApplicantHistoryModel().GetApplicantHistoryListPV(TenantID,UserID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
 
+
+        }
         public ActionResult GetApplicantHistoryDetails(long AHID)
         {
 
@@ -945,7 +958,41 @@ namespace ShomaRM.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
+        //sachin m 13 may
+        public ActionResult UpdateResStatus(long ID, int ResidenceStatus,string ResidenceNotes)
+        {
+            try
+            {
+                return Json(new { msg = (new TenantOnlineModel().UpdateResStatus(ID,ResidenceStatus,ResidenceNotes)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult UpdateEmpStatus(long ID, int EmpStatus, string EmpNotes)
+        {
+            try
+            {
+                return Json(new { msg = (new TenantOnlineModel().UpdateEmpStatus(ID, EmpStatus, EmpNotes)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        //sachin m 12 may
+        public JsonResult getPreviousEmployementInfoPV(int id, long UserID)
+        {
+            try
+            {
+                return Json(new { model = new EmployerHistoryModel().GetPriousEmploymentInfoPV(id,UserID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public JsonResult getPreviousAddressInfo(int id)
         {
             try
@@ -957,7 +1004,41 @@ namespace ShomaRM.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
+        //sachin M 12 may
+        public JsonResult getPreviousAddressInfoPV(int id, long UserID)
+        {
+            try
+            {
+                return Json(new { model = new ApplicantHistoryModel().GetPreviousAddressInfoPV(id,UserID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        //sachin m 13 may
+        public JsonResult GetAppResidenceHistory(int id)
+        {
+            try
+            {
+                return Json(new { model = new TenantOnlineModel().GetAppResidenceHistory(id) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetAppEmpHistory(int id)
+        {
+            try
+            {
+                return Json(new { model = new TenantOnlineModel().GetAppEmpHistory(id) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         //Sachin Mahore 21 Apr 2020
         public ActionResult CoApplicantDet(string id)
         {
