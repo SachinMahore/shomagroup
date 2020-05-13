@@ -26,6 +26,8 @@
 <input type="hidden" id="HndAddParkingCount" value="0" />
 <input type="hidden" id="hndDocumentTypePersonal" value="0" />
 <input type="hidden" id="hndCreditPaid" value="@Model.CreditPaid" />
+<input type="hidden" id="hndAppCreditFees" value="@((Model.AppCCCheckFees??0).ToString("0.00"))" />
+<input type="hidden" id="hndAppBackgroundFees" value="@((Model.AppBGCheckFees??0).ToString("0.00"))" />
 <input type="hidden" id="hndStorageOrderBy" value="ASC" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
@@ -2020,13 +2022,13 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label id="lbl_txtManagementCompany" class="star">Management Company</label>
+                                        <label id="lbl_txtManagementCompany" class="star">Landlord/Management Company</label>
                                         <input class="form-control form-control-small" id="txtManagementCompany" max="500" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label id="lbl_txtManagementCompanyPhone" class="star">Management Company Phone</label>
+                                        <label id="lbl_txtManagementCompanyPhone" class="star">Landlord/Management Company Phone</label>
                                         <input class="form-control form-control-small" id="txtManagementCompanyPhone" maxlength="10" onkeypress="return isNumber(event)" />
                                     </div>
                                 </div>
@@ -3056,7 +3058,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span id="">Management Company : </span>
+                                                    <span id="">Landlord/Management Company : </span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     <span id="sumAManagementCompany"></span>
@@ -3066,7 +3068,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span id="">Management Company Phone:</span>
+                                                    <span id="">Landlord/Management Company Phone:</span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     <span id="sumAManagementCompanyPhone"></span>
@@ -3178,7 +3180,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span id="">Management Company : </span>
+                                                    <span id="">Landlord/Management Company : </span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     <span id="SuManagementCompany"></span>
@@ -3186,7 +3188,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span id="">Management Company Phone:</span>
+                                                    <span id="">Landlord/Management Company Phone:</span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     <span id="SuManagementCompanyPhone"></span>

@@ -1572,7 +1572,7 @@ namespace ShomaRM.Models
                 reportHTML = reportHTML.Replace("[%AssignParkingSpace%]", model.AssignParkingSpace);
                 reportHTML = reportHTML.Replace("[%ApplicationFees%]", model.ApplicationFees);
                 reportHTML = reportHTML.Replace("[%SecurityDeposit%]", model.SecurityDeposit);
-                reportHTML = reportHTML.Replace("[%GuarantorFees%]", model.GuarantorFees);
+                reportHTML = reportHTML.Replace("[%GuarantorFees%]", model.GuarantorFees.Replace("/Guarantor (if needed)", ""));
                 reportHTML = reportHTML.Replace("[%PetNonRefundableFee%]", model.PetNonRefundableFee);
                 reportHTML = reportHTML.Replace("[%AdministratorFee%]", model.AdministratorFee);
                 reportHTML = reportHTML.Replace("[%PetDNAFee%]", model.PetDNAFee    );
@@ -1594,6 +1594,15 @@ namespace ShomaRM.Models
                 reportHTML = reportHTML.Replace("[%MonthlyCharges%]", model.MonthlyCharges);
                 reportHTML = reportHTML.Replace("[%ProratedMonthlyCharges%]", model.ProratedMonthlyCharges);
                 reportHTML = reportHTML.Replace("[%ModelImage%]", serverURL+ "content/assets/img/plan/" + model.ModelName+".jpg");
+
+                reportHTML = reportHTML.Replace("[%CreditCheck%]", model.AppCreditFees);
+                reportHTML = reportHTML.Replace("[%BackGroundCheck%]", model.AppBackgroundFees);
+
+                try { reportHTML = reportHTML.Replace("[%NumberOfPet%]", (Convert.ToInt32(model.NumberOfPet) > 0 ? "(" + model.NumberOfPet + " Pet)" : "")); } catch { reportHTML = reportHTML.Replace("[%NumberOfPet%]", ""); }
+                
+                reportHTML = reportHTML.Replace("[%DueAtMoveIn%]", model.DueAtMoveIn);
+                try { reportHTML = reportHTML.Replace("[%NumberOfVehicle%]", (Convert.ToInt32(model.NumberOfParking) > 0 ? "(" + model.NumberOfParking + " Vehicle)" : "")); } catch { reportHTML = reportHTML.Replace("[%NumberOfVehicle%]", ""); }
+                
 
                 List<IElement> elements = iText.Html2pdf.HtmlConverter.ConvertToElements(reportHTML).ToList();
                 byte[] bytes;

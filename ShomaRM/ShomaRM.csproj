@@ -2406,6 +2406,8 @@
     <Content Include="Content\bootstrap\js\npm.js" />
     <Content Include="Content\file-Upload.js" />
     <Content Include="Content\fileUpload.css" />
+    <Content Include="Content\jAlert.css" />
+    <Content Include="Content\jAlert.min.js" />
     <Content Include="Content\jquery-confirm-master\animations.html" />
     <Content Include="Content\jquery-confirm-master\callback.html" />
     <Content Include="Content\jquery-confirm-master\css\jquery-confirm.css" />
@@ -2437,9 +2439,11 @@
     <Content Include="Areas\Admin\Content\Pages\Tenant\TenantList.js" />
     <Content Include="Areas\Admin\Content\Pages\Users\Users.js" />
     <Content Include="Areas\Admin\Content\Pages\Users\UsersList.js" />
+    <Content Include="Content\jquery-idleTimeout.min.js" />
     <Content Include="Content\jquery.countdown.js" />
     <Content Include="Content\jquery.countdown.min.js" />
     <Content Include="Content\jquery.shorten.1.0.js" />
+    <Content Include="Content\jTimeout.min.js" />
     <Content Include="Content\keyboardcontrols.js" />
     <Content Include="Content\Pages\ApplyNow\ApplyNow.js" />
     <Content Include="Content\Pages\ApplyNow\CoApplicantDet.js" />
@@ -2453,6 +2457,7 @@
     <Content Include="Content\Pages\Tenant\Tenant.js" />
     <Content Include="Content\Pages\Verification\Verification.js" />
     <Content Include="Content\printThis.js" />
+    <Content Include="Content\store.min.js" />
     <Content Include="Content\Templates\ApplicationPrintTemplate.html" />
     <Content Include="Content\Templates\AppSummary.html" />
     <Content Include="Content\Templates\CoapplicantApplicationPrintTemplate.html" />
@@ -2820,6 +2825,7 @@
     <Folder Include="Areas\Tenant\Views\ServiceRequest\" />
     <Folder Include="Content\assets\img\property-1\" />
     <Folder Include="Content\assets\img\slide1\" />
+    <Folder Include="DatabaseChanges\12-05-2020\" />
     <Folder Include="Logs\" />
     <Folder Include="Views\BackgroundScreening\" />
     <Folder Include="Views\ShomaBase\" />

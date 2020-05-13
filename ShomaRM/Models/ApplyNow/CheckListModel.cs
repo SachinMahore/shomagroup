@@ -451,6 +451,111 @@ namespace ShomaRM.Models
                 throw ex;
             }
         }
+        public string UploadInsurenceDocAdminSide(HttpPostedFileBase fileBaseUploadInsurenceDoc, long ProspectId)
+        {
+            string msg = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseUploadInsurenceDoc != null && fileBaseUploadInsurenceDoc.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/ChecklistDocument/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                fileName = Path.GetFileNameWithoutExtension(fileBaseUploadInsurenceDoc.FileName);
+                Extension = Path.GetExtension(fileBaseUploadInsurenceDoc.FileName);
+                sysFileName = fileName + ProspectId + Path.GetExtension(fileBaseUploadInsurenceDoc.FileName);
+                fileBaseUploadInsurenceDoc.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseUploadInsurenceDoc.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/ChecklistDocument/") + "/" + sysFileName;
+
+                }
+
+                var moveInDet = db.tbl_MoveInChecklist.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
+                if (moveInDet == null)
+                {
+                    var saveMoveInCheckList = new tbl_MoveInChecklist()
+                    {
+                        ProspectID = ProspectId,
+                        InsuranceDoc = sysFileName.ToString(),
+                    };
+                    db.tbl_MoveInChecklist.Add(saveMoveInCheckList);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    moveInDet.InsuranceDoc = sysFileName.ToString();
+                    db.SaveChanges();
+                }
+                msg = "File Uploaded Successfully |" + sysFileName.ToString();
+            }
+            else
+            {
+                msg = "Something went wrong file not Uploaded";
+            }
+            return msg;
+        }
+        public string UploadProofOfElectricityDocAdminSide(HttpPostedFileBase fileBaseUploadProofOfElectricityDoc, long ProspectId)
+        {
+            string msg = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseUploadProofOfElectricityDoc != null && fileBaseUploadProofOfElectricityDoc.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/ChecklistDocument/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                fileName = Path.GetFileNameWithoutExtension(fileBaseUploadProofOfElectricityDoc.FileName);
+                Extension = Path.GetExtension(fileBaseUploadProofOfElectricityDoc.FileName);
+                sysFileName = fileName + ProspectId + Path.GetExtension(fileBaseUploadProofOfElectricityDoc.FileName);
+                fileBaseUploadProofOfElectricityDoc.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseUploadProofOfElectricityDoc.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/ChecklistDocument/") + "/" + sysFileName;
+
+                }
+
+                var moveInDet = db.tbl_MoveInChecklist.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
+                if (moveInDet == null)
+                {
+                    var saveMoveInCheckList = new tbl_MoveInChecklist()
+                    {
+                        ProspectID = ProspectId,
+                        ElectricityDoc = sysFileName.ToString(),
+                    };
+                    db.tbl_MoveInChecklist.Add(saveMoveInCheckList);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    moveInDet.ElectricityDoc = sysFileName.ToString();
+                    db.SaveChanges();
+                }
+                msg = "File Uploaded Successfully |" + sysFileName.ToString();
+            }
+            else
+            {
+                msg = "Something went wrong file not Uploaded|0";
+            }
+            return msg;
+        }
     }
     public partial class ESignatureKeysModel
     {

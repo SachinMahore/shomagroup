@@ -41,5 +41,10 @@ namespace ShomaRM.Models
         public string ProratedPetFee { get; set; }
         public string MonthlyCharges { get; set; }
         public string ProratedMonthlyCharges { get; set; }
+        public string AppCreditFees { get; set; }
+        public string AppBackgroundFees { get; set; }
+        public string NumberOfPet { get; set; }
+        public string NumberOfParking { get; set; }
+        public string DueAtMoveIn { get; set; }
     }
 }

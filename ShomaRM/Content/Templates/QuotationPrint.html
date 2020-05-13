@@ -9,17 +9,17 @@
     <style type="text/css">
         @font-face {
             font-family: 'Montserrat-Regular';
-            src: url('http://localhost:53678/Content/assets/font/Montserrat-Regular.otf') format('opentype');
+            src: url('[%ServerURL%]/Content/assets/font/Montserrat-Regular.otf') format('opentype');
         }
 
         @font-face {
             font-family: 'Montserrat-Medium';
-            src: url('http://localhost:53678/Content/assets/font/Montserrat-Medium.otf') format('opentype');
+            src: url('[%ServerURL%]/Content/assets/font/Montserrat-Medium.otf') format('opentype');
         }
 
         @font-face {
             font-family: 'Montserrat-SemiBold';
-            src: url('http://localhost:53678/Content/assets/font/Montserrat-SemiBold.otf') format('opentype');
+            src: url('[%ServerURL%]/Content/assets/font/Montserrat-SemiBold.otf') format('opentype');
         }
 
         body {
@@ -29,10 +29,17 @@
             margin: 1px;
             font-family: Montserrat-Regular;
             width: 100%;
+           
         }
-
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .vertical-top{
+            vertical-align:top;
+        }
         .layout-section {
-            background-image: url('http://localhost:53678/Content/Templates/images/tower_background.png');
+            background-image: url('[%ServerURL%]/Content/Templates/images/tower_background.png');
             background-size: contain;
             background-repeat: no-repeat;
             margin: 0 auto;
@@ -43,7 +50,7 @@
         }
 
         .heder {
-            background-image: url('http://localhost:53678/Content/Templates/images/Header_quote_background.png');
+            background-image: url('[%ServerURL%]/Content/Templates/images/Header_quote_background.png');
             width: 100%;
             height: 150px;
         }
@@ -52,16 +59,16 @@
             width: 40%;
         }
 
-            .heder-img img {
-                width: 75%;
-                padding-left: 75px;
-            }
+        .heder-img img {
+            width: 75%;
+            padding-left: 75px;
+        }
 
         .heder-text {
             width: 60%;
             font-family: Montserrat-SemiBold;
             color: #fff;
-            font-size: 30px;
+            font-size: 24px;
             text-align: center;
         }
 
@@ -75,6 +82,52 @@
         {
             font-family:Montserrat-SemiBold;
             font-size:18px;
+        }
+        .unit-unit {
+            font-family: Montserrat-Regular;
+            font-size: 18px;
+        }
+        .text-bold {
+            font-family: Montserrat-SemiBold;
+            font-size: 12px;
+        }
+        .text-normal {
+            font-family: Montserrat-Regular;
+            font-size: 12px;
+            color: #838384 ;
+            font-weight:normal;
+        }
+
+        .text-center{
+            text-align:center;
+        }
+        .span-border {
+            border: 1px solid #7fbc42;
+            padding: 5px 15px;
+            color: #7fbc42;
+            font-style: italic;
+            font-size: 14px;
+            font-weight:600;
+        }
+        .span-right {
+           float:right;
+        }
+        .td-border {
+            border: 1px solid #7fbc42;
+            padding: 15px 15px;
+            color: #7fbc42;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .padding-0
+        {
+            padding:0px;
+        }
+        .td-border-top
+        {
+            padding:0px;
+            border-top:1px solid #838384;
         }
         .heder-detail {
             width: 100%;
@@ -99,11 +152,16 @@
 
         .border-tbody-repeat {
         }
-
+        .td-50per{
+            width:50%;
+        }
         .logo-section {
             width: 30%;
             padding-left: 10px;
             height: 100px;
+        }
+        .td-italic {
+            font-style: italic;
         }
 
         .address-section {
@@ -115,12 +173,6 @@
             border-collapse: collapse;
             width: 100%;
         }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-
         .text-white {
             color: #fff;
         }
@@ -189,166 +241,7 @@
             display: none;
         }
 
-        .additional-question {
-            width: 90%;
-            font-size: 12px;
-        }
 
-        .additional-answer {
-            width: 10%;
-            font-size: 12px;
-        }
-
-        .footer {
-            width: 100%;
-        }
-
-        .footer-img {
-            width: 100%;
-            text-align: center;
-        }
-
-            .footer-img img {
-                height: 75px;
-            }
-        /*body {
-            font-size: 12px;
-            padding: 1px;
-            margin: 1px;
-            font-family: Tahoma;
-            background: #f1f1f1;
-            color: black;
-            width: 100%;
-        }
-
-        .layout-section {
-            margin: 0 auto;
-            display: table;
-            height: auto;
-            background: #fff;
-            padding-bottom: 30px;
-            width: 100%
-        }
-
-        .heder {
-            width: 100%;
-            background: #4D738A;
-            height: 100px;
-            border: 1px solid #000;
-            color: #fff;
-        }
-
-        .heder-detail {
-            width: 100%;
-        }
-        .heder-detail-text {
-            width: 100%;
-        }
-
-
-        .heder-data {
-            width: 100%;
-            color: #fff;
-        }
-
-        .heder-data-text {
-            width: 100%;
-        }
-
-        .border-tbody {
-            border:none;
-        }
-
-
-        .logo-section {
-            background: #fff;
-            width: 30%;
-            padding-left: 10px;
-            height: 100px;
-        }
-
-        .address-section {
-            width: 70%;
-        }
-
-        table, th, td {
-            color: black;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th, td {
-            padding: 5px;
-            padding-bottom: 2px;
-            font-family: Tahoma;
-            color: black;
-            text-align: left;
-        }
-
-        .text-white {
-            color: #fff;
-        }
-
-        .text-white-bold-center {
-            background: #4D738A;
-            color: #fff;
-            text-align: center;
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .text-section {
-            width: 100%;
-            text-align: left;
-        }
-
-        .detail-section-header {
-            width: 24.75%;
-            text-align: left;
-        }
-
-        .detail-section-data {
-            width: 24.75%;
-            font-weight:bold;
-            height: 25px;
-        }
-        .bold-text {
-            font-weight: bold;
-        }
-        .normal-text {
-            font-weight: normal;
-        }
-
-        .detail-section-data-image {
-            width: 55%;
-            font-weight: bold;
-            height: 25px;
-        }
-        .detail-section-gap {
-            width: 1%;
-        }
-
-        .detail-section-data-monthly {
-            width: 15%;
-            font-weight:bold;
-            height: 25px;
-        }
-        .detail-section-data-image {
-            width: 44.25%;
-            font-weight: bold;
-            height: 25px;
-        }
-        .align-image{
-            vertical-align:top;
-        }
-        .border-top-bottom {
-            border-top: 1px solid #000;
-            border-bottom: 1px solid #000;
-        }
-
-        .border-all {
-            border: 1px solid #000;
-        }*/
         
     </style>
 </head>
@@ -358,13 +251,13 @@
             <tbody>
                 <tr>
                     <td class="heder-img">
-                        <img src="http://localhost:53678/Content/Templates/images/sanctuary_logo_white.png" />
+                        <img src="[%ServerURL%]/Content/Templates/images/sanctuary_logo_white.png" />
                     </td>
                     <td class="heder-text">QUOTATION</td>
                 </tr>
             </tbody>
         </table>
-        <div style="padding-top:20px">
+        <div style="padding-top:0px">
             <table>
                 <tbody>
                     <tr>
@@ -372,10 +265,10 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td class="model-unit">MODEL [%ModelName%] - UNIT #[%UnitNo%]</td>
+                                        <td><span class="model-unit">MODEL [%ModelName%] - UNIT [%UnitNo%]</span></td>
                                     </tr>
                                     <tr>
-                                        <td>ASSIGNED PARKING [%AssignParkingSpace%]</td>
+                                        <td class="text-normal"><span class="text-bold">ASSIGNED PARKING </span>[%AssignParkingSpace%]</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -385,16 +278,16 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td>RESIDENT NAME</td>
-                                        <td>[%ApplicantName%]</td>
+                                        <td class="text-bold td-50per">RESIDENT NAME</td>
+                                        <td class="text-normal">[%ApplicantName%]</td>
                                     </tr>
                                     <tr>
-                                        <td>PHONE</td>
-                                        <td>[%PhoneNumber%]</td>
+                                        <td class="text-bold td-50per">PHONE</td>
+                                        <td class="text-normal">[%PhoneNumber%]</td>
                                     </tr>
                                     <tr>
-                                        <td>EMAIL</td>
-                                        <td>[%Email%]</td>
+                                        <td class="text-bold td-50per">EMAIL</td>
+                                        <td class="text-normal">[%Email%]</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -403,7 +296,7 @@
                 </tbody>
             </table>
         </div>
-        <div style="padding-top:20px">
+        <div style="padding-top:0px">
             <table>
                 <tbody>
                     <tr>
@@ -411,25 +304,32 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td><span>INITIAL FEES</span></td>
-                                        <td>AMOUNT</td>
+                                        <td class="text-bold td-50per"><span class="span-border">INITIAL FEES</span></td>
+                                        <td class="text-bold">AMOUNT</td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td class="text-bold vertical-top td-50per">
                                             APPLICATION FEE PER APPLICANT
                                         </td>
-                                        <td>
-                                            $[%CreditCheck%]/Credit check
-                                            $[%BackGroundCheck%]/Background check
-                                            $[%GuarantorFees%]/Guarantor
-                                            (if needed)
+                                        <td class="text-normal">
+                                            <table>
+                                                <tr>
+                                                    <td class="padding-0">$[%CreditCheck%]/Credit check</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="padding-0">$[%BackGroundCheck%]/Background check</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="padding-0">$[%GuarantorFees%]/Guarantor <span class="text-bold">(if needed)</span></td>
+                                                </tr>
+                                            </table>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td class="text-bold td-50per">
                                             ADMINISTRATION FEE
                                         </td>
-                                        <td>
+                                        <td class="text-normal">
                                             [%AdministratorFee%]
                                         </td>
                                     </tr>
@@ -437,24 +337,24 @@
                             </table>
 
                         </td>
-                        <td class="right-section">
+                        <td class="right-section  vertical-top">
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td>QUOTE DATE</td>
-                                        <td>[%QuoteDate%]</td>
+                                        <td class="text-bold td-50per">QUOTE DATE</td>
+                                        <td class="text-normal">[%QuoteDate%]</td>
                                     </tr>
                                     <tr>
-                                        <td>QUOTE EXPIRES</td>
-                                        <td>[%QuoteExpires%]</td>
+                                        <td class="text-bold td-50per">QUOTE EXPIRES</td>
+                                        <td class="text-normal">[%QuoteExpires%]</td>
                                     </tr>
                                     <tr>
-                                        <td>DESIRED MOVE IN</td>
-                                        <td>[%DesiredMoveIn%]</td>
+                                        <td class="text-bold td-50per">DESIRED MOVE IN</td>
+                                        <td class="text-normal">[%DesiredMoveIn%]</td>
                                     </tr>
                                     <tr>
-                                        <td>LEASE TERM</td>
-                                        <td>[%LeaseTerm%] MO</td>
+                                        <td class="text-bold td-50per">LEASE TERM</td>
+                                        <td class="text-normal">[%LeaseTerm%] MO</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -463,157 +363,153 @@
                 </tbody>
             </table>
         </div>
-        <div style="padding-top:20px">
+        <div style="padding-top:0px">
             <table>
                 <tbody>
                     <tr>
-                        <td class="left-section">
+                        <td class="left-section vertical-top">
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td><span>MOVE-IN FEES</span></td>
-                                        <td>AMOUNT</td>
+                                        <td class="text-bold"><span class="span-border">MOVE-IN FEES</span></td>
+                                        <td class="text-bold">AMOUNT</td>
+                                        <td class="text-normal"></td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td class="text-bold">
                                             SECURITY DEPOSIT
                                         </td>
-                                        <td>$[%SecurityDeposit%]</td>
+                                        <td class="text-normal">$[%SecurityDeposit%]</td>
+                                        <td class="text-normal"></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            PET NON-REFUNDABLE DEPOSIT ([%NumberOfPet%])
+                                        <td class="text-bold">
+                                            PET NON-REFUNDABLE DEPOSIT <span >[%NumberOfPet%]</span>
                                         </td>
-                                        <td>
+                                        <td class="text-normal">
                                             $[%PetNonRefundableFee%]
                                         </td>
+                                        <td class="text-normal"></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            PET DNA FEE ([%NumberOfPet%])
+                                        <td class="text-bold">
+                                            PET DNA FEE <span >[%NumberOfPet%]</span>
                                         </td>
-                                        <td>
+                                        <td class="text-normal">
                                             $[%PetDNAFee%]
                                         </td>
+                                        <td class="text-normal"></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            VEHICLE REGISTRATION
+                                        <td class="text-bold">
+                                            VEHICLE REGISTRATION <span >[%NumberOfVehicle%]</span>
                                         </td>
-                                        <td>
+                                        <td class="text-normal">
                                             $[%VehicleRegistration%]
                                         </td>
+                                        <td class="text-normal"></td>
                                     </tr>
                                     <tr>
-                                        <td>
+                                        <td class="text-bold">
                                             INSURANCE***
                                         </td>
-                                        <td>
+                                        <td class="text-normal">
                                             $0.00
                                         </td>
+                                        <td class="text-normal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">&nbsp;</td>
+                                        <td class="text-normal">&nbsp;</td>
+                                        <td class="text-normal">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold"><span class="span-border">MONTHLY CHARGES</span></td>
+                                        <td class="text-bold">MONTHLY</td>
+                                        <td class="text-bold">PRORATED</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">MONTHLY RENT</td>
+                                        <td class="text-normal">$[%MonthlyRent%]</td>
+                                        <td class="text-normal">$[%ProratedMonthlyRent%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-normal td-italic">Additional Services</td>
+                                        <td class="text-normal"></td>
+                                        <td class="text-normal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">TRASH/RECYCLE</td>
+                                        <td class="text-normal">$[%TrashFee%]</td>
+                                        <td class="text-normal">$[%ProratedTrashFee%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">PEST CONTROL</td>
+                                        <td class="text-normal">$[%PestControlFee%]</td>
+                                        <td class="text-normal">$[%ProratedPestControlFee%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">CONVERGENT BILLING FEE</td>
+                                        <td class="text-normal">$[%ConvergentBillingFee%]</td>
+                                        <td class="text-normal">$[%ProratedConvergentBillingFee%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-normal td-italic">Selected Options</td>
+                                        <td class="text-normal"></td>
+                                        <td class="text-normal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">ADDITIONAL PARKING</td>
+                                        <td class="text-normal">$[%AdditionalParking%]</td>
+                                        <td class="text-normal">$[%ProratedAdditionalParking%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">STORAGE</td>
+                                        <td class="text-normal">$[%StorageAmount%]</td>
+                                        <td class="text-normal">$[%ProratedStorageAmount%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">PET RENT <span >[%NumberOfPet%]</span></td>
+                                        <td class="text-normal">$[%PetFee%]</td>
+                                        <td class="text-normal">$[%ProratedPetFee%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td-border-top" colspan="3"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">ESTIMATED MONTHLY CHARGES</td>
+                                        <td class="text-normal">$[%MonthlyCharges%]</td>
+                                        <td class="text-normal">$[%ProratedMonthlyCharges%]</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </td>
-                        <td class="right-section">
+                        <td class="right-section vertical-top">
                             <table>
                                 <tbody>
                                     <tr>
                                         <td><img src="[%ModelImage%]" width="99%" height="100%" /></td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div style="padding-top:20px">
-            <table>
-                <tbody>
-                    <tr>
-                        <td class="left-section">
-                            <table>
-                                <tbody>
                                     <tr>
-                                        <td><span>MONTHLY CHARGES</span></td>
-                                        <td>MONTHLY</td>
-                                        <td>PRORATED</td>
+                                        <td class="text-center text-bold">TOTAL DUE AT MOVE-IN</td>
                                     </tr>
                                     <tr>
-                                        <td>MONTHLY RENT</td>
-                                        <td>$[%MonthlyRent%]</td>
-                                        <td>$[%ProratedMonthlyRent%]</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Additional Services</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>TRASH/RECYCLE</td>
-                                        <td>$[%TrashFee%]</td>
-                                        <td>$[%ProratedTrashFee%]</td>
-                                    </tr>
-                                    <tr>
-                                        <td>PEST CONTROL</td>
-                                        <td>$[%PestControlFee%]</td>
-                                        <td>$[%ProratedPestControlFee%]</td>
-                                    </tr>
-                                    <tr>
-                                        <td>CONVERGENT BILLING FEE</td>
-                                        <td>$[%ConvergentBillingFee%]</td>
-                                        <td>$[%ProratedConvergentBillingFee%]</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Selected Options</td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>ADDITIONAL PARKING</td>
-                                        <td>$[%AdditionalParking%]</td>
-                                        <td>$[%ProratedAdditionalParking%]</td>
-                                    </tr>
-                                    <tr>
-                                        <td>STORAGE</td>
-                                        <td>$[%StorageAmount%]</td>
-                                        <td>$[%ProratedStorageAmount%]</td>
-                                    </tr>
-                                    <tr>
-                                        <td>PET RENT ([%NumberOfPet%])</td>
-                                        <td>$[%PetFee%]</td>
-                                        <td>$[%ProratedPetFee%]</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td class="right-section">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td>TOTAL DUE AT MOVE-IN</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>
-                                                <span>
-                                                    [%DueAtMoveIn%]
-                                                </span>
+                                        <td class="td-border text-center">
+                                            <span class="model-unit">
+                                                $[%DueAtMoveIn%]
+                                            </span>
+                                            <br />
+                                            <span class="text-normal">
                                                 *Amount may vary depending on credit
                                                 worthiness and security deposit amount
                                             </span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <span>
-                                                <span>
-                                                    <img src="[%FooterImage%]" width="99%" height="100%" />
-                                                </span>
-                                                9400 NW 41st. Doral, FL. 33178
-                                                (305) 614-0210
-                                            </span>
+                                        <td class="text-center">
+                                            <img src="[%ServerURL%]/Content/Templates/images/Shoma_mgmt_icons.png" width="80%" height="100%" /><br />
+                                            9400 NW 41st. Doral, FL. 33178<br />
+                                            (305) 614-0210
                                         </td>
                                     </tr>
                                 </tbody>
@@ -623,23 +519,21 @@
                 </tbody>
             </table>
         </div>
-        <div style="padding-top:20px">
+        <div style="padding-top:0px">
             <table class="heder-detail-text">
                 <tbody class="heder-data-text ">
                     <tr>
-                        <td class="text-section">*The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved.</td>
-                    </tr>
-                    <tr>
-                        <td class="text-section">**The Security Deposit may be bonded using the SureDeposit Program. Please contact by hone (866) 312-3090 or email SelectDeposit@Assurant.com. The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.</td>
-                    </tr>
-                    <tr>
-                        <td class="text-section">***General Liability insurance with a minimum limit of $300,000 is required. Proof of coverage will be required prior to move-in.</td>
-                    </tr>
-                    <tr>
-                        <td class="text-section">****Excludes the Utility reimbursement for water & sewer which is billed monthly based on actual consumption.</td>
-                    </tr>
-                    <tr>
-                        <td class="text-section">The amounts herein are estimates based upon policies and rates in effect at the time. The amounts are subject to change without notice and not final until lease is executed. If you make changes to the desired move-in date, lease term, or any other option, the amounts herein may vary.</td>
+                        <td class="text-section">
+                            *The Administration Fee is due to reserve your apartment for a maximum of 30 days, once approved.<br />
+                            **The Security Deposit may be bonded using the Flex Deposit Program. For more information please contact 1-877-277-4811 or visit
+                            www.flexdeposit.com<br />
+                            The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.<br />
+                            ***General Liability insurance with a minimum limit of $300,000 is required (estimated cost of $13.84 a month or $166 a year with Assurant). Proof of
+                            coverage will be required prior to move-in. Please contact Assurant at (855) 846-9278 or visit www.quoterenters.com.<br />
+                            ****Excludes the utility reimbursement for water & sewer which is billed monthly based on actual consumption.<br /><br />
+                            The amounts herein are estimates based upon policies and rates in effect at the time. The amounts are subject to change without notice and not final
+                            until lease is executed. If you make changes to the desired move-in date, lease term, or any other option, the amounts herein may vary.
+                        </td>
                     </tr>
                 </tbody>
             </table>

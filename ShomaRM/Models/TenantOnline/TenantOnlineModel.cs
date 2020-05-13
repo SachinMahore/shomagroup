@@ -1769,19 +1769,18 @@ namespace ShomaRM.Models
             TenantPetPlace model = new TenantPetPlace();
 
             var getTenantPetPlaceData = db.tbl_TenantPetPlace.Where(p => p.TenantID == Id).FirstOrDefault();
-            var getPetCount = db.tbl_TenantPet.Where(p => p.TenantID == getTenantPetPlaceData.TenantID).ToList();
+            var getPetCount = db.tbl_TenantPet.Where(p => p.TenantID == Id).ToList();
 
             if (getTenantPetPlaceData != null)
             {
                 var getPetData = db.tbl_PetPlace.Where(p => p.PetPlaceID == getTenantPetPlaceData.PetPlaceID).FirstOrDefault();
                 model.PetPlaceID = getTenantPetPlaceData.PetPlaceID;
-                model.NumberOfPets = getPetData.Type??0;
-                
+                model.NumberOfPets = getPetData.Type ?? 0;
+
             }
             model.TenantPetCount = getPetCount != null ? getPetCount.Count : 0;
             model.TenantID = Id;
             return model;
         }
-       
     }
 }

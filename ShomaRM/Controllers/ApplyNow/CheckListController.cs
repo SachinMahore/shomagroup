@@ -876,5 +876,42 @@ namespace ShomaRM.Controllers
             leasePdfResponse.LeaseId = leaseid;
             return leasePdfResponse;
         }
+        public ActionResult UploadInsurenceDocAdminSide(long ProspectId)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUploadInsurenceDoc = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUploadInsurenceDoc = Request.Files[i];
+
+                }
+
+                return Json(new { model = new CheckListModel().UploadInsurenceDocAdminSide(fileBaseUploadInsurenceDoc, ProspectId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult UploadProofOfElectricityDocAdminSide(long ProspectId)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUploadProofOfElectricityDoc = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUploadProofOfElectricityDoc = Request.Files[i];
+
+                }
+
+                return Json(new { model = new CheckListModel().UploadProofOfElectricityDocAdminSide(fileBaseUploadProofOfElectricityDoc, ProspectId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

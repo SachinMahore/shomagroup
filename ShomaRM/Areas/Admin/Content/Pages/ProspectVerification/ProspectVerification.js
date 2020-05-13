@@ -262,6 +262,39 @@ $(document).ready(function () {
     setTimeout(function () {
         fillUnitParkingList();
     }, 1500);
+
+    document.getElementById('uploadPOI').onchange = function () {
+        var fileUploadPOIBool = restrictFileUpload($(this).val());
+        if (fileUploadPOIBool == true) {
+            uploadPOIFileAdminSide();
+        }
+        else {
+            document.getElementById('uploadPOI').value = '';
+            $('#uploadPOIShow').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+    };
+
+    document.getElementById('uploadPOE').onchange = function () {
+        var fileUploadPOEBool = restrictFileUpload($(this).val());
+        if (fileUploadPOEBool == true) {
+            uploadPOEFileAdminSide();
+        }
+        else {
+            document.getElementById('uploadPOE').value = '';
+            $('#uploadPOEShow').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+    };
+
 });
 var abcd = function () {
     alert("Hi");
@@ -5280,3 +5313,98 @@ var fillUnitParkingList = function () {
         }
     });
 }
+var uploadPOIFileAdminSide = function () {
+    $("#divLoader").show();
+    var prospectId = $('#hdnOPId').val();
+    $formData = new FormData();
+
+    var uploadPOI = document.getElementById('uploadPOI');
+
+    for (var i = 0; i < uploadPOI.files.length; i++) {
+        $formData.append('file-' + i, uploadPOI.files[i]);
+    }
+    $formData.append('ProspectId', prospectId);
+
+    $.ajax({
+        url: '/CheckList/UploadInsurenceDocAdminSide',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            var spMsg = response.model;
+            alert(spMsg);
+            var msg = [];
+            if (spMsg) {
+                msg = spMsg.split('|');
+                $('#uploadPOIShow').text(msg[1]);
+                $("#chkIns").prop("checked", true);
+                $("#chkIns").prop("disabled", "disabled");
+                $("#chkIns").parent().addClass("checked");
+
+                $("#dwnldPOI").attr('href', '/../Content/assets/img/ChecklistDocument/' + msg[1]);
+                $("#dwnldPOI").attr('download', msg[1]);
+                $("#dwnldPOI").attr('target', '_parent');
+                $("#dwnldPOI").html('<i class="fa fa-download"></i>' + ' ' + msg[1]);
+            }
+            else {
+                msg = spMsg.split('|');
+            }
+            $.alert({
+                title: "",
+                content: msg[0],
+                type: 'blue'
+            });
+        }
+    });
+};
+
+var uploadPOEFileAdminSide = function () {
+    $("#divLoader").show();
+    var prospectId = $('#hdnOPId').val();
+    $formData = new FormData();
+
+    var uploadPOE = document.getElementById('uploadPOE');
+
+    for (var i = 0; i < uploadPOE.files.length; i++) {
+        $formData.append('file-' + i, uploadPOE.files[i]);
+    }
+    $formData.append('ProspectId', prospectId);
+    $.ajax({
+        url: '/CheckList/UploadProofOfElectricityDocAdminSide',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            var spMsg = response.model;
+            var msg = [];
+            if (spMsg) {
+                msg = spMsg.split('|');
+                $('#uploadPOEShow').text(msg[1]);
+                $("#chkEle").prop("checked", true);
+                $("#chkEle").prop("disabled", "disabled");
+                $("#chkEle").parent().addClass("checked");
+
+                $("#dwnldPOE").attr('href', '/../Content/assets/img/ChecklistDocument/' + msg[1]);
+                $("#dwnldPOE").attr('download', msg[1]);
+                $("#dwnldPOE").attr('target', '_parent');
+                $("#dwnldPOE").html('<i class="fa fa-download"></i>' + ' ' + msg[1]);
+            }
+            else {
+                msg = spMsg.split('|');
+            }
+            $.alert({
+                title: "",
+                content: msg[0],
+                type: 'blue'
+            });
+        }
+    });
+};

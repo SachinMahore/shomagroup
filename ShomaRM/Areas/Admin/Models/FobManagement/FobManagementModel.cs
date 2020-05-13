@@ -758,15 +758,15 @@ namespace ShomaRM.Areas.Admin.Models
                     cmd.CommandText = "usp_GetPreMovingPaginationAndSearchData";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    DbParameter param0 = cmd.CreateParameter();
-                    param0.ParameterName = "FromDate";
-                    param0.Value = model.FromDate;
-                    cmd.Parameters.Add(param0);
+                    //DbParameter param0 = cmd.CreateParameter();
+                    //param0.ParameterName = "FromDate";
+                    //param0.Value = model.FromDate;
+                    //cmd.Parameters.Add(param0);
 
-                    DbParameter param1 = cmd.CreateParameter();
-                    param1.ParameterName = "ToDate";
-                    param1.Value = model.ToDate;
-                    cmd.Parameters.Add(param1);
+                    //DbParameter param1 = cmd.CreateParameter();
+                    //param1.ParameterName = "ToDate";
+                    //param1.Value = model.ToDate;
+                    //cmd.Parameters.Add(param1);
 
                     DbParameter param3 = cmd.CreateParameter();
                     param3.ParameterName = "PageNumber";
@@ -820,15 +820,15 @@ namespace ShomaRM.Areas.Admin.Models
                     cmd.CommandText = "usp_GetPreMovingPaginationAndSearchData";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    DbParameter param0 = cmd.CreateParameter();
-                    param0.ParameterName = "FromDate";
-                    param0.Value = model.FromDate;
-                    cmd.Parameters.Add(param0);
+                    //DbParameter param0 = cmd.CreateParameter();
+                    //param0.ParameterName = "FromDate";
+                    //param0.Value = model.FromDate;
+                    //cmd.Parameters.Add(param0);
 
-                    DbParameter param1 = cmd.CreateParameter();
-                    param1.ParameterName = "ToDate";
-                    param1.Value = model.ToDate;
-                    cmd.Parameters.Add(param1);
+                    //DbParameter param1 = cmd.CreateParameter();
+                    //param1.ParameterName = "ToDate";
+                    //param1.Value = model.ToDate;
+                    //cmd.Parameters.Add(param1);
 
                     DbParameter param3 = cmd.CreateParameter();
                     param3.ParameterName = "PageNumber";

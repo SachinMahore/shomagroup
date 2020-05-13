@@ -1457,10 +1457,13 @@ namespace ShomaRM.Models
                 LastName = model.LastName,
                 Phone = model.Phone,
                 Email = model.Email,
-                //DateOfBirth = model.DateofBirth,
-                Gender = 0,
+                Gender = model.Gender,
                 Relationship = "1",
                 Type = "Primary Applicant",
+                UserID = (int)Uid,
+                CreditPaid = 0,
+                Paid = 0,
+                BackGroundPaid = 0
             };
             db.tbl_Applicant.Add(saveApplicant);
             db.SaveChanges();
