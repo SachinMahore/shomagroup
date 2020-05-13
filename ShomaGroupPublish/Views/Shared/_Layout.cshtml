@@ -41,23 +41,27 @@
         <link rel="stylesheet" type="text/css" href="@Url.Content("../Content/assets/bootstrap/css/bootstrap.min.css")">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
 
-    <link rel="stylesheet" href="@Url.Content("/Content/jquery-confirm-master/css/jquery-confirm.css")" />
-    <link rel="stylesheet" href="@Url.Content("/content/assets/css/popupwindow.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/jquery-confirm-master/css/jquery-confirm.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/content/assets/css/popupwindow.css")" />
     @*<link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.darkneon.css")">
         <link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.flatwhite.css")">*@
-    <link rel="stylesheet" href="@Url.Content("/content/assets/css/responsive.css")">
-    <script src="@Url.Content("/content/assets/js/jquery-1.10.2.min.js")"></script>
-    <script src="@Url.Content("/content/assets/js/modernizr-2.6.2.min.js")"></script>
-    <script src="@Url.Content("/content/assets/js/popupwindow.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/content/assets/css/responsive.css")" />
+    <script src="@Url.Content("~/content/assets/js/jquery-1.10.2.min.js")"></script>
+    <script src="@Url.Content("~/content/assets/js/modernizr-2.6.2.min.js")"></script>
+    <script src="@Url.Content("~/content/assets/js/popupwindow.js")"></script>
     <script src="@Url.Content("~/Content/Pages/common.js")"></script>
-    <script src="@Url.Content("/content/assets/js/jquery.simplePagination.js")"></script>
+    <script src="@Url.Content("~/content/assets/js/jquery.simplePagination.js")"></script>
     <link rel="stylesheet" type="text/css" href="@Url.Content("/Content/assets/css/stylenew.css")">
-    <script src="~/Content/Pages/Home.js"></script>
-    <link rel="stylesheet" href="@Url.Content("/Content/fileUpload.css")" />
-    <link href="~/Content/fileUpload.css" rel="stylesheet" />
-    <link href="~/Content/timepicki.css" rel="stylesheet" />
-    <script src="~/Content/timepicki.js"></script>
-    <script src="~/Content/keyboardcontrols.js"></script>
+    <script src="@Url.Content("~/Content/Pages/Home.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/fileUpload.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/fileUpload.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/timepicki.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/jAlert.css")" />
+    
+    <script src="@Url.Content("~/Content/timepicki.js")"></script>
+    <script src="@Url.Content("~/Content/keyboardcontrols.js")"></script>
+
+
     @RenderSection("scripts", required: false)
 </head>
 <body oncontextmenu="return false;">
@@ -333,6 +337,9 @@
 
     <script src="@Url.Content("/content/assets/js/main.js")"></script>
     <script src="@Url.Content("/Content/jquery-confirm-master/js/jquery-confirm.js")"></script>
+    @*<script src="@Url.Content("~/Content/store.min.js")"></script>
+        <script src="@Url.Content("~/Content/jquery-idleTimeout.min.js")"></script>*@
+   
 </body>
 </html>
 <style>
@@ -670,6 +677,35 @@
         $("#txtMoveDate").datepicker({ autoclose: true, dateFormat: "MM/dd/yyyy", startDate: new Date() });
     });
     $(document).ready(function () {
+        //var keepLive = webURL() + '/Account/KeepLive';
+        //var logOut = webURL() + '/Account/LogOff';
+        //var sessionstarttime = "12:00:00 AM";
+        //var sessionendtime = "11:59:59 PM";
+
+        //alert(keepLive);
+        //alert(logOut);
+
+        //$(document).idleTimeout({
+        //    redirectUrl: logOut,
+        //    keepLiveUrl: keepLive,
+        //    idleTimeLimit: 120,         // 'No activity' time limit in seconds. 840 = 15 Minutes
+        //    idleCheckHeartbeat: 2,
+        //    customCallback: false, 
+        //    activityEvents: 'keydown mousewheel mousedown touchstart touchmove',
+        //    enableDialog: true,
+        //    dialogDisplayLimit: 60,     // Time to display the warning dialog before logout (and optional callback) in seconds. 300 = 5 Minutes
+        //    dialogTitle: 'Session Expiration Warning',
+        //    dialogText: 'Because you have been inactive, your session is about to expire.',
+        //    dialogTimeRemaining: 'Time remaining',
+        //    dialogStayLoggedInButton: 'Stay Logged In',
+        //    dialogLogOutNowButton: 'Log Out Now',
+        //    errorAlertMessage: 'Please disable "Private Mode", or upgrade to a modern browser. Or perhaps a dependent file missing.',
+        //    sessionKeepAliveTimer: false,
+        //    sessionKeepAliveUrl: "",
+        //    sessionStartTime: sessionstarttime,
+        //    sessionEndTime: sessionendtime
+        //});
+
         $("#btnContact").on("click", function (event) {
             $("#popContactForm").modal("show");
         });

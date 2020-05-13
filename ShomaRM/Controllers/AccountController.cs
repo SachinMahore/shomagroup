@@ -280,7 +280,7 @@ namespace ShomaRM.Controllers
             }
             return Json(new { IsLogOut = "1" }, JsonRequestBehavior.AllowGet);
         }
-
+        [AllowAnonymous]
         public ActionResult KeepLive()
         {
             return Json(new { result = "OK" }, JsonRequestBehavior.AllowGet);

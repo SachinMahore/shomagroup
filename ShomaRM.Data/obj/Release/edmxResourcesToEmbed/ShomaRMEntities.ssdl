@@ -153,6 +153,7 @@
     <Property Name="StepCompleted" Type="int" />
     <Property Name="AcceptSummary" Type="int" />
     <Property Name="AdditionalParking" Type="int" />
+    <Property Name="Notes" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="tbl_AuditHistory">
     <Key>
@@ -185,6 +186,7 @@
     <Property Name="OrderID" Type="int" Nullable="false" />
     <Property Name="Status" Type="nvarchar(max)" />
     <Property Name="PDFUrl" Type="nvarchar(max)" />
+    <Property Name="Notes" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="tbl_BankAccount">
     <Key>
@@ -1400,6 +1402,22 @@
     <Property Name="StepCompleted" Type="int" />
     <Property Name="IsRentalPolicy" Type="int" />
     <Property Name="IsRentalQualification" Type="int" />
+    <Property Name="TaxReturn4" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturn5" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturn6" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturn7" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturn8" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile4" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile5" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile6" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile7" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile8" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsFedralTax" Type="int" />
+    <Property Name="IsBankState" Type="int" />
+    <Property Name="ResidenceStatus" Type="int" />
+    <Property Name="ResidenceNotes" Type="nvarchar(max)" />
+    <Property Name="EmpStatus" Type="int" />
+    <Property Name="EmpNotes" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="tbl_TenantParking">
     <Key>
@@ -1551,6 +1569,7 @@
     <Property Name="Tag" Type="nvarchar" MaxLength="50" />
     <Property Name="ParkingID" Type="int" />
     <Property Name="AddedBy" Type="bigint" />
+    <Property Name="VehicleType" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Vendor">
     <Key>
