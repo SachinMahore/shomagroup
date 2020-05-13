@@ -3,6 +3,8 @@ var numberOfDays = 0;
 var QuoteExpires = "";
 var tenantOnlineID = 0;
 var addApplicntArray = [];
+var addUpArray = [];
+var nofup = 0;
 $(document).ready(function () {
     onFocusApplyNow();
     localStorage.removeItem("CheckReload");
@@ -32,49 +34,69 @@ $(document).ready(function () {
         }
     });
 
-    if ($("#rbtnPaystub").is(":checked")) {
-        $('#divUpload3').removeClass('hidden');
-        $('#lblUpload1').text('Paystub 1');
-        $('#lblUpload2').text('Paystub 2');
-        $('#lblUpload3').text('Paystub 3');
-    }
+    
+  
+   
+    $('input[type=checkbox]').on('ifChanged', function (event) {
+        addUpArray = [];
+        $('.empup').each(function (i, obj) {
+            if ($(obj).is(':checked')) {
+                addUpArray.push(1);
+            }
+        });
 
-    else if ($("#rbtnFedralTax").is(":checked")) {
-        $('#divUpload3').addClass('hidden');
-        document.getElementById('fileUploadTaxReturn3').value = '';
-        $('#lblUpload1').text('Fedral Tax Return 1');
-        $('#lblUpload2').text('Fedral Tax Return 2');
-        $('#lblUpload3').text('Fedral Tax Return 3');
-    }
-    else if ($("#rbtnBankStatement").is(":checked")) {
-        $('#divUpload3').removeClass('hidden');
-        $('#lblUpload1').text('Bank Statement 1');
-        $('#lblUpload2').text('Bank Statement 2');
-        $('#lblUpload3').text('Bank Statement 3');
-    }
-
-    $('input[type=radio]').on('ifChanged', function (event) {
+        nofup = addUpArray.length;
 
         if ($("#rbtnPaystub").is(":checked")) {
-            $('#divUpload3').removeClass('hidden');
-            $('#lblUpload1').text('Paystub 1');
-            $('#lblUpload2').text('Paystub 2');
-            $('#lblUpload3').text('Paystub 3');
+            if (nofup < 3) {
+                $('#divUpload3').removeClass('hidden');
+            } else {
+               // $("#rbtnPaystub").prop("checked", false);
+                $.alert({
+                    title: "",
+                    content: "Please Select any  two of the three options (tax return, paystubs, and bank statements)",
+                    type: 'red'
+                })
+                return;
+            }
         }
-        else if ($("#rbtnFedralTax").is(":checked")) {
+        else {
             $('#divUpload3').addClass('hidden');
-            document.getElementById('fileUploadTaxReturn3').value = '';
-            $('#lblUpload1').text('Fedral Tax Return 1');
-            $('#lblUpload2').text('Fedral Tax Return 2');
-            $('#lblUpload3').text('Fedral Tax Return 3');
         }
-        else if ($("#rbtnBankStatement").is(":checked")) {
-            $('#divUpload3').removeClass('hidden');
-            $('#lblUpload1').text('Bank Statement 1');
-            $('#lblUpload2').text('Bank Statement 2');
-            $('#lblUpload3').text('Bank Statement 3');
+        if ($("#rbtnBankStatement").is(":checked")) {
+            if (nofup < 3) {
+                $('#divBankUpload').removeClass('hidden');
+            } else {
+               // $("#rbtnBankStatement").prop("checked", false);
+                $.alert({
+                    title: "",
+                    content: "Please Select any  two of the three options (tax return, paystubs, and bank statements)",
+                    type: 'red'
+                })
+                return;
+            }
+        } else {
+            $('#divBankUpload').addClass('hidden');
         }
+        if ($("#rbtnFedralTax").is(":checked")) {
+            if (nofup < 3) {
+                $('#divFederalTax').removeClass('hidden');
+            } else {
+              //  $("#rbtnFedralTax").prop("checked", false);
+                $.alert({
+                    title: "",
+                    content: "Please Select any  two of the three options (tax return, paystubs, and bank statements)",
+                    type: 'red'
+                })
+                return;
+            }
+        } else {
+            $('#divFederalTax').addClass('hidden');
+        }
+
+        console.log(addUpArray)
     });
+    
     if ($("#rbtnPaystubHEI").is(":checked")) {
         $('#divUpload3HEI').removeClass('hidden');
         $('#lblUpload1HEI').text('Paystub 1');
@@ -105,6 +127,7 @@ $(document).ready(function () {
             $('#lblUpload2HEI').text('Fedral Tax Return 2');
             $('#lblUpload3HEI').text('Fedral Tax Return 3');
         }
+       
     });
     document.getElementById('fileUploadTaxReturn1').onchange = function () {
         var fileUploadTaxReturn1Bool = restrictFileUpload($(this).val());
@@ -151,6 +174,85 @@ $(document).ready(function () {
             });
         }
     };
+
+    //Sachin M 11 may
+    document.getElementById('fileUploadTaxReturn4').onchange = function () {
+        var fileUploadTaxReturn4Bool = restrictFileUpload($(this).val());
+        if (fileUploadTaxReturn4Bool == true) {
+            taxReturnFileUpload4();
+        }
+        else {
+            document.getElementById('fileUploadTaxReturn4').value = '';
+            $('#fileUploadTaxReturn4Show').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+    };
+    document.getElementById('fileUploadTaxReturn5').onchange = function () {
+        var fileUploadTaxReturn5Bool = restrictFileUpload($(this).val());
+        if (fileUploadTaxReturn5Bool == true) {
+            taxReturnFileUpload5();
+        }
+        else {
+            document.getElementById('fileUploadTaxReturn5').value = '';
+            $('#fileUploadTaxReturn5Show').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+    };
+
+    document.getElementById('fileBankState1').onchange = function () {
+        var fileUploadBankState1Bool = restrictFileUpload($(this).val());
+        if (fileUploadBankState1Bool == true) {
+            bankstateFileUpload1();
+        }
+        else {
+            document.getElementById('fileBankState1').value = '';
+            $('#fileBankState1Show').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+    };
+    document.getElementById('fileBankState2').onchange = function () {
+        var fileUploadBankState2Bool = restrictFileUpload($(this).val());
+        if (fileUploadBankState2Bool == true) {
+            bankstateFileUpload2();
+        }
+        else {
+            document.getElementById('fileBankState2').value = '';
+            $('#fileBankState2Show').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+    };
+    document.getElementById('fileBankState3').onchange = function () {
+        var fileUploadBankState3Bool = restrictFileUpload($(this).val());
+        if (fileUploadBankState3Bool == true) {
+            bankstateFileUpload3();
+        }
+        else {
+            document.getElementById('fileBankState3').value = '';
+            $('#fileBankState3Show').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+    };
+
     document.getElementById('fileUploadPassport').onchange = function () {
         var fileUploadPassportBool = restrictFileUpload($(this).val());
         if (fileUploadPassportBool == true) {
@@ -1622,16 +1724,16 @@ var goToStep = function (stepid, id, calldataupdate) {
                 }
             }
             if ($("#rbtnPaystub").is(":checked")) {
-                if ($("#hndHasTaxReturnFile1").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
-                        var upLabel = $('#lblUpload1').text();
-                        msg += "Please Upload " + upLabel + " </br>";
+                if ($("#hndHasTaxReturnFile4").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn4').files.length == '0') {
+                        var upLabel44 = $('#lblUpload4').text();
+                        msg += "Please Upload " + upLabel44 + " </br>";
                     }
                 }
-                if ($("#hndHasTaxReturnFile2").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
-                        var upLabel2 = $('#lblUpload2').text();
-                        msg += "Please Upload " + upLabel2 + " </br>";
+                if ($("#hndHasTaxReturnFile5").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn5').files.length == '0') {
+                        var upLabel25 = $('#lblUpload5').text();
+                        msg += "Please Upload " + upLabel25 + " </br>";
                     }
                 }
                 if ($("#hndHasTaxReturnFile3").val() == "0") {
@@ -1656,22 +1758,22 @@ var goToStep = function (stepid, id, calldataupdate) {
                 }
             }
             if ($("#rbtnBankStatement").is(":checked")) {
-                if ($("#hndHasTaxReturnFile1").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
-                        var upLabel6 = $('#lblUpload1').text();
-                        msg += "Please Upload " + upLabel + " </br>";
+                if ($("#hndHasBankStateFile1").val() == "0") {
+                    if (document.getElementById('fileBankState1').files.length == '0') {
+                        var upLabel6 = $('#lblUploadBankState1').text();
+                        msg += "Please Upload " + upLabel6 + " </br>";
                     }
                 }
-                if ($("#hndHasTaxReturnFile2").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
-                        var upLabel7 = $('#lblUpload2').text();
-                        msg += "Please Upload " + upLabel2 + " </br>";
+                if ($("#hndHasBankStateFile2").val() == "0") {
+                    if (document.getElementById('fileBankState2').files.length == '0') {
+                        var upLabel7 = $('#lblUploadBankState2').text();
+                        msg += "Please Upload " + upLabel7 + " </br>";
                     }
                 }
-                if ($("#hndHasTaxReturnFile3").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn3').files.length == '0') {
-                        var upLabel8 = $('#lblUpload3').text();
-                        msg += "Please Upload " + upLabel3 + " </br>";
+                if ($("#hndHasBankStateFile3").val() == "0") {
+                    if (document.getElementById('fileBankState3').files.length == '0') {
+                        var upLabel8 = $('#lblUploadBankState3').text();
+                        msg += "Please Upload " + upLabel8 + " </br>";
                     }
                 }
             }
@@ -6416,6 +6518,21 @@ var saveupdateTenantOnline = function (stepcompleted) {
     var originalFileUpload2 = $("#hndOriginalFileUploadName2").val();
     var fileUpload3 = $("#hndFileUploadName3").val();
     var originalFileUpload3 = $("#hndOriginalFileUploadName3").val();
+
+    //sachin m 11 may
+    var fileUpload4 = $("#hndFileUploadName4").val();
+    var originalFileUpload4= $("#hndOriginalFileUploadName4").val();
+    var fileUpload5 = $("#hndFileUploadName5").val();
+    var originalFileUpload5 = $("#hndOriginalFileUploadName5").val();
+    var fileUpload6 = $("#hndFileUploadNameBankState1").val();
+    var originalFileUpload6 = $("#hndOriginalFileUploadNameBankState1").val();
+    var fileUpload7 = $("#hndFileUploadNameBankState2").val();
+    var originalFileUpload7 = $("#hndOriginalFileUploadNameBankState2").val();
+    var fileUpload8 = $("#hndFileUploadNameBankState3").val();
+    var originalFileUpload8 = $("#hndOriginalFileUploadNameBankState3").val();
+
+
+
     var filePassport = $("#hndPassportUploadName").val();
     var originalFilePassport = $("#hndOriginalPassportUploadName").val();
     var fileIdentity = $("#hndIdentityUploadName").val();
@@ -6461,7 +6578,11 @@ var saveupdateTenantOnline = function (stepcompleted) {
             msg += "Please enter 10 digit management company phone number </br>";
         }
     }
-    
+
+ 
+    if (nofup < 2) {
+        msg += "Please Select any  two of the three options (tax return, paystubs, and bank statements)";
+    }
     if (msg != "") {
         $.alert({
             title: "",
@@ -6554,6 +6675,18 @@ var saveupdateTenantOnline = function (stepcompleted) {
     $formData.append('TaxReturn3', fileUpload3);
     $formData.append('UploadOriginalFileName3', originalFileUpload3);
 
+    //sachin m 11 may
+    $formData.append('TaxReturn4', fileUpload4);
+    $formData.append('UploadOriginalFileName4', originalFileUpload4);
+    $formData.append('TaxReturn5', fileUpload5);
+    $formData.append('UploadOriginalFileName5', originalFileUpload5);
+    $formData.append('TaxReturn6', fileUpload6);
+    $formData.append('UploadOriginalFileName6', originalFileUpload6);
+    $formData.append('TaxReturn7', fileUpload7);
+    $formData.append('UploadOriginalFileName7', originalFileUpload7);
+    $formData.append('TaxReturn8', fileUpload8);
+    $formData.append('UploadOriginalFileName8', originalFileUpload8);
+
     $formData.append('PassportDocument', filePassport);
     $formData.append('UploadOriginalPassportName', originalFilePassport);
     $formData.append('IdentityDocument', fileIdentity);
@@ -6579,10 +6712,11 @@ var saveupdateTenantOnline = function (stepcompleted) {
     if ($("#rbtnPaystub").is(":checked")) {
         $formData.append('IsPaystub', 1);
     }
-    else if ($("#rbtnFedralTax").is(":checked")) {
-        $formData.append('IsPaystub', 0);
-    } else if ($("#rbtnBankStatement").is(":checked")) {
-        $formData.append('IsPaystub', 2);
+    if ($("#rbtnFedralTax").is(":checked")) {
+        $formData.append('IsFedralTax', 1);
+    }
+    if ($("#rbtnBankStatement").is(":checked")) {
+        $formData.append('IsBankState', 1);
     }
 
     $.ajax({
@@ -6980,6 +7114,27 @@ var getTenantOnlineList = function (id) {
             } else {
                 $("#hndHasTaxReturnFile3").val("0");
             }
+            if (response.model.TaxReturn4 != "") {
+                if (response.model.TaxReturn4 == "0") {
+                    $("#hndHasTaxReturnFile4").val("0");
+                }
+                else {
+                    $("#hndHasTaxReturnFile4").val("1");
+                }
+            } else {
+                $("#hndHasTaxReturnFile4").val("0");
+            }
+            if (response.model.TaxReturn5 != "") {
+                if (response.model.TaxReturn5 == "0") {
+                    $("#hndHasTaxReturnFile5").val("0");
+                }
+                else {
+                    $("#hndHasTaxReturnFile5").val("1");
+                }
+            } else {
+                $("#hndHasTaxReturnFile5").val("0");
+            }
+            
             //alert(response.model.HaveVehicle + "  " + response.model.HavePet);
             if (response.model.HaveVehicle == true) {
                 $("#chkDontHaveVehicle").iCheck('check');
@@ -7007,6 +7162,22 @@ var getTenantOnlineList = function (id) {
             $("#hndFileUploadName3").val(response.model.TaxReturn3);
             $("#hndOriginalFileUploadName3").val(response.model.UploadOriginalFileName3);
 
+
+            //sachin m 11 may
+            $("#hndFileUploadName4").val(response.model.TaxReturn4);
+            $("#hndOriginalFileUploadName4").val(response.model.UploadOriginalFileName4);
+            $("#hndFileUploadName5").val(response.model.TaxReturn5);
+            $("#hndOriginalFileUploadName5").val(response.model.UploadOriginalFileName5);
+
+            $("#hndFileUploadNameBankState1").val(response.model.TaxReturn6);
+            $("#hndOriginalFileUploadNameBankState1").val(response.model.UploadOriginalFileName6);
+            $("#hndFileUploadNameBankState2").val(response.model.TaxReturn7);
+            $("#hndOriginalFileUploadNameBankState2").val(response.model.UploadOriginalFileName7);
+            $("#hndFileUploadNameBankState3").val(response.model.TaxReturn8);
+            $("#hndOriginalFileUploadNameBankState3").val(response.model.UploadOriginalFileName8);
+          
+
+
             //To Display File Name On Uploader
             if (response.model.UploadOriginalPassportName != '') {
                 $("#fileUploadPassportShow").text(response.model.UploadOriginalPassportName);
@@ -7029,15 +7200,49 @@ var getTenantOnlineList = function (id) {
                     $("#fileUploadTaxReturn3Show").text(response.model.UploadOriginalFileName3);
                 }
             }
+
+            //sachin m 11 may
+            if (response.model.UploadOriginalFileName4 != '') {
+                if (response.model.UploadOriginalFileName4 != '0') {
+                    $("#fileUploadTaxReturn4Show").text(response.model.UploadOriginalFileName4);
+                }
+            }
+            if (response.model.UploadOriginalFileName5 != '') {
+                if (response.model.UploadOriginalFileName5 != '0') {
+                    $("#fileUploadTaxReturn5Show").text(response.model.UploadOriginalFileName5);
+                }
+            }
+
+            if (response.model.UploadOriginalFileName6 != '') {
+                if (response.model.UploadOriginalFileName6 != '0') {
+                    $("#fileBankState1Show").text(response.model.UploadOriginalFileName6);
+                }
+            }
+            if (response.model.UploadOriginalFileName7 != '') {
+                if (response.model.UploadOriginalFileName7 != '0') {
+                    $("#fileBankState2Show").text(response.model.UploadOriginalFileName7);
+                }
+            }
+            if (response.model.UploadOriginalFileName8 != '') {
+                if (response.model.UploadOriginalFileName8 != '0') {
+                    $("#fileBankState3Show").text(response.model.UploadOriginalFileName8);
+                }
+            }
+
+
+
             //alert(response.model.IsPaystub);
 
             if (response.model.IsPaystub == 1) {
                 $("#rbtnPaystub").iCheck('check');
+                $('#divUpload3').removeClass('hidden');
             }
-            else if (response.model.IsPaystub == 0) {
+            if (response.model.IsFedralTax == 1) {
                 $("#rbtnFedralTax").iCheck('check');
-            } else {
+            }
+            if (response.model.IsBankState ==1) {
                 $("#rbtnBankStatement").iCheck('check');
+                $('#divBankUpload').removeClass('hidden');
             }
 
             $("#divLoaderFullData").hide();
@@ -7963,6 +8168,170 @@ var taxReturnFileUpload3 = function () {
         }
     });
 };
+
+//sachin m 11 may
+var taxReturnFileUpload4 = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var upload2 = document.getElementById('fileUploadTaxReturn4');
+
+    var fileNameUp2 = $('#hndFileUploadName4').val();
+    var orginalFileNameUp2 = $('#hndOriginalFileUploadName4').val();
+
+    for (var i = 0; i < upload2.files.length; i++) {
+        $formData.append('file-' + i, upload2.files[i]);
+    }
+
+    $.ajax({
+        url: '/ApplyNow/TaxFileUpload4',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            $('#hndFileUploadName4').val(response.model.tempUpload4);
+            $('#hndOriginalFileUploadName4').val(response.model.UploadOriginalFileName4);
+
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'blue'
+            });
+        }
+    });
+};
+var taxReturnFileUpload5 = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var upload3 = document.getElementById('fileUploadTaxReturn5');
+
+    for (var i = 0; i < upload3.files.length; i++) {
+        $formData.append('file-' + i, upload3.files[i]);
+    }
+
+    $.ajax({
+        url: '/ApplyNow/TaxFileUpload5',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            $('#hndFileUploadName5').val(response.model.tempUpload5);
+            $('#hndOriginalFileUploadName5').val(response.model.UploadOriginalFileName5);
+
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'blue'
+            });
+        }
+    });
+};
+
+var bankstateFileUpload1 = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var upload1 = document.getElementById('fileBankState1');
+
+    for (var i = 0; i < upload1.files.length; i++) {
+        $formData.append('file-' + i, upload1.files[i]);
+    }
+
+    $.ajax({
+        url: '/ApplyNow/TaxFileUpload6',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            $('#hndFileUploadNameBankState1').val(response.model.tempUpload6);
+            $('#hndOriginalFileUploadNameBankState1').val(response.model.UploadOriginalFileName6);
+
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'blue'
+            });
+        }
+    });
+};
+var bankstateFileUpload2 = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var upload2 = document.getElementById('fileBankState2');
+
+   
+    for (var i = 0; i < upload2.files.length; i++) {
+        $formData.append('file-' + i, upload2.files[i]);
+    }
+
+    $.ajax({
+        url: '/ApplyNow/TaxFileUpload7',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            $('#hndFileUploadNameBankState2').val(response.model.tempUpload7);
+            $('#hndOriginalFileUploadNameBankState2').val(response.model.UploadOriginalFileName7);
+
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'blue'
+            });
+        }
+    });
+};
+var bankstateFileUpload3 = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var upload3 = document.getElementById('fileBankState3');
+
+    for (var i = 0; i < upload3.files.length; i++) {
+        $formData.append('file-' + i, upload3.files[i]);
+    }
+
+    $.ajax({
+        url: '/ApplyNow/TaxFileUpload8',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            $('#hndFileUploadNameBankState3').val(response.model.tempUpload8);
+            $('#hndOriginalFileUploadNameBankState3').val(response.model.UploadOriginalFileName8);
+
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'blue'
+            });
+        }
+    });
+};
+
+
 
 var taxReturnFileUpload1HEI = function () {
     $("#divLoader").show();
