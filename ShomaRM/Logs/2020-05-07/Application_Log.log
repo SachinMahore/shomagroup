@@ -519,7 +519,8 @@ Logger: EmailSendModel.cs
 
 
 
-Date - 07 May 2020 19:54:37
+Date - 07 May 2020 18:33:10
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -527,19 +528,23 @@ Method SendAsync -Success
 
 User Referrer: localhost:53678
 
-Browser Name: Firefox
 
-File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+Browser Name: Chrome
+
+File Path: C:\Users\Lalit-bokde\OneDrive\Documents\github\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
 
 Method Name: SendAsync
 
-Line Number: 59
+Line Number: 58
+
 
 Logger: EmailSendModel.cs
 
 
 
-Date - 07 May 2020 19:54:38
+
+Date - 07 May 2020 18:33:10
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -547,19 +552,23 @@ Method SendEmail -Success
 
 User Referrer: localhost:53678
 
-Browser Name: Firefox
 
-File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+Browser Name: Chrome
+
+File Path: C:\Users\Lalit-bokde\OneDrive\Documents\github\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
 
 Method Name: SendEmail
 
-Line Number: 38
+Line Number: 37
+
 
 Logger: EmailSendModel.cs
 
 
 
-Date - 07 May 2020 20:23:31
+
+Date - 07 May 2020 18:36:04
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -567,19 +576,22 @@ Method SendAsync -Success
 
 User Referrer: localhost:53678
 
-Browser Name: Firefox
 
-File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+Browser Name: Chrome
+
+File Path: C:\Users\Lalit-bokde\OneDrive\Documents\github\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
 
 Method Name: SendAsync
 
-Line Number: 59
+Line Number: 58
 
 Logger: EmailSendModel.cs
 
 
 
-Date - 07 May 2020 20:23:32
+
+Date - 07 May 2020 18:36:04
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -587,13 +599,15 @@ Method SendEmail -Success
 
 User Referrer: localhost:53678
 
-Browser Name: Firefox
 
-File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+Browser Name: Chrome
+
+File Path: C:\Users\Lalit-bokde\OneDrive\Documents\github\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
 
 Method Name: SendEmail
 
-Line Number: 38
+Line Number: 37
+
 
 Logger: EmailSendModel.cs
 
