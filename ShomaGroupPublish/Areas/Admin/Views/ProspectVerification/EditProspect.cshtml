@@ -18,10 +18,11 @@
 <input type="hidden" id="hndPriAppFullName" value="" />
 <input type="hidden" id="hndIsSignedByAll" value="0" />
 <input type="hidden" id="hndEsignatureId" value="@Model.EsignatureID" />
+<input type="hidden" id="hndApplicantUserId" value="@Model.ApplicantUserId" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container" style="width:100%!important">
-
+        <label id="lblAdminFees" class="hidden" >@Model.AdminFees</label>
         <div class="wizard-container">
             <div class="wizard-card ct-wizard-orange" id="wizardProperty">
                 <div>
@@ -2500,20 +2501,27 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-
+                        <div class="col-sm-12">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="">Select Status</label>
                                     <select id="ddlStatus" class="form-control">
                                         <option value="0" @(Model.Status == "0" ? "selected='selected'" : "")>Select</option>
-                                        <option value="Approved" @(Model.Status == "Approved" ? "selected='selected'" : "")>Approved</option>
-                                        <option value="Denied" @(Model.Status == "Denied" ? "selected='selected'" : "")>Denied</option>
-                                        <option value="Conditional" @(Model.Status == "Conditional" ? "selected='selected'" : "")>Conditional</option>
+                                        <option value="BCApproved" @(Model.Status == "BCApproved" ? "selected='selected'" : "")>Background Check Approved</option>
+                                        <option value="BCDenied" @(Model.Status == "BCDenied" ? "selected='selected'" : "")>Background Check Denied</option>
+                                        <option value="BCConditional" @(Model.Status == "BCConditional" ? "selected='selected'" : "")>Background Check Conditional</option>
+                                        <option value="CCApproved" @(Model.Status == "CCApproved" ? "selected='selected'" : "")>Credit Check Approved</option>
+                                        <option value="CCDenied" @(Model.Status == "CCDenied" ? "selected='selected'" : "")>Credit Check Denied</option>
+                                        <option value="CCConditional" @(Model.Status == "CCConditional" ? "selected='selected'" : "")>Credit Check Conditional</option>
                                     </select>
                                 </div>
                             </div>
-
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="">Enter Notes</label>
+                                    <input type="text" id="txtStatusNotes" class="form-control" value="@Model.Notes" />
+                                </div>
+                            </div>
                             <div class="col-sm-4 form-inline">
                                 <div style="margin-top:30px"></div>
                                 <div class="text-center">
@@ -2521,6 +2529,63 @@
                                     <button type="button" class="btn btn-primary" id="btnSave" onclick="refreshStatuses()">Refresh</button>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="">
+                                <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 6px 5px;text-align:center;">
+                                    <h3 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b> Residence Status</b></a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <table class="table-bordered" width="100%" id="tblResidenceStatus">
+                                <thead>
+                                    <tr>
+                                        <th style="width:20%;">Applicant Name</th>
+                                        <th>Residency From</th>
+                                        <th>Monthly Rent</th>
+                                      
+                                        <th>Management Company / Owner</th>
+                                        <th>Management Company Phone</th>
+                                        <th>Address</th>
+                                        <th>Country</th>
+                                        <th>Apartment Community </th>
+                                        <th style="width:8%;">Status</th>
+                                        <th style="width:20%;">Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                          
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="">
+                                <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 6px 5px;text-align:center;">
+                                    <h3 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b><span id="pappnameemp"></span> Employment Status</b></a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <table class="table-bordered" width="100%" id="tblEmpStatus">
+                                <thead>
+                                <tr>
+                                    <th style="width:20%;">Applicant Name</th>
+                                    <th>Employed Since</th><th>Employer</th><th>Employer Phone</th><th>Supervisor Name</th><th>Address</th><th>Job Title</th>
+                                    <th>Income</th><th>Additional Income</th>
+                                    <th style="width:8%;">Status</th>
+                                    <th style="width:20%;">Notes</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                          
+                        </div>  
+                        <div class="col-md-12">
+
 
                             <div class="col-md-12 clear">
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">
@@ -2653,6 +2718,8 @@
                                                 </span>
                                             </label>
                                         </div>
+                                        <input type="file" name="uploadPOI" id="uploadPOI" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                        <label for="uploadPOI"><i class="fa fa-upload fa-2x"></i> <span id="uploadPOIShow">Choose a file&hellip;</span></label>
                                     </div>
                                     <div class="col-sm-12" style="margin-bottom:10px !important"><h4 style="color:#4d738a;">Utilities</h4></div>
                                     <div class="pull-left col-sm-12">
@@ -2667,6 +2734,8 @@
                                                 </span>
                                             </label>
                                         </div>
+                                        <input type="file" name="uploadPOE" id="uploadPOE" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                        <label for="uploadPOE"><i class="fa fa-upload fa-2x"></i> <span id="uploadPOEShow">Choose a file&hellip;</span></label>
                                     </div>
                                     <div class="pull-left col-sm-12">
                                         <div class="checkbox">

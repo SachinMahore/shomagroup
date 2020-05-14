@@ -16,11 +16,11 @@ namespace ShomaRM.Areas.Admin.Controllers
             var model = new StorageModel().GetStorageData(Id);
             return View("..\\Storage\\Index",model);
         }
-        public ActionResult GetStorageList(long TenantID)
+        public ActionResult GetStorageList(long TenantID, string OrderBy, string SortBy)
         {
             try
             {
-                return Json((new StorageModel()).GetStorageList(TenantID), JsonRequestBehavior.AllowGet);
+                return Json((new StorageModel()).GetStorageList(TenantID, OrderBy, SortBy), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

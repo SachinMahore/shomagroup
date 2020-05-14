@@ -98,7 +98,7 @@ namespace ShomaRM.Data
         public Nullable<bool> HavePet { get; set; }
         public string PassportDocumentOriginalFile { get; set; }
         public string IdentityDocumentOriginalFile { get; set; }
-        public Nullable<bool> IsPaystub { get; set; }
+        public Nullable<int> IsPaystub { get; set; }
         public Nullable<long> CountryOfOrigin { get; set; }
         public Nullable<int> Evicted { get; set; }
         public string EvictedDetails { get; set; }
@@ -118,6 +118,22 @@ namespace ShomaRM.Data
         public Nullable<int> StepCompleted { get; set; }
         public Nullable<int> IsRentalPolicy { get; set; }
         public Nullable<int> IsRentalQualification { get; set; }
+        public string TaxReturn4 { get; set; }
+        public string TaxReturn5 { get; set; }
+        public string TaxReturn6 { get; set; }
+        public string TaxReturn7 { get; set; }
+        public string TaxReturn8 { get; set; }
+        public string TaxReturnOrginalFile4 { get; set; }
+        public string TaxReturnOrginalFile5 { get; set; }
+        public string TaxReturnOrginalFile6 { get; set; }
+        public string TaxReturnOrginalFile7 { get; set; }
+        public string TaxReturnOrginalFile8 { get; set; }
+        public Nullable<int> IsFedralTax { get; set; }
+        public Nullable<int> IsBankState { get; set; }
+        public Nullable<int> ResidenceStatus { get; set; }
+        public string ResidenceNotes { get; set; }
+        public Nullable<int> EmpStatus { get; set; }
+        public string EmpNotes { get; set; }
     
         public virtual tbl_ApplyNow tbl_ApplyNow { get; set; }
     }

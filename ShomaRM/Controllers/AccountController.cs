@@ -52,6 +52,7 @@ namespace ShomaRM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
+            //string dec = new EncryptDecrypt().DecryptText("9P0BvvisXQdsuk951dZSlw");
             string encryptedPassword = new EncryptDecrypt().EncryptText(model.Password);
             if (ModelState.IsValid)
             {
@@ -279,7 +280,7 @@ namespace ShomaRM.Controllers
             }
             return Json(new { IsLogOut = "1" }, JsonRequestBehavior.AllowGet);
         }
-
+        [AllowAnonymous]
         public ActionResult KeepLive()
         {
             return Json(new { result = "OK" }, JsonRequestBehavior.AllowGet);

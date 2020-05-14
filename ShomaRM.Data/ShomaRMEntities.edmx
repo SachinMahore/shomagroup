@@ -158,6 +158,7 @@
           <Property Name="StepCompleted" Type="int" />
           <Property Name="AcceptSummary" Type="int" />
           <Property Name="AdditionalParking" Type="int" />
+          <Property Name="Notes" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_AuditHistory">
           <Key>
@@ -190,6 +191,7 @@
           <Property Name="OrderID" Type="int" Nullable="false" />
           <Property Name="Status" Type="nvarchar(max)" />
           <Property Name="PDFUrl" Type="nvarchar(max)" />
+          <Property Name="Notes" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_BankAccount">
           <Key>
@@ -695,6 +697,9 @@
           <Property Name="IsCheckWater" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="IsCheckSD" Type="int" />
+          <Property Name="PreMoveInDate" Type="datetime" />
+          <Property Name="PreMoveInTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="Movers" Type="int" />
         </EntityType>
         <EntityType Name="tbl_MoveInPayment">
           <Key>
@@ -851,7 +856,10 @@
           <Property Name="AdminFees" Type="money" />
           <Property Name="PetDNAAmt" Type="money" />
           <Property Name="ProcessingFees" Type="money" />
-          <Property Name="BGCheckFees" Type="money" />
+          <Property Name="AppCCCheckFees" Type="money" />
+          <Property Name="AppBGCheckFees" Type="money" />
+          <Property Name="GuaCCCheckFees" Type="money" />
+          <Property Name="GuaBGCheckFees" Type="money" />
         </EntityType>
         <EntityType Name="tbl_PropertyFloor">
           <Key>
@@ -1272,7 +1280,7 @@
           <Property Name="HavePet" Type="bit" />
           <Property Name="PassportDocumentOriginalFile" Type="varchar" MaxLength="500" />
           <Property Name="IdentityDocumentOriginalFile" Type="varchar" MaxLength="500" />
-          <Property Name="IsPaystub" Type="bit" />
+          <Property Name="IsPaystub" Type="int" />
           <Property Name="ProfilePicture" Type="varchar" MaxLength="500" />
           <Property Name="OrginalProfilePicture" Type="varchar" MaxLength="500" />
           <Property Name="IsAgreePostDisclaimer" Type="int" />
@@ -1379,7 +1387,7 @@
           <Property Name="HavePet" Type="bit" />
           <Property Name="PassportDocumentOriginalFile" Type="varchar" MaxLength="500" />
           <Property Name="IdentityDocumentOriginalFile" Type="varchar" MaxLength="500" />
-          <Property Name="IsPaystub" Type="bit" />
+          <Property Name="IsPaystub" Type="int" />
           <Property Name="CountryOfOrigin" Type="bigint" />
           <Property Name="Evicted" Type="int" />
           <Property Name="EvictedDetails" Type="varchar" MaxLength="500" />
@@ -1399,6 +1407,22 @@
           <Property Name="StepCompleted" Type="int" />
           <Property Name="IsRentalPolicy" Type="int" />
           <Property Name="IsRentalQualification" Type="int" />
+          <Property Name="TaxReturn4" Type="nvarchar" MaxLength="500" />
+          <Property Name="TaxReturn5" Type="nvarchar" MaxLength="500" />
+          <Property Name="TaxReturn6" Type="nvarchar" MaxLength="500" />
+          <Property Name="TaxReturn7" Type="nvarchar" MaxLength="500" />
+          <Property Name="TaxReturn8" Type="nvarchar" MaxLength="500" />
+          <Property Name="TaxReturnOrginalFile4" Type="nvarchar" MaxLength="500" />
+          <Property Name="TaxReturnOrginalFile5" Type="nvarchar" MaxLength="500" />
+          <Property Name="TaxReturnOrginalFile6" Type="nvarchar" MaxLength="500" />
+          <Property Name="TaxReturnOrginalFile7" Type="nvarchar" MaxLength="500" />
+          <Property Name="TaxReturnOrginalFile8" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsFedralTax" Type="int" />
+          <Property Name="IsBankState" Type="int" />
+          <Property Name="ResidenceStatus" Type="int" />
+          <Property Name="ResidenceNotes" Type="nvarchar(max)" />
+          <Property Name="EmpStatus" Type="int" />
+          <Property Name="EmpNotes" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_TenantParking">
           <Key>
@@ -1550,6 +1574,7 @@
           <Property Name="Tag" Type="nvarchar" MaxLength="50" />
           <Property Name="ParkingID" Type="int" />
           <Property Name="AddedBy" Type="bigint" />
+          <Property Name="VehicleType" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Vendor">
           <Key>
@@ -2938,7 +2963,6 @@
           <EntitySet Name="tbl_Amenities" EntityType="ShomaRMEntitiesModel.tbl_Amenities" />
           <EntitySet Name="tbl_AmenityPriceRange" EntityType="ShomaRMEntitiesModel.tbl_AmenityPriceRange" />
           <EntitySet Name="tbl_AmenityReservation" EntityType="ShomaRMEntitiesModel.tbl_AmenityReservation" />
-          <EntitySet Name="tbl_ApplyNow" EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" />
           <EntitySet Name="tbl_AuditHistory" EntityType="ShomaRMEntitiesModel.tbl_AuditHistory" />
           <EntitySet Name="tbl_AuditHistoryDetail" EntityType="ShomaRMEntitiesModel.tbl_AuditHistoryDetail" />
           <EntitySet Name="tbl_BankAccount" EntityType="ShomaRMEntitiesModel.tbl_BankAccount" />
@@ -2992,7 +3016,6 @@
           <EntitySet Name="tbl_Tenant" EntityType="ShomaRMEntitiesModel.tbl_Tenant" />
           <EntitySet Name="tbl_TenantEventJoin" EntityType="ShomaRMEntitiesModel.tbl_TenantEventJoin" />
           <EntitySet Name="tbl_TenantEventJoinApprove" EntityType="ShomaRMEntitiesModel.tbl_TenantEventJoinApprove" />
-          <EntitySet Name="tbl_TenantInfo" EntityType="ShomaRMEntitiesModel.tbl_TenantInfo" />
           <EntitySet Name="tbl_TenantMonthlyPayments" EntityType="ShomaRMEntitiesModel.tbl_TenantMonthlyPayments" />
           <EntitySet Name="tbl_TenantParking" EntityType="ShomaRMEntitiesModel.tbl_TenantParking" />
           <EntitySet Name="tbl_TenantPetPlace" EntityType="ShomaRMEntitiesModel.tbl_TenantPetPlace" />
@@ -3005,22 +3028,6 @@
           <EntitySet Name="tbl_Visit" EntityType="ShomaRMEntitiesModel.tbl_Visit" />
           <EntitySet Name="tbl_WorkOrder" EntityType="ShomaRMEntitiesModel.tbl_WorkOrder" />
           <EntitySet Name="tbl_ZipCodes" EntityType="ShomaRMEntitiesModel.tbl_ZipCodes" />
-          <AssociationSet Name="FK_tbl_TenantInfo_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow">
-            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
-            <End Role="tbl_TenantInfo" EntitySet="tbl_TenantInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_TenantParking_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow">
-            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
-            <End Role="tbl_TenantParking" EntitySet="tbl_TenantParking" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_TenantPetPlace_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow">
-            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
-            <End Role="tbl_TenantPetPlace" EntitySet="tbl_TenantPetPlace" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_TenantStorage_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow">
-            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
-            <End Role="tbl_TenantStorage" EntitySet="tbl_TenantStorage" />
-          </AssociationSet>
           <AssociationSet Name="FK_syAuditHistDetail_syAuditHist" Association="ShomaRMEntitiesModel.FK_syAuditHistDetail_syAuditHist">
             <End Role="tbl_AuditHistory" EntitySet="tbl_AuditHistory" />
             <End Role="tbl_AuditHistoryDetail" EntitySet="tbl_AuditHistoryDetail" />
@@ -3128,7 +3135,6 @@
             <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
             <End Role="tbl_Visit" EntitySet="tbl_Visit" />
           </AssociationSet>
-          <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" />
           <EntitySet Name="tbl_ESignatureKeys" EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" />
           <EntitySet Name="tbl_ApplicantHistory" EntityType="ShomaRMEntitiesModel.tbl_ApplicantHistory" />
           <EntitySet Name="tbl_EmployerHistory" EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" />
@@ -3205,23 +3211,9 @@
             <End Role="tbl_Login" EntitySet="tbl_Login" />
             <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
           </AssociationSet>
-          <EntitySet Name="tbl_BackgroundScreening" EntityType="ShomaRMEntitiesModel.tbl_BackgroundScreening" />
-          <EntitySet Name="tbl_TenantOnline" EntityType="ShomaRMEntitiesModel.tbl_TenantOnline" />
-          <AssociationSet Name="FK_tbl_TenantOnline_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow">
-            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
-            <End Role="tbl_TenantOnline" EntitySet="tbl_TenantOnline" />
-          </AssociationSet>
           <EntitySet Name="tbl_Parking" EntityType="ShomaRMEntitiesModel.tbl_Parking" />
           <EntitySet Name="tbl_TenantPet" EntityType="ShomaRMEntitiesModel.tbl_TenantPet" />
-          <EntitySet Name="tbl_Vehicle" EntityType="ShomaRMEntitiesModel.tbl_Vehicle" />
-          <AssociationSet Name="FK_tbl_TenantPet_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow">
-            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
-            <End Role="tbl_TenantPet" EntitySet="tbl_TenantPet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_Vehicle_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow">
-            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
-            <End Role="tbl_Vehicle" EntitySet="tbl_Vehicle" />
-          </AssociationSet>
+          <EntitySet Name="tbl_Applicant" EntityType="ShomaRMEntitiesModel.tbl_Applicant" />
           <EntitySet Name="tbl_Properties" EntityType="ShomaRMEntitiesModel.tbl_Properties" />
           <AssociationSet Name="FK_tbl_CashReceipts_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
@@ -3323,10 +3315,43 @@
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
           </AssociationSet>
-          <EntitySet Name="tbl_Applicant" EntityType="ShomaRMEntitiesModel.tbl_Applicant" />
+          <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" />
+          <EntitySet Name="tbl_TenantInfo" EntityType="ShomaRMEntitiesModel.tbl_TenantInfo" />
+          <EntitySet Name="tbl_TenantOnline" EntityType="ShomaRMEntitiesModel.tbl_TenantOnline" />
+          <EntitySet Name="tbl_ApplyNow" EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" />
+          <EntitySet Name="tbl_BackgroundScreening" EntityType="ShomaRMEntitiesModel.tbl_BackgroundScreening" />
           <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_TenantInfo_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_TenantInfo" EntitySet="tbl_TenantInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_TenantOnline_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_TenantOnline" EntitySet="tbl_TenantOnline" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_TenantParking_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_TenantParking" EntitySet="tbl_TenantParking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_TenantPet_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_TenantPet" EntitySet="tbl_TenantPet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_TenantPetPlace_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_TenantPetPlace" EntitySet="tbl_TenantPetPlace" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_TenantStorage_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_TenantStorage" EntitySet="tbl_TenantStorage" />
+          </AssociationSet>
+          <EntitySet Name="tbl_Vehicle" EntityType="ShomaRMEntitiesModel.tbl_Vehicle" />
+          <AssociationSet Name="FK_tbl_Vehicle_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow">
+            <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
+            <End Role="tbl_Vehicle" EntitySet="tbl_Vehicle" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
@@ -3386,62 +3411,6 @@
           <Property Name="DesiredTimeFrom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DesiredTimeTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Guest" Type="Int64" />
-        </EntityType>
-        <EntityType Name="tbl_ApplyNow">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PropertyId" Type="Int64" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsApplyNow" Type="Int32" />
-          <Property Name="CreatedBy" Type="Int64" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="DateofBirth" Type="DateTime" Precision="3" />
-          <Property Name="AnnualIncome" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="AddiAnnualIncome" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="UserId" Type="Int64" />
-          <Property Name="Marketsource" Type="Int32" />
-          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
-          <Property Name="ParkingAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="StorageAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PetPlaceAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Deposit" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Rent" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PetDeposit" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="TrashAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="PestAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ConvergentAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="MoveInCharges" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="FOBAmt" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="IsRentalPolicy" Type="Int32" />
-          <Property Name="IsRentalQualification" Type="Int32" />
-          <Property Name="EnvelopeID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Prorated_Rent" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="VehicleRegistration" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="AdministrationFee" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="LeaseTerm" Type="Int32" />
-          <Property Name="MonthlyCharges" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="EsignatureID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PetDNAAmt" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="StepCompleted" Type="Int32" />
-          <Property Name="AcceptSummary" Type="Int32" />
-          <NavigationProperty Name="tbl_TenantInfo" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantInfo" />
-          <NavigationProperty Name="tbl_TenantParking" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantParking" />
-          <NavigationProperty Name="tbl_TenantPetPlace" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPetPlace" />
-          <NavigationProperty Name="tbl_TenantStorage" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantStorage" />
-          <Property Name="AdditionalParking" Type="Int32" />
-          <NavigationProperty Name="tbl_TenantOnline" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantOnline" />
-          <NavigationProperty Name="tbl_TenantPet" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPet" />
-          <NavigationProperty Name="tbl_Vehicle" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
-          <NavigationProperty Name="tbl_Applicant" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Applicant" />
         </EntityType>
         <EntityType Name="tbl_AuditHistory">
           <Key>
@@ -3513,7 +3482,7 @@
           <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" FromRole="tbl_CashReceipts" ToRole="tbl_Login" />
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Properties" FromRole="tbl_CashReceipts" ToRole="tbl_Properties" />
           <NavigationProperty Name="tbl_Properties1" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_PropertyUnits" FromRole="tbl_CashReceipts" ToRole="tbl_Properties" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="tbl_CausingIssue">
           <Key>
             <PropertyRef Name="CausingIssueID" />
@@ -4334,103 +4303,6 @@
           <Property Name="Status" Type="Int32" />
           <Property Name="Date" Type="DateTime" Precision="0" />
         </EntityType>
-        <EntityType Name="tbl_TenantInfo">
-          <Key>
-            <PropertyRef Name="TenantID" />
-          </Key>
-          <Property Name="TenantID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProspectID" Type="Int64" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MiddleInitial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
-          <Property Name="Gender" Type="Int32" />
-          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="PassportNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CountryIssuance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DateIssuance" Type="DateTime" Precision="3" />
-          <Property Name="DateExpire" Type="DateTime" Precision="3" />
-          <Property Name="IDType" Type="Int32" />
-          <Property Name="State" Type="Int64" />
-          <Property Name="PropertyID" Type="Int64" />
-          <Property Name="UnitID" Type="Int64" />
-          <Property Name="IDNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="HomeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="HomeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="StateHome" Type="Int64" />
-          <Property Name="CityHome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ZipHome" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="RentOwn" Type="Int32" />
-          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
-          <Property Name="MonthlyPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmployerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="JobType" Type="Int32" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="Income" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="AdditionalIncome" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="SupervisorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SupervisorPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="SupervisorEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeState" Type="Int64" />
-          <Property Name="OfficeCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeZip" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="Relationship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyMobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyHomePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyWorkPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyStateHome" Type="Int64" />
-          <Property Name="EmergencyCityHome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyZipHome" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsInternational" Type="Int32" />
-          <Property Name="OtherGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="MoveInDateFrom" Type="DateTime" Precision="3" />
-          <Property Name="MoveInDateTo" Type="DateTime" Precision="3" />
-          <Property Name="Country2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="HomeAddress12" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="HomeAddress22" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="StateHome2" Type="Int64" />
-          <Property Name="CityHome2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ZipHome2" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="RentOwn2" Type="Int32" />
-          <Property Name="MoveInDateFrom2" Type="DateTime" Precision="3" />
-          <Property Name="MoveInDateTo2" Type="DateTime" Precision="3" />
-          <Property Name="MonthlyPayment2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Reason2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsAdditionalRHistory" Type="Int32" />
-          <Property Name="PassportDocument" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="IdentityDocument" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="TaxReturn" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="SSN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TaxReturn2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="TaxReturn3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="HaveVehicle" Type="Boolean" />
-          <Property Name="TaxReturnOrginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="TaxReturnOrginalFile2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="TaxReturnOrginalFile3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="HavePet" Type="Boolean" />
-          <Property Name="PassportDocumentOriginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="IdentityDocumentOriginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="IsPaystub" Type="Boolean" />
-          <Property Name="ProfilePicture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="OrginalProfilePicture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="IsAgreePostDisclaimer" Type="Int32" />
-          <Property Name="ParentTenantID" Type="Int64" />
-          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_TenantInfo" ToRole="tbl_ApplyNow" />
-        </EntityType>
         <EntityType Name="tbl_TenantMonthlyPayments">
           <Key>
             <PropertyRef Name="TMPID" />
@@ -4625,54 +4497,6 @@
           <NavigationProperty Name="tbl_City" Relationship="ShomaRMEntitiesModel.FK_tbl_ZipCodes_tbl_City" FromRole="tbl_ZipCodes" ToRole="tbl_City" />
           <NavigationProperty Name="tbl_State" Relationship="ShomaRMEntitiesModel.FK_tbl_ZipCodes_tbl_State" FromRole="tbl_ZipCodes" ToRole="tbl_State" />
         </EntityType>
-        <Association Name="FK_tbl_TenantInfo_tbl_ApplyNow">
-          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_TenantInfo" Role="tbl_TenantInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_TenantInfo">
-              <PropertyRef Name="ProspectID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_TenantParking_tbl_ApplyNow">
-          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_TenantParking" Role="tbl_TenantParking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_TenantParking">
-              <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_TenantPetPlace_tbl_ApplyNow">
-          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_TenantPetPlace" Role="tbl_TenantPetPlace" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_TenantPetPlace">
-              <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_TenantStorage_tbl_ApplyNow">
-          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_TenantStorage" Role="tbl_TenantStorage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_TenantStorage">
-              <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_syAuditHistDetail_syAuditHist">
           <End Type="ShomaRMEntitiesModel.tbl_AuditHistory" Role="tbl_AuditHistory" Multiplicity="1" />
           <End Type="ShomaRMEntitiesModel.tbl_AuditHistoryDetail" Role="tbl_AuditHistoryDetail" Multiplicity="*" />
@@ -5054,23 +4878,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tbl_MoveInChecklist">
-          <Key>
-            <PropertyRef Name="MIID" />
-          </Key>
-          <Property Name="MIID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProspectID" Type="Int64" />
-          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
-          <Property Name="MoveInTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MoveInCharges" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="InsuranceDoc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ElectricityDoc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="IsCheckPO" Type="Int32" />
-          <Property Name="IsCheckATT" Type="Int32" />
-          <Property Name="IsCheckWater" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsCheckSD" Type="Int32" />
-        </EntityType>
         <EntityType Name="tbl_ESignatureKeys">
           <Key>
             <PropertyRef Name="ESID" />
@@ -5394,139 +5201,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tbl_BackgroundScreening">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenantId" Type="Int32" Nullable="false" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PDFUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="tbl_TenantOnline">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProspectID" Type="Int64" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MiddleInitial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
-          <Property Name="Gender" Type="Int32" />
-          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="PassportNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CountryIssuance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DateIssuance" Type="DateTime" Precision="3" />
-          <Property Name="DateExpire" Type="DateTime" Precision="3" />
-          <Property Name="IDType" Type="Int32" />
-          <Property Name="State" Type="Int64" />
-          <Property Name="IDNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="HomeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="HomeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="StateHome" Type="Int64" />
-          <Property Name="CityHome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ZipHome" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="RentOwn" Type="Int32" />
-          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
-          <Property Name="MonthlyPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmployerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="JobType" Type="Int32" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="Income" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="AdditionalIncome" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="SupervisorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SupervisorPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="SupervisorEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeState" Type="Int64" />
-          <Property Name="OfficeCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OfficeZip" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="Relationship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyMobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyHomePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyWorkPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyStateHome" Type="Int64" />
-          <Property Name="EmergencyCityHome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EmergencyZipHome" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsInternational" Type="Int32" />
-          <Property Name="OtherGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="MoveInDateFrom" Type="DateTime" Precision="3" />
-          <Property Name="MoveInDateTo" Type="DateTime" Precision="3" />
-          <Property Name="Country2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="HomeAddress12" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="HomeAddress22" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="StateHome2" Type="Int64" />
-          <Property Name="CityHome2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ZipHome2" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="RentOwn2" Type="Int32" />
-          <Property Name="MoveInDateFrom2" Type="DateTime" Precision="3" />
-          <Property Name="MoveInDateTo2" Type="DateTime" Precision="3" />
-          <Property Name="MonthlyPayment2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Reason2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsAdditionalRHistory" Type="Int32" />
-          <Property Name="PassportDocument" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="IdentityDocument" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="TaxReturn" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="SSN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TaxReturn2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="TaxReturn3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="HaveVehicle" Type="Boolean" />
-          <Property Name="TaxReturnOrginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="TaxReturnOrginalFile2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="TaxReturnOrginalFile3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="HavePet" Type="Boolean" />
-          <Property Name="PassportDocumentOriginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="IdentityDocumentOriginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="IsPaystub" Type="Boolean" />
-          <Property Name="CountryOfOrigin" Type="Int64" />
-          <Property Name="Evicted" Type="Int32" />
-          <Property Name="EvictedDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ConvictedFelony" Type="Int32" />
-          <Property Name="ConvictedFelonyDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="CriminalChargPen" Type="Int32" />
-          <Property Name="CriminalChargPenDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="DoYouSmoke" Type="Int32" />
-          <Property Name="ReferredResident" Type="Int32" />
-          <Property Name="ReferredResidentName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ReferredBrokerMerchant" Type="Int32" />
-          <Property Name="ApartmentCommunity" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ManagementCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ManagementCompanyPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="IsProprNoticeLeaseAgreement" Type="Int32" />
-          <Property Name="ParentTOID" Type="Int64" />
-          <Property Name="StepCompleted" Type="Int32" />
-          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_TenantOnline" ToRole="tbl_ApplyNow" />
-          <Property Name="IsRentalPolicy" Type="Int32" />
-          <Property Name="IsRentalQualification" Type="Int32" />
-        </EntityType>
-        <Association Name="FK_tbl_TenantOnline_tbl_ApplyNow">
-          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_TenantOnline" Role="tbl_TenantOnline" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_TenantOnline">
-              <PropertyRef Name="ProspectID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tbl_Parking">
           <Key>
             <PropertyRef Name="ParkingID" />
@@ -5561,52 +5235,32 @@
           <Property Name="AddedBy" Type="Int64" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow" FromRole="tbl_TenantPet" ToRole="tbl_ApplyNow" />
         </EntityType>
-        <EntityType Name="tbl_Vehicle">
+        <EntityType Name="tbl_Applicant">
           <Key>
-            <PropertyRef Name="Vehicle_ID" />
+            <PropertyRef Name="ApplicantID" />
           </Key>
-          <Property Name="Vehicle_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenantID" Type="Int64" Nullable="false" />
-          <Property Name="License" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Make" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Model" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Color" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="ProspectID" Type="Int64" />
-          <Property Name="VehicleRegistration" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="OwnerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="OriginalVehicleReg" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="Tag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ParkingID" Type="Int32" />
+          <Property Name="ApplicantID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TenantID" Type="Int64" />
+          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Relationship" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoveInPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MoveInCharge" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MonthlyPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MonthlyPayment" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OtherGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Paid" Type="Int32" />
           <Property Name="AddedBy" Type="Int64" />
-          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_Vehicle" ToRole="tbl_ApplyNow" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="CreditPaid" Type="Int32" />
+          <Property Name="BackGroundPaid" Type="Int32" />
+          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
         </EntityType>
-        <Association Name="FK_tbl_TenantPet_tbl_ApplyNow">
-          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_TenantPet" Role="tbl_TenantPet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_TenantPet">
-              <PropertyRef Name="TenantID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_Vehicle_tbl_ApplyNow">
-          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_Vehicle" Role="tbl_Vehicle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_ApplyNow">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_Vehicle">
-              <PropertyRef Name="ProspectID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tbl_Properties">
           <Key>
             <PropertyRef Name="PID" />
@@ -5642,7 +5296,10 @@
           <Property Name="AdminFees" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="PetDNAAmt" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="ProcessingFees" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="BGCheckFees" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AppCCCheckFees" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AppBGCheckFees" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GuaCCCheckFees" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="GuaBGCheckFees" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="tbl_CashReceipts" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_CashReceipts" />
           <NavigationProperty Name="tbl_CashReceipts1" Relationship="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_PropertyUnits" FromRole="tbl_Properties" ToRole="tbl_CashReceipts" />
           <NavigationProperty Name="tbl_City" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_City" FromRole="tbl_Properties" ToRole="tbl_City" />
@@ -5971,31 +5628,317 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tbl_Applicant">
+        <EntityType Name="tbl_MoveInChecklist">
           <Key>
-            <PropertyRef Name="ApplicantID" />
+            <PropertyRef Name="MIID" />
           </Key>
-          <Property Name="ApplicantID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MIID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProspectID" Type="Int64" />
+          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
+          <Property Name="MoveInTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoveInCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="InsuranceDoc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ElectricityDoc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsCheckPO" Type="Int32" />
+          <Property Name="IsCheckATT" Type="Int32" />
+          <Property Name="IsCheckWater" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsCheckSD" Type="Int32" />
+          <Property Name="PreMoveInDate" Type="DateTime" Precision="3" />
+          <Property Name="PreMoveInTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Movers" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_TenantInfo">
+          <Key>
+            <PropertyRef Name="TenantID" />
+          </Key>
+          <Property Name="TenantID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProspectID" Type="Int64" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleInitial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
           <Property Name="Gender" Type="Int32" />
-          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="TenantID" Type="Int64" />
-          <Property Name="Type" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="Relationship" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MoveInPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="MoveInCharge" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="MonthlyPercentage" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="MonthlyPayment" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="PassportNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CountryIssuance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateIssuance" Type="DateTime" Precision="3" />
+          <Property Name="DateExpire" Type="DateTime" Precision="3" />
+          <Property Name="IDType" Type="Int32" />
+          <Property Name="State" Type="Int64" />
+          <Property Name="PropertyID" Type="Int64" />
+          <Property Name="UnitID" Type="Int64" />
+          <Property Name="IDNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HomeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="HomeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="StateHome" Type="Int64" />
+          <Property Name="CityHome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZipHome" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="RentOwn" Type="Int32" />
+          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
+          <Property Name="MonthlyPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JobType" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="Income" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AdditionalIncome" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SupervisorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeState" Type="Int64" />
+          <Property Name="OfficeCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeZip" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="Relationship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyMobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyHomePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyWorkPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyStateHome" Type="Int64" />
+          <Property Name="EmergencyCityHome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyZipHome" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsInternational" Type="Int32" />
           <Property Name="OtherGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Paid" Type="Int32" />
-          <Property Name="AddedBy" Type="Int64" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="CreditPaid" Type="Int32" />
-          <Property Name="BackGroundPaid" Type="Int32" />
-          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
+          <Property Name="MoveInDateFrom" Type="DateTime" Precision="3" />
+          <Property Name="MoveInDateTo" Type="DateTime" Precision="3" />
+          <Property Name="Country2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HomeAddress12" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="HomeAddress22" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="StateHome2" Type="Int64" />
+          <Property Name="CityHome2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZipHome2" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="RentOwn2" Type="Int32" />
+          <Property Name="MoveInDateFrom2" Type="DateTime" Precision="3" />
+          <Property Name="MoveInDateTo2" Type="DateTime" Precision="3" />
+          <Property Name="MonthlyPayment2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Reason2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsAdditionalRHistory" Type="Int32" />
+          <Property Name="PassportDocument" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IdentityDocument" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TaxReturn" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="SSN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TaxReturn3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HaveVehicle" Type="Boolean" />
+          <Property Name="TaxReturnOrginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TaxReturnOrginalFile2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TaxReturnOrginalFile3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HavePet" Type="Boolean" />
+          <Property Name="PassportDocumentOriginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IdentityDocumentOriginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsPaystub" Type="Int32" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="OrginalProfilePicture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsAgreePostDisclaimer" Type="Int32" />
+          <Property Name="ParentTenantID" Type="Int64" />
+          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_TenantInfo" ToRole="tbl_ApplyNow" />
+        </EntityType>
+        <EntityType Name="tbl_TenantOnline">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProspectID" Type="Int64" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleInitial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="PassportNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="CountryIssuance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateIssuance" Type="DateTime" Precision="3" />
+          <Property Name="DateExpire" Type="DateTime" Precision="3" />
+          <Property Name="IDType" Type="Int32" />
+          <Property Name="State" Type="Int64" />
+          <Property Name="IDNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HomeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="HomeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="StateHome" Type="Int64" />
+          <Property Name="CityHome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZipHome" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="RentOwn" Type="Int32" />
+          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
+          <Property Name="MonthlyPayment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JobTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JobType" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="Income" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AdditionalIncome" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SupervisorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisorEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeState" Type="Int64" />
+          <Property Name="OfficeCity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OfficeZip" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="Relationship" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyFirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyLastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyMobile" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyHomePhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyWorkPhone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyAddress1" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyAddress2" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyStateHome" Type="Int64" />
+          <Property Name="EmergencyCityHome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmergencyZipHome" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsInternational" Type="Int32" />
+          <Property Name="OtherGender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MoveInDateFrom" Type="DateTime" Precision="3" />
+          <Property Name="MoveInDateTo" Type="DateTime" Precision="3" />
+          <Property Name="Country2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HomeAddress12" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="HomeAddress22" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="StateHome2" Type="Int64" />
+          <Property Name="CityHome2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZipHome2" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="RentOwn2" Type="Int32" />
+          <Property Name="MoveInDateFrom2" Type="DateTime" Precision="3" />
+          <Property Name="MoveInDateTo2" Type="DateTime" Precision="3" />
+          <Property Name="MonthlyPayment2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Reason2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsAdditionalRHistory" Type="Int32" />
+          <Property Name="PassportDocument" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IdentityDocument" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TaxReturn" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="SSN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TaxReturn3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HaveVehicle" Type="Boolean" />
+          <Property Name="TaxReturnOrginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TaxReturnOrginalFile2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TaxReturnOrginalFile3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HavePet" Type="Boolean" />
+          <Property Name="PassportDocumentOriginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IdentityDocumentOriginalFile" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsPaystub" Type="Int32" />
+          <Property Name="CountryOfOrigin" Type="Int64" />
+          <Property Name="Evicted" Type="Int32" />
+          <Property Name="EvictedDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ConvictedFelony" Type="Int32" />
+          <Property Name="ConvictedFelonyDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CriminalChargPen" Type="Int32" />
+          <Property Name="CriminalChargPenDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DoYouSmoke" Type="Int32" />
+          <Property Name="ReferredResident" Type="Int32" />
+          <Property Name="ReferredResidentName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ReferredBrokerMerchant" Type="Int32" />
+          <Property Name="ApartmentCommunity" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ManagementCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ManagementCompanyPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IsProprNoticeLeaseAgreement" Type="Int32" />
+          <Property Name="ParentTOID" Type="Int64" />
+          <Property Name="StepCompleted" Type="Int32" />
+          <Property Name="IsRentalPolicy" Type="Int32" />
+          <Property Name="IsRentalQualification" Type="Int32" />
+          <Property Name="TaxReturn4" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn5" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn6" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn7" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturn8" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturnOrginalFile4" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturnOrginalFile5" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturnOrginalFile6" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturnOrginalFile7" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="TaxReturnOrginalFile8" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsFedralTax" Type="Int32" />
+          <Property Name="IsBankState" Type="Int32" />
+          <Property Name="ResidenceStatus" Type="Int32" />
+          <Property Name="ResidenceNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EmpStatus" Type="Int32" />
+          <Property Name="EmpNotes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_TenantOnline" ToRole="tbl_ApplyNow" />
+        </EntityType>
+        <EntityType Name="tbl_ApplyNow">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PropertyId" Type="Int64" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsApplyNow" Type="Int32" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="DateofBirth" Type="DateTime" Precision="3" />
+          <Property Name="AnnualIncome" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AddiAnnualIncome" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="Int64" />
+          <Property Name="Marketsource" Type="Int32" />
+          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
+          <Property Name="ParkingAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="StorageAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PetPlaceAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Deposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Rent" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PetDeposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TrashAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="PestAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ConvergentAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MoveInCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FOBAmt" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsRentalPolicy" Type="Int32" />
+          <Property Name="IsRentalQualification" Type="Int32" />
+          <Property Name="EnvelopeID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prorated_Rent" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="VehicleRegistration" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AdministrationFee" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LeaseTerm" Type="Int32" />
+          <Property Name="MonthlyCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="EsignatureID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PetDNAAmt" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="StepCompleted" Type="Int32" />
+          <Property Name="AcceptSummary" Type="Int32" />
+          <Property Name="AdditionalParking" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tbl_Applicant" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Applicant" />
+          <NavigationProperty Name="tbl_TenantInfo" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantInfo" />
+          <NavigationProperty Name="tbl_TenantOnline" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantOnline" />
+          <NavigationProperty Name="tbl_TenantParking" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantParking" />
+          <NavigationProperty Name="tbl_TenantPet" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPet_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPet" />
+          <NavigationProperty Name="tbl_TenantPetPlace" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantPetPlace_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantPetPlace" />
+          <NavigationProperty Name="tbl_TenantStorage" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_TenantStorage" />
+          <NavigationProperty Name="tbl_Vehicle" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_ApplyNow" ToRole="tbl_Vehicle" />
+        </EntityType>
+        <EntityType Name="tbl_BackgroundScreening">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PDFUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_tbl_Applicant_tbl_ApplyNow">
           <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
@@ -6006,6 +5949,113 @@
             </Principal>
             <Dependent Role="tbl_Applicant">
               <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantInfo_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_TenantInfo" Role="tbl_TenantInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantInfo">
+              <PropertyRef Name="ProspectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantOnline_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_TenantOnline" Role="tbl_TenantOnline" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantOnline">
+              <PropertyRef Name="ProspectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantParking_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_TenantParking" Role="tbl_TenantParking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantParking">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantPet_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_TenantPet" Role="tbl_TenantPet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantPet">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantPetPlace_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_TenantPetPlace" Role="tbl_TenantPetPlace" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantPetPlace">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_TenantStorage_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_TenantStorage" Role="tbl_TenantStorage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_TenantStorage">
+              <PropertyRef Name="TenantID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tbl_Vehicle">
+          <Key>
+            <PropertyRef Name="Vehicle_ID" />
+          </Key>
+          <Property Name="Vehicle_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" Nullable="false" />
+          <Property Name="License" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Make" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Model" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ProspectID" Type="Int64" />
+          <Property Name="VehicleRegistration" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OriginalVehicleReg" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Tag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ParkingID" Type="Int32" />
+          <Property Name="AddedBy" Type="Int64" />
+          <Property Name="VehicleType" Type="Int32" />
+          <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" FromRole="tbl_Vehicle" ToRole="tbl_ApplyNow" />
+        </EntityType>
+        <Association Name="FK_tbl_Vehicle_tbl_ApplyNow">
+          <End Type="ShomaRMEntitiesModel.tbl_ApplyNow" Role="tbl_ApplyNow" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_Vehicle" Role="tbl_Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_ApplyNow">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_Vehicle">
+              <PropertyRef Name="ProspectID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6075,55 +6125,6 @@
                 <ScalarProperty Name="AmenityID" ColumnName="AmenityID" />
                 <ScalarProperty Name="TenantID" ColumnName="TenantID" />
                 <ScalarProperty Name="ARID" ColumnName="ARID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_ApplyNow">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplyNow">
-              <MappingFragment StoreEntitySet="tbl_ApplyNow">
-                <ScalarProperty Name="AdditionalParking" ColumnName="AdditionalParking" />
-                <ScalarProperty Name="AcceptSummary" ColumnName="AcceptSummary" />
-                <ScalarProperty Name="StepCompleted" ColumnName="StepCompleted" />
-                <ScalarProperty Name="PetDNAAmt" ColumnName="PetDNAAmt" />
-                <ScalarProperty Name="EsignatureID" ColumnName="EsignatureID" />
-                <ScalarProperty Name="MonthlyCharges" ColumnName="MonthlyCharges" />
-                <ScalarProperty Name="LeaseTerm" ColumnName="LeaseTerm" />
-                <ScalarProperty Name="AdministrationFee" ColumnName="AdministrationFee" />
-                <ScalarProperty Name="VehicleRegistration" ColumnName="VehicleRegistration" />
-                <ScalarProperty Name="Prorated_Rent" ColumnName="Prorated_Rent" />
-                <ScalarProperty Name="EnvelopeID" ColumnName="EnvelopeID" />
-                <ScalarProperty Name="IsRentalQualification" ColumnName="IsRentalQualification" />
-                <ScalarProperty Name="IsRentalPolicy" ColumnName="IsRentalPolicy" />
-                <ScalarProperty Name="FOBAmt" ColumnName="FOBAmt" />
-                <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
-                <ScalarProperty Name="ConvergentAmt" ColumnName="ConvergentAmt" />
-                <ScalarProperty Name="PestAmt" ColumnName="PestAmt" />
-                <ScalarProperty Name="TrashAmt" ColumnName="TrashAmt" />
-                <ScalarProperty Name="PetDeposit" ColumnName="PetDeposit" />
-                <ScalarProperty Name="Rent" ColumnName="Rent" />
-                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
-                <ScalarProperty Name="PetPlaceAmt" ColumnName="PetPlaceAmt" />
-                <ScalarProperty Name="StorageAmt" ColumnName="StorageAmt" />
-                <ScalarProperty Name="ParkingAmt" ColumnName="ParkingAmt" />
-                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
-                <ScalarProperty Name="Marketsource" ColumnName="Marketsource" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="AddiAnnualIncome" ColumnName="AddiAnnualIncome" />
-                <ScalarProperty Name="AnnualIncome" ColumnName="AnnualIncome" />
-                <ScalarProperty Name="DateofBirth" ColumnName="DateofBirth" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsApplyNow" ColumnName="IsApplyNow" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6999,103 +7000,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_TenantInfo">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantInfo">
-              <MappingFragment StoreEntitySet="tbl_TenantInfo">
-                <ScalarProperty Name="ParentTenantID" ColumnName="ParentTenantID" />
-                <ScalarProperty Name="IsAgreePostDisclaimer" ColumnName="IsAgreePostDisclaimer" />
-                <ScalarProperty Name="OrginalProfilePicture" ColumnName="OrginalProfilePicture" />
-                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
-                <ScalarProperty Name="IsPaystub" ColumnName="IsPaystub" />
-                <ScalarProperty Name="IdentityDocumentOriginalFile" ColumnName="IdentityDocumentOriginalFile" />
-                <ScalarProperty Name="PassportDocumentOriginalFile" ColumnName="PassportDocumentOriginalFile" />
-                <ScalarProperty Name="HavePet" ColumnName="HavePet" />
-                <ScalarProperty Name="TaxReturnOrginalFile3" ColumnName="TaxReturnOrginalFile3" />
-                <ScalarProperty Name="TaxReturnOrginalFile2" ColumnName="TaxReturnOrginalFile2" />
-                <ScalarProperty Name="TaxReturnOrginalFile" ColumnName="TaxReturnOrginalFile" />
-                <ScalarProperty Name="HaveVehicle" ColumnName="HaveVehicle" />
-                <ScalarProperty Name="TaxReturn3" ColumnName="TaxReturn3" />
-                <ScalarProperty Name="TaxReturn2" ColumnName="TaxReturn2" />
-                <ScalarProperty Name="SSN" ColumnName="SSN" />
-                <ScalarProperty Name="TaxReturn" ColumnName="TaxReturn" />
-                <ScalarProperty Name="IdentityDocument" ColumnName="IdentityDocument" />
-                <ScalarProperty Name="PassportDocument" ColumnName="PassportDocument" />
-                <ScalarProperty Name="IsAdditionalRHistory" ColumnName="IsAdditionalRHistory" />
-                <ScalarProperty Name="Reason2" ColumnName="Reason2" />
-                <ScalarProperty Name="MonthlyPayment2" ColumnName="MonthlyPayment2" />
-                <ScalarProperty Name="MoveInDateTo2" ColumnName="MoveInDateTo2" />
-                <ScalarProperty Name="MoveInDateFrom2" ColumnName="MoveInDateFrom2" />
-                <ScalarProperty Name="RentOwn2" ColumnName="RentOwn2" />
-                <ScalarProperty Name="ZipHome2" ColumnName="ZipHome2" />
-                <ScalarProperty Name="CityHome2" ColumnName="CityHome2" />
-                <ScalarProperty Name="StateHome2" ColumnName="StateHome2" />
-                <ScalarProperty Name="HomeAddress22" ColumnName="HomeAddress22" />
-                <ScalarProperty Name="HomeAddress12" ColumnName="HomeAddress12" />
-                <ScalarProperty Name="Country2" ColumnName="Country2" />
-                <ScalarProperty Name="MoveInDateTo" ColumnName="MoveInDateTo" />
-                <ScalarProperty Name="MoveInDateFrom" ColumnName="MoveInDateFrom" />
-                <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
-                <ScalarProperty Name="IsInternational" ColumnName="IsInternational" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="EmergencyZipHome" ColumnName="EmergencyZipHome" />
-                <ScalarProperty Name="EmergencyCityHome" ColumnName="EmergencyCityHome" />
-                <ScalarProperty Name="EmergencyStateHome" ColumnName="EmergencyStateHome" />
-                <ScalarProperty Name="EmergencyAddress2" ColumnName="EmergencyAddress2" />
-                <ScalarProperty Name="EmergencyAddress1" ColumnName="EmergencyAddress1" />
-                <ScalarProperty Name="EmergencyCountry" ColumnName="EmergencyCountry" />
-                <ScalarProperty Name="EmergencyEmail" ColumnName="EmergencyEmail" />
-                <ScalarProperty Name="EmergencyWorkPhone" ColumnName="EmergencyWorkPhone" />
-                <ScalarProperty Name="EmergencyHomePhone" ColumnName="EmergencyHomePhone" />
-                <ScalarProperty Name="EmergencyMobile" ColumnName="EmergencyMobile" />
-                <ScalarProperty Name="EmergencyLastName" ColumnName="EmergencyLastName" />
-                <ScalarProperty Name="EmergencyFirstName" ColumnName="EmergencyFirstName" />
-                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
-                <ScalarProperty Name="OfficeZip" ColumnName="OfficeZip" />
-                <ScalarProperty Name="OfficeCity" ColumnName="OfficeCity" />
-                <ScalarProperty Name="OfficeState" ColumnName="OfficeState" />
-                <ScalarProperty Name="OfficeAddress2" ColumnName="OfficeAddress2" />
-                <ScalarProperty Name="OfficeAddress1" ColumnName="OfficeAddress1" />
-                <ScalarProperty Name="OfficeCountry" ColumnName="OfficeCountry" />
-                <ScalarProperty Name="SupervisorEmail" ColumnName="SupervisorEmail" />
-                <ScalarProperty Name="SupervisorPhone" ColumnName="SupervisorPhone" />
-                <ScalarProperty Name="SupervisorName" ColumnName="SupervisorName" />
-                <ScalarProperty Name="AdditionalIncome" ColumnName="AdditionalIncome" />
-                <ScalarProperty Name="Income" ColumnName="Income" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="JobType" ColumnName="JobType" />
-                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
-                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
-                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
-                <ScalarProperty Name="RentOwn" ColumnName="RentOwn" />
-                <ScalarProperty Name="ZipHome" ColumnName="ZipHome" />
-                <ScalarProperty Name="CityHome" ColumnName="CityHome" />
-                <ScalarProperty Name="StateHome" ColumnName="StateHome" />
-                <ScalarProperty Name="HomeAddress2" ColumnName="HomeAddress2" />
-                <ScalarProperty Name="HomeAddress1" ColumnName="HomeAddress1" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
-                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
-                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="IDType" ColumnName="IDType" />
-                <ScalarProperty Name="DateExpire" ColumnName="DateExpire" />
-                <ScalarProperty Name="DateIssuance" ColumnName="DateIssuance" />
-                <ScalarProperty Name="CountryIssuance" ColumnName="CountryIssuance" />
-                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
-                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_TenantMonthlyPayments">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantMonthlyPayments">
               <MappingFragment StoreEntitySet="tbl_TenantMonthlyPayments">
@@ -7352,24 +7256,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_MoveInChecklist">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_MoveInChecklist">
-              <MappingFragment StoreEntitySet="tbl_MoveInChecklist">
-                <ScalarProperty Name="IsCheckSD" ColumnName="IsCheckSD" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="IsCheckWater" ColumnName="IsCheckWater" />
-                <ScalarProperty Name="IsCheckATT" ColumnName="IsCheckATT" />
-                <ScalarProperty Name="IsCheckPO" ColumnName="IsCheckPO" />
-                <ScalarProperty Name="ElectricityDoc" ColumnName="ElectricityDoc" />
-                <ScalarProperty Name="InsuranceDoc" ColumnName="InsuranceDoc" />
-                <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
-                <ScalarProperty Name="MoveInTime" ColumnName="MoveInTime" />
-                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
-                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
-                <ScalarProperty Name="MIID" ColumnName="MIID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_ESignatureKeys">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ESignatureKeys">
               <MappingFragment StoreEntitySet="tbl_ESignatureKeys">
@@ -7461,21 +7347,245 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_BackgroundScreening">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
-              <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
-                <ScalarProperty Name="PDFUrl" ColumnName="PDFUrl" />
+          <EntitySetMapping Name="tbl_Parking">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Parking">
+              <MappingFragment StoreEntitySet="tbl_Parking">
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Charges" ColumnName="Charges" />
+                <ScalarProperty Name="ParkingName" ColumnName="ParkingName" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+                <ScalarProperty Name="ParkingID" ColumnName="ParkingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TenantPet">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantPet">
+              <MappingFragment StoreEntitySet="tbl_TenantPet">
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="UniqID" ColumnName="UniqID" />
+                <ScalarProperty Name="OriginalVaccinationCert" ColumnName="OriginalVaccinationCert" />
+                <ScalarProperty Name="OriginalPhoto" ColumnName="OriginalPhoto" />
+                <ScalarProperty Name="VetsName" ColumnName="VetsName" />
+                <ScalarProperty Name="PetName" ColumnName="PetName" />
+                <ScalarProperty Name="PetVaccinationCert" ColumnName="PetVaccinationCert" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Breed" ColumnName="Breed" />
+                <ScalarProperty Name="PetType" ColumnName="PetType" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="PetID" ColumnName="PetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Applicant">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Applicant">
+              <MappingFragment StoreEntitySet="tbl_Applicant">
+                <ScalarProperty Name="BackGroundPaid" ColumnName="BackGroundPaid" />
+                <ScalarProperty Name="CreditPaid" ColumnName="CreditPaid" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+                <ScalarProperty Name="Paid" ColumnName="Paid" />
+                <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
+                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
+                <ScalarProperty Name="MonthlyPercentage" ColumnName="MonthlyPercentage" />
+                <ScalarProperty Name="MoveInCharge" ColumnName="MoveInCharge" />
+                <ScalarProperty Name="MoveInPercentage" ColumnName="MoveInPercentage" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Properties">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Properties">
+              <MappingFragment StoreEntitySet="tbl_Properties">
+                <ScalarProperty Name="GuaBGCheckFees" ColumnName="GuaBGCheckFees" />
+                <ScalarProperty Name="GuaCCCheckFees" ColumnName="GuaCCCheckFees" />
+                <ScalarProperty Name="AppBGCheckFees" ColumnName="AppBGCheckFees" />
+                <ScalarProperty Name="AppCCCheckFees" ColumnName="AppCCCheckFees" />
+                <ScalarProperty Name="ProcessingFees" ColumnName="ProcessingFees" />
+                <ScalarProperty Name="PetDNAAmt" ColumnName="PetDNAAmt" />
+                <ScalarProperty Name="AdminFees" ColumnName="AdminFees" />
+                <ScalarProperty Name="ConversionBillFees" ColumnName="ConversionBillFees" />
+                <ScalarProperty Name="TrashFees" ColumnName="TrashFees" />
+                <ScalarProperty Name="PestControlFees" ColumnName="PestControlFees" />
+                <ScalarProperty Name="GuarantorFees" ColumnName="GuarantorFees" />
+                <ScalarProperty Name="ApplicationFees" ColumnName="ApplicationFees" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="YouTube" ColumnName="YouTube" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="LastModifiedeDate" ColumnName="LastModifiedeDate" />
+                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
+                <ScalarProperty Name="NoOfFloors" ColumnName="NoOfFloors" />
+                <ScalarProperty Name="NoOfUnits" ColumnName="NoOfUnits" />
+                <ScalarProperty Name="Amenities" ColumnName="Amenities" />
+                <ScalarProperty Name="Waterfront" ColumnName="Waterfront" />
+                <ScalarProperty Name="Parking" ColumnName="Parking" />
+                <ScalarProperty Name="BuiltIn" ColumnName="BuiltIn" />
+                <ScalarProperty Name="Garages" ColumnName="Garages" />
+                <ScalarProperty Name="LocationGoogle" ColumnName="LocationGoogle" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_MoveInChecklist">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_MoveInChecklist">
+              <MappingFragment StoreEntitySet="tbl_MoveInChecklist">
+                <ScalarProperty Name="Movers" ColumnName="Movers" />
+                <ScalarProperty Name="PreMoveInTime" ColumnName="PreMoveInTime" />
+                <ScalarProperty Name="PreMoveInDate" ColumnName="PreMoveInDate" />
+                <ScalarProperty Name="IsCheckSD" ColumnName="IsCheckSD" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsCheckWater" ColumnName="IsCheckWater" />
+                <ScalarProperty Name="IsCheckATT" ColumnName="IsCheckATT" />
+                <ScalarProperty Name="IsCheckPO" ColumnName="IsCheckPO" />
+                <ScalarProperty Name="ElectricityDoc" ColumnName="ElectricityDoc" />
+                <ScalarProperty Name="InsuranceDoc" ColumnName="InsuranceDoc" />
+                <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
+                <ScalarProperty Name="MoveInTime" ColumnName="MoveInTime" />
+                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+                <ScalarProperty Name="MIID" ColumnName="MIID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TenantInfo">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantInfo">
+              <MappingFragment StoreEntitySet="tbl_TenantInfo">
+                <ScalarProperty Name="ParentTenantID" ColumnName="ParentTenantID" />
+                <ScalarProperty Name="IsAgreePostDisclaimer" ColumnName="IsAgreePostDisclaimer" />
+                <ScalarProperty Name="OrginalProfilePicture" ColumnName="OrginalProfilePicture" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="IsPaystub" ColumnName="IsPaystub" />
+                <ScalarProperty Name="IdentityDocumentOriginalFile" ColumnName="IdentityDocumentOriginalFile" />
+                <ScalarProperty Name="PassportDocumentOriginalFile" ColumnName="PassportDocumentOriginalFile" />
+                <ScalarProperty Name="HavePet" ColumnName="HavePet" />
+                <ScalarProperty Name="TaxReturnOrginalFile3" ColumnName="TaxReturnOrginalFile3" />
+                <ScalarProperty Name="TaxReturnOrginalFile2" ColumnName="TaxReturnOrginalFile2" />
+                <ScalarProperty Name="TaxReturnOrginalFile" ColumnName="TaxReturnOrginalFile" />
+                <ScalarProperty Name="HaveVehicle" ColumnName="HaveVehicle" />
+                <ScalarProperty Name="TaxReturn3" ColumnName="TaxReturn3" />
+                <ScalarProperty Name="TaxReturn2" ColumnName="TaxReturn2" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="TaxReturn" ColumnName="TaxReturn" />
+                <ScalarProperty Name="IdentityDocument" ColumnName="IdentityDocument" />
+                <ScalarProperty Name="PassportDocument" ColumnName="PassportDocument" />
+                <ScalarProperty Name="IsAdditionalRHistory" ColumnName="IsAdditionalRHistory" />
+                <ScalarProperty Name="Reason2" ColumnName="Reason2" />
+                <ScalarProperty Name="MonthlyPayment2" ColumnName="MonthlyPayment2" />
+                <ScalarProperty Name="MoveInDateTo2" ColumnName="MoveInDateTo2" />
+                <ScalarProperty Name="MoveInDateFrom2" ColumnName="MoveInDateFrom2" />
+                <ScalarProperty Name="RentOwn2" ColumnName="RentOwn2" />
+                <ScalarProperty Name="ZipHome2" ColumnName="ZipHome2" />
+                <ScalarProperty Name="CityHome2" ColumnName="CityHome2" />
+                <ScalarProperty Name="StateHome2" ColumnName="StateHome2" />
+                <ScalarProperty Name="HomeAddress22" ColumnName="HomeAddress22" />
+                <ScalarProperty Name="HomeAddress12" ColumnName="HomeAddress12" />
+                <ScalarProperty Name="Country2" ColumnName="Country2" />
+                <ScalarProperty Name="MoveInDateTo" ColumnName="MoveInDateTo" />
+                <ScalarProperty Name="MoveInDateFrom" ColumnName="MoveInDateFrom" />
+                <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
+                <ScalarProperty Name="IsInternational" ColumnName="IsInternational" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EmergencyZipHome" ColumnName="EmergencyZipHome" />
+                <ScalarProperty Name="EmergencyCityHome" ColumnName="EmergencyCityHome" />
+                <ScalarProperty Name="EmergencyStateHome" ColumnName="EmergencyStateHome" />
+                <ScalarProperty Name="EmergencyAddress2" ColumnName="EmergencyAddress2" />
+                <ScalarProperty Name="EmergencyAddress1" ColumnName="EmergencyAddress1" />
+                <ScalarProperty Name="EmergencyCountry" ColumnName="EmergencyCountry" />
+                <ScalarProperty Name="EmergencyEmail" ColumnName="EmergencyEmail" />
+                <ScalarProperty Name="EmergencyWorkPhone" ColumnName="EmergencyWorkPhone" />
+                <ScalarProperty Name="EmergencyHomePhone" ColumnName="EmergencyHomePhone" />
+                <ScalarProperty Name="EmergencyMobile" ColumnName="EmergencyMobile" />
+                <ScalarProperty Name="EmergencyLastName" ColumnName="EmergencyLastName" />
+                <ScalarProperty Name="EmergencyFirstName" ColumnName="EmergencyFirstName" />
+                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+                <ScalarProperty Name="OfficeZip" ColumnName="OfficeZip" />
+                <ScalarProperty Name="OfficeCity" ColumnName="OfficeCity" />
+                <ScalarProperty Name="OfficeState" ColumnName="OfficeState" />
+                <ScalarProperty Name="OfficeAddress2" ColumnName="OfficeAddress2" />
+                <ScalarProperty Name="OfficeAddress1" ColumnName="OfficeAddress1" />
+                <ScalarProperty Name="OfficeCountry" ColumnName="OfficeCountry" />
+                <ScalarProperty Name="SupervisorEmail" ColumnName="SupervisorEmail" />
+                <ScalarProperty Name="SupervisorPhone" ColumnName="SupervisorPhone" />
+                <ScalarProperty Name="SupervisorName" ColumnName="SupervisorName" />
+                <ScalarProperty Name="AdditionalIncome" ColumnName="AdditionalIncome" />
+                <ScalarProperty Name="Income" ColumnName="Income" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="JobType" ColumnName="JobType" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
+                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+                <ScalarProperty Name="RentOwn" ColumnName="RentOwn" />
+                <ScalarProperty Name="ZipHome" ColumnName="ZipHome" />
+                <ScalarProperty Name="CityHome" ColumnName="CityHome" />
+                <ScalarProperty Name="StateHome" ColumnName="StateHome" />
+                <ScalarProperty Name="HomeAddress2" ColumnName="HomeAddress2" />
+                <ScalarProperty Name="HomeAddress1" ColumnName="HomeAddress1" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="IDType" ColumnName="IDType" />
+                <ScalarProperty Name="DateExpire" ColumnName="DateExpire" />
+                <ScalarProperty Name="DateIssuance" ColumnName="DateIssuance" />
+                <ScalarProperty Name="CountryIssuance" ColumnName="CountryIssuance" />
+                <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_TenantOnline">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantOnline">
               <MappingFragment StoreEntitySet="tbl_TenantOnline">
+                <ScalarProperty Name="EmpNotes" ColumnName="EmpNotes" />
+                <ScalarProperty Name="EmpStatus" ColumnName="EmpStatus" />
+                <ScalarProperty Name="ResidenceNotes" ColumnName="ResidenceNotes" />
+                <ScalarProperty Name="ResidenceStatus" ColumnName="ResidenceStatus" />
+                <ScalarProperty Name="IsBankState" ColumnName="IsBankState" />
+                <ScalarProperty Name="IsFedralTax" ColumnName="IsFedralTax" />
+                <ScalarProperty Name="TaxReturnOrginalFile8" ColumnName="TaxReturnOrginalFile8" />
+                <ScalarProperty Name="TaxReturnOrginalFile7" ColumnName="TaxReturnOrginalFile7" />
+                <ScalarProperty Name="TaxReturnOrginalFile6" ColumnName="TaxReturnOrginalFile6" />
+                <ScalarProperty Name="TaxReturnOrginalFile5" ColumnName="TaxReturnOrginalFile5" />
+                <ScalarProperty Name="TaxReturnOrginalFile4" ColumnName="TaxReturnOrginalFile4" />
+                <ScalarProperty Name="TaxReturn8" ColumnName="TaxReturn8" />
+                <ScalarProperty Name="TaxReturn7" ColumnName="TaxReturn7" />
+                <ScalarProperty Name="TaxReturn6" ColumnName="TaxReturn6" />
+                <ScalarProperty Name="TaxReturn5" ColumnName="TaxReturn5" />
+                <ScalarProperty Name="TaxReturn4" ColumnName="TaxReturn4" />
                 <ScalarProperty Name="IsRentalQualification" ColumnName="IsRentalQualification" />
                 <ScalarProperty Name="IsRentalPolicy" ColumnName="IsRentalPolicy" />
                 <ScalarProperty Name="StepCompleted" ColumnName="StepCompleted" />
@@ -7583,44 +7693,73 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Parking">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Parking">
-              <MappingFragment StoreEntitySet="tbl_Parking">
-                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <EntitySetMapping Name="tbl_ApplyNow">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplyNow">
+              <MappingFragment StoreEntitySet="tbl_ApplyNow">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="AdditionalParking" ColumnName="AdditionalParking" />
+                <ScalarProperty Name="AcceptSummary" ColumnName="AcceptSummary" />
+                <ScalarProperty Name="StepCompleted" ColumnName="StepCompleted" />
+                <ScalarProperty Name="PetDNAAmt" ColumnName="PetDNAAmt" />
+                <ScalarProperty Name="EsignatureID" ColumnName="EsignatureID" />
+                <ScalarProperty Name="MonthlyCharges" ColumnName="MonthlyCharges" />
+                <ScalarProperty Name="LeaseTerm" ColumnName="LeaseTerm" />
+                <ScalarProperty Name="AdministrationFee" ColumnName="AdministrationFee" />
+                <ScalarProperty Name="VehicleRegistration" ColumnName="VehicleRegistration" />
+                <ScalarProperty Name="Prorated_Rent" ColumnName="Prorated_Rent" />
+                <ScalarProperty Name="EnvelopeID" ColumnName="EnvelopeID" />
+                <ScalarProperty Name="IsRentalQualification" ColumnName="IsRentalQualification" />
+                <ScalarProperty Name="IsRentalPolicy" ColumnName="IsRentalPolicy" />
+                <ScalarProperty Name="FOBAmt" ColumnName="FOBAmt" />
+                <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
+                <ScalarProperty Name="ConvergentAmt" ColumnName="ConvergentAmt" />
+                <ScalarProperty Name="PestAmt" ColumnName="PestAmt" />
+                <ScalarProperty Name="TrashAmt" ColumnName="TrashAmt" />
+                <ScalarProperty Name="PetDeposit" ColumnName="PetDeposit" />
+                <ScalarProperty Name="Rent" ColumnName="Rent" />
+                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+                <ScalarProperty Name="PetPlaceAmt" ColumnName="PetPlaceAmt" />
+                <ScalarProperty Name="StorageAmt" ColumnName="StorageAmt" />
+                <ScalarProperty Name="ParkingAmt" ColumnName="ParkingAmt" />
+                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+                <ScalarProperty Name="Marketsource" ColumnName="Marketsource" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AddiAnnualIncome" ColumnName="AddiAnnualIncome" />
+                <ScalarProperty Name="AnnualIncome" ColumnName="AnnualIncome" />
+                <ScalarProperty Name="DateofBirth" ColumnName="DateofBirth" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsApplyNow" ColumnName="IsApplyNow" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Charges" ColumnName="Charges" />
-                <ScalarProperty Name="ParkingName" ColumnName="ParkingName" />
-                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
-                <ScalarProperty Name="ParkingID" ColumnName="ParkingID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_TenantPet">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantPet">
-              <MappingFragment StoreEntitySet="tbl_TenantPet">
-                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
-                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
-                <ScalarProperty Name="UniqID" ColumnName="UniqID" />
-                <ScalarProperty Name="OriginalVaccinationCert" ColumnName="OriginalVaccinationCert" />
-                <ScalarProperty Name="OriginalPhoto" ColumnName="OriginalPhoto" />
-                <ScalarProperty Name="VetsName" ColumnName="VetsName" />
-                <ScalarProperty Name="PetName" ColumnName="PetName" />
-                <ScalarProperty Name="PetVaccinationCert" ColumnName="PetVaccinationCert" />
-                <ScalarProperty Name="Photo" ColumnName="Photo" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="Weight" ColumnName="Weight" />
-                <ScalarProperty Name="Breed" ColumnName="Breed" />
-                <ScalarProperty Name="PetType" ColumnName="PetType" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="PetID" ColumnName="PetID" />
+          <EntitySetMapping Name="tbl_BackgroundScreening">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
+              <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="PDFUrl" ColumnName="PDFUrl" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbl_Vehicle">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Vehicle">
               <MappingFragment StoreEntitySet="tbl_Vehicle">
+                <ScalarProperty Name="VehicleType" ColumnName="VehicleType" />
                 <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
                 <ScalarProperty Name="ParkingID" ColumnName="ParkingID" />
                 <ScalarProperty Name="Tag" ColumnName="Tag" />
@@ -7637,70 +7776,6 @@
                 <ScalarProperty Name="License" ColumnName="License" />
                 <ScalarProperty Name="TenantID" ColumnName="TenantID" />
                 <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Properties">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Properties">
-              <MappingFragment StoreEntitySet="tbl_Properties">
-                <ScalarProperty Name="BGCheckFees" ColumnName="BGCheckFees" />
-                <ScalarProperty Name="ProcessingFees" ColumnName="ProcessingFees" />
-                <ScalarProperty Name="PetDNAAmt" ColumnName="PetDNAAmt" />
-                <ScalarProperty Name="AdminFees" ColumnName="AdminFees" />
-                <ScalarProperty Name="ConversionBillFees" ColumnName="ConversionBillFees" />
-                <ScalarProperty Name="TrashFees" ColumnName="TrashFees" />
-                <ScalarProperty Name="PestControlFees" ColumnName="PestControlFees" />
-                <ScalarProperty Name="GuarantorFees" ColumnName="GuarantorFees" />
-                <ScalarProperty Name="ApplicationFees" ColumnName="ApplicationFees" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="YouTube" ColumnName="YouTube" />
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
-                <ScalarProperty Name="LastModifiedeDate" ColumnName="LastModifiedeDate" />
-                <ScalarProperty Name="LastModifiedBy" ColumnName="LastModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="AgentID" ColumnName="AgentID" />
-                <ScalarProperty Name="NoOfFloors" ColumnName="NoOfFloors" />
-                <ScalarProperty Name="NoOfUnits" ColumnName="NoOfUnits" />
-                <ScalarProperty Name="Amenities" ColumnName="Amenities" />
-                <ScalarProperty Name="Waterfront" ColumnName="Waterfront" />
-                <ScalarProperty Name="Parking" ColumnName="Parking" />
-                <ScalarProperty Name="BuiltIn" ColumnName="BuiltIn" />
-                <ScalarProperty Name="Garages" ColumnName="Garages" />
-                <ScalarProperty Name="LocationGoogle" ColumnName="LocationGoogle" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="Area" ColumnName="Area" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="PID" ColumnName="PID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Applicant">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Applicant">
-              <MappingFragment StoreEntitySet="tbl_Applicant">
-                <ScalarProperty Name="BackGroundPaid" ColumnName="BackGroundPaid" />
-                <ScalarProperty Name="CreditPaid" ColumnName="CreditPaid" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
-                <ScalarProperty Name="Paid" ColumnName="Paid" />
-                <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
-                <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
-                <ScalarProperty Name="MonthlyPercentage" ColumnName="MonthlyPercentage" />
-                <ScalarProperty Name="MoveInCharge" ColumnName="MoveInCharge" />
-                <ScalarProperty Name="MoveInPercentage" ColumnName="MoveInPercentage" />
-                <ScalarProperty Name="Relationship" ColumnName="Relationship" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

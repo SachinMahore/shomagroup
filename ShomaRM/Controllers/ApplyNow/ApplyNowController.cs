@@ -27,7 +27,15 @@ namespace ShomaRM.Controllers
         {
             if (!string.IsNullOrEmpty(id))
             {
-                ViewBag.PID = Convert.ToInt32(id);
+                try
+                {
+                    ViewBag.PID = Convert.ToInt32(id);
+                }
+                catch
+                {
+                    ViewBag.PID = 0;
+                    id = "0";
+                }
             }
             else
             {
@@ -367,7 +375,20 @@ namespace ShomaRM.Controllers
 
 
         }
+        //Sachin M 12 may
+        public ActionResult GetApplicantHistoryListPV(long TenantID, long UserID)
+        {
+            try
+            {
+                return Json(new { model = new ApplicantHistoryModel().GetApplicantHistoryListPV(TenantID,UserID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
 
+
+        }
         public ActionResult GetApplicantHistoryDetails(long AHID)
         {
 
@@ -417,8 +438,18 @@ namespace ShomaRM.Controllers
             {
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+        }
 
-
+        public ActionResult SendPayLinkEmailApplyNow(long ProspectId, long ApplicationID, decimal ChargeAmount, int ChargeType, string Email)
+        {
+            try
+            {
+                return Json(new { model = new OnlineProspectModule().SendPayLinkEmailApplyNow(ProspectId, ApplicationID, ChargeAmount, ChargeType, Email) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult PrintSummary()
@@ -509,6 +540,98 @@ namespace ShomaRM.Controllers
             }
         }
 
+
+        //sachin m 11 may
+        public ActionResult TaxFileUpload6(TenantOnlineModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload6 = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload6 = Request.Files[i];
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SaveTaxUpload6(fileBaseUpload6, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult TaxFileUpload7(TenantOnlineModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload7 = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload7 = Request.Files[i];
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SaveTaxUpload7(fileBaseUpload7, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult TaxFileUpload8(TenantOnlineModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload8 = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload8 = Request.Files[i];
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SaveTaxUpload8(fileBaseUpload8, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult TaxFileUpload4(TenantOnlineModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload4 = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload4 = Request.Files[i];
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SaveTaxUpload4(fileBaseUpload4, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult TaxFileUpload5(TenantOnlineModel model)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload5 = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload5 = Request.Files[i];
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SaveTaxUpload5(fileBaseUpload5, model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult UploadPassport(TenantOnlineModel model)
         {
             try
@@ -835,7 +958,41 @@ namespace ShomaRM.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
+        //sachin m 13 may
+        public ActionResult UpdateResStatus(long ID, int ResidenceStatus,string ResidenceNotes)
+        {
+            try
+            {
+                return Json(new { msg = (new TenantOnlineModel().UpdateResStatus(ID,ResidenceStatus,ResidenceNotes)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult UpdateEmpStatus(long ID, int EmpStatus, string EmpNotes)
+        {
+            try
+            {
+                return Json(new { msg = (new TenantOnlineModel().UpdateEmpStatus(ID, EmpStatus, EmpNotes)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        //sachin m 12 may
+        public JsonResult getPreviousEmployementInfoPV(int id, long UserID)
+        {
+            try
+            {
+                return Json(new { model = new EmployerHistoryModel().GetPriousEmploymentInfoPV(id,UserID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public JsonResult getPreviousAddressInfo(int id)
         {
             try
@@ -847,7 +1004,41 @@ namespace ShomaRM.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-
+        //sachin M 12 may
+        public JsonResult getPreviousAddressInfoPV(int id, long UserID)
+        {
+            try
+            {
+                return Json(new { model = new ApplicantHistoryModel().GetPreviousAddressInfoPV(id,UserID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        //sachin m 13 may
+        public JsonResult GetAppResidenceHistory(int id)
+        {
+            try
+            {
+                return Json(new { model = new TenantOnlineModel().GetAppResidenceHistory(id) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult GetAppEmpHistory(int id)
+        {
+            try
+            {
+                return Json(new { model = new TenantOnlineModel().GetAppEmpHistory(id) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         //Sachin Mahore 21 Apr 2020
         public ActionResult CoApplicantDet(string id)
         {
@@ -1031,6 +1222,30 @@ namespace ShomaRM.Controllers
             {
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+        }
+        public ActionResult CheckApplicationStatus(long TenantID)
+        {
+            try
+            {
+                return Json(new { result = new TenantOnlineModel().CheckApplicationStatus(TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetTenantOnlineListProspectVerification(int id, long TenantID)
+        {
+            try
+            {
+                return Json(new { model = new TenantOnlineModel().GetTenantOnlineListProspectVerification(id, TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
         }
     }
 }

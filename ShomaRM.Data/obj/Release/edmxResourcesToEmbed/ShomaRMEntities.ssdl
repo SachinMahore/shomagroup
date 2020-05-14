@@ -153,6 +153,7 @@
     <Property Name="StepCompleted" Type="int" />
     <Property Name="AcceptSummary" Type="int" />
     <Property Name="AdditionalParking" Type="int" />
+    <Property Name="Notes" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="tbl_AuditHistory">
     <Key>
@@ -185,6 +186,7 @@
     <Property Name="OrderID" Type="int" Nullable="false" />
     <Property Name="Status" Type="nvarchar(max)" />
     <Property Name="PDFUrl" Type="nvarchar(max)" />
+    <Property Name="Notes" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="tbl_BankAccount">
     <Key>
@@ -690,6 +692,9 @@
     <Property Name="IsCheckWater" Type="int" />
     <Property Name="CreatedDate" Type="datetime" />
     <Property Name="IsCheckSD" Type="int" />
+    <Property Name="PreMoveInDate" Type="datetime" />
+    <Property Name="PreMoveInTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="Movers" Type="int" />
   </EntityType>
   <EntityType Name="tbl_MoveInPayment">
     <Key>
@@ -846,7 +851,10 @@
     <Property Name="AdminFees" Type="money" />
     <Property Name="PetDNAAmt" Type="money" />
     <Property Name="ProcessingFees" Type="money" />
-    <Property Name="BGCheckFees" Type="money" />
+    <Property Name="AppCCCheckFees" Type="money" />
+    <Property Name="AppBGCheckFees" Type="money" />
+    <Property Name="GuaCCCheckFees" Type="money" />
+    <Property Name="GuaBGCheckFees" Type="money" />
   </EntityType>
   <EntityType Name="tbl_PropertyFloor">
     <Key>
@@ -1267,7 +1275,7 @@
     <Property Name="HavePet" Type="bit" />
     <Property Name="PassportDocumentOriginalFile" Type="varchar" MaxLength="500" />
     <Property Name="IdentityDocumentOriginalFile" Type="varchar" MaxLength="500" />
-    <Property Name="IsPaystub" Type="bit" />
+    <Property Name="IsPaystub" Type="int" />
     <Property Name="ProfilePicture" Type="varchar" MaxLength="500" />
     <Property Name="OrginalProfilePicture" Type="varchar" MaxLength="500" />
     <Property Name="IsAgreePostDisclaimer" Type="int" />
@@ -1374,7 +1382,7 @@
     <Property Name="HavePet" Type="bit" />
     <Property Name="PassportDocumentOriginalFile" Type="varchar" MaxLength="500" />
     <Property Name="IdentityDocumentOriginalFile" Type="varchar" MaxLength="500" />
-    <Property Name="IsPaystub" Type="bit" />
+    <Property Name="IsPaystub" Type="int" />
     <Property Name="CountryOfOrigin" Type="bigint" />
     <Property Name="Evicted" Type="int" />
     <Property Name="EvictedDetails" Type="varchar" MaxLength="500" />
@@ -1394,6 +1402,22 @@
     <Property Name="StepCompleted" Type="int" />
     <Property Name="IsRentalPolicy" Type="int" />
     <Property Name="IsRentalQualification" Type="int" />
+    <Property Name="TaxReturn4" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturn5" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturn6" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturn7" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturn8" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile4" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile5" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile6" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile7" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile8" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsFedralTax" Type="int" />
+    <Property Name="IsBankState" Type="int" />
+    <Property Name="ResidenceStatus" Type="int" />
+    <Property Name="ResidenceNotes" Type="nvarchar(max)" />
+    <Property Name="EmpStatus" Type="int" />
+    <Property Name="EmpNotes" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="tbl_TenantParking">
     <Key>
@@ -1545,6 +1569,7 @@
     <Property Name="Tag" Type="nvarchar" MaxLength="50" />
     <Property Name="ParkingID" Type="int" />
     <Property Name="AddedBy" Type="bigint" />
+    <Property Name="VehicleType" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Vendor">
     <Key>

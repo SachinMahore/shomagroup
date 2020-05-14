@@ -520,12 +520,14 @@ Logger: EmailSendModel.cs
 
 
 Date - 07 May 2020 18:33:10
+
 Level - INFO
 UserAgent - 
 Message - 
 Method SendAsync -Success
 
 User Referrer: localhost:53678
+
 
 Browser Name: Chrome
 
@@ -535,17 +537,21 @@ Method Name: SendAsync
 
 Line Number: 58
 
+
 Logger: EmailSendModel.cs
+
 
 
 
 Date - 07 May 2020 18:33:10
+
 Level - INFO
 UserAgent - 
 Message - 
 Method SendEmail -Success
 
 User Referrer: localhost:53678
+
 
 Browser Name: Chrome
 
@@ -555,17 +561,21 @@ Method Name: SendEmail
 
 Line Number: 37
 
+
 Logger: EmailSendModel.cs
 
 
 
+
 Date - 07 May 2020 18:36:04
+
 Level - INFO
 UserAgent - 
 Message - 
 Method SendAsync -Success
 
 User Referrer: localhost:53678
+
 
 Browser Name: Chrome
 
@@ -579,13 +589,16 @@ Logger: EmailSendModel.cs
 
 
 
+
 Date - 07 May 2020 18:36:04
+
 Level - INFO
 UserAgent - 
 Message - 
 Method SendEmail -Success
 
 User Referrer: localhost:53678
+
 
 Browser Name: Chrome
 
@@ -594,6 +607,7 @@ File Path: C:\Users\Lalit-bokde\OneDrive\Documents\github\Shoma-RM\ShomaRM\Model
 Method Name: SendEmail
 
 Line Number: 37
+
 
 Logger: EmailSendModel.cs
 

@@ -30,6 +30,7 @@ namespace ShomaRM.Data
         public string Tag { get; set; }
         public Nullable<int> ParkingID { get; set; }
         public Nullable<long> AddedBy { get; set; }
+        public Nullable<int> VehicleType { get; set; }
     
         public virtual tbl_ApplyNow tbl_ApplyNow { get; set; }
     }

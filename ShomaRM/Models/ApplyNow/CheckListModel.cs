@@ -27,12 +27,18 @@ namespace ShomaRM.Models
         public Nullable<int> IsCheckSch { get; set; }
         public Nullable<int> IsCheckIns { get; set; }
         public Nullable<int> IsCheckElc { get; set; }
+        public Nullable<int> IsCheckPreSch { get; set; }
 
         public Nullable<int> IsCheckPO { get; set; }
         public Nullable<int> IsCheckATT { get; set; }
         public Nullable<int> IsCheckWater { get; set; }
         public Nullable<int> IsCheckSD { get; set; }
-        
+
+        public Nullable<System.DateTime> PreMoveInDate { get; set; }
+        public string PreMoveInDateTxt { get; set; }
+        public string PreMoveInTime { get; set; }
+        public Nullable<int> Movers { get; set; }
+
         public int IsAllChecked { get; set; }
 
         public Nullable<System.DateTime> CreatedDate { get; set; }
@@ -45,22 +51,25 @@ namespace ShomaRM.Models
             CheckListModel model = new CheckListModel();
             model.MIID = 0;
             model.MoveInTime = "";
+            model.PreMoveInTime = "";
             model.IsCheckATT = 0;
             model.IsCheckPO = 0;
             model.IsCheckWater = 0;
             model.IsCheckPay = 0;
             model.IsCheckSch = 0;
+            model.IsCheckPreSch = 0;
             model.IsCheckIns = 0;
             model.IsCheckElc = 0;
             model.IsCheckSD = 0;
             model.IsAllChecked = 0;
             model.InsuranceDoc = "";
             model.ElectricityDoc = "";
+            model.Movers = 0;
             var MoveInData = db.tbl_MoveInChecklist.Where(co => co.ProspectID == Id).FirstOrDefault();
             if (MoveInData != null)
             {
                 model.MIID = MoveInData.MIID;
-                if(MoveInData.MoveInCharges.HasValue)
+                if (MoveInData.MoveInCharges.HasValue)
                 {
                     model.IsCheckPay = 1;
                 }
@@ -70,8 +79,16 @@ namespace ShomaRM.Models
                     model.IsCheckSch = 1;
                 }
                 model.MoveInTime = MoveInData.MoveInTime;
+
+                model.PreMoveInDateTxt = MoveInData.PreMoveInDate.HasValue ? MoveInData.PreMoveInDate.Value.ToString("MM/dd/yyyy") : "";
+                if (MoveInData.PreMoveInDate.HasValue)
+                {
+                    model.IsCheckPreSch = 1;
+                }
+                model.PreMoveInTime = MoveInData.PreMoveInTime;
+
                 model.InsuranceDoc = MoveInData.InsuranceDoc;
-                if(!string.IsNullOrWhiteSpace( MoveInData.InsuranceDoc))
+                if (!string.IsNullOrWhiteSpace(MoveInData.InsuranceDoc))
                 {
                     model.IsCheckIns = 1;
                 }
@@ -80,11 +97,13 @@ namespace ShomaRM.Models
                 {
                     model.IsCheckElc = 1;
                 }
+
                 model.IsCheckATT = MoveInData.IsCheckATT ?? 0;
                 model.IsCheckPO = MoveInData.IsCheckPO ?? 0;
                 model.IsCheckWater = MoveInData.IsCheckWater ?? 0;
                 model.IsCheckSD = MoveInData.IsCheckSD ?? 0;
-                if (model.IsCheckPay == 1 && model.IsCheckSch == 1 && model.IsCheckIns == 1 && model.IsCheckElc == 1 && model.IsCheckATT==1 && model.IsCheckPO==1 && model.IsCheckWater==1)
+                model.Movers = MoveInData.Movers ?? 0;
+                if (model.IsCheckPay == 1 && model.IsCheckSch == 1 && model.IsCheckPreSch == 1 && model.IsCheckIns == 1 && model.IsCheckElc == 1 && model.IsCheckATT == 1 && model.IsCheckPO == 1 && model.IsCheckWater == 1)
                 {
                     model.IsAllChecked = 1;
                 }
@@ -106,14 +125,17 @@ namespace ShomaRM.Models
                         ProspectID = model.ProspectID,
                         MoveInDate = model.MoveInDate,
                         MoveInTime = model.MoveInTime,
+                        PreMoveInDate = model.PreMoveInDate,
+                        PreMoveInTime = model.PreMoveInTime,
                         MoveInCharges = model.MoveInCharges,
                         InsuranceDoc = model.InsuranceDoc,
                         ElectricityDoc = model.ElectricityDoc,
                         IsCheckPO = model.IsCheckPO,
                         IsCheckATT = model.IsCheckATT,
                         IsCheckWater = model.IsCheckWater,
-                        IsCheckSD=model.IsCheckSD,
+                        IsCheckSD = model.IsCheckSD,
                         CreatedDate = DateTime.Now,
+                        Movers = model.Movers
                     };
                     db.tbl_MoveInChecklist.Add(saveMoveInCheckList);
                     db.SaveChanges();
@@ -124,6 +146,8 @@ namespace ShomaRM.Models
                     loginDet.ProspectID = model.ProspectID;
                     loginDet.MoveInDate = model.MoveInDate;
                     loginDet.MoveInTime = model.MoveInTime;
+                    loginDet.PreMoveInDate = model.PreMoveInDate;
+                    loginDet.PreMoveInTime = model.PreMoveInTime;
                     loginDet.MoveInCharges = model.MoveInCharges;
                     loginDet.InsuranceDoc = model.InsuranceDoc;
                     loginDet.ElectricityDoc = model.ElectricityDoc;
@@ -131,6 +155,8 @@ namespace ShomaRM.Models
                     loginDet.IsCheckATT = model.IsCheckATT;
                     loginDet.IsCheckWater = model.IsCheckWater;
                     loginDet.IsCheckSD = model.IsCheckSD;
+                    loginDet.Movers = model.Movers;
+
                     db.SaveChanges();
                 }
 
@@ -241,6 +267,7 @@ namespace ShomaRM.Models
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
                 {
+                    string opid = "1";
                     if (GetPayDetails != null)
                     {
                         GetPayDetails.Name_On_Card = model.Name_On_Card;
@@ -252,7 +279,7 @@ namespace ShomaRM.Models
                         GetPayDetails.PaymentMethod = model.PaymentMethod;
 
                         db.SaveChanges();
-
+                        opid = GetPayDetails.ID.ToString();
                     }
                     else
                     {
@@ -269,12 +296,13 @@ namespace ShomaRM.Models
                         };
                         db.tbl_OnlinePayment.Add(savePaymentDetails);
                         db.SaveChanges();
+                        opid = savePaymentDetails.ID.ToString();
                     }
                     var saveTransaction = new tbl_Transaction()
                     {
                         TenantID = Convert.ToInt64(GetProspectData.UserId),
                         Revision_Num = 1,
-                        Transaction_Type = "1",
+                        Transaction_Type = opid,
                         Transaction_Date = DateTime.Now,
                         Run = 1,
                         LeaseID = 0,
@@ -422,6 +450,111 @@ namespace ShomaRM.Models
                 db.Database.Connection.Close();
                 throw ex;
             }
+        }
+        public string UploadInsurenceDocAdminSide(HttpPostedFileBase fileBaseUploadInsurenceDoc, long ProspectId)
+        {
+            string msg = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseUploadInsurenceDoc != null && fileBaseUploadInsurenceDoc.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/ChecklistDocument/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                fileName = Path.GetFileNameWithoutExtension(fileBaseUploadInsurenceDoc.FileName);
+                Extension = Path.GetExtension(fileBaseUploadInsurenceDoc.FileName);
+                sysFileName = fileName + ProspectId + Path.GetExtension(fileBaseUploadInsurenceDoc.FileName);
+                fileBaseUploadInsurenceDoc.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseUploadInsurenceDoc.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/ChecklistDocument/") + "/" + sysFileName;
+
+                }
+
+                var moveInDet = db.tbl_MoveInChecklist.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
+                if (moveInDet == null)
+                {
+                    var saveMoveInCheckList = new tbl_MoveInChecklist()
+                    {
+                        ProspectID = ProspectId,
+                        InsuranceDoc = sysFileName.ToString(),
+                    };
+                    db.tbl_MoveInChecklist.Add(saveMoveInCheckList);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    moveInDet.InsuranceDoc = sysFileName.ToString();
+                    db.SaveChanges();
+                }
+                msg = "File Uploaded Successfully |" + sysFileName.ToString();
+            }
+            else
+            {
+                msg = "Something went wrong file not Uploaded";
+            }
+            return msg;
+        }
+        public string UploadProofOfElectricityDocAdminSide(HttpPostedFileBase fileBaseUploadProofOfElectricityDoc, long ProspectId)
+        {
+            string msg = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseUploadProofOfElectricityDoc != null && fileBaseUploadProofOfElectricityDoc.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/ChecklistDocument/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                fileName = Path.GetFileNameWithoutExtension(fileBaseUploadProofOfElectricityDoc.FileName);
+                Extension = Path.GetExtension(fileBaseUploadProofOfElectricityDoc.FileName);
+                sysFileName = fileName + ProspectId + Path.GetExtension(fileBaseUploadProofOfElectricityDoc.FileName);
+                fileBaseUploadProofOfElectricityDoc.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseUploadProofOfElectricityDoc.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/ChecklistDocument/") + "/" + sysFileName;
+
+                }
+
+                var moveInDet = db.tbl_MoveInChecklist.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
+                if (moveInDet == null)
+                {
+                    var saveMoveInCheckList = new tbl_MoveInChecklist()
+                    {
+                        ProspectID = ProspectId,
+                        ElectricityDoc = sysFileName.ToString(),
+                    };
+                    db.tbl_MoveInChecklist.Add(saveMoveInCheckList);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    moveInDet.ElectricityDoc = sysFileName.ToString();
+                    db.SaveChanges();
+                }
+                msg = "File Uploaded Successfully |" + sysFileName.ToString();
+            }
+            else
+            {
+                msg = "Something went wrong file not Uploaded|0";
+            }
+            return msg;
         }
     }
     public partial class ESignatureKeysModel

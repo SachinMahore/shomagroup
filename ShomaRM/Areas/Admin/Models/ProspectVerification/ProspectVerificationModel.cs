@@ -108,6 +108,8 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<int> IsCheckSD { get; set; }
         public Nullable<decimal> VehicleRegistration { get; set; }
         public decimal MoveInChargesFMIT { get; set; }
+        public long? ApplicantUserId { get; set; }
+        public string Notes { get; set; }
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -354,7 +356,7 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
-        public string SaveScreeningStatus(string Email, long ProspectId, string Status)
+        public string SaveScreeningStatus(string Email, long ProspectId, string Status, string Notes)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             //var tenantData = db.tbl_TenantOnline.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
@@ -414,6 +416,7 @@ namespace ShomaRM.Areas.Admin.Models
                 {
                     GetTenantDet.IsApplyNow = 5;
                     GetTenantDet.Status = Status;
+                    GetTenantDet.Notes = Notes;
                     db.SaveChanges();
                 }
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == GetTenantDet.PropertyId).FirstOrDefault();
@@ -429,7 +432,22 @@ namespace ShomaRM.Areas.Admin.Models
                 reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantDet.FirstName + " " + GetTenantDet.LastName);
                 var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
                 string sub = "Online Application Status";
-                if (Status == "Approved")
+
+
+                //sachin 13 may
+                var saveBGCC = new tbl_BackgroundScreening()
+                {
+                    TenantId =Convert.ToInt32(tenantData.ID),
+                    Type = "0",
+                    OrderID = Convert.ToInt32(ProspectId),
+                    Status = Status,
+                    Notes = Notes,
+                };
+                db.tbl_BackgroundScreening.Add(saveBGCC);
+                db.SaveChanges();
+
+
+                if (Status == "BCApproved")
                 {
 
                     string payid = new EncryptDecrypt().EncryptText(GetCoappDet.ApplicantID.ToString() + ",3," + propertDet.AdminFees.Value.ToString("0.00"));
@@ -441,7 +459,7 @@ namespace ShomaRM.Areas.Admin.Models
 
 
                 }
-                else if (Status == "Denied")
+                else if (Status == "BCDenied")
                 {
                     reportHTML = reportHTML.Replace("[%Status%]", "Sorry ! Your Application is Denied");
                     reportHTML = reportHTML.Replace("[%StatusDet%]", "We are sorry that your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community.");
@@ -449,12 +467,12 @@ namespace ShomaRM.Areas.Admin.Models
 
                     message = "Sorry ! Your Application is Denied. Please check the email for detail.";
                 }
-                else if (Status == "Signed")
+                else if (Status == "BCSigned")
                 {
                     sub = "Lease has been finalized : Pay your Move In Charges & Accept Move In Checklist";
 
                     reportHTML = reportHTML.Replace("[%Status%]", "Lease has been finalized : Pay your Move In Charges & Accept Move In Checklist");
-                    reportHTML = reportHTML.Replace("[%StatusDet%]", "Your Application is Signed by All Applicants and Pay your Move In Charges. Your next step is to pay the Move In Charges and Accept Move in Checklist  ");
+                    reportHTML = reportHTML.Replace("[%StatusDet%]", "Your Application is Signed by All Applicants and Pay your Move In Charges. Your next step is to pay the Move In Charges and Accept Move in Checklist");
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Accept Move In Checklist & Pay Charges</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
 
                     message = "Notification: Pay your Move In Charges and Accept Move In Checklist.";
@@ -476,7 +494,10 @@ namespace ShomaRM.Areas.Admin.Models
                                 new EmailSendModel().SendEmail(app.Email, "Move In charges Payment Link", bodyCoapp);
                                 if (SendMessage == "yes")
                                 {
-                                    new TwilioService().SMS(app.Phone, "Congratulations ! Your Application is Approved. Please check the email for Move In charges Payment Link.");
+                                    if (!string.IsNullOrWhiteSpace(app.Phone))
+                                    {
+                                        new TwilioService().SMS(app.Phone, "Congratulations ! Your Application is Approved. Please check the email for Move In charges Payment Link.");
+                                    }
                                 }
                             }
                         }
@@ -504,9 +525,11 @@ namespace ShomaRM.Areas.Admin.Models
                 new EmailSendModel().SendEmail(Email, sub, body);
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
-
             }
 
             msg = "Email Send Successfully";
@@ -547,7 +570,10 @@ namespace ShomaRM.Areas.Admin.Models
                 new EmailSendModel().SendEmail(GetTenantDet.Email, "Reminder to Pay Administration Fees", body);
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
             }
             else if (RemType == 2)
@@ -576,7 +602,10 @@ namespace ShomaRM.Areas.Admin.Models
                     new EmailSendModel().SendEmail(apptdata.Email, "Reminder Review and Sign your application", body);
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
             }
@@ -588,7 +617,7 @@ namespace ShomaRM.Areas.Admin.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             var GetTenantDet = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
-            string result = SaveScreeningStatus(Email, GetTenantDet.ID, Status);
+            string result = SaveScreeningStatus(Email, GetTenantDet.ID, Status,"");
             db.Dispose();
 
         }
@@ -646,6 +675,7 @@ namespace ShomaRM.Areas.Admin.Models
             ShomaRMEntities db = new ShomaRMEntities();
 
             ProspectVerificationModel model = new ProspectVerificationModel();
+            model.ApplicantUserId = Id;
             model.ProspectId = 0;
             model.IsApplyNow = 1;
             model.IsApplyNowStatus = "New";
@@ -702,7 +732,7 @@ namespace ShomaRM.Areas.Admin.Models
                     model.EnvelopeID = (!string.IsNullOrWhiteSpace(GetProspectData.EnvelopeID) ? GetProspectData.EnvelopeID : "");
                     model.EsignatureID = (!string.IsNullOrWhiteSpace(GetProspectData.EsignatureID) ? GetProspectData.EsignatureID : "");
 
-
+                    model.Notes = GetProspectData.Notes == null ? "" : GetProspectData.Notes;
                     //model.LeaseTerm = GetProspectData.LeaseTerm ?? 12;
 
                     var leaseDet = db.tbl_LeaseTerms.Where(p => p.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
@@ -939,7 +969,10 @@ namespace ShomaRM.Areas.Admin.Models
 
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
             }
             db.Dispose();

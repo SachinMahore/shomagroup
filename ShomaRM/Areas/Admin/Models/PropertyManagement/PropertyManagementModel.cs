@@ -38,7 +38,11 @@ namespace ShomaRM.Areas.Admin.Models
         public List<PropertyUnits> lstPropertyUnit { get; set; }
         public List<PropertyFloor> lstPropertyFloor { get; set; }
         public Nullable<decimal> ApplicationFees { get; set; }
+        public Nullable<decimal> AppCCCheckFees { get; set; }
+        public Nullable<decimal> AppBGCheckFees { get; set; }
         public Nullable<decimal> GuarantorFees { get; set; }
+        public Nullable<decimal> GuaCCCheckFees { get; set; }
+        public Nullable<decimal> GuaBGCheckFees { get; set; }
         public Nullable<decimal> PestControlFees { get; set; }
         public Nullable<decimal> TrashFees { get; set; }
         public Nullable<decimal> ConversionBillFees { get; set; }
@@ -85,7 +89,11 @@ namespace ShomaRM.Areas.Admin.Models
                     ConversionBillFees = model.ConversionBillFees,
                     AdminFees = model.AdminFees,
                     PetDNAAmt = model.DNAPetFees,
-                    ProcessingFees = model.ProcessingFees
+                    ProcessingFees = model.ProcessingFees,
+                    AppCCCheckFees = model.AppCCCheckFees,
+                    AppBGCheckFees = model.AppBGCheckFees,
+                    GuaCCCheckFees = model.GuaCCCheckFees,
+                    GuaBGCheckFees = model.GuaBGCheckFees
                 };
                 db.tbl_Properties.Add(saveProp);
                 db.SaveChanges();
@@ -132,6 +140,11 @@ namespace ShomaRM.Areas.Admin.Models
                     propUpdate.AdminFees = model.AdminFees;
                     propUpdate.PetDNAAmt = model.DNAPetFees;
                     propUpdate.ProcessingFees = model.ProcessingFees;
+                    propUpdate.ProcessingFees = model.ProcessingFees;
+                    propUpdate.AppCCCheckFees = model.AppCCCheckFees;
+                    propUpdate.AppBGCheckFees = model.AppBGCheckFees;
+                    propUpdate.GuaCCCheckFees = model.GuaCCCheckFees;
+                    propUpdate.GuaBGCheckFees = model.GuaBGCheckFees;
                 }
                 db.SaveChanges();
                 msg = "Property Details Updated Successfully";
@@ -245,6 +258,10 @@ namespace ShomaRM.Areas.Admin.Models
                 model.AdminFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.AdminFees));
                 model.DNAPetFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.PetDNAAmt));
                 model.ProcessingFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.ProcessingFees));
+                model.AppCCCheckFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.AppCCCheckFees));
+                model.AppBGCheckFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.AppBGCheckFees));
+                model.GuaCCCheckFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.GuaCCCheckFees));
+                model.GuaBGCheckFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.GuaBGCheckFees));
             }
 
             var leaseTerms = db.tbl_LeaseTerms.ToList().OrderBy(p => p.LeaseTerms ?? 0);

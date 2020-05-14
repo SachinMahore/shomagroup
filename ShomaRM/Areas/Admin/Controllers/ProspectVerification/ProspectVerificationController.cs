@@ -89,11 +89,11 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult SaveScreeningStatus(string Email, long ProspectId, string Status)
+        public ActionResult SaveScreeningStatus(string Email, long ProspectId, string Status, string Notes)
         {
             try
             {
-                return Json(new { model = new ProspectVerificationModel().SaveScreeningStatus(Email, ProspectId, Status) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new ProspectVerificationModel().SaveScreeningStatus(Email, ProspectId, Status,Notes) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

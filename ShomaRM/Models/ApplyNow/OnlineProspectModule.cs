@@ -66,7 +66,11 @@ namespace ShomaRM.Models
         public Nullable<decimal> ConvergentAmt { get; set; }
         public Nullable<decimal> AdminFees { get; set; }
         public Nullable<decimal> ApplicationFees { get; set; }
+        public Nullable<decimal> AppCCCheckFees { get; set; }
+        public Nullable<decimal> AppBGCheckFees { get; set; }
         public Nullable<decimal> GuarantorFees { get; set; }
+        public Nullable<decimal> GuaCCCheckFees { get; set; }
+        public Nullable<decimal> GuaBGCheckFees { get; set; }
         public Nullable<decimal> VehicleRegistration { get; set; }
         public Nullable<decimal> Prorated_Rent { get; set; }
         public int LeaseTerm { get; set; }
@@ -120,6 +124,8 @@ namespace ShomaRM.Models
         public string MiddleInitial { get; set; }
 
         public int CreditPaid { get; set; }
+
+        
 
         public string SaveOnlineProspect(OnlineProspectModule model)
         {
@@ -350,7 +356,10 @@ namespace ShomaRM.Models
                     new EmailSendModel().SendEmail(model.Email, "Application Submission", body);
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
                 catch(Exception ex)
@@ -535,7 +544,10 @@ namespace ShomaRM.Models
                         new EmailSendModel().SendEmail(model.Email, "Open Application", body);
                         if (SendMessage == "yes")
                         {
-                            new TwilioService().SMS(phonenumber, message);
+                            if (!string.IsNullOrWhiteSpace(phonenumber))
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
                         }
                     }
                 }
@@ -565,7 +577,10 @@ namespace ShomaRM.Models
                         new EmailSendModel().SendEmail(model.Email, "Online Application Started", body);
                         if (SendMessage == "yes")
                         {
-                            new TwilioService().SMS(phonenumber, message);
+                            if (!string.IsNullOrWhiteSpace(phonenumber))
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
                         }
                     }
                 }
@@ -592,33 +607,53 @@ namespace ShomaRM.Models
                 //    }
                 //    string body = reportHTML;
                 //    new EmailSendModel().SendEmail(model.Email, "Open Application", body);
-                //    if (SendMessage == "yes")
+                //if (SendMessage == "yes")
+                //{
+                //    if (!string.IsNullOrWhiteSpace(phonenumber))
                 //    {
                 //        new TwilioService().SMS(phonenumber, message);
                 //    }
                 //}
+                //}
 
                 int stepcomp = 0;
-                stepcomp = onlineProspectData.StepCompleted ?? 0;
-                if(stepcomp<model.StepCompleted)
+                if (applicantData.Type == "Primary Applicant")
                 {
-                    stepcomp = model.StepCompleted;
-                }
-                if (onlineProspectData != null)
-                {
+                    stepcomp = onlineProspectData.StepCompleted ?? 0;
+                    if (stepcomp < model.StepCompleted)
+                    {
+                        stepcomp = model.StepCompleted;
+                    }
+                    if (onlineProspectData != null)
+                    {
+                        onlineProspectData.IsRentalPolicy = model.IsRentalPolicy;
+                        onlineProspectData.IsRentalQualification = model.IsRentalQualification;
+                        onlineProspectData.StepCompleted = stepcomp;
+                        db.SaveChanges();
+                    }
+
                     onlineProspectData.IsRentalPolicy = model.IsRentalPolicy;
                     onlineProspectData.IsRentalQualification = model.IsRentalQualification;
                     onlineProspectData.StepCompleted = stepcomp;
                     db.SaveChanges();
                 }
-
-                if(applicantData!=null)
+                else
                 {
-                    tenantOnlineData.IsRentalPolicy = model.IsRentalPolicy;
-                    tenantOnlineData.IsRentalQualification = model.IsRentalQualification;
-                    tenantOnlineData.StepCompleted = stepcomp;
-                    db.SaveChanges();
+                    if (applicantData != null)
+                    {
+                        stepcomp = tenantOnlineData.StepCompleted ?? 0;
+                        if (stepcomp < model.StepCompleted)
+                        {
+                            stepcomp = model.StepCompleted;
+                        }
+
+                        tenantOnlineData.IsRentalPolicy = model.IsRentalPolicy;
+                        tenantOnlineData.IsRentalQualification = model.IsRentalQualification;
+                        tenantOnlineData.StepCompleted = stepcomp;
+                        db.SaveChanges();
+                    }
                 }
+                
             }
             msg = "Policy Checked Successfully";
             db.Dispose();
@@ -700,6 +735,14 @@ namespace ShomaRM.Models
             model.IsRentalPolicy = 0;
             model.IsRentalQualification = 0;
 
+            model.ApplicationFees =0;
+            model.AppCCCheckFees = 0;
+            model.AppBGCheckFees = 0;
+
+            model.GuarantorFees = 0;
+            model.GuaCCCheckFees = 0;
+            model.GuaBGCheckFees = 0;
+
             var propDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
             if (propDet != null)
             {
@@ -708,9 +751,17 @@ namespace ShomaRM.Models
                 model.PestAmt = propDet.PestControlFees ?? 0;
                 model.TrashAmt = propDet.TrashFees ?? 0;
                 model.AdminFees = propDet.AdminFees ?? 0;
-                model.ApplicationFees = propDet.ApplicationFees ?? 0;
-                model.GuarantorFees = propDet.GuarantorFees ?? 0;
+               
+                
                 model.ProcessingFees = propDet.ProcessingFees ?? 0;
+
+                model.ApplicationFees = propDet.ApplicationFees ?? 0;
+                model.AppCCCheckFees = propDet.AppCCCheckFees ?? 0;
+                model.AppBGCheckFees = propDet.AppBGCheckFees ?? 0;
+
+                model.GuarantorFees = propDet.GuarantorFees ?? 0;
+                model.GuaCCCheckFees = propDet.GuaCCCheckFees ?? 0;
+                model.GuaBGCheckFees = propDet.GuaBGCheckFees ?? 0;
             }
             else
             {
@@ -720,7 +771,13 @@ namespace ShomaRM.Models
                 model.TrashAmt = 0;
                 model.AdminFees = 0;
                 model.ApplicationFees = 0;
-                model.GuarantorFees =  0;
+                model.AppCCCheckFees = 0;
+                model.AppBGCheckFees = 0;
+
+                model.GuarantorFees = 0;
+                model.GuaCCCheckFees = 0;
+                model.GuaBGCheckFees = 0;
+
                 model.ProcessingFees = 0;
             }
 
@@ -856,7 +913,7 @@ namespace ShomaRM.Models
                         {
                             model.IsRentalQualification = Convert.ToInt32(tenantOnlineData.IsRentalQualification ?? 0);
                             model.IsRentalPolicy = Convert.ToInt32(tenantOnlineData.IsRentalPolicy ?? 0);
-                            if (model.CreditPaid == 0)
+                            if (model.CreditPaid != 0)
                             {
                                 model.StepCompleted = 7;
                             }
@@ -909,7 +966,10 @@ namespace ShomaRM.Models
                     message = "This is final Notification to complete your Application. Finishing is fast and easy, so log in and get started. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
 
                 }
@@ -940,9 +1000,11 @@ namespace ShomaRM.Models
                     message = "This is kindly reminder that your application has not been completed. Finishing is fast and easy, so log in and get started. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
-
                 }
             }
 
@@ -990,7 +1052,10 @@ namespace ShomaRM.Models
                     message = "Your Online application submitted successfully and credentials has been sent on your email. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
             }
@@ -1040,13 +1105,58 @@ namespace ShomaRM.Models
                 message = "Your Online application submitted successfully and payment link has been send your email. Please check the email for detail.";
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
             }
 
             msg = "Email Send Successfully";
             return msg;
 
+        }
+        public string SendPayLinkEmailApplyNow(long ProspectId, long ApplicationID, decimal ChargeAmount, int ChargeType, string Email)
+        {
+            string msg = "";
+            string reportHTML = "";
+            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect5.html");
+            ShomaRMEntities db = new ShomaRMEntities();
+            var phonenumber = "";
+            if (!string.IsNullOrWhiteSpace(Email))
+            {
+                var GetTenantDet = db.tbl_ApplyNow.Where(p => p.ID == ProspectId).FirstOrDefault();
+                
+
+                var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == ApplicationID).FirstOrDefault();
+
+                phonenumber = GetCoappDet.Phone;
+
+                var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == GetTenantDet.PropertyId).FirstOrDefault();
+
+                string payid = new EncryptDecrypt().EncryptText(GetCoappDet.ApplicantID.ToString() + "," + ChargeType.ToString() + "," + ChargeAmount.ToString("0.00"));
+
+                reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                reportHTML = reportHTML.Replace("[%CoAppType%]", GetCoappDet.Type);
+                reportHTML = reportHTML.Replace("[%EmailHeader%]", "Payment Link for " + (ChargeType == 4 ? "Credit Check" : "Background Check"));
+                reportHTML = reportHTML.Replace("[%EmailBody%]", "Please pay your fees $" + ChargeAmount.ToString("0.00") + " for credit check to continue the Online Application Process.<br/><br/>");
+                reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
+                reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                string body = reportHTML;
+                new EmailSendModel().SendEmail(Email, "Payment Link for " + (ChargeType == 4 ? "Credit Check" : "Background Check"), body);
+
+                if (SendMessage == "yes")
+                {
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new ShomaRM.Models.TwilioApi.TwilioService().SMS(GetCoappDet.Phone, "Payment Link for " + (ChargeType == 4 ? "Credit Check" : "Background Check") + ". Please check the email for detail.");
+                    }
+                }
+            }
+            msg = "Email Send Successfully";
+            return msg;
         }
         public string DeleteApplicantTenantID(long TenantID, long UserId)
         {
@@ -1347,10 +1457,13 @@ namespace ShomaRM.Models
                 LastName = model.LastName,
                 Phone = model.Phone,
                 Email = model.Email,
-                //DateOfBirth = model.DateofBirth,
-                Gender = 0,
+                Gender = model.Gender,
                 Relationship = "1",
                 Type = "Primary Applicant",
+                UserID = (int)Uid,
+                CreditPaid = 0,
+                Paid = 0,
+                BackGroundPaid = 0
             };
             db.tbl_Applicant.Add(saveApplicant);
             db.SaveChanges();

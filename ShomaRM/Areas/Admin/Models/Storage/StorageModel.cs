@@ -18,7 +18,7 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<int> Type { get; set; }
         public Nullable<int> Status { get; set; }
 
-        public List<StorageModel> GetStorageList(long TenantID)
+        public List<StorageModel> GetStorageList(long TenantID, string OrderBy, string SortBy)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<StorageModel> model = new List<StorageModel>();
@@ -35,6 +35,16 @@ namespace ShomaRM.Areas.Admin.Models
                     paramTID.ParameterName = "TenantID";
                     paramTID.Value = TenantID;
                     cmd.Parameters.Add(paramTID);
+
+                    DbParameter paramOB = cmd.CreateParameter();
+                    paramOB.ParameterName = "OrderBy";
+                    paramOB.Value = OrderBy;
+                    cmd.Parameters.Add(paramOB);
+
+                    DbParameter paramSB = cmd.CreateParameter();
+                    paramSB.ParameterName = "SortBy";
+                    paramSB.Value = SortBy;
+                    cmd.Parameters.Add(paramSB);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -61,6 +71,7 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
+        
         public StorageModel GetStorageInfo(int ID = 0)
         {
             ShomaRMEntities db = new ShomaRMEntities();

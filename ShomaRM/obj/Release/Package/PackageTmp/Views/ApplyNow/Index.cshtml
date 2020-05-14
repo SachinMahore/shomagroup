@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Apply Now";
 }
+<script src="@Url.Content("~/Content/jAlert.min.js")"></script>
+<script src="@Url.Content("~/Content/jTimeout.min.js")"></script>
 <script src="/Content/Pages/ApplyNow/ApplyNow.js"></script>
 <script src="~/Content/assets/js/jquery.maphilight.js"></script>
 <script src="~/Content/Pages/ApplyNow/DocumentVerification.js"></script>
@@ -26,6 +28,9 @@
 <input type="hidden" id="HndAddParkingCount" value="0" />
 <input type="hidden" id="hndDocumentTypePersonal" value="0" />
 <input type="hidden" id="hndCreditPaid" value="@Model.CreditPaid" />
+<input type="hidden" id="hndAppCreditFees" value="@((Model.AppCCCheckFees??0).ToString("0.00"))" />
+<input type="hidden" id="hndAppBackgroundFees" value="@((Model.AppBGCheckFees??0).ToString("0.00"))" />
+<input type="hidden" id="hndStorageOrderBy" value="ASC" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -700,7 +705,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-4">
-                                        <span id="">Pet Non-refundable Deposit: </span>
+                                        <span id="spPetNRDeposit">Pet Non-refundable Deposit: </span>
                                     </div>
                                     <div class="col-sm-2">
                                         $<span id="lblPetDeposit">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
@@ -825,7 +830,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-12">
-                                        <p><i class="star"></i><i class="star"></i> Security Deposit is subject to various criteria including credit history.  Additionally, we participate in the SureDeposit Program which may assist you in bonding your Deposit for a small fee. </p>
+                                        <p><i class="star"></i><i class="star"></i> If you would like to participate in the Flexdeposit Program which may assist you in bonding your Security Deposit for a Non-Refundable fee of as low as $50 (depending on credit), please contact our leasing agents. </p>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 clearfix">
@@ -971,7 +976,8 @@
 
                                                 </div>
                                                 <div class="col-sm-7">
-                                                    $<span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/per applicant</span>
+                                                    $<span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/per applicant</span><br />
+                                                    <span style="font-size:12px">(Credit Check: $@((Model.AppCCCheckFees ?? 0).ToString("0.00")) + Background Check: $@((Model.AppBGCheckFees ?? 0).ToString("0.00")))</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -979,7 +985,8 @@
                                                     &nbsp;
                                                 </div>
                                                 <div class="col-sm-7">
-                                                    $<span id="lblFNLGautantorFee" style="text-decoration:underline;font-weight:bold;">@((Model.GuarantorFees ?? 0).ToString("0.00"))/Guarantor (if needed)</span>
+                                                    $<span id="lblFNLGautantorFee" style="text-decoration:underline;font-weight:bold;">@((Model.GuarantorFees ?? 0).ToString("0.00"))/Guarantor (if needed)</span><br />
+                                                    <span style="font-size:12px">(Credit Check: $@((Model.GuaCCCheckFees ?? 0).ToString("0.00")) + Background Check: $@((Model.GuaBGCheckFees ?? 0).ToString("0.00")))</span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
@@ -1011,7 +1018,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span> Pet Non-Refundable Deposit: </span>
+                                                    <span id="spfpetd">Pet Non-Refundable Deposit: </span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     $<span style="text-decoration:underline;font-weight:bold;" id="fpetd">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
@@ -1027,7 +1034,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span>Vehicle Registration: </span>
+                                                    <span id="spanVechReg">Vehicle Registration@(((Model.VehicleRegistration ?? 0) / 15) > 0 ? " (" + ((Model.VehicleRegistration ?? 0) / 15).ToString() + " Vehicle)" : ""): @(((Model.VehicleRegistration ?? 0) / 15) > 0 ? " (" + ((Model.VehicleRegistration ?? 0) / 15).ToString() + " Vehicle)" : "")</span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span>
@@ -1299,29 +1306,37 @@
                                         </div>
                                         <div class="col-sm-12 clear">&nbsp;</div>
                                         <div class="col-sm-12 clear">
-                                            <div class="col-sm-2"></div>
-                                            <div class="col-sm-3">
-                                                <span>Online Non-refundable Application Fee</span>
+                                            <div class="col-sm-12 text-center">
+                                                <span>Online Non-refundable Application Fee &nbsp;</span>: <span>$@((Model.ApplicationFees ?? 0).ToString("0.00"))/per Applicant/ Co-Applicant  (Credit Check:$@((Model.AppCCCheckFees ?? 0).ToString("0.00")) + Background Check:@((Model.AppBGCheckFees ?? 0).ToString("0.00")))</span>
                                             </div>
-                                            <div class="col-sm-1"></div>
-                                            <div class="col-sm-3">
-                                                <span>$@((Model.ApplicationFees ?? 0).ToString("0.00"))/per Applicant/ Co-Applicant</span>
-                                            </div>
-                                            <div class="col-sm-2"></div>
                                         </div>
+                                        @*<div class="col-sm-12 clear">
+                                                <div class="col-sm-2"></div>
+                                                <div class="col-sm-3">
+                                                    <span>Online Non-refundable Application Fee</span>
+                                                </div>
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-3">
+                                                    <span>$@((Model.ApplicationFees ?? 0).ToString("0.00"))/per Applicant/ Co-Applicant  (Credit Check:$@((Model.AppCCCheckFees ?? 0).ToString("0.00")) + Background Check:@((Model.AppBGCheckFees ?? 0).ToString("0.00")))</span>
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                            </div>*@
                                         <div class="col-sm-12 clear">
-                                            <div class="col-sm-2"></div>
-
-                                            <div class="col-sm-3">
-                                                <span>Online Non-refundable Guarantor Fee &nbsp;</span>
-
+                                            <div class="col-sm-12 text-center">
+                                                <span>Online Non-refundable Guarantor Fee &nbsp;</span>: <span>&nbsp;$@((Model.GuarantorFees ?? 0).ToString("0.00")) (Credit Check:$@((Model.GuaCCCheckFees ?? 0).ToString("0.00")) + Background Check:@((Model.GuaBGCheckFees ?? 0).ToString("0.00")))</span>
                                             </div>
-                                            <div class="col-sm-1"></div>
-                                            <div class="col-sm-3">
-                                                <span>&nbsp;$@((Model.GuarantorFees ?? 0).ToString("0.00"))</span>
-                                            </div>
-                                            <div class="col-sm-2"></div>
                                         </div>
+                                        @*<div class="col-sm-12 clear">
+                                                <div class="col-sm-2"></div>
+                                                <div class="col-sm-3">
+                                                    <span>Online Non-refundable Guarantor Fee &nbsp;</span>
+                                                </div>
+                                                <div class="col-sm-1"></div>
+                                                <div class="col-sm-3">
+                                                    <span>&nbsp;$@((Model.GuarantorFees ?? 0).ToString("0.00")) (Credit Check:$@((Model.GuaCCCheckFees ?? 0).ToString("0.00")) + Background Check:@((Model.GuaBGCheckFees ?? 0).ToString("0.00")))</span>
+                                                </div>
+                                                <div class="col-sm-2"></div>
+                                            </div>*@
                                     </div>
                                 </div>
                             </div>
@@ -1374,7 +1389,7 @@
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnext" onclick="goToStep(8,8,0)" > Continue</button>
+                                    <button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnext" onclick="goToStep(8,8,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1394,7 +1409,7 @@
                                         <div class="col-md-3"></div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-8">
-                                                <span>Vehicle Registration: </span>
+                                                <span id="spanVechReg1">Vehicle Registration@(((Model.VehicleRegistration ?? 0) / 15) > 0 ? " (" + ((Model.VehicleRegistration ?? 0) / 15).ToString() + " Vehicle)" : ""): </span>
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
@@ -1412,7 +1427,7 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-8">
-                                                <span>Pet Deposit: </span>
+                                                <span id="spPetNRDep6">Pet Non-refundable Deposit: </span>
                                             </div>
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-3">
@@ -1736,7 +1751,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                <div class="col-sm-4">
+                                <div id="divIDDocumentType" class="col-sm-4">
                                     <div class="form-group">
                                         <label for="ddlDocumentType" class="star">ID Type</label>
                                         <select id="ddlDocumentTypePersonal" class="form-control " style="width:100%!important"></select>
@@ -1980,16 +1995,16 @@
                                     </div>
                                 </div>
                                 @*<div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="txtMoveInDate" class="star"> Move Out Date</label>
-                            <input id="txtMoveInDateTo" type="text" class="form-control form-control-small" value="" />
+                                        <div class="form-group">
+                                            <label for="txtMoveInDate" class="star"> Move Out Date</label>
+                                            <input id="txtMoveInDateTo" type="text" class="form-control form-control-small" value="" />
 
-                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 209px;">
-                                <button class="btn btn-primary search" id="SPMoveInDateT" type="button"><i class="fa-calendar fa"></i></button>
-                            </span>
+                                            <span class="input-group-btn pull-left" style="margin-top: -34px;margin-left: 209px;">
+                                                <button class="btn btn-primary search" id="SPMoveInDateT" type="button"><i class="fa-calendar fa"></i></button>
+                                            </span>
 
-                        </div>
-                    </div>*@
+                                        </div>
+                                    </div>*@
                                 <div class="col-sm-4">
                                     <label for="txtMonthlyPayment"> Monthly Payment </label>
                                     <div class="input-group">
@@ -2009,13 +2024,13 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label id="lbl_txtManagementCompany" class="star">Management Company</label>
+                                        <label id="lbl_txtManagementCompany" class="star">Landlord/Management Company</label>
                                         <input class="form-control form-control-small" id="txtManagementCompany" max="500" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label id="lbl_txtManagementCompanyPhone" class="star">Management Company Phone</label>
+                                        <label id="lbl_txtManagementCompanyPhone" class="star">Landlord/Management Company Phone</label>
                                         <input class="form-control form-control-small" id="txtManagementCompanyPhone" maxlength="10" onkeypress="return isNumber(event)" />
                                     </div>
                                 </div>
@@ -2153,13 +2168,13 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Supervisor Name</label>
+                                        <label class="star">Supervisor Name</label>
                                         <input id="txtSupervisiorName" class="form-control form-control-small" type="text" />
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <label>Supervisor Phone</label>
+                                        <label class="star">Supervisor Phone</label>
                                         <input id="txtSupervisiorPhone" class="form-control form-control-small" type="text" onkeypress="return isOnlyNumber(event)" maxlength="10" />
                                     </div>
                                 </div>
@@ -2172,47 +2187,108 @@
                             </div>
 
                             <div class="col-sm-12">
-                                <p>Upload last 3 paystubs or if self-employed last 2 year's Fedral Tax Returns</p>
+                                @*<p>Upload last 3 paystubs or if self-employed last 2 year's Fedral Tax Returns or 3 consecutive bank statements</p>*@
+                                <p>Upload last 3 paystubs or if self-employed last 2 year's Fedral Tax Returns or  3 consecutive bank statements. You must select two of the following three options.</p>
                             </div>
                             <div class="col-sm-12">
                                 <div class="col-sm-4">
                                     <div class="form-group">
-                                        <input id="rbtnPaystub" class="form-control form-control-small" type="radio" name="tax" />
-                                        <label for="rbtnPaystub">Paystub</label>
-                                        <input id="rbtnFedralTax" class="form-control form-control-small" type="radio" name="tax" checked="checked" />
+                                        <input id="rbtnPaystub" class="form-control form-control-small empup" type="checkbox" name="tax" />
+                                        <label for="rbtnPaystub">Paystub</label>&nbsp;&nbsp;
+                                        <input id="rbtnFedralTax" class="form-control form-control-small empup" type="checkbox" name="tax" checked="checked" />
                                         <label for="rbtnFedralTax">Fedral Tax Return</label>
+                                        &nbsp;&nbsp;
+                                        <input id="rbtnBankStatement" class="form-control form-control-small empup" type="checkbox" name="tax" />
+                                        <label for="rbtnBankStatement">Bank Statements</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUpload1">Upload 1</label><br />
-                                        <input type="file" name="fileUploadTaxReturn1" id="fileUploadTaxReturn1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadTaxReturn1"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn1Show">Choose a file&hellip;</span></label>
-                                        <input type="hidden" id="hndHasTaxReturnFile1" value="0" />
-                                        <input type="hidden" id="hndFileUploadName1" value="0" />
-                                        <input type="hidden" id="hndOriginalFileUploadName1" value="0" />
+                                <div id="divFederalTax">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="star" id="lblUpload1">Fedral Tax Return 1</label><br />
+                                            <input type="file" name="fileUploadTaxReturn1" id="fileUploadTaxReturn1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                            <label for="fileUploadTaxReturn1"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn1Show">Choose a file&hellip;</span></label>
+                                            <input type="hidden" id="hndHasTaxReturnFile1" value="0" />
+                                            <input type="hidden" id="hndFileUploadName1" value="0" />
+                                            <input type="hidden" id="hndOriginalFileUploadName1" value="0" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="star" id="lblUpload2">Fedral Tax Return 2</label><br />
+                                            <input type="file" name="fileUploadTaxReturn2" id="fileUploadTaxReturn2" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                            <label for="fileUploadTaxReturn2"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn2Show">Choose a file&hellip;</span></label>
+                                            <input type="hidden" id="hndHasTaxReturnFile2" value="0" />
+                                            <input type="hidden" id="hndFileUploadName2" value="0" />
+                                            <input type="hidden" id="hndOriginalFileUploadName2" value="0" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUpload2">Upload 2</label><br />
-                                        <input type="file" name="fileUploadTaxReturn2" id="fileUploadTaxReturn2" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadTaxReturn2"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn2Show">Choose a file&hellip;</span></label>
-                                        <input type="hidden" id="hndHasTaxReturnFile2" value="0" />
-                                        <input type="hidden" id="hndFileUploadName2" value="0" />
-                                        <input type="hidden" id="hndOriginalFileUploadName2" value="0" />
+                                <div id="divUpload3" class="hidden">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="star" id="lblUpload4">Paystub 1</label><br />
+                                            <input type="file" name="fileUploadTaxReturn4" id="fileUploadTaxReturn4" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                            <label for="fileUploadTaxReturn4"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn4Show">Choose a file&hellip;</span></label>
+                                            <input type="hidden" id="hndHasTaxReturnFile4" value="0" />
+                                            <input type="hidden" id="hndFileUploadName4" value="0" />
+                                            <input type="hidden" id="hndOriginalFileUploadName4" value="0" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="star" id="lblUpload5">Paystub 2</label><br />
+                                            <input type="file" name="fileUploadTaxReturn5" id="fileUploadTaxReturn5" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                            <label for="fileUploadTaxReturn5"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn5Show">Choose a file&hellip;</span></label>
+                                            <input type="hidden" id="hndHasTaxReturnFile5" value="0" />
+                                            <input type="hidden" id="hndFileUploadName5" value="0" />
+                                            <input type="hidden" id="hndOriginalFileUploadName5" value="0" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="star" id="lblUpload3">Paystub 3</label><br />
+                                            <input type="file" name="fileUploadTaxReturn3" id="fileUploadTaxReturn3" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                            <label for="fileUploadTaxReturn3"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn3Show">Choose a file&hellip;</span></label>
+                                            <input type="hidden" id="hndHasTaxReturnFile3" value="0" />
+                                            <input type="hidden" id="hndFileUploadName3" value="0" />
+                                            <input type="hidden" id="hndOriginalFileUploadName3" value="0" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4" id="divUpload3">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUpload3">Upload 3</label><br />
-                                        <input type="file" name="fileUploadTaxReturn3" id="fileUploadTaxReturn3" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadTaxReturn3"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn3Show">Choose a file&hellip;</span></label>
-                                        <input type="hidden" id="hndHasTaxReturnFile3" value="0" />
-                                        <input type="hidden" id="hndFileUploadName3" value="0" />
-                                        <input type="hidden" id="hndOriginalFileUploadName3" value="0" />
+                                @*Sachin M 11 May 2020*@
+                                <div id="divBankUpload" class="hidden">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="star" id="lblUploadBankState1">Bank Statement 1</label><br />
+                                            <input type="file" name="fileBankState1" id="fileBankState1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                            <label for="fileBankState1"><i class="fa fa-upload fa-2x"></i> <span id="fileBankState1Show">Choose a file&hellip;</span></label>
+                                            <input type="hidden" id="hndHasBankStateFile1" value="0" />
+                                            <input type="hidden" id="hndFileUploadNameBankState1" value="0" />
+                                            <input type="hidden" id="hndOriginalFileUploadNameBankState1" value="0" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="star" id="lblUploadBankState2">Bank Statement 2</label><br />
+                                            <input type="file" name="fileBankState2" id="fileBankState2" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                            <label for="fileBankState2"><i class="fa fa-upload fa-2x"></i> <span id="fileBankState2Show">Choose a file&hellip;</span></label>
+                                            <input type="hidden" id="hndHasBankStateFile2" value="0" />
+                                            <input type="hidden" id="hndFileUploadNameBankState2" value="0" />
+                                            <input type="hidden" id="hndOriginalFileUploadNameBankState2" value="0" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label class="star" id="lblUploadBankState3">Bank Statement 3</label><br />
+                                            <input type="file" name="fileBankState3" id="fileBankState3" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                            <label for="fileBankState3"><i class="fa fa-upload fa-2x"></i> <span id="fileBankState3Show">Choose a file&hellip;</span></label>
+                                            <input type="hidden" id="hndHasBankStateFile3" value="0" />
+                                            <input type="hidden" id="hndFileUploadNameBankState3" value="0" />
+                                            <input type="hidden" id="hndOriginalFileUploadNameBankState3" value="0" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2445,7 +2521,7 @@
                                         <h3 class="panel-title">Vehicle Information </h3>
                                         <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>
                                     </div>
-                                    <div class="row">
+                                    <div class="row hidden" id="divDontHaveVeh">
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <input type="checkbox" id="chkDontHaveVehicle" onchange="haveVehicle()" />  I don't have a vehicle.
@@ -3039,7 +3115,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span id="">Management Company : </span>
+                                                    <span id="">Landlord/Management Company : </span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     <span id="sumAManagementCompany"></span>
@@ -3049,7 +3125,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span id="">Management Company Phone:</span>
+                                                    <span id="">Landlord/Management Company Phone:</span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     <span id="sumAManagementCompanyPhone"></span>
@@ -3092,34 +3168,34 @@
 
                                             </div>
                                             @*<div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Landlord Name : </span>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <span id="sdd">211212</span>
-                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Name : </span>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Landlord Phone : </span>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <span id="sdd">211212</span>
-                                    </div>
-
-
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Landlord Email : </span>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <span id="sdd">211212</span>
-                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Phone : </span>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
 
-                                </div>*@
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Email : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
+
+
+                                                </div>*@
                                         </div>
                                     </div>
 
@@ -3161,7 +3237,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span id="">Management Company : </span>
+                                                    <span id="">Landlord/Management Company : </span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     <span id="SuManagementCompany"></span>
@@ -3169,7 +3245,7 @@
                                             </div>
                                             <div class="col-sm-12">
                                                 <div class="col-sm-5">
-                                                    <span id="">Management Company Phone:</span>
+                                                    <span id="">Landlord/Management Company Phone:</span>
                                                 </div>
                                                 <div class="col-sm-7">
                                                     <span id="SuManagementCompanyPhone"></span>
@@ -3205,41 +3281,41 @@
                                                 </div>
                                             </div>
                                             @*<div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Landlord Name : </span>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <span id="sdd">211212</span>
-                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Name : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                                    <div class="col-sm-6">
-                                        <span id="">&nbsp;</span>
-                                    </div>
-                                </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                             @*<div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Landlord Phone : </span>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <span id="sdd">211212</span>
-                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Phone : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                                    <div class="col-sm-6">
-                                        <span id="">&nbsp;</span>
-                                    </div>
-                                </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                             @*<div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Landlord Email : </span>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <span id="sdd">211212</span>
-                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Email : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                                    <div class="col-sm-6">
-                                        <span id="">&nbsp;</span>
-                                    </div>
-                                </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                         </div>
                                     </div>
 
@@ -3333,17 +3409,17 @@
                                                 </div>
                                             </div>
                                             @*<div class="col-sm-12">
-                                    <div class="col-sm-4">
-                                        <span id="">Gross Monthly Additional Income Source : </span>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <span id="sdd">211212</span>
-                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Gross Monthly Additional Income Source : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                                    <div class="col-sm-6">
-                                        <span id="">&nbsp;</span>
-                                    </div>
-                                </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4">
                                                     <span id="">Employer Phone : </span>
@@ -3803,19 +3879,23 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody></tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="5"> <div class="dot-hr"></div></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th><b>Total Payble Amount</b></th>
+                                                        <th><b><label id="totalFinalFees" style="font-weight: bold;"></label></b></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </tfoot>
                                             </table>
 
                                         </div>
 
                                     </div>
-                                    <div class="col-sm-12">
-                                        <div class="dot-hr"></div>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <div class="col-sm-5"><b>Total Payble Amount</b></div>
-                                        <div class="col-sm-2" style="margin-left: 30px;"><b><label id="totalFinalFees"></label></b></div>
-                                    </div>
-
                                     <input type="hidden" id="hndTransID" value="0" />
                                     <input type="hidden" id="hndTransMethod" value="2" />
                                     <div class="col-sm-12">
@@ -3901,7 +3981,7 @@
                                         </div>
                                         <div class="form-group col-sm-2">
                                             <label for="txtCcvNumber" class="star">CVV Number</label>
-                                            <input type="password" class="form-control" id="txtCCVNumber" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="@Model.CCVNumber">
+                                            <input type="password" class="form-control" id="txtCCVNumber" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
                                         </div>
 
                                     </div>
@@ -3909,11 +3989,13 @@
                                     <div class="col-sm-12">
                                         <div class="dot-hr"></div>
                                     </div>
-                                    <div class="col-sm-8">
-
-                                        <button type="submit" class="btn btn-primary" id="btnpaynow" onclick="savePayment()" disabled>Pay Now</button>
+                                    <div class="col-sm-12" style="margin-bottom:20px">
+                                        <input type="checkbox" id="chkTermsAndCondition">
+                                        <span class="chektext">
+                                            I agree to the
+                                            <span class="span1"><a id="ShowTermsAndCondition" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <button type="submit" class="btn btn-primary" id="btnpaynow" onclick="savePayment()" disabled>Pay Now</button>
+                                        </span>
                                     </div>
-
                                 </div>
 
                                 <div class="col-sm-12 hidden" id="Divtranslist">
@@ -3925,14 +4007,12 @@
                                         <table id="tblTransaction" class="table-bordered table-responsive" width="100%">
                                             <thead>
                                                 <tr>
-
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">Name</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Trans Date</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Amount</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Trans Type</th>
-
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Description</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Status</th>
-                                                    @*<th style="background-color: #c7cdd5;color:#3d3939">Created Date</th>*@
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -4200,19 +4280,17 @@
                         <table class="" cellspacing="0" style="width:100%;">
                             <thead>
                                 <tr>
-                                    <th class="pds-cityname" onclick="sortTableStorage(0)" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;cursor: pointer;">Storage</th>
-                                    <th class="pds-cityname" onclick="sortTableStorage(1)" style="background-color: #c7cdd5;color:#3d3939;width:48%;text-align:center;cursor: pointer;">Description</th>
-                                    <th class="pds-cityname" onclick="sortTableStorage(2)" style="background-color: #c7cdd5;color:#3d3939;width:16%;text-align:center;cursor: pointer;">Charges</th>
-                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;cursor: pointer;">Add</th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;cursor: pointer;" onclick="sortTableStorage1('Storage1Storage')">Storage <i id="SortIconStorage1Storage"></i></th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:48%;text-align:center;cursor: pointer;" onclick="sortTableStorage1('Storage1Description')">Description <i id="SortIconStorage1Description"></i></th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:16%;text-align:center;cursor: default;">Charges <i id="SortIconStorage1Charges"></i></th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;cursor: default;">Add</th>
                                 </tr>
                             </thead>
                         </table>
                     </div>
                     <div style="width:100%;height:350px;overflow-y:scroll;">
                         <table id="tblStorage1" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%;height:50px;">
-                            <tbody style="width:100%;height:100%;">
-                              
-                            </tbody>
+                            <tbody style="width:100%;height:100%;"></tbody>
                         </table>
                     </div>
                 </div>
@@ -4425,7 +4503,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-12">
+                <div class="col-sm-12 hidden">
 
                     <div class="col-sm-4" id="divPopIDType">
                         <div class="form-group">
@@ -4616,13 +4694,13 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="star">Tag</label>
-                        <input id="txtVehicleTag" type="text" class="form-control"  value="">
+                        <input id="txtVehicleTag" type="text" class="form-control" value="">
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="star">Parking Space</label>
-                        <select id="ddlParking" class="form-control" ></select>
+                        <select id="ddlParking" class="form-control"></select>
                     </div>
                 </div>
                 <div class="col-sm-12">
@@ -4891,13 +4969,13 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label id="lbl_txtManagementCompany2" class="star">Management Company</label>
+                            <label id="lbl_txtManagementCompany2" class="star">Landlord/Management Company</label>
                             <input class="form-control form-control-small" id="txtManagementCompany2" max="500" />
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label id="lbl_txtManagementCompanyPhone2" class="star">Management Company Phone</label>
+                            <label id="lbl_txtManagementCompanyPhone2" class="star">Landlord/Management Company Phone</label>
                             <input class="form-control form-control-small" id="txtManagementCompanyPhone2" maxlength="10" onkeypress="return isNumber(event)" />
                         </div>
                     </div>
@@ -4960,7 +5038,7 @@
                         <td colspan="2">
 
                             <p style="font-size:small; color:#838383;">Before you proceed, we want to let you know that Sanctuary uses a third-party screening company which utilizes certain guidelines to qualify applicants for residency in our community.  Before you apply, we want to inform you of some of the criteria, so you can determine your options. </p>
-                            <p style="font-size:small; color:#838383;"><b>The rental application fee per applicant and co-applicant is @((Model.ApplicationFees ?? 0).ToString("0.00")) and is non-refundable.  If a Guarantor is provided, the Guarantor must also complete an application and pay a non-refundable fee of @((Model.GuarantorFees ?? 0).ToString("0.00")).</b> Because there are no exceptions, it is important that you review this document carefully before applying, making certain that to the best of your knowledge you meet the rental qualifications shown below. </p>
+                            <p style="font-size:small; color:#838383;"><b>The rental application fee per applicant and co-applicant is $@((Model.ApplicationFees ?? 0).ToString("0.00")) (Credit Check:$@((Model.AppCCCheckFees ?? 0).ToString("0.00")) + Background Check:$ @((Model.AppBGCheckFees ?? 0).ToString("0.00"))) and is non-refundable.  If a Guarantor is provided, the Guarantor must also complete an application and pay a non-refundable fee of @((Model.GuarantorFees ?? 0).ToString("0.00")).</b> Because there are no exceptions, it is important that you review this document carefully before applying, making certain that to the best of your knowledge you meet the rental qualifications shown below. </p>
                             <p style="font-size:small; color:#838383;">Additionally, we want to make sure you are happy with your decision to join our community, so we put together this list of Rules and Policies created to ensure a safe and enjoyable environment for all residents.  Before you proceed to apply, you will be kindly asked to accept the Rules and Policies  </p>
                             <p style="font-size:small; color:#838383;">Masmar Management, LLC, Sanctuary’s property management, does not discriminate against persons based on race, color, religion, national origin, familial status, or disability.  Although all residents are subjected to the screening process, nothing contained in these requirements shall constitute representation by Masmar that all residents and occupants currently residing in our community have met or currently meet these guidelines.</p>
 
@@ -5203,13 +5281,13 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label>Supervisor Name</label>
+                                <label class="star">Supervisor Name</label>
                                 <input id="txtSupervisiorNameHEI" class="form-control form-control-small" type="text" />
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label>Supervisor Phone</label>
+                                <label class="star">Supervisor Phone</label>
                                 <input id="txtSupervisiorPhoneHEI" class="form-control form-control-small" type="text" onkeypress="return isOnlyNumber(event)" maxlength="10" />
                             </div>
                         </div>
@@ -5410,7 +5488,10 @@
                                 </thead>
                                 <tr>
                                     <td>APPLICATION FEE : </td>
-                                    <td>$ <span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/per applicant</span></td>
+                                    <td>
+                                        $ <span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/per applicant</span>
+                                        <br />$ <span style="text-decoration:underline;font-weight:bold;">Credit Check:$@((Model.ApplicationFees ?? 0).ToString("0.00")) + Background Check: $@((Model.AppBGCheckFees ?? 0).ToString("0.00"))</span>
+                                    </td>
                                     <td>Security Deposit ** </td>
                                     <td>$ <span style="text-decoration:underline;font-weight:bold;" id="fdepo">@((Model.Deposit ?? 0).ToString("0.00"))</span></td>
                                 </tr>
@@ -5429,7 +5510,7 @@
                                 <tr>
                                     <td></td>
                                     <td></td>
-                                    <td><span>Vehicle Registration: </span></td>
+                                    <td><span>Vehicle Registration@(((Model.VehicleRegistration ?? 0) / 15) > 0 ? " (" + ((Model.VehicleRegistration ?? 0) / 15).ToString() + " Vehicle)" : ""): </span></td>
                                     <td>$ <span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span></td>
                                 </tr>
                                 <tr>
@@ -5568,6 +5649,16 @@
             </div>
             <div class="modal-footer-custom">
                 <button id="quotePrint" class="btn btn-primary" onclick="print('divQuotes')"> Print</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal " id="modalTermsCondition" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
+    <div class="modal-dialog" style="width:1100px">
+        <div class="modal-content" style="width: 100% !important;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <div class="modal-body text-center">
+                <div><iframe src="~/Content/assets/img/Document/TermAndCondition.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
             </div>
         </div>
     </div>
@@ -5876,6 +5967,29 @@
     }
 </style>
 <script>
+    //$.jTimeout({
+    //    flashTitle: true,
+    //    flashTitleSpeed: 500,
+    //    flashingTitleText: '**WARNING**',
+    //    originalTitle: document.title,
+    //    timeoutAfter: 120,
+    //    heartbeat: 1,
+    //    extendOnMouseMove: true,
+    //    mouseDebounce: 30,
+    //    onMouseMove: function (timeout) {
+    //        $.get(timeout.options.extendUrl, function () {
+    //            timeout.resetExpiration();
+    //        });
+    //    },
+    //    'loginUrl': '/Account/Login',
+    //    'logoutUrl': '/Account/Login',
+    //    'extendUrl': '/home/index',
+    //    secondsPrior: 60,
+    //    triggerResetOnAlert: false
+    //});
+
+    $.jTimeout();
+
     function printFloorPlanDetails(divName) {
         let printContents, popupWin;
         printContents = document.getElementById(divName).innerHTML;
@@ -6040,12 +6154,12 @@
         });
 
         $("#ddlGenderReg").on("change", function () {
-            if ($(this).val() == 2) {
-                $("#lblMiddleInitialReg").addClass("star");
-            }
-            else {
-                $("#lblMiddleInitialReg").removeClass("star");
-            }
+            //if ($(this).val() == 2) {
+            //    $("#lblMiddleInitialReg").addClass("star");
+            //}
+            //else {
+            //    $("#lblMiddleInitialReg").removeClass("star");
+            //}
             if ($(this).val() == 3) {
                 $("#txtOtherGenderReg").attr("disabled", false);
             }
@@ -6078,7 +6192,7 @@
             $("#lblProrated_PetRent").text('0.00');
             $("#lblProrated_PetRent_print").text('0.00');
         }
-       
+
         fillMarketSourceDDL();
         if (@Model.ProspectId != 0) {
             if (@Model.HasPropertyList==1) {
@@ -6176,12 +6290,12 @@
 
 
         $('#ddlApplicantGender').on('change', function () {
-            if ($(this).val() == 2) {
-                $("#lbl_txtApplicantMiddleName").addClass("star");
-            }
-            else {
-                $("#lbl_txtApplicantMiddleName").removeClass("star");
-            }
+            //if ($(this).val() == 2) {
+            //    $("#lbl_txtApplicantMiddleName").addClass("star");
+            //}
+            //else {
+            //    $("#lbl_txtApplicantMiddleName").removeClass("star");
+            //}
             if ($(this).val() == '3') {
                 $('#txtApplicantOtherGender').removeAttr('disabled', 'disabled');
             }

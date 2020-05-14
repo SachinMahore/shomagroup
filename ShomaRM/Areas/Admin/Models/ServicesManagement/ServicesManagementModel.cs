@@ -407,11 +407,13 @@ namespace ShomaRM.Areas.Admin.Models
                 message = "Your service of " + model.ProblemCategorystring + " (facility) on " + model.PermissionComeDate.Value.ToString("MM/dd/yyyy") + " (date) at " + model.PermissionComeTime + " to " + userdetail.FirstName + " " + userdetail.LastName + ". Please check the email for detail.";
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
 
                 db.Dispose();
-
             }
             return msg;
         }
@@ -635,9 +637,12 @@ namespace ShomaRM.Areas.Admin.Models
 
                     string body = reportHTML;
                     new EmailSendModel().SendEmail(GetTenantData.Email, "Estimate of Repair", body);
-                    if (sendMessage == "yes")
+                    if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                     msg = "Estimate Saved Successfully";
 
@@ -682,9 +687,12 @@ namespace ShomaRM.Areas.Admin.Models
 
                         string body = reportHTML;
                         new EmailSendModel().SendEmail(GetTenantData.Email, "Estimate of Repair", body);
-                        if (sendMessage == "yes")
+                        if (SendMessage == "yes")
                         {
-                            new TwilioService().SMS(phonenumber, message);
+                            if (!string.IsNullOrWhiteSpace(phonenumber))
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
                         }
                         msg = "Estimate Updated Successfully";
                     }
@@ -705,7 +713,10 @@ namespace ShomaRM.Areas.Admin.Models
                         new EmailSendModel().SendEmail(GetTenantData.Email, "Invoice of Repair", body);
                         if (SendMessage == "yes")
                         {
-                            new TwilioService().SMS(phonenumber, message);
+                            if (!string.IsNullOrWhiteSpace(phonenumber))
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
                         }
                         msg = "Service Invoice Generated Successfully";
 

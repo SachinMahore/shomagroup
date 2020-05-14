@@ -117,11 +117,12 @@ namespace ShomaRM.Models
         public string UploadOriginalFileName2 { get; set; }
         public string tempUpload3 { get; set; }
         public string UploadOriginalFileName3 { get; set; }
+       
         public string tempPassportUpload { get; set; }
         public string UploadOriginalPassportName { get; set; }
         public string tempIdentityUpload { get; set; }
         public string UploadOriginalIdentityName { get; set; }
-        public bool IsPaystub { get; set; }
+        public int IsPaystub { get; set; }
         public string StatePersonalString { get; set; }
         public string StateHomeString { get; set; }
         public string CountryString { get; set; }
@@ -158,6 +159,33 @@ namespace ShomaRM.Models
 
         public string CreatedDateString { get; set; }
         public string ExpireDate { get; set; }
+        //sachin m 11 may
+        public string TaxReturn4 { get; set; }
+        public string TaxReturn5 { get; set; }
+        public string TaxReturn6 { get; set; }
+        public string TaxReturn7 { get; set; }
+        public string TaxReturn8 { get; set; }
+        public string tempUpload4 { get; set; }
+        public string UploadOriginalFileName4 { get; set; }
+        public string tempUpload5 { get; set; }
+        public string UploadOriginalFileName5 { get; set; }
+        public string tempUpload6 { get; set; }
+        public string UploadOriginalFileName6 { get; set; }
+        public string tempUpload7 { get; set; }
+        public string UploadOriginalFileName7 { get; set; }
+        public string tempUpload8 { get; set; }
+        public string UploadOriginalFileName8 { get; set; }
+        public int IsFedralTax { get; set; }
+        public int IsBankState { get; set; }
+        //sachin m 13 may
+        public List<ApplicantHistoryModel> lstaph { get; set; }
+        public string StateString { get; set; }
+        public string RentOwnString { get; set; }
+        public string AppType { get; set; }
+        public Nullable<int> ResidenceStatus { get; set; }
+        public string ResidenceNotes { get; set; }
+        public Nullable<int> EmpStatus { get; set; }
+        public string EmpNotes { get; set; }
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -475,7 +503,7 @@ namespace ShomaRM.Models
                     lstpr.UploadOriginalFileName3 = dr["TaxReturnOrginalFile3"].ToString();
                     lstpr.UploadOriginalPassportName = dr["PassportDocumentOriginalFile"].ToString();
                     lstpr.UploadOriginalIdentityName = dr["IdentityDocumentOriginalFile"].ToString();
-                    lstpr.IsPaystub = Convert.ToBoolean(dr["IsPaystub"].ToString());
+                    lstpr.IsPaystub = Convert.ToInt32(dr["IsPaystub"].ToString());
 
                     lstpr.CountryOfOrigin = Convert.ToInt64(dr["CountryOfOrigin"].ToString());
                     lstpr.Evicted = Convert.ToInt32(dr["Evicted"].ToString());
@@ -538,6 +566,20 @@ namespace ShomaRM.Models
                     lstpr.StringReferredResident = Convert.ToInt32(dr["ReferredResident"]) == 1 ? "No" : "Yes";
                     lstpr.StringReferredBrokerMerchant = Convert.ToInt32(dr["ReferredBrokerMerchant"]) == 1 ? "No" : "Yes";
                     lstpr.stringIsProprNoticeLeaseAgreement = Convert.ToInt32(dr["IsProprNoticeLeaseAgreement"]) == 1 ? "Yes" : "No";
+
+                    //sachin m 11 may
+                    lstpr.TaxReturn4 = dr["TaxReturn4"].ToString();
+                    lstpr.TaxReturn5 = dr["TaxReturn5"].ToString();
+                    lstpr.TaxReturn6 = dr["TaxReturn6"].ToString();
+                    lstpr.TaxReturn7 = dr["TaxReturn7"].ToString();
+                    lstpr.TaxReturn8 = dr["TaxReturn8"].ToString();
+                    lstpr.UploadOriginalFileName4 = dr["TaxReturnOrginalFile4"].ToString();
+                    lstpr.UploadOriginalFileName5 = dr["TaxReturnOrginalFile5"].ToString();
+                    lstpr.UploadOriginalFileName6 = dr["TaxReturnOrginalFile6"].ToString();
+                    lstpr.UploadOriginalFileName7 = dr["TaxReturnOrginalFile7"].ToString();
+                    lstpr.UploadOriginalFileName8 = dr["TaxReturnOrginalFile8"].ToString();
+                    lstpr.IsFedralTax = Convert.ToInt32(dr["IsFedralTax"].ToString());
+                    lstpr.IsBankState = Convert.ToInt32(dr["IsBankState"].ToString());
 
                     var stepCompleted = Convert.ToInt32(dr["StepCompleted"].ToString());
                     lstpr.StepCompleted = stepCompleted;
@@ -676,6 +718,20 @@ namespace ShomaRM.Models
                     getAppldata.ManagementCompany = model.ManagementCompany;
                     getAppldata.ManagementCompanyPhone = model.ManagementCompanyPhone;
                     getAppldata.IsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement;
+
+                    //sachin m 11 may
+                    getAppldata.TaxReturn4 = model.TaxReturn4;
+                    getAppldata.TaxReturn5 = model.TaxReturn5;
+                    getAppldata.TaxReturn6 = model.TaxReturn6;
+                    getAppldata.TaxReturn7 = model.TaxReturn7;
+                    getAppldata.TaxReturn8 = model.TaxReturn8;
+                    getAppldata.TaxReturnOrginalFile4 = model.UploadOriginalFileName4;
+                    getAppldata.TaxReturnOrginalFile5 = model.UploadOriginalFileName5;
+                    getAppldata.TaxReturnOrginalFile6 = model.UploadOriginalFileName6;
+                    getAppldata.TaxReturnOrginalFile7 = model.UploadOriginalFileName7;
+                    getAppldata.TaxReturnOrginalFile8 = model.UploadOriginalFileName8;
+                    getAppldata.IsFedralTax = model.IsFedralTax;
+                    getAppldata.IsBankState = model.IsBankState;
 
                     db.SaveChanges();
                     //Sachin Mahore 21 Apr 2020
@@ -827,6 +883,19 @@ namespace ShomaRM.Models
                     getAppldata.IsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement;
 
                     getAppldata.StepCompleted = model.StepCompleted;
+
+                    getAppldata.TaxReturn4 = model.TaxReturn4;
+                    getAppldata.TaxReturn5 = model.TaxReturn5;
+                    getAppldata.TaxReturn6 = model.TaxReturn6;
+                    getAppldata.TaxReturn7 = model.TaxReturn7;
+                    getAppldata.TaxReturn8 = model.TaxReturn8;
+                    getAppldata.TaxReturnOrginalFile4 = model.UploadOriginalFileName4;
+                    getAppldata.TaxReturnOrginalFile5 = model.UploadOriginalFileName5;
+                    getAppldata.TaxReturnOrginalFile6 = model.UploadOriginalFileName6;
+                    getAppldata.TaxReturnOrginalFile7 = model.UploadOriginalFileName7;
+                    getAppldata.TaxReturnOrginalFile8 = model.UploadOriginalFileName8;
+                    getAppldata.IsFedralTax = model.IsFedralTax;
+                    getAppldata.IsBankState = model.IsBankState;
 
                     db.SaveChanges();
                 }
@@ -1026,6 +1095,190 @@ namespace ShomaRM.Models
             }
             return tenantModelU3;
         }
+
+
+        public TenantOnlineModel SaveTaxUpload4(HttpPostedFileBase fileBaseUpload4, TenantOnlineModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel tenantModelU3 = new TenantOnlineModel();
+            if (model.ProspectID != 0)
+            {
+                string filePath = "";
+                string fileName = "";
+                string sysFileName = "";
+                string Extension = "";
+
+                if (fileBaseUpload4 != null && fileBaseUpload4.ContentLength > 0)
+                {
+                    filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
+                    DirectoryInfo di = new DirectoryInfo(filePath);
+                    FileInfo _FileInfo = new FileInfo(filePath);
+                    if (!di.Exists)
+                    {
+                        di.Create();
+                    }
+                    fileName = fileBaseUpload4.FileName;
+                    Extension = Path.GetExtension(fileBaseUpload4.FileName);
+                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload4.FileName);
+                    fileBaseUpload4.SaveAs(filePath + "//" + sysFileName);
+                    if (!string.IsNullOrWhiteSpace(fileBaseUpload4.FileName))
+                    {
+                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
+
+                    }
+                    tenantModelU3.tempUpload4 = sysFileName.ToString();
+                    tenantModelU3.UploadOriginalFileName4 = fileName;
+                }
+
+            }
+            return tenantModelU3;
+        }
+        public TenantOnlineModel SaveTaxUpload5(HttpPostedFileBase fileBaseUpload5, TenantOnlineModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel tenantModelU3 = new TenantOnlineModel();
+            if (model.ProspectID != 0)
+            {
+                string filePath = "";
+                string fileName = "";
+                string sysFileName = "";
+                string Extension = "";
+
+                if (fileBaseUpload5 != null && fileBaseUpload5.ContentLength > 0)
+                {
+                    filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
+                    DirectoryInfo di = new DirectoryInfo(filePath);
+                    FileInfo _FileInfo = new FileInfo(filePath);
+                    if (!di.Exists)
+                    {
+                        di.Create();
+                    }
+                    fileName = fileBaseUpload5.FileName;
+                    Extension = Path.GetExtension(fileBaseUpload5.FileName);
+                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload5.FileName);
+                    fileBaseUpload5.SaveAs(filePath + "//" + sysFileName);
+                    if (!string.IsNullOrWhiteSpace(fileBaseUpload5.FileName))
+                    {
+                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
+
+                    }
+                    tenantModelU3.tempUpload5 = sysFileName.ToString();
+                    tenantModelU3.UploadOriginalFileName5 = fileName;
+                }
+
+            }
+            return tenantModelU3;
+        }
+        public TenantOnlineModel SaveTaxUpload6(HttpPostedFileBase fileBaseUpload6, TenantOnlineModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel tenantModelU3 = new TenantOnlineModel();
+            if (model.ProspectID != 0)
+            {
+                string filePath = "";
+                string fileName = "";
+                string sysFileName = "";
+                string Extension = "";
+
+                if (fileBaseUpload6 != null && fileBaseUpload6.ContentLength > 0)
+                {
+                    filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
+                    DirectoryInfo di = new DirectoryInfo(filePath);
+                    FileInfo _FileInfo = new FileInfo(filePath);
+                    if (!di.Exists)
+                    {
+                        di.Create();
+                    }
+                    fileName = fileBaseUpload6.FileName;
+                    Extension = Path.GetExtension(fileBaseUpload6.FileName);
+                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload6.FileName);
+                    fileBaseUpload6.SaveAs(filePath + "//" + sysFileName);
+                    if (!string.IsNullOrWhiteSpace(fileBaseUpload6.FileName))
+                    {
+                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
+
+                    }
+                    tenantModelU3.tempUpload6 = sysFileName.ToString();
+                    tenantModelU3.UploadOriginalFileName6 = fileName;
+                }
+
+            }
+            return tenantModelU3;
+        }
+        public TenantOnlineModel SaveTaxUpload7(HttpPostedFileBase fileBaseUpload7, TenantOnlineModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel tenantModelU3 = new TenantOnlineModel();
+            if (model.ProspectID != 0)
+            {
+                string filePath = "";
+                string fileName = "";
+                string sysFileName = "";
+                string Extension = "";
+
+                if (fileBaseUpload7 != null && fileBaseUpload7.ContentLength > 0)
+                {
+                    filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
+                    DirectoryInfo di = new DirectoryInfo(filePath);
+                    FileInfo _FileInfo = new FileInfo(filePath);
+                    if (!di.Exists)
+                    {
+                        di.Create();
+                    }
+                    fileName = fileBaseUpload7.FileName;
+                    Extension = Path.GetExtension(fileBaseUpload7.FileName);
+                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload7.FileName);
+                    fileBaseUpload7.SaveAs(filePath + "//" + sysFileName);
+                    if (!string.IsNullOrWhiteSpace(fileBaseUpload7.FileName))
+                    {
+                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
+
+                    }
+                    tenantModelU3.tempUpload7 = sysFileName.ToString();
+                    tenantModelU3.UploadOriginalFileName7 = fileName;
+                }
+
+            }
+            return tenantModelU3;
+        }
+        public TenantOnlineModel SaveTaxUpload8(HttpPostedFileBase fileBaseUpload8, TenantOnlineModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel tenantModelU3 = new TenantOnlineModel();
+            if (model.ProspectID != 0)
+            {
+                string filePath = "";
+                string fileName = "";
+                string sysFileName = "";
+                string Extension = "";
+
+                if (fileBaseUpload8 != null && fileBaseUpload8.ContentLength > 0)
+                {
+                    filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
+                    DirectoryInfo di = new DirectoryInfo(filePath);
+                    FileInfo _FileInfo = new FileInfo(filePath);
+                    if (!di.Exists)
+                    {
+                        di.Create();
+                    }
+                    fileName = fileBaseUpload8.FileName;
+                    Extension = Path.GetExtension(fileBaseUpload8.FileName);
+                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(fileBaseUpload8.FileName);
+                    fileBaseUpload8.SaveAs(filePath + "//" + sysFileName);
+                    if (!string.IsNullOrWhiteSpace(fileBaseUpload8.FileName))
+                    {
+                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
+
+                    }
+                    tenantModelU3.tempUpload8 = sysFileName.ToString();
+                    tenantModelU3.UploadOriginalFileName8 = fileName;
+                }
+
+            }
+            return tenantModelU3;
+        }
+
+
         public TenantOnlineModel SaveUploadPassport(HttpPostedFileBase fileBaseUploadPassport, TenantOnlineModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -1367,6 +1620,582 @@ namespace ShomaRM.Models
                 throw ex;
             }
         }
+        public string CheckApplicationStatus(long TenantID)
+        {
+            string result = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+            var applicantData = db.tbl_Applicant.Where(p => p.TenantID == TenantID).ToList();
+            var numOfPets = db.tbl_TenantPetPlace.Where(p => p.TenantID == TenantID).FirstOrDefault();
+            var petData = db.tbl_TenantPet.Where(p => p.TenantID == TenantID).Count();
+
+            var allPmtReceived = 1;
+            var allPetAdded = 1;
+            long petsNumber = 0;
+
+            foreach(var ad in applicantData)
+            {
+                if((ad.CreditPaid??0)==0 || (ad.BackGroundPaid ?? 0) == 0)
+                {
+                    allPmtReceived = 0;
+                }
+            }
+
+            if (numOfPets != null)
+            {
+                petsNumber = (numOfPets.PetPlaceID ?? 0);
+            }
+
+
+            if (petsNumber != petData && petsNumber > 0)
+            {
+                allPetAdded = 0;
+            }
+
+            if(allPmtReceived!=1)
+            {
+                result += "Full Application Payment Is Not Received<br/>";
+            }
+
+            if (allPetAdded != 1)
+            {
+                result += "All Pet Information Is Not Added<br/>";
+            }
+
+            if(result!="")
+            {
+                result += "<br/>Please Complete All Requirement To Submit Complete Application<br/>";
+            }
+            return result;
+        }
+        public TenantOnlineModel GetTenantOnlineListProspectVerification(int id, long TenantID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel lstpr = new TenantOnlineModel();
+            try
+            {
+                long toid = TenantID;
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetTenantOnlineData";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramF = cmd.CreateParameter();
+                    paramF.ParameterName = "id";
+                    paramF.Value = id;
+                    cmd.Parameters.Add(paramF);
+                    //Sachin Mahore 21 Apr 2020
+                    DbParameter paramfF = cmd.CreateParameter();
+                    paramfF.ParameterName = "toid";
+                    paramfF.Value = toid;
+                    cmd.Parameters.Add(paramfF);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                lstpr.IsInternational = 0;
+                lstpr.Gender = 0;
+                lstpr.IDType = 0;
+                lstpr.State = 0;
+                lstpr.Country = "1";
+                lstpr.StateHome = 0;
+                lstpr.RentOwn = 0;
+
+                lstpr.Country2 = "0";
+                lstpr.StateHome2 = 0;
+                lstpr.RentOwn2 = 0;
+
+                lstpr.JobType = 0;
+                lstpr.OfficeCountry = "1";
+                lstpr.OfficeState = 0;
+
+                lstpr.EmergencyCountry = "1";
+                lstpr.EmergencyStateHome = 0;
+                lstpr.StepCompleted = 1;
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    DateTime? dateOfBirth = null;
+                    try
+                    {
+
+                        dateOfBirth = Convert.ToDateTime(dr["DateOfBirth"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? dateIssuance = null;
+                    try
+                    {
+
+                        dateIssuance = Convert.ToDateTime(dr["DateIssuance"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? dateExpire = null;
+                    try
+                    {
+
+                        dateExpire = Convert.ToDateTime(dr["DateExpire"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInDateFrom = null;
+                    try
+                    {
+
+                        moveInDateFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInDateTo = null;
+                    try
+                    {
+
+                        moveInDateTo = Convert.ToDateTime(dr["MoveInDateTo"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInDateFrom2 = null;
+                    try
+                    {
+
+                        moveInDateFrom2 = Convert.ToDateTime(dr["MoveInDateFrom2"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInDateTo2 = null;
+                    try
+                    {
+
+                        moveInDateTo2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? startDate = null;
+                    try
+                    {
+
+                        startDate = Convert.ToDateTime(dr["StartDate"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    lstpr.IsInternational = Convert.ToInt32(dr["IsInternational"].ToString());
+                    lstpr.IsAdditionalRHistory = Convert.ToInt32(dr["IsAdditionalRHistory"].ToString());
+                    lstpr.FirstName = !string.IsNullOrWhiteSpace(dr["FirstName"].ToString()) ? dr["FirstName"].ToString() : "";
+                    lstpr.MiddleInitial = !string.IsNullOrWhiteSpace(dr["MiddleInitial"].ToString()) ? dr["MiddleInitial"].ToString() : "";
+                    lstpr.LastName = !string.IsNullOrWhiteSpace(dr["LastName"].ToString()) ? dr["LastName"].ToString() : "";
+                    lstpr.DateOfBirthTxt = dateOfBirth == null ? "" : dateOfBirth.Value.ToString("MM/dd/yyy");
+                    lstpr.Gender = Convert.ToInt32(dr["Gender"].ToString());
+                    lstpr.Email = !string.IsNullOrWhiteSpace(dr["Email"].ToString()) ? dr["Email"].ToString() : "";
+                    lstpr.Mobile = !string.IsNullOrWhiteSpace(dr["Mobile"].ToString()) ? dr["Mobile"].ToString() : "";
+
+                    if (!string.IsNullOrWhiteSpace(dr["PassportNumber"].ToString()))
+                    {
+                        string decryptedPassportNumber = new EncryptDecrypt().DecryptText(dr["PassportNumber"].ToString());
+                        int passportlength = decryptedPassportNumber.Length > 4 ? decryptedPassportNumber.Length - 4 : 0;
+                        string maskidnumber = "";
+                        for (int i = 0; i < passportlength; i++)
+                        {
+                            maskidnumber += "*";
+                        }
+                        if (decryptedPassportNumber.Length > 4)
+                        {
+                            lstpr.PassportNumber = maskidnumber + decryptedPassportNumber.Substring(decryptedPassportNumber.Length - 4, 4);
+                        }
+                        else
+                        {
+                            lstpr.PassportNumber = decryptedPassportNumber;
+                        }
+                    }
+                    else
+                    {
+                        lstpr.PassportNumber = "";
+                    }
+
+                    lstpr.CountryIssuance = !string.IsNullOrWhiteSpace(dr["CountryIssuance"].ToString()) ? dr["CountryIssuance"].ToString() : "";
+                    lstpr.DateIssuanceTxt = dateIssuance == null ? "" : dateIssuance.Value.ToString("MM/dd/yyy");
+                    lstpr.DateExpireTxt = dateExpire == null ? "" : dateExpire.Value.ToString("MM/dd/yyy");
+                    lstpr.IDType = Convert.ToInt32(dr["IDType"].ToString());
+                    lstpr.State = Convert.ToInt64(dr["State"].ToString());
+                    if (!string.IsNullOrWhiteSpace(dr["IDNumber"].ToString()))
+                    {
+                        string decryptedIDNumber = new EncryptDecrypt().DecryptText(dr["IDNumber"].ToString());
+                        int idnumlength = decryptedIDNumber.Length > 4 ? decryptedIDNumber.Length - 4 : 0;
+                        string maskidnumber = "";
+                        for (int i = 0; i < idnumlength; i++)
+                        {
+                            maskidnumber += "*";
+                        }
+                        if (decryptedIDNumber.Length > 4)
+                        {
+                            lstpr.IDNumber = maskidnumber + decryptedIDNumber.Substring(decryptedIDNumber.Length - 4, 4);
+                        }
+                        else
+                        {
+                            lstpr.IDNumber = decryptedIDNumber;
+                        }
+                    }
+                    else
+                    {
+                        lstpr.IDNumber = "";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(dr["SSN"].ToString()))
+                    {
+                        string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
+                        if (decryptedSSN.Length > 5)
+                        {
+                            lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
+                        }
+                        else
+                        {
+                            lstpr.SSN = decryptedSSN;
+                        }
+                    }
+                    else
+                    {
+                        lstpr.SSN = "";
+                    }
+                    lstpr.Country = !string.IsNullOrWhiteSpace(dr["Country"].ToString()) ? dr["Country"].ToString() : "";
+                    lstpr.HomeAddress1 = !string.IsNullOrWhiteSpace(dr["HomeAddress1"].ToString()) ? dr["HomeAddress1"].ToString() : "";
+                    lstpr.HomeAddress2 = !string.IsNullOrWhiteSpace(dr["HomeAddress2"].ToString()) ? dr["HomeAddress2"].ToString() : "";
+                    lstpr.StateHome = Convert.ToInt64(dr["StateHome"].ToString());
+                    lstpr.CityHome = !string.IsNullOrWhiteSpace(dr["CityHome"].ToString()) ? dr["CityHome"].ToString() : "";
+                    lstpr.ZipHome = !string.IsNullOrWhiteSpace(dr["ZipHome"].ToString()) ? dr["ZipHome"].ToString() : "";
+                    lstpr.RentOwn = Convert.ToInt16(dr["RentOwn"].ToString());
+                    lstpr.MoveInDateFromTxt = moveInDateFrom == null ? "" : moveInDateFrom.Value.ToString("MM/dd/yyy");
+                    lstpr.MoveInDateToTxt = moveInDateTo == null ? "" : moveInDateTo.Value.ToString("MM/dd/yyy");
+                    lstpr.MonthlyPayment = !string.IsNullOrWhiteSpace(dr["MonthlyPayment"].ToString()) ? dr["MonthlyPayment"].ToString() : "";
+                    lstpr.Reason = !string.IsNullOrWhiteSpace(dr["Reason"].ToString()) ? dr["Reason"].ToString() : "";
+                    lstpr.EmployerName = !string.IsNullOrWhiteSpace(dr["EmployerName"].ToString()) ? dr["EmployerName"].ToString() : "";
+                    lstpr.JobTitle = !string.IsNullOrWhiteSpace(dr["JobTitle"].ToString()) ? dr["JobTitle"].ToString() : "";
+                    lstpr.JobType = Convert.ToInt32(dr["JobType"].ToString());
+                    lstpr.StartDateTxt = startDate == null ? "" : startDate.Value.ToString("MM/dd/yyy");
+                    lstpr.Income = Convert.ToDecimal(dr["Income"].ToString());
+                    lstpr.AdditionalIncome = Convert.ToDecimal(dr["AdditionalIncome"].ToString());
+                    lstpr.SupervisorName = !string.IsNullOrWhiteSpace(dr["SupervisorName"].ToString()) ? dr["SupervisorName"].ToString() : "";
+                    lstpr.SupervisorPhone = !string.IsNullOrWhiteSpace(dr["SupervisorPhone"].ToString()) ? dr["SupervisorPhone"].ToString() : "";
+                    lstpr.SupervisorEmail = !string.IsNullOrWhiteSpace(dr["SupervisorEmail"].ToString()) ? dr["SupervisorEmail"].ToString() : "";
+                    lstpr.OfficeCountry = !string.IsNullOrWhiteSpace(dr["OfficeCountry"].ToString()) ? dr["OfficeCountry"].ToString() : "";
+                    lstpr.OfficeAddress1 = !string.IsNullOrWhiteSpace(dr["OfficeAddress1"].ToString()) ? dr["OfficeAddress1"].ToString() : "";
+                    lstpr.OfficeAddress2 = !string.IsNullOrWhiteSpace(dr["OfficeAddress2"].ToString()) ? dr["OfficeAddress2"].ToString() : "";
+                    lstpr.OfficeState = Convert.ToInt32(dr["OfficeState"].ToString());
+                    lstpr.OfficeCity = !string.IsNullOrWhiteSpace(dr["OfficeCity"].ToString()) ? dr["OfficeCity"].ToString() : "";
+                    lstpr.OfficeZip = !string.IsNullOrWhiteSpace(dr["OfficeZip"].ToString()) ? dr["OfficeZip"].ToString() : "";
+                    lstpr.Relationship = !string.IsNullOrWhiteSpace(dr["Relationship"].ToString()) ? dr["Relationship"].ToString() : "";
+                    lstpr.EmergencyFirstName = !string.IsNullOrWhiteSpace(dr["EmergencyFirstName"].ToString()) ? dr["EmergencyFirstName"].ToString() : "";
+                    lstpr.EmergencyLastName = !string.IsNullOrWhiteSpace(dr["EmergencyLastName"].ToString()) ? dr["EmergencyLastName"].ToString() : "";
+                    lstpr.EmergencyMobile = !string.IsNullOrWhiteSpace(dr["EmergencyMobile"].ToString()) ? dr["EmergencyMobile"].ToString() : "";
+                    lstpr.EmergencyHomePhone = !string.IsNullOrWhiteSpace(dr["EmergencyHomePhone"].ToString()) ? dr["EmergencyHomePhone"].ToString() : "";
+                    lstpr.EmergencyWorkPhone = !string.IsNullOrWhiteSpace(dr["EmergencyWorkPhone"].ToString()) ? dr["EmergencyWorkPhone"].ToString() : "";
+                    lstpr.EmergencyEmail = !string.IsNullOrWhiteSpace(dr["EmergencyEmail"].ToString()) ? dr["EmergencyEmail"].ToString() : "";
+                    lstpr.EmergencyCountry = !string.IsNullOrWhiteSpace(dr["EmergencyCountry"].ToString()) ? dr["EmergencyCountry"].ToString() : "";
+                    lstpr.EmergencyAddress1 = !string.IsNullOrWhiteSpace(dr["EmergencyAddress1"].ToString()) ? dr["EmergencyAddress1"].ToString() : "";
+                    lstpr.EmergencyAddress2 = !string.IsNullOrWhiteSpace(dr["EmergencyAddress2"].ToString()) ? dr["EmergencyAddress2"].ToString() : "";
+                    lstpr.EmergencyStateHome = Convert.ToInt32(dr["EmergencyStateHome"].ToString());
+                    lstpr.EmergencyCityHome = !string.IsNullOrWhiteSpace(dr["EmergencyCityHome"].ToString()) ? dr["EmergencyCityHome"].ToString() : "";
+                    lstpr.EmergencyZipHome = !string.IsNullOrWhiteSpace(dr["EmergencyZipHome"].ToString()) ? dr["EmergencyZipHome"].ToString() : "";
+                    lstpr.OtherGender = !string.IsNullOrWhiteSpace(dr["OtherGender"].ToString()) ? dr["OtherGender"].ToString() : "";
+
+                    lstpr.IdentityDocument = !string.IsNullOrWhiteSpace(dr["IdentityDocument"].ToString()) ? dr["IdentityDocument"].ToString() : "";
+                    lstpr.PassportDocument = !string.IsNullOrWhiteSpace(dr["PassportDocument"].ToString()) ? dr["PassportDocument"].ToString() : "";
+                    lstpr.TaxReturn = !string.IsNullOrWhiteSpace(dr["TaxReturn"].ToString()) ? dr["TaxReturn"].ToString() : "";
+
+                    lstpr.TaxReturn2 = !string.IsNullOrWhiteSpace(dr["TaxReturn2"].ToString()) ? dr["TaxReturn2"].ToString() : "";
+                    lstpr.TaxReturn3 = !string.IsNullOrWhiteSpace(dr["TaxReturn3"].ToString()) ? dr["TaxReturn3"].ToString() : "";
+                    lstpr.HaveVehicle = Convert.ToBoolean(dr["HaveVehicle"].ToString());
+                    lstpr.HavePet = Convert.ToBoolean(dr["HavePet"].ToString());
+                    lstpr.UploadOriginalFileName1 = !string.IsNullOrWhiteSpace(dr["TaxReturnOrginalFile"].ToString()) ? dr["TaxReturnOrginalFile"].ToString() : "";
+                    lstpr.UploadOriginalFileName2 = !string.IsNullOrWhiteSpace(dr["TaxReturnOrginalFile2"].ToString()) ? dr["TaxReturnOrginalFile2"].ToString() : "";
+                    lstpr.UploadOriginalFileName3 = !string.IsNullOrWhiteSpace(dr["TaxReturnOrginalFile3"].ToString()) ? dr["TaxReturnOrginalFile3"].ToString() : "";
+                    lstpr.UploadOriginalPassportName = !string.IsNullOrWhiteSpace(dr["PassportDocumentOriginalFile"].ToString()) ? dr["PassportDocumentOriginalFile"].ToString() : "";
+                    lstpr.UploadOriginalIdentityName = !string.IsNullOrWhiteSpace(dr["IdentityDocumentOriginalFile"].ToString()) ? dr["IdentityDocumentOriginalFile"].ToString() : "";
+                    lstpr.IsPaystub = Convert.ToInt32(dr["IsPaystub"].ToString());
+
+                    lstpr.CountryOfOrigin = Convert.ToInt64(dr["CountryOfOrigin"].ToString());
+                    lstpr.Evicted = Convert.ToInt32(dr["Evicted"].ToString());
+                    lstpr.EvictedDetails = !string.IsNullOrWhiteSpace(dr["EvictedDetails"].ToString()) ? dr["EvictedDetails"].ToString() : "";
+                    lstpr.ConvictedFelony = Convert.ToInt32(dr["ConvictedFelony"].ToString());
+                    lstpr.ConvictedFelonyDetails = !string.IsNullOrWhiteSpace(dr["ConvictedFelonyDetails"].ToString()) ? dr["ConvictedFelonyDetails"].ToString() : "";
+                    lstpr.CriminalChargPen = Convert.ToInt32(dr["CriminalChargPen"].ToString());
+                    lstpr.CriminalChargPenDetails = !string.IsNullOrWhiteSpace(dr["CriminalChargPenDetails"].ToString()) ? dr["CriminalChargPenDetails"].ToString() : "";
+                    lstpr.DoYouSmoke = Convert.ToInt32(dr["DoYouSmoke"].ToString());
+                    lstpr.ReferredResident = Convert.ToInt32(dr["ReferredResident"].ToString());
+                    lstpr.ReferredResidentName = !string.IsNullOrWhiteSpace(dr["ReferredResidentName"].ToString()) ? dr["ReferredResidentName"].ToString() : "";
+                    lstpr.ReferredBrokerMerchant = Convert.ToInt32(dr["ReferredBrokerMerchant"].ToString());
+                    lstpr.ApartmentCommunity = !string.IsNullOrWhiteSpace(dr["ApartmentCommunity"].ToString()) ? dr["ApartmentCommunity"].ToString() : "";
+                    lstpr.ManagementCompany = !string.IsNullOrWhiteSpace(dr["ManagementCompany"].ToString()) ? dr["ManagementCompany"].ToString() : "";
+                    lstpr.ManagementCompanyPhone = !string.IsNullOrWhiteSpace(dr["ManagementCompanyPhone"].ToString()) ? dr["ManagementCompanyPhone"].ToString() : "";
+                    lstpr.IsProprNoticeLeaseAgreement = Convert.ToInt32(dr["IsProprNoticeLeaseAgreement"].ToString());
+
+                    int countryOrigintemp = lstpr.CountryOfOrigin.HasValue ? Convert.ToInt32(lstpr.CountryOfOrigin) : 0;
+                    var countryOriginVar = db.tbl_Country.Where(co => co.ID == countryOrigintemp).FirstOrDefault();
+                    lstpr.CountryOfOriginString = countryOriginVar != null ? countryOriginVar.CountryName : "";
+
+                    //var PersonalStateVar = db.tbl_State.Where(co => co.ID == lstpr.State).FirstOrDefault();
+                    //lstpr.StatePersonalString = PersonalStateVar != null ? PersonalStateVar.StateName : "";
+                    //var StateHomeVar = db.tbl_State.Where(co => co.ID == lstpr.StateHome).FirstOrDefault();
+                    //lstpr.StateHomeString = StateHomeVar != null ? StateHomeVar.StateName : "";
+                    //int contryTemp = lstpr.Country != "" ? Convert.ToInt32(lstpr.Country) : 0;
+                    //var CountryVar = db.tbl_Country.Where(co => co.ID == contryTemp).FirstOrDefault();
+                    //lstpr.CountryString = CountryVar != null ? CountryVar.CountryName : "";
+                    //int officeContryTemp = lstpr.OfficeCountry != "" ? Convert.ToInt32(lstpr.OfficeCountry) : 0;
+                    //var OfficeCountryVar = db.tbl_Country.Where(co => co.ID == officeContryTemp).FirstOrDefault();
+                    //lstpr.OfficeCountryString = OfficeCountryVar != null ? OfficeCountryVar.CountryName : "";
+                    //int emergencyContryTemp = lstpr.EmergencyCountry != "" ? Convert.ToInt32(lstpr.EmergencyCountry) : 0;
+                    //var EmergencyCountryVar = db.tbl_Country.Where(co => co.ID == emergencyContryTemp).FirstOrDefault();
+                    //lstpr.EmergencyCountryString = EmergencyCountryVar != null ? EmergencyCountryVar.CountryName : "";
+                    //int emergencyStateHomeTemp = lstpr.EmergencyStateHome != null ? Convert.ToInt32(lstpr.EmergencyStateHome) : 0;
+                    //var EmergencyStateHomeVar = db.tbl_State.Where(co => co.ID == emergencyStateHomeTemp).FirstOrDefault();
+                    //lstpr.EmergencyStateHomeString = EmergencyStateHomeVar != null ? EmergencyStateHomeVar.StateName : "";
+
+                    var PersonalStateVar = db.tbl_State.Where(co => co.ID == lstpr.State).FirstOrDefault();
+                    lstpr.StatePersonalString = PersonalStateVar != null ? PersonalStateVar.StateName : "";
+                    var StateHomeVar = db.tbl_State.Where(co => co.ID == lstpr.StateHome).FirstOrDefault();
+                    lstpr.StateHomeString = StateHomeVar != null ? StateHomeVar.StateName : "";
+                    int contryTemp = lstpr.Country != "" ? Convert.ToInt32(lstpr.Country) : 0;
+                    var CountryVar = db.tbl_Country.Where(co => co.ID == contryTemp).FirstOrDefault();
+                    lstpr.CountryString = CountryVar != null ? CountryVar.CountryName : "";
+                    int officeContryTemp = lstpr.OfficeCountry != "" ? Convert.ToInt32(lstpr.OfficeCountry) : 0;
+                    var OfficeCountryVar = db.tbl_Country.Where(co => co.ID == officeContryTemp).FirstOrDefault();
+                    lstpr.OfficeCountryString = OfficeCountryVar != null ? OfficeCountryVar.CountryName : "";
+                    int emergencyContryTemp = lstpr.EmergencyCountry != "" ? Convert.ToInt32(lstpr.EmergencyCountry) : 0;
+                    var EmergencyCountryVar = db.tbl_Country.Where(co => co.ID == emergencyContryTemp).FirstOrDefault();
+                    lstpr.EmergencyCountryString = EmergencyCountryVar != null ? EmergencyCountryVar.CountryName : "";
+                    int emergencyStateHomeTemp = lstpr.EmergencyStateHome != null ? Convert.ToInt32(lstpr.EmergencyStateHome) : 0;
+                    var EmergencyStateHomeVar = db.tbl_State.Where(co => co.ID == emergencyStateHomeTemp).FirstOrDefault();
+                    lstpr.EmergencyStateHomeString = EmergencyStateHomeVar != null ? EmergencyStateHomeVar.StateName : "";
+
+                    lstpr.StringEvicted = Convert.ToInt32(dr["Evicted"]) == 1 ? "No" : "Yes";
+                    lstpr.StringConvictedFelony = Convert.ToInt32(dr["ConvictedFelony"]) == 1 ? "No" : "Yes";
+                    lstpr.StringCriminalChargPen = Convert.ToInt32(dr["CriminalChargPen"]) == 1 ? "No" : "Yes";
+                    lstpr.StringDoYouSmoke = Convert.ToInt32(dr["DoYouSmoke"]) == 1 ? "No" : "Yes";
+                    lstpr.StringReferredResident = Convert.ToInt32(dr["ReferredResident"]) == 1 ? "No" : "Yes";
+                    lstpr.StringReferredBrokerMerchant = Convert.ToInt32(dr["ReferredBrokerMerchant"]) == 1 ? "No" : "Yes";
+                    lstpr.stringIsProprNoticeLeaseAgreement = Convert.ToInt32(dr["IsProprNoticeLeaseAgreement"]) == 1 ? "Yes" : "No";
+
+                    var stepCompleted = Convert.ToInt32(dr["StepCompleted"].ToString());
+                    lstpr.StepCompleted = stepCompleted;
+                }
+                db.Dispose();
+                return lstpr;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+
+        public List<TenantOnlineModel> GetAppResidenceHistory(int id)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel model = new TenantOnlineModel();
+            List<TenantOnlineModel> lstpr = new List<TenantOnlineModel>();
+            var coapplist = db.tbl_TenantOnline.Where(p => p.ProspectID == id).ToList();
+            if (coapplist != null)
+            {
+                foreach (var cl in coapplist)
+                {
+                    TenantOnlineModel ahm = new TenantOnlineModel();
+                    List<ApplicantHistoryModel> lstahm = new List<ApplicantHistoryModel>();
+                    DateTime? stdtFrom = null;
+                    try
+                    {
+
+                        stdtFrom = Convert.ToDateTime(cl.MoveInDateFrom);
+                    }
+                    catch
+                    {
+
+                    }
+                    ahm.ID = cl.ID;
+                    var apptype = db.tbl_Applicant.Where(c => c.UserID == cl.ParentTOID).FirstOrDefault();
+                    ahm.AppType = apptype.Type;
+                    ahm.FirstName = cl.FirstName + " " + cl.LastName;
+                    ahm.Country = cl.Country;
+                    ahm.StateHome = cl.StateHome;
+                    ahm.CityHome = cl.CityHome;
+                    ahm.ZipHome = cl.ZipHome;
+                    ahm.RentOwn = cl.RentOwn;
+                    ahm.HomeAddress1 = cl.HomeAddress1;
+                    ahm.HomeAddress2 = cl.HomeAddress2;
+                    ahm.MoveInDateFromTxt = stdtFrom == null ? "" : stdtFrom.Value.ToString("MM/dd/yyy");
+                    ahm.MonthlyPayment = !string.IsNullOrWhiteSpace(cl.MonthlyPayment) ? cl.MonthlyPayment : "";
+                    ahm.Reason = !string.IsNullOrWhiteSpace(cl.Reason) ? cl.Reason : "";
+                    var stateStr = db.tbl_State.Where(co => co.ID == cl.StateHome).FirstOrDefault();
+                    ahm.StateString = stateStr.StateName;
+                    int ctryString = Convert.ToInt32(ahm.Country);
+                    var countryStr = db.tbl_Country.Where(co => co.ID == ctryString).FirstOrDefault();
+                    ahm.CountryString = countryStr.CountryName;
+                    ahm.RentOwnString = ahm.RentOwn == 1 ? "Rent" : ahm.RentOwn == 2 ? "Own" : "";
+                    ahm.ApartmentCommunity = !string.IsNullOrWhiteSpace(cl.ApartmentCommunity) ? cl.ApartmentCommunity : "";
+                    ahm.ManagementCompany = !string.IsNullOrWhiteSpace(cl.ManagementCompany) ? cl.ManagementCompany : "";
+                    ahm.ManagementCompanyPhone = !string.IsNullOrWhiteSpace(cl.ManagementCompanyPhone) ? cl.ManagementCompanyPhone : "";
+                    ahm.IsProprNoticeLeaseAgreement = cl.IsProprNoticeLeaseAgreement;
+                    ahm.stringIsProprNoticeLeaseAgreement = ahm.IsProprNoticeLeaseAgreement == 1 ? "Yes" : "No";
+                    ahm.ResidenceStatus = cl.ResidenceStatus==null?0: cl.ResidenceStatus;
+                    ahm.ResidenceNotes = cl.ResidenceNotes==null?"":cl.ResidenceNotes;
+                    
+                    lstpr.Add(ahm);
+                }
+
+            }
+
+            return lstpr;
+
+        }
+        public List<TenantOnlineModel> GetAppEmpHistory(int id)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel model = new TenantOnlineModel();
+            List<TenantOnlineModel> lstpr = new List<TenantOnlineModel>();
+            var coapplist = db.tbl_TenantOnline.Where(p => p.ProspectID == id).ToList();
+            if (coapplist != null)
+            {
+                foreach (var cl in coapplist)
+                {
+                    TenantOnlineModel ahm = new TenantOnlineModel();
+                    List<ApplicantHistoryModel> lstahm = new List<ApplicantHistoryModel>();
+                    DateTime? stdtFrom = null;
+                    try
+                    {
+
+                        stdtFrom = Convert.ToDateTime(cl.StartDate);
+                    }
+                    catch
+                    {
+
+                    }
+                    ahm.ID = cl.ID;
+                    var apptype = db.tbl_Applicant.Where(c => c.UserID == cl.ParentTOID).FirstOrDefault();
+                    ahm.AppType = apptype.Type;
+                    ahm.FirstName = cl.FirstName + " " + cl.LastName;
+                 
+                    ahm.EmployerName = !string.IsNullOrWhiteSpace(cl.EmployerName) ? cl.EmployerName : "";
+                    ahm.JobTitle = !string.IsNullOrWhiteSpace(cl.JobTitle) ? cl.JobTitle : "";
+                    ahm.JobType = cl.JobType;
+                    ahm.MoveInDateFromTxt = stdtFrom == null ? "" : stdtFrom.Value.ToString("MM/dd/yyy");
+
+                    ahm.Income = cl.Income;
+                    ahm.AdditionalIncome = cl.AdditionalIncome;
+                    ahm.SupervisorName = !string.IsNullOrWhiteSpace(cl.SupervisorName) ? cl.SupervisorName : "";
+                    ahm.SupervisorPhone = cl.SupervisorPhone;
+                    ahm.SupervisorEmail = !string.IsNullOrWhiteSpace(cl.SupervisorEmail) ? cl.SupervisorEmail : "";
+                    ahm.Country = cl.Country;
+                    ahm.OfficeAddress1 = !string.IsNullOrWhiteSpace(cl.OfficeAddress1) ? cl.OfficeAddress1 : "";
+                    ahm.OfficeAddress2 = !string.IsNullOrWhiteSpace(cl.OfficeAddress2) ? cl.OfficeAddress2 : "";
+                    ahm.State = cl.State;
+                    ahm.OfficeCity = !string.IsNullOrWhiteSpace(cl.OfficeCity) ? cl.OfficeCity : "";
+                    ahm.OfficeZip = !string.IsNullOrWhiteSpace(cl.OfficeZip) ? cl.OfficeZip : "";
+                    ahm.StartDateTxt = cl.StartDate != null ? cl.StartDate.Value.ToString("MM/dd/yyyy") : "";
+
+                    long cid = Convert.ToInt64(cl.OfficeCountry);
+                    var countryName = db.tbl_Country.Where(co => co.ID ==cid).FirstOrDefault();
+                    var StateName = db.tbl_State.Where(co => co.ID == cl.OfficeState).FirstOrDefault();
+
+                    ahm.CountryString = countryName != null ? countryName.CountryName : "";
+                    ahm.StateHomeString = StateName != null ? StateName.StateName : "";
+                
+                    ahm.EmpStatus = cl.EmpStatus == null ? 0 : cl.EmpStatus;
+                    ahm.EmpNotes = cl.EmpNotes==null ? "" : cl.EmpNotes;
+                    lstpr.Add(ahm);
+                }
+
+            }
+
+            return lstpr;
+
+        }
+
+        //Sachin Mahore 13 may 2020
+        public string UpdateResStatus(long ID, int ResidenceStatus, string ResidenceNotes)
+        {
+
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (ID != 0)
+            {
+
+                var getdata = db.tbl_TenantOnline.Where(p => p.ID == ID).FirstOrDefault();
+                if (getdata != null)
+                {
+                    getdata.ResidenceStatus = ResidenceStatus;
+                    getdata.ResidenceNotes = ResidenceNotes;
+                }
+                db.SaveChanges();
+
+                msg = "Residence Status Saved Successfully";
+            }
+            db.Dispose();
+            return msg;
+        }
+        public string UpdateEmpStatus(long ID, int EmpStatus, string EmpNotes)
+        {
+
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (ID != 0)
+            {
+
+                var getdata = db.tbl_TenantOnline.Where(p => p.ID == ID).FirstOrDefault();
+                if (getdata != null)
+                {
+                    getdata.EmpStatus = EmpStatus;
+                    getdata.EmpNotes = EmpNotes;
+                }
+                db.SaveChanges();
+
+                msg = "Employment Status Saved Successfully";
+            }
+            db.Dispose();
+            return msg;
+        }
+        public string UpdateBGCCStatus(int ID,int TenantID, int Status, string Notes)
+        {
+
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (ID != 0)
+            {
+
+                var saveBGCC = new tbl_BackgroundScreening()
+                {
+                    TenantId = TenantID,
+                    Type="0",
+                    OrderID = ID,
+                    Status = Status.ToString(),
+                    Notes = Notes,
+                };
+                db.tbl_BackgroundScreening.Add(saveBGCC);
+                db.SaveChanges();
+
+                msg = " Status Saved Successfully";
+            }
+            db.Dispose();
+            return msg;
+        }
     }
 
     public class TenantPetPlace
@@ -1385,19 +2214,18 @@ namespace ShomaRM.Models
             TenantPetPlace model = new TenantPetPlace();
 
             var getTenantPetPlaceData = db.tbl_TenantPetPlace.Where(p => p.TenantID == Id).FirstOrDefault();
-            var getPetCount = db.tbl_TenantPet.Where(p => p.TenantID == getTenantPetPlaceData.TenantID).ToList();
+            var getPetCount = db.tbl_TenantPet.Where(p => p.TenantID == Id).ToList();
 
             if (getTenantPetPlaceData != null)
             {
                 var getPetData = db.tbl_PetPlace.Where(p => p.PetPlaceID == getTenantPetPlaceData.PetPlaceID).FirstOrDefault();
                 model.PetPlaceID = getTenantPetPlaceData.PetPlaceID;
-                model.NumberOfPets = getPetData.Type??0;
-                
+                model.NumberOfPets = getPetData.Type ?? 0;
+
             }
             model.TenantPetCount = getPetCount != null ? getPetCount.Count : 0;
             model.TenantID = Id;
             return model;
         }
-       
     }
 }

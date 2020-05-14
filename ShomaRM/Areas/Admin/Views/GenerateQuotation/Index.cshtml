@@ -26,6 +26,7 @@
 <input type="hidden" id="HndAddParkingCount" value="0" />
 <input type="hidden" id="hndDocumentTypePersonal" value="0" />
 <input type="hidden" id="hndIsRegister" value="0" />
+<input type="hidden" id="hndStorageOrderBy" value="ASC" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -48,7 +49,7 @@
                         <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,2,1)">2. Select Units</a></li>
                         <li id="li3"><a href="javascript:void(0);" id="as3" onclick="goToStep(4,4,0)">3. Select Options</a></li>
                         <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5,0)">4. Quotation</a></li>
-
+                        <li id="li7"><a href="javascript:void(0);" id="as7" onclick="goToStep(7,7,0)">5. Applicants</a></li>
                     </ul>
                     
                     <div class="tab-content">
@@ -310,7 +311,6 @@
                                     <div class="panel-heading">
                                         <p style="font-size: 12px; padding-top:10px;">We are now ready to select your personalized options. But before we do,<br>let's make sure you are registered so you don't loose all your information.</p>
                                         <p style="font-size: 12px; padding-top:10px;">Enter and register your information and a quote will then be provided to you.</p>
-                                        <p style="font-size: 12px; padding-top:10px;">REGISTER BELOW OR <a href="javascript:void(0);" id="btnsignInAppl">SIGN IN</a></p>
 
                                     </div>
                                 </div>
@@ -370,90 +370,6 @@
                                 <div class="form-group">
                                     <label for="txtEmail" class="star">Email</label>
                                     <input type="text" class="form-control" id="txtEmail" onchange="checkEmailAreadyExistGenerateQuo()" value="@Model.Email" placeholder="Email">
-                                </div>
-                            </div>
-                            <div class="col-sm-4" id="divSSNNumberReg">
-                                <div class="form-group">
-                                    <label id="lblSSNNumberReg" for="txtSSNNumberReg" class="star">SSN#</label>
-                                    <input class="form-control form-control-small" id="txtSSNNumberReg" data-value="" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="ddlIDTypeReg" class="star">Document Type</label>
-                                    <select id="ddlIDTypeReg" class=" form-control" style="width:100%!important">
-                                        <option value="0">Select</option>
-                                        <option value="1">Driver's License</option>
-                                        <option value="2">Military ID</option>
-                                        <option value="4">State Issued ID</option>
-                                        <option value="3">Passport</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="form-group">
-                                    <label for="ddlStateIDDocReg" class="star">State</label>
-                                    <select id="ddlStateIDDocReg" class=" form-control" style="width:100%!important">
-                                        <option value="0">--Select State--</option>
-                                        @foreach (var state in Model.StateList)
-                                        {
-                                            <option value="@state.ID">@state.StateName</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label id="lblIDNumberReg" for="txtIDNumberReg" class="star">ID Number</label>
-                                    <input class="form-control form-control-small" id="txtIDNumberReg" data-value="" maxlength="25" />
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="txtCountryReg" class="star">Country</label>
-                                    <select id="txtCountryReg" class="form-control">
-                                        @foreach (var country in Model.CountryList)
-                                        {
-                                            <option value="@country.ID">@country.CountryName</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="txtAddress1Reg" class="star">Address 1</label>
-                                    <input id="txtAddress1Reg" type="text" class="form-control form-control-small" maxlength="300" />
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="txtAddress2Reg">Address Line 2</label>
-                                    <input id="txtAddress2Reg" type="text" class="form-control form-control-small" maxlength="300" />
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="star"> State :</label>
-                                    <select id="ddlStateReg" class="form-control">
-                                        <option value="0">--Select State--</option>
-                                        @foreach (var state in Model.StateList)
-                                        {
-                                            <option value="@state.ID">@state.StateName</option>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label class="star"> City :</label>
-                                    <input id="ddlCityReg" type="text" class="form-control form-control-small" maxlength="100" />
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="txtZipReg" class="star">Zip</label>
-                                    <input class="form-control form-control-small" id="txtZipReg" maxlength="7" />
                                 </div>
                             </div>
                             <div class="col-sm-4">
@@ -805,7 +721,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-12">
-                                        <p><i class="star"></i><i class="star"></i> Security Deposit is subject to various criteria including credit history.  Additionally, we participate in the SureDeposit Program which may assist you in bonding your Deposit for a small fee. </p>
+                                        <p><i class="star"></i><i class="star"></i> If you would like to participate in the Flexdeposit Program which may assist you in bonding your Security Deposit for a Non-Refundable fee of as low as $50 (depending on credit), please contact our leasing agents. </p>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 clearfix">
@@ -1219,8 +1135,8 @@
 
                                 <div class="text-center">
                                     <button id="quotePrint" class="btn btn-primary" onclick="printQuotationPrint()"> Print</button>
-                                    <div class="pull-right">
-                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="sendQuotationEmail();"> Send Email</button>
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(7,7,0)"> Continue</button>
                                     </div>
                                 </div>
 
@@ -1347,13 +1263,12 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(6,6,0)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(5,5,0)"> Back</button>
                                 </div>
-                                <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(8,8,0)"> Continue</button>
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="sendQuotationEmail();"> Send Email</button>
                                 </div>
                             </div>
                         </div>
@@ -1540,10 +1455,10 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(7,7,0)"> Back</button>
+                                    <button type="submit" class="btn btn-primary" onclick="goToStep(5,5,0)"> Back</button>
                                 </div>
-                                <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(9,9,0)"> Continue</button>
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="sendQuotationEmail();"> Send Email</button>
                                 </div>
                             </div>
                         </div>
@@ -4179,10 +4094,10 @@
                         <table class="" cellspacing="0" style="width:100%;">
                             <thead>
                                 <tr>
-                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;">Storage</th>
-                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:48%;text-align:center;">Description</th>
-                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:16%;text-align:center;">Charges</th>
-                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;">Add</th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;cursor: pointer;" onclick="sortTableStorageGenQuot('Storage1Storage')">Storage <i id="SortIconStorage1Storage"></i></th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:48%;text-align:center;cursor: pointer;" onclick="sortTableStorageGenQuot('Storage1Description')">Description <i id="SortIconStorage1Description"></i></th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:16%;text-align:center;cursor: default;">Charges <i id="SortIconStorage1Charges"></i></th>
+                                    <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939;width:18%;text-align:center;cursor: default;">Add</th>
                                 </tr>
                             </thead>
                         </table>
@@ -4285,7 +4200,7 @@
 
                 </div>
                 <div class="col-sm-12 text-center">
-                    <div class="pull-left text-center">
+                    <div class="pull-left text-center hidden">
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" id="chkAgreePetTerms" style="margin-top: 7PX; margin-left: -179px;"> <a id="btnShowPetPolicy" href="javascript:void(0);" style="color:black !important"> I have read and agree to Sanctuary Doral's <u>Pet Policy.</u></a>
@@ -4309,8 +4224,8 @@
 </div>
 
 <div class="modal " id="popApplicant" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:1100px !important; height:500px;">
-        <div class="modal-content" style="width: 100% !important; height:610px;">
+    <div class="modal-dialog" style="width:1100px !important; height:350px;">
+        <div class="modal-content" style="width: 100% !important; height:350px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Applicant</h5>
@@ -4392,92 +4307,6 @@
                         <div class="form-group">
                             <label class="star">Email</label>
                             <input id="txtApplicantEmail" type="text" class="form-control" maxlength="200" placeholder="Email" value="">
-                        </div>
-                    </div>
-                    <div class="col-sm-4" id="divSSNNumber">
-                        <div class="form-group">
-                            <label id="lblSSNNumber" class="star">SSN#</label>
-                            <input class="form-control form-control-small" id="txtApplicantSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12">
-
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="ddlDocumentType" class="star">ID Type</label>
-                            <select id="ddlApplicantDocumentTypePersonal" class="form-control " style="width:100%!important"></select>
-                        </div>
-                    </div>
-                    <div id="divIDState" class="col-sm-4">
-                        <div class="form-group">
-                            <label id="lblStatePersonal" class="star"> State</label>
-                            <select id="ddlApplicantStateDoc" class="form-control">
-                                <option value="0">--Select State--</option>
-                                @foreach (var state in Model.StateList)
-                                {
-                                    <option value="@state.ID">@state.StateName</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="star">ID Number</label>
-                            <input class="form-control form-control-small" id="txtApplicantIDNumber" maxlength="25" />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="txtCountry" class="star">Country</label>
-                            <select id="txtApplicantCountry" class="form-control">
-                                @foreach (var country in Model.CountryList)
-                                {
-                                    <option value="@country.ID">@country.CountryName</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="txtAddress1" class="star">Address Line 1</label>
-                            <input id="txtAppliantAddress12" type="text" class="form-control form-control-small" maxlength="300" />
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="txtAddress2">Address Line 2</label>
-                            <input id="txtApplicantAddress22" type="text" class="form-control form-control-small" maxlength="300" />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="star">State</label>
-                            <select id="ddlApplicantState" class="form-control">
-                                <option value="0">--Select State--</option>
-                                @foreach (var state in Model.StateList)
-                                {
-                                    <option value="@state.ID">@state.StateName</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="star">City</label>
-                            @*<select id="ddlCityHome" class="form-control"></select>*@
-                            <input id="txtApplicantCity" type="text" class="form-control form-control-small" maxlength="100" />
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="star">Zip</label>
-                            <input class="form-control form-control-small" id="txtApplicantZip2" maxlength="7" />
                         </div>
                     </div>
                     <div class="col-sm-4 hidden">
@@ -6268,11 +6097,11 @@
         modalQuotationPrint.style.display = "none";
     }
 
-    var btnApp = document.getElementById("btnsignInAppl");
+    //var btnApp = document.getElementById("btnsignInAppl");
 
-    btnApp.onclick = function () {
-        modal.style.display = "block";
-    }
+    //btnApp.onclick = function () {
+    //    modal.style.display = "block";
+    //}
     function gotoLogOffAN() {
 
         window.location = "/Account/LogOff";

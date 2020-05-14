@@ -7,60 +7,161 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
+        @font-face {
+            font-family: 'Montserrat-Regular';
+            src: url('[%ServerURL%]/Content/assets/font/Montserrat-Regular.otf') format('opentype');
+        }
+
+        @font-face {
+            font-family: 'Montserrat-Medium';
+            src: url('[%ServerURL%]/Content/assets/font/Montserrat-Medium.otf') format('opentype');
+        }
+
+        @font-face {
+            font-family: 'Montserrat-SemiBold';
+            src: url('[%ServerURL%]/Content/assets/font/Montserrat-SemiBold.otf') format('opentype');
+        }
+
         body {
+            
             font-size: 12px;
             padding: 1px;
             margin: 1px;
-            font-family: Tahoma;
-            background: #f1f1f1;
-            color: black;
+            font-family: Montserrat-Regular;
             width: 100%;
+           
         }
-
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .vertical-top{
+            vertical-align:top;
+        }
         .layout-section {
+            background-image: url('[%ServerURL%]/Content/Templates/images/tower_background.png');
+            background-size: contain;
+            background-repeat: no-repeat;
             margin: 0 auto;
             display: table;
             height: auto;
-            background: #fff;
             padding-bottom: 30px;
             width: 100%
         }
 
         .heder {
+            background-image: url('[%ServerURL%]/Content/Templates/images/Header_quote_background.png');
             width: 100%;
-            background: #4D738A;
-            height: 100px;
-            border: 1px solid #000;
-            color: #fff;
+            height: 150px;
         }
 
+        .heder-img {
+            width: 40%;
+        }
+
+        .heder-img img {
+            width: 75%;
+            padding-left: 75px;
+        }
+
+        .heder-text {
+            width: 60%;
+            font-family: Montserrat-SemiBold;
+            color: #fff;
+            font-size: 24px;
+            text-align: center;
+        }
+
+        .left-section{
+            width:60%;
+        }
+        .right-section {
+            width: 40%;
+        }
+        .model-unit
+        {
+            font-family:Montserrat-SemiBold;
+            font-size:18px;
+        }
+        .unit-unit {
+            font-family: Montserrat-Regular;
+            font-size: 18px;
+        }
+        .text-bold {
+            font-family: Montserrat-SemiBold;
+            font-size: 12px;
+        }
+        .text-normal {
+            font-family: Montserrat-Regular;
+            font-size: 12px;
+            color: #838384 ;
+            font-weight:normal;
+        }
+
+        .text-center{
+            text-align:center;
+        }
+        .span-border {
+            border: 1px solid #7fbc42;
+            padding: 5px 15px;
+            color: #7fbc42;
+            font-style: italic;
+            font-size: 14px;
+            font-weight:600;
+        }
+        .span-right {
+           float:right;
+        }
+        .td-border {
+            border: 1px solid #7fbc42;
+            padding: 15px 15px;
+            color: #7fbc42;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .padding-0
+        {
+            padding:0px;
+        }
+        .td-border-top
+        {
+            padding:0px;
+            border-top:1px solid #838384;
+        }
         .heder-detail {
             width: 100%;
         }
-        .heder-detail-text {
+
+        .heder-detail-repeat {
             width: 100%;
         }
-
 
         .heder-data {
             width: 100%;
             color: #fff;
         }
 
-        .heder-data-text {
+        .heder-data-repeat {
             width: 100%;
+            color: #fff;
         }
 
         .border-tbody {
-            border:none;
         }
 
-
+        .border-tbody-repeat {
+        }
+        .td-50per{
+            width:50%;
+        }
         .logo-section {
-            background: #fff;
             width: 30%;
             padding-left: 10px;
             height: 100px;
+        }
+        .td-italic {
+            font-style: italic;
         }
 
         .address-section {
@@ -68,83 +169,79 @@
         }
 
         table, th, td {
-            color: black;
+            color: #838384;
             border-collapse: collapse;
             width: 100%;
         }
-
-        th, td {
-            padding: 5px;
-            padding-bottom: 2px;
-            font-family: Tahoma;
-            color: black;
-            text-align: left;
-        }
-
         .text-white {
             color: #fff;
         }
 
         .text-white-bold-center {
-            background: #4D738A;
+            background: #7fbc42;
             color: #fff;
             text-align: center;
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 16px;
+            font-family: Montserrat-SemiBold;
+            padding: 10px;
         }
 
-        .text-section {
-            width: 100%;
-            text-align: left;
+        .td-pet-bold-center {
+            color: #000;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            width: 33.33%;
+            border: 1px solid #838384;
+        }
+
+        .td-pet {
+            color: #000;
+            text-align: center;
+            font-size: 12px;
+            width: 33.33%;
+            border: 1px solid #838384;
+        }
+
+        .td-vehicle-bold-center {
+            color: #000;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            width: 16.66%;
+            border: 1px solid #838384;
+        }
+
+        .td-vehicle {
+            color: #000;
+            text-align: center;
+            font-size: 12px;
+            width: 16.66%;
+            border: 1px solid #838384;
         }
 
         .detail-section-header {
-            width: 24.75%;
-            text-align: left;
+            width: 28.5%;
+            text-align: right;
+            font-family: Montserrat-SemiBold;
+            font-size: 12px;
         }
 
         .detail-section-data {
-            width: 24.75%;
-            font-weight:bold;
+            width: 21%;
             height: 25px;
-        }
-        .bold-text {
-            font-weight: bold;
-        }
-        .normal-text {
-            font-weight: normal;
+            font-size: 12px;
         }
 
-        .detail-section-data-image {
-            width: 55%;
-            font-weight: bold;
-            height: 25px;
-        }
         .detail-section-gap {
             width: 1%;
         }
 
-        .detail-section-data-monthly {
-            width: 15%;
-            font-weight:bold;
-            height: 25px;
-        }
-        .detail-section-data-image {
-            width: 44.25%;
-            font-weight: bold;
-            height: 25px;
-        }
-        .align-image{
-            vertical-align:top;
-        }
-        .border-top-bottom {
-            border-top: 1px solid #000;
-            border-bottom: 1px solid #000;
+        .hidden {
+            display: none;
         }
 
-        .border-all {
-            border: 1px solid #000;
-        }
+
         
     </style>
 </head>
@@ -153,214 +250,290 @@
         <table class="heder">
             <tbody>
                 <tr>
-                    <td class="logo-section"><img src="[%ServerURL%]/Content/Templates/images/logo.png" width="150" height="100" /></td>
-                    <td class="address-section">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td class="text-white-bold-center">QUOTATION</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-white">9400 NW 41st Street,</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-white">Doral, FL, 33178</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-white">Phone No: 786.437.8658</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
+                    <td class="heder-img">
+                        <img src="[%ServerURL%]/Content/Templates/images/sanctuary_logo_white.png" />
                     </td>
+                    <td class="heder-text">QUOTATION</td>
                 </tr>
             </tbody>
         </table>
+        <div style="padding-top:0px">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="left-section">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="model-unit">MODEL [%ModelName%] - UNIT [%UnitNo%]</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-normal"><span class="text-bold">ASSIGNED PARKING </span>[%AssignParkingSpace%]</td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-        <div style="padding-top:20px">
+                        </td>
+                        <td class="right-section">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-bold td-50per">RESIDENT NAME</td>
+                                        <td class="text-normal">[%ApplicantName%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold td-50per">PHONE</td>
+                                        <td class="text-normal">[%PhoneNumber%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold td-50per">EMAIL</td>
+                                        <td class="text-normal">[%Email%]</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="padding-top:0px">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="left-section">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-bold td-50per"><span class="span-border">INITIAL FEES</span></td>
+                                        <td class="text-bold">AMOUNT</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold vertical-top td-50per">
+                                            APPLICATION FEE PER APPLICANT
+                                        </td>
+                                        <td class="text-normal">
+                                            <table>
+                                                <tr>
+                                                    <td class="padding-0">$[%CreditCheck%]/Credit check</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="padding-0">$[%BackGroundCheck%]/Background check</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="padding-0">$[%GuarantorFees%]/Guarantor <span class="text-bold">(if needed)</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold td-50per">
+                                            ADMINISTRATION FEE
+                                        </td>
+                                        <td class="text-normal">
+                                            [%AdministratorFee%]
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </td>
+                        <td class="right-section  vertical-top">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-bold td-50per">QUOTE DATE</td>
+                                        <td class="text-normal">[%QuoteDate%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold td-50per">QUOTE EXPIRES</td>
+                                        <td class="text-normal">[%QuoteExpires%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold td-50per">DESIRED MOVE IN</td>
+                                        <td class="text-normal">[%DesiredMoveIn%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold td-50per">LEASE TERM</td>
+                                        <td class="text-normal">[%LeaseTerm%] MO</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="padding-top:0px">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="left-section vertical-top">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-bold"><span class="span-border">MOVE-IN FEES</span></td>
+                                        <td class="text-bold">AMOUNT</td>
+                                        <td class="text-normal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">
+                                            SECURITY DEPOSIT
+                                        </td>
+                                        <td class="text-normal">$[%SecurityDeposit%]</td>
+                                        <td class="text-normal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">
+                                            PET NON-REFUNDABLE DEPOSIT <span >[%NumberOfPet%]</span>
+                                        </td>
+                                        <td class="text-normal">
+                                            $[%PetNonRefundableFee%]
+                                        </td>
+                                        <td class="text-normal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">
+                                            PET DNA FEE <span >[%NumberOfPet%]</span>
+                                        </td>
+                                        <td class="text-normal">
+                                            $[%PetDNAFee%]
+                                        </td>
+                                        <td class="text-normal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">
+                                            VEHICLE REGISTRATION <span >[%NumberOfVehicle%]</span>
+                                        </td>
+                                        <td class="text-normal">
+                                            $[%VehicleRegistration%]
+                                        </td>
+                                        <td class="text-normal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">
+                                            INSURANCE***
+                                        </td>
+                                        <td class="text-normal">
+                                            $0.00
+                                        </td>
+                                        <td class="text-normal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">&nbsp;</td>
+                                        <td class="text-normal">&nbsp;</td>
+                                        <td class="text-normal">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold"><span class="span-border">MONTHLY CHARGES</span></td>
+                                        <td class="text-bold">MONTHLY</td>
+                                        <td class="text-bold">PRORATED</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">MONTHLY RENT</td>
+                                        <td class="text-normal">$[%MonthlyRent%]</td>
+                                        <td class="text-normal">$[%ProratedMonthlyRent%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-normal td-italic">Additional Services</td>
+                                        <td class="text-normal"></td>
+                                        <td class="text-normal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">TRASH/RECYCLE</td>
+                                        <td class="text-normal">$[%TrashFee%]</td>
+                                        <td class="text-normal">$[%ProratedTrashFee%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">PEST CONTROL</td>
+                                        <td class="text-normal">$[%PestControlFee%]</td>
+                                        <td class="text-normal">$[%ProratedPestControlFee%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">CONVERGENT BILLING FEE</td>
+                                        <td class="text-normal">$[%ConvergentBillingFee%]</td>
+                                        <td class="text-normal">$[%ProratedConvergentBillingFee%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-normal td-italic">Selected Options</td>
+                                        <td class="text-normal"></td>
+                                        <td class="text-normal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">ADDITIONAL PARKING</td>
+                                        <td class="text-normal">$[%AdditionalParking%]</td>
+                                        <td class="text-normal">$[%ProratedAdditionalParking%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">STORAGE</td>
+                                        <td class="text-normal">$[%StorageAmount%]</td>
+                                        <td class="text-normal">$[%ProratedStorageAmount%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">PET RENT <span >[%NumberOfPet%]</span></td>
+                                        <td class="text-normal">$[%PetFee%]</td>
+                                        <td class="text-normal">$[%ProratedPetFee%]</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td-border-top" colspan="3"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">ESTIMATED MONTHLY CHARGES</td>
+                                        <td class="text-normal">$[%MonthlyCharges%]</td>
+                                        <td class="text-normal">$[%ProratedMonthlyCharges%]</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="right-section vertical-top">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><img src="[%ModelImage%]" width="99%" height="100%" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center text-bold">TOTAL DUE AT MOVE-IN</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="td-border text-center">
+                                            <span class="model-unit">
+                                                $[%DueAtMoveIn%]
+                                            </span>
+                                            <br />
+                                            <span class="text-normal">
+                                                *Amount may vary depending on credit
+                                                worthiness and security deposit amount
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center">
+                                            <img src="[%ServerURL%]/Content/Templates/images/Shoma_mgmt_icons.png" width="80%" height="100%" /><br />
+                                            9400 NW 41st. Doral, FL. 33178<br />
+                                            (305) 614-0210
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="padding-top:0px">
             <table class="heder-detail-text">
                 <tbody class="heder-data-text ">
                     <tr>
-                        <td class="text-section">Thank you for your interest in Sanctuary Doral. This quote expires on midnight of the 3rd day. Please make sure you submit your application before midnight of the third day to secure your selected unit. If you have any questions or need assistance, please feel free to contact us.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div style="padding-top:20px">
-            <table class="heder-detail">
-                <tbody class="heder-data border-tbody">
-                    <tr>
-                        <td class="detail-section-header">QUOTE DATE:</td>
-                        <td class="detail-section-data">[%QuoteDate%]</td>
-                        <td class="detail-section-gap"></td>
-                        <td class="detail-section-header">PREPARED FOR (RESIDENT NAME):</td>
-                        <td class="detail-section-data">[%ApplicantName%]</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header">QUOTE EXPIRES:</td>
-                        <td class="detail-section-data">[%QuoteExpires%]</td>
-                        <td class="detail-section-gap"></td>
-                        <td class="detail-section-header">PHONE: <span class="bold">[%PhoneNumber%]</span></td>
-                        <td class="detail-section-data"><span class="normal-text">EMAIL:</span> [%Email%]</td>
-                    </tr>
-
-                    <tr>
-                        <td class="detail-section-header">DESIRED MOVE IN:</td>
-                        <td class="detail-section-data">[%DesiredMoveIn%]</td>
-                        <td class="detail-section-gap"></td>
-                        <td class="detail-section-header">UNIT#: <span class="bold-text">[%UnitNo%]</span></td>
-                        <td class="detail-section-data"><span class="normal-text">MODEL:</span> [%ModelName%]</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header">LEASE TERM:</td>
-                        <td class="detail-section-data">[%LeaseTerm%] MO</td>
-                        <td class="detail-section-gap"></td>
-                        <td class="detail-section-header">ASSIGNED PARKING SPACE:</td>
-                        <td class="detail-section-data">[%AssignParkingSpace%]</td>
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
-        <div style="padding-top:20px">
-            <table class="heder-detail">
-                <tbody class="heder-data border-tbody">
-                    <tr>
-                        <td class="detail-section-data">INITIAL FEES</td>
-                        <td class="detail-section-data">AMOUNT</td>
-                        <td class="detail-section-gap"></td>
-                        <td class="detail-section-data">MOVE-IN FEES</td>
-                        <td class="detail-section-data">AMOUNT</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header">APPLICATION FEE:</td>
-                        <td class="detail-section-data">$[%ApplicationFees%]</td>
-                        <td class="detail-section-gap"></td>
-                        <td class="detail-section-header">Security Deposit **:</td>
-                        <td class="detail-section-data">$[%SecurityDeposit%]</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header"></td>
-                        <td class="detail-section-data">$[%GuarantorFees%]</td>
-                        <td class="detail-section-gap"></td>
-                        <td class="detail-section-header">Pet Non-Refundable Deposit:</td>
-                        <td class="detail-section-data">$[%PetNonRefundableFee%]</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header">ADMINISTRATION FEE:</td>
-                        <td class="detail-section-data">[%AdministratorFee%]</td>
-                        <td class="detail-section-gap"></td>
-                        <td class="detail-section-header">Pet DNA Fee:</td>
-                        <td class="detail-section-data">$[%PetDNAFee%]</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header"></td>
-                        <td class="detail-section-data"></td>
-                        <td class="detail-section-gap"></td>
-                        <td class="detail-section-header">Vehicle Registration:</td>
-                        <td class="detail-section-data">$[%VehicleRegistration%]</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header"></td>
-                        <td class="detail-section-data"></td>
-                        <td class="detail-section-gap"></td>
-                        <td class="detail-section-header">Insurance***</td>
-                        <td class="detail-section-data"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div style="padding-top:20px">
-            <table class="heder-detail">
-                <tbody class="heder-data border-tbody">
-                    <tr>
-                        <td class="detail-section-header">MONTHLY CHARGES</td>
-                        <td class="detail-section-data-monthly">MONTHLY</td>
-                        <td class="detail-section-data-monthly">PRORATED</td>
-                        <td class="detail-section-gap"></td>
-                        <td class="detail-section-data-image border-all">Move-in fees and pro-rated rent is due at or before move-in.</td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header">Monthly Rent:</td>
-                        <td class="detail-section-data-monthly">$[%MonthlyRent%]</td>
-                        <td class="detail-section-data-monthly">$[%ProratedMonthlyRent%]</td>
-                        <td class="detail-section-gap"></td>
-                        <td class="detail-section-data-image align-image" rowspan="9"><img src="[%ModelImage%]" width="99%" height="100%" /></td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header"><i>Additional Services</i></td>
-                        <td class="detail-section-data-monthly"></td>
-                        <td class="detail-section-data-monthly"></td>
-                        <td class="detail-section-gap"></td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header">Trash/Recycle:</td>
-                        <td class="detail-section-data-monthly">$[%TrashFee%]</td>
-                        <td class="detail-section-data-monthly">$[%ProratedTrashFee%]</td>
-                        <td class="detail-section-gap"></td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header">Pest Control:</td>
-                        <td class="detail-section-data-monthly">$[%PestControlFee%]</td>
-                        <td class="detail-section-data-monthly">$[%ProratedPestControlFee%]</td>
-                        <td class="detail-section-gap"></td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header">Convergent Billing Fee:</td>
-                        <td class="detail-section-data-monthly">$[%ConvergentBillingFee%]</td>
-                        <td class="detail-section-data-monthly">$[%ProratedConvergentBillingFee%]</td>
-                        <td class="detail-section-gap"></td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header"><i>Selected Options</i></td>
-                        <td class="detail-section-data-monthly"></td>
-                        <td class="detail-section-data-monthly"></td>
-                        <td class="detail-section-gap"></td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header">Aditional Parking:</td>
-                        <td class="detail-section-data-monthly">$[%AdditionalParking%]</td>
-                        <td class="detail-section-data-monthly">$[%ProratedAdditionalParking%]</td>
-                        <td class="detail-section-gap"></td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header">Storage:</td>
-                        <td class="detail-section-data-monthly">$[%StorageAmount%]</td>
-                        <td class="detail-section-data-monthly">$[%ProratedStorageAmount%]</td>
-                        <td class="detail-section-gap"></td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header">Pet Fee</td>
-                        <td class="detail-section-data-monthly">$[%PetFee%]</td>
-                        <td class="detail-section-data-monthly">$[%ProratedPetFee%]</td>
-                        <td class="detail-section-gap"></td>
-                    </tr>
-                    <tr>
-                        <td class="detail-section-header">Estimated Monthly Charges</td>
-                        <td class="detail-section-data-monthly border-top-bottom">$[%MonthlyCharges%]</td>
-                        <td class="detail-section-data-monthly border-top-bottom">$[%ProratedMonthlyCharges%]</td>
-                        <td class="detail-section-gap"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div style="padding-top:20px">
-            <table class="heder-detail-text">
-                <tbody class="heder-data-text ">
-                    <tr>
-                        <td class="text-section">*The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved.</td>
-                    </tr>
-                    <tr>
-                        <td class="text-section">**The Security Deposit may be bonded using the SureDeposit Program. Please contact by hone (866) 312-3090 or email SelectDeposit@Assurant.com. The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.</td>
-                    </tr>
-                    <tr>
-                        <td class="text-section">***General Liability insurance with a minimum limit of $300,000 is required. Proof of coverage will be required prior to move-in.</td>
-                    </tr>
-                    <tr>
-                        <td class="text-section">****Excludes the Utility reimbursement for water & sewer which is billed monthly based on actual consumption.</td>
-                    </tr>
-                    <tr>
-                        <td class="text-section">The amounts herein are estimates based upon policies and rates in effect at the time. The amounts are subject to change without notice and not final until lease is executed. If you make changes to the desired move-in date, lease term, or any other option, the amounts herein may vary.</td>
+                        <td class="text-section">
+                            *The Administration Fee is due to reserve your apartment for a maximum of 30 days, once approved.<br />
+                            **The Security Deposit may be bonded using the Flex Deposit Program. For more information please contact 1-877-277-4811 or visit
+                            www.flexdeposit.com<br />
+                            The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.<br />
+                            ***General Liability insurance with a minimum limit of $300,000 is required (estimated cost of $13.84 a month or $166 a year with Assurant). Proof of
+                            coverage will be required prior to move-in. Please contact Assurant at (855) 846-9278 or visit www.quoterenters.com.<br />
+                            ****Excludes the utility reimbursement for water & sewer which is billed monthly based on actual consumption.<br /><br />
+                            The amounts herein are estimates based upon policies and rates in effect at the time. The amounts are subject to change without notice and not final
+                            until lease is executed. If you make changes to the desired move-in date, lease term, or any other option, the amounts herein may vary.
+                        </td>
                     </tr>
                 </tbody>
             </table>

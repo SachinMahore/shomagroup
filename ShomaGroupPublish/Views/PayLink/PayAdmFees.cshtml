@@ -126,8 +126,15 @@
                                         </div>
 
                                     </div>
+                                    <div class="col-sm-12" style="margin-bottom:20px">
+                                        <input type="checkbox" id="chkTermsAndCondition">
+                                        <span class="chektext">
+                                            I agree to the
+                                            <span class="span1"><a id="ShowTermsAndCondition" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <button type="submit" class="btn btn-primary" onclick="saveCoAppPayment()">Pay Now</button>
+                                        </span>
+                                    </div>
                                     <div class="col-sm-2">
-                                        <button type="submit" class="btn btn-primary" onclick="saveCoAppPayment()">Pay Now</button>
+                                        
                                         <br />
 
                                     </div>
@@ -141,7 +148,16 @@
         </div>
     </div>
 </div>
-
+<div class="modal " id="modalTermsCondition" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
+    <div class="modal-dialog" style="width:1100px">
+        <div class="modal-content" style="width: 100% !important;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <div class="modal-body text-center">
+                <div><iframe src="~/Content/assets/img/Document/TermAndCondition.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
 
     var charge_Type = 1;
@@ -182,6 +198,15 @@
         $("#lblPaymentDet").text("Enter Credit Card Details.");
     }
     function saveCoAppPayment() {
+        if ($("#chkTermsAndCondition").is(':unchecked')) {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: "Please accept Terms & Condition </br>",
+                type: 'red'
+            });
+            return;
+        }
         $("#divLoader").show();
         var msg = "";
         if ($("#hndTransMethod").val() == "0") {

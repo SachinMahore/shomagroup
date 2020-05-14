@@ -61,6 +61,8 @@ namespace ShomaRM.Areas.Admin.Models
         public string TCardExpirationMonth { get; set; }
         public string TCardExpirationYear { get; set; }
         public string TransactionDateString { get; set; }
+        public string ApplicantName { get; set; }
+        public string ApplicantType { get; set; }
 
         public int BuildPaganationTransactionList(TransactionSearchModel model)
         {
@@ -410,6 +412,15 @@ namespace ShomaRM.Areas.Admin.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<TransactionModel> lstpr = new List<TransactionModel>();
+
+            int userid= ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var appData = db.tbl_Applicant.Where(p => p.UserID == userid).FirstOrDefault();
+            long appid = 0;
+            if(appData!=null)
+            {
+                appid = appData.ApplicantID;
+            }
+
             try
             {
                 DataTable dtTable = new DataTable();
@@ -424,6 +435,11 @@ namespace ShomaRM.Areas.Admin.Models
                     paramTID.ParameterName = "TenantID";
                     paramTID.Value = TenantID;
                     cmd.Parameters.Add(paramTID);
+
+                    DbParameter paramAID = cmd.CreateParameter();
+                    paramAID.ParameterName = "AppID";
+                    paramAID.Value = appid;
+                    cmd.Parameters.Add(paramAID);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -487,6 +503,8 @@ namespace ShomaRM.Areas.Admin.Models
                     pr.Charge_Type = dr["Charge_Type"].ToString();
                     pr.Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString());
                     pr.TBankName = dr["TBankName"].ToString();
+                    pr.ApplicantName =dr["ApplicantName"].ToString();
+                    pr.ApplicantType = dr["ApplicantType"].ToString();
 
                     lstpr.Add(pr);
                 }
