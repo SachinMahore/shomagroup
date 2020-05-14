@@ -1243,8 +1243,6 @@ var goToStep = function (stepid, id, calldataupdate) {
     }
     if (stepid == "6") {
         getApplicantLists();
-
-
         if (parseInt($("#hdnStepCompleted").val()) < 5) {
             msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 6);
             $.alert({
@@ -1353,8 +1351,6 @@ var goToStep = function (stepid, id, calldataupdate) {
             $('#lblRFPPetRent').text($('#lblMonthly_PetRent').text());
             $("#lblRFPTotalMonthlyPayment").text(formatMoney(parseFloat((parseFloat(unformatText($("#lblRFPMonthlyCharges").text()))) + (parseFloat($("#lblRFPAdditionalParking").text())) + (parseFloat($("#lblRFPStorageUnit").text())) + (parseFloat($("#lblRFPPetRent").text())) + (parseFloat($("#lblRFPTrashRecycling").text())) + (parseFloat($("#lblRFPPestControl").text())) + (parseFloat($("#lblRFPConvergentbillingfee").text()))).toFixed(2)));
 
-
-
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -1451,8 +1447,6 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "10") {
-       
-
         if (parseInt($("#hdnStepCompleted").val()) < 9) {
             msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 10);
             $.alert({
@@ -1845,6 +1839,10 @@ var goToStep = function (stepid, id, calldataupdate) {
             }
             if (!$("#txtZipOffice").val()) {
                 msg += "Please Fill The Zip </br>";
+            }
+
+            if (nofup < 2) {
+                msg += "Please Select any  two of the three options (tax return, paystubs, and bank statements)";
             }
 
             if (msg != "") {
@@ -6635,9 +6633,10 @@ var saveupdateTenantOnline = function (stepcompleted) {
         }
     }
 
- 
-    if (nofup < 2) {
-        msg += "Please Select any  two of the three options (tax return, paystubs, and bank statements)";
+    if (stepcompleted == 12) {
+        if (nofup < 2) {
+            msg += "Please Select any  two of the three options (tax return, paystubs, and bank statements)";
+        }
     }
     if (msg != "") {
         $.alert({
@@ -6646,11 +6645,11 @@ var saveupdateTenantOnline = function (stepcompleted) {
             type: 'red'
         })
         $("#divLoader").hide();
-
-        showCurrentStep(stepcompleted);
-
+        showCurrentStep(stepcompleted - 1);
         return;
     }
+   
+
     $formData = new FormData();
     $formData.append('ProspectID', ProspectID);
     $formData.append('FirstName', FirstName);

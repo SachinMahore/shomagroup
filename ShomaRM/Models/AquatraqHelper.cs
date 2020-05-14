@@ -132,10 +132,6 @@ namespace ShomaRM.Models
 
                 //reading stream  
                 var ServiceResult = rd.ReadToEnd();
-                ////writting stream result on console  
-                //Console.WriteLine(ServiceResult);
-                //Console.ReadLine();
-
                 xmlDocument = XDocument.Parse(ServiceResult);
 
 
