@@ -1108,7 +1108,6 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "11") {
-
         if (id == "11") {
             $("#divLoader").show();
             $("#popApplicantSummary").modal("hide");
@@ -1223,7 +1222,193 @@ var goToStep = function (stepid, id, calldataupdate) {
             }
         }
     }
+    if (stepid == "12") {
+        if (parseInt($("#hdnStepCompleted").val()) < 11) {
+            msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 12);
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+        if (id == "12") {
+            msg = '';
+            if (!$("#txtEmployerName").val()) {
+                msg += "Please Fill The Employer Name </br>";
+            }
+            if (!$("#txtStartDate").val()) {
+                msg += "Please Fill The Start Date </br>";
+            }
+            if (!$("#txtAnnualIncome").val()) {
+                msg += "Please Fill The Annual Income </br>";
+            }
+            if ($("#txtAnnualIncome").val() == '0.00') {
+                msg += "Please Fill The Annual Income </br>";
+            }
+            if (!$("#txtSupervisiorName").val()) {
+                msg += "Please Fill The Supervisior Name </br>";
+            }
 
+            if (!$("#txtSupervisiorPhone").val()) {
+                msg += "Please Fill The Supervisior Phone </br>";
+            } else if (unformatText($("#txtSupervisiorPhone").val()).length < 10) {
+                msg += "Please Fill The 10 digit Supervisior Phone </br>";
+            }
+
+            if ($("#hndHasTaxReturnFile").val() == "0") {
+                if (document.getElementById('fileUploadTaxReturn').files.length == '0') {
+                    msg += "Please Upload last 3 paystubs or if self-employed last 2 year's Federal Tax Returns or 3 consecutive bank statements</br>";
+                }
+            }
+            if ($("#rbtnPaystub").is(":checked")) {
+                if ($("#hndHasTaxReturnFile4").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn4').files.length == '0') {
+                        var upLabel44 = $('#lblUpload4').text();
+                        msg += "Please Upload " + upLabel44 + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile5").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn5').files.length == '0') {
+                        var upLabel25 = $('#lblUpload5').text();
+                        msg += "Please Upload " + upLabel25 + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile3").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn3').files.length == '0') {
+                        var upLabel3 = $('#lblUpload3').text();
+                        msg += "Please Upload " + upLabel3 + " </br>";
+                    }
+                }
+            }
+            if ($("#rbtnFedralTax").is(":checked")) {
+                if ($("#hndHasTaxReturnFile1").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
+                        var upLabel4 = $('#lblUpload1').text();
+                        msg += "Please Upload " + upLabel4 + " </br>";
+                    }
+                }
+                if ($("#hndHasTaxReturnFile2").val() == "0") {
+                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
+                        var upLabel5 = $('#lblUpload2').text();
+                        msg += "Please Upload " + upLabel5 + " </br>";
+                    }
+                }
+            }
+            if ($("#rbtnBankStatement").is(":checked")) {
+                if ($("#hndHasBankStateFile1").val() == "0") {
+                    if (document.getElementById('fileBankState1').files.length == '0') {
+                        var upLabel6 = $('#lblUploadBankState1').text();
+                        msg += "Please Upload " + upLabel6 + " </br>";
+                    }
+                }
+                if ($("#hndHasBankStateFile2").val() == "0") {
+                    if (document.getElementById('fileBankState2').files.length == '0') {
+                        var upLabel7 = $('#lblUploadBankState2').text();
+                        msg += "Please Upload " + upLabel7 + " </br>";
+                    }
+                }
+                if ($("#hndHasBankStateFile3").val() == "0") {
+                    if (document.getElementById('fileBankState3').files.length == '0') {
+                        var upLabel8 = $('#lblUploadBankState3').text();
+                        msg += "Please Upload " + upLabel8 + " </br>";
+                    }
+                }
+            }
+
+
+            if ($("#txtCountryOffice").val() == '0') {
+                msg += "Please Select The Country </br>";
+            }
+            if (!$("#txtofficeAddress1").val()) {
+                msg += "Please Fill The Address Line 1 </br>";
+            }
+            if ($("#ddlStateEmployee").val() == '0') {
+                msg += "Please Select The State </br>";
+            }
+            if (!$("#ddlCityEmployee").val()) {
+                msg += "Please Fill The City </br>";
+            }
+            if (!$("#txtZipOffice").val()) {
+                msg += "Please Fill The Zip </br>";
+            }
+
+            if (nofup < 2) {
+                msg += "Please Select any  two of the three options (tax return, paystubs, and bank statements)";
+            }
+
+            if (msg != "") {
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+                return;
+            }
+            else {
+                todaysDate = new Date();
+                twoDigitMonth = ((todaysDate.getMonth().length + 1) === 1) ? (todaysDate.getMonth() + 1) : '0' + (todaysDate.getMonth() + 1);
+                twoDigitDay = ((todaysDate.getDate().length) === 1) ? (todaysDate.getDate()) : '0' + (todaysDate.getDate());
+                todaysDate = twoDigitMonth + "/" + todaysDate.getDate() + "/" + todaysDate.getFullYear();
+                tenantId = $("#hdnOPId").val();
+                fromDateEmpHis = $('#txtStartDate').val();
+                var toDateEmpHis = todaysDate;
+                model = {
+                    TenantId: tenantId,
+                    EmpStartDate: fromDateEmpHis,
+                    EmpTerminationDate: toDateEmpHis
+                };
+                $.ajax({
+                    url: '/ApplyNow/GetMonthsFromEmployerHistory',
+                    type: "post",
+                    contentType: "application/json utf-8",
+                    data: JSON.stringify(model),
+                    dataType: "JSON",
+                    success: function (response) {
+                        $("#hdnEmployerHistory").val(response.model.TotalMonthsEmployerHistory);
+                        if ($("#hdnEmployerHistory").val() < 36) {
+                            alert("Please provide at least 3 years of employment history");
+                        } else {
+                            $("#summEmployer").text($("#txtEmployerName").val() + ", " + $("#txtofficeAddress1").val() + ", " + ((!$("#txtofficeAddress2").val()) ? "" : ", " + $("#txtofficeAddress2").val()) + $("#ddlCityEmployee").val() + ", " + $("#ddlStateEmployee option:selected").text() + " - " + $("#txtZipOffice").val() + ", " + $("#txtCountryOffice option:selected").text());
+                            $("#summEstartdate").text($("#txtStartDate").val());
+                            $("#summSalary").text(formatMoney($("#txtAnnualIncome").val()));
+                            saveupdateTenantOnlineCoapplicant(12);
+                            getTenantPetPlaceDataCoapp();
+                            $("#step2").addClass("hidden");
+                            $("#step1").addClass("hidden");
+                            $("#step4").addClass("hidden");
+                            $("#step3").addClass("hidden");
+                            $("#step5").addClass("hidden");
+                            $("#step6").addClass("hidden");
+                            $("#step7").addClass("hidden");
+                            $("#step8").addClass("hidden");
+                            $("#step9").addClass("hidden");
+                            $("#step10").addClass("hidden");
+                            $("#step11").addClass("hidden");
+                            $("#step12").removeClass("hidden");
+                            $("#step13").addClass("hidden");
+                            $("#step14").addClass("hidden");
+                            $("#step15").addClass("hidden");
+                            $("#step16").addClass("hidden");
+
+                            $("#li12").addClass("active");
+                            $("#li8").removeClass("active");
+                            $("#li9").removeClass("active");
+                            $("#li7").removeClass("active");
+                            $("#li11").removeClass("active");
+                            $("#li10").removeClass("active");
+                            $("#li13").removeClass("active");
+                            $("#li14").removeClass("active");
+                            $("#li15").removeClass("active");
+                            $("#li16").removeClass("active");
+                            $("#li17").removeClass("active");
+                        }
+                    }
+                });
+            }
+
+        }
+    }
     if (stepid == "13") {
 
         if (id == "13") {
@@ -5671,7 +5856,11 @@ var saveupdateTenantOnlineCoapplicant = function (stepcompleted) {
             msg += "Please enter 10 digit management company phone number </br>";
         }
     }
-
+    if (stepcompleted == 12) {
+        if (nofup < 2) {
+            msg += "Please Select any  two of the three options (tax return, paystubs, and bank statements)";
+        }
+    }
     if (msg != "") {
         $.alert({
             title: "",
@@ -5679,11 +5868,11 @@ var saveupdateTenantOnlineCoapplicant = function (stepcompleted) {
             type: 'red'
         })
         $("#divLoader").hide();
-
-        showCurrentStep(stepcompleted);
-
+        showCurrentStep(stepcompleted - 1);
         return;
     }
+
+
     $formData = new FormData();
     $formData.append('ProspectID', ProspectID);
     $formData.append('FirstName', FirstName);
