@@ -123,12 +123,13 @@ $(document).ready(function () {
     //sachin m 14 m1y
     $("#chkCCPay").on('ifChanged', function (event) {
         if ($(this).is(":checked")) {
-            $('#divPayCCFees').removeClass('hidden');
+            $("#popCCPay").modal("show");
             $('#btnsaveappl').addClass('hidden');
             
         }
         else {
-            $('#divPayCCFees').addClass('hidden');
+            $("#popCCPay").modal("hide");
+          
         }
     });
     $("#mainApplName").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val() + " ") + $("#txtLastNamePersonal").val());
@@ -5124,6 +5125,8 @@ var saveupdateStorage = function () {
         }
     });
 };
+
+
 //Sohan
 var addApplicant = function (at) {
     var modal = $("#popApplicant");
@@ -5546,8 +5549,13 @@ var getApplicantLists = function () {
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
 
                         "<label>Primary Applicant</label><br/>" +
-                        "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>" +
-                        "</div><div><center><label><b>Status: " +  elementValue.ComplStatus +"</b></label></center></div></div>";
+                        "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label><br/>";
+                    if (elementValue.CreditPaid != "1" && $("#txtApplicantSSNNumber").val() !="") {
+                        html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
+                    } else if (elementValue.CreditPaid == "1") {
+                        html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a>";
+                    } 
+                       html+=    "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
                     //Amit's work 17-10
@@ -6095,6 +6103,20 @@ var goToEditApplicant = function (aid) {
         });
     }
 };
+
+var payFeePop = function (aid,ct) {
+    $("#hndApplicantID").val(aid);
+    $("#hndFromAcc").val(ct);
+    if (ct == 5) {
+        $("#lblpopcctitle").text("Pay Background Check Fees")
+
+    } else {
+        $("#lblpopcctitle").text("Pay Credit Check Fees")
+        $("#sppayFees").text()
+        
+    }
+    $("#popCCPay").modal("show");
+}
 var clearApplicant = function () {
     $("#hndApplicantID").val(0);
     $("#txtApplicantFirstName").val("");
@@ -6979,7 +7001,7 @@ var getTenantOnlineList = function (id) {
             $("#ddlStateIDDocReg").val(response.model.State).change();
             //$("#ddlStatePersonal").find("option[value='" + response.model.State + "']").attr('selected', 'selected');
             //}, 1500);
-
+           
             $("#txtSSNNumber").val(response.model.SSN);
             $("#txtSSNNumberReg").val(response.model.SSN);
             if (id != 0) {
@@ -10190,33 +10212,33 @@ function saveCoAppPayment() {
         });
         return;
     }
-    var addressLine1 = $("#txtAddressLine1").val();
-    var addressLine2 = $("#txtAddressLine2").val();
-    var applicantState = $("#ddlApplicantState").val();
-    var applicantCountry = $("#txtApplicantCountry").val();
-    var applicantCity = $("#txtApplicantCity").val();
-    var applicantApplicantZip2 = $("#txtApplicantZip2").val();
-    var msgp = "";
-     if (!addressLine1) {
-         msgp += "Enter Address Line 1</br>";
-        } if (!applicantState) {
-            msgp += "Enter State </br>";
-        } if (applicantCountry <= 0) {
-            msgp += "Select Country</br>";
-        } if (applicantCity <= 0) {
-            msgp += "Enter the City</br>";
-        } if (applicantApplicantZip2 <= 0) {
-            msgp += "Select Zip</br>";
-        }
-        if (msgp != "") {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: msgp,
-                type: 'red'
-            });
-            return;
-        }
+    //var addressLine1 = $("#txtAddressLine1").val();
+    //var addressLine2 = $("#txtAddressLine2").val();
+    //var applicantState = $("#ddlApplicantState").val();
+    //var applicantCountry = $("#txtApplicantCountry").val();
+    //var applicantCity = $("#txtApplicantCity").val();
+    //var applicantApplicantZip2 = $("#txtApplicantZip2").val();
+    //var msgp = "";
+    // if (!addressLine1) {
+    //     msgp += "Enter Address Line 1</br>";
+    //    } if (!applicantState) {
+    //        msgp += "Enter State </br>";
+    //    } if (applicantCountry <= 0) {
+    //        msgp += "Select Country</br>";
+    //    } if (applicantCity <= 0) {
+    //        msgp += "Enter the City</br>";
+    //    } if (applicantApplicantZip2 <= 0) {
+    //        msgp += "Select Zip</br>";
+    //    }
+    //    if (msgp != "") {
+    //        $("#divLoader").hide();
+    //        $.alert({
+    //            title: "",
+    //            content: msgp,
+    //            type: 'red'
+    //        });
+    //        return;
+    //    }
 
     if ($("#hndTransMethod1").val() == "2") {
         var paymentMethod = 2;
@@ -10311,7 +10333,7 @@ function saveCoAppPayment() {
         BankName: bankName,
         PaymentMethod: paymentMethod,
         AID: $("#hndApplicantID").val(),
-        FromAcc: 4,
+        FromAcc: $("#hndFromAcc").val(),
 
     };
 
