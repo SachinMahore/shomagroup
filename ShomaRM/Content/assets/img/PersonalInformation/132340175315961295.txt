@@ -1,0 +1,686 @@
+Date
+==============
+30-March-2020
+==============
+802 (Not Done)
+=====
+Prospect Portal: The top row Bread Crumbs do not show hand icon on mouse hover
+
+803 (DONE) (Reopen) (Discuss)
+===
+Prospect Portal: Vehicle Charges Appears and Disappears on back and forth navigating
+
+805 (Done)
+===
+Prospect Portal: If I go back to Select Units Page the Units list and the Floor Plan disappears
+
+806 (Done)
+===
+Prospect Portal: The number of Applicants and Co-Applicants has to be in propotion to the size of the Unit
+
+807 (In Progress)
+===
+Prospect Portal: Responsible for payment page Move In Charges / Monthly Payment
+
+==============
+Date
+==============
+31-March-2020
+==============
+
+826 (M) (Not Found) (Need To See Again) Discuss with matt (Issue with view size of the browser)
+=======
+Admin Portal - Property - Unit Pagenation Styling Breaking
+
+827 (M) (DONE)
+=======
+Prospect Portal - Floor Plan List
+
+828 (M) (Done) (Done 03-04-2020)
+=======
+Prospect Portal - Clicking on Selected: Floor
+
+829 (H) (DONE)
+=======
+Sign In Page: The text in the Login Page should be more informative
+
+830 (H) (DONE)
+=======
+Prospect Portal - Available On
+
+831 (L) (DONE)
+=======
+Prospect Portal - Unit Pricing 
+
+832 (M) (DONE)
+=======
+Prospect Portal - Print Preview - Lease Term
+
+833 (M) (DONE)
+=======
+Prospect Portal - Floor Plan Map Mouse Over
+
+834 (M) (DONE) (For Move In Charges and Monthly Payment the total must equal 100% in order to continue.)
+=======
+Prospect Portal: Payment Responsibility Page Popup
+
+835 (M) (DONE)
+=======
+Prospect Portal - Print Summary of Floor Plan
+
+836 (M) (Done) (The Password should have a minimum of 8 characters)
+=======
+Prospect Portal - Popup Password Rewording
+
+837 (M) (DONE)
+=======
+Prospect Portal - Previous Step back to Step 2
+
+838 (M) (Hold) (Need New Logo)
+=======
+Footer Page: Instagram Logo
+
+839 (H) (In progress) (DONE)
+=======
+Prospect Portal - Entering Negative Monthly Payment
+
+785 (M) (In progress) (done)
+=======
+Prospect Portal - Password Validation Not Working
+
+787 (H) (DONE) (Reopen)(done)
+=======
+Prospect Portal - Changing Charges
+
+
+==============
+Date
+=============
+01-APRIL-2020
+=============
+845 (H) (DOne)
+=======
+Prospect Portal: Payment Page Pricing issue
+
+846 (H) (DONE) (Direct to delete without the message) (Reopen) (Done)
+=======
+Prospect Portal - Pet Fees
+
+847 (H) (Done)
+=======
+Prospect Portal - Responsibility Pricing
+
+848 (M) (DONE) (03-04-2020)
+=======
+Admin - Property Floor Details
+
+849 (H) (DONE)
+=======
+Admin - Property Models 
+
+850 (M) (DOne) (Done 02-04-2020)
+=======
+Prospect Portal - Sorting Highest to Lowest
+
+851 (H) (DONE)
+=======
+Prospect Portal - Floor Plan Changing Available
+
+==============
+Date
+=============
+02-APRIL-2020
+=============
+
+852 (H) (DONE)
+=======
+Prospect Portal: Desired Move In Date can be selected to have a past date
+
+853 (H) (DONE)
+=======
+Prospect Portal: Email address of the Co-Applicant has to be made mandatory
+
+854 (H) (DONE)
+=======
+Prospect Portal: Responsibilty Page shouldnt take Text in the amount boxes
+
+855 (M) (DISCUSS) with anup
+=======
+Prospect Portal: Quote Print page is not showing the text in formatted manner
+
+856 (M) DONE
+=======
+Date range 
+
+857 (L) (DISCUSS) (Depends on Unit Selection 1B-2, 2B-4 and 3B-6)
+=====
+Prospect Portal - Minor Can't Be Added
+
+858 (H) (In Progress) (Not Reproduce) 
+=======
+15$ charge still being applied 
+
+859 (L) (DONE)
+=======
+Prospect Portal - Send Co Applicant Links
+
+556 (H) (DONE)
+=======
+Admin: All Admin Issues
+
+==============
+Date
+=============
+02-APRIL-2020
+=============
+860 (M) (DONE 03-04-2020)
+=======
+Floor plan selection
+
+861 (H) (Issue with delete all lease terms from database) (Done 03-04-2020)
+=======
+Home Page - Lease Terms Not Appearing
+
+862 (H) (Issue with delete all lease terms from database) (Done 03-04-2020) AS Lease terms are very important
+=======
+Prospect Portal - Login Error
+
+863 (H) (DONE 03-04-2020)
+=======
+Password Reset Sending Encrypted Password In Email
+
+==============
+Date
+=============
+04-APRIL-2020
+=============
+864 (H) SACHIN
+=======
+Discuss How Password Reset Should Be Handled
+
+865 (M) SACHIN
+=======
+Prospect Portal - b.Responsibility Pricing Overage
+
+866 (M) SACHIN
+=======
+Prospect Portal - Pet Image Broken
+
+==============
+Date
+=============
+08-APRIL-2020
+=============
+828 (M) Discuss With Matt (DONE)
+=======
+Prospect Portal - Clicking on Selected: Floor
+
+872 (M) (DONE)
+========
+Prospect Portal - Can't Print Floor Plan Summary
+
+873 (M) (DONE)
+========
+Prospect Portal - Comparing Units Is Broken
+
+874 (M) (DONE)
+========
+Prospect Portal - Summary
+
+==============
+Date
+=============
+09-APRIL-2020
+=============
+838 (M) (Hold) (Need New Logo) Discuss With Matt if we want to apply new font
+=======
+Footer Page: Instagram Logo
+
+876 (H) (Working)
+========
+Prospect Portal: Edge Browser: Popups do not work
+
+877 (H) (Working)
+========
+Prospect Portal: Edge: Search results show all the Units
+
+==============
+Date
+=============
+14-APRIL-2020
+=============
+878 (H) SACHIN
+=======
+Changes to the parking space assignments.
+
+879 (H) SACHIN
+========
+Prospect Portal: Enhancement to Step 3 in application workflow
+
+880 (H) SACHIN
+========
+Prospect Portal: Enhancement to Step 5 in application workflow: Policies & Conditions - G.
+
+881 (H) SACHIN
+=======
+rospect Portal: Enhancements to Step 5 in application workflow: Policies & Conditions - I
+
+882 (H) AMIT
+=======
+Admin Portal: Enhancement to Property - Unit; give admin access to assign parking spots to the unit (for 1 bed & 2 bed 1 spot; for 3 bed 2 spots)
+
+883 (H) -- AMIT --
+Admin Portal: Ability for Admin to edit Parking
+
+884 (H) AMIT
+=======
+Admin Portal: Tenant Vehicle Information; adding the additional parking information (floor/spot #) for both the additional and pre-assigned parking
+
+885 (H)
+========
+Tenant Portal: Monthly payments (change in recurring payment if any, monthly invoice generation) 
+
+886 (H)
+=======
+Tenant Portal: Monthly payments (change in recurring payment if any, monthly invoice generation) 
+
+887 (H)
+=======
+Tenant Portal: Editing multiple vehicle info under profile (for pre assigned and additional parking)
+
+888 (H) PIYUSH MATE (DONE) -- 15-APRIL-2020
+=======
+Minor change needed in the “adding storage unit” section of the application
+
+889 (H) -- PIYUSH MATE (DONE) -- 15-APRIL-2020
+=======
+Prospect Portal: Changes to the Application Summary Page
+
+890 (H) -- PIYUSH MATE (DONE) -- 15-APRIL-2020
+=======
+Prospect Portal: Quotaton Face Lift
+
+891 (H) -- VIJAY -- 13-APRIL-2020
+========
+Prospect Portal: Making the Units Unavailable / Available 
+
+892 (H)
+=======
+Prospect Portal: Gurantor Related changes
+
+894 (H) -- PIYUSH MATE -- (DONE) -- 15-APRIL-2020
+========
+Prospect Portal: Changes requested by Tania to the Print process of Application Summary
+
+897 (H) -- SOHAN -- (DONE) -- 13-APRIL-2020
+=======
+Prospect Portal: Application Workflow changes (New Step) Add to the Personal Information Section
+
+898 (H) -- SOHAN -- (DONE) -- 13-APRIL-2020
+========
+Prospect Portal: Residence History (New Fields and Database Changes to Prospect, Admin and Tenant Portals)
+
+899 (H) -- SOHAN -- (DONE) -- 13-APRIL-2020
+=======
+Prospect Portal: Personal Information (New Field and Database Changes to Prospect, Admin and Tenant Portals)
+
+900 (H) -- VIJAY -- 13-APRIL-2020
+=======
+Prospect Portal: Changes as per memo document
+
+901 (H) -- VIJAY -- (DONE) --13-APRIL-2020
+=======
+Admin Portal: Create a Grid to enter the Lease Term Prices agains each Unit
+
+902 (H)
+=======
+Prospect Portal: Late Payment on any additional fees various scenarios
+
+903 (H)
+========
+Prospect Portal: Adding Guarantor and and Co-Applicant Validations in the workflow
+
+904 (H)
+=======
+Prospect Portal: Storage Unit and Parking space updates
+
+905 (H)
+=======
+Prospect Portal: Admin Portal: Enhancements to Move-in and further Steps
+
+906 (M)
+========
+Prospect Portal: Admin Portal: Enhancements to Move-in and further Steps
+
+907 (M)
+=======
+Prospect Portal: Admin Portal: Enhancements to Move-in and further Steps
+
+908 (H)
+=======
+Prospect Portal: Admin Portal: Tenant Portal: Enhancements to FOB's
+
+909 (H)
+=======
+Prospect Portal: Create link and create new page to show the site plan
+
+910 (M) (DONE) -- VIJAY -- 15-APRIL-2020
+=======
+Prospect Portal - Additional Parking - Step 3
+
+911 (M) -- SACHIN
+=======
+Prospect Portal - Additional Parking - Step 5 (G.Vehicle Info)
+
+912 (M) -- AMIT
+=======
+Admin Portal - Additional Parking - Prospect/Unit
+
+913 (M) (DONE) -- VIJAY -- 15-APRIL-2020
+========
+Admin Portal - Additional Parking - Edit Parking
+
+914 (M) -- PIYUSH (DONE) -- VIJAY -- 14-APRIL-2020
+========
+Prospect Portal - Step 3 - Storage Unit Description
+
+915 (L) --In Process -- Sohan
+=======
+Prospect Portal - Personal Information
+
+==============
+Date
+=============
+15-APRIL-2020
+=============
+919 (M) (DONE) -- VIJAY -- 14-APRIL-2020
+=======
+Floor Plan Selection not scrolling down to selected unit
+
+920 (M)
+=======
+Validations
+
+921 (H) (DONE) -- VIJAY -- 14-APRIL-2020
+=======
+Unable to Login after submitting Application
+
+922 (H) -- VIJAY -- (DONE) --16-APRIL-2020
+=======
+CRITICAL Prospect Portal - Security Deposit
+
+923 (M) -- VIJAY -- (DONE) --16-APRIL-2020
+=======
+Prospect Portal - Quotation Page - Parking Spot
+
+924 (M) --DISCUSS WITH MATT -- In Progress-- Sohan
+=======
+Prospect Portal - International Prospect Personal Information
+
+925 (L) -- VIJAY -- (DONE) --16-APRIL-2020
+=======
+Prospect Portal - Summary Moving 'v'
+
+926 (M) -- VIJAY -- (DONE) --16-APRIL-2020
+=======
+Prospect Portal - Payment NAN
+
+927 (M) -- AMIT --
+=======
+Admin Portal - Edit Parking
+
+928 (M) -- VIJAY -- (DONE) --16-APRIL-2020
+=======
+Propsect Portal: Login Popup Enter key doesnt work
+
+929 (M) -- VIJAY -- (DONE) --16-APRIL-2020
+=======
+Propsect Portal: Login Popup Enter key doesnt work -- VIJAY -- (DONE) --16-APRIL-2020
+
+930 (M) -- VIJAY -- (DONE) --16-APRIL-2020
+=======
+Prospect Portal: Logout button shows up all the time even when not logged in 
+
+956 (M) -- VIJAY -- (DONE) --16-APRIL-2020
+=======
+Prospect Portal: Password continues to have several issues 
+
+==============
+Date
+=============
+20-APRIL-2020
+=============
+
+957 (M) (DONE) -- AMIT --
+=======
+Prospect Portal - Number of Applicants
+
+975 (M) (DONE) -- VIJAY --
+=======
+Admin - Online Administration Fees Not Updating
+
+976 (H) (DONE) -- VIJAY --
+=======
+Blue Moon Lease Options
+
+977(H) (DONE) -- SACHIN--
+=======
+Admin Portal - Online Application
+
+==============
+Date
+=============
+21-APRIL-2020
+=============
+
+978(H)   DONE
+=======
+Admin - Online Application - Admin Sign Lease?
+
+979(H)  DONE
+=======
+Admin Portal: Screening Status Page
+
+980 (H)  --AMIT--- DONE
+=======
+Prospect Portal: When I do not add any Vet's name in the box and click save it doesnt add the pet to the list below.
+
+981 (H)  --SOhan- done
+=======
+Propsect Portal: Add Validations for weight on Pet information page
+
+982 (H)  --AMIT---
+=======
+Prospect Portal: Validation check on teh Vehicle Information Page
+
+983 (H)   --AMIT--- (Hold)
+=======
+Propsect Portal: ID Number Box selection
+
+984 (M)  --AMIT DONE--
+=======
+Prospect Portal: Final submit application Page
+
+985 (H)  --AMIT DONE--
+=======
+Critical: Prospect Portal: I add an Co-Applicant after the payment has been done by primary applicant
+
+986 (M)  --Sohan-- In Progress
+=======
+Resident - Pre Move In Tour Date Select
+
+987 (H)  -- Sohan-- In Progress
+=======
+Admin Portal - Move In Checklist
+
+991 (H) --Sohan-- done
+========
+Prospect Portal: First page Lease term selection Box
+
+992 (H) --Sohan--- done
+======
+Prospect Portal: Floor Plan image udates
+
+993(H) --In Progress -- Sohan
+======
+All Emails: Activate the social media buttons in the emails received (facebook,instagram,twitter,phone number)
+
+994 (H) -- DONE-- 
+=======
+Prospect Portal: The latest Pet Police PDF was not uploaded on live server
+
+995 (H) --DONE-- Sohan
+=======
+Admin Portal: Provide ability for Admins to Update the PDF documents
+
+996 (H) --Amint--DONE
+========
+Prospect Portal: Quotation Page updates to Pet Summary
+
+997 (H) --Amint--DONE
+=======
+Prospect Portal: Quotation Page updates to Security text
+
+998(H)--Sohan-- DONE
+======
+Prospect Portal: Add Pet Page add the Units as Pounds
+
+999(H) -- In Progress-- Sachin
+======
+Prospect Portal: Send link to co-applicant to fill in the application form, once the co applicant details are filled in
+
+1000(H) -- In Progress -- Sachin
+=======
+Also send email to primary applicant to notify him when the co applicant has started the application and also when he has finished the application
+
+1001(H) -- In Progress -- Sachin
+======
+Primary applicant should not be able to pay for all co applicants until co applicants fill out and sign the application.
+
+1002(H) -In Progress
+======
+Primary applicant should have the ability remove Co-Applicant / Edit co-applicant details
+
+1003(H) --DONE--
+======
+Prospect Portal: Ability for the prospect to jump to the summary page if they have completed the entries till the Summary Page.
+
+1006 (H) (Need Retainer Link)
+=======
+Prospect 2 Conversion: Welcome Mail After Prospect is converted to Resident : Change the Renters Insurance link it still shows the old one
+
+1007(M) -Sohan--
+=======
+Prospect Portal: Quotation Page text change
+
+1008 (H) -Sohan--
+=======
+Prospect Portal: Persoanal Information page
+
+1015 (H) --AMIT --04-MAY-2020 (InProgress)
+=======
+Prospect Portal: History of Residence Page
+
+1025 (H)--Sohan--
+========
+Admin Portal: Movin Checklist changes
+
+1034 (H) -- AMIT --
+========
+Admin Portal: Edit Parking, create an excel type grid same as the Unit Lease wise price changes
+
+1035 (H) --DISCUSS--
+========
+Other applicants can't pay the online application fee unless the applicant has agreed to the terms & conditions before they enter the application
+
+1036 (H) -- AMIT-- 04-MAY-2020 (InProgress)
+========
+On the payment page of the application there should be status of the co-applicant and guarantor (Application In-Progress, Application Completed, Payment Done/Not Done) 
+
+1037 (H) -- DONE--
+========
+Co-Applicant can't see any other applicants information; not minor information, not pet info, not car...
+
+1038 (H) -- AMIT-- 
+========
+co applicant can't add other pets but if the main applicant chooses 2 pets; the main applicant 
+can add 1 pet and a co applicant can add 1 pet. Main Applicant adds 2 pets co-Applicant can not edit the pet details.
+
+1039 (H)
+========
+The status of the applicants all have to be completed before they can submit the application. Completed = Accepted Terms & Conditions, Filled details, Made payments
+
+1040 (H) --DISCUSS--
+========
+Once the applicant has paidd their fees if there is a co-applicant they should get a email saying that the main or other applicant has 
+finished and show timer as to how many hours they have remaining to complete the application
+
+1041 (H)
+========
+Prospect Portal: Storage selection popup on Quotation Summary Page provide sorting feature
+
+1042 (H) --DISCUSS--
+========
+Prospect Portal: Add Co-Applicant popup - 1. Additional fields to be added and on 2. Save submit details to the background check company 3. send mail to the co-applicant
+
+1043 (H)
+========
+Admin Portal: Interchange the columns on the Units list Page
+
+1044 (H)
+========
+Across Application: Introduce Session Time Out
+
+1045 (L)
+========
+Prospect Portal - Changing Guarantor Email
+
+1046 (H)
+========
+Prospect Portal - Deleting Guarantor
+
+1047 (H) --Sohan--
+========
+Admin Portal - Creating Quote & Prospect Account
+
+1048 (M)
+========
+Prospect Portal - Co Applicant - Employment History
+
+1049 (M)
+========
+Prospect Portal - Summary Step
+
+1050 (M)
+========
+CoApplicant Being Created After They Already Started An Application
+
+1051 (H)
+========
+Prospect 2 Conversion: Workflow steps after the lease is executed
+
+1052 (H)
+========
+Prospect Portal: Move-in Checklist wording change request
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

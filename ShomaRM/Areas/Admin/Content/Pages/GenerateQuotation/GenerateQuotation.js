@@ -267,7 +267,9 @@ $(document).ready(function () {
     dateIconFunctions();
     clearHistoryOfResidence();
     getEmployerHistory();
-
+    $("#ddlFurnishedUnit").on("change", function () {
+        getPropertyModelUnitList();
+    });
 });
 
 var cancel = function () {
@@ -1647,8 +1649,9 @@ var getPropertyModelUnitList = function (stype, pid) {
         bedroom = $("#ddlRoom").val();
     }
     var availdate = $("#txtDate").val();
+    var furnished = $("#ddlFurnishedUnit").val();
 
-    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: sortorder };
+    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: sortorder, Furnished: furnished };
     $.ajax({
         url: "/Property/GetPropertyModelList/",
         type: "post",

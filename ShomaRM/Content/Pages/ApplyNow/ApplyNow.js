@@ -58,7 +58,7 @@ $(document).ready(function () {
                         $("#rbtnPaystub").parent().removeClass("checked");
                         $.alert({
                             title: "",
-                            content: "Please Select any two of the three options (tax return, paystubs, and bank statements).<br/> If you want to select Paystub then please uncheck from any one of the selected items.",
+                            content: "Please Select any two of the three options (tax return, paystubs, and bank statements).<br/> If you want to select Paystub then <strong>please uncheck</strong> from any one of the selected items.",
                             type: 'red'
                         })
                     }, 200);
@@ -79,7 +79,7 @@ $(document).ready(function () {
                         $("#rbtnBankStatement").parent().removeClass("checked");
                         $.alert({
                             title: "",
-                            content: "Please Select any  two of the three options (tax return, paystubs, and bank statements).<br/> If you want to select Bank Statement then please uncheck from any one of the selected items.",
+                            content: "Please Select any  two of the three options (tax return, paystubs, and bank statements).<br/> If you want to select Bank Statement then <strong>please uncheck</strong> from any one of the selected items.",
                             type: 'red'
                         })
                     }, 200);
@@ -99,7 +99,7 @@ $(document).ready(function () {
                         $("#rbtnFedralTax").parent().removeClass("checked");
                         $.alert({
                             title: "",
-                            content: "Please Select any  two of the three options (tax return, paystubs, and bank statements).<br/> If you want to select Fedral Tax then please uncheck from any one of the selected items.",
+                            content: "Please Select any  two of the three options (tax return, paystubs, and bank statements).<br/> If you want to select Fedral Tax then <strong>please uncheck</strong> from any one of the selected items.",
                             type: 'red'
                         })
                     }, 200);
@@ -806,7 +806,9 @@ $(document).ready(function () {
     dateIconFunctions();
     clearHistoryOfResidence();
     getEmployerHistory();
-
+    $("#ddlFurnishedUnit").on("change", function () {
+        getPropertyModelUnitList();
+    });
 });
 
 var cancel = function () {
@@ -1581,6 +1583,17 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#summDob").text($("#txtDateOfBirth").val());
                 $("#summSSN").text($("#txtSSNNumber").val());
                 $("#summPhone").text($("#txtMobileNumber").val());
+                var isUSCitizen = $("#ddlIsInter option:selected").val();
+                var countryOrigin = $("#ddlCountryOfOrigin option:selected").text();
+                $("#summCitizen").text(isUSCitizen == 0 ? "Yes" : "No");
+                if (isUSCitizen == 1) {
+                    $("#sumCOrigin_tr").removeClass("hidden");
+                    $("#summCountryofOrigin").text(countryOrigin);
+                }
+                else {
+                    $("#sumCOrigin_tr").addClass("hidden");
+                    $("#summCountryofOrigin").text("");
+                }
 
                 if ($("#ddlGender").val() == 1) {
                     $("#summGender").text("Male");
@@ -4016,7 +4029,9 @@ var getPropertyModelUnitList = function (stype, pid) {
     }
     var availdate = $("#txtDate").val();
 
-    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: sortorder };
+    var furnished = $("#ddlFurnishedUnit").val();
+
+    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: sortorder, Furnished: furnished};
     $.ajax({
         url: "/Property/GetPropertyModelList/",
         type: "post",
@@ -5689,14 +5704,17 @@ var getApplicantLists = function () {
                 $("#tblApplicant15>tbody").append(html15);
                 $("#tblApplicant15p>tbody").append(html15);
 
-                var htmlResp15 = "<tr id='tr_" + elementValue.ApplicantID + "' data-value='" + elementValue.ApplicantID + "'>";
-                htmlResp15 += "<td> " + elementValue.FirstName + " " + elementValue.LastName + "</td>";
-                htmlResp15 += "<td> " + elementValue.Type + "</td>";
-                htmlResp15 += "<td> " + elementValue.MoveInPercentage + "%</td>";
-                htmlResp15 += "<td> $" + formatMoney(elementValue.MoveInCharge) + "</td>";
-                htmlResp15 += "<td> " + elementValue.MonthlyPercentage + "%</td>";
-                htmlResp15 += "<td> $" + formatMoney(elementValue.MonthlyPayment) + "</td>";
-                htmlResp15 += "</tr>";
+                if (elementValue.Type == "Primary Applicant") {
+                    var htmlResp15 = "<tr id='tr_" + elementValue.ApplicantID + "' data-value='" + elementValue.ApplicantID + "'>";
+                    htmlResp15 += "<td> " + elementValue.FirstName + " " + elementValue.LastName + "</td>";
+                    htmlResp15 += "<td> " + elementValue.Type + "</td>";
+                    htmlResp15 += "<td> " + elementValue.MoveInPercentage + "%</td>";
+                    htmlResp15 += "<td> $" + formatMoney(elementValue.MoveInCharge) + "</td>";
+                    htmlResp15 += "<td> " + elementValue.MonthlyPercentage + "%</td>";
+                    htmlResp15 += "<td> $" + formatMoney(elementValue.MonthlyPayment) + "</td>";
+                    htmlResp15 += "</tr>";
+                }
+
                 $("#tblRespo15>tbody").append(htmlResp15);
                 $("#tblRespo15p>tbody").append(htmlResp15);
 
@@ -6810,6 +6828,17 @@ var getFillSummary = function (id) {
             $("#summEmail").text(response.model.Email);
             $("#summEmailp").text(response.model.Email);
             $("#summPhone").text(formatPhoneFax(response.model.Mobile));
+            var isUSCitizen = response.model.IsInternational;
+            var countryOrigin = $("#ddlCountryOfOrigin option:selected").text();
+            $("#summCitizen").text(isUSCitizen == 0 ? "Yes" : "No");
+            if (isUSCitizen == 1) {
+                $("#sumCOrigin_tr").removeClass("hidden");
+                $("#summCountryofOrigin").text(countryOrigin);
+            }
+            else {
+                $("#sumCOrigin_tr").addClass("hidden");
+                $("#summCountryofOrigin").text("");
+            }
             $("#summPhonep").text(formatPhoneFax(response.model.Mobile));
             $("#summSSN").text(response.model.SSN);
             $("#summSSNp").text(response.model.SSN);
@@ -6823,9 +6852,30 @@ var getFillSummary = function (id) {
 
             $("#summDriverL").text(response.model.IDNumber);
             $("#summDriverLp").text(response.model.IDNumber);
-            $("#summCuAdd").text(response.model.HomeAddress1 + " " + response.model.HomeAddress2 + ", " + response.model.CityHome + ", " + response.model.StateHomeString + "- " + response.model.ZipHome);
+            $("#summCuAddress1").text(response.model.HomeAddress1);
+            $("#summCuAddress2").text(response.model.HomeAddress2);
+            $("#summCuState").text(response.model.StateHomeString);
+            $("#summCuCity").text(response.model.CityHome);
+            $("#summCuZip").text(response.model.ZipHome);
+            $("#summCuMoveInDate").text(response.model.MoveInDateFromTxt);
             $("#summCuAddp").text(response.model.HomeAddress1 + " " + response.model.HomeAddress2 + ", " + response.model.CityHome + ", " + response.model.StateHomeString + "- " + response.model.ZipHome);
-            $("#summEmployer").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
+            //$("#summEmployer").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
+            $("#summEmployerName").text(response.model.EmployerName);
+            $("#summEmployerJobTitle").text(response.model.JobTitle);
+            if (response.model.JobType == 0) {
+                $("#summEmployerJobType").text("");
+            }
+            else if (response.model.JobType == 1) {
+                $("#summEmployerJobType").text("Permenant");
+            }
+            else if (response.model.JobType == 2) {
+                $("#summEmployerJobType").text("Contract Basis");
+            }
+
+            $("#summEmployerStartDate").text(response.model.StartDateTxt);
+            getApplicantLists         $("#summEmployerAnnualIncome").text(formatMoney(response.model.AnnualIncome));
+            $("#summEmployerSupervisorName").text(response.model.SupervisorName);
+            $("#summEmployerSupervisorPhone").text(formatPhoneFax(response.model.SupervisorPhone));
             $("#summEmployerp").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
             $("#summEstartdate").text(response.model.StartDateTxt);
             $("#summEstartdatep").text(response.model.StartDateTxt);
@@ -6956,11 +7006,7 @@ var getTenantOnlineList = function (id) {
             $("#summDobp").text(response.model.DateOfBirthTxt);
             $("#ddlGender").val(response.model.Gender).change();
 
-
-
             $("#ddlGenderReg").val(response.model.Gender).change();
-
-
 
             $("#txtEmailNew").val(response.model.Email);
             $("#summEmail").text(response.model.Email);
@@ -7008,7 +7054,13 @@ var getTenantOnlineList = function (id) {
             $("#txtAddress1Reg").val(response.model.HomeAddress1);
             $("#txtAddress2").val(response.model.HomeAddress2);
             $("#txtAddress2Reg").val(response.model.HomeAddress2);
-            $("#summCuAdd").text(response.model.HomeAddress1 + " " + response.model.HomeAddress2 + ", " + response.model.CityHome + ", " + response.model.StateHomeString + "- " + response.model.ZipHome);
+            $("#summCuAddress1").text(response.model.HomeAddress1);
+            $("#summCuAddress2").text(response.model.HomeAddress2);
+            $("#summCuState").text(response.model.StateHomeString);
+            $("#summCuCity").text(response.model.CityHome);
+            $("#summCuZip").text(response.model.ZipHome);
+            $("#summCuMoveInDate").text(response.model.MoveInDateFromTxt);
+            //$("#summCuAdd").text(response.model.HomeAddress1 + " " + response.model.HomeAddress2 + ", " + response.model.CityHome + ", " + response.model.StateHomeString + "- " + response.model.ZipHome);
             $("#summCuAddp").text(response.model.HomeAddress1 + " " + response.model.HomeAddress2 + ", " + response.model.CityHome + ", " + response.model.StateHomeString + "- " + response.model.ZipHome);
 
             //fillCityListHome(response.model.StateHome);
@@ -7021,7 +7073,23 @@ var getTenantOnlineList = function (id) {
             $("#txtMonthlyPayment").val(formatMoney(response.model.MonthlyPayment));
             $("#txtReasonforleaving").val(response.model.Reason);
             $("#txtEmployerName").val(response.model.EmployerName);
-            $("#summEmployer").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
+            $("#summEmployerName").text(response.model.EmployerName);
+            $("#summEmployerJobTitle").text(response.model.JobTitle == "" ? "N/A" : response.model.JobTitle);
+            if (response.model.JobType == 0) {
+                $("#summEmployerJobType").text("N/A");
+            }
+            else if (response.model.JobType == 1) {
+                $("#summEmployerJobType").text("Permenant");
+            }
+            else if (response.model.JobType == 2) {
+                $("#summEmployerJobType").text("Contract Basis");
+            }
+
+            $("#summEmployerStartDate").text(response.model.StartDateTxt);
+            $("#summEmployerAnnualIncome").text(formatMoney(response.model.Income));
+            $("#summEmployerSupervisorName").text(response.model.SupervisorName);
+            $("#summEmployerSupervisorPhone").text(formatPhoneFax(response.model.SupervisorPhone));
+            //$("#summEmployer").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
             $("#summEmployerp").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
 
             $("#txtJobTitle").val(response.model.JobTitle);
@@ -7283,8 +7351,6 @@ var getTenantOnlineList = function (id) {
                     $("#fileBankState3Show").text(response.model.UploadOriginalFileName8);
                 }
             }
-
-
 
             //alert(response.model.IsPaystub);
 
@@ -7820,6 +7886,7 @@ var getApplicantHistoryList = function () {
             $("#divLoader").hide();
             //console.log(JSON.stringify(response))
             $("#tblAHR>tbody").empty();
+            $("#tblPreviousAdd>tbody").empty();
             $("#prevadd>tbody").empty();
             $("#prevaddp>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
@@ -7841,11 +7908,22 @@ var getApplicantHistoryList = function () {
                 html += "</tr>";
 
                 var summAdd = "<tr><td style='width: 195px;'>Previous Address </td><td>" + elementValue.HomeAddress1 + ", " + elementValue.HomeAddress2 + ", " + elementValue.CityHome + ", " + elementValue.StateHomeTxt + " -" + elementValue.ZipHome + "</td></tr>";
+                var htmlsumAdd = "<tr>";
+                htmlsumAdd += "<td style='width: 195px;'>Previous Address </td>";
+                htmlsumAdd += "<td>" + elementValue.HomeAddress1 + "</td>";
+                htmlsumAdd += "<td>" + elementValue.HomeAddress2 + "</td>";
+                htmlsumAdd += "<td>" + elementValue.StateHomeTxt + "</td>";
+                htmlsumAdd += "<td>" + elementValue.CityHome + "</td>";
+                htmlsumAdd += "<td>" + elementValue.ZipHome + "</td>";
+                htmlsumAdd += "<td>" + elementValue.MoveInDateFromTxt + " - " + elementValue.MoveInDateToTxt + "</td>";
+                htmlsumAdd += "</tr>";
+
                 $("#tblAHR>tbody").append(html);
+                $("#tblPreviousAdd>tbody").append(htmlsumAdd);
                 $("#prevadd>tbody").append(summAdd);
                 $("#prevaddp>tbody").append(summAdd);
             });
-            
+
         }
     });
 };
@@ -9552,7 +9630,7 @@ var saveEmployerHistory = function () {
     });
 }
 
-var getEmployerHistory = function () {
+var var getEmployerHistory = function () {
     $("#divLoader").show();
     var TenantId = $("#hdnOPId").val();
     var model = { TenantId: TenantId };
@@ -9565,6 +9643,7 @@ var getEmployerHistory = function () {
         success: function (response) {
             $("#divLoader").hide();
             $("#tblHEI>tbody").empty();
+            $("#tblPreviousEmployement>tbody").empty();
             $("#prevEmphistr>tbody").empty();
             $("#prevEmphistrp>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
@@ -9580,13 +9659,27 @@ var getEmployerHistory = function () {
                 html += "<td class='text-center'><a class='fa fa-edit' style='background:transparent; margin-right:10px;' href='javascript:void(0)' onclick='editEmployerHistory(" + elementValue.HEIID + ")'></a><a class='fa fa-trash'  href='javascript:void(0)' onclick='delEmployerHistory(" + elementValue.HEIID + ")'></a></td>";
                 html += "</tr>";
                 $("#tblHEI>tbody").append(html);
+                var summAdd = "<tr><td style='width: 195px;'>Previous Employer </td><td>" + elementValue.EmployerName + ", " + elementValue.JobTitle + ", " + elementValue.City + ", " + elementValue.StateName + " -" + + "</td></tr>";
 
-                var summAdd = "<tr><td style='width: 195px;'>Previous Employer </td><td>" + elementValue.EmployerName + ", " + elementValue.JobTitle + ", " + elementValue.City + ", " + elementValue.StateName + " -" +  + "</td></tr>";
+                var htmlEmployer = "<tr>";
+                htmlEmployer += "<td>Previous Employer</td>";
+                htmlEmployer += "<td>" + elementValue.EmployerName + "</td>";
+                htmlEmployer += "<td>" + elementValue.JobTitle + "</td>";
+                htmlEmployer += "<td>" + elementValue.JobTypeName + "</td>";
+                htmlEmployer += "<td>" + elementValue.StartDateString + " - " + elementValue.TerminationDateString + "</td>";
+                htmlEmployer += "<td>" + formatMoney(elementValue.AnnualIncome) + "</td>";
+                htmlEmployer += "<td>" + elementValue.SupervisorName + "</td>";
+                htmlEmployer += "<td>" + formatPhoneFax(elementValue.SupervisorPhone) + "</td>";
+                htmlEmployer += "</tr>";
+
+
+                $("#tblPreviousEmployement>tbody").append(htmlEmployer);
                 $("#prevEmphistr>tbody").append(summAdd);
                 $("#prevEmphistrp>tbody").append(summAdd);
             });
         }
     });
+}
 }
 
 var delEmployerHistory = function (id) {

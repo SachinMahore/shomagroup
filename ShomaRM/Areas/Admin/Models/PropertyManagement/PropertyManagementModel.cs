@@ -888,6 +888,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string ParkingDescription { get; set; }
         public List<ParkingModel> LocationList { get; set; }
         public int Type { get; set; }
+        public int? IsFurnished { get; set; }
 
         public PropertyUnits GetPropertyUnitDetails(long UID)
         {
@@ -984,7 +985,7 @@ namespace ShomaRM.Areas.Admin.Models
                 model.InteriorArea = unitDet.InteriorArea == null?"0":unitDet.InteriorArea;
                 model.BalconyArea = unitDet.BalconyArea == null ? "0" : unitDet.BalconyArea;
                 model.Notes = unitDet.Notes;
-
+                model.IsFurnished = unitDet.IsFurnished;
                 var ParkingInfo = db.tbl_Parking.Where(p => p.PropertyID == unitDet.UID).FirstOrDefault();
                 if (ParkingInfo != null)
                 {
@@ -1124,6 +1125,7 @@ namespace ShomaRM.Areas.Admin.Models
                     BalconyArea=model.BalconyArea,
                     InteriorArea=model.InteriorArea,
                     Notes=model.Notes,
+                    IsFurnished = model.IsFurnished
                 };
                 db.tbl_PropertyUnits.Add(saveProp);
                 db.SaveChanges();
@@ -1186,6 +1188,7 @@ namespace ShomaRM.Areas.Admin.Models
                     propUnitUpdate.BalconyArea = model.BalconyArea;
                     propUnitUpdate.InteriorArea = model.InteriorArea;
                     propUnitUpdate.Notes = model.Notes;
+                    propUnitUpdate.IsFurnished = model.IsFurnished;
                 }
                 db.SaveChanges();
                 msg = "Property Unit Details Updated Successfully";

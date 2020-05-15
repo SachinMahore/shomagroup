@@ -63,6 +63,9 @@ namespace ShomaRM.Models
                 defaultXML = defaultXML.Replace("<OrderDetailCriminal", "<OrderDetail");
                 defaultXML = defaultXML.Replace("</OrderDetailCriminal", "</OrderDetail");
 
+                defaultXML = defaultXML.Replace("<OrderXMLTenant", "<OrderXML");
+                defaultXML = defaultXML.Replace("</OrderXMLTenant", "</OrderXML");
+
 
                 return defaultXML;
 

@@ -1,0 +1,10 @@
+var uri = window.location.toString();
+            if (uri.indexOf("createnote") > 0) {
+                //var clean_uri = uri.replace("createnotesearch","search")
+                //window.history.replaceState({}, document.title, clean_uri);
+
+                $("#clientsList-Form").submit();
+
+            }
+
+

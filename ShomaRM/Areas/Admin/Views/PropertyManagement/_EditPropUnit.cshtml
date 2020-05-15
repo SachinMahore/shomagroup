@@ -155,7 +155,7 @@
                 </div>
             </div>
             <div class="col-sm-12">
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                     <div class="form-group">
                         <label class="star">Premium Type</label>
                         <select id="ddlPremium" class="form-control">
@@ -177,6 +177,15 @@
                                 <button id="iconAvailableDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                             </span>
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="star">Furnished</label>
+                        <select id="ddlFurnishedUnit" class="form-control">
+                            <option value='1'>Furnished Unit</option>
+                            <option value='2'>Unfurnished Unit</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -556,6 +565,9 @@
         setTimeout(function () {
             $("#ddlPremium").val('@Model.Premium');
             $("#ddlPremium").trigger('change');
+
+            $("#ddlFurnishedUnit").val('@Model.IsFurnished');
+            $("#ddlFurnishedUnit").trigger('change');
 
             $("#ddlModel").val('@Model.Building');
             $("#ddlModel").trigger('change');

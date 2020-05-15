@@ -569,11 +569,14 @@ namespace ShomaRM.Models
                             string pass = "";
                             pass = new EncryptDecrypt().DecryptText(UserData.Password);
 
-                            //// Call Credit Check Function //
-                            //var acutraqrequest = new AcutraqRequest();
-                            //TenantOnlineModel modelTD = new TenantOnlineModel().GetTenantOnlineList((int)GetProspectData.ID, GetCoappDet.UserID ?? 0);
-                            //string result = await acutraqrequest.PostAqutraqTenant(modelTD);
-                            //// Call Credit Check Function //
+                            // Call Credit Check Function //
+                            var acutraqrequest = new AcutraqRequest();
+                            TenantOnlineModel modelTD = new TenantOnlineModel().GetTenantOnlineList((int)GetProspectData.ID, GetCoappDet.UserID ?? 0);
+                            //modelTD.Country = "US";
+                            //modelTD.SSN = "111-22-3333";
+                            string result = await acutraqrequest.PostAqutraqTenant(modelTD);
+
+                            // Call Credit Check Function //
 
                             //if (result == "1")
                             //{
@@ -876,6 +879,7 @@ namespace ShomaRM.Models
         {
             string filename = "";
             ShomaRMEntities db = new ShomaRMEntities();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             try
             {
                 DataSet dtTableSet = new DataSet();
@@ -889,6 +893,11 @@ namespace ShomaRM.Models
                     paramTID.ParameterName = "TenantID";
                     paramTID.Value = TenantID;
                     cmd.Parameters.Add(paramTID);
+
+                    DbParameter paramUID = cmd.CreateParameter();
+                    paramUID.ParameterName = "UserId";
+                    paramUID.Value = userid;
+                    cmd.Parameters.Add(paramUID);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -1193,6 +1202,17 @@ namespace ShomaRM.Models
                 reportHTML = System.IO.File.ReadAllText(filePath + "GuarantorPrintTemplate.html");
                 //--ServerURL--//
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+
+                // --ApartmentInfo--//
+                reportHTML = reportHTML.Replace("[%UnitNo%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["UnitNo"].ToString());
+                reportHTML = reportHTML.Replace("[%MoveInDate%]", DateString(dtTableSet.Tables["ApartmentInfo"].Rows[0]["MoveInDate"].ToString()));
+                reportHTML = reportHTML.Replace("[%Model%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["Building"].ToString());
+                reportHTML = reportHTML.Replace("[%LeaseTerm%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["LeaseTerm"].ToString());
+                reportHTML = reportHTML.Replace("[%BedRoom%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["Bedroom"].ToString());
+                reportHTML = reportHTML.Replace("[%Deposite%]", DecimalString(dtTableSet.Tables["ApartmentInfo"].Rows[0]["Deposit"].ToString()));
+                reportHTML = reportHTML.Replace("[%Bath%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["Bathroom"].ToString());
+                reportHTML = reportHTML.Replace("[%Rent%]", DecimalString(dtTableSet.Tables["ApartmentInfo"].Rows[0]["MonthlyCharges"].ToString()));
+                reportHTML = reportHTML.Replace("[%Area%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["Area"].ToString() + " Sq. Ft.");
 
                 //-- ApplicantInfo --//
                 reportHTML = reportHTML.Replace("[%ApplicantName%]", dtTableSet.Tables["ApplicantFullInfo"].Rows[0]["ApplicantName"].ToString());
@@ -1641,13 +1661,37 @@ namespace ShomaRM.Models
         }
         public string SendQuotationEmail(PrintQuotationModel model)
         {
+            string ApplyNowQuotationNo = "";
             var filePathQuotation = HttpContext.Current.Server.MapPath(PrintQuotation(model));
             var filePathPetPloicy = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/Pet_Policies.pdf");
 
-            string msg = string.Empty;
+            string msg = "";
             if (!string.IsNullOrWhiteSpace(model.Email))
             {
                 ShomaRMEntities db = new ShomaRMEntities();
+
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetQuotationNoByEmail";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramCUID = cmd.CreateParameter();
+                    paramCUID.ParameterName = "Email";
+                    paramCUID.Value = Email;
+                    cmd.Parameters.Add(paramCUID);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                if (dtTable.Rows.Count > 0)
+                {
+                    ApplyNowQuotationNo = dtTable.Rows[0]["QuotationNo"].ToString();
+                }
+
                 long tenantID = 0;
                 try
                 {
@@ -1675,7 +1719,7 @@ namespace ShomaRM.Models
                         reportCoappHTML = reportCoappHTML.Replace("[%ServerURL%]", serverURL);
 
                         reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Your Application Added as Primary Applicant. Fill your Details");
-                        reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Online Application Added as per details provided by you for Sanctuary Doral. Fill your Details by clicking \"LOGIN\" link using credintials <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + appDetails.Username + " </br>Password :" + pass + "<br/><br/>You can pay your credit check fees by clicking \"PAY NOW\" link");
+                        reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Online Application Added as per details provided by you for Sanctuary Doral. Fill your Details by clicking \"LOGIN\" link using credintials <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + appDetails.Username + " </br>Password :" + pass + "<br/><br/>OR<br/><br/>Using Quotation Number : " + ApplyNowQuotationNo + "<br/><br/>You can pay your credit check fees by clicking \"PAY NOW\" link");
                         reportCoappHTML = reportCoappHTML.Replace("[%TenantName%]", appDetails.FirstName + " " + appDetails.LastName);
                         reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]--><!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
                         string coappbody = reportCoappHTML;
@@ -1711,6 +1755,154 @@ namespace ShomaRM.Models
             else
             {
                 msg = "Email not send please verify email once";
+            }
+            return msg;
+        }
+        public string VerifyQuotationNo(string QuotationNo)
+        {
+            string msg = string.Empty;
+            long ApplyNowId = 0;
+            long ApplyNowUserId = 0;
+            string ApplyNowQuotationNo = string.Empty;
+            string ApplyNowEmail = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ApplyNowModel> lstpr = new List<ApplyNowModel>();
+            DataTable dtTable = new DataTable();
+            using (var cmd = db.Database.Connection.CreateCommand())
+            {
+                db.Database.Connection.Open();
+                cmd.CommandText = "usp_GetSignInCredentialByQuotationNo";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                DbParameter paramCUID = cmd.CreateParameter();
+                paramCUID.ParameterName = "QuotationNo";
+                paramCUID.Value = QuotationNo;
+                cmd.Parameters.Add(paramCUID);
+
+                DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                da.SelectCommand = cmd;
+                da.Fill(dtTable);
+                db.Database.Connection.Close();
+            }
+            if (dtTable.Rows.Count > 0)
+            {
+                ApplyNowId = Convert.ToInt64(dtTable.Rows[0]["ID"].ToString());
+                ApplyNowUserId = Convert.ToInt64(dtTable.Rows[0]["UserId"].ToString());
+                ApplyNowQuotationNo = dtTable.Rows[0]["QuotationNo"].ToString();
+                ApplyNowEmail = dtTable.Rows[0]["Email"].ToString();
+                msg = ApplyNowEmail;
+            }
+            else
+            {
+                msg = "User Not Found";
+            }
+            return msg;
+        }
+        public string SignInUsingQuotationNo(string QuotationNo, string UserName, string Password)
+        {
+            string msg = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+            var userLogin = db.tbl_Login.Where(co => co.Username == UserName).FirstOrDefault();
+            if (userLogin != null)
+            {
+                string pass = new EncryptDecrypt().EncryptText(Password.ToString());
+                userLogin.Password = pass;
+                db.SaveChanges();
+
+                string encryptedPassword = new EncryptDecrypt().EncryptText(Password.ToString());
+                var user = db.tbl_Login.Where(p => p.Username == UserName && p.Password == encryptedPassword && p.IsActive == 1).FirstOrDefault();
+                if (user != null)
+                {
+
+                    //LogError("Vijay Ramteke");
+                    //SignIn(user.Username, false);
+                    // Set Current User
+                    var currentUser = new CurrentUser();
+                    currentUser.UserID = user.UserID;
+                    currentUser.Username = user.Username;
+                    currentUser.FullName = user.FirstName + " " + user.LastName;
+                    currentUser.EmailAddress = user.Email;
+                    currentUser.IsAdmin = (user.IsSuperUser.HasValue ? user.IsSuperUser.Value : 0);
+                    currentUser.EmailAddress = user.Email;
+                    currentUser.UserType = Convert.ToInt32(user.UserType == null ? 0 : user.UserType);
+                    currentUser.LoggedInUser = user.FirstName;
+                    currentUser.TenantID = user.TenantID == 0 ? 0 : Convert.ToInt64(user.TenantID);
+                    currentUser.UserType = Convert.ToInt32((user.UserType).ToString());
+
+                    (new ShomaGroupWebSession()).SetWebSession(currentUser);
+                    // Store the Log.
+                    //var loginHistory = new tbl_LoginHistory
+                    //{
+                    //    UserID = user.UserID,
+                    //    IPAddress = Request.UserHostAddress,
+                    //    PageName = "Home",
+                    //    LoginDateTime = DateTime.Now,
+                    //    SessionID = Session.SessionID.ToString()
+                    //};
+
+                    //db.tbl_LoginHistory.Add(loginHistory);
+                    //db.SaveChanges();
+
+                    if (currentUser.TenantID == 0 && currentUser.UserType != 3 && currentUser.UserType != 33 && currentUser.UserType != 34)
+                    {
+                        msg = "../Admin/AdminHome";
+                    }
+                    else if (currentUser.TenantID != 0)
+                    {
+                        msg = "../Tenant/Dashboard";
+                    }
+                    else if (user.ParentUserID == null)
+                    {
+                        var checkExpiry = db.tbl_ApplyNow.Where(co => co.UserId == currentUser.UserID).FirstOrDefault();
+                        checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
+                        if ((checkExpiry.StepCompleted ?? 0) == 18 && checkExpiry.Status.Trim() == "")
+                        {
+                            msg = "../ApplicationStatus/Index/" + (new EncryptDecrypt().EncryptText("In Progress"));
+                        }
+                        else if (checkExpiry.Status.Trim() == "Approved")
+                        {
+                            checkExpiry.StepCompleted = 18;
+                            db.SaveChanges();
+                            msg = "../ApplicationStatus/Index/" + (new EncryptDecrypt().EncryptText("Approved"));
+                        }
+                        else if (checkExpiry.Status.Trim() == "Signed")
+                        {
+                            msg = "../Checklist/";
+                        }
+                        else
+                        {
+                            checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
+                            if (checkExpiry != null)
+                            {
+                                DateTime expDate = Convert.ToDateTime(DateTime.Now.AddHours(-72).ToString("MM/dd/yyyy") + " 23:59:59");
+
+                                if (checkExpiry.CreatedDate < expDate)
+                                {
+                                    new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID, currentUser.UserID);
+                                    HttpContext.Current.Session["DelDatAll"] = "Del";
+                                    msg = "../Home";
+                                }
+                                else
+                                {
+                                    HttpContext.Current.Session["DelDatAll"] = null;
+                                    msg = "../ApplyNow/Index/" + currentUser.UserID; ;
+                                }
+                            }
+                        }
+                    }
+                    else if (user.ParentUserID != null)
+                    {
+                        if (currentUser.UserType == 33)
+                        {
+                            msg = "../ApplyNow/CoApplicantDet/" + user.ParentUserID + "-" + currentUser.UserID;
+                        }
+                        else if (currentUser.UserType == 34)
+                        {
+                            msg = "../ApplyNow/GuarantorDet/" + user.ParentUserID + "-" + currentUser.UserID;
+                        }
+                    }
+                    // return RedirectToLocal(returnUrl);
+                }
             }
             return msg;
         }

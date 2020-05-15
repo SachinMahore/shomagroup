@@ -1248,5 +1248,28 @@ namespace ShomaRM.Controllers
 
 
         }
+        public JsonResult VerifyQuotationNo(string QuotationNo)
+        {
+            try
+            {
+                return Json(new ApplyNowModel().VerifyQuotationNo(QuotationNo), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult SignInUsingQuotationNo(string QuotationNo, string UserName, string Password)
+        {
+            try
+            {
+                return Json(new ApplyNowModel().SignInUsingQuotationNo(QuotationNo, UserName, Password), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

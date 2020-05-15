@@ -4429,10 +4429,8 @@ var getPreviousAddressInfo = function () {
                 html += "<td>$" + elementValue.MonthlyPayment + "</td>";
                 html += "<td>" + elementValue.ManagementCompany + "</td>";
                 html += "<td>" + elementValue.ManagementCompanyPhone + "</td>";
-                html += "<td>" + elementValue.HomeAddress1 + "," + elementValue.HomeAddress2 +"- " + elementValue.ZipHome + "</td>";
-                html += "<td>" + elementValue.CountryString + "</td>";
-
-                html += "<td>" + elementValue.ApartmentCommunity + "</td>";
+                html += "<td>" + elementValue.HomeAddress1 + "," + elementValue.HomeAddress2 +", " + elementValue.CountryString + " - " + elementValue.ZipHome + "</td>";
+             
                 html += "<td><select id='ddlResidanceStatus" + elementValue.ID + "' class='form-control'><option value='0'>Select</option><option value='1'>Approved</option><option value='2'>Denied</option><option value='3'>Conditional</option></select></td>";
                 html += "<td><input type='text' id='txtResNotes" + elementValue.ID + "' class='form-control' value='" + elementValue.ResidenceNotes + "' /></td>";
 

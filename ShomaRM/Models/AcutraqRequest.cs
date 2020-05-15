@@ -292,8 +292,7 @@ namespace ShomaRM.Models
                 _objAcqutraqOrder.TestMode = "Yes";
             }
 
-            //_objAcqutraqOrder.ReturnResultURL = WebConfigurationManager.AppSettings["ServerURL"] + "BackgroundScreening/ReceiveRequest";
-            _objAcqutraqOrder.ReturnResultURL = "https://ba323a93.ngrok.io/BackgroundScreening/ReceiveRequest";
+            _objAcqutraqOrder.ReturnResultURL = WebConfigurationManager.AppSettings["ServerURL"] + "BackgroundScreening/ReceiveRequest";
             
             var _objorder = new OrderTenant();
             _objorder.BillingReferenceCode = data.ID.ToString();
@@ -314,13 +313,13 @@ namespace ShomaRM.Models
             CurrentAddress.City = data.CityHome;
             CurrentAddress.State = data.StateHomeString;
             CurrentAddress.Zipcode = data.ZipHome;
-            CurrentAddress.Country = data.Country;
+            CurrentAddress.Country = data.CountryString;
             _objsubject.CurrentAddress = CurrentAddress;
             _objorder.Subject = _objsubject;
 
             var _objCredit = new OrderDetailCredit();
             _objCredit.ServiceCode = "TENTCREDIT";
-            _objCredit.OrderId = data.ProspectID.ToString();
+            _objCredit.OrderId =data.ID.ToString();
             _objorder.OrderDetailCredit = _objCredit;
 
             string Serialisexml = AquatraqHelper.Serialize(_objAcqutraqOrder);
@@ -339,15 +338,13 @@ namespace ShomaRM.Models
             if (result.Count() != 0)
             {
                 bgresult = "1";
-
                 var saveresult = "";
-                //Saving CRAOrderId and tenant id result in database 
                 foreach (var item in result)
                 {
                     BackgroundScreeningModel backgroundscreening = new BackgroundScreeningModel();
                     backgroundscreening.Type = item.FirstAttribute.Value;
                     backgroundscreening.OrderID = Convert.ToInt32(item.LastAttribute.Value);
-                    backgroundscreening.TenantId = Convert.ToInt32(data.ProspectID);
+                    backgroundscreening.TenantId = Convert.ToInt32(data.ID);
                     saveresult = (new BackgroundScreeningModel().SaveBackgroundScreening(backgroundscreening));
                 }
             }

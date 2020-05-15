@@ -70,11 +70,10 @@
                                             </div>
                                     <p>View available floor plans. Select more than one to compare or select just one to choose your new apartment.</p>
                                 </div>
-                                <div class="col-xs-12 hidden" id="divMainSearch">
-                                    <div class="col-xs-12 padding-5 form-inline">
-
-                                        <h5 class="col-xs-2">Desired Move-In </h5>
-                                        <div class="col-xs-2">
+                                <div class="col-md-12 hidden justify-content-center" id="divMainSearch">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Desired Move-In</label>
                                             <div class="input-group">
                                                 <input type="text" id="txtDate" data-date-format="mm/dd/yyyy" class="form-control" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" />
                                                 <span class="input-group-btn">
@@ -82,9 +81,10 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <h5 class="col-sm-2">Bedrooms</h5>
-                                        <div class="col-xs-2 ">
-
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label> Bedrooms</label>
                                             <select id="ddlRoom" class="form-control">
                                                 <option value='0'>All</option>
                                                 <option value='1'>1 Bedroom</option>
@@ -92,25 +92,32 @@
                                                 <option value='3'>3 Bedrooms</option>
                                             </select>
                                         </div>
+                                    </div>
+                                    <input type="hidden" id="hndbuilding" value="1" />
+                                    <input type="hidden" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
 
-                                        <input type="hidden" id="hndbuilding" value="1" />
-                                        <input type="hidden" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
-
-                                        <h5 class="col-sm-1">Sort</h5>
-                                        <div class="col-xs-2">
-                                            @*<div class="col-xs-12">*@
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Sort</label>
                                             <select id="ddlSortOrder" class="form-control">
                                                 <option value='0'>Low To High</option>
                                                 <option value='1'>High To Low</option>
-
                                             </select>
-                                            @*</div>*@
-                                        </div>
-                                        <div class="col-xs-1">
-                                            <button class="btn-primary hollow btn" style="padding: 7px 7px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
                                         </div>
                                     </div>
-
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Furnished</label>
+                                            <select id="ddlFurnishedUnit" class="form-control">
+                                                <option value='0' selected="selected">All</option>
+                                                <option value='1'>Furnished Unit</option>
+                                                <option value='2'>Unfurnished Unit</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn-primary hollow btn" style="padding: 7px 7px;margin-top:30px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
+                                    </div>
                                 </div>
                                 <div class="col-xs-12 hidden" id="divCompare">
 

@@ -21,5 +21,6 @@ namespace ShomaRM.Data
         public string Status { get; set; }
         public string PDFUrl { get; set; }
         public string Notes { get; set; }
+        public string SSNNumber { get; set; }
     }
 }

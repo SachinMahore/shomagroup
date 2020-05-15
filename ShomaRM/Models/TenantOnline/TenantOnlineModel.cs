@@ -186,6 +186,7 @@ namespace ShomaRM.Models
         public string ResidenceNotes { get; set; }
         public Nullable<int> EmpStatus { get; set; }
         public string EmpNotes { get; set; }
+        public string UserID { get; set; }
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -271,6 +272,7 @@ namespace ShomaRM.Models
                     da.Fill(dtTable);
                     db.Database.Connection.Close();
                 }
+                lstpr.ID = 0;
                 lstpr.IsInternational = 0;
                 lstpr.Gender = 0;
                 lstpr.IDType = 0;
@@ -293,85 +295,31 @@ namespace ShomaRM.Models
                 foreach (DataRow dr in dtTable.Rows)
                 {
                     DateTime? dateOfBirth = null;
-                    try
-                    {
-
-                        dateOfBirth = Convert.ToDateTime(dr["DateOfBirth"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { dateOfBirth = Convert.ToDateTime(dr["DateOfBirth"].ToString()); }
+                    catch { }
                     DateTime? dateIssuance = null;
-                    try
-                    {
-
-                        dateIssuance = Convert.ToDateTime(dr["DateIssuance"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { dateIssuance = Convert.ToDateTime(dr["DateIssuance"].ToString()); }
+                    catch { }
                     DateTime? dateExpire = null;
-                    try
-                    {
-
-                        dateExpire = Convert.ToDateTime(dr["DateExpire"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { dateExpire = Convert.ToDateTime(dr["DateExpire"].ToString()); }
+                    catch { }
                     DateTime? moveInDateFrom = null;
-                    try
-                    {
-
-                        moveInDateFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString()); }
+                    catch { }
                     DateTime? moveInDateTo = null;
-                    try
-                    {
-
-                        moveInDateTo = Convert.ToDateTime(dr["MoveInDateTo"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateTo = Convert.ToDateTime(dr["MoveInDateTo"].ToString()); }
+                    catch { }
                     DateTime? moveInDateFrom2 = null;
-                    try
-                    {
-
-                        moveInDateFrom2 = Convert.ToDateTime(dr["MoveInDateFrom2"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateFrom2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString()); }
+                    catch { }
                     DateTime? moveInDateTo2 = null;
-                    try
-                    {
-
-                        moveInDateTo2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateTo2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString()); }
+                    catch { }
                     DateTime? startDate = null;
-                    try
-                    {
-
-                        startDate = Convert.ToDateTime(dr["StartDate"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { startDate = Convert.ToDateTime(dr["StartDate"].ToString()); }
+                    catch { }
+                    lstpr.ID = Convert.ToInt32(dr["ID"].ToString());
+                    lstpr.ProspectID= Convert.ToInt32(dr["ProspectID"].ToString());
                     lstpr.IsInternational = Convert.ToInt32(dr["IsInternational"].ToString());
                     lstpr.IsAdditionalRHistory = Convert.ToInt32(dr["IsAdditionalRHistory"].ToString());
                     lstpr.FirstName = dr["FirstName"].ToString();
@@ -438,7 +386,7 @@ namespace ShomaRM.Models
                         string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
                         if (decryptedSSN.Length > 5)
                         {
-                            lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
+                            lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 4, 4);
                         }
                         else
                         {
@@ -1394,6 +1342,8 @@ namespace ShomaRM.Models
                     da.Fill(dtTable);
                     db.Database.Connection.Close();
                 }
+                lstpr.ID = 0;
+                lstpr.ProspectID = 0;
                 lstpr.IsInternational = 0;
                 lstpr.Gender = 0;
                 lstpr.IDType = 0;
@@ -1416,85 +1366,31 @@ namespace ShomaRM.Models
                 foreach (DataRow dr in dtTable.Rows)
                 {
                     DateTime? dateOfBirth = null;
-                    try
-                    {
-
-                        dateOfBirth = Convert.ToDateTime(dr["DateOfBirth"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { dateOfBirth = Convert.ToDateTime(dr["DateOfBirth"].ToString()); }
+                    catch { }
                     DateTime? dateIssuance = null;
-                    try
-                    {
-
-                        dateIssuance = Convert.ToDateTime(dr["DateIssuance"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { dateIssuance = Convert.ToDateTime(dr["DateIssuance"].ToString()); }
+                    catch { }
                     DateTime? dateExpire = null;
-                    try
-                    {
-
-                        dateExpire = Convert.ToDateTime(dr["DateExpire"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { dateExpire = Convert.ToDateTime(dr["DateExpire"].ToString()); }
+                    catch { }
                     DateTime? moveInDateFrom = null;
-                    try
-                    {
-
-                        moveInDateFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString()); }
+                    catch { }
                     DateTime? moveInDateTo = null;
-                    try
-                    {
-
-                        moveInDateTo = Convert.ToDateTime(dr["MoveInDateTo"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateTo = Convert.ToDateTime(dr["MoveInDateTo"].ToString()); }
+                    catch { }
                     DateTime? moveInDateFrom2 = null;
-                    try
-                    {
-
-                        moveInDateFrom2 = Convert.ToDateTime(dr["MoveInDateFrom2"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateFrom2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString()); }
+                    catch { }
                     DateTime? moveInDateTo2 = null;
-                    try
-                    {
-
-                        moveInDateTo2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateTo2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString()); }
+                    catch { }
                     DateTime? startDate = null;
-                    try
-                    {
-
-                        startDate = Convert.ToDateTime(dr["StartDate"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { startDate = Convert.ToDateTime(dr["StartDate"].ToString()); }
+                    catch { }
+                    lstpr.ID = Convert.ToInt32(dr["ID"].ToString());
+                    lstpr.ProspectID = Convert.ToInt32(dr["ProspectID"].ToString());
                     lstpr.IsInternational = Convert.ToInt32(dr["IsInternational"].ToString());
                     lstpr.IsAdditionalRHistory = Convert.ToInt32(dr["IsAdditionalRHistory"].ToString());
                     lstpr.FirstName = dr["FirstName"].ToString();
@@ -1563,7 +1459,7 @@ namespace ShomaRM.Models
                         string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
                         if (decryptedSSN.Length > 5)
                         {
-                            lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
+                            lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 4, 4);
                         }
                         else
                         {
@@ -1696,6 +1592,8 @@ namespace ShomaRM.Models
                     da.Fill(dtTable);
                     db.Database.Connection.Close();
                 }
+                lstpr.ID = 0;
+                lstpr.ProspectID = 0;
                 lstpr.IsInternational = 0;
                 lstpr.Gender = 0;
                 lstpr.IDType = 0;
@@ -1718,85 +1616,31 @@ namespace ShomaRM.Models
                 foreach (DataRow dr in dtTable.Rows)
                 {
                     DateTime? dateOfBirth = null;
-                    try
-                    {
-
-                        dateOfBirth = Convert.ToDateTime(dr["DateOfBirth"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { dateOfBirth = Convert.ToDateTime(dr["DateOfBirth"].ToString()); }
+                    catch { }
                     DateTime? dateIssuance = null;
-                    try
-                    {
-
-                        dateIssuance = Convert.ToDateTime(dr["DateIssuance"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { dateIssuance = Convert.ToDateTime(dr["DateIssuance"].ToString()); }
+                    catch { }
                     DateTime? dateExpire = null;
-                    try
-                    {
-
-                        dateExpire = Convert.ToDateTime(dr["DateExpire"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { dateExpire = Convert.ToDateTime(dr["DateExpire"].ToString()); }
+                    catch { }
                     DateTime? moveInDateFrom = null;
-                    try
-                    {
-
-                        moveInDateFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString()); }
+                    catch { }
                     DateTime? moveInDateTo = null;
-                    try
-                    {
-
-                        moveInDateTo = Convert.ToDateTime(dr["MoveInDateTo"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateTo = Convert.ToDateTime(dr["MoveInDateTo"].ToString()); }
+                    catch { }
                     DateTime? moveInDateFrom2 = null;
-                    try
-                    {
-
-                        moveInDateFrom2 = Convert.ToDateTime(dr["MoveInDateFrom2"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateFrom2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString()); }
+                    catch { }
                     DateTime? moveInDateTo2 = null;
-                    try
-                    {
-
-                        moveInDateTo2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateTo2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString()); }
+                    catch { }
                     DateTime? startDate = null;
-                    try
-                    {
-
-                        startDate = Convert.ToDateTime(dr["StartDate"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { startDate = Convert.ToDateTime(dr["StartDate"].ToString()); }
+                    catch { }
+                    lstpr.ID = Convert.ToInt32(dr["ID"].ToString());
+                    lstpr.ProspectID = Convert.ToInt32(dr["ProspectID"].ToString());
                     lstpr.IsInternational = Convert.ToInt32(dr["IsInternational"].ToString());
                     lstpr.IsAdditionalRHistory = Convert.ToInt32(dr["IsAdditionalRHistory"].ToString());
                     lstpr.FirstName = !string.IsNullOrWhiteSpace(dr["FirstName"].ToString()) ? dr["FirstName"].ToString() : "";
@@ -1863,7 +1707,7 @@ namespace ShomaRM.Models
                         string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
                         if (decryptedSSN.Length > 5)
                         {
-                            lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 5, 4);
+                            lstpr.SSN = "***-**-" + decryptedSSN.Substring(decryptedSSN.Length - 4, 4);
                         }
                         else
                         {
@@ -2224,6 +2068,8 @@ namespace ShomaRM.Models
                     da.Fill(dtTable);
                     db.Database.Connection.Close();
                 }
+                lstpr.ID = 0;
+                lstpr.ProspectID = 0;
                 lstpr.IsInternational = 0;
                 lstpr.Gender = 0;
                 lstpr.IDType = 0;
@@ -2246,85 +2092,31 @@ namespace ShomaRM.Models
                 foreach (DataRow dr in dtTable.Rows)
                 {
                     DateTime? dateOfBirth = null;
-                    try
-                    {
-
-                        dateOfBirth = Convert.ToDateTime(dr["DateOfBirth"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { dateOfBirth = Convert.ToDateTime(dr["DateOfBirth"].ToString()); }
+                    catch { }
                     DateTime? dateIssuance = null;
-                    try
-                    {
-
-                        dateIssuance = Convert.ToDateTime(dr["DateIssuance"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { dateIssuance = Convert.ToDateTime(dr["DateIssuance"].ToString()); }
+                    catch { }
                     DateTime? dateExpire = null;
-                    try
-                    {
-
-                        dateExpire = Convert.ToDateTime(dr["DateExpire"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { dateExpire = Convert.ToDateTime(dr["DateExpire"].ToString()); }
+                    catch { }
                     DateTime? moveInDateFrom = null;
-                    try
-                    {
-
-                        moveInDateFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString()); }
+                    catch { }
                     DateTime? moveInDateTo = null;
-                    try
-                    {
-
-                        moveInDateTo = Convert.ToDateTime(dr["MoveInDateTo"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateTo = Convert.ToDateTime(dr["MoveInDateTo"].ToString()); }
+                    catch { }
                     DateTime? moveInDateFrom2 = null;
-                    try
-                    {
-
-                        moveInDateFrom2 = Convert.ToDateTime(dr["MoveInDateFrom2"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateFrom2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString()); }
+                    catch { }
                     DateTime? moveInDateTo2 = null;
-                    try
-                    {
-
-                        moveInDateTo2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try { moveInDateTo2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString()); }
+                    catch { }
                     DateTime? startDate = null;
-                    try
-                    {
-
-                        startDate = Convert.ToDateTime(dr["StartDate"].ToString());
-                    }
-                    catch
-                    {
-
-                    }
+                    try {startDate = Convert.ToDateTime(dr["StartDate"].ToString());}
+                    catch { }
+                    lstpr.ID = Convert.ToInt32(dr["ID"].ToString());
+                    lstpr.ProspectID = Convert.ToInt32(dr["ProspectID"].ToString());
                     lstpr.IsInternational = Convert.ToInt32(dr["IsInternational"].ToString());
                     lstpr.IsAdditionalRHistory = Convert.ToInt32(dr["IsAdditionalRHistory"].ToString());
                     lstpr.FirstName = dr["FirstName"].ToString();
@@ -2363,7 +2155,9 @@ namespace ShomaRM.Models
                     if (!string.IsNullOrWhiteSpace(dr["SSN"].ToString()))
                     {
                         string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
-                        lstpr.SSN = decryptedSSN;
+
+                        lstpr.SSN = decryptedSSN.Substring(0, 2) + "-"+ decryptedSSN.Substring(2, 3) + "-" + decryptedSSN.Substring(decryptedSSN.Length - 4, 4);
+                        //lstpr.SSN = decryptedSSN;
                     }
                     else
                     {

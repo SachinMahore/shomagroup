@@ -192,11 +192,11 @@ namespace ShomaRM.Controllers
             }
 
         }
-        public ActionResult GetPropertyModelList(long PID, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int SortOrder)
+        public ActionResult GetPropertyModelList(long PID, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int SortOrder, int Furnished)
         {
             try
             {
-                return Json(new { model = (new PropertyModel().GetPropertyModelList(PID, AvailableDate, Current_Rent, Bedroom, SortOrder)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = (new PropertyModel().GetPropertyModelList(PID, AvailableDate, Current_Rent, Bedroom, SortOrder, Furnished)) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)

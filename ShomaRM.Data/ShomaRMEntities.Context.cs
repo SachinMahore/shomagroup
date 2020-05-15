@@ -70,7 +70,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_PremiumType> tbl_PremiumType { get; set; }
         public virtual DbSet<tbl_Promotion> tbl_Promotion { get; set; }
         public virtual DbSet<tbl_PropertyFloor> tbl_PropertyFloor { get; set; }
-        public virtual DbSet<tbl_PropertyUnits> tbl_PropertyUnits { get; set; }
         public virtual DbSet<tbl_PurchaseOrder> tbl_PurchaseOrder { get; set; }
         public virtual DbSet<tbl_Rating> tbl_Rating { get; set; }
         public virtual DbSet<tbl_RequestOffer> tbl_RequestOffer { get; set; }
@@ -112,5 +111,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
         public virtual DbSet<tbl_BackgroundScreening> tbl_BackgroundScreening { get; set; }
         public virtual DbSet<tbl_Vehicle> tbl_Vehicle { get; set; }
+        public virtual DbSet<tbl_PropertyUnits> tbl_PropertyUnits { get; set; }
     }
 }
