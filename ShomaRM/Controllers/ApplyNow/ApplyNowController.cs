@@ -175,11 +175,12 @@ namespace ShomaRM.Controllers
                 return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult saveCoAppPayment(ApplyNowModel model)
+        public async System.Threading.Tasks.Task<ActionResult> saveCoAppPayment(ApplyNowModel model)
         {
             try
             {
-                return Json(new { Msg = (new ApplyNowModel().saveCoAppPayment(model)) }, JsonRequestBehavior.AllowGet);
+                string msg = await (new ApplyNowModel().saveCoAppPayment(model));
+                return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

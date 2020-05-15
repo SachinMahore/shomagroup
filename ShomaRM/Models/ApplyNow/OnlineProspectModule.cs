@@ -236,7 +236,7 @@ namespace ShomaRM.Models
                     LastName = model.LastName,
                     Phone = model.Phone,
                     Email = model.Email,
-                    Gender = 0,
+                    Gender = model.Gender,
                     Relationship = "1",
                     Type = "Primary Applicant",
                     UserID = (int)Uid,
@@ -1388,12 +1388,12 @@ namespace ShomaRM.Models
             string encryptedPassword = new EncryptDecrypt().EncryptText(model.Password);
             string decryptedPassword = new EncryptDecrypt().DecryptText(encryptedPassword);
 
-            //string[] result = (new ApplyNowModel().CheckUnitAvailable(model.PropertyId ?? 0, 0)).Split('|');
-            //if (result[0] == "0")
-            //{
-            //    msg = "0|" + result[1] + " is not available.<br/>Please select other unit.|0";
-            //    return msg;
-            //}
+            string[] result = (new ApplyNowModel().CheckUnitAvailable(model.PropertyId ?? 0, 0)).Split('|');
+            if (result[0] == "0")
+            {
+                msg = "0|" + result[1] + " is not available.<br/>Please select other unit.|0";
+                return msg;
+            }
 
             var loginDet = db.tbl_Login.Where(p => p.Email == model.Email).FirstOrDefault();
             if (loginDet == null)

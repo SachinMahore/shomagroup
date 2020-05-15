@@ -90,11 +90,11 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult SendQuotationEmail(string Email)
+        public ActionResult SendQuotationEmail(PrintQuotationModel model)
         {
             try
             {
-                return Json(new { model = new ApplyNowModel().SendQuotationEmail(Email) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new ApplyNowModel().SendQuotationEmail(model) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

@@ -365,9 +365,32 @@ namespace ShomaRM.Areas.Tenant.Models
                         var updateTenantOnline = db.tbl_TenantOnline.Where(co => co.ProspectID == model.TenantID).FirstOrDefault();
                         if (updateTenantOnline != null)
                         {
+                            //updateTenantOnline.DateOfBirth = model.DateOfBirth;
+                            //updateTenantOnline.Gender = model.Gender;
+                            //updateTenantOnline.OtherGender = model.OtherGender;
+                            //updateTenantOnline.SSN = model.SSN;
+                            //updateTenantOnline.StateHome = model.StateHome;
+                            //updateTenantOnline.HomeAddress1 = model.HomeAddress1;
+                            //updateTenantOnline.HomeAddress2 = model.HomeAddress2;
+                            //updateTenantOnline.CityHome = model.CityHome;
+                            //updateTenantOnline.ZipHome = model.ZipHome;
+                            //updateTenantOnline.MiddleInitial = model.MiddleName;
+                            //updateTenantOnline.Country = model.Country;
+
+                            updateTenantOnline.FirstName = model.FirstName;
+                            updateTenantOnline.MiddleInitial = model.MiddleName;
+                            updateTenantOnline.LastName = model.LastName;
                             updateTenantOnline.DateOfBirth = model.DateOfBirth;
                             updateTenantOnline.Gender = model.Gender;
-                            updateTenantOnline.OtherGender = model.OtherGender;
+                            updateTenantOnline.Mobile = model.Phone;
+                            updateTenantOnline.Email = model.Email;
+                            updateTenantOnline.SSN = model.SSN;
+                            updateTenantOnline.StateHome = model.StateHome;
+                            updateTenantOnline.HomeAddress1 = model.HomeAddress1;
+                            updateTenantOnline.HomeAddress2 = model.HomeAddress2;
+                            updateTenantOnline.CityHome = model.CityHome;
+                            updateTenantOnline.ZipHome = model.ZipHome;
+                            updateTenantOnline.Country = model.Country;
                             db.SaveChanges();
                         }
                     }
@@ -393,7 +416,6 @@ namespace ShomaRM.Areas.Tenant.Models
                         getTenantOnline.HomeAddress2 = model.HomeAddress2;
                         getTenantOnline.CityHome = model.CityHome;
                         getTenantOnline.ZipHome = model.ZipHome;
-                        getTenantOnline.MiddleInitial = model.MiddleName;
                         getTenantOnline.Country = model.Country;
                         db.SaveChanges();
                     }
@@ -1553,7 +1575,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect5.html");
                     reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     string body = "";
-                    if ((getAppldata.CreditPaid ?? 0) == 0 && loggedinuserid == getAppldata.UserID)
+                    if ((getAppldata.CreditPaid ?? 0) == 0 )
                     {
 
                         var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();

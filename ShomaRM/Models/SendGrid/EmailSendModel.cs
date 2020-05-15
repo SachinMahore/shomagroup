@@ -18,8 +18,6 @@ namespace ShomaRM.Models
     {
         public string s_username = WebConfigurationManager.AppSettings["SendGridUserName"];
         public string s_password = WebConfigurationManager.AppSettings["SendGridPassword"];
-
-
         public void SendEmail(string ToEmail, string Subject, string Body)
         {
             try
@@ -42,6 +40,41 @@ namespace ShomaRM.Models
                     LoggingHelper.LogMessage(ex, System.Diagnostics.TraceLevel.Error);
                     throw ex;
                     
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggingHelper.LogMessage(ex, System.Diagnostics.TraceLevel.Error);
+            }
+        }
+        public void SendEmailWithAttachment(string ToEmail, string Subject, string Body, List<string> FilePath)
+        {
+            try
+            {
+                var myMessage = new SendGridMessage();
+                myMessage.AddTo(ToEmail);
+                myMessage.From = new MailAddress("admin@shomarm.com", "Administrator");
+                myMessage.Subject = Subject;
+                myMessage.Html = Body;
+                myMessage.DisableOpenTracking();
+                myMessage.DisableClickTracking();
+                myMessage.EnableSpamCheck();
+
+                foreach(string filepath in FilePath)
+                {
+                    myMessage.AddAttachment(filepath);
+                }
+
+                try
+                {
+                    SendAsync(myMessage, s_username, s_password);
+                    LoggingHelper.LogMessage("Success", System.Diagnostics.TraceLevel.Info);
+                }
+                catch (Exception ex)
+                {
+                    LoggingHelper.LogMessage(ex, System.Diagnostics.TraceLevel.Error);
+                    throw ex;
+
                 }
             }
             catch (Exception ex)

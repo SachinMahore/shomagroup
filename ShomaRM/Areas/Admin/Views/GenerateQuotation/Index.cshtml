@@ -25,8 +25,13 @@
 <input type="hidden" id="hndAdditionalParking" value="@(Model.AdditionalParking)" />
 <input type="hidden" id="HndAddParkingCount" value="0" />
 <input type="hidden" id="hndDocumentTypePersonal" value="0" />
-<input type="hidden" id="hndIsRegister" value="0" />
+<input type="hidden" id="hndIsRegister" value="@((Model.StepCompleted>=4)?1:0)" />
 <input type="hidden" id="hndStorageOrderBy" value="ASC" />
+
+<input type="hidden" id="hndCreditPaid" value="@Model.CreditPaid" />
+<input type="hidden" id="hndAppCreditFees" value="@((Model.AppCCCheckFees??0).ToString("0.00"))" />
+<input type="hidden" id="hndAppBackgroundFees" value="@((Model.AppBGCheckFees??0).ToString("0.00"))" />
+
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container">
@@ -38,7 +43,7 @@
                         <h3>
                             <b>Online  </b>Application <br>
                         </h3>
-                        
+
                         <span class="pull-right" style="color:black;font-size: 15px;margin-right: 10px; font-weight:bold;" id="mainApplName"></span>
                         <span class="pull-left hidden" style="color:red;font-size: 15px;margin-right: 10px;" id="getting-startedTimeRemainingClock"></span>
 
@@ -51,7 +56,7 @@
                         <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5,0)">4. Quotation</a></li>
                         <li id="li7"><a href="javascript:void(0);" id="as7" onclick="goToStep(7,7,0)">5. Applicants</a></li>
                     </ul>
-                    
+
                     <div class="tab-content">
                         <div class="" id="step1">
                             <div class="row p-b-15  ">
@@ -1268,7 +1273,7 @@
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(5,5,0)"> Back</button>
                                 </div>
                                 <div class="pull-right">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="sendQuotationEmail();"> Send Email</button>
+                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="sendQuotationEmail();"> Send Quotation & Pay Credit Check Link</button>
                                 </div>
                             </div>
                         </div>
@@ -4224,8 +4229,8 @@
 </div>
 
 <div class="modal " id="popApplicant" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:1100px !important; height:350px;">
-        <div class="modal-content" style="width: 100% !important; height:350px;">
+    <div class="modal-dialog" style="width:1100px !important; height:500px;">
+        <div class="modal-content" style="width: 100% !important; height:610px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Applicant</h5>
@@ -4241,7 +4246,7 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label> Middle Name</label>
+                            <label id="lbl_txtApplicantMiddleName" class=""> Middle Name</label>
                             <input id="txtApplicantMiddleName" type="text" class="form-control" maxlength="100" placeholder="Middle Name" value="">
                         </div>
                     </div>
@@ -4307,6 +4312,92 @@
                         <div class="form-group">
                             <label class="star">Email</label>
                             <input id="txtApplicantEmail" type="text" class="form-control" maxlength="200" placeholder="Email" value="">
+                        </div>
+                    </div>
+                    <div class="col-sm-4" id="divPopSSN">
+                        <div class="form-group">
+                            <label id="lblSSNNumber" class="star">SSN#</label>
+                            <input class="form-control form-control-small" id="txtApplicantSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 hidden">
+
+                    <div class="col-sm-4" id="divPopIDType">
+                        <div class="form-group">
+                            <label for="ddlDocumentType" class="star">ID Type</label>
+                            <select id="ddlApplicantDocumentTypePersonal" class="form-control " style="width:100%!important"></select>
+                        </div>
+                    </div>
+                    <div id="divPopIDState" class="col-sm-4">
+                        <div class="form-group">
+                            <label id="lblStatePersonal" class="star"> State</label>
+                            <select id="ddlApplicantStateDoc" class="form-control">
+                                <option value="0">--Select State--</option>
+                                @foreach (var state in Model.StateList)
+                                {
+                                    <option value="@state.ID">@state.StateName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" id="divPopIDNumber">
+                        <div class="form-group">
+                            <label class="star">ID Number</label>
+                            <input class="form-control form-control-small" id="txtApplicantIDNumber" maxlength="25" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-4" id="divPopCountry">
+                        <div class="form-group">
+                            <label for="txtCountry" class="star">Country</label>
+                            <select id="txtApplicantCountry" class="form-control">
+                                @foreach (var country in Model.CountryList)
+                                {
+                                    <option value="@country.ID">@country.CountryName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" id="divPopAddressLine1">
+                        <div class="form-group">
+                            <label class="star">Address Line 1</label>
+                            <input id="txtAddressLine1" type="text" class="form-control form-control-small" maxlength="300" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4" id="divPopAddressLine2">
+                        <div class="form-group">
+                            <label>Address Line 2</label>
+                            <input id="txtAddressLine2" type="text" class="form-control form-control-small" maxlength="300" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-4" id="divPopState">
+                        <div class="form-group">
+                            <label class="star">State</label>
+                            <select id="ddlApplicantState" class="form-control">
+                                <option value="0">--Select State--</option>
+                                @foreach (var state in Model.StateList)
+                                {
+                                    <option value="@state.ID">@state.StateName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4" id="divPopCity">
+                        <div class="form-group">
+                            <label class="star">City</label>
+                            @*<select id="ddlCityHome" class="form-control"></select>*@
+                            <input id="txtApplicantCity" type="text" class="form-control form-control-small" maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4" id="divPopZip">
+                        <div class="form-group">
+                            <label class="star">Zip</label>
+                            <input class="form-control form-control-small" id="txtApplicantZip2" maxlength="7" />
                         </div>
                     </div>
                     <div class="col-sm-4 hidden">
@@ -5927,7 +6018,7 @@
             }
             else {
                 $("#hndShowTermPolicy").val(1);
-                showCurrentStep(3, 3);
+                showCurrentStep(4, 4);
             }
             @*if (('@Model.EnvelopeID') !="") {
                 $("#btnAddPet").attr("disabled", true);

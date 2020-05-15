@@ -17,9 +17,9 @@ namespace ShomaRM.Models
     public class AcutraqRequest
     {
         #region PostAll
-        public async Task<OrderXML>   PostAqutraqRequest(TenantOnlineModel data,bool isTest=true)
+        public async Task<OrderXML> PostAqutraqRequest(TenantOnlineModel data, bool isTest = true)
         {
-            
+
             var _objAcqutraqOrder = new OrderXML();
             _objAcqutraqOrder.Method = "SEND ORDER";
             var Authentication = new Authentication();
@@ -31,7 +31,7 @@ namespace ShomaRM.Models
             {
                 _objAcqutraqOrder.TestMode = "Yes";
             }
-            _objAcqutraqOrder.ReturnResultURL = WebConfigurationManager.AppSettings["ServerURL"]+ "BackgroundScreening/ReceiveRequest";
+            _objAcqutraqOrder.ReturnResultURL = WebConfigurationManager.AppSettings["ServerURL"] + "BackgroundScreening/ReceiveRequest";
             var _objorder = new Order();
             _objorder.BillingReferenceCode = data.ID.ToString();
             var _objsubject = new Subject();
@@ -49,31 +49,31 @@ namespace ShomaRM.Models
             var CurrentAddress = new CurrentAddress();
             CurrentAddress.StreetAddress = data.HomeAddress1;
             CurrentAddress.City = data.CityHome;
-            CurrentAddress.State =data.StateHomeString;
+            CurrentAddress.State = data.StateHomeString;
             CurrentAddress.Zipcode = data.ZipHome;
             CurrentAddress.Country = data.Country;
             _objsubject.CurrentAddress = CurrentAddress;
             _objorder.Subject = _objsubject;
-        
+
 
             //employee
             var _objorderdetails = new OrderDetailEMP();
             _objorderdetails.ServiceCode = "EMP";
             _objorderdetails.OrderId = data.ProspectID.ToString();
-            _objorderdetails.CompanyName =data.EmployerName;
+            _objorderdetails.CompanyName = data.EmployerName;
             _objorderdetails.Position = data.JobTitle;
-            _objorderdetails.Salary =data.Income.ToString();
+            _objorderdetails.Salary = data.Income.ToString();
             _objorderdetails.Manager = data.SupervisorName;
             _objorderdetails.Telephone = data.SupervisorPhone;
             _objorderdetails.EmployerCity = data.OfficeCity;
             _objorderdetails.EmployerState = data.OfficeState.ToString();
-             var _objEmploymentDates = new EmploymentDates();
+            var _objEmploymentDates = new EmploymentDates();
             _objEmploymentDates.StartDate = data.StartDateTxt;
 
-            _objEmploymentDates.EndDate = data.DateExpireTxt == "" ? "00/00/0000": data.DateExpireTxt;
+            _objEmploymentDates.EndDate = data.DateExpireTxt == "" ? "00/00/0000" : data.DateExpireTxt;
             _objorderdetails.EmploymentDates = _objEmploymentDates;
             _objorderdetails.ReasonForLeaving = data.Reason; ;
-            
+
             _objorder.OrderDetailEMP = _objorderdetails;
 
             var _objCriminal = new OrderDetailCriminal();
@@ -85,7 +85,7 @@ namespace ShomaRM.Models
             var _objEVISEA = new OrderDetailEVISEA();
             _objEVISEA.ServiceCode = "EVISEA";
             _objEVISEA.OrderId = data.ProspectID.ToString();
-            _objorder.OrderDetailEVISEA = _objEVISEA;           
+            _objorder.OrderDetailEVISEA = _objEVISEA;
 
             var _objCredit = new OrderDetailCredit();
             _objCredit.ServiceCode = "TENTCREDIT";
@@ -99,9 +99,10 @@ namespace ShomaRM.Models
             var result = new List<XElement>();
             try
             {
-                 result = await AquatraqHelper.PostFormUrlEncoded<List<XElement>>("https://orders.dciresources.com/webservice/default.cfm", keyValues);
+                result = await AquatraqHelper.PostFormUrlEncoded<List<XElement>>("https://orders.dciresources.com/webservice/default.cfm", keyValues);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 var er = e;
             }
             if (result.Count() != 0)
@@ -124,7 +125,6 @@ namespace ShomaRM.Models
         #region PostEvisea
         public async Task<OrderXML> PostAqutraqEVISEA(TenantOnlineModel data, bool isTest = true)
         {
-         
             var _objAcqutraqOrder = new OrderXMLEVISEA();
             _objAcqutraqOrder.Method = "SEND ORDER";
             var Authentication = new Authentication();
@@ -159,17 +159,13 @@ namespace ShomaRM.Models
             CurrentAddress.Country = data.Country;
             _objsubject.CurrentAddress = CurrentAddress;
             _objorder.Subject = _objsubject;
-          
-           
-
-         
 
             var _objEVISEA = new OrderDetailEVISEA();
             _objEVISEA.ServiceCode = "EVISEA";
             _objEVISEA.OrderId = data.ProspectID.ToString();
             _objorder.OrderDetailEVISEA = _objEVISEA;
 
-          
+
 
             string Serialisexml = AquatraqHelper.Serialize(_objAcqutraqOrder);
             Serialisexml = AquatraqHelper.SetAttributeValue(Serialisexml, data.ProspectID.ToString());
@@ -240,7 +236,7 @@ namespace ShomaRM.Models
             _objorder.Subject = _objsubject;
 
 
-          
+
 
             var _objCriminal = new OrderDetailCriminal();
             _objCriminal.state = data.StateHomeString;
@@ -248,7 +244,7 @@ namespace ShomaRM.Models
             _objCriminal.OrderId = data.ProspectID.ToString();
             _objorder.OrderDetailCriminal = _objCriminal;
 
-           
+
 
             string Serialisexml = AquatraqHelper.Serialize(_objAcqutraqOrder);
             Serialisexml = AquatraqHelper.SetAttributeValue(Serialisexml, data.ProspectID.ToString());
@@ -281,9 +277,9 @@ namespace ShomaRM.Models
         #endregion
 
         #region Tenant
-        public async Task<OrderXML> PostAqutraqTenant(TenantOnlineModel data, bool isTest = true)
+        public async Task<string> PostAqutraqTenant(TenantOnlineModel data, bool isTest = true)
         {
-           
+            string bgresult = "0";
             var _objAcqutraqOrder = new OrderXMLTenant();
             _objAcqutraqOrder.Method = "SEND ORDER";
             var Authentication = new Authentication();
@@ -295,7 +291,10 @@ namespace ShomaRM.Models
             {
                 _objAcqutraqOrder.TestMode = "Yes";
             }
-            _objAcqutraqOrder.ReturnResultURL = WebConfigurationManager.AppSettings["ServerURL"] + "BackgroundScreening/ReceiveRequest";
+
+            //_objAcqutraqOrder.ReturnResultURL = WebConfigurationManager.AppSettings["ServerURL"] + "BackgroundScreening/ReceiveRequest";
+            _objAcqutraqOrder.ReturnResultURL = "https://ba323a93.ngrok.io/BackgroundScreening/ReceiveRequest";
+            
             var _objorder = new OrderTenant();
             _objorder.BillingReferenceCode = data.ID.ToString();
             var _objsubject = new Subject();
@@ -319,13 +318,10 @@ namespace ShomaRM.Models
             _objsubject.CurrentAddress = CurrentAddress;
             _objorder.Subject = _objsubject;
 
-
-
             var _objCredit = new OrderDetailCredit();
             _objCredit.ServiceCode = "TENTCREDIT";
             _objCredit.OrderId = data.ProspectID.ToString();
             _objorder.OrderDetailCredit = _objCredit;
-
 
             string Serialisexml = AquatraqHelper.Serialize(_objAcqutraqOrder);
             Serialisexml = AquatraqHelper.SetAttributeValue(Serialisexml, data.ProspectID.ToString());
@@ -342,6 +338,8 @@ namespace ShomaRM.Models
             }
             if (result.Count() != 0)
             {
+                bgresult = "1";
+
                 var saveresult = "";
                 //Saving CRAOrderId and tenant id result in database 
                 foreach (var item in result)
@@ -353,7 +351,7 @@ namespace ShomaRM.Models
                     saveresult = (new BackgroundScreeningModel().SaveBackgroundScreening(backgroundscreening));
                 }
             }
-            return null;
+            return bgresult;
         }
         #endregion
         //All
@@ -429,8 +427,6 @@ namespace ShomaRM.Models
             public string LastName { get; set; }
 
         }
-
-
 
         public class EmploymentDates
         {
@@ -540,8 +536,7 @@ namespace ShomaRM.Models
         }
         #endregion
 
-
-    #region Multistate
+        #region Multistate
         //Multistate
         public class OrderXMLCriminal
         {
@@ -584,18 +579,10 @@ namespace ShomaRM.Models
             public Subject Subject { get; set; }
             public string PackageServiceCode { get; set; }
 
-         
+
             public OrderDetailCredit OrderDetailCredit { get; set; }
             public OrderDetailResponse OrderDetail { get; set; }
         }
         #endregion
-
-
     }
-
-
-
-
-
-
 }

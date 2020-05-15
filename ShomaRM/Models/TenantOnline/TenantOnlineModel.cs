@@ -2196,6 +2196,306 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
+        public TenantOnlineModel GetTenantOnlineList(int id, int userid)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel lstpr = new TenantOnlineModel();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetTenantOnlineData";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramF = cmd.CreateParameter();
+                    paramF.ParameterName = "id";
+                    paramF.Value = id;
+                    cmd.Parameters.Add(paramF);
+                    //Sachin Mahore 21 Apr 2020
+                    DbParameter paramfF = cmd.CreateParameter();
+                    paramfF.ParameterName = "toid";
+                    paramfF.Value = userid;
+                    cmd.Parameters.Add(paramfF);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                lstpr.IsInternational = 0;
+                lstpr.Gender = 0;
+                lstpr.IDType = 0;
+                lstpr.State = 0;
+                lstpr.Country = "1";
+                lstpr.StateHome = 0;
+                lstpr.RentOwn = 0;
+
+                lstpr.Country2 = "0";
+                lstpr.StateHome2 = 0;
+                lstpr.RentOwn2 = 0;
+
+                lstpr.JobType = 0;
+                lstpr.OfficeCountry = "1";
+                lstpr.OfficeState = 0;
+
+                lstpr.EmergencyCountry = "1";
+                lstpr.EmergencyStateHome = 0;
+                lstpr.StepCompleted = 1;
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    DateTime? dateOfBirth = null;
+                    try
+                    {
+
+                        dateOfBirth = Convert.ToDateTime(dr["DateOfBirth"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? dateIssuance = null;
+                    try
+                    {
+
+                        dateIssuance = Convert.ToDateTime(dr["DateIssuance"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? dateExpire = null;
+                    try
+                    {
+
+                        dateExpire = Convert.ToDateTime(dr["DateExpire"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInDateFrom = null;
+                    try
+                    {
+
+                        moveInDateFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInDateTo = null;
+                    try
+                    {
+
+                        moveInDateTo = Convert.ToDateTime(dr["MoveInDateTo"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInDateFrom2 = null;
+                    try
+                    {
+
+                        moveInDateFrom2 = Convert.ToDateTime(dr["MoveInDateFrom2"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInDateTo2 = null;
+                    try
+                    {
+
+                        moveInDateTo2 = Convert.ToDateTime(dr["MoveInDateTo2"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? startDate = null;
+                    try
+                    {
+
+                        startDate = Convert.ToDateTime(dr["StartDate"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    lstpr.IsInternational = Convert.ToInt32(dr["IsInternational"].ToString());
+                    lstpr.IsAdditionalRHistory = Convert.ToInt32(dr["IsAdditionalRHistory"].ToString());
+                    lstpr.FirstName = dr["FirstName"].ToString();
+                    lstpr.MiddleInitial = dr["MiddleInitial"].ToString();
+                    lstpr.LastName = dr["LastName"].ToString();
+                    lstpr.DateOfBirthTxt = dateOfBirth == null ? "" : dateOfBirth.Value.ToString("MM/dd/yyy");
+                    lstpr.Gender = Convert.ToInt32(dr["Gender"].ToString());
+                    lstpr.Email = dr["Email"].ToString();
+                    lstpr.Mobile = dr["Mobile"].ToString();
+
+                    if (!string.IsNullOrWhiteSpace(dr["PassportNumber"].ToString()))
+                    {
+                        string decryptedPassportNumber = new EncryptDecrypt().DecryptText(dr["PassportNumber"].ToString());
+                        lstpr.PassportNumber = decryptedPassportNumber;
+                    }
+                    else
+                    {
+                        lstpr.PassportNumber = "";
+                    }
+
+                    lstpr.CountryIssuance = dr["CountryIssuance"].ToString();
+                    lstpr.DateIssuanceTxt = dateIssuance == null ? "" : dateIssuance.Value.ToString("MM/dd/yyy");
+                    lstpr.DateExpireTxt = dateExpire == null ? "" : dateExpire.Value.ToString("MM/dd/yyy");
+                    lstpr.IDType = Convert.ToInt32(dr["IDType"].ToString());
+                    lstpr.State = Convert.ToInt64(dr["State"].ToString());
+                    if (!string.IsNullOrWhiteSpace(dr["IDNumber"].ToString()))
+                    {
+                        string decryptedIDNumber = new EncryptDecrypt().DecryptText(dr["IDNumber"].ToString());
+                        lstpr.IDNumber = decryptedIDNumber;
+                    }
+                    else
+                    {
+                        lstpr.IDNumber = "";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(dr["SSN"].ToString()))
+                    {
+                        string decryptedSSN = new EncryptDecrypt().DecryptText(dr["SSN"].ToString());
+                        lstpr.SSN = decryptedSSN;
+                    }
+                    else
+                    {
+                        lstpr.SSN = "";
+                    }
+                    lstpr.Country = dr["Country"].ToString();
+                    lstpr.HomeAddress1 = dr["HomeAddress1"].ToString();
+                    lstpr.HomeAddress2 = dr["HomeAddress2"].ToString();
+                    lstpr.StateHome = Convert.ToInt64(dr["StateHome"].ToString());
+                    lstpr.CityHome = dr["CityHome"].ToString();
+                    lstpr.ZipHome = dr["ZipHome"].ToString();
+                    lstpr.RentOwn = Convert.ToInt16(dr["RentOwn"].ToString());
+                    lstpr.MoveInDateFromTxt = moveInDateFrom == null ? "" : moveInDateFrom.Value.ToString("MM/dd/yyy");
+                    lstpr.MoveInDateToTxt = moveInDateTo == null ? "" : moveInDateTo.Value.ToString("MM/dd/yyy");
+                    lstpr.MonthlyPayment = dr["MonthlyPayment"].ToString();
+                    lstpr.Reason = dr["Reason"].ToString();
+                    lstpr.EmployerName = dr["EmployerName"].ToString();
+                    lstpr.JobTitle = dr["JobTitle"].ToString();
+                    lstpr.JobType = Convert.ToInt32(dr["JobType"].ToString());
+                    lstpr.StartDateTxt = startDate == null ? "" : startDate.Value.ToString("MM/dd/yyy");
+                    lstpr.Income = Convert.ToDecimal(dr["Income"].ToString());
+                    lstpr.AdditionalIncome = Convert.ToDecimal(dr["AdditionalIncome"].ToString());
+                    lstpr.SupervisorName = dr["SupervisorName"].ToString();
+                    lstpr.SupervisorPhone = dr["SupervisorPhone"].ToString();
+                    lstpr.SupervisorEmail = dr["SupervisorEmail"].ToString();
+                    lstpr.OfficeCountry = dr["OfficeCountry"].ToString();
+                    lstpr.OfficeAddress1 = dr["OfficeAddress1"].ToString();
+                    lstpr.OfficeAddress2 = dr["OfficeAddress2"].ToString();
+                    lstpr.OfficeState = Convert.ToInt32(dr["OfficeState"].ToString());
+                    lstpr.OfficeCity = dr["OfficeCity"].ToString();
+                    lstpr.OfficeZip = dr["OfficeZip"].ToString();
+                    lstpr.Relationship = dr["Relationship"].ToString();
+                    lstpr.EmergencyFirstName = dr["EmergencyFirstName"].ToString();
+                    lstpr.EmergencyLastName = dr["EmergencyLastName"].ToString();
+                    lstpr.EmergencyMobile = dr["EmergencyMobile"].ToString();
+                    lstpr.EmergencyHomePhone = dr["EmergencyHomePhone"].ToString();
+                    lstpr.EmergencyWorkPhone = dr["EmergencyWorkPhone"].ToString();
+                    lstpr.EmergencyEmail = dr["EmergencyEmail"].ToString();
+                    lstpr.EmergencyCountry = dr["EmergencyCountry"].ToString();
+                    lstpr.EmergencyAddress1 = dr["EmergencyAddress1"].ToString();
+                    lstpr.EmergencyAddress2 = dr["EmergencyAddress2"].ToString();
+                    lstpr.EmergencyStateHome = Convert.ToInt32(dr["EmergencyStateHome"].ToString());
+                    lstpr.EmergencyCityHome = dr["EmergencyCityHome"].ToString();
+                    lstpr.EmergencyZipHome = dr["EmergencyZipHome"].ToString();
+                    lstpr.OtherGender = dr["OtherGender"].ToString();
+
+                    lstpr.IdentityDocument = dr["IdentityDocument"].ToString();
+                    lstpr.PassportDocument = dr["PassportDocument"].ToString();
+                    lstpr.TaxReturn = dr["TaxReturn"].ToString();
+
+                    lstpr.TaxReturn2 = dr["TaxReturn2"].ToString();
+                    lstpr.TaxReturn3 = dr["TaxReturn3"].ToString();
+                    lstpr.HaveVehicle = Convert.ToBoolean(dr["HaveVehicle"].ToString());
+                    lstpr.HavePet = Convert.ToBoolean(dr["HavePet"].ToString());
+                    lstpr.UploadOriginalFileName1 = dr["TaxReturnOrginalFile"].ToString();
+                    lstpr.UploadOriginalFileName2 = dr["TaxReturnOrginalFile2"].ToString();
+                    lstpr.UploadOriginalFileName3 = dr["TaxReturnOrginalFile3"].ToString();
+                    lstpr.UploadOriginalPassportName = dr["PassportDocumentOriginalFile"].ToString();
+                    lstpr.UploadOriginalIdentityName = dr["IdentityDocumentOriginalFile"].ToString();
+                    lstpr.IsPaystub = Convert.ToInt32(dr["IsPaystub"].ToString());
+
+                    lstpr.CountryOfOrigin = Convert.ToInt64(dr["CountryOfOrigin"].ToString());
+                    lstpr.Evicted = Convert.ToInt32(dr["Evicted"].ToString());
+                    lstpr.EvictedDetails = dr["EvictedDetails"].ToString();
+                    lstpr.ConvictedFelony = Convert.ToInt32(dr["ConvictedFelony"].ToString());
+                    lstpr.ConvictedFelonyDetails = dr["ConvictedFelonyDetails"].ToString();
+                    lstpr.CriminalChargPen = Convert.ToInt32(dr["CriminalChargPen"].ToString());
+                    lstpr.CriminalChargPenDetails = dr["CriminalChargPenDetails"].ToString();
+                    lstpr.DoYouSmoke = Convert.ToInt32(dr["DoYouSmoke"].ToString());
+                    lstpr.ReferredResident = Convert.ToInt32(dr["ReferredResident"].ToString());
+                    lstpr.ReferredResidentName = dr["ReferredResidentName"].ToString();
+                    lstpr.ReferredBrokerMerchant = Convert.ToInt32(dr["ReferredBrokerMerchant"].ToString());
+                    lstpr.ApartmentCommunity = dr["ApartmentCommunity"].ToString();
+                    lstpr.ManagementCompany = dr["ManagementCompany"].ToString();
+                    lstpr.ManagementCompanyPhone = dr["ManagementCompanyPhone"].ToString();
+                    lstpr.IsProprNoticeLeaseAgreement = Convert.ToInt32(dr["IsProprNoticeLeaseAgreement"].ToString());
+
+                    int countryOrigintemp = lstpr.CountryOfOrigin.HasValue ? Convert.ToInt32(lstpr.CountryOfOrigin) : 0;
+                    var countryOriginVar = db.tbl_Country.Where(co => co.ID == countryOrigintemp).FirstOrDefault();
+                    lstpr.CountryOfOriginString = countryOriginVar != null ? countryOriginVar.CountryName : "";
+
+                    var PersonalStateVar = db.tbl_State.Where(co => co.ID == lstpr.State).FirstOrDefault();
+                    lstpr.StatePersonalString = PersonalStateVar != null ? PersonalStateVar.StateName : "";
+                    var StateHomeVar = db.tbl_State.Where(co => co.ID == lstpr.StateHome).FirstOrDefault();
+                    lstpr.StateHomeString = StateHomeVar != null ? StateHomeVar.StateName : "";
+                    int contryTemp = lstpr.Country != "" ? Convert.ToInt32(lstpr.Country) : 0;
+                    var CountryVar = db.tbl_Country.Where(co => co.ID == contryTemp).FirstOrDefault();
+                    lstpr.CountryString = CountryVar != null ? CountryVar.CountryName : "";
+                    int officeContryTemp = lstpr.OfficeCountry != "" ? Convert.ToInt32(lstpr.OfficeCountry) : 0;
+                    var OfficeCountryVar = db.tbl_Country.Where(co => co.ID == officeContryTemp).FirstOrDefault();
+                    lstpr.OfficeCountryString = OfficeCountryVar != null ? OfficeCountryVar.CountryName : "";
+                    int emergencyContryTemp = lstpr.EmergencyCountry != "" ? Convert.ToInt32(lstpr.EmergencyCountry) : 0;
+                    var EmergencyCountryVar = db.tbl_Country.Where(co => co.ID == emergencyContryTemp).FirstOrDefault();
+                    lstpr.EmergencyCountryString = EmergencyCountryVar != null ? EmergencyCountryVar.CountryName : "";
+                    int emergencyStateHomeTemp = lstpr.EmergencyStateHome != null ? Convert.ToInt32(lstpr.EmergencyStateHome) : 0;
+                    var EmergencyStateHomeVar = db.tbl_State.Where(co => co.ID == emergencyStateHomeTemp).FirstOrDefault();
+                    lstpr.EmergencyStateHomeString = EmergencyStateHomeVar != null ? EmergencyStateHomeVar.StateName : "";
+
+                    lstpr.StringEvicted = Convert.ToInt32(dr["Evicted"]) == 1 ? "No" : "Yes";
+                    lstpr.StringConvictedFelony = Convert.ToInt32(dr["ConvictedFelony"]) == 1 ? "No" : "Yes";
+                    lstpr.StringCriminalChargPen = Convert.ToInt32(dr["CriminalChargPen"]) == 1 ? "No" : "Yes";
+                    lstpr.StringDoYouSmoke = Convert.ToInt32(dr["DoYouSmoke"]) == 1 ? "No" : "Yes";
+                    lstpr.StringReferredResident = Convert.ToInt32(dr["ReferredResident"]) == 1 ? "No" : "Yes";
+                    lstpr.StringReferredBrokerMerchant = Convert.ToInt32(dr["ReferredBrokerMerchant"]) == 1 ? "No" : "Yes";
+                    lstpr.stringIsProprNoticeLeaseAgreement = Convert.ToInt32(dr["IsProprNoticeLeaseAgreement"]) == 1 ? "Yes" : "No";
+
+                    //sachin m 11 may
+                    lstpr.TaxReturn4 = dr["TaxReturn4"].ToString();
+                    lstpr.TaxReturn5 = dr["TaxReturn5"].ToString();
+                    lstpr.TaxReturn6 = dr["TaxReturn6"].ToString();
+                    lstpr.TaxReturn7 = dr["TaxReturn7"].ToString();
+                    lstpr.TaxReturn8 = dr["TaxReturn8"].ToString();
+                    lstpr.UploadOriginalFileName4 = dr["TaxReturnOrginalFile4"].ToString();
+                    lstpr.UploadOriginalFileName5 = dr["TaxReturnOrginalFile5"].ToString();
+                    lstpr.UploadOriginalFileName6 = dr["TaxReturnOrginalFile6"].ToString();
+                    lstpr.UploadOriginalFileName7 = dr["TaxReturnOrginalFile7"].ToString();
+                    lstpr.UploadOriginalFileName8 = dr["TaxReturnOrginalFile8"].ToString();
+                    lstpr.IsFedralTax = Convert.ToInt32(dr["IsFedralTax"].ToString());
+                    lstpr.IsBankState = Convert.ToInt32(dr["IsBankState"].ToString());
+
+                    var stepCompleted = Convert.ToInt32(dr["StepCompleted"].ToString());
+                    lstpr.StepCompleted = stepCompleted;
+                }
+                db.Dispose();
+                return lstpr;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
     }
 
     public class TenantPetPlace

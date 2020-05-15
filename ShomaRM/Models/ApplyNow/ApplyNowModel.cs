@@ -17,6 +17,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace ShomaRM.Models
 {
@@ -395,7 +396,7 @@ namespace ShomaRM.Models
             return msg;
         }
 
-        public string saveCoAppPayment(ApplyNowModel model)
+        public async Task<string> saveCoAppPayment(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
@@ -410,7 +411,7 @@ namespace ShomaRM.Models
 
                 decimal processingFees = 0;
 
-                if(GePropertyData!=null)
+                if (GePropertyData != null)
                 {
                     processingFees = GePropertyData.ProcessingFees ?? 0;
                 }
@@ -432,7 +433,7 @@ namespace ShomaRM.Models
                 String[] spearator = { "|" };
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 string bat = "";
-               
+
                 if (strlist[1] != "000000")
                 {
                     if (model.FromAcc == 1)
@@ -502,11 +503,9 @@ namespace ShomaRM.Models
                         Batch = bat,
                         Batch_Source = "",
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
-                     
+
                         GL_Trans_Description = transStatus.ToString(),
                         ProspectID = 0,
-                        
-
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -549,12 +548,8 @@ namespace ShomaRM.Models
                                 }
                             }
                         }
-                       else if (model.FromAcc == 4)
+                        else if (model.FromAcc == 4)
                         {
-
-                            GetCoappDet.CreditPaid = 1;
-                            db.SaveChanges();
-
                             //sachin m 01 may 2020
                             sub = "Credit Check Fees Payment Received";
                             reportHTML = reportHTML.Replace("[%EmailHeader%]", "Credit Check Fees Payment Received");
@@ -574,7 +569,19 @@ namespace ShomaRM.Models
                             string pass = "";
                             pass = new EncryptDecrypt().DecryptText(UserData.Password);
 
-                            // Call Background check function
+                            //// Call Credit Check Function //
+                            //var acutraqrequest = new AcutraqRequest();
+                            //TenantOnlineModel modelTD = new TenantOnlineModel().GetTenantOnlineList((int)GetProspectData.ID, GetCoappDet.UserID ?? 0);
+                            //string result = await acutraqrequest.PostAqutraqTenant(modelTD);
+                            //// Call Credit Check Function //
+
+                            //if (result == "1")
+                            //{
+                            //var gerResultData = db.tbl_BackgroundScreening.Where(p => p.TenantId == model.ProspectId && p.Type == "TENTCREDIT").FirstOrDefault();
+
+                            GetCoappDet.CreditPaid = 1;
+                            db.SaveChanges();
+
                             string reportHTMLbc = "";
                             reportHTMLbc = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect5.html");
                             reportHTMLbc = reportHTMLbc.Replace("[%ServerURL%]", serverURL);
@@ -594,11 +601,12 @@ namespace ShomaRM.Models
                                     new TwilioService().SMS(phonenumber, message);
                                 }
                             }
+                            //}
                         }
                         else if (model.FromAcc == 5)
                         {
                             GetCoappDet.BackGroundPaid = 1;
-                            GetCoappDet.Paid=1;
+                            GetCoappDet.Paid = 1;
                             db.SaveChanges();
 
                             filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
@@ -655,7 +663,7 @@ namespace ShomaRM.Models
                             (new ShomaGroupWebSession()).SetWebSession(currentUser);
                         }
                     }
-                    
+
                     msg = "1";
                 }
                 else
@@ -668,6 +676,7 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
+
         public ApplyNowModel ForgetPassword(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -1630,41 +1639,74 @@ namespace ShomaRM.Models
 
             return filename;
         }
-        public string SendQuotationEmail(string Email)
+        public string SendQuotationEmail(PrintQuotationModel model)
         {
+            var filePathQuotation = HttpContext.Current.Server.MapPath(PrintQuotation(model));
+            var filePathPetPloicy = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/Pet_Policies.pdf");
+
             string msg = string.Empty;
-            if (!string.IsNullOrWhiteSpace(Email))
+            if (!string.IsNullOrWhiteSpace(model.Email))
             {
                 ShomaRMEntities db = new ShomaRMEntities();
-                var appDetails = db.tbl_Login.Where(co => co.Email == Email).FirstOrDefault();
-                string pass = new EncryptDecrypt().DecryptText(appDetails.Password);
-                if (appDetails != null)
+                long tenantID = 0;
+                try
                 {
-
-                    string reportCoappHTML = "";
-
-                    string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
-                    reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect6.html");
-
-                    reportCoappHTML = reportCoappHTML.Replace("[%ServerURL%]", serverURL);
-
-                    //reportCoappHTML = reportCoappHTML.Replace("[%CoAppType%]", $"{appDetails.FirstName} {appDetails.LastName}");
-                    reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Your Application Added as Primary Applicant. Fill your Details");
-                    reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Online Application Added as per details provided by you for Sanctuary Doral. Fill your Details by clicking below link <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + appDetails.Username + " </br>Password :" + pass);
-                    reportCoappHTML = reportCoappHTML.Replace("[%TenantName%]", $"{appDetails.FirstName} {appDetails.LastName}");
-                    reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
-                    string coappbody = reportCoappHTML;
-                    new EmailSendModel().SendEmail(Email, "Your Application Added. Fill your Details", coappbody);
-
-                    //if (SendMessage == "yes")
-                    //{
-                    //    if (!string.IsNullOrWhiteSpace(model.Phone))
-                    //    {
-                    //        new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
-                    //    }
-                    //}
+                    tenantID = Convert.ToInt64(model.TenantID);
                 }
-                msg = "Email send successfully";
+                catch { }
+
+                if (tenantID > 0)
+                {
+                    var applyNowData = db.tbl_ApplyNow.Where(p => p.ID == tenantID).FirstOrDefault();
+                    var appDetails = db.tbl_Login.Where(co => co.UserID == applyNowData.UserId).FirstOrDefault();
+                    var getAppldata = db.tbl_Applicant.Where(p => p.UserID == applyNowData.UserId).FirstOrDefault();
+                    string pass = new EncryptDecrypt().DecryptText(appDetails.Password);
+
+                    if (appDetails != null)
+                    {
+                        var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                        string payid = new EncryptDecrypt().EncryptText(getAppldata.ApplicantID.ToString() + ",4," + propertDet.AppCCCheckFees.Value.ToString("0.00"));
+
+                        string reportCoappHTML = "";
+
+                        string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+                        reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect6.html");
+
+                        reportCoappHTML = reportCoappHTML.Replace("[%ServerURL%]", serverURL);
+
+                        reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Your Application Added as Primary Applicant. Fill your Details");
+                        reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Online Application Added as per details provided by you for Sanctuary Doral. Fill your Details by clicking \"LOGIN\" link using credintials <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + appDetails.Username + " </br>Password :" + pass + "<br/><br/>You can pay your credit check fees by clicking \"PAY NOW\" link");
+                        reportCoappHTML = reportCoappHTML.Replace("[%TenantName%]", appDetails.FirstName + " " + appDetails.LastName);
+                        reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]--><!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                        string coappbody = reportCoappHTML;
+
+                        List<string> filePaths = new List<string>();
+                        filePaths.Add(filePathQuotation);
+
+                        try
+                        {
+                            if (Convert.ToInt32(model.NumberOfPet) > 0)
+                            {
+                                filePaths.Add(filePathPetPloicy);
+                            }
+                        }
+                        catch { }
+                        new EmailSendModel().SendEmailWithAttachment(model.Email, "Your Application Added. Fill your Details", coappbody, filePaths);
+
+                        //if (SendMessage == "yes")
+                        //{
+                        //    if (!string.IsNullOrWhiteSpace(model.PhoneNumber))
+                        //    {
+                        //        new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.PhoneNumber, "Your Application Added. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                        //    }
+                        //}
+                    }
+                    msg = "Email send successfully";
+                }
+                else
+                {
+                    msg = "Error Occured Please Try Again";
+                }
             }
             else
             {
