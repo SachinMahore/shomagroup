@@ -4134,8 +4134,10 @@ var getApplicantListsGuarantor = function () {
                     if (elementValue.Type == "Guarantor") {
                         html += "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
                         if (elementValue.CreditPaid != "1") {
-                            html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ")'>Pay Fees</a>";
-                        }
+                            html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
+                        } else if (elementValue.CreditPaid == "1" && elementValue.BackGroundPaid != "1") {
+                            html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a>";
+                        } 
                        
                         //html += "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>";
                     }
@@ -4393,8 +4395,18 @@ var getApplicantListsGuarantor = function () {
         }
     });
 };
-var payFeePop = function (aid) {
+var payFeePop = function (aid, ct) {
     $("#hndApplicantID").val(aid);
+    $("#hndFromAcc").val(ct);
+    if (ct == 5) {
+
+        $("#lblpopcctitle").text("Pay Background Check Fees");
+        $("#sppayFees").text($("#hndAppBackgroundFees").val());
+    } else {
+        $("#lblpopcctitle").text("Pay Credit Check Fees");
+        $("#sppayFees").text($("#hndAppCreditFees").val());
+
+    }
     $("#popCCPay").modal("show");
 }
 var addAppFess = function (appFees, appid) {
@@ -7911,7 +7923,7 @@ function saveCoAppPayment() {
         var cardYear = $("#ddlcardyear1").val();
         var ccvNumber = $("#txtCCVNumber1").val();
         var prospectID = $("#hdnOPId").val();
-        var amounttoPay = $("#hndAppCreditFees").val();
+        var amounttoPay = $("#sppayFees").text(); 
         var description = "Credit Check Fees ";
 
         var routingNumber = $("#txtRoutingNumber1").val();
@@ -7958,7 +7970,7 @@ function saveCoAppPayment() {
         var ccvNumber = 0;
         var routingNumber = $("#txtRoutingNumber1").val();
         var bankName = $("#txtBankName1").val();
-        var amounttoPay = $("#hndAppCreditFees").val();
+        var amounttoPay = $("#sppayFees").text(); 
         var description = "Credit Check Fees ";
         var prospectID = $("#hdnOPId").val();
         var propertyId = $("#hndUID").val();
@@ -7995,7 +8007,7 @@ function saveCoAppPayment() {
         BankName: bankName,
         PaymentMethod: paymentMethod,
         AID: $("#hndApplicantID").val(),
-        FromAcc: 4,
+        FromAcc: $("#hndFromAcc").val(),
 
     };
 
