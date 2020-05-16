@@ -6896,7 +6896,7 @@ var getFillSummary = function (id) {
             }
 
             $("#summEmployerStartDate").text(response.model.StartDateTxt);
-            getApplicantLists         $("#summEmployerAnnualIncome").text(formatMoney(response.model.AnnualIncome));
+            $("#summEmployerAnnualIncome").text(formatMoney(response.model.AnnualIncome));
             $("#summEmployerSupervisorName").text(response.model.SupervisorName);
             $("#summEmployerSupervisorPhone").text(formatPhoneFax(response.model.SupervisorPhone));
             $("#summEmployerp").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
@@ -9653,7 +9653,7 @@ var saveEmployerHistory = function () {
     });
 }
 
-var var getEmployerHistory = function () {
+var getEmployerHistory = function () {
     $("#divLoader").show();
     var TenantId = $("#hdnOPId").val();
     var model = { TenantId: TenantId };
@@ -9703,7 +9703,7 @@ var var getEmployerHistory = function () {
         }
     });
 }
-}
+
 
 var delEmployerHistory = function (id) {
     

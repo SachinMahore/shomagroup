@@ -5,6 +5,7 @@
 <script src="~/Content/Pages/Home.js"></script>
 <div class="slide-2">
     <div class="slider-area">
+        id="txtMoveInDate"
         <div class="slider">
             <div id="bg-slider" class="owl-carousel owl-theme">
                 <div class="item">
@@ -89,58 +90,57 @@
             <div class="">
                 <div class="form-horizontal">
                     <div class="col-md-12" style="margin: 10px;">
-                        <div class="col-md-5">
-                            <div class="col-md-4">
-                                <button class="btn btn-primary search" type="button">Desired Move In</button>
-                            </div>
-                            <div class="col-md-2"></div>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-primary search tooltips" type="button" id="iconMoveInDate"><i class="fa-calendar fa"></i>
-                                                                                                                 <span class="tooltiptexts">Desired Move In Date</span>
-                                        </button>
-                                    </span>
-                                    <input type="text" id="txtMoveInDate" class="form-control" value="@DateTime.Now.AddDays(30).ToString("MM/dd/yyyy")" style="color:#6c6e72;background-color:white;">
-                                </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary search" type="button">Desired Move In</button>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search tooltips" type="button" id="iconMoveInDate">
+                                        <i class="fa-calendar fa"></i>
+                                        <span> Desired Move In Date</span>
+                                    </button>
+                                </span>
+                                <input type="text" id="txtMoveInDate" class="form-control" value="@DateTime.Now.AddDays(30).ToString("MM/dd/yyyy")" style="color:#6c6e72;background-color:white;">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="col-md-12">
                                 <div class="input-group">
                                     <span class="input-group-btn">
-                                        <button class="btn btn-primary search tooltips" type="button">
+                                        <button class="btn btn-primary search" type="button">
                                             <i class="fa-info-circle fa"></i>
-                                            <span class="tooltiptexts">Desired Lease Term</span>
+                                            <span> Lease Term</span>
                                         </button>
                                     </span>
                                     <select id="ddlLease" class="form-control" style="background-color:white;">
                                         @foreach (var lt in Model.leaseTerms)
                                         {
-                                            <option value="@lt.LTID" @(lt.LeaseTerms=="12"?"selected":"")>@lt.LeaseTerms</option>
+                                            <option value="@lt.LTID" @(lt.LeaseTerms == "12" ? "selected" : "")>@lt.LeaseTerms</option>
                                         }
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-2"></div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-primary search tooltips" type="button"><i class="fa-bed fa"></i><span class="tooltiptexts">Desired Beds</span></button>
-                                    </span>
-                                    <select id="ddlBedroom" class="form-control" style="background-color:white;">
-                                        <option value='0'>Beds</option>
-                                        <option value='1'>1</option>
-                                        <option value='2'>2</option>
-                                        <option value='3'>3</option>
-                                    </select>
-                                </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search" type="button">
+                                        <i class="fa-bed fa"></i>
+                                        <span> Number Beds</span>
+                                    </button>
+                                </span>
+                                <select id="ddlBedroom" class="form-control" style="background-color:white;">
+                                    <option value='0'>Beds</option>
+                                    <option value='1'>1</option>
+                                    <option value='2'>2</option>
+                                    <option value='3'>3</option>
+                                </select>
                             </div>
-                            <div class="col-md-6">
-                                <button id="btnsearchpropertyslider" type="submit" value="Search" onclick="getPropertyUnitList()" class="btn nav-button login">Search</button>
-                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <button id="btnsearchpropertyslider" type="submit" value="Search" onclick="getPropertyUnitList()" class="btn nav-button login">Search</button>
                         </div>
                     </div>
                 </div>

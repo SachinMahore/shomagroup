@@ -187,6 +187,7 @@
     <Property Name="Status" Type="nvarchar(max)" />
     <Property Name="PDFUrl" Type="nvarchar(max)" />
     <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="SSNNumber" Type="varchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="tbl_BankAccount">
     <Key>
@@ -922,6 +923,7 @@
     <Property Name="BalconyArea" Type="varchar" MaxLength="100" />
     <Property Name="InteriorArea" Type="varchar" MaxLength="100" />
     <Property Name="Notes" Type="varchar" MaxLength="1000" />
+    <Property Name="IsFurnished" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Prospect">
     <Key>

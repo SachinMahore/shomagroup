@@ -1035,6 +1035,8 @@ function SaveUpdatePropertyUnit() {
     var ddlLocation = $("#ddlLocation").find(':selected').data("list");
     var spaceNo = $("#txtSpaceNo").val();
 
+    var isFurnished = $("#ddlFurnishedUnit").val();
+
     if (unitNo == "") {
         msg += " Please enter Unit Title .<br />";
     }
@@ -1145,6 +1147,7 @@ function SaveUpdatePropertyUnit() {
     $formData.append('Description', ddlLocation);
     $formData.append('ParkingName', spaceNo);
     $formData.append('UnitWiseRentData', unitWiseRentData);
+    $formData.append('IsFurnished', isFurnished);
     var $file = document.getElementById('unit-picture');
     if ($file.files.length > 0) {
         for (var i = 0; i < $file.files.length; i++) {
