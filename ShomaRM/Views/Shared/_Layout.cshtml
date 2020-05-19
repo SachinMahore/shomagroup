@@ -101,8 +101,10 @@
                         <p class="text-muted">Send us a message or use our Live Chat.</p>
                         <p><strong><a href="mailto:">info@sanctuarydoral.com</a></strong></p>
                     </div>
-                    <div class="col-sm-3">
-                        <button id="btnContact" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="margin-top: 55px;">Appointment</button>
+                    <div class="col-sm-3" style="margin-top:55px;">
+
+                        @*<button id="btnContact" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="margin-top: 55px;">Appointment</button>*@
+                        <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ahernandez-28/15min-2'});return false;" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="padding:10px">Appointment</a>
                     </div>
 
                     <!-- /.col-sm-4 -->
@@ -339,7 +341,8 @@
     <script src="@Url.Content("/Content/jquery-confirm-master/js/jquery-confirm.js")"></script>
     @*<script src="@Url.Content("~/Content/store.min.js")"></script>
         <script src="@Url.Content("~/Content/jquery-idleTimeout.min.js")"></script>*@
-   
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
 </body>
 </html>
 <style>
@@ -706,9 +709,9 @@
         //    sessionEndTime: sessionendtime
         //});
 
-        $("#btnContact").on("click", function (event) {
-            $("#popContactForm").modal("show");
-        });
+        //$("#btnContact").on("click", function (event) {
+        //    $("#popContactForm").modal("show");
+        //});
       
         fillLStateDDL();
         $("#ddlState").on('change', function (evt, params) {
