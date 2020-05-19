@@ -11,6 +11,8 @@ namespace ShomaRM.Models
         public int Id { get; set; }
         public int TenantId { get; set; }
         public string Type { get; set; }
+        public string TenantName { get; set; }
+        public string Notes { get; set; }
         public int OrderID { get; set; }
         public string Status { get; set; }
         public string PDFUrl { get; set; }

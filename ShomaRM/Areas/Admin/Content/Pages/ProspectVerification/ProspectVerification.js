@@ -810,6 +810,7 @@ var goToStep = function (stepid, id) {
             refreshStatuses();
            
             getPreviousAddressInfo();
+            getBackgroundScreeningList();
             getPreviousEmpInfo();
             //getTransationLists($("#hdnUserId").val());
             //getSignedLists($("#hdnOPId").val());
@@ -4630,10 +4631,6 @@ var updateEmpStatus = function (id) {
     });
 };
 
-
-
-
-
 var getApplicantHistoryInfo = function (id) {
     var model = {
         AHID: id
@@ -5668,6 +5665,82 @@ var uploadPOEFileAdminSide = function () {
                 content: msg[0],
                 type: 'blue'
             });
+        }
+    });
+};
+
+//sachin m 19 may
+var getBackgroundScreeningList= function () {
+
+    var model = {
+        TenantId: $("#hdnOPId").val()
+    };
+    $.ajax({
+        url: "/ProspectVerification/BackgroundScreeningList",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            //console.log(JSON.stringify(response))
+            $("#tblBCCCStatus>tbody").empty();
+            $.each(response, function (elementType, elementValue) {
+                var html = "<tr id='tr_" + elementValue.Id + "' data-value='" + elementValue.Id + "'>";
+                html += "<td>" + elementValue.TenantName + " </td>";
+                html += "<td>" + elementValue.Type + "</td>";
+                html += "<td>" + elementValue.Status + "</td>";
+                html += "<td>" + elementValue.PDFUrl + "</td>";
+                html += "<td><input type='text' id='txtScrNotes" + elementValue.Id + "' class='form-control' value='" + elementValue.Notes + "' /></td>";
+
+                html += "<td class='text-center'>";
+                html += "<button  id='btnupdateResStatus' class='btn btn-primary' onclick='updateScreeNotes(" + elementValue.Id + ")'>Save</button></td></tr>";
+
+                $("#tblBCCCStatus>tbody").append(html);
+                //$("#ddlResidanceStatus" + id).val(elementValue.ResidenceStatus)
+            });
+        }
+    });
+};
+
+var updateScreeNotes = function (id) {
+    $("#divLoader").show();
+    var msg = '';
+
+    var scrnotes = $("#txtScrNotes" + id).val();
+
+    if ($("#txtScrNotes" + id).val() == '') {
+        msg += 'Please Fill Notes</br>';
+    }
+
+    if (msg != '') {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'blue'
+        });
+        return
+    }
+    var model = {
+        ID: id,
+        Notes: scrnotes,
+    };
+
+    $.ajax({
+        url: "/ProspectVerification/UpdateScreeNotes",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+
+            $.alert({
+                title: "",
+                content: "Progress Saved.",
+                type: 'blue'
+            });
+
         }
     });
 };
