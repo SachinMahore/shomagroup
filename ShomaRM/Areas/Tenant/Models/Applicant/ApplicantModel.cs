@@ -639,6 +639,16 @@ namespace ShomaRM.Areas.Tenant.Models
             var CoAppDataList = db.tbl_Applicant.Where(p => p.TenantID == TenantID).ToList();
             foreach (var ap in CoAppDataList)
             {
+                int hasSSN = 0;
+                var tenantOnline = db.tbl_TenantOnline.Where(p => p.ParentTOID == ap.UserID).FirstOrDefault();
+                if (tenantOnline != null)
+                {
+                    if (!string.IsNullOrWhiteSpace(tenantOnline.SSN))
+                    {
+                        hasSSN = 1;
+                    }
+                }
+
                 string compl = "";
                 string Rel = "";
                 if ((ap.CreditPaid ?? 0) == 0)
@@ -704,7 +714,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     GuarCreditFees = propertyData.GuaCCCheckFees,
                     GuarBackGroundFees = propertyData.GuaBGCheckFees,
                     ApplicantUserId = ap.UserID,
-                    ApplicantAddedBy = ap.AddedBy??0
+                    ApplicantAddedBy = ap.AddedBy??0,
+                    HasSSN = hasSSN
                 });
             }
 
