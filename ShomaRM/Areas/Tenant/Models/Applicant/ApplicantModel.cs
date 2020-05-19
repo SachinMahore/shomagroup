@@ -62,6 +62,7 @@ namespace ShomaRM.Areas.Tenant.Models
         public Nullable<decimal> GuarCreditFees { get; set; }
         public Nullable<decimal> GuarBackGroundFees { get; set; }
 
+        public int HasSSN { get; set; }
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -536,6 +537,16 @@ namespace ShomaRM.Areas.Tenant.Models
 
             foreach (var ap in applicantDataList)
             {
+                int hasSSN = 0;
+                var tenantOnline = db.tbl_TenantOnline.Where(p => p.ParentTOID == ap.UserID).FirstOrDefault();
+                if (tenantOnline != null)
+                {
+                    if (!string.IsNullOrWhiteSpace(tenantOnline.SSN))
+                    {
+                        hasSSN = 1;
+                    }
+                }
+
                 string compl = "";
                 string Rel = "";
                 if ((ap.CreditPaid ?? 0) == 0)
@@ -601,6 +612,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     AppBackGroundFees = propertyData.AppBGCheckFees,
                     GuarCreditFees = propertyData.GuaCCCheckFees,
                     GuarBackGroundFees = propertyData.GuaBGCheckFees,
+                    HasSSN = hasSSN
                 });
             }
             return lstAppli;

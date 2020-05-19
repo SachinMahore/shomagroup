@@ -294,7 +294,7 @@ $(document).ready(function () {
             });
         }
     };
-
+    getApplicantHistoryList();
 });
 var abcd = function () {
     alert("Hi");
@@ -3394,10 +3394,11 @@ var saveupdatePet = function () {
 var getPetLists = function () {
 
     var model = {
-        TenantID: $("#hdnOPId").val()
+        TenantID: $("#hdnOPId").val(),
+        ApplicantUserId: $("#hndApplicantUserId").val()
     };
     $.ajax({
-        url: "/Pet/GetPetList",
+        url: "/Pet/GetPetListByAdmin",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -3584,9 +3585,10 @@ var getVehicleLists = function () {
     var model = {
 
         TenantID: $("#hdnOPId").val(),
+        ApplicantUserId: $("#hndApplicantUserId").val()
     }
     $.ajax({
-        url: "/Tenant/Vehicle/GetVehicleList",
+        url: "/Tenant/Vehicle/GetVehicleListByAdmin",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -3613,7 +3615,6 @@ var getVehicleLists = function () {
         }
     });
 }
-
 var clearVehicle = function () {
     $("#hndVehicleID").val(0);
     $("#txtVehicleMake").val("");
@@ -3955,32 +3956,7 @@ var getTenantOnlineList = function (id) {
             setTimeout(function () {
                 $("#txtCountry2").find("option[value='" + response.model.Country2 + "']").attr('selected', 'selected');
             }, 2000);
-            //17082019 - end
-            if (response.model.IdentityDocument != "") {
-                $("#hndHasIdentityFile").val("1");
-            } else {
-                $("#hndHasIdentityFile").val("0");
-            }
-            if (response.model.PassportDocument != "") {
-                $("#hndHasPassportFile").val("1");
-            } else {
-                $("#hndHasPassportFile").val("0");
-            }
-            if (response.model.TaxReturn != "") {
-                $("#hndHasTaxReturnFile1").val("1");
-            } else {
-                $("#hndHasTaxReturnFile1").val("0");
-            }
-            if (response.model.TaxReturn2 != "") {
-                $("#hndHasTaxReturnFile2").val("1");
-            } else {
-                $("#hndHasTaxReturnFile2").val("0");
-            }
-            if (response.model.TaxReturn3 != "") {
-                $("#hndHasTaxReturnFile3").val("1");
-            } else {
-                $("#hndHasTaxReturnFile3").val("0");
-            }
+            
             //alert(response.model.HaveVehicle + "  " + response.model.HavePet);
             //if (response.model.HaveVehicle == true) {
             //    $("#chkDontHaveVehicle").iCheck('check');
@@ -4023,48 +3999,115 @@ var getTenantOnlineList = function (id) {
                 $('#hndIdentityUploadName').attr('href', 'JavaScript:Void(0)');
                 $('#hndIdentityUploadName').attr('onclick', 'fileNotExist()');
             }
-            //$("#hndFileUploadName1").val(response.model.TaxReturn);
-            //$("#hndFileUploadName1").text(response.model.UploadOriginalFileName1);
-            $("#hndFileUploadName1").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName1);
-            $("#hndOriginalFileUploadName1").val(response.model.UploadOriginalFileName1);
-            $("#hndFileUploadName1").data('value', response.model.TaxReturn);
-            var resultTaxReturnExist = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn);
+            //For Paystub 1
+            $("#downPaystub1").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName3);
+            $("#downPaystub1").val(response.model.UploadOriginalFileName3);
+            $("#downPaystub1").data('value', response.model.TaxReturn3);
+            var resultTaxReturnExist1 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn3);
 
-            if (resultTaxReturnExist == true) {
-                $("#hndFileUploadName1").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn);
-                $("#hndFileUploadName1").prop("download", response.model.UploadOriginalFileName1);
+            if (resultTaxReturnExist1 == true) {
+                $("#downPaystub1").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn3);
+                $("#downPaystub1").prop("download", response.model.UploadOriginalFileName3);
             } else {
-                $('#hndFileUploadName1').attr('href', 'JavaScript:Void(0)');
-                $('#hndFileUploadName1').attr('onclick', 'fileNotExist()');
+                $('#downPaystub1').attr('href', 'JavaScript:Void(0)');
+                $('#downPaystub1').attr('onclick', 'fileNotExist()');
             }
-            
-           // $("#hndFileUploadName2").val(response.model.TaxReturn2);
-            //$("#hndFileUploadName2").text(response.model.UploadOriginalFileName2);
-            $("#hndFileUploadName2").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName2);
-            $("#hndOriginalFileUploadName2").val(response.model.UploadOriginalFileName2);
-            $("#hndFileUploadName2").data('value', response.model.TaxReturn2);
-            var resultTaxReturn2Exist = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn2);
 
-            if (resultTaxReturn2Exist == true) {
-                $("#hndFileUploadName2").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn2);
-                $("#hndFileUploadName2").prop("download", response.model.UploadOriginalFileName2);
+            //For Paystub 2
+            $("#downPaystub2").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName4);
+            $("#downPaystub2").val(response.model.UploadOriginalFileName4);
+            $("#downPaystub2").data('value', response.model.TaxReturn4);
+            var resultTaxReturnExist2 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn4);
+
+            if (resultTaxReturnExist2 == true) {
+                $("#downPaystub2").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn4);
+                $("#downPaystub2").prop("download", response.model.UploadOriginalFileName4);
             } else {
-                $('#hndFileUploadName2').attr('href', 'JavaScript:Void(0)');
-                $('#hndFileUploadName2').attr('onclick', 'fileNotExist()');
+                $('#downPaystub2').attr('href', 'JavaScript:Void(0)');
+                $('#downPaystub2').attr('onclick', 'fileNotExist()');
             }
-            
-           // $("#hndFileUploadName3").val(response.model.TaxReturn3);
-            $("#hndFileUploadName3").html("<i class='fa fa-download fa-lg'></i>" + " " +response.model.UploadOriginalFileName3);
-            $("#hndOriginalFileUploadName3").val(response.model.UploadOriginalFileName3);
-            $("#hndFileUploadName3").data('value', response.model.TaxReturn3);
-            var resultTaxReturn3Exist = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn3);
 
-            if (resultTaxReturn3Exist == true) {
-                $("#hndFileUploadName3").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn3);
-                $("#hndFileUploadName3").prop("download", response.model.UploadOriginalFileName3);
+            //For Paystub 3
+            $("#downPaystub3").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName5);
+            $("#downPaystub3").val(response.model.UploadOriginalFileName5);
+            $("#downPaystub3").data('value', response.model.TaxReturn5);
+            var resultTaxReturnExist3 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn5);
+
+            if (resultTaxReturnExist3 == true) {
+                $("#downPaystub3").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn5);
+                $("#downPaystub3").prop("download", response.model.UploadOriginalFileName5);
             } else {
-                $('#hndFileUploadName3').attr('href', 'JavaScript:Void(0)');
-                $('#hndFileUploadName3').attr('onclick', 'fileNotExist()');
+                $('#downPaystub3').attr('href', 'JavaScript:Void(0)');
+                $('#downPaystub3').attr('onclick', 'fileNotExist()');
+            }
+
+            //For Fedral1
+            $("#downFedral1").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName1);
+            $("#downFedral1").val(response.model.UploadOriginalFileName1);
+            $("#downFedral1").data('value', response.model.TaxReturn1);
+            var resultTaxReturnExist4 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn1);
+
+            if (resultTaxReturnExist4 == true) {
+                $("#downFedral1").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn1);
+                $("#downFedral1").prop("download", response.model.UploadOriginalFileName1);
+            } else {
+                $('#downFedral1').attr('href', 'JavaScript:Void(0)');
+                $('#downFedral1').attr('onclick', 'fileNotExist()');
+            }
+            //For Fedral2
+            $("#downFedral2").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName2);
+            $("#downFedral2").val(response.model.UploadOriginalFileName2);
+            $("#downFedral2").data('value', response.model.TaxReturn2);
+            var resultTaxReturnExist5 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn2);
+
+            if (resultTaxReturnExist5 == true) {
+                $("#downFedral2").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn2);
+                $("#downFedral2").prop("download", response.model.UploadOriginalFileName2);
+            } else {
+                $('#downFedral2').attr('href', 'JavaScript:Void(0)');
+                $('#downFedral2').attr('onclick', 'fileNotExist()');
+            }
+
+            //For Bank Statment 1
+            $("#downBankStat1").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName6);
+            $("#downBankStat1").val(response.model.UploadOriginalFileName6);
+            $("#downBankStat1").data('value', response.model.TaxReturn6);
+            var resultTaxReturnExist6 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn6);
+
+            if (resultTaxReturnExist6 == true) {
+                $("#downBankStat1").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn6);
+                $("#downBankStat1").prop("download", response.model.UploadOriginalFileName6);
+            } else {
+                $('#downBankStat1').attr('href', 'JavaScript:Void(0)');
+                $('#downBankStat1').attr('onclick', 'fileNotExist()');
+            }
+
+            //For Bank Statment 2
+            $("#downBankStat2").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName7);
+            $("#downBankStat2").val(response.model.UploadOriginalFileName7);
+            $("#downBankStat2").data('value', response.model.TaxReturn7);
+            var resultTaxReturnExist7 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn7);
+
+            if (resultTaxReturnExist7 == true) {
+                $("#downBankStat2").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn7);
+                $("#downBankStat2").prop("download", response.model.UploadOriginalFileName7);
+            } else {
+                $('#downBankStat2').attr('href', 'JavaScript:Void(0)');
+                $('#downBankStat2').attr('onclick', 'fileNotExist()');
+            }
+
+            //For Bank Statment 3
+            $("#downBankStat3").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName8);
+            $("#downBankStat3").val(response.model.UploadOriginalFileName8);
+            $("#downBankStat3").data('value', response.model.TaxReturn8);
+            var resultTaxReturnExist8 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn8);
+
+            if (resultTaxReturnExist8 == true) {
+                $("#downBankStat3").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn8);
+                $("#downBankStat3").prop("download", response.model.UploadOriginalFileName8);
+            } else {
+                $('#downBankStat3').attr('href', 'JavaScript:Void(0)');
+                $('#downBankStat3').attr('onclick', 'fileNotExist()');
             }
             
             //To Display File Name On Uploader
@@ -4087,10 +4130,28 @@ var getTenantOnlineList = function (id) {
             if (response.model.IsPaystub == true) {
 
                 $("#rbtnPaystub").iCheck('check');
+                $("#divUpload3").removeClass('hidden');
             }
             else {
-                $("#rbtnFedralTax").iCheck('check');
+                $("#divUpload3").addClass('hidden');
             }
+
+            if (response.model.IsFedralTax == true) {
+                $("#rbtnFedralTax").iCheck('check');
+                $("#divFederalTax").removeClass('hidden');
+            }
+            else {
+                $("#divFederalTax").addClass('hidden');
+            }
+
+            if (response.model.IsFedralTax == true) {
+                $("#rbtnBankStatement").iCheck('check');
+                $("#divBankUpload").removeClass('hidden');
+            }
+            else {
+                $("#divBankUpload").addClass('hidden');
+            }
+
             $("#ddlIsInter").text(response.model.IsInternational == '0' ? 'Yes' : 'No');
 
             if ($("#ddlIsInter").text() == 'No') {
@@ -4374,10 +4435,11 @@ var saveupdateApplicantHistory = function () {
 var getApplicantHistoryList = function () {
 
     var model = {
-        TenantID: $("#hdnOPId").val(), UserID: $("#hndApplicantUserId").val()
+        TenantID: $("#hdnOPId").val(),
+        ApplicantUserId: $("#hndApplicantUserId").val()
     };
     $.ajax({
-        url: "/ApplyNow/GetApplicantHistoryListPV",
+        url: "/ApplyNow/GetApplicantHistoryListForAdmin",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -5238,10 +5300,11 @@ var SaveScreeningStatus = function () {
 var getEmpHistoryListPropVari = function () {
     $("#divLoader").show();
     var model = {
-        TenantID: $("#hdnOPId").val()
+        TenantID: $("#hdnOPId").val(),
+        ApplicantUserId: $("#hndApplicantUserId").val()
     };
     $.ajax({
-        url: "/ApplyNow/GetEmployerHistory",
+        url: "/ApplyNow/GetEmployerHistoryByAdmin",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),

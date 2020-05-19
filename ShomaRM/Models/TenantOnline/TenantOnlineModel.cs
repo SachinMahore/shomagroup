@@ -1836,6 +1836,19 @@ namespace ShomaRM.Models
                     lstpr.StringReferredBrokerMerchant = Convert.ToInt32(dr["ReferredBrokerMerchant"]) == 1 ? "No" : "Yes";
                     lstpr.stringIsProprNoticeLeaseAgreement = Convert.ToInt32(dr["IsProprNoticeLeaseAgreement"]) == 1 ? "Yes" : "No";
 
+                    lstpr.TaxReturn4 = dr["TaxReturn4"].ToString();
+                    lstpr.TaxReturn5 = dr["TaxReturn5"].ToString();
+                    lstpr.TaxReturn6 = dr["TaxReturn6"].ToString();
+                    lstpr.TaxReturn7 = dr["TaxReturn7"].ToString();
+                    lstpr.TaxReturn8 = dr["TaxReturn8"].ToString();
+                    lstpr.UploadOriginalFileName4 = dr["TaxReturnOrginalFile4"].ToString();
+                    lstpr.UploadOriginalFileName5 = dr["TaxReturnOrginalFile5"].ToString();
+                    lstpr.UploadOriginalFileName6 = dr["TaxReturnOrginalFile6"].ToString();
+                    lstpr.UploadOriginalFileName7 = dr["TaxReturnOrginalFile7"].ToString();
+                    lstpr.UploadOriginalFileName8 = dr["TaxReturnOrginalFile8"].ToString();
+                    lstpr.IsFedralTax = Convert.ToInt32(dr["IsFedralTax"].ToString());
+                    lstpr.IsBankState = Convert.ToInt32(dr["IsBankState"].ToString());
+
                     var stepCompleted = Convert.ToInt32(dr["StepCompleted"].ToString());
                     lstpr.StepCompleted = stepCompleted;
                 }

@@ -4620,11 +4620,12 @@ var getApplicantListsCoApplicant = function () {
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                         "<label> " + elementValue.Type + " </label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
-                    if (elementValue.CreditPaid != "1" && !($("#txtApplicantSSNNumber").val())) {
-                                 html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
-                    } else if (elementValue.CreditPaid == "1" && elementValue.BackGroundPaid != "1") {
+                    if (parseInt(elementValue.CreditPaid) == 0 && parseInt(elementValue.HasSSN) == 1) {
+                        html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
+                    } else if (parseInt(elementValue.CreditPaid) == q && parseInt(elementValue.BackGroundPaid) == 0) {
                         html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a>";
-                    } 
+                    }
+                    html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                     html +=  "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                 }
                 else if (elementValue.ApplicantAddedBy == $('#hndCoAppUserId').val()) {

@@ -287,7 +287,6 @@ namespace ShomaRM.Areas.Tenant.Models
 
             return vehicleModelVehicleReg;
         }
-
         public VehicleModel GetVehicleInfo(long VehicleId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -320,7 +319,6 @@ namespace ShomaRM.Areas.Tenant.Models
 
             return model;
         }
-
         public List<VehicleModel> GetProfileVehicleList(long TenantID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -357,8 +355,6 @@ namespace ShomaRM.Areas.Tenant.Models
             }
             return lstProp;
         }
-
-
         public string SaveUpdateVehicleTenanat(VehicleModel model, long UserId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -447,6 +443,33 @@ namespace ShomaRM.Areas.Tenant.Models
             }
             db.Dispose();
             return msg;
+        }
+        public List<VehicleModel> GetVehicleListByAdmin(long TenantID, long ApplicantUserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<VehicleModel> lstProp = new List<VehicleModel>();
+
+            var vehList = db.tbl_Vehicle.Where(p => p.TenantID == TenantID && p.AddedBy == ApplicantUserId).ToList();
+
+            foreach (var pl in vehList)
+            {
+                //var vehState = db.tbl_State.Where(p => p.ID == (Int64)(pl.State)).FirstOrDefault();
+                lstProp.Add(new VehicleModel
+                {
+                    Vehicle_ID = pl.Vehicle_ID,
+                    License = !string.IsNullOrWhiteSpace(pl.License) ? pl.License : "",
+                    Make = !string.IsNullOrWhiteSpace(pl.Make) ? pl.Make : "",
+                    VModel = !string.IsNullOrWhiteSpace(pl.Model) ? pl.Model : "",
+                    Year = !string.IsNullOrWhiteSpace(pl.Year) ? pl.Year : "",
+                    Color = !string.IsNullOrWhiteSpace(pl.Color) ? pl.Color : "",
+                    State = !string.IsNullOrWhiteSpace(State) ? State : "",
+                    VehicleRegistration = !string.IsNullOrWhiteSpace(pl.VehicleRegistration) ? pl.VehicleRegistration : "",
+                    OwnerName = !string.IsNullOrWhiteSpace(pl.OwnerName) ? pl.OwnerName : "",
+                    Notes = !string.IsNullOrWhiteSpace(pl.Notes) ? pl.Notes : ""
+                });
+
+            }
+            return lstProp;
         }
     }
 }

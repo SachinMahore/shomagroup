@@ -4349,13 +4349,12 @@ var getApplicantListsGuarantor = function () {
                     html += "<label> " + elementValue.Type + " </label><br/>";
                     if (elementValue.Type == "Guarantor") {
                         html += "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
-                        if (elementValue.CreditPaid != "1") {
+                        if (parseInt(elementValue.CreditPaid) == 0 && parseInt(elementValue.HasSSN) == 1) {
                             html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
-                        } else if (elementValue.CreditPaid == "1" && elementValue.BackGroundPaid != "1") {
+                        } else if (parseInt(elementValue.CreditPaid) == q && parseInt(elementValue.BackGroundPaid) == 0) {
                             html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a>";
-                        } 
-                       
-                        //html += "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>";
+                        }
+                        html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                     }
                     else {
                         html += "<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;";

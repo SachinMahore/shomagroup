@@ -5554,8 +5554,14 @@ var getApplicantLists = function () {
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                         "<label> " + elementValue.Type + " </label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
-                        "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
-                        "</div><div><center><label><b>Status: " + elementValue.ComplStatus +"</b></label></center></div></div>";
+                        "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>";
+
+                    if (parseInt(elementValue.CreditPaid) == 0 && parseInt(elementValue.HasSSN) == 1) {
+                        html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
+                    } else if (parseInt(elementValue.CreditPaid) == q && parseInt(elementValue.BackGroundPaid) == 0) {
+                        html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a>";
+                    }
+                    html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                 }
                 else {
                     html += "<div class='col-sm-4 box-two proerty-item'>" +
@@ -5565,12 +5571,12 @@ var getApplicantLists = function () {
 
                         "<label>Primary Applicant</label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label><br/>";
-                    if (elementValue.CreditPaid != "1" && !($("#txtApplicantSSNNumber").val())) {
+                    if (parseInt(elementValue.CreditPaid) == 0 && parseInt(elementValue.HasSSN) == 1 ) {
                         html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
-                    } else if (elementValue.CreditPaid == "1" && elementValue.BackGroundPaid != "1") {
+                    } else if (parseInt(elementValue.CreditPaid) == q && parseInt(elementValue.BackGroundPaid) == 0) {
                         html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a>";
-                    } 
-                       html+=    "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
+                    }
+                    html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
                     //Amit's work 17-10
