@@ -2270,7 +2270,7 @@ var getTransationLists = function (userid) {
         TenantID: userid,
     }
     $.ajax({
-        url: "/Transaction/GetOnlineTransactionList",
+        url: "/Transaction/GetAllTransactionListOP",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),

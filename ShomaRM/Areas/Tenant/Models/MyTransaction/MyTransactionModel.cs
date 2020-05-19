@@ -412,36 +412,26 @@ namespace ShomaRM.Areas.Tenant.Models
                 }
 
                 model.TenantID = getTransdata.TenantID;
-                model.Revision_Num = getTransdata.Revision_Num;
-                model.Transaction_Type = getTransdata.Transaction_Type;
+           
+                model.Transaction_Type = getTransdata.PAID;
                 model.Transaction_Date = getTransdata.Transaction_Date;
-                model.Run = getTransdata.Run;
-                model.LeaseID = getTransdata.LeaseID;
-                model.Reference = getTransdata.Reference;
+              
                 model.CreatedDate = getTransdata.CreatedDate;
                 model.Credit_Amount = getTransdata.Credit_Amount;
                 model.Description = getTransdata.Description;
                 model.Charge_DateString = chargedate.Value != null ? chargedate.Value.ToString("MM/dd/yyyy") : "";
                 model.Charge_Date = getTransdata.Charge_Date;
                 model.Charge_Type = getTransdata.Charge_Type.ToString();
-                model.Payment_ID = getTransdata.Payment_ID;
+              
                 model.AuthCode = getTransdata.Authcode;
                 model.Charge_Amount = getTransdata.Charge_Amount;
                 model.Miscellaneous_Amount = getTransdata.Miscellaneous_Amount;
                 model.Accounting_Date = getTransdata.Accounting_Date;
-                model.Journal = getTransdata.Journal;
-                model.Accrual_Debit_Acct = getTransdata.Accrual_Debit_Acct;
-                model.Accrual_Credit_Acct = getTransdata.Accrual_Credit_Acct;
-                model.Cash_Debit_Account = getTransdata.Cash_Debit_Account;
-                model.Cash_Credit_Account = getTransdata.Cash_Credit_Account;
-                model.Appl_of_Origin = getTransdata.Appl_of_Origin;
+          
                 model.Batch = getTransdata.Batch;
-                model.Batch_Source = getTransdata.Batch_Source;
+           
                 model.CreatedBy = getTransdata.CreatedBy;
-                model.GL_Trans_Reference_1 = getTransdata.GL_Trans_Reference_1;
-                model.GL_Trans_Reference_2 = getTransdata.GL_Trans_Reference_1;
-                //model.GL_Entries_Created = getTransdata.GL_Entries_Created;
-                model.GL_Trans_Description = getTransdata.GL_Trans_Description;
+             
 
             }
             model.TransID = id;
@@ -570,12 +560,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
 
                         TenantID = model.TenantID,
-                        Revision_Num = model.Revision_Num,
-                        Transaction_Type = "3",
+                       
+                        PAID = "3",
                         Transaction_Date = Convert.ToDateTime(model.Charge_Date),
-                        Run = 1,
-                        LeaseID = model.LeaseID,
-                        Reference = model.Reference,
+                     
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.Charge_Amount,
                         Description = model.Description + " | TransID: " + strlist[1],
@@ -587,11 +575,10 @@ namespace ShomaRM.Areas.Tenant.Models
                         Accounting_Date = DateTime.Now,
                      
                         Batch = "0",
-                        Batch_Source = "",
-                        CreatedBy = userid,
                        
-                        GL_Trans_Description = transStatus.ToString(),
-                        
+                        CreatedBy = userid,
+                       UserID=userid,
+                       
 
                     };
                     db.tbl_Transaction.Add(saveTransaction);
@@ -861,12 +848,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 var saveTransaction = new tbl_Transaction()
                 {
                     TenantID = transDetails.TenantID,
-                    Revision_Num = transDetails.Revision_Num,
-                    Transaction_Type = transDetails.Transaction_Type,
+                   
+                    PAID = transDetails.PAID,
                     Transaction_Date = DateTime.Now,
-                    Run = 1,
-                    LeaseID = transDetails.LeaseID,
-                    Reference = transDetails.Reference,
+                    
                     CreatedDate = DateTime.Now,
                     Credit_Amount = transDetails.Charge_Amount,
                     Description = transDetails.Description + " | TransID: " + strlist[1],
@@ -959,7 +944,7 @@ namespace ShomaRM.Areas.Tenant.Models
                             transData.Description = transData.Description + " | TransID: " + strlist[1];
                             transData.Authcode = strlist[1];
                             transData.Accounting_Date = DateTime.Now;
-                            transData.GL_Trans_Description = transStatus.ToString();
+                            
                             db.SaveChanges();
                             msg = transStatus.ToString();
                         }
@@ -969,22 +954,22 @@ namespace ShomaRM.Areas.Tenant.Models
                             var saveTransaction = new tbl_Transaction()
                             {
                                 TenantID = TenantID,
-                                Revision_Num = 1,
-                                Transaction_Type = PAID.ToString(),
+                            
+                                PAID = PAID.ToString(),
                                 Transaction_Date = DateTime.Now,
-                                Run = 0,
+                                
                                 CreatedDate = DateTime.Now,
                                 Credit_Amount = 0,
                                 Description = transData.Description,
                                 Charge_Date = DateTime.Now,
                                 Charge_Type = 11,
-                                Payment_ID = null,
+                               
                                 Authcode = "",
                                 Charge_Amount = transData.Charge_Amount,
                                 Accounting_Date = DateTime.Now,
-                                Batch = TransId.ToString(),
-                                Batch_Source = "",
-                                CreatedBy = 1
+                                Batch = TransId.ToString(),                               
+                                CreatedBy = 1,
+                                
                             };
                             db.tbl_Transaction.Add(saveTransaction);
                             db.SaveChanges();
@@ -1072,23 +1057,23 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
 
                         TenantID = Convert.ToInt64(dr["TenantID"].ToString()),
-                        Revision_Num = Convert.ToInt32(dr["Revision_Num"].ToString()),
-                        Transaction_Type = dr["PAID"].ToString(),
+                    
+                        PAID = dr["PAID"].ToString(),
                         Transaction_Date = Convert.ToDateTime(dr["Transaction_Date"]),
-                        Run = Convert.ToInt32(dr["TMPID"].ToString()),
+                       
                         CreatedDate = DateTime.Now,
                         Credit_Amount = 0,
                         Description = dr["Description"].ToString(),
                         Charge_Date = Convert.ToDateTime(dr["Transaction_Date"]),
                         Charge_Type = 3,
-                        Payment_ID = null,
+                        
                         Authcode = "",
                         Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString()),
                         Accounting_Date = DateTime.Now,
                         Batch = Batch,
-                        Batch_Source = "",
+                        
                         CreatedBy = userid,
-
+                        UserID= Convert.ToInt64(dr["UserID"].ToString()),
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -1259,12 +1244,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
 
                     TenantID = model.TenantID,
-                    Revision_Num = 1,
-                    Transaction_Type = model.Transaction_Type,
+                 
+                    PAID = model.Transaction_Type,
                     Transaction_Date = DateTime.Now,
-                    Run = 1,
-                    LeaseID = model.LeaseID,
-                    Reference = "AR" + model.Batch,
+                   
                     CreatedDate = DateTime.Now,
                     Credit_Amount = model.Charge_Amount,
                     Description = model.Description + " | TransID: " + strlist[1],
@@ -1276,11 +1259,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     Accounting_Date = DateTime.Now,
 
                     Batch = model.Batch,
-                    Batch_Source = "",
+                   
                     CreatedBy = Convert.ToInt32(model.UserId),
-
-                    GL_Trans_Description = transStatus.ToString(),
-
+                    UserID = Convert.ToInt32(model.UserId),
                 };
                 db.tbl_Transaction.Add(saveTransaction);
                 db.SaveChanges();
@@ -1443,12 +1424,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
 
                     TenantID = model.TenantID,
-                    Revision_Num = 1,
-                    Transaction_Type = model.Transaction_Type,
+                 
+                    PAID = model.Transaction_Type,
                     Transaction_Date = DateTime.Now,
-                    Run = 1,
-                    LeaseID = model.LeaseID,
-                    Reference = "SR" + model.Batch,
+                  
                     CreatedDate = DateTime.Now,
                     Credit_Amount = model.Charge_Amount,
                     Description = model.Description + " | TransID: " + strlist[1],
@@ -1460,11 +1439,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     Accounting_Date = DateTime.Now,
 
                     Batch = model.Batch,
-                    Batch_Source = "",
+                   
                     CreatedBy = Convert.ToInt32(model.UserId),
-
-                    GL_Trans_Description = transStatus.ToString(),
-
+                    UserID = Convert.ToInt32(model.UserId),
                 };
                 db.tbl_Transaction.Add(saveTransaction);
                 db.SaveChanges();

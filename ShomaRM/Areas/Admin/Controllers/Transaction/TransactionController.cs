@@ -91,7 +91,18 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+        public ActionResult GetAllTransactionListOP(long TenantID)
+        {
+            try
+            {
+                return Json(new { model = new TransactionModel().GetAllTransactionListOP(TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public JsonResult GetAccountHistory(long TenantId)
         {
             try

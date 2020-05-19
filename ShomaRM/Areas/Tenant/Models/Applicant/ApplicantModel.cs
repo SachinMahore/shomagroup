@@ -740,7 +740,7 @@ namespace ShomaRM.Areas.Tenant.Models
             }
             var getApplicantDet = db.tbl_Applicant.Where(p => p.ApplicantID == id).FirstOrDefault();
             var getTenantDet = db.tbl_ApplyNow.Where(p => p.ID == getApplicantDet.TenantID).FirstOrDefault();
-            var getAppliTransDet = db.tbl_Transaction.Where(p => p.TenantID == getTenantDet.UserId && p.Transaction_Type == transType).FirstOrDefault();
+            var getAppliTransDet = db.tbl_Transaction.Where(p => p.TenantID == getTenantDet.UserId && p.PAID == transType).FirstOrDefault();
             //if(ptotid==0)
             //{
                 ptotid = getApplicantDet.UserID??0;
@@ -1710,7 +1710,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 }
                 var getApplicantDet = db.tbl_Applicant.Where(p => p.ApplicantID == id).FirstOrDefault();
                 var getTenantDet = db.tbl_ApplyNow.Where(p => p.ID == getApplicantDet.TenantID).FirstOrDefault();
-                var getAppliTransDet = db.tbl_Transaction.Where(p => p.TenantID == getTenantDet.UserId && p.Transaction_Type == transType).FirstOrDefault();
+                var getAppliTransDet = db.tbl_Transaction.Where(p => p.TenantID == getTenantDet.UserId && p.PAID == transType).FirstOrDefault();
                 if (ptotid == 0)
                 {
                     ptotid = getApplicantDet.UserID ?? 0;

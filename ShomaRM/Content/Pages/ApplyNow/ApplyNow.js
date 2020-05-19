@@ -10343,8 +10343,8 @@ function saveCoAppPayment() {
         var cardYear = $("#ddlcardyear1").val();
         var ccvNumber = $("#txtCCVNumber1").val();
         var prospectID = $("#hdnOPId").val();
-        var amounttoPay = $("#sppayFees").text();;
-        var description = "Credit Check Fees ";
+        var amounttoPay = $("#sppayFees").text();
+        var description = $("#lblpopcctitle").text();
 
         var routingNumber = $("#txtRoutingNumber1").val();
         var bankName = $("#txtBankName1").val();
@@ -10391,7 +10391,7 @@ function saveCoAppPayment() {
         var routingNumber = $("#txtRoutingNumber1").val();
         var bankName = $("#txtBankName1").val();
         var amounttoPay = $("#sppayFees").text(); 
-        var description = "Credit Check Fees ";
+        var description = $("#lblpopcctitle").text();
         var prospectID = $("#hdnOPId").val();
         var propertyId = $("#hndUID").val();
         if (nameonCard == "") {
