@@ -209,5 +209,29 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { result = "0" }, JsonRequestBehavior.AllowGet);
             }
         }
+        //Sachin M 19 May
+        public ActionResult BackgroundScreeningList(long TenantId)
+        {
+            try
+            {
+                return Json((new ProspectVerificationModel()).BackgroundScreeningList(TenantId), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        //sachin m 9 may
+        public ActionResult UpdateScreeNotes(long ID, string Notes)
+        {
+            try
+            {
+                return Json(new { msg = (new ProspectVerificationModel().UpdateScreeNotes(ID, Notes)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
