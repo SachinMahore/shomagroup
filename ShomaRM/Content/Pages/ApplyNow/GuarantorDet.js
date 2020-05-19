@@ -5549,7 +5549,7 @@ var getTenantOnlineListGuarantor = function (id) {
             $("#summEmployer").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
             $("#summEmployerp").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
 
-            $ $("#txtJobTitle").val(response.model.JobTitle);
+            $("#txtJobTitle").val(response.model.JobTitle);
             $("#ddlJobType").val(response.model.JobType);
             $("#txtStartDate").val(response.model.StartDateTxt);
             $("#summEstartdate").text(response.model.StartDateTxt);
@@ -8446,7 +8446,7 @@ function saveCoAppPayment() {
         var ccvNumber = $("#txtCCVNumber1").val();
         var prospectID = $("#hdnOPId").val();
         var amounttoPay = $("#sppayFees").text(); 
-        var description = "Credit Check Fees ";
+        var description = $("#lblpopcctitle").text();
 
         var routingNumber = $("#txtRoutingNumber1").val();
         var bankName = $("#txtBankName1").val();
@@ -8493,7 +8493,7 @@ function saveCoAppPayment() {
         var routingNumber = $("#txtRoutingNumber1").val();
         var bankName = $("#txtBankName1").val();
         var amounttoPay = $("#sppayFees").text(); 
-        var description = "Credit Check Fees ";
+        var description = $("#lblpopcctitle").text();
         var prospectID = $("#hdnOPId").val();
         var propertyId = $("#hndUID").val();
         if (nameonCard == "") {

@@ -2663,15 +2663,6 @@ function savePayment() {
 
         }
 
-        if (isSummarychecked != "1") {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: "Please ACCEPT AGREEMENTS </br>",
-                type: 'red'
-            });
-            return;
-        }
         if ($("#hndTransMethod").val() == 2) {
             var paymentMethod = 2;
             var propertyId = $("#hndUID").val();
@@ -2682,7 +2673,7 @@ function savePayment() {
             var ccvNumber = $("#txtCCVNumber").val();
             var prospectID = $("#hdnOPId").val();
             var amounttoPay = unformatText($("#totalFinalFees").text());
-            var description = "Online Application Non Refundable fees";
+            var description = "Background Check fees";
             var glTrans_Description = $("#payDes").text();
             var routingNumber = $("#txtRoutingNumber").val();
             var bankName = $("#txtBankName").val();
@@ -4842,8 +4833,8 @@ var getApplicantListsCoApplicant = function () {
                     htmlResp15 += "<td> $" + formatMoneyCoApplicant(elementValue.MonthlyPayment) + "</td>";
                     htmlResp15 += "</tr>";
                 }
-                $("#tblApplicant15>tbody").append(html15);
-                $("#tblApplicant15p>tbody").append(html15);
+                //$("#tblApplicant15>tbody").append(html15);
+                //$("#tblApplicant15p>tbody").append(html15);
 
                 var htmlResp15 = "<tr id='tr_" + elementValue.ApplicantID + "' data-value='" + elementValue.ApplicantID + "'>";
                 htmlResp15 += "<td> " + elementValue.FirstName + " " + elementValue.LastName + "</td>";
@@ -8642,7 +8633,7 @@ var saveEmployerHistoryCoApplicant = function () {
     });
 }
 
-var var getEmployerHistoryCoApplicant = function () {
+var  getEmployerHistoryCoApplicant = function () {
     $("#divLoader").show();
     var TenantId = $("#hdnOPId").val();
     var model = { TenantId: TenantId };
@@ -9352,7 +9343,7 @@ function saveCoAppPayment() {
         var ccvNumber = $("#txtCCVNumber1").val();
         var prospectID = $("#hdnOPId").val();
         var amounttoPay = $("#sppayFees").text(); 
-        var description = "Credit Check Fees ";
+        var description = $("#lblpopcctitle").text();
 
         var routingNumber = $("#txtRoutingNumber1").val();
         var bankName = $("#txtBankName1").val();
@@ -9399,7 +9390,7 @@ function saveCoAppPayment() {
         var routingNumber = $("#txtRoutingNumber1").val();
         var bankName = $("#txtBankName1").val();
         var amounttoPay = $("#sppayFees").text(); 
-        var description = "Credit Check Fees ";
+        var description = $("#lblpopcctitle").text();
         var prospectID = $("#hdnOPId").val();
         var propertyId = $("#hndUID").val();
         if (nameonCard == "") {
