@@ -108,35 +108,24 @@ namespace ShomaRM.Models
                 {
                    
                     TenantID = Convert.ToInt64(GetProspectData.UserId),
-                    Revision_Num = 1,
-                    Transaction_Type = "7",
+                 
+                    PAID = "7",
                     Transaction_Date = DateTime.Now,
-                    Run = 1,
-                    LeaseID = 0,
-                    Reference = "PID" + model.ProspectId,
+              
                     CreatedDate = DateTime.Now,
                     Credit_Amount = 0,
                     Description = "Online Application Depsosit + First Month Charge",
                     Charge_Date = DateTime.Now,
                     Charge_Type = 16,
-                    Payment_ID = 13322244,
+             
                     Charge_Amount = model.Charge_Amount,
                     Miscellaneous_Amount = 0,
                     Accounting_Date = DateTime.Now,
-                    Journal = 0,
-                    Accrual_Debit_Acct = "400-5000-10500",
-                    Accrual_Credit_Acct = "400-5000-40030",
-                    Cash_Debit_Account = "400-5100-10011",
-                    Cash_Credit_Account = "400-5100-40085",
-                    Appl_of_Origin = "SRM",
+                
                     Batch = "1",
-                    Batch_Source = "",
+                
                     CreatedBy = Convert.ToInt32(GetProspectData.UserId),
-                    GL_Trans_Reference_1 = model.PID.ToString(),
-                    GL_Trans_Reference_2 = GetProspectData.FirstName + " " + GetProspectData.LastName,
-                    GL_Entries_Created = 1,
-                    GL_Trans_Description = "Online Application Depsosit + First Month Charge",
-                    ProspectID = 0,
+                
                     //TAccCardName = model.Name_On_Card,
                     //TAccCardNumber = model.CardNumber,
                     //TBankName = "",

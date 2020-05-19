@@ -1482,45 +1482,20 @@
           </Key>
           <Property Name="TransID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenantID" Type="bigint" Nullable="false" />
-          <Property Name="LeaseID" Type="bigint" Nullable="false" />
-          <Property Name="Revision_Num" Type="int" Nullable="false" />
           <Property Name="Transaction_Date" Type="datetime" Nullable="false" />
-          <Property Name="Run" Type="int" Nullable="false" />
-          <Property Name="Tax_Sequence" Type="int" />
-          <Property Name="Transaction_Type" Type="varchar" MaxLength="20" />
+          <Property Name="PAID" Type="varchar" MaxLength="20" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="Charge_Date" Type="datetime" />
-          <Property Name="Summary_Charge_Type" Type="varchar" MaxLength="10" />
-          <Property Name="Payment_ID" Type="int" />
-          <Property Name="Reference" Type="varchar" MaxLength="10" />
           <Property Name="Charge_Amount" Type="money" />
           <Property Name="Credit_Amount" Type="money" />
           <Property Name="Miscellaneous_Amount" Type="money" />
           <Property Name="Accounting_Date" Type="datetime" />
-          <Property Name="Journal" Type="int" />
-          <Property Name="Accrual_Debit_Acct" Type="varchar" MaxLength="29" />
-          <Property Name="Accrual_Credit_Acct" Type="varchar" MaxLength="29" />
-          <Property Name="Cash_Debit_Account" Type="varchar" MaxLength="29" />
-          <Property Name="Cash_Credit_Account" Type="varchar" MaxLength="29" />
-          <Property Name="Appl_of_Origin" Type="varchar" MaxLength="3" />
           <Property Name="Batch" Type="varchar" MaxLength="10" />
-          <Property Name="Batch_Source" Type="varchar" MaxLength="20" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
-          <Property Name="GL_Trans_Description" Type="nvarchar" MaxLength="500" />
-          <Property Name="GL_Trans_Reference_1" Type="varchar" MaxLength="100" />
-          <Property Name="GL_Trans_Reference_2" Type="varchar" MaxLength="100" />
-          <Property Name="GL_Entries_Created" Type="int" />
           <Property Name="Charge_Type" Type="int" />
-          <Property Name="ProspectID" Type="bigint" />
-          <Property Name="TBankName" Type="nvarchar" MaxLength="100" />
-          <Property Name="TAccCardName" Type="nvarchar" MaxLength="100" />
-          <Property Name="TAccCardNumber" Type="nvarchar" MaxLength="29" />
-          <Property Name="TRoutingNumber" Type="nvarchar" MaxLength="29" />
-          <Property Name="TSecurityNumber" Type="nvarchar" MaxLength="29" />
-          <Property Name="TCardExpirationMonth" Type="nvarchar" MaxLength="29" />
-          <Property Name="TCardExpirationYear" Type="nvarchar" MaxLength="29" />
           <Property Name="Authcode" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserID" Type="bigint" />
         </EntityType>
         <EntityType Name="tbl_UnitLeasePrice">
           <Key>
@@ -3021,7 +2996,6 @@
           <EntitySet Name="tbl_TenantParking" EntityType="ShomaRMEntitiesModel.tbl_TenantParking" />
           <EntitySet Name="tbl_TenantPetPlace" EntityType="ShomaRMEntitiesModel.tbl_TenantPetPlace" />
           <EntitySet Name="tbl_TenantStorage" EntityType="ShomaRMEntitiesModel.tbl_TenantStorage" />
-          <EntitySet Name="tbl_Transaction" EntityType="ShomaRMEntitiesModel.tbl_Transaction" />
           <EntitySet Name="tbl_UnitLeasePrice" EntityType="ShomaRMEntitiesModel.tbl_UnitLeasePrice" />
           <EntitySet Name="tbl_Utility" EntityType="ShomaRMEntitiesModel.tbl_Utility" />
           <EntitySet Name="tbl_UtilityBilling" EntityType="ShomaRMEntitiesModel.tbl_UtilityBilling" />
@@ -3355,6 +3329,7 @@
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_PropertyUnits" EntitySet="tbl_PropertyUnits" />
           </AssociationSet>
+          <EntitySet Name="tbl_Transaction" EntityType="ShomaRMEntitiesModel.tbl_Transaction" />
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -4292,52 +4267,6 @@
           <Property Name="Charges" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_TenantStorage" ToRole="tbl_ApplyNow" />
-        </EntityType>
-        <EntityType Name="tbl_Transaction">
-          <Key>
-            <PropertyRef Name="TransID" />
-          </Key>
-          <Property Name="TransID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenantID" Type="Int64" Nullable="false" />
-          <Property Name="LeaseID" Type="Int64" Nullable="false" />
-          <Property Name="Revision_Num" Type="Int32" Nullable="false" />
-          <Property Name="Transaction_Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Run" Type="Int32" Nullable="false" />
-          <Property Name="Tax_Sequence" Type="Int32" />
-          <Property Name="Transaction_Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Charge_Date" Type="DateTime" Precision="3" />
-          <Property Name="Summary_Charge_Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Payment_ID" Type="Int32" />
-          <Property Name="Reference" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Charge_Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Credit_Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Miscellaneous_Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Accounting_Date" Type="DateTime" Precision="3" />
-          <Property Name="Journal" Type="Int32" />
-          <Property Name="Accrual_Debit_Acct" Type="String" MaxLength="29" FixedLength="false" Unicode="false" />
-          <Property Name="Accrual_Credit_Acct" Type="String" MaxLength="29" FixedLength="false" Unicode="false" />
-          <Property Name="Cash_Debit_Account" Type="String" MaxLength="29" FixedLength="false" Unicode="false" />
-          <Property Name="Cash_Credit_Account" Type="String" MaxLength="29" FixedLength="false" Unicode="false" />
-          <Property Name="Appl_of_Origin" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="Batch" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Batch_Source" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="GL_Trans_Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="GL_Trans_Reference_1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="GL_Trans_Reference_2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="GL_Entries_Created" Type="Int32" />
-          <Property Name="Charge_Type" Type="Int32" />
-          <Property Name="ProspectID" Type="Int64" />
-          <Property Name="TBankName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="TAccCardName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="TAccCardNumber" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
-          <Property Name="TRoutingNumber" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
-          <Property Name="TSecurityNumber" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
-          <Property Name="TCardExpirationMonth" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
-          <Property Name="TCardExpirationYear" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
-          <Property Name="Authcode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tbl_UnitLeasePrice">
           <Key>
@@ -6063,6 +5992,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_Transaction">
+          <Key>
+            <PropertyRef Name="TransID" />
+          </Key>
+          <Property Name="TransID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" Nullable="false" />
+          <Property Name="Transaction_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PAID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Charge_Date" Type="DateTime" Precision="3" />
+          <Property Name="Charge_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Credit_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Miscellaneous_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Accounting_Date" Type="DateTime" Precision="3" />
+          <Property Name="Batch" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Charge_Type" Type="Int32" />
+          <Property Name="Authcode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int64" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6993,53 +6943,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Transaction">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Transaction">
-              <MappingFragment StoreEntitySet="tbl_Transaction">
-                <ScalarProperty Name="Authcode" ColumnName="Authcode" />
-                <ScalarProperty Name="TCardExpirationYear" ColumnName="TCardExpirationYear" />
-                <ScalarProperty Name="TCardExpirationMonth" ColumnName="TCardExpirationMonth" />
-                <ScalarProperty Name="TSecurityNumber" ColumnName="TSecurityNumber" />
-                <ScalarProperty Name="TRoutingNumber" ColumnName="TRoutingNumber" />
-                <ScalarProperty Name="TAccCardNumber" ColumnName="TAccCardNumber" />
-                <ScalarProperty Name="TAccCardName" ColumnName="TAccCardName" />
-                <ScalarProperty Name="TBankName" ColumnName="TBankName" />
-                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
-                <ScalarProperty Name="Charge_Type" ColumnName="Charge_Type" />
-                <ScalarProperty Name="GL_Entries_Created" ColumnName="GL_Entries_Created" />
-                <ScalarProperty Name="GL_Trans_Reference_2" ColumnName="GL_Trans_Reference_2" />
-                <ScalarProperty Name="GL_Trans_Reference_1" ColumnName="GL_Trans_Reference_1" />
-                <ScalarProperty Name="GL_Trans_Description" ColumnName="GL_Trans_Description" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Batch_Source" ColumnName="Batch_Source" />
-                <ScalarProperty Name="Batch" ColumnName="Batch" />
-                <ScalarProperty Name="Appl_of_Origin" ColumnName="Appl_of_Origin" />
-                <ScalarProperty Name="Cash_Credit_Account" ColumnName="Cash_Credit_Account" />
-                <ScalarProperty Name="Cash_Debit_Account" ColumnName="Cash_Debit_Account" />
-                <ScalarProperty Name="Accrual_Credit_Acct" ColumnName="Accrual_Credit_Acct" />
-                <ScalarProperty Name="Accrual_Debit_Acct" ColumnName="Accrual_Debit_Acct" />
-                <ScalarProperty Name="Journal" ColumnName="Journal" />
-                <ScalarProperty Name="Accounting_Date" ColumnName="Accounting_Date" />
-                <ScalarProperty Name="Miscellaneous_Amount" ColumnName="Miscellaneous_Amount" />
-                <ScalarProperty Name="Credit_Amount" ColumnName="Credit_Amount" />
-                <ScalarProperty Name="Charge_Amount" ColumnName="Charge_Amount" />
-                <ScalarProperty Name="Reference" ColumnName="Reference" />
-                <ScalarProperty Name="Payment_ID" ColumnName="Payment_ID" />
-                <ScalarProperty Name="Summary_Charge_Type" ColumnName="Summary_Charge_Type" />
-                <ScalarProperty Name="Charge_Date" ColumnName="Charge_Date" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Transaction_Type" ColumnName="Transaction_Type" />
-                <ScalarProperty Name="Tax_Sequence" ColumnName="Tax_Sequence" />
-                <ScalarProperty Name="Run" ColumnName="Run" />
-                <ScalarProperty Name="Transaction_Date" ColumnName="Transaction_Date" />
-                <ScalarProperty Name="Revision_Num" ColumnName="Revision_Num" />
-                <ScalarProperty Name="LeaseID" ColumnName="LeaseID" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="TransID" ColumnName="TransID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_UnitLeasePrice">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_UnitLeasePrice">
               <MappingFragment StoreEntitySet="tbl_UnitLeasePrice">
@@ -7782,6 +7685,28 @@
                 <ScalarProperty Name="UnitNo" ColumnName="UnitNo" />
                 <ScalarProperty Name="PID" ColumnName="PID" />
                 <ScalarProperty Name="UID" ColumnName="UID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Transaction">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Transaction">
+              <MappingFragment StoreEntitySet="tbl_Transaction">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Authcode" ColumnName="Authcode" />
+                <ScalarProperty Name="Charge_Type" ColumnName="Charge_Type" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+                <ScalarProperty Name="Accounting_Date" ColumnName="Accounting_Date" />
+                <ScalarProperty Name="Miscellaneous_Amount" ColumnName="Miscellaneous_Amount" />
+                <ScalarProperty Name="Credit_Amount" ColumnName="Credit_Amount" />
+                <ScalarProperty Name="Charge_Amount" ColumnName="Charge_Amount" />
+                <ScalarProperty Name="Charge_Date" ColumnName="Charge_Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PAID" ColumnName="PAID" />
+                <ScalarProperty Name="Transaction_Date" ColumnName="Transaction_Date" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="TransID" ColumnName="TransID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
