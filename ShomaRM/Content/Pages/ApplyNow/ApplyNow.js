@@ -5147,7 +5147,7 @@ var getApplicantLists = function () {
                 if (elementValue.Type != "Primary Applicant") {
                     html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
                         "<div class='form-group col-sm-3'><br>" +
-                        "<img src='/Content/assets/img/user.png'></div>" +
+                        "<img src='/Content/assets/img/user.png' class='user-icon'></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                         "<label> " + elementValue.Type + " </label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
@@ -5163,7 +5163,7 @@ var getApplicantLists = function () {
                 else {
                     html += "<div class='col-sm-4 box-two proerty-item'>" +
                         "<div class='form-group col-sm-3'><br>" +
-                        "<img src='/Content/assets/img/user.png'></div>" +
+                        "<img src='/Content/assets/img/user.png' class='user-icon'></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
 
                         "<label>Primary Applicant</label><br/>" +

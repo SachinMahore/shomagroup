@@ -2956,7 +2956,7 @@ var getApplicantLists = function () {
                     if (elementValue.Type == "Co-Applicant") {
                         html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
                             "<div class='form-group col-sm-3'><br>" +
-                            "<img src='/Content/assets/img/user.png'><br>" +
+                            "<img src='/Content/assets/img/user.png' class='user-icon'><br>" +
                             "<label> " + elementValue.Type + " </label> <br/>" +
                             "</div > " +
                             "<div class='form-group col-sm-9' style='margin-top: 0px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></div>" +
@@ -2970,7 +2970,7 @@ var getApplicantLists = function () {
                     else if (elementValue.Type == "Minor") {
                         html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
                             "<div class='form-group col-sm-3'><br>" +
-                            "<img src='/Content/assets/img/user.png'><br>" +
+                            "<img src='/Content/assets/img/user.png' class='user-icon'><br>" +
                             "<label> " + elementValue.Type + " </label> <br/>" +
                             "</div > " +
                             "<div class='form-group col-sm-9' style='margin-top: 0px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></div>" +
@@ -2982,7 +2982,7 @@ var getApplicantLists = function () {
                     else if (elementValue.Type == "Guarantor") {
                         html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
                             "<div class='form-group col-sm-3'><br>" +
-                            "<img src='/Content/assets/img/user.png'><br>" +
+                            "<img src='/Content/assets/img/user.png' class='user-icon'><br>" +
                             "<label> " + elementValue.Type + " </label> <br/>" +
                             "</div > " +
                             "<div class='form-group col-sm-9' style='margin-top: 0px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></div>" +
