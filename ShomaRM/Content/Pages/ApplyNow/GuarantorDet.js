@@ -1154,6 +1154,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             return;
         }
         if (id == "15") {
+            $(".gotosummary").removeClass('hidden');
             getApplicantListsGuarantor();
             var msg = '';
             if (!$("#txtEmployerName").val()) {
@@ -1590,6 +1591,7 @@ var showCurrentStep = function (stepid, id) {
     if (stepid == "15") {
 
         $("#subMenu").removeClass("hidden");
+        $(".gotosummary").removeClass('hidden');
 
         $("#step2").addClass("hidden");
         $("#step1").addClass("hidden");
@@ -5549,7 +5551,7 @@ var getTenantOnlineListGuarantor = function (id) {
             $("#summEmployer").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
             $("#summEmployerp").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
 
-            $ $("#txtJobTitle").val(response.model.JobTitle);
+            $("#txtJobTitle").val(response.model.JobTitle);
             $("#ddlJobType").val(response.model.JobType);
             $("#txtStartDate").val(response.model.StartDateTxt);
             $("#summEstartdate").text(response.model.StartDateTxt);
@@ -8571,3 +8573,7 @@ function saveCoAppPayment() {
         }
     });
 }
+
+var goToSummaryPageGur = function () {
+    goToStep(15, 15, 0);
+};

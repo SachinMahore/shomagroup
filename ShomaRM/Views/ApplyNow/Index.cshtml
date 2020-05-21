@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Apply Now";
 }
+
 <script src="@Url.Content("~/Content/jAlert.min.js")"></script>
 <script src="@Url.Content("~/Content/jTimeout.min.js")"></script>
 <script src="/Content/Pages/ApplyNow/ApplyNow.js"></script>
@@ -78,243 +79,640 @@
                     </div>
                     <div class="tab-content">
                         <div class="" id="step1">
-                            <div class="row p-b-15  ">
-                                <div class="col-sm-12">
-                                    <p>
-                                        <div class="panel panel-default sidebar-menu wow fadeInRight animated">
-                                            <div class="panel-heading">
-                                                <h3 class="panel-title">Select Floor Plan</h3>
+                           
+                                <div class="slider_area" style="margin-top:0px;">
+                                    <div class="single_slider  d-flex align-items-center slider_bg_1">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-xl-12">
+                                                    <div class="slider_text">
+                                                        <h3>Select Floor Plan</h3>
+                                                        <p>View available floor plans, Select more than one to compare or select just one to choose your new apartment,.</p>
+                                                    </div>
+                                                    <div class="property_form">
+                                                   
+                                                            <div class="justify-content-center">
+                                                                <div class="col-xl-12" id="divMainSearch" style="padding-left: 0px;">
+                                                                    <div class="form_wrap d-flex">
 
+                                                                        <div class="single-field max_width ">
+                                                                            <label for="birthday">Desired Move-In </label>
+                                                                            @*<input type="date" id="txtDate"  class="form-control wide" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" />*@
+                                                                            <input type="text" id="txtDate" data-date-format="mm/dd/yyyy" class="form-control" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" />
+                                                                        </div>
+
+                                                                        <div class="single-field max_width ">
+                                                                            <label for="#">Bedrooms </label>
+                                                                            <select class="wide" id="ddlRoom">
+                                                                                <option data-display="All">All</option>
+                                                                                <option data-display="1">01</option>
+                                                                                <option value="2">02</option>
+                                                                                <option value="3">03</option>
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="single-field max_width ">
+                                                                            <label for="#">Sort </label>
+                                                                            <select class="wide" id="ddlSortOrder">
+                                                                                <option data-display="Low to High" value="0">Low to High</option>
+                                                                                <option value="1">High to Low</option>
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="single-field max_width ">
+                                                                            <label for="#">Furnished </label>
+                                                                            <select class="wide" id="ddlFurnishedUnit">
+                                                                                <option value='1'>Furnished Unit</option>
+                                                                                <option value='2'>Unfurnished Unit</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <input type="hidden" id="hndbuilding" value="1" />
+                                                                        <input type="hidden" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
+
+                                                                        <button type="submit" form="nameform" value="Submit" id="btnSearch" onclick="getPropertyModelUnitList()">Search</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <div class="col-xl-12 hidden" id="divCompare">
+                                                            <div class="form_wrap d-flex">
+                                                                  <div class="single-field max_width ">
+                                                                    <label>Compare floor plans : </label>                                                                
+                                                                </div> 
+                                                                <div class="single-field max_width ">
+                                                                    <label>Select up to three to compare</label>
+                                                                </div> 
+                                                                <div class="single-field max_width ">
+                                                                    <button type="submit" form="nameform" value="Submit" id="btnSearch" onclick="getPropertyModelUnitList()">Cancel</button>
+                                                                </div> 
+                                                                <div class="single-field max_width ">
+                                                                    <a href="javascript:void(0);"  data-toggle="modal" data-target="#ModelCompare" style="padding:13px;margin-left:0px;" class="btn-success btn" id="btncompare"></a>
+                                                                    <a href="javascript:void(0);" onclick="displayComp()" class="btn-success btn" style="padding:13px;margin-left:0px;"  id="btncompare1">Compare</a>
+
+                                                                </div> 
+                                                               
+                                                            </div>
+                                                              
+                                                            </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                    <p>View available floor plans. Select more than one to compare or select just one to choose your new apartment.</p>
-                                </div>
-                                <div class="col-md-12 hidden justify-content-center" id="divMainSearch">
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Desired Move-In</label>
-                                        <div class="input-group">
-                                            <input type="text" id="txtDate" data-date-format="mm/dd/yyyy" class="form-control" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" />
-                                            <span class="input-group-btn">
-                                                <button id="icontxtDate" class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Bedrooms</label>
-                                        <select id="ddlRoom" class="form-control">
-                                            <option value='0'>All</option>
-                                            <option value='1'>1 Bedroom</option>
-                                            <option value='2'>2 Bedrooms</option>
-                                            <option value='3'>3 Bedrooms</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <input type="hidden" id="hndbuilding" value="1" />
-                                <input type="hidden" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
+                                <!-- slider_area_end -->
+                                <!-- popular_property  -->
+                                <div class="popular_property">
+                                    <div class="container">
 
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Sort</label>
-                                        <select id="ddlSortOrder" class="form-control">
-                                            <option value='0'>Low To High</option>
-                                            <option value='1'>High To Low</option>
-                                        </select>
+                                        <div class="row justify-content-center" id="listModelUnit">
+
+                                        </div>
                                     </div>
+                                    <!-- /popular_property  -->
+                                    <!-- link that opens popup -->
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Furnished</label>
-                                        <select id="ddlFurnishedUnit" class="form-control">
-                                            <option value='0' selected="selected">All</option>
-                                            <option value='1'>Furnished Unit</option>
-                                            <option value='2'>Unfurnished Unit</option>
-                                        </select>
+
+                            <p><a href="#ex1" rel="modal:open">Compare</a></p>
+                            @*<script>$("#fade").modal({ fadeDuration: 100 });</script>*@
+                            <div id="ex1" class="modal">
+
+                                <!--TABLE CONTAINER START-->
+                                <div class="container">
+
+                                    <div class="row-full">
+                                        <div class="col-xs-12">
+                                            <h3 class="text-center">Compare Floor Plans</h3>
+                                            <div class="table-responsive">
+                                                <table class="table text-center">
+
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="25%"></th>
+                                                            <th width="25%">
+                                                                <div class="property_thumb">
+                                                                    <img src="~/Content/SMResponsive/img/floor-plan.jpg" alt="">
+                                                                </div>
+                                                            </th>
+                                                            <th width="25%">
+                                                                <div class="property_thumb">
+                                                                    <img src="~/Content/SMResponsive/img/floor-plan.jpg" alt="">
+                                                                </div>
+                                                            </th>
+                                                            <th width="25%">
+                                                                <div class="property_thumb">
+                                                                    <img src="~/Content/SMResponsive/img/floor-plan.jpg" alt="">
+                                                                </div>
+                                                            </th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td><strong>Floor Plan</strong></td>
+                                                            <td><strong>Floor Plan</strong></td>
+                                                            <td><strong>Floor Plan</strong></td>
+                                                        </tr>
+
+
+                                                        <tr>
+                                                            <td>Monthly Rent:</td>
+                                                            <td>$1,800.00 - $2,110.00</td>
+                                                            <td>$1,800.00 - $2,110.00</td>
+                                                            <td>$1,800.00 - $2,110.00</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Sq Feet:</td>
+                                                            <td>903</td>
+                                                            <td>903</td>
+                                                            <td>903</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Bedrooms:</td>
+                                                            <td>1</td>
+                                                            <td>1</td>
+                                                            <td>1</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Bathrooms:</td>
+                                                            <td>1</td>
+                                                            <td>1</td>
+                                                            <td>1</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Available:</td>
+                                                            <td>55</td>
+                                                            <td>55</td>
+                                                            <td>55</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Occupancy:</td>
+                                                            <td>1</td>
+                                                            <td>1</td>
+                                                            <td>1</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="small">*price subject to change:</td>
+                                                            <td><a href="select-units.html" class="genric-btn available">Select</a></td>
+                                                            <td><a href="select-units.html" class="genric-btn available">Select</a></td>
+                                                            <td><a href="select-units.html" class="genric-btn available">Select</a></td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>
+                                            </div><!--end of .table-responsive-->
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn-primary hollow btn" style="padding: 7px 7px;margin-top:30px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
-                                </div>
+
+
+                                </div><!--TABLE CONTAINER END-->
+
+                                <a href="#" rel="modal:close">Close</a>
                             </div>
-                                <div class="col-xs-12 hidden" id="divCompare">
+                            </div>
+                     
+                        <!-- Link to open the modal -->
+                        <div class="hidden" id="step2">
 
-                                    <h5 class="col-xs-2">Compare floor plans : </h5>
-                                    <h5 class="col-xs-3">Select up to three to compare</h5>
-                                    <div class="col-xs-5"></div>
-                                    <div class="col-xs-1"><button type="submit" class="btn-cancle btn" id="btncompCancel" onclick="getPropertyModelUnitList()"> Cancel</button></div>
-                                    <div class="col-xs-1"><a href="javascript:void(0);" data-toggle="modal" data-target="#ModelCompare" style="padding: 5px;" class="btn-success btn" id="btncompare"></a></div>
+                            @*Start Old code*@
+                            <div class="row p-b-15 hidden">
+                                <div class="col-xs-7 col-sm-7">
+                                    <div class="col-sm-12">
 
 
-                                </div>
-                                <div class="col-md-12 clear">
-                                    <div id="listModelUnit" class="proerty-th">
+                                        <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Select Your Unit</h3>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 clear">
+                                            <p class="text-justify">
+                                                Now that you have selected your floor plan, let's decide on your unit. If you click on the interactive building on the right,
+                                                you will be able to see all the available units within your chosen floor plan per floor. If any floor appears in red, it indicates
+                                                there are no available units on that floor of your desire floor plan. Using the building model will allow you to choose your unit based
+                                                on location. If you prefer to choose your unit from the list shown below, you may still see if there are any premiums and/or
+                                                promotions on that unit. Once you choose your unit, click Continue below to choose your personalized options.
+                                            </p>
+                                        </div>
 
                                     </div>
-                                </div>
-                                </p>
-                            </div>
+                                    <div class="col-sm-12 clearfix">
+                                        <br />
+                                    </div>
 
-                        </div>
-                    </div>
-                    <div class="hidden" id="step2">
-                        <div class="row p-b-15  ">
-                            <div class="col-xs-7 col-sm-7">
-                                <div class="col-sm-12">
+                                    <div class="col-xs-3 col-sm-3 dealer-face">
+                                        <div id="uDet">
+                                            <a href="JavaScript:Void(0)" onclick="displayImg()">
+                                                <img src="" id="imgFloorPlan" class="img-responsive">
+                                            </a>
+                                            <div class="panel panel-default sidebar-menu similar-property-wdg wow fadeInRight animated">
+
+                                                <div class="panel-heading">
+                                                    <h6 class=""><span id="lblUnitNo"></span></h6>
+                                                    <span class="property-price pull-right"><span id="lblRent1"></span></span>
+                                                    <input type="hidden" id="hndUID" value="0" />
+                                                </div>
+                                                <div class="panel-heading">
+                                                    <h6 class=""><span id="lblUnitModel"></span></h6>
+                                                </div>
+                                                <div class="panel-body recent-property-widget">
+                                                    <div class="col-sm-7">
+                                                        <span id="">Bedrooms: </span>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <span id="lblBed22"></span>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                        <span id="">Bathrooms: </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="lblBath22"></span>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                        <span id="">Sq. Ft.: </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="lblArea22"></span>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                        <span id="">Occupancy: </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="lblOccupancy22"></span>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                        <span id="">Deposit: </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="lblDeposit22"></span>
+                                                    </div>
+                                                    <div class="col-sm-7 hidden">
+                                                        <span id="">Rent: </span>
+                                                    </div>
+                                                    <div class="col-sm-2 hidden">
+                                                        <span id="lblRent22"></span>
+                                                    </div>
+                                                    <div class="col-sm-6 hidden">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
 
 
-                                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">Select Your Unit</h3>
-
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <div>
+                                            <table class="" cellspacing="0" style="width:100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:21%"><b>Apartment</b></th>
+                                                        <th style="width:26%"><b>Price/Mo</b></th>
+                                                        <th style="width:31%"><b>Premium</b></th>
+                                                        <th><b>Available on</b></th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                        <div style="width:100%;height:350px;overflow-y:scroll;">
+                                            <table id="listUnit" class="" cellspacing="0" style="width:100%;height:50px;">
+                                                <tbody style="width:100%;height:100%; text-align:center">
+                                                    @if (Model.lstPropertyUnit != null)
+                                                    {
+                                                        foreach (var ul in Model.lstPropertyUnit)
+                                                        {
+                                                            <tr class="@(Model.PropertyId==ul.UID?"select-unit":"")" id="unitdiv_@ul.UID" data-floorid="@ul.FloorNoText"><td><a href="javascript:void(0);" onclick="getPropertyUnitDetails(@ul.UID)"><h5 style="width: 80px;">#@ul.UnitNo </h5></a> </td><td style="text-align: center;width=100px">$@ul.Current_Rent.ToString("0.00")</td><td style="text-align: center; width:45%">@ul.Premium </td><td style="text-align: center;width:100px">@ul.AvailableDateText</td></tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                     <div class="col-md-12 clear">
-                                        <p class="text-justify">
-                                            Now that you have selected your floor plan, let's decide on your unit. If you click on the interactive building on the right,
-                                            you will be able to see all the available units within your chosen floor plan per floor. If any floor appears in red, it indicates
-                                            there are no available units on that floor of your desire floor plan. Using the building model will allow you to choose your unit based
-                                            on location. If you prefer to choose your unit from the list shown below, you may still see if there are any premiums and/or
-                                            promotions on that unit. Once you choose your unit, click Continue below to choose your personalized options.
-                                        </p>
-                                    </div>
 
+                                        <div class="col-sm-12">
+                                            <a href="javascript:void(0);" onclick="checkHasUnitID()"><b> Click here to view/Print a summary of monthly Charges for your selected Unit.</b></a>
+                                        </div>
+
+                                    </div>
                                 </div>
+                                <div class="col-xs-5 col-sm-5">
+                                    <div id="divFloor">
+
+                                        <img src="/content/assets/img/demo/@Model.Picture" usemap="#apartment_2" id="apartimg_2">
+                                        <map name="apartment_2" id="floorImgdiv">
+                                            @foreach (var lstcord in Model.lstPropertyFloor)
+                                            {
+                                                <area id="fa_@lstcord.FloorID" data-aval="@lstcord.IsAvail" data-floorid="@lstcord.FloorID" shape="poly" class="tooltip buildplan" @*data-title="Floor -@lstcord.FloorID"*@ href="javascript:void(0);" coords="@lstcord.Coordinates" onclick="getPropertyUnitListByFloor(@lstcord.FloorID)">
+                                                @*<span style="display: none">@lstcord.FloorID</span>*@
+                                                <div id="dfa_@lstcord.FloorID" class="hidden divtooltip">
+                                                    <span>Floor - @lstcord.FloorID</span>
+                                                </div>
+                                            }
+                                        </map>
+                                        <input type="hidden" id="hndSelectedFloor" value="" />
+                                        <input type="hidden" id="hndSelectedAval" value="0" />
+                                    </div>
+                                    <div class="" id="popUnitPlan" style="background:#fff;color:#4d738a; padding:5px;">
+
+                                    </div>
+                                </div>
+
                                 <div class="col-sm-12 clearfix">
                                     <br />
                                 </div>
+                                <div class="col-sm-12">
+                                    <div class="pull-left text-center">
+                                        <button type="submit" class="btn btn-primary" onclick="goToStep(1,1,0)"> Back</button>
+                                    </div>
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(3,3,0)"> Continue</button>
+                                    </div>
+                                </div>
+                            </div>
+                            @*Start old code*@
 
-                                <div class="col-xs-3 col-sm-3 dealer-face">
-                                    <div id="uDet">
-                                        <a href="JavaScript:Void(0)" onclick="displayImg()">
-                                            <img src="" id="imgFloorPlan" class="img-responsive">
-                                        </a>
-                                        <div class="panel panel-default sidebar-menu similar-property-wdg wow fadeInRight animated">
-
-                                            <div class="panel-heading">
-                                                <h6 class=""><span id="lblUnitNo"></span></h6>
-                                                <span class="property-price pull-right"><span id="lblRent1"></span></span>
-                                                <input type="hidden" id="hndUID" value="0" />
+                            @*Start New code*@
+                            <div id="divSelectUnit">
+                                @*<div class="row">
+                    <div class="col-xl-12 col-md-12 padding-top1">
+                        <a href="javascript:void(0)" onclick="goToPriceTable()" class="genric-btn available">Back</a>
+                    </div>
+                </div>*@
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-8 padding-top2">
+                                        <div class="col-xl-6 col-md-4 text-center float-left">
+                                            <div class="unit_thumb">
+                                                @*<img src="~/Content/SMResponsive/img/floor-plan-big.png" />*@
+                                                <img src="" id="imgFloorPlanNew" class="img-responsive">
                                             </div>
-                                            <div class="panel-heading">
-                                                <h6 class=""><span id="lblUnitModel"></span></h6>
-                                            </div>
-                                            <div class="panel-body recent-property-widget">
-                                                <div class="col-sm-7">
-                                                    <span id="">Bedrooms: </span>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <span id="lblBed22"></span>
-                                                </div>
-                                                <div class="col-sm-7">
-                                                    <span id="">Bathrooms: </span>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <span id="lblBath22"></span>
-                                                </div>
-                                                <div class="col-sm-7">
-                                                    <span id="">Sq. Ft.: </span>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <span id="lblArea22"></span>
-                                                </div>
-                                                <div class="col-sm-7">
-                                                    <span id="">Occupancy: </span>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <span id="lblOccupancy22"></span>
-                                                </div>
-                                                <div class="col-sm-7">
-                                                    <span id="">Deposit: </span>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                    <span id="lblDeposit22"></span>
-                                                </div>
-                                                <div class="col-sm-7 hidden">
-                                                    <span id="">Rent: </span>
-                                                </div>
-                                                <div class="col-sm-2 hidden">
-                                                    <span id="lblRent22"></span>
-                                                </div>
-                                                <div class="col-sm-6 hidden">
-                                                    <span id="">&nbsp;</span>
-                                                </div>
-
-
+                                        </div>
+                                        <div class="col-xl-6 col-md-8 float-left">
+                                            <div class="unit-txt1">
+                                                <h2>Floor Plan</h2>
+                                                <span>
+                                                    <span id="lblBed33"></span> Bed | <span id="lblBath33"></span> Bath<br />
+                                                    <span id="lblArea33"></span> Sq Ft<br />
+                                                    Starting at $<span id="lblRent33"></span> / month
+                                                </span>
+                                                @*<p><a href="#" class="genric-btn success">Success</a></p>*@
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-9">
-                                    <div>
-                                        <table class="" cellspacing="0" style="width:100%;">
+                                <div class="row padding-top2">
+                                    <div class="col-md-12">
+                                        <div class="contain-text">
+                                            <h3>Select Floor Plan</h3>
+                                            <p>View available floor plans, Selcet more than one to compare or select just one to choose your new apartment.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-10 padding-top2">
+                                        <table class="" style="width:100%;" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th style="width:21%"><b>Apartment</b></th>
-                                                    <th style="width:26%"><b>Price/Mo</b></th>
-                                                    <th style="width:31%"><b>Premium</b></th>
-                                                    <th><b>Available on</b></th>
+                                                    <th style="width:20%" class="unit">Unit</th>
+                                                    <th style="width:15%" class="price">Price</th>
+                                                    <th class="available">Available</th>
+                                                    <th class="charges"></th>
                                                 </tr>
                                             </thead>
                                         </table>
-                                    </div>
-                                    <div style="width:100%;height:350px;overflow-y:scroll;">
-                                        <table id="listUnit" class="" cellspacing="0" style="width:100%;height:50px;">
-                                            <tbody style="width:100%;height:100%; text-align:center">
-                                                @if (Model.lstPropertyUnit != null)
-                                                {
-                                                    foreach (var ul in Model.lstPropertyUnit)
+
+                                        <div style="height:322px; overflow-y:scroll;overflow-x:auto;">
+                                            <table id="listUnitNew" border="0" cellpadding="5" cellspacing="5">
+                                                <tbody>
+                                                    @if (Model.lstPropertyUnit != null)
                                                     {
-                                                        <tr class="@(Model.PropertyId==ul.UID?"select-unit":"")" id="unitdiv_@ul.UID" data-floorid="@ul.FloorNoText"><td><a href="javascript:void(0);" onclick="getPropertyUnitDetails(@ul.UID)"><h5 style="width: 80px;">#@ul.UnitNo </h5></a> </td><td style="text-align: center;width=100px">$@ul.Current_Rent.ToString("0.00")</td><td style="text-align: center; width:45%">@ul.Premium </td><td style="text-align: center;width:100px">@ul.AvailableDateText</td></tr>
+                                                        foreach (var ul in Model.lstPropertyUnit)
+                                                        {
+                                                            <tr class="@(Model.PropertyId==ul.UID?"select-unit":"")" id="unitdiv_@ul.UID" data-floorid="@ul.FloorNoText">
+                                                                <td class="unit"><a href="javascript:void(0);" onclick="getPropertyUnitDetails(@ul.UID)"><h5 style="width: 80px;">#@ul.UnitNo </h5></a> </td>
+                                                                <td style="text-align: center;width=100px">$@ul.Current_Rent.ToString("0.00")</td>
+                                                                <td style="text-align: center;width:100px">@ul.AvailableDateText</td>
+                                                                <td class="charges">
+                                                                    <a href="javascript:void(0)" class="genric-btn success" onclick="showPriceTable(@ul.UID)">Apply</a>
+                                                                    <a href="javascript:void(0)" class="genric-btn success" onclick="showMonthlyCharges(@ul.UID)">Monthly Charges</a>
+                                                                    <a href="javascript:void(0)"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        }
                                                     }
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 clear">
+                                                </tbody>
+                                            </table>
+                                            @*<table border="0" cellpadding="5" cellspacing="5">
+                                <tr>
+                                    <th class="unit">Unit</th>
+                                    <th class="price">Price</th>
+                                    <th class="available">Available</th>
+                                    <th class="charges"></th>
+                                </tr>
 
-                                    <div class="col-sm-12">
-                                        <a href="javascript:void(0);" onclick="checkHasUnitID()"><b> Click here to view/Print a summary of monthly Charges for your selected Unit.</b></a>
-                                    </div>
+                                <tr>
+                                    <td class="unit">Unit#</td>
+                                    <td class="price">$1,800</td>
+                                    <td class="available">5/10/20</td>
+                                    <td class="charges">
+                                        <a href="price-table.html" class="genric-btn success">Apply</a>
+                                        <!-- <a href="#" class="genric-btn success">Monthly Charges</a> -->
 
-                                </div>
-                            </div>
-                            <div class="col-xs-5 col-sm-5">
-                                <div id="divFloor">
+                                        <script>$("#fade").modal({ fadeDuration: 100 });</script>
+                                        <div id="ex1" class="modal">
 
-                                    <img src="/content/assets/img/demo/@Model.Picture" usemap="#apartment_2" id="apartimg_2">
-                                    <map name="apartment_2" id="floorImgdiv">
-                                        @foreach (var lstcord in Model.lstPropertyFloor)
-                                        {
-                                            <area id="fa_@lstcord.FloorID" data-aval="@lstcord.IsAvail" data-floorid="@lstcord.FloorID" shape="poly" class="tooltip buildplan" @*data-title="Floor -@lstcord.FloorID"*@ href="javascript:void(0);" coords="@lstcord.Coordinates" onclick="getPropertyUnitListByFloor(@lstcord.FloorID)">
-                                            @*<span style="display: none">@lstcord.FloorID</span>*@
-                                            <div id="dfa_@lstcord.FloorID" class="hidden divtooltip">
-                                                <span>Floor - @lstcord.FloorID</span>
+
+                                            <div class="container">
+                                                <div class="row-full">
+                                                    <div class="col-xs-12 monthly-charges">
+
+                                                        <div class="col-xl-6 col-md-6 float-left">
+                                                            <div class="property_thumb text-center">
+                                                                <img src="img/floor-plan.jpg" alt="">
+                                                            </div>
+                                                            <h3>
+                                                                <strong>
+                                                                    Model A1<br />
+                                                                    Unit #<br />
+                                                                    12 Month Lease Term<br>
+                                                                    Desired Move-In:5/10/20
+                                                                </strong>
+                                                            </h3>
+
+                                                            <div class="box margin-top1">
+                                                                <p>Bedrooms <span class="float-right">1</span></p>
+                                                                <p>Bathrooms <span class="float-right">1</span></p>
+                                                                <p>Sq.Ft.<span class="float-right">835</span></p>
+                                                                <p>Occupancy<span class="float-right">2</span></p>
+                                                                <p>Deposit<span class="float-right">$500.00</span></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-xl-6 col-md-6 float-left">
+                                                            <h3 class="text-center"><strong>Summary of Monthly Charges</strong></h3>
+                                                            <div class="box">
+                                                                <p>Base Rent<span class="float-right">$1.875.00</span></p>
+                                                                <p>Premium<span class="float-right">$0.00</span></p>
+                                                                <p>Promotion<span class="float-right">$0.00</span></p>
+                                                                <p>Subtotal<span class="float-right">$0.00</span></p>
+                                                                <p><strong>Additional Services</strong></p>
+                                                                <p>Pest Control<span class="float-right">$5.00</span></p>
+                                                                <p>Trash/Recycle<span class="float-right">$15.00</span></p>
+                                                                <p>Convergent Billing Fee<span class="float-right">$6.50</span></p>
+                                                                <p>Subtotal<span class="float-right">$1901.50</span></p>
+                                                                <p>TOTAL MONTHLY CHARGES*<span class="float-right"><strong>$1901.50</strong></span></p>
+                                                            </div>
+                                                            <small>*Does not include water & sewer charges based on acual monthly consumption</small>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                        <div class="text-center padding-top1"><a href="#" class="genric-btn available">Print</a></div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        }
-                                    </map>
-                                    <input type="hidden" id="hndSelectedFloor" value="" />
-                                    <input type="hidden" id="hndSelectedAval" value="0" />
-                                </div>
-                                <div class="" id="popUnitPlan" style="background:#fff;color:#4d738a; padding:5px;">
+                                        </div>
+                                        <!-- Link to open the modal -->
+                                        <a href="#ex1" rel="modal:open" class="genric-btn success">Monthly Charges</a>
 
-                                </div>
-                            </div>
+                                        <!--TPAYMENT POPUP END-->
 
-                            <div class="col-sm-12 clearfix">
-                                <br />
+                                        <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+
+                                    </td>
+                                </tr>
+                            </table>*@
+                                        </div>
+
+                                    </div>
+                                </div><!--unit,price section end-->
+                                <div class="row padding-top2">
+                                    <div class="col-xl-12 ">
+
+                                        <div class="col-xl-8 col-md-8 float-left">
+                                            <div id="divFloor">
+                                                @*<img src="/content/assets/img/demo/@Model.Picture" usemap="#apartment_2" id="apartimg_2">*@
+                                                <img src="~/Content/SMResponsive/img/@Model.Picture" usemap="#apartment_2" id="apartimg_2" style="width:710px !important" />
+                                                <map name="apartment_2" id="floorImgdiv">
+                                                    @foreach (var lstcord in Model.lstPropertyFloor)
+                                                    {
+                                                        <area id="fa_@lstcord.FloorID" data-aval="@lstcord.IsAvail" data-floorid="@lstcord.FloorID" shape="poly" class="tooltip buildplan" @*data-title="Floor -@lstcord.FloorID"*@ href="javascript:void(0);" coords="@lstcord.Coordinates" onclick="getPropertyUnitListByFloor(@lstcord.FloorID)">
+                                                        @*<span style="display: none">@lstcord.FloorID</span>*@
+                                                        <div id="dfa_@lstcord.FloorID" class="hidden divtooltip">
+                                                            <span>Floor - @lstcord.FloorID</span>
+                                                        </div>
+                                                    }
+                                                </map>
+                                                <input type="hidden" id="hndSelectedFloor" value="" />
+                                                <input type="hidden" id="hndSelectedAval" value="0" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-4 col-md-4 float-left">
+                                            <div class="unit_thumb map">
+                                                <ul>
+                                                    <li>Available</li>
+                                                    <li class="op">Other Options</li>
+                                                    <li class="un">Unavailable</li>
+                                                </ul>
+                                            </div>
+                                            <div class="" id="popUnitPlan" style="background:#fff;color:#4d738a; padding:5px;"></div>
+                                        </div>
+
+                                    </div>
+                                </div><!--unit,price section end-->
+                                <!---->
                             </div>
+                            
+
+                            <div id="divPriceTable" class="hidden">
+                                <div class="row">
+                                    <div class="col-xl-12 col-md-12 padding-top1">
+                                        <a href="javascript:void(0)" onclick="goToSelectUnit()" class="genric-btn available">Back</a>
+                                    </div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-8 padding-top2">
+                                    </div>
+                                </div>
+
+                                <div class="row padding-top2">
+                                    <div class="col-md-6">
+                                        <div class="contain-text">
+                                            <h3><span id="priceTableUnit"></span> #</h3>
+                                            <p><span id="priceTableBedroom"></span> Bedroom | <span id="priceTableBathroom"></span> Bathroom | <span id="priceTableArea"></span> Sq Ft</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-field max_width ">
+                                            <label for="priceTableDate"><strong>Move-in Date</strong></label>
+                                            <input type="text" id="priceTableDate" name="date" class="wide" placeholder="mm/dd/yyyy"> <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="hndpriceTableUID" />
+                                </div>
+                                <!-- price table section-->
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-10 padding-top2">
+                                        <div class="container mb-5 mt-5">
+                                            <div class="pricing card-deck flex-column flex-md-row mb-3">
+                                                <div class="card card-pricing text-center px-3 mb-4">
+                                                    <span class="h6 w-60 mx-auto px-4 py-1 bg-primary text-white shadow-sm">Current Selection</span><hr>
+                                                    <div class="bg-transparent card-header pt-4 border-0">
+                                                        <h1 class="h1 text-primary text-center mb-0" data-pricing-value="15">$<span class="price" id="priceTableRent1"></span><span class="h6 text-muted ml-2">/ per month</span></h1>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h4>Lease Term</h4>
+                                                        <h3><span id="priceTableLeaseTerm1"></span> months</h3>
+                                                        <p>Move-in Date: <span id="priceTableMoveInDate1"></span></p>
+                                                        <a href="javascript:void(0)" id="btnApplyNowLease7" onclick="btnApplyNowLeaseCurrent();" class="genric-btn available">Apply Now</a>
+                                                        <input type="hidden" id="hndpriceTableLeaseTermId1" />
+                                                    </div>
+                                                </div>
+                                                <div class="card card-pricing popular shadow text-center px-3 mb-4">
+                                                    <span class="h6 w-60 mx-auto px-4 py-1 bg-primary text-white shadow-sm">Best Value!</span><hr>
+                                                    <div class="bg-transparent card-header pt-4 border-0">
+                                                        <h1 class="h1 text-primary text-center mb-0" data-pricing-value="30">$<span class="price" id="priceTableRent2"></span><span class="h6 text-muted ml-2">/ per month</span></h1>
+                                                    </div>
+
+                                                    <div class="card-body">
+                                                        <h4>Lease Term</h4>
+                                                        <h3><span id="priceTableLeaseTerm2"></span> months</h3>
+                                                        <p>Move-in Date: <span id="priceTableMoveInDate2"></span></p>
+                                                        <a href="javascript:void(0)" id="btnApplyNowLease15" onclick="btnApplyNowLeaseBest()" class="genric-btn available">Apply Now</a>
+                                                        <input type="hidden" id="hndpriceTableLeaseTermId2" />
+                                                    </div>
+                                                </div>
+                                                <div class="card card-pricing text-center px-3 mb-4">
+                                                    <span class="h6 w-60 mx-auto px-4 py-1 bg-primary text-white shadow-sm">Great Value</span><hr>
+                                                    <div class="bg-transparent card-header pt-4 border-0">
+                                                        <h1 class="h1 text-primary text-center mb-0" data-pricing-value="45">$<span class="price" id="priceTableRent3"></span><span class="h6 text-muted ml-2">/ per month</span></h1>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h4>Lease Term</h4>
+                                                        <h3><span id="priceTableLeaseTerm3"></span> months</h3>
+                                                        <p>Move-in Date: <span id="priceTableMoveInDate3"></span></p>
+                                                        <a href="javascript:void(0)" id="btnApplyNowLease12" onclick="btnApplyNowLeaseGreat()" class="genric-btn available">Apply Now</a>
+                                                        <input type="hidden" id="hndpriceTableLeaseTermId3" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- price table section end-->
+                            </div>
+                            @*End New code*@
+
+
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(1,1,0)"> Back</button>
                                 </div>
-                                <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(3,3,0)"> Continue</button>
-                                </div>
                             </div>
+                            <div class="pull-right text-center">
+                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(3,3,0)"> Continue</button>
+                            </div>
+
                         </div>
-                    </div>
                     <div class="hidden" id="step3">
                         <div class="row p-b-15  ">
 
@@ -5038,6 +5436,7 @@
         </div>
     </div>
 </div>
+  
 <div class="modal fade" id="ModelCompare" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content-compare">
@@ -5881,38 +6280,61 @@
         </div>
     </div>
 </div>
+    <div id="popMonthlyCharges" class="modal">
+        <div class="container">
+            <div class="row-full">
+                <div class="col-xs-12 monthly-charges">
+
+                    <div class="col-xl-6 col-md-6 float-left">
+                        <div class="property_thumb text-center">
+                            <img id="popMonthlyChargesFloorPlan" src="img/floor-plan.jpg" alt="">
+                        </div>
+                        <h3>
+                            <strong>
+                                Model <span id="popMonthlyChargesModel"></span><br />
+                                <span id="popMonthlyChargesUnit"></span> #<br />
+                                <span id="popMonthlyChargesLeaseTerm"></span> Month Lease Term<br>
+                                Desired Move-In: <span id="popMonthlyChargesDesMoveIn"></span>
+                            </strong>
+                        </h3>
+
+                        <div class="box margin-top1">
+                            <p>Bedrooms <span class="float-right" id="popMonthlyChargesBedrooms"></span></p>
+                            <p>Bathrooms <span class="float-right" id="popMonthlyChargesBathrooms"></span></p>
+                            <p>Sq.Ft.<span class="float-right" id="popMonthlyChargesArea"></span></p>
+                            <p>Occupancy<span class="float-right" id="popMonthlyChargesOccupancy"></span></p>
+                            <p>Deposit<span class="float-right" id="popMonthlyChargesDeposit"></span></p>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-6 col-md-6 float-left">
+                        <h3 class="text-center"><strong>Summary of Monthly Charges</strong></h3>
+                        <div class="box">
+                            <p>Base Rent<span class="float-right" id="popMonthlyChargesBaseRent"></span></p>
+                            <p>Premium<span class="float-right" id="popMonthlyChargesPremium"></span></p>
+                            <p>Promotion<span class="float-right" id="popMonthlyChargesPropmotion"></span></p>
+                            <p>Subtotal<span class="float-right" id="popMonthlyChargesSubtotal1"></span></p>
+                            <p><strong>Additional Services</strong></p>
+                            <p>Pest Control<span class="float-right" id="popMonthlyChargesPestControl"></span></p>
+                            <p>Trash/Recycle<span class="float-right" id="popMonthlyChargesTrashRecycle"></span></p>
+                            <p>Convergent Billing Fee<span class="float-right" id="popMonthlyChargesConvergentBilling"></span></p>
+                            <p>Subtotal<span class="float-right" id="popMonthlyChargesSubtotal2"></span></p>
+                            <p>TOTAL MONTHLY CHARGES*<span class="float-right" id="popMonthlyChargesTotalMonthlyCharges"><strong></strong></span></p>
+                        </div>
+                        <small>*Does not include water & sewer charges based on acual monthly consumption</small>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="text-center padding-top1"><a href="#" class="genric-btn available">Print</a></div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 <style>
     /* The Modal (background) */
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        /*z-index: 1;*/ /* Sit on top */
-        padding-top: 5px !important; /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
-
-    .modal-header {
-        margin: auto;
-        padding: 20px;
-        width: 35%;
-    }
-
-    /* Modal Content */
-    .modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 30%;
-        text-align: justify;
-    }
-
+    
     /* The Close Button */
     .close {
         color: #fff;
@@ -6144,14 +6566,14 @@
         border-top: 1px solid #bebdbd;
     }
 
-    .select-unit {
+    /*.select-unit {
         background-color: #4d738a !important;
         color: #fff !important;
     }
 
         .select-unit a {
             color: #fff !important;
-        }
+        }*/
 
     .SOP h5 {
         margin-bottom: 10px;
@@ -6265,9 +6687,9 @@
         dtend100.setFullYear(new Date().getFullYear() + 100);
         $('#txtDate').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: "+1d", endDate: dtend100, maxViewMode: 2, autoclose: true });
 
-        $("#icontxtDate").click(function () {
-            $("#txtDate").focus();
-        });
+        //$("#icontxtDate").click(function () {
+        //    $("#txtDate").focus();
+        //});
         $("#txtDateOfExpiration").datepicker();
 
 
@@ -6426,7 +6848,7 @@
             //getPropertyUnitListByFloor(@Model.FloorID);
             //getPropertyUnitDetails(@Model.PropertyId);
 
-            $("#hndUID").val(@Model.PropertyId);
+            $("#hndUID").val('@Model.PropertyId');
             $("#li2").addClass("active");
             $("#li3").addClass("active");
             $("#li4").addClass("active");
@@ -6628,3 +7050,43 @@
         });
     }
 </script>
+
+
+@*Sachin 20 May*@
+<link rel="stylesheet" href="~/Content/SMResponsive/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/Content/SMResponsive/css/owl.carousel.min.css">
+<link rel="stylesheet" href="~/Content/SMResponsive/css/magnific-popup.css">
+<link rel="stylesheet" href="~/Content/SMResponsive/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/Content/SMResponsive/css/themify-icons.css">
+<link rel="stylesheet" href="~/Content/SMResponsive/css/nice-select.css">
+<link rel="stylesheet" href="~/Content/SMResponsive/css/flaticon.css">
+
+<link rel="stylesheet" href="~/Content/SMResponsive/css/slick.css">
+<link rel="stylesheet" href="~/Content/SMResponsive/css/slicknav.css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="~/Content/SMResponsive/css/style.css">
+
+<script src=" https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"> </script>
+<!-- JS here -->
+<script src="~/Content/SMResponsive/js/vendor/modernizr-3.5.0.min.js"></script>
+<!-- <script src="js/vendor/jquery-1.12.4.min.js"></script> -->
+
+<script src="~/Content/SMResponsive/js/bootstrap.min.js"></script>
+<script src="~/Content/SMResponsive/js/owl.carousel.min.js"></script>
+<script src="~/Content/SMResponsive/js/isotope.pkgd.min.js"></script>
+<script src="~/Content/SMResponsive/js/ajax-form.js"></script>
+<script src="~/Content/SMResponsive/js/waypoints.min.js"></script>
+<script src="~/Content/SMResponsive/js/jquery.counterup.min.js"></script>
+<script src="~/Content/SMResponsive/js/imagesloaded.pkgd.min.js"></script>
+<script src="~/Content/SMResponsive/js/scrollIt.js"></script>
+<script src="~/Content/SMResponsive/js/jquery.scrollUp.min.js"></script>
+<script src="~/Content/SMResponsive/js/wow.min.js"></script>
+<script src="~/Content/SMResponsive/js/nice-select.min.js"></script>
+<script src="~/Content/SMResponsive/js/jquery.slicknav.min.js"></script>
+<script src="~/Content/SMResponsive/js/jquery.magnific-popup.min.js"></script>
+<script src="~/Content/SMResponsive/js/plugins.js"></script>
+<!-- <script src="~/Content/SMResponsive/js/gijgo.min.js"></script> -->
+<script src="~/Content/SMResponsive/js/slick.min.js"></script>
+
+
+@*Sachin 20 May*@

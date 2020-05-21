@@ -1662,6 +1662,7 @@ var goToStep = function (stepid, id, calldataupdate) {
         if (id == "15") {
 
             $("#subMenu").removeClass("hidden");
+            $(".gotosummary").removeClass('hidden');
             // SaveUpdateStepCoApplicant(15);
             tenantOnlineIDCoApplicant = $("#hdnOPId").val();
             getFillSummary(tenantOnlineIDCoApplicant);
@@ -2257,6 +2258,7 @@ var showCurrentStep = function (stepid, id) {
     if (stepid == "15") {
 
         $("#subMenu").removeClass("hidden");
+        $(".gotosummary").removeClass('hidden');
 
         $("#step2").addClass("hidden");
         $("#step1").addClass("hidden");
@@ -4842,8 +4844,8 @@ var getApplicantListsCoApplicant = function () {
                     htmlResp15 += "<td> $" + formatMoneyCoApplicant(elementValue.MonthlyPayment) + "</td>";
                     htmlResp15 += "</tr>";
                 }
-                $("#tblApplicant15>tbody").append(html15);
-                $("#tblApplicant15p>tbody").append(html15);
+                //$("#tblApplicant15>tbody").append(html15);
+                //$("#tblApplicant15p>tbody").append(html15);
 
                 var htmlResp15 = "<tr id='tr_" + elementValue.ApplicantID + "' data-value='" + elementValue.ApplicantID + "'>";
                 htmlResp15 += "<td> " + elementValue.FirstName + " " + elementValue.LastName + "</td>";
@@ -8642,7 +8644,7 @@ var saveEmployerHistoryCoApplicant = function () {
     });
 }
 
-var var getEmployerHistoryCoApplicant = function () {
+var getEmployerHistoryCoApplicant = function () {
     $("#divLoader").show();
     var TenantId = $("#hdnOPId").val();
     var model = { TenantId: TenantId };
@@ -9477,3 +9479,7 @@ function saveCoAppPayment() {
         }
     });
 }
+
+var goToSummaryPageCoapp = function () {
+    goToStep(15, 15, 0);
+};
