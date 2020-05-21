@@ -925,53 +925,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_Transaction">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Transaction">
-        <MappingFragment StoreEntitySet="tbl_Transaction">
-          <ScalarProperty Name="Authcode" ColumnName="Authcode" />
-          <ScalarProperty Name="TCardExpirationYear" ColumnName="TCardExpirationYear" />
-          <ScalarProperty Name="TCardExpirationMonth" ColumnName="TCardExpirationMonth" />
-          <ScalarProperty Name="TSecurityNumber" ColumnName="TSecurityNumber" />
-          <ScalarProperty Name="TRoutingNumber" ColumnName="TRoutingNumber" />
-          <ScalarProperty Name="TAccCardNumber" ColumnName="TAccCardNumber" />
-          <ScalarProperty Name="TAccCardName" ColumnName="TAccCardName" />
-          <ScalarProperty Name="TBankName" ColumnName="TBankName" />
-          <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
-          <ScalarProperty Name="Charge_Type" ColumnName="Charge_Type" />
-          <ScalarProperty Name="GL_Entries_Created" ColumnName="GL_Entries_Created" />
-          <ScalarProperty Name="GL_Trans_Reference_2" ColumnName="GL_Trans_Reference_2" />
-          <ScalarProperty Name="GL_Trans_Reference_1" ColumnName="GL_Trans_Reference_1" />
-          <ScalarProperty Name="GL_Trans_Description" ColumnName="GL_Trans_Description" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="Batch_Source" ColumnName="Batch_Source" />
-          <ScalarProperty Name="Batch" ColumnName="Batch" />
-          <ScalarProperty Name="Appl_of_Origin" ColumnName="Appl_of_Origin" />
-          <ScalarProperty Name="Cash_Credit_Account" ColumnName="Cash_Credit_Account" />
-          <ScalarProperty Name="Cash_Debit_Account" ColumnName="Cash_Debit_Account" />
-          <ScalarProperty Name="Accrual_Credit_Acct" ColumnName="Accrual_Credit_Acct" />
-          <ScalarProperty Name="Accrual_Debit_Acct" ColumnName="Accrual_Debit_Acct" />
-          <ScalarProperty Name="Journal" ColumnName="Journal" />
-          <ScalarProperty Name="Accounting_Date" ColumnName="Accounting_Date" />
-          <ScalarProperty Name="Miscellaneous_Amount" ColumnName="Miscellaneous_Amount" />
-          <ScalarProperty Name="Credit_Amount" ColumnName="Credit_Amount" />
-          <ScalarProperty Name="Charge_Amount" ColumnName="Charge_Amount" />
-          <ScalarProperty Name="Reference" ColumnName="Reference" />
-          <ScalarProperty Name="Payment_ID" ColumnName="Payment_ID" />
-          <ScalarProperty Name="Summary_Charge_Type" ColumnName="Summary_Charge_Type" />
-          <ScalarProperty Name="Charge_Date" ColumnName="Charge_Date" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="Transaction_Type" ColumnName="Transaction_Type" />
-          <ScalarProperty Name="Tax_Sequence" ColumnName="Tax_Sequence" />
-          <ScalarProperty Name="Run" ColumnName="Run" />
-          <ScalarProperty Name="Transaction_Date" ColumnName="Transaction_Date" />
-          <ScalarProperty Name="Revision_Num" ColumnName="Revision_Num" />
-          <ScalarProperty Name="LeaseID" ColumnName="LeaseID" />
-          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-          <ScalarProperty Name="TransID" ColumnName="TransID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_UnitLeasePrice">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_UnitLeasePrice">
         <MappingFragment StoreEntitySet="tbl_UnitLeasePrice">
@@ -1714,6 +1667,28 @@
           <ScalarProperty Name="UnitNo" ColumnName="UnitNo" />
           <ScalarProperty Name="PID" ColumnName="PID" />
           <ScalarProperty Name="UID" ColumnName="UID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Transaction">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Transaction">
+        <MappingFragment StoreEntitySet="tbl_Transaction">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Authcode" ColumnName="Authcode" />
+          <ScalarProperty Name="Charge_Type" ColumnName="Charge_Type" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Batch" ColumnName="Batch" />
+          <ScalarProperty Name="Accounting_Date" ColumnName="Accounting_Date" />
+          <ScalarProperty Name="Miscellaneous_Amount" ColumnName="Miscellaneous_Amount" />
+          <ScalarProperty Name="Credit_Amount" ColumnName="Credit_Amount" />
+          <ScalarProperty Name="Charge_Amount" ColumnName="Charge_Amount" />
+          <ScalarProperty Name="Charge_Date" ColumnName="Charge_Date" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PAID" ColumnName="PAID" />
+          <ScalarProperty Name="Transaction_Date" ColumnName="Transaction_Date" />
+          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+          <ScalarProperty Name="TransID" ColumnName="TransID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

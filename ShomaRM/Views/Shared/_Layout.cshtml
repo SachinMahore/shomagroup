@@ -82,9 +82,11 @@
                     <div class="col-sm-3">
                         <h3 class="username"><i class="fa fa-map-marker " style="color: #4d738a !important;"></i> Location</h3>
                         <p>
-                            <a id="btnmapcontact" href="javascript:void(0);" style="font-weight:300;"><i class="pe-7s-map-marker strong"> </i> 9400 NW 41st Street,<br />Doral, FL 33178</a>
-                            <br>
-                            <strong>USA</strong>
+                            <a id="btnmapcontact" href="~/AddressMap" target="_blank" style="font-weight:300;">
+                                <i class="pe-7s-map-marker strong"> </i> 9400 NW 41st Street,<br />Doral, FL 33178 <br>
+                                <strong>USA</strong>
+                            </a>
+                            
                         </p>
                     </div>
                     <!-- /.col-sm-4 -->
@@ -903,9 +905,9 @@
         $("#divLoader").show();
     });
     $(document).ready(function () {
-        $("#btnmapfloor,#btnmaplayout,#btnmapIndex,#btnmapcontact").on('click', function (e) {
-            $("#modalMaplayout").css("display", "block");
-        });
+        //$("#btnmapfloor,#btnmaplayout,#btnmapIndex,#btnmapcontact").on('click', function (e) {
+        //    $("#modalMaplayout").css("display", "block");
+        //});
         $('.owl-carousel').trigger('stop.owl.autoplay');
 
         $('#MtDate').click(function () {

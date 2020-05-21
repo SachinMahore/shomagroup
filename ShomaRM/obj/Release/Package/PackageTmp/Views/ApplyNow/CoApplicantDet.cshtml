@@ -1162,6 +1162,25 @@
                                                     Once our office has received your lease and payment, we will send you a link with your own move in procedures.
                                                     Easy Right?
                                                 </p>
+
+                                                <div class="col-sm-12">
+                                                    <table class="table" cellspacing="0" style="width:100%">
+                                                        <tr class="text-justify">
+                                                            <td><span class="star" style="font:bold">Rental qualifications</span></td>
+                                                            <td><button>Sign</button></td>
+                                                            <td><a href="~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf" target="_blank">Download</a></td>
+                                                            <td><a data-toggle="modal" data-target="#modalRentalQualificationPolicy" href="javascript:void(0);" id="printRentalQualificationPolicy">Print</a></td>
+                                                        </tr>
+                                                        <tr class="text-justify">
+                                                            <td><span class="star" style="font:bold">Rules and Policies</span></td>
+                                                            <td><button>Sign</button></td>
+                                                            <td><a href="~/Content/assets/img/Policy/Rules&Policies_fragmented.pdf" target="_blank">Download</a></td>
+                                                            <td><a data-toggle="modal" data-target="#modalRulesAndPolicy" href="javascript:void(0);" id="print">Print</a></td>
+                                                        </tr>
+                                                        <tr class="text-center"><td></td><td></td><td></td><td></td></tr>
+
+                                                    </table>
+                                                </div>
                                                 <div class="col-sm-12">
                                                     <div class="col-sm-1 form-group">
                                                         <input class="form-control" type="checkbox" id="chkAgreeTermsPolicy" style="width: 60px !important;height: 20px !important;">
@@ -1257,7 +1276,7 @@
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnext" onclick="goToStep(8,8,0)"> Continue</button>
+                                    <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageCoapp()">Go to summary</button> <button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnext" onclick="goToStep(8,8,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1447,7 +1466,7 @@
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(7,7,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(9,9,0)"> Continue</button>
+                                    <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageCoapp()">Go to summary</button> <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(9,9,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1769,7 +1788,7 @@
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(8,8,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(10,10,0)"> Continue</button>
+                                    <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageCoapp()">Go to summary</button> <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(10,10,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2262,7 +2281,7 @@
                                         <button type="submit" class="btn btn-primary" onclick="goToStep(10,10,0)"> Back</button>
                                     </div>
                                     <div class="pull-right text-center">
-                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(13,13,0)"> Continue</button>
+                                        <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageCoapp()">Go to summary</button> <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(13,13,0)"> Continue</button>
                                     </div>
                                 </div>
                             </div>
@@ -2488,7 +2507,7 @@
                                     <button type="submit" class="btn btn-primary" onclick="goToStep(13,13,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(15,15,0)"> Continue</button>
+                                    <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageCoapp()">Go to summary</button> <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(15,15,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -3133,34 +3152,34 @@
 
                                             </div>
                                             @*<div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <span id="">Landlord Name : </span>
-                                </div>
-                                <div class="col-sm-8">
-                                    <span id="sdd">211212</span>
-                                </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Name : </span>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <span id="">Landlord Phone : </span>
-                                </div>
-                                <div class="col-sm-8">
-                                    <span id="sdd">211212</span>
-                                </div>
-
-
-                            </div>
-                            <div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <span id="">Landlord Email : </span>
-                                </div>
-                                <div class="col-sm-2">
-                                    <span id="sdd">211212</span>
-                                </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Phone : </span>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
 
-                            </div>*@
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Email : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
+
+
+                                                </div>*@
                                         </div>
                                     </div>
 
@@ -3246,41 +3265,41 @@
                                                 </div>
                                             </div>
                                             @*<div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <span id="">Landlord Name : </span>
-                                </div>
-                                <div class="col-sm-2">
-                                    <span id="sdd">211212</span>
-                                </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Name : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                                <div class="col-sm-6">
-                                    <span id="">&nbsp;</span>
-                                </div>
-                            </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                             @*<div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <span id="">Landlord Phone : </span>
-                                </div>
-                                <div class="col-sm-2">
-                                    <span id="sdd">211212</span>
-                                </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Phone : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                                <div class="col-sm-6">
-                                    <span id="">&nbsp;</span>
-                                </div>
-                            </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                             @*<div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <span id="">Landlord Email : </span>
-                                </div>
-                                <div class="col-sm-2">
-                                    <span id="sdd">211212</span>
-                                </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Landlord Email : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                                <div class="col-sm-6">
-                                    <span id="">&nbsp;</span>
-                                </div>
-                            </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                         </div>
                                     </div>
 
@@ -3374,17 +3393,17 @@
                                                 </div>
                                             </div>
                                             @*<div class="col-sm-12">
-                                <div class="col-sm-4">
-                                    <span id="">Gross Monthly Additional Income Source : </span>
-                                </div>
-                                <div class="col-sm-2">
-                                    <span id="sdd">211212</span>
-                                </div>
+                                                    <div class="col-sm-4">
+                                                        <span id="">Gross Monthly Additional Income Source : </span>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <span id="sdd">211212</span>
+                                                    </div>
 
-                                <div class="col-sm-6">
-                                    <span id="">&nbsp;</span>
-                                </div>
-                            </div>*@
+                                                    <div class="col-sm-6">
+                                                        <span id="">&nbsp;</span>
+                                                    </div>
+                                                </div>*@
                                             <div class="col-sm-12">
                                                 <div class="col-sm-4">
                                                     <span id="">Employer Phone : </span>
@@ -3956,7 +3975,7 @@
                                         <input type="checkbox" id="chkTermsAndCondition">
                                         <span class="chektext">
                                             I agree to the
-                                            <span class="span1"><a id="ShowTermsAndCondition" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <button type="submit" class="btn btn-primary" id="btnpaynow" onclick="savePayment()" disabled>Pay Now</button>
+                                            <span class="span1"><a id="ShowTermsAndCondition" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <button type="submit" class="btn btn-primary" id="btnpaynow" onclick="savePayment()">Pay Now</button>
                                         </span>
                                     </div>
                                 </div>
@@ -4361,10 +4380,9 @@
             </div>
         </div>
     </div>
-
     <div class="modal " id="popApplicant" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-        <div class="modal-dialog" style="width:1100px !important; height:500px;">
-            <div class="modal-content" style="width: 100% !important; height:610px;">
+        <div class="modal-dialog" style="width:1100px !important; height:700px;">
+            <div class="modal-content" style="width: 100% !important; height:557px!important;">
                 <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
                 <div class="modal-header" style="width: 100%; padding:0px;">
                     <h5 class="modal-title">Add Applicant</h5>
@@ -4380,7 +4398,7 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label id="lblApplicantMiddleName"> Middle Name</label>
+                                <label id="lbl_txtApplicantMiddleName" class=""> Middle Name</label>
                                 <input id="txtApplicantMiddleName" type="text" class="form-control" maxlength="100" placeholder="Middle Name" value="">
                             </div>
                         </div>
@@ -4547,33 +4565,12 @@
                             </span>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer-custom">
-                    <div class="col-sm-12 text-center">
-                        <button type="submit" class="btn btn-primary" onclick="saveupdateApplicantCoApplicant()">Save</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @*Sachin M 15 May*@
-    <div class="modal " id="popCCPay" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-        <div class="modal-dialog" style="width:1100px !important; height:700px;">
-            <div class="modal-content" style="width: 100% !important; height:557px!important;">
-                <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
-                <div class="modal-header" style="width: 100%; padding:0px;">
-                    <h5 class="modal-title"><span id="lblpopcctitle">Credit Check Fees</span>  $<span id="sppayFees"></span></h5>
-                </div>
-                <div class="modal-body">
-                    @*Sachin M 14 May*@
-
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 hidden" id="divCreditCheckPayment">
                         <input type="hidden" id="hndTransMethod1" value="2" />
                         <input type="hidden" id="hndFromAcc" value="4" />
+                        <span class="hidden" id="sppayFees"></span>
                         <div class="col-sm-12">
                             <div class="dot-hr"></div>
-                            <br />
                         </div>
                         <div class="col-sm-3">
                             <input type="button" class='btn  btn-primary' id="chkBank1" onclick="clearBank1()" value="Bank Account">
@@ -4583,12 +4580,10 @@
                         </div>
 
                         <div class="col-sm-12">
-                            <br />
                             <div class="dot-hr"></div>
                         </div>
                         <div class="col-sm-12">
                             <label id="lblPaymentDet1">Enter Credit Card Details.</label>
-
                         </div>
                         <div class="col-sm-12 hidden" id="divBank1">
                             <div class="col-sm-3">
@@ -4651,25 +4646,129 @@
                             </div>
 
                         </div>
-                        <div class="col-sm-12" style="margin-bottom:20px">
+                        <div class="col-sm-12">
                             <input type="checkbox" id="chkTermsAndCondition1">
                             <span class="chektext">
                                 I agree to the
                                 <span class="span1"><a id="ShowTermsAndCondition1" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                             </span>
                         </div>
-                        <div class="col-sm-2">
+                    </div>
+                </div>
+                <div class="modal-footer-custom">
+                    <div class="col-sm-12 text-center">
+                        <button type="submit" class="btn btn-primary" id="btnsaveappl" onclick="saveupdateApplicantCoApplicant()">Save</button>
+                        <button type="submit" class="btn btn-primary hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*Sachin M 15 May*@
+    <div class="modal " id="popCCPay" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
+        <div class="modal-dialog" style="width:1100px !important; height:700px;">
+            <div class="modal-content" style="width: 100% !important; height:375px!important;">
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+                <div class="modal-header" style="width: 100%; padding:0px;">
+                    <h5 class="modal-title"><span id="lblpopcctitle">Credit Check Fees</span>  $<span id="sppayFees2"></span></h5>
+                </div>
+                <div class="modal-body">
+                    @*Sachin M 14 May*@
 
-                            <br />
+                    <div class="col-sm-12">
+                        <input type="hidden" id="hndTransMethod2" value="2" />
+                        <input type="hidden" id="hndFromAcc" value="4" />
+                        <div class="col-sm-12">
+                            <div class="dot-hr"></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="button" class='btn  btn-primary' id="chkBank2" onclick="clearBank2()" value="Bank Account">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="button" class='btn btn-primary active' id="chkACH2" onclick="clearCard2()" value="Credit Card">
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="dot-hr"></div>
+                        </div>
+                        <div class="col-sm-12">
+                            <label id="lblPaymentDet2">Enter Credit Card Details.</label>
+                        </div>
+                        <div class="col-sm-12 hidden" id="divBank2">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label class="star">Bank Name</label>
+                                    <input id="txtBankName2" type="text" class="form-control" placeholder="Bank Name" value="">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label id="lblAccCardname2" class="star">Account Name</label>
+                                    <input id="txtAccountName2" type="text" class="form-control" placeholder="Account Name" value="">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label id="lblAccCardnum2" class="star">Account Number</label>
+                                    <input id="txtAccountNumber2" type="text" class="form-control" placeholder="Account Number" onkeypress="return isOnlyNumber(event)" maxlength="12" value="">
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Routing Number</label>
+                                    <input id="txtRoutingNumber2" type="text" class="form-control" placeholder="Routing Number" maxlength="9" onkeypress="return isNumber(event)" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" id="divCard1">
+                            <div class="form-group col-sm-3">
+                                <label for="name">Name on Card</label>
+                                <input type="text" class="form-control" id="txtNameonCard2" placeholder="Name on Card" value="">
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="cardnumber" class="star">Card Number</label>
+                                <input type="text" class="form-control" id="txtCardNumber2" placeholder="Card Number" onkeypress="return isOnlyNumber(event)" maxlength="16" value="">
+                            </div>
+                            <div class="form-group col-sm-2">
+                                <label for="cardmonth">Card Month</label>
+                                <select id="ddlcardmonth2" class="form-control form-control-small">
+                                    @for (int i = 1; i <= 12; i++)
+                                    {
+                                        <option value="@(i.ToString("00"))">@i</option>
+
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-2">
+                                <label for="cardyear">Card Year</label>
+                                <select id="ddlcardyear2" class="form-control form-control-small">
+                                    @for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(5).Year; i++)
+                                    {
+                                        <option value="@(i.ToString().Substring(2,2))">@i</option>
+
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-2">
+                                <label for="txtCcvNumber2" class="star">CVV Number</label>
+                                <input type="password" class="form-control" id="txtCCVNumber2" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
+                            </div>
 
                         </div>
-                        <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center"><b id="ResponseMsg1"></b></p></div>
+                        <div class="col-sm-12" style="margin-bottom:20px">
+                            <input type="checkbox" id="chkTermsAndCondition2">
+                            <span class="chektext">
+                                I agree to the
+                                <span class="span1"><a id="ShowTermsAndCondition2" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            </span>
+                        </div>
+                        <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center"><b id="ResponseMsg2"></b></p></div>
                     </div>
 
                 </div>
                 <div class="modal-footer-custom">
                     <div class="col-sm-12 text-center">
-                        <button type="submit" class="btn btn-primary" onclick="saveCoAppPayment()">Pay & Save</button>
+                        <button type="submit" class="btn btn-primary" onclick="saveCoAppPaymentPopup()">Pay</button>
                     </div>
                 </div>
             </div>
@@ -5662,6 +5761,33 @@
             </div>
         </div>
     </div>
+    <div class="modal " id="modalRentalQualificationPolicy" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
+        <div class="modal-dialog" style="width:1100px">
+            <div class="modal-content" style="width: 100% !important;">
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+                <div class="modal-body text-center">
+                    <div><iframe id="iframeRental" src="~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                </div>
+                <div class="modal-footer-custom">
+                    <button id="policyRentalPrint" class="btn btn-primary" onclick="printiframe('iframeRental')"> Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal " id="modalRulesAndPolicy" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
+        <div class="modal-dialog" style="width:1100px">
+            <div class="modal-content" style="width: 100% !important;">
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+                <div class="modal-body text-center">
+                    <div><iframe id="iframeRules" src="~/Content/assets/img/Policy/Rules_Policies_fragmented.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                </div>
+                <div class="modal-footer-custom">
+                    <button id="policyRulesPrint" class="btn btn-primary" onclick="printiframe('iframeRules')"> Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <style>
         /* The Modal (background) */
         .modal {
@@ -6294,5 +6420,9 @@
                                       </html>`
         );
         popupWin.document.close();
-    }
+        }
+        var printiframe = function (divName) {
+            console.log(divName);
+            $("#" + divName).get(0).contentWindow.print();
+        };
     </script>

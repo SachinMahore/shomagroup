@@ -62,7 +62,6 @@
     <EntitySet Name="tbl_TenantParking" EntityType="ShomaRMEntitiesModel.tbl_TenantParking" />
     <EntitySet Name="tbl_TenantPetPlace" EntityType="ShomaRMEntitiesModel.tbl_TenantPetPlace" />
     <EntitySet Name="tbl_TenantStorage" EntityType="ShomaRMEntitiesModel.tbl_TenantStorage" />
-    <EntitySet Name="tbl_Transaction" EntityType="ShomaRMEntitiesModel.tbl_Transaction" />
     <EntitySet Name="tbl_UnitLeasePrice" EntityType="ShomaRMEntitiesModel.tbl_UnitLeasePrice" />
     <EntitySet Name="tbl_Utility" EntityType="ShomaRMEntitiesModel.tbl_Utility" />
     <EntitySet Name="tbl_UtilityBilling" EntityType="ShomaRMEntitiesModel.tbl_UtilityBilling" />
@@ -396,6 +395,7 @@
       <End Role="tbl_Properties" EntitySet="tbl_Properties" />
       <End Role="tbl_PropertyUnits" EntitySet="tbl_PropertyUnits" />
     </AssociationSet>
+    <EntitySet Name="tbl_Transaction" EntityType="ShomaRMEntitiesModel.tbl_Transaction" />
   </EntityContainer>
   <EntityType Name="tbl_AcutraqScrenning">
     <Key>
@@ -1333,52 +1333,6 @@
     <Property Name="Charges" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="CreatedDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantStorage_tbl_ApplyNow" FromRole="tbl_TenantStorage" ToRole="tbl_ApplyNow" />
-  </EntityType>
-  <EntityType Name="tbl_Transaction">
-    <Key>
-      <PropertyRef Name="TransID" />
-    </Key>
-    <Property Name="TransID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TenantID" Type="Int64" Nullable="false" />
-    <Property Name="LeaseID" Type="Int64" Nullable="false" />
-    <Property Name="Revision_Num" Type="Int32" Nullable="false" />
-    <Property Name="Transaction_Date" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Run" Type="Int32" Nullable="false" />
-    <Property Name="Tax_Sequence" Type="Int32" />
-    <Property Name="Transaction_Type" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="Charge_Date" Type="DateTime" Precision="3" />
-    <Property Name="Summary_Charge_Type" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="Payment_ID" Type="Int32" />
-    <Property Name="Reference" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="Charge_Amount" Type="Decimal" Precision="19" Scale="4" />
-    <Property Name="Credit_Amount" Type="Decimal" Precision="19" Scale="4" />
-    <Property Name="Miscellaneous_Amount" Type="Decimal" Precision="19" Scale="4" />
-    <Property Name="Accounting_Date" Type="DateTime" Precision="3" />
-    <Property Name="Journal" Type="Int32" />
-    <Property Name="Accrual_Debit_Acct" Type="String" MaxLength="29" FixedLength="false" Unicode="false" />
-    <Property Name="Accrual_Credit_Acct" Type="String" MaxLength="29" FixedLength="false" Unicode="false" />
-    <Property Name="Cash_Debit_Account" Type="String" MaxLength="29" FixedLength="false" Unicode="false" />
-    <Property Name="Cash_Credit_Account" Type="String" MaxLength="29" FixedLength="false" Unicode="false" />
-    <Property Name="Appl_of_Origin" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-    <Property Name="Batch" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="Batch_Source" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-    <Property Name="GL_Trans_Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-    <Property Name="GL_Trans_Reference_1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="GL_Trans_Reference_2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="GL_Entries_Created" Type="Int32" />
-    <Property Name="Charge_Type" Type="Int32" />
-    <Property Name="ProspectID" Type="Int64" />
-    <Property Name="TBankName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="TAccCardName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-    <Property Name="TAccCardNumber" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
-    <Property Name="TRoutingNumber" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
-    <Property Name="TSecurityNumber" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
-    <Property Name="TCardExpirationMonth" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
-    <Property Name="TCardExpirationYear" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
-    <Property Name="Authcode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="tbl_UnitLeasePrice">
     <Key>
@@ -3104,4 +3058,25 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="tbl_Transaction">
+    <Key>
+      <PropertyRef Name="TransID" />
+    </Key>
+    <Property Name="TransID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenantID" Type="Int64" Nullable="false" />
+    <Property Name="Transaction_Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PAID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Charge_Date" Type="DateTime" Precision="3" />
+    <Property Name="Charge_Amount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Credit_Amount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Miscellaneous_Amount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Accounting_Date" Type="DateTime" Precision="3" />
+    <Property Name="Batch" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="Charge_Type" Type="Int32" />
+    <Property Name="Authcode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="Int64" />
+  </EntityType>
 </Schema>

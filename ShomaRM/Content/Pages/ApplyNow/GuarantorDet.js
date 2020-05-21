@@ -4375,7 +4375,6 @@ var getApplicantListsGuarantor = function () {
                     else {
                         html += "<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;";
                     }
-                    html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                 }
                 else {
                     html += "<div class='col-sm-4 box-two proerty-item'>" +
@@ -8493,27 +8492,115 @@ var clearCard2 = function () {
     $("#lblPaymentDet2").text("Enter Credit Card Details.");
 }
 function saveCoAppPayment() {
-    if ($("#chkTermsAndCondition1").is(':unchecked')) {
-        $("#divLoader").hide();
-        $.alert({
-            title: "",
-            content: "Please accept Terms & Condition </br>",
-            type: 'red'
-        });
-        return;
-    }
+
     $("#divLoader").show();
+
+
+    var checkEmail = 0;
     var msg = "";
-    if ($("#hndTransMethod1").val() == "0") {
-        $("#divLoader").hide();
-        $.alert({
-            title: "",
-            content: "Please Select Payment Method</br>",
-            type: 'red'
-        });
-        return;
+
+    var fname = $("#txtApplicantFirstName").val();
+    var mname = $("#txtApplicantMiddleName").val();
+    var lname = $("#txtApplicantLastName").val();
+    var aphone = unformatText($("#txtApplicantPhone").val());
+    var aemail = $("#txtApplicantEmail").val();
+    var agender = $("#ddlApplicantGender").val();
+    var type = $("#ddlApplicantType").text();
+    var aotherGender = $("#txtApplicantOtherGender").val();
+    var applicantSSNNumber = $("#txtApplicantSSNNumber").attr("data-value");
+    var applicantIDNumber = "";
+    var applicantIDType = 0;
+    var applicantStateDoc = 0;
+
+    var addressLine1 = $("#txtAddressLine1").val();
+    var addressLine2 = $("#txtAddressLine2").val();
+    var applicantState = $("#ddlApplicantState").val();
+    var applicantCountry = $("#txtApplicantCountry").val();
+    var applicantCity = $("#txtApplicantCity").val();
+    var applicantApplicantZip2 = $("#txtApplicantZip2").val();
+
+   if (type == "Co-Applicant") {
+        checkEmail = 1;
+        var dob = $("#txtADateOfBirth").val();
+    } else if (type == "Minor") {
+        dob = $("#txtMDateOfBirth").val();
     }
-    
+    else if (type == "Guarantor") {
+        dob = $("#txtGDateOfBirth").val();
+    }
+    else {
+        checkEmail = 1;
+        dob = $("#txtHDateOfBirth").val();
+    }
+    var relationship = $("#ddlARelationship").val();
+
+    if (!fname) {
+        msg += "Enter Applicant First Name</br>";
+    }
+    if (!lname) {
+        msg += "Enter Applicant Last Name</br>";
+    }
+    if (relationship == '0') {
+        msg += "Select Relationship</br>";
+    }
+    if (aphone) {
+        if (aphone.length < 10) {
+            msg += "Please enter 10 digit phone number </br>";
+        }
+    }
+    if (checkEmail == 1) {
+        if (!aemail) {
+            msg += "Enter Email</br>";
+        }
+        else {
+            if (!validateEmail(aemail)) {
+                msg += "Please Fill Valid Email </br>";
+            }
+        }
+    }
+
+    if (!dob) {
+        msg += "Enter Applicant DateOfBirth</br>";
+    }
+
+    if (!agender || agender == "0") {
+        msg += "Please Select The Gender </br>";
+    }
+    else if (agender == "3") {
+        if (!aotherGender) {
+            msg += "Please Fill The Other Gender </br>";
+        }
+    }
+    if (type == 'Guarantor') {
+        $('#txtDateOfBirth').val(dob);
+        $('#ddlGender').val(agender);
+        if (agender == '3') {
+            $('#txtOtherGender').val(aotherGender);
+        }
+        else {
+            $('#txtOtherGender').val('');
+        }
+        if (!addressLine1) {
+            msg += "Enter Address Line 1</br>";
+        } if (!applicantState) {
+            msg += "Enter State </br>";
+        } if (applicantCountry <= 0) {
+            msg += "Select Country</br>";
+        } if (applicantCity <= 0) {
+            msg += "Enter the City</br>";
+        } if (applicantApplicantZip2 <= 0) {
+            msg += "Select Zip</br>";
+        }
+    }
+
+    if ($("#hndTransMethod1").val() == "0") {
+        msg += "Please Select Payment Method</br>";
+    }
+
+    if ($("#chkTermsAndCondition1").is(':unchecked')) {
+        msg += "Please accept Terms & Condition </br>";
+    }
+
 
     if ($("#hndTransMethod1").val() == "2") {
         var paymentMethod = 2;
@@ -8524,7 +8611,7 @@ function saveCoAppPayment() {
         var cardYear = $("#ddlcardyear1").val();
         var ccvNumber = $("#txtCCVNumber1").val();
         var prospectID = $("#hdnOPId").val();
-        var amounttoPay = $("#sppayFees").text(); 
+        var amounttoPay = $("#sppayFees").text();
         var description = $("#lblpopcctitle").text();
 
         var routingNumber = $("#txtRoutingNumber1").val();
@@ -8552,16 +8639,6 @@ function saveCoAppPayment() {
         if (GivenDate <= CurrentDate) {
             msg += "Your Credit Card Expired..</br>";
         }
-
-        if (msg != "") {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: msg,
-                type: 'red'
-            });
-            return;
-        }
     } else {
         var paymentMethod = 1;
         var nameonCard = $("#txtAccountName1").val();
@@ -8571,7 +8648,7 @@ function saveCoAppPayment() {
         var ccvNumber = 0;
         var routingNumber = $("#txtRoutingNumber1").val();
         var bankName = $("#txtBankName1").val();
-        var amounttoPay = $("#sppayFees").text(); 
+        var amounttoPay = $("#sppayFees").text();
         var description = $("#lblpopcctitle").text();
         var prospectID = $("#hdnOPId").val();
         var propertyId = $("#hndUID").val();
@@ -8581,16 +8658,15 @@ function saveCoAppPayment() {
         if (cardNumber == "") {
             msg += "Please Enter Account Number</br>";
         }
-
-        if (msg != "") {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: msg,
-                type: 'red'
-            });
-            return;
-        }
+    }
+    if (msg != "") {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'red'
+        });
+        return;
     }
     var model = {
         PID: propertyId,
@@ -8631,10 +8707,14 @@ function saveCoAppPayment() {
                                 if (response.Msg == "1") {
                                     $("#ResponseMsg1").html("Payment successfull");
                                     saveupdateApplicant();
-                                    window.location = "/ApplyNow/GuarantorDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val();
+                                    window.location = "/ApplyNow/GuarantorDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val(); 
 
                                 } else {
-                                    $("#ResponseMsg1").html("Payment failed");
+                                    $.alert({
+                                        title: "",
+                                        content: "Payment failed",
+                                        type: 'red'
+                                    });
                                 }
                             }
                         }
@@ -8649,7 +8729,7 @@ function saveCoAppPayment() {
             }
         }
     });
-}
+};
 function saveCoAppPaymentPopup() {
     if ($("#chkTermsAndCondition2").is(':unchecked')) {
         $("#divLoader").hide();
