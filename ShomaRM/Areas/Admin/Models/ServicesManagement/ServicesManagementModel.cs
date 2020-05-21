@@ -83,11 +83,13 @@ namespace ShomaRM.Areas.Admin.Models
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
+        string ServerURL = WebConfigurationManager.AppSettings["ServerURL"];
 
         public int BuildPaganationUserList(ServicesSearchModel model)
         {
             int NOP = 0;
             ShomaRMEntities db = new ShomaRMEntities();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             try
             {
                 DataTable dtTable = new DataTable();
@@ -120,7 +122,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                     DbParameter param5 = cmd.CreateParameter();
                     param5.ParameterName = "UserID";
-                    param5.Value = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
+                    param5.Value = userid;
                     cmd.Parameters.Add(param5);
 
                     DbParameter param6 = cmd.CreateParameter();
@@ -169,6 +171,7 @@ namespace ShomaRM.Areas.Admin.Models
         public List<ServicesSearchModel> FillServicesSearchGrid(ServicesSearchModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             List<ServicesSearchModel> lstUser = new List<ServicesSearchModel>();
             try
             {
@@ -201,7 +204,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                     DbParameter param5 = cmd.CreateParameter();
                     param5.ParameterName = "UserID";
-                    param5.Value = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
+                    param5.Value = userid;
                     cmd.Parameters.Add(param5);
 
                     DbParameter param6 = cmd.CreateParameter();
@@ -363,6 +366,7 @@ namespace ShomaRM.Areas.Admin.Models
             var UpdateStatusService = db.tbl_ServiceRequest.Where(co => co.ServiceID == model.ServiceID).FirstOrDefault();
             string message = "";
             string phonenumber = "";
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (UpdateStatusService != null)
             {
 
@@ -380,7 +384,7 @@ namespace ShomaRM.Areas.Admin.Models
                 UpdateStatusService.OwnerSignature = model.OwnerSignature;
                 UpdateStatusService.TempOwnerSignature = model.TempOwnerSignature;
                 UpdateStatusService.WarrantyStatus = model.WarrantyStatus;
-                UpdateStatusService.ApprovedBy = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
+                UpdateStatusService.ApprovedBy = userid;
                 db.SaveChanges();
                 msg = "Service Request Assign Successfully";
 
@@ -388,10 +392,10 @@ namespace ShomaRM.Areas.Admin.Models
 
 
                 string reportHTML = "";
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
 
-                //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
                 reportHTML = reportHTML.Replace("[%TenantName%]", model.TenantName);
                 reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We hereby assign your service of " + model.ProblemCategorystring + " (facility) on " + model.PermissionComeDate.Value.ToString("MM/dd/yyyy") + " (date) at " + model.PermissionComeTime + " to " + userdetail.FirstName + " " + userdetail.LastName + "</p>");
                 reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
@@ -403,11 +407,13 @@ namespace ShomaRM.Areas.Admin.Models
                 message = "Your service of " + model.ProblemCategorystring + " (facility) on " + model.PermissionComeDate.Value.ToString("MM/dd/yyyy") + " (date) at " + model.PermissionComeTime + " to " + userdetail.FirstName + " " + userdetail.LastName + ". Please check the email for detail.";
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
 
                 db.Dispose();
-
             }
             return msg;
         }
@@ -580,13 +586,14 @@ namespace ShomaRM.Areas.Admin.Models
             public string SendMessage { get; private set; }
             public Nullable<long> TenantID { get; set; }
             string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
+            string sendMessage = WebConfigurationManager.AppSettings["SendMessage"];
             public  string TenantName { get; set; }
 
             public string SaveUpdateEstimate(EstimateModel model)
             {
                 string msg = "";
                 ShomaRMEntities db = new ShomaRMEntities();
-
+                int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
                 if (model.EID == 0)
                 {
                     var saveEstimate = new tbl_Estimate()
@@ -598,7 +605,7 @@ namespace ShomaRM.Areas.Admin.Models
                         Description = model.Description,
                         Status = model.Status,
                         CreatedDate = DateTime.Now,
-                        CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID
+                        CreatedBy = userid
                     };
                     db.tbl_Estimate.Add(saveEstimate);
                     db.SaveChanges();
@@ -606,7 +613,7 @@ namespace ShomaRM.Areas.Admin.Models
                     var GetServiceData = db.tbl_ServiceRequest.Where(p => p.ServiceID == model.ServiceID).FirstOrDefault();
                     var GetTenantData = db.tbl_TenantInfo.Where(p => p.TenantID == GetServiceData.TenantID).FirstOrDefault();
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Template/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
                     string message = "";
                     string phonenumber = GetTenantData.Mobile;
@@ -616,6 +623,7 @@ namespace ShomaRM.Areas.Admin.Models
                     accserviceid = new EncryptDecrypt().EncryptText(model.EID.ToString() + ",1");
                     denserviceid = new EncryptDecrypt().EncryptText(model.EID.ToString() + ",2");
 
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Estimate of Repair");
                     reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
 
@@ -631,7 +639,10 @@ namespace ShomaRM.Areas.Admin.Models
                     new EmailSendModel().SendEmail(GetTenantData.Email, "Estimate of Repair", body);
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                     msg = "Estimate Saved Successfully";
 
@@ -652,7 +663,7 @@ namespace ShomaRM.Areas.Admin.Models
                     var GetServiceData = db.tbl_ServiceRequest.Where(p => p.ServiceID == model.ServiceID).FirstOrDefault();
                     var GetTenantData = db.tbl_TenantInfo.Where(p => p.TenantID == GetServiceData.TenantID).FirstOrDefault();
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Template/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
                     string message = "";
                     string phonenumber = GetTenantData.Mobile;
@@ -663,6 +674,8 @@ namespace ShomaRM.Areas.Admin.Models
                     {
                         accserviceid = new EncryptDecrypt().EncryptText(model.EID.ToString() + ",1"); 
                         denserviceid = new EncryptDecrypt().EncryptText(model.EID.ToString() + ",2");
+
+                        reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                         reportHTML = reportHTML.Replace("[%EmailHeader%]", "Estimate of Repair");
                         reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
 
@@ -676,7 +689,10 @@ namespace ShomaRM.Areas.Admin.Models
                         new EmailSendModel().SendEmail(GetTenantData.Email, "Estimate of Repair", body);
                         if (SendMessage == "yes")
                         {
-                            new TwilioService().SMS(phonenumber, message);
+                            if (!string.IsNullOrWhiteSpace(phonenumber))
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
                         }
                         msg = "Estimate Updated Successfully";
                     }
@@ -697,7 +713,10 @@ namespace ShomaRM.Areas.Admin.Models
                         new EmailSendModel().SendEmail(GetTenantData.Email, "Invoice of Repair", body);
                         if (SendMessage == "yes")
                         {
-                            new TwilioService().SMS(phonenumber, message);
+                            if (!string.IsNullOrWhiteSpace(phonenumber))
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
                         }
                         msg = "Service Invoice Generated Successfully";
 

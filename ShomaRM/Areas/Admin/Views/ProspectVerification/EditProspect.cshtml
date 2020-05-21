@@ -15,10 +15,14 @@
 <input type="hidden" id="hndPOE" value="0" />
 <input type="hidden" id="hndOriginalPOE" value="0" />
 <input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
+<input type="hidden" id="hndPriAppFullName" value="" />
+<input type="hidden" id="hndIsSignedByAll" value="0" />
+<input type="hidden" id="hndEsignatureId" value="@Model.EsignatureID" />
+<input type="hidden" id="hndApplicantUserId" value="@Model.ApplicantUserId" />
 <div class="content-area submit-property" style="background-color: #FCFCFC;">
     &nbsp;
     <div class="container" style="width:100%!important">
-
+        <label id="lblAdminFees" class="hidden" >@Model.AdminFees</label>
         <div class="wizard-container">
             <div class="wizard-card ct-wizard-orange" id="wizardProperty">
                 <div>
@@ -36,14 +40,14 @@
 
                     <ul style="line-height: 14px;" class="nav nav-tabs wizard">
                         @*<li class="active" style="padding-right:2px" id="li1"><a href="javascript:void(0);" onclick="goToStep(1,1)"> 1. Floor Plan </a></li>
-            <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,0)">2. Select Units</a></li>*@
+                            <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,0)">2. Select Units</a></li>*@
                         <li id="li3"><a href="javascript:void(0);" id="as3" onclick="goToStep(3,3)">1. Registration</a></li>
                         <li id="li18"><a href="javascript:void(0);" id="as18" onclick="goToStep(4,4)">2. Unit Details</a></li>
                         <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5)">3. Quotation</a></li>
                         @*<li id="li5"><a href="javascript:void(0);" id="as5" onclick="goToStep(6,6)">3. Policies & Conditions </a></li>*@
                         <li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,7)">4. Application</a></li>
                         <li id="li17"><a href="javascript:void(0);" id="as7" onclick="goToStep(17,17)">5. Screening Status</a></li>
-                        <li id="li18"><a href="javascript:void(0);" id="as8" onclick="goToStep(18,18)">6. Move In Checklist</a></li>
+                        <li id="li19"><a href="javascript:void(0);" id="as8" onclick="goToStep(18,18)">6. Move In Checklist</a></li>
                     </ul>
                     <div class="text-center">
                         <ul class="nav nav-tabs hidden text-center" style="margin-top:-14px !important;background-color:#4d738a !important;height:29px !important" id="subMenu">
@@ -55,8 +59,8 @@
                             <li id="li12"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12)">f. Emergency Contacts </a></li>
                             <li id="li13"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13)">g. Vehicle Info</a></li>
                             <li id="li14"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14)">h. Pet Info</a></li>
-                            <li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15)">i. Lease</a></li>
-                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16)">j. Payment </a></li>
+                            <@*li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15)">i. Lease</a></li>*@
+                            <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16)">i. Payment </a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -90,15 +94,15 @@
                                             </select>
                                         </div>
                                         @*<label class="col-sm-2">Max Rent:</label>
-                            <div class="col-xs-2  form-group-sm">
+                                            <div class="col-xs-2  form-group-sm">
 
-                                <input type="text" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
-                            </div>*@
+                                                <input type="text" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
+                                            </div>*@
                                         <input type="hidden" id="hndbuilding" value="1" />
                                         <input type="hidden" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
                                         @*<div class="col-xs-1">
-                                <button class="btn-primary hollow btn" style="padding: 7px 7px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
-                            </div>*@
+                                                <button class="btn-primary hollow btn" style="padding: 7px 7px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
+                                            </div>*@
                                         <h5 class="col-sm-1">Sort</h5>
                                         <div class="col-xs-2">
                                             @*<div class="col-xs-12">*@
@@ -294,7 +298,12 @@
                             <div class="col-sm-2">
                                 <span id="txtAvailableDate" style="text-decoration:underline;">@Model.MoveInDateTxt</span>
                             </div>
+                            <div class="col-sm-2">
+                                <span>PARKING SPACE</span>
+                            </div>
+                            <div class="col-sm-3" id="lblParkSpace">
 
+                            </div>
 
                             <div class="col-md-12">&nbsp;</div>
                             <div class="col-md-12">
@@ -533,7 +542,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-4">
-                                        <span id="">Security Deposit: </span>
+                                        <span id="">Security Deposit(Refundable): </span>
                                     </div>
                                     <div class="col-sm-2">
                                         $<span id="lbldeposit1"></span>
@@ -696,108 +705,102 @@
                             <div class="col-sm-12" id="printable" style="overflow: hidden !important;">
                                 <p>
                                     <div class="panel panel-default sidebar-menu wow fadeInRight animated">
-                                        <div class="panel-heading">
+                                        <div class="panel-heading center">
                                             <h3 class="panel-title">Quotation</h3>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 clear">
-                                        <div class="col-sm-6">
-                                            <div class="col-sm-4">
-                                                <span>QUOTE# </span>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <span id="lblFNLQuote" style="text-decoration:underline;font-weight:bold;"></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="col-sm-4">
-                                                <span>PREPARED FOR: </span>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <span id="lblFNLPreparedFor" style="text-decoration:underline;font-weight:bold;"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 clear">
-                                        <div class="col-sm-6">
-                                            <div class="col-sm-4">
-                                                <span>QUOTE DATE: </span>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <span id="lblFNLQuoteDate" style="text-decoration:underline;font-weight:bold;">@Model.CreatedDate.ToString("MM/dd/yyyy hh:mm tt")</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="col-sm-4">
-                                                <span>QUOTE EXPIRES: </span>
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <span id="lblFNLQuoteExpires" style="text-decoration:underline;font-weight:bold;">@Model.ExpireDate</span>
-                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="col-sm-12 clear">
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-3">
-                                                <span>RESIDENT NAME: </span>
+                                        <div class="col-sm-5">
+                                            <div class="col-sm-6">
+                                                <span>QUOTE DATE : </span>
                                             </div>
-                                            <div class="col-sm-9">
-                                                <span id="lblFNLResidentName" style="text-decoration:underline;font-weight:bold;">@Model.FirstName @Model.LastName</span>
+                                            <div class="col-sm-6">
+                                                <span id="lblFNLQuoteDate" style="text-decoration:underline;font-weight:bold;">@Model.CreatedDate.ToString("MM/dd/yyyy hh:mm tt")</span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <div class="col-sm-3">
-                                                <span>UNIT#: </span>
+                                        <div class="col-sm-7">
+                                            <div class="col-sm-6">
+                                                <span>PREPARED FOR (RESIDENT NAME) : </span>
                                             </div>
-                                            <div class="col-sm-9">
-                                                <span id="lblFNLUnit" style="text-decoration:underline;font-weight:bold;"></span>
+                                            <div class="col-sm-6 margin-RN">
+                                                <span id="lblFNLResidentName1" style="text-decoration:underline;font-weight:bold;">@Model.FirstName @Model.LastName</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 clear">
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-3">
-                                                <span>PHONE: </span>
+                                        <div class="col-sm-5">
+                                            <div class="col-sm-6">
+                                                <span>QUOTE EXPIRES : </span>
                                             </div>
-                                            <div class="col-sm-9">
-                                                <span id="lblFNLPhone" style="text-decoration:underline;font-weight:bold;"></span>
+                                            <div class="col-sm-6">
+                                                <span id="lblFNLQuoteExpires" style="text-decoration:underline;font-weight:bold;">@Model.ExpireDate</span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <div class="col-sm-3">
-                                                <span>MODEL: </span>
+                                        <div class="col-sm-7">
+                                            <div class="col-sm-2">
+                                                <span>PHONE : </span>
                                             </div>
-                                            <div class="col-sm-9">
+                                            <div class="col-sm-3 margin-left-0">
+                                                <span id="lblFNLPhone" style="text-decoration:underline;font-weight:bold;"></span>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <span>EMAIL : </span>
+                                            </div>
+                                            <div class="col-sm-6 margin-left-0">
+                                                <span id="lblFNLEmail" style="text-decoration:underline;font-weight:bold;">@Model.Email</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 clear">
+                                        <div class="col-sm-5">
+                                            <div class="col-sm-6">
+                                                <span>DESIRED MOVE IN : </span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <span id="lblFNLDesiredMoveIn" style="text-decoration:underline;font-weight:bold;">@Model.MoveInDateTxt</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <div class="col-sm-2">
+                                                <span>UNIT# : </span>
+                                            </div>
+                                            <div class="col-sm-3 margin-left-0">
+                                                <span id="lblFNLUnit" style="text-decoration:underline;font-weight:bold;"></span>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <span>MODEL : </span>
+                                            </div>
+                                            <div class="col-sm-6 margin-left-0">
                                                 <span id="lblFNLModel" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 clear">
-                                        <div class="col-sm-8">
-                                            <div class="col-sm-3">
-                                                <span>EMAIL: </span>
+                                        <div class="col-sm-5">
+                                            <div class="col-sm-6">
+                                                <span>LEASE TERM : </span>
                                             </div>
-                                            <div class="col-sm-9">
-                                                <span id="lblFNLEmail" style="text-decoration:underline;font-weight:bold;">@Model.Email</span>
+                                            <div class="col-sm-6">
+                                                <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;">@Model.LeaseTerm</span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <div class="col-sm-3">
-                                                <span>TERM: </span>
+                                        <div class="col-sm-7">
+                                            <div class="col-sm-5">
+                                                <span>ASSIGNED PARKING SPACE :  </span>
                                             </div>
-                                            <div class="col-sm-9">
-                                                <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;">@Model.LeaseTerm</span>
+                                            <div class="col-sm-7 margin-left-0">
+                                                <span id="lblAssginPakingSpace" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 clear">
                                         <div class="col-sm-8">
                                             <div class="col-sm-3">
-                                                <span>DESIRED MOVE IN: </span>
+
                                             </div>
                                             <div class="col-sm-9">
-                                                <span id="lblFNLDesiredMoveIn" style="text-decoration:underline;font-weight:bold;">@Model.MoveInDateTxt</span>
+
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
@@ -805,41 +808,101 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12 clear">&nbsp;</div>
-
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-12 clear">
                                         <div class="col-sm-6">
-                                            <span style="text-decoration:underline;font-weight:bold;">Initial Fees and Costs</span>
-                                        </div>
-                                        <div class="col-sm-3">
+                                            <div class="col-sm-5">
+                                                <span style="text-decoration:underline;font-weight:bold;">INITIAL FEES :</span>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <span style="text-decoration:underline;font-weight:bold;">Amount</span>
+                                            </div>
 
-                                            <span style="text-decoration:underline;font-weight:bold;">Amount</span>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-5">
+                                                        <span>APPLICATION FEE : </span>
+
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                        $<span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/per applicant</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-5">
+                                                        &nbsp;
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                        <span id="" style="text-decoration:underline;font-weight:bold;">$150.00/Guarantor (if needed)</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-5">
+                                                        <span>ADMINISTRATION FEE: </span>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                        <span style="text-decoration:underline;font-weight:bold;">$@((Model.AdminFees ?? 0).ToString("0.00"))/unit</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-3">
-                                                <span>Application Fee: </span>
+                                        <div class="col-sm-6">
+                                            <div class="col-sm-5">
+                                                <span style="text-decoration:underline;font-weight:bold;">MOVE-IN FEES:</span>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <span style="text-decoration:underline;font-weight:bold;">Amount</span>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-5">
+                                                        <span>Security Deposit (Refundable): </span>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                        $<span style="text-decoration:underline;font-weight:bold;" id="fdepo">@((Model.Deposit ?? 0).ToString("0.00"))</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-5">
+                                                        <span> Pet Non-Refundable Deposit: </span>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                        $<span style="text-decoration:underline;font-weight:bold;" id="fpetd">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-5">
+                                                        <span id="spanPetDNAFee2">Pet DNA Fee:</span>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                        $<span style="text-decoration:underline;font-weight:bold;" id="fpetdna">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-5">
+                                                        <span>Vehicle Registration: </span>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                        $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-5">
+                                                        <span>Insurance*** </span>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                    </div>
+                                                </div>
 
                                             </div>
-                                            <div class="col-sm-3">
-                                                <span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/Adult</span>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                $<span id="lblFNLAmount" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))</span>
-                                            </div>
                                         </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-3">
-                                                <span>Renter's Insurance*: </span>
+                                    </div>
+                                    <div class="col-sm-8">
 
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <a href="#" id="lblFNLRentersInsurance" style="text-decoration:underline;">www.erenterplan.com</a>
-                                            </div>
+                                        <div class="col-sm-4">
+                                            <span style="text-decoration:underline;font-weight:bold;">MONTHLY CHARGES:</span>
                                         </div>
-
-                                        <div class="col-sm-3">
-                                            <span style="text-decoration:underline;font-weight:bold;">Monthly Payment</span>
-                                        </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-1">
 
                                         </div>
                                         <div class="col-sm-3">
@@ -852,9 +915,10 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-3">
-                                                <span> Monthly Charge </span>
+                                                <span> Monthly Rent </span>
 
                                             </div>
+
                                             <div class="col-sm-2">&nbsp;</div>
                                             <div class="col-sm-3">
                                                 $<span id="lblMonthly_MonthlyCharge" style="text-decoration:underline;font-weight:bold;"></span>
@@ -865,50 +929,9 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-3">
-                                                <span> Aditional Parking </span>
-
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <span style="text-decoration:underline;font-weight:bold;">Unit#</span>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                $<span id="lblMonthly_AditionalParking" style="text-decoration:underline;font-weight:bold;">@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                $ <span id="lblProrated_AditionalParking" style="text-decoration:underline;font-weight:bold;"></span>
+                                                <span><i> Additional Services </i></span>
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-3">
-                                                <span> Storage </span>
-
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <span style="text-decoration:underline;font-weight:bold;">Unit#</span>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                $<span id="lblMonthly_Storage" style="text-decoration:underline;font-weight:bold;">@((Model.StorageAmt ?? 0).ToString("0.00"))</span>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                $ <span id="lblProrated_Storage" style="text-decoration:underline;font-weight:bold;"></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-3">
-                                                <span> Pet Rent </span>
-
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                $<span id="lblMonthly_PetRent" style="text-decoration:underline;font-weight:bold;">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                $ <span id="lblProrated_PetRent" style="text-decoration:underline;font-weight:bold;"></span>
-                                            </div>
-                                        </div>
-
                                         <div class="col-sm-12">
                                             <div class="col-sm-3">
                                                 <span> Trash/Recycle </span>
@@ -918,7 +941,7 @@
                                                 <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                             </div>
                                             <div class="col-sm-3">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblMonthly_TrashRecycle">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
+                                                $<span style="text-decoration:underline;font-weight:bold;">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                             <div class="col-sm-3">
                                                 $ <span id="lblProrated_TrashAmt" style="text-decoration:underline;font-weight:bold;"></span>
@@ -933,7 +956,7 @@
                                                 <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                             </div>
                                             <div class="col-sm-3">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblMonthly_PestControl">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
+                                                $<span style="text-decoration:underline;font-weight:bold;">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                             <div class="col-sm-3">
                                                 $ <span id="lblProrated_PestAmt" style="text-decoration:underline;font-weight:bold;"></span>
@@ -948,10 +971,60 @@
                                                 <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                             </div>
                                             <div class="col-sm-3">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblMonthly_ConvergentBillingCharges">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
+                                                $<span style="text-decoration:underline;font-weight:bold;">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                             <div class="col-sm-3">
                                                 $ <span id="lblProrated_ConvergentAmt" style="text-decoration:underline;font-weight:bold;"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-3">
+                                                <span><i> Selected Options </i></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-3">
+                                                <span> Aditional Parking </span>
+
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <span style="text-decoration:underline;font-weight:bold;" id="parkUnit"></span>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                $<span id="lblMonthly_AditionalParking" style="text-decoration:underline;font-weight:bold;">@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                $ <span id="lblProrated_AditionalParking" style="text-decoration:underline;font-weight:bold;"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-3">
+                                                <span> Storage </span>
+
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <span style="text-decoration:underline;font-weight:bold;" id="storUnit"></span>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                $<span id="lblMonthly_Storage" style="text-decoration:underline;font-weight:bold;">@((Model.StorageAmt ?? 0).ToString("0.00"))</span>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                $ <span id="lblProrated_Storage" style="text-decoration:underline;font-weight:bold;"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-3">
+                                                <span> Pet Fee </span>
+
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                $<span id="lblMonthly_PetRent" style="text-decoration:underline;font-weight:bold;">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                $ <span id="lblProrated_PetRent" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
 
@@ -963,15 +1036,15 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-4">
-                                                <span> Total Monthly Payment** </span>
+                                                <span> Estimated Monthly Charges </span>
                                             </div>
                                             <div class="col-sm-1">
                                                 <span style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
-                                            <div class="col-sm-3" style="color:green;">
+                                            <div class="col-sm-3" style="color:green">
                                                 $<span id="lblMonthly_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
-                                            <div class="col-sm-3" style="color:green;">
+                                            <div class="col-sm-3" style="color:green">
                                                 $ <span id="lblProrated_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
@@ -983,114 +1056,29 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
-                                        <div class="col-sm-7">
-                                            <span style="text-decoration:underline;font-weight:bold;">Move In Fees & Deposits</span>
-                                        </div>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-2">
-                                            <span style="text-decoration:underline;font-weight:bold;">Amount</span>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-6">
-                                                <span>Administration Fee: </span>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <span style="text-decoration:underline;font-weight:bold;">$@((Model.AdminFees ?? 0).ToString("0.00"))/unit</span>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblAdminFees">@((Model.AdminFees ?? 0).ToString("0.00"))</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-6">
-                                                <span>Vehicle Registration: </span>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <span style="text-decoration:underline;font-weight:bold;">$15/vehicle</span>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">15.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-6">
-                                                <span>Security Deposit: </span>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <span style="text-decoration:underline;font-weight:bold;"></span>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="fdepo">@((Model.Deposit ?? 0).ToString("0.00"))</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-3">
-                                                <span>Pet Fee: </span>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <span style="text-decoration:underline;font-weight:bold;"></span>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="fpetd">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-6">
-                                                <span>Pet DNA Amt: </span>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <span style="text-decoration:underline;font-weight:bold;"></span>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="fpetdna">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 hidden">
-                                            <div class="col-sm-6">
-                                                <span>Additional FOB: </span>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <span style="text-decoration:underline;font-weight:bold;">$15/FOB</span>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="ffob">@((Model.FOBAmt ?? 0).ToString("0.00"))</span>
-                                            </div>
-                                        </div>
+                                        <div class="move"> Move-in fees and pro-rated rent is due at or before move-in.</div>
 
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-6">
-                                                <span>Prorated Rent: </span>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <span style="text-decoration:underline;font-weight:bold;"></span>
-                                            </div>
-                                            <div class="col-sm-2">
-                                                $<span id="lblProratedRent" style="text-decoration:underline;font-weight:bold;">@((Model.Prorated_Rent ?? 0).ToString("0.00"))</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-7">
-                                                <span>Total Due at Move-In</span>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <span style="text-decoration:underline;font-weight:bold;"></span>
-                                            </div>
-                                            <div class="col-sm-2" style="color:green;">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="ftotal">@((Model.MoveInCharges ?? 0).ToString("0.00"))</span>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="col-sm-12">&nbsp;</div>
                                     <div class="col-sm-12">
-                                <p>Note: The amounts herein are subject to change without notice and not final until lease is executed. Actual fees/deposits and amounts may vary based upon policies and rates in effect at the time they are charged. If you make changes to the desired move in date, lease term, or any of the options, the amounts may be adjusted. An Additional security deposit may be required depending on creditworthiness. </p>
                                 <p>
-                                    *Renter's insurance with a minimum of $100K of Liability is required.<br />**Total monthly payment does not include water & sewer charges based upon actual consumption.
-                                    <br /><b>Total due at Move in must be paid online prior to move in</b>
+                                    <i>
+                                        *The Administration fee is due in order to reserve your unit for a maximum of 30 days, once approved.
+                                        <br />**The Security Deposit may be bonded using the SureDeposit Program .  Please contact by hone (866) 312-3090 or email <a href="mailto:SelectDeposit@Assurant.com">SelectDeposit@Assurant.com</a>. The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.
+                                    </i>
+                                </p>
+                                <p>
+                                    <i>
+                                        ***General Liability insurance with a minimum limit of $300,000 is required.  Proof of coverage will be required prior to move-in.
+                                        <br />****Excludes the Utility reimbursement for water & sewer which is billed monthly based on actual consumption.
+                                    </i>
+                                </p>
+                                <p>
+                                    <i>
+                                        The amounts herein are estimates based upon policies and rates in effect at the time.  The amounts are subject to change without notice and not final until lease is executed.  If you make changes to the desired move-in date, lease term, or any other option, the amounts herein may vary.
+                                    </i>
                                 </p>
                             </div>
-
-                            </p>
                         </div>
 
                         <div class="col-sm-12 clearfix">
@@ -1248,7 +1236,7 @@
                                     <div class="col-md-8"></div>
                                     <div class="col-md-1"></div>
                                     <div class="col-md-3"></div>
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-12 hidden">
                                         <div class="col-sm-8">
                                             <span>Administration Fee: </span>
                                         </div>
@@ -1268,7 +1256,7 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="col-sm-8">
-                                            <span>Security Deposit: </span>
+                                            <span>Security Deposit(Refundable): </span>
                                         </div>
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-3">
@@ -1448,8 +1436,14 @@
                         <div class="col-sm-12">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>International Applicant ?</label> :
+                                    <label>are you a US Citizen?</label> :
                                     <label id="ddlIsInter"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4" id="divCountryOfOrigin">
+                                <div class="form-group">
+                                    <label>Country of Origin </label> :
+                                    <label id="txtCountryOfOrigin"></label>
                                 </div>
                             </div>
                         </div>
@@ -1550,7 +1544,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Download Passport</label><br />
-                                        <span class=" btn-primary"><i class="fa fa-download fa-2x"></i><a href="#" class=" btn-primary" target='_parent' download="" id="hndPassportUploadName"></a></span>
+                                        <a href="javascript:void(0);" class="btn btn-primary" target='_parent' id="hndPassportUploadName"><i class="fa fa-download fa-2x"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -1594,7 +1588,89 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">ADDITIONAL QUESTIONS</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Have you ever been evicted?</label> :
+                                    <label id="ddlEverBeenEvicted"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 hidden" id="divEverBeenConvicted">
+                                <div class="form-group">
+                                    <label>Have you ever been convicted of a felony?</label> :
+                                    <label id="ddlEverBeenConvicted"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 hidden" id="divAnyCriminalCharges" style="margin-top: -29px;">
+                                <div class="form-group">
+                                    <label>
+                                        Do you have any criminal charges pending, awaiting
+                                        disposition, or looming in any way?
+                                    </label> :
+                                    <label id="ddlAnyCriminalCharges"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <div class="form-group hidden" id="divEverBeenEvictedDetails">
+                                    <label>Details</label> :
+                                    <label id="txtEverBeenEvictedDetails"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group hidden" id="divEverBeenConvictedDetails">
+                                    <label>Details</label> :
+                                    <label id="txtEverBeenConvictedDetails"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group hidden" id="divAnyCriminalChargesDetails">
+                                    <label>Details</label> :
+                                    <label id="txtAnyCriminalChargesDetails"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Do you or any occupants smoke?</label> :
+                                    <label id="ddlDoYouSmoke"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Referred by another Resident?</label> :
+                                    <label id="ddlReferredByAnotherResident"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Broker or Merchant referred</label> :
+                                    <label id="ddlBrokerOrMerchantReff"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <div class="form-group">
 
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group hidden" id="divReferredByAnotherResidentName">
+                                    <label>Another Resident Name</label> :
+                                    <label id="txtReferredByAnotherResidentName"></label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
                                 <button type="submit" class="btn btn-primary" onclick="goToStep(8,8)"> Back</button>
@@ -1616,7 +1692,16 @@
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <p>3 Year's of History</p>
+                            <div class="col-sm-12">
+                                <p>3 Year's of History</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">CURRENT ADDRESS</h3>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="col-sm-4">
@@ -1673,7 +1758,7 @@
                                     <label id="txtMoveInDateFrom"></label>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 hidden">
                                 <div class="form-group">
                                     <label for="txtMoveInDate">Move Out Date</label> :
                                     <label id="txtMoveInDateTo"></label>
@@ -1685,20 +1770,37 @@
                                     <label id="txtMonthlyPayment"></label>
                                 </div>
                             </div>
-                            <div class="col-sm-12">
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-sm-3">
                                 <div class="form-group">
-                                    <label for="txtReasonforleaving">Reason for leaving</label> :
-                                    <label id="txtReasonforleaving"></label>
+                                    <label>Apartment Community</label> :
+                                    <label id="txtApartmentCommunity"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Management Company</label> :
+                                    <label id="txtManagementCompany"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Management Company Phone</label> :
+                                    <label id="txtManagementCompanyPhone"></label>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label>Was proper notice given per your lease agreement?</label> :
+                                    <label id="ddlProperNoticeLeaseAgreement"></label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <div class="col-sm-6">
-                                <div class="panel panel-default sidebar-menu wow fadeInRight animated  pull-left">
-                                    <div class="panel-heading">
-                                        <a href="javascript:void(0);"><h3 class="panel-title">Additional History of Residence </h3></a>
-
-                                    </div>
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated  pull-left">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Additional History of Residence </h3>
                                 </div>
                             </div>
                         </div>
@@ -1743,12 +1845,20 @@
                             <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Employment and Income</h3>
-
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <p>3 Year's of Employment History</p>
+                            <div class="col-sm-12">
+                                <p>3 Year's of Employment History</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">CURRENT EMPLOYMENT</h3>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="col-sm-4">
@@ -1810,64 +1920,74 @@
                         </div>
 
                         <div class="col-sm-12">
-                            <p>Download last 3 paystubs or if self-employed last 2 year's Fedral Tax Returns</p>
+                            <p>Download last 3 paystubs or if self-employed last 2 year's Fedral Tax Returns or  3 consecutive bank statements.</p>
                         </div>
-                        <div class="col-sm-12">
-                            <div class="col-sm-4">
+                        <div class="col-md-12">
+                            <div class="col-md-8">
                                 <div class="form-group">
-                                    <input id="rbtnPaystub" class="form-control form-control-small" type="radio" name="tax" disabled="disabled" />
-                                    <label for="rbtnPaystub">Paystub</label>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <input id="rbtnFedralTax" class="form-control form-control-small" type="radio" name="tax" disabled="disabled" />
+                                    <input id="rbtnPaystub" class="form-control form-control-small empup" type="checkbox" name="tax" disabled />
+                                    <label for="rbtnPaystub">Paystub</label>&nbsp;&nbsp;
+                                    <input id="rbtnFedralTax" class="form-control form-control-small empup" type="checkbox" name="tax" disabled />
                                     <label for="rbtnFedralTax">Fedral Tax Return</label>
+                                    &nbsp;&nbsp;
+                                    <input id="rbtnBankStatement" class="form-control form-control-small empup" type="checkbox" name="tax" disabled />
+                                    <label for="rbtnBankStatement">Bank Statements</label>
                                 </div>
                             </div>
-                            <div class="col-sm-4">&nbsp;</div>
                         </div>
                         <div class="col-sm-12">
-                            <div class="col-sm-4">
-                                <div class="form-group hidden">
-
-                                    <input type="file" name="fileUploadTaxReturn1" id="fileUploadTaxReturn1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                    <label for="fileUploadTaxReturn1"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn1Show">Choose a file&hellip;</span></label>
-                                    <input type="hidden" id="hndHasTaxReturnFile1" value="0" />
-                                    <input type="hidden" id="" value="0" />
-                                    <input type="hidden" id="hndOriginalFileUploadName1" value="0" />
+                            <div id="divUpload3" class="">
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label id="lblPaystub1">Download Paystub 1</label><br />
+                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downPaystub1"><i class="fa fa-download fa-lg"></i></a>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label id="lblUpload1">Download 1</label><br />
-                                    <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="hndFileUploadName1"><i class="fa fa-download fa-lg"></i></a>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label id="lblPaystub2">Download Paystub 2</label><br />
+                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downPaystub2"><i class="fa fa-download fa-lg"></i></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group hidden">
-
-                                    <input type="file" name="fileUploadTaxReturn2" id="fileUploadTaxReturn2" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                    <label for="fileUploadTaxReturn2"><i class="fa fa-Download fa-2x"></i> <span id="fileUploadTaxReturn2Show">Choose a file&hellip;</span></label>
-                                    <input type="hidden" id="hndHasTaxReturnFile2" value="0" />
-                                    <input type="hidden" id="" value="0" />
-                                    <input type="hidden" id="hndOriginalFileUploadName2" value="0" />
-                                </div>
-                                <div class="form-group">
-                                    <label id="lblUpload2">Download 2</label><br />
-                                    <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="hndFileUploadName2"><i class="fa fa-download fa-lg"></i></a>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label id="lblPaystub3">Download Paystub 3</label><br />
+                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downPaystub3"><i class="fa fa-download fa-lg"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4" id="divUpload3">
-                                <div class="form-group hidden">
-
-                                    <input type="file" name="fileUploadTaxReturn3" id="fileUploadTaxReturn3" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                    <label for="fileUploadTaxReturn3"><i class="fa fa-Download fa-2x"></i> <span id="fileUploadTaxReturn3Show">Choose a file&hellip;</span></label>
-                                    <input type="hidden" id="hndHasTaxReturnFile3" value="0" />
-                                    <input type="hidden" id="" value="0" />
-                                    <input type="hidden" id="hndOriginalFileUploadName3" value="0" />
+                            <div id="divFederalTax">
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label id="lblFedral1">Download Fedral 1</label><br />
+                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downFedral1"><i class="fa fa-download fa-lg"></i></a>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label id="lblUpload3">Download 3</label><br />
-                                    <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="hndFileUploadName3"><i class="fa fa-download fa-lg"></i></a>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label id="lblFedral2">Download Fedral 2</label><br />
+                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downFedral2"><i class="fa fa-download fa-lg"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divBankUpload" class="">
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label id="lblBankStatment1">Download Bank Statement 1</label><br />
+                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downBankStat1"><i class="fa fa-download fa-lg"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label id="lblBankStatment2">Download Bank Statement 1</label><br />
+                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downBankStat2"><i class="fa fa-download fa-lg"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label id="lblBankStatment3">Download Bank Statement 1</label><br />
+                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downBankStat3"><i class="fa fa-download fa-lg"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1916,8 +2036,7 @@
                             <div class="col-sm-6">
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated  pull-left">
                                     <div class="panel-heading">
-                                        <a href="javascript:void(0);"><h3 class="panel-title">Additional Employment History</h3></a>
-
+                                        <h3 class="panel-title">Additional Employment History</h3>
                                     </div>
                                 </div>
                             </div>
@@ -1953,6 +2072,7 @@
                     </div>
 
                 </div>
+
                 <div class="hidden" id="step12">
                     <div class="row p-b-15  ">
                         <div class="col-md-12">
@@ -2133,7 +2253,7 @@
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Photo</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Pet Name</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Breed</th>
-                                                    <th style="background-color: #c7cdd5;color:#3d3939">Weight</th>
+                                                    <th style="background-color: #c7cdd5;color:#3d3939">Weight(lbs)</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Vet's Name</th>
                                                     <th style="background-color: #c7cdd5;color:#3d3939">Action</th>
                                                 </tr>
@@ -2152,12 +2272,12 @@
                                 <button type="submit" class="btn btn-primary" onclick="goToStep(13,13)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(15,15)"> Continue</button>
+                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(16,16)"> Continue</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="hidden" id="step15">
+                @*<div class="hidden" id="step15">
                     <input type="hidden" id="hndANID" value="0" />
                     <div class="row p-b-15">
                         <div class="col-md-12 clear">
@@ -2224,17 +2344,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="backVer">
-                            <div class="col-sm-11">
-                                <div class="form-group">
-                                    <div class="">
-                                        <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocumentPV()">Download Leasing Application</a>
-                                    </div>
-                                </div>
-                            </div>
 
-
-                        </div>
                         <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsgFinal"></b></p></div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
@@ -2245,7 +2355,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>*@
                 <div class="hidden" id="step16">
                     <div class="row">
                         <div class="col-md-12 clear">
@@ -2381,7 +2491,7 @@
                                 <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsg"></b></p></div>
                                 <div class="col-sm-12">
                                     <div class="pull-left text-center">
-                                        <button type="submit" class="btn btn-primary" onclick="goToStep(15,15)"> Back</button>
+                                        <button type="submit" class="btn btn-primary" onclick="goToStep(14,14)"> Back</button>
                                     </div>
                                     <div class="pull-right text-center">
                                         <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(17,17)"> Continue</button>
@@ -2401,28 +2511,176 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-sm-12">
+                            <table class="table-bordered" width="100%" id="tblBCCCStatus">
+                                <thead>
+                                    <tr>
+                                        <th style="width:20%;">Applicant Name</th>
+                                        <th>Status Type</th>
+                                        <th>Status</th>
 
-                            <div class="col-sm-4">
+                                        <th>PDF Url</th>
+                                        <th style="width:20%;">Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <div class="col-sm-4 hidden">
                                 <div class="form-group">
                                     <label for="">Select Status</label>
                                     <select id="ddlStatus" class="form-control">
                                         <option value="0" @(Model.Status == "0" ? "selected='selected'" : "")>Select</option>
-                                        <option value="Approved" @(Model.Status == "Approved" ? "selected='selected'" : "")>Approved</option>
-                                        <option value="Denied" @(Model.Status == "Denied" ? "selected='selected'" : "")>Denied</option>
-                                        <option value="Conditional" @(Model.Status == "Conditional" ? "selected='selected'" : "")>Conditional</option>
+                                        <option value="BCApproved" @(Model.Status == "BCApproved" ? "selected='selected'" : "")>Background Check Approved</option>
+                                        <option value="BCDenied" @(Model.Status == "BCDenied" ? "selected='selected'" : "")>Background Check Denied</option>
+                                        <option value="BCConditional" @(Model.Status == "BCConditional" ? "selected='selected'" : "")>Background Check Conditional</option>
+                                        <option value="CCApproved" @(Model.Status == "CCApproved" ? "selected='selected'" : "")>Credit Check Approved</option>
+                                        <option value="CCDenied" @(Model.Status == "CCDenied" ? "selected='selected'" : "")>Credit Check Denied</option>
+                                        <option value="CCConditional" @(Model.Status == "CCConditional" ? "selected='selected'" : "")>Credit Check Conditional</option>
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="col-sm-4 form-inline">
+                            <div class="col-sm-4 hidden">
+                                <div class="form-group">
+                                    <label for="">Enter Notes</label>
+                                    <input type="text" id="txtStatusNotes" class="form-control" value="@Model.Notes" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4 form-inline hidden">
                                 <div style="margin-top:30px"></div>
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveScreeningStatus()"><span id="spanSaveUpdate">Save</span></button>
+                                    <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveScreeningStatus()"><span id="spanSaveUpdate">Save Screening Status</span></button>
+                                    <button type="button" class="btn btn-primary" id="btnSave" onclick="refreshStatuses()">Refresh</button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12">
+                            <div class="">
+                                <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 6px 5px;text-align:center;">
+                                    <h3 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b> Residence Status</b></a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <table class="table-bordered" width="100%" id="tblResidenceStatus">
+                                <thead>
+                                    <tr>
+                                        <th style="width:20%;">Applicant Name</th>
+                                        <th>Residency From</th>
+                                        <th>Monthly Rent</th>
+                                      
+                                        <th>Mgmnt Company / Landlord</th>
+                                        <th>Company Phone</th>
+                                        <th>Address</th>
+                                       
+                                        <th style="width:8%;">Status</th>
+                                        <th style="width:20%;">Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                          
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="">
+                                <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 6px 5px;text-align:center;">
+                                    <h3 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b><span id="pappnameemp"></span> Employment Status</b></a>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <table class="table-bordered" width="100%" id="tblEmpStatus">
+                                <thead>
+                                <tr>
+                                    <th style="width:20%;">Applicant Name</th>
+                                    <th>Employed Since</th><th>Employer</th><th>Emp Phone</th><th>Supervisor Name</th><th>Address</th><th>Job Title</th>
+                                    <th>Income</th><th>Addnl Income</th>
+                                    <th style="width:8%;">Status</th>
+                                    <th style="width:20%;">Notes</th>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                          
+                        </div>  
+                        <div class="col-md-12">
+
+
+                            <div class="col-md-12 clear">
+                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Administrative Fees Status</h3>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 ">
+                                <table id="tblAdminFee" class="table-bordered" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:30%;text-align:center;">Name</th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:30%;text-align:center;">Description</th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:10%;text-align:center;">Administrative Fees</th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:10%;text-align:center;">Trans Date</th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:20%;text-align:center;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-12 clear">
+                                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Lease Signed Status</h3>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 ">
+                                <table id="tblLeasedSign" class="table-bordered" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:35%;text-align:center;">Applicant Name</th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:35%;text-align:center;">Applicant Email</th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:10%;text-align:center;">Signed Date</th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;width:20%;text-align:center;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-12 clear">
+                                &nbsp;
+                            </div>
+                            <div class="col-sm-12 form-inline">
+                                <div class="col-sm-3 form-inline">
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-primary" id="btnSendRemSign" onclick="SendReminderEmail(2,0)" disabled="disabled">Send Reminder to Sign Lease Document (All)</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 form-inline">
+                                    <div class="text-center">
+                                        <a class="btn btn-primary" id="btnExecuteLease" data-toggle="modal" data-target="#popExecuteLease" onclick="cleaseExecuteLease()" disabled="disabled">Execute Lease</a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 form-inline">
+
+                                    <div class="text-center">
+                                        <a class="btn btn-primary " id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 form-inline">
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-primary" id="btnupSignSts" onclick="SaveSignedStatus()" disabled="disabled">Send Move In Check List & Pay Link</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div style="margin-top:30px"></div>
                             <div class="pull-left text-center">
                                 <button type="submit" class="btn btn-primary" onclick="goToStep(16,16)"> Back</button>
                             </div>
@@ -2471,107 +2729,122 @@
                                     <div class="col-sm-12">
 
                                     </div>
-                                    <div class="col-sm-12">
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <div class="col-sm-3" style="margin-left: -20px;">
-                                                    <label>
-                                                        <input type="checkbox" id="chkPay" checked="@(Model.MoveInCharges != 0 ? true : false)" disabled="@(Model.MoveInCharges != 0 ? "disabled" : "disabled")"><span style="margin-left: 10px;">
-                                                            Pay your Move-in charges
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                                <div class="col-sm-3" style="margin-left: -80px;">
-                                                    <div class="input-group" style="margin-left: 57px;">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
-                                                        </span>
-                                                        <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@(Model.MoveInCharges.Value.ToString("0.00"))" disabled />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <label style="margin-left: -5px;">
+                                                <input type="checkbox" id="chkIns" checked="@(string.IsNullOrWhiteSpace(Model.InsuranceDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
+                                                    Bind your insurance coverage. Make sure you bring proof of insurance to your Pre-move-in appointment. If you do not have an agent to assist you in this matter, visit www.insuredbystef.com, email stefanie@insur4edbystel.com, or text/call 954-388-7833.
+                                                    <br />
+                                                    <b>Download Proof of Insurance&nbsp;&nbsp;&nbsp;</b>
+                                                    <a id="dwnldPOI" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
+                                                </span>
+                                            </label>
                                         </div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <div class="col-sm-3" style="margin-left: -20px;">
-                                                    <label>
-                                                        <input type="checkbox" id="chkMovein" checked="@(Model.MoveInDateTxt != null ? true : false)" disabled /><span style="margin-left: 10px;">
-                                                            Schedule a move-in date and time
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                                <div class="col-sm-3" style="margin-left: -80px;">
-                                                    <div class="input-group" style="margin-left: 57px;">
-                                                        <input id="txtMoveInDate" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@Model.MoveInDateTxt" disabled />
-                                                        <span class="input-group-btn" style="width:0% !important">
-                                                            <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="input-group" style="margin-left: -70px;">
-                                                        <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@Model.MoveInTime" disabled />
-                                                        <span class="input-group-btn" style="width:0% !important">
-                                                            <button class="btn btn-primary search" type="button"><i class="fa-clock-o  fa"></i></button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkIns" checked="@(string.IsNullOrWhiteSpace(Model.InsuranceDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
-                                                        Make sure you have Renter’s insurance.  If you have not purchased it and would like to use our partner, login or call Serrod Insurance 	Agency at (305) 445-6441
-                                                        <br />
-                                                        <b>Download Proof of Insurance&nbsp;&nbsp;&nbsp;</b>
-                                                        <a id="dwnldPOI" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkPo" checked="@(Model.IsCheckPO == 1 ? true : false)" disabled><span style="margin-left: 10px;">
-                                                        Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12" style="margin-bottom:10px !important"><h4 style="color:#4d738a;">Utilities</h4></div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkEle" checked="@(string.IsNullOrWhiteSpace(Model.ElectricityDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
-                                                        Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545.
-                                                        <br />
-                                                        <b>Download Proof of Electricity&nbsp;&nbsp;&nbsp;</b>
-                                                        <a id="dwnldPOE" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
+                                        <input type="file" name="uploadPOI" id="uploadPOI" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                        <label for="uploadPOI"><i class="fa fa-upload fa-2x"></i> <span id="uploadPOIShow">Choose a file&hellip;</span></label>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-bottom:10px !important"><h4 style="color:#4d738a;">Utilities</h4></div>
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <label style="margin-left: -5px;">
+                                                <input type="checkbox" id="chkEle" checked="@(string.IsNullOrWhiteSpace(Model.ElectricityDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
+                                                    Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545.
+                                                    <br />
+                                                    <b>Download Proof of Electricity&nbsp;&nbsp;&nbsp;</b>
+                                                    <a id="dwnldPOE" href="javascript:void(0)" class="btn btn-primary" target="_parent"><i class="fa fa-download"></i></a>
 
+                                                </span>
+                                            </label>
+                                        </div>
+                                        <input type="file" name="uploadPOE" id="uploadPOE" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                        <label for="uploadPOE"><i class="fa fa-upload fa-2x"></i> <span id="uploadPOEShow">Choose a file&hellip;</span></label>
+                                    </div>
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <label style="margin-left: -5px;">
+                                                <input type="checkbox" id="chkAt" checked="@(Model.IsCheckATT == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
+                                                    AT&T- Call to establish your internet service and/or enhance your cable plan.
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <label style="margin-left: -5px;">
+                                                <input type="checkbox" id="chkWater" checked="@(Model.IsCheckWater == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
+                                                    If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a>
+                                                    or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month.
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" id="chkSDP" checked="@(Model.IsCheckSD == 1 ? true : false)" disabled>    <span style="margin-left: 25px;"> If you would like to participate in the SureDeposit Program which may assist you in bonding your deposit requirement for a fee, please contact Assurant at <a href="http://www.assurantresidentsolutions.com" target="_blank">assurantresidentsolutions.com</a>.  They will be able to assist you in this procedure.  Once you complete the process, forward to us the documentation provided by Assurant, which will notify us of the amount of your deposit.  We will adjust your Deposit amount and your Move-in charges accordingly, so you can process your payment correctly.</span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <div class="col-sm-3" style="margin-left: -20px;">
+                                                <label>
+                                                    <input type="checkbox" id="chkPay" checked="@(Model.MoveInChargesFMIT != 0 ? true : false)" disabled="@(Model.MoveInChargesFMIT != 0 ? "disabled" : "disabled")"><span style="margin-left: 10px;">
+                                                        Pay your Move-in charges
                                                     </span>
                                                 </label>
                                             </div>
+                                            <div class="col-sm-3" style="margin-left: -80px;">
+                                                <div class="input-group" style="margin-left: 57px;">
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                    </span>
+                                                    <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@(Model.MoveInChargesFMIT.ToString("0.00"))" disabled />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkAt" checked="@(Model.IsCheckATT == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
-                                                        AT&T- Call to establish your internet service and/or enhance your cable plan.
+                                    </div>
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <div class="col-sm-3" style="margin-left: -20px;">
+                                                <label>
+                                                    <input type="checkbox" id="chkMovein" checked="@(!string.IsNullOrWhiteSpace(Model.MoveInDateTxt) && !string.IsNullOrWhiteSpace(Model.MoveInTime) ? true : false)" disabled /><span style="margin-left: 10px;">
+                                                        Schedule a move-in date and time
                                                     </span>
                                                 </label>
                                             </div>
-                                        </div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label style="margin-left: -5px;">
-                                                    <input type="checkbox" id="chkWater" checked="@(Model.IsCheckWater == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
-                                                        If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a>
-                                                        or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month.
+                                            <div class="col-sm-3" style="margin-left: -80px;">
+                                                <div class="input-group" style="margin-left: 57px;">
+                                                    <input id="txtMoveInDate" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@Model.MoveInDateTxt" disabled />
+                                                    <span class="input-group-btn" style="width:0% !important">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
                                                     </span>
-                                                </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="input-group" style="margin-left: -70px;">
+                                                    <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@Model.MoveInTime" disabled />
+                                                    <span class="input-group-btn" style="width:0% !important">
+                                                        <button class="btn btn-primary search" type="button"><i class="fa-clock-o  fa"></i></button>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div class="pull-left col-sm-12">
+                                        <div class="checkbox">
+                                            <label style="margin-left: -5px;">
+                                                <input type="checkbox" id="chkPo" checked="@(Model.IsCheckPO == 1 ? true : false)" disabled><span style="margin-left: 10px;">
+                                                    Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-12">
+
                                     </div>
                                 </div>
                             </div>
@@ -2595,7 +2868,7 @@
     </div>
 
 </div>
-</div>
+
 
 
 <div class="modal " id="popFloorPlan" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
@@ -2892,11 +3165,11 @@
 <div class="modal" id="popVehicle">
     <div class="modal-dialog">
         <div class="modal-content" style="width:732px; height:360px;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Vehicle Information</h5>
-
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px;color:black">&times;</button>
             </div>
 
             <!-- Modal body -->
@@ -2963,7 +3236,18 @@
                         <label id="ddlVState"></label>
                     </div>
                 </div>
-
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Tag</label> :
+                        <label id="txtVehicleTag"></label>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Parking Space</label> :
+                        <label id="txtVehicleParkingSpace"></label>
+                    </div>
+                </div>
                 <div class="col-sm-8">
                     <div class="form-group">
                         <label>Notes</label> :
@@ -2981,14 +3265,14 @@
     </div>
 </div>
 
+
 <div class="modal" id="popPet">
     <div class="modal-dialog">
         <div class="modal-content" style="width: 100%; height:300px;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Pet Information</h5>
-
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -40px;color:black">&times;</button>
             </div>
 
             <!-- Modal body -->
@@ -3008,7 +3292,7 @@
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Weight</label> :
+                        <label>Weight(lbs)</label> :
                         <label id="txtpetWeight"></label>
                     </div>
                 </div>
@@ -3044,6 +3328,7 @@
         </div>
     </div>
 </div>
+
 
 <div id="modalPetPolicy" class="modal" style="width:90% !important">
     <div class="modal-header">
@@ -3091,12 +3376,11 @@
 
 <div class="modal" id="popApplicantHistory">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:732px; height:400px;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+        <div class="modal-content" style="width:732px; height:510px;">
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Applicant History</h5>
-
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -29px;color:black">&times;</button>
             </div>
 
             <!-- Modal body -->
@@ -3145,13 +3429,13 @@
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="ddlRentOwn"> Do you rent or own </label> :
                             <label id="ddlRentOwn2"></label>
                         </div>
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="txtMoveInDate">Move In Date</label> :
                             <label id="txtMoveInDateFrom2"></label>
@@ -3159,16 +3443,46 @@
                     </div>
                 </div>
                 <div class="col-sm-12">
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="txtMoveInDate">Move Out Date</label> :
                             <label id="txtMoveInDateTo2"></label>
                         </div>
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <label for="txtMonthlyPayment">Monthly Payment</label> :
                             <label id="txtMonthlyPayment2"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Apartment Community</label> :
+                            <label id="txtApartmentCommunity2"></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Management Company</label> :
+                            <label id="txtManagementCompany2"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Management Company Phone</label> :
+                            <label id="txtManagementCompanyPhone2"></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Was proper notice given per your lease agreement?</label> :
+                            <label id="ddlProperNoticeLeaseAgreement2"></label>
                         </div>
                     </div>
                 </div>
@@ -3658,6 +3972,43 @@
         </div>
     </div>
 </div>
+
+<div class="modal" id="popExecuteLease">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:500px; height:400px;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <div class="modal-header" style="width: 100%; padding:0px;">
+                <h5 class="modal-title">Execute Lease</h5>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="star">Signature Full Text</label>
+                        <input id="txtSignatureFullText" type="text" class="form-control" maxlength="20" placeholder="Signature Full Text" value="" />
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="star">Signature Initials</label>
+                        <input id="txtSignatureInitials" type="text" class="form-control" maxlength="20" placeholder="Signature Initials" value="" />
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="star">Signature Title</label>
+                        <input id="txtSignatureTitle" type="text" class="form-control" maxlength="20" placeholder="Signature Title" value="" />
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <button class="btn btn-primary" onclick="executeLeaseProcess()"><i class="fa fa-file-signature"></i> Execute</button>
+                </div>
+            </div>
+            <div class="modal-footer-custom">
+            </div>
+        </div>
+    </div>
+</div>
 <style>
     /* The container */
     input.disabled {
@@ -4109,7 +4460,14 @@
     });
 
     $(document).ready(function () {
+        @*if ('@Model.EnvelopeID' != "") {
+            $("#btnleaseDownl").removeAttr("disabled");
+        }*@
 
+        if ('@Model.Status' == "Approved")
+        {
+            $("#btnSendRemtr").removeAttr("disabled");
+        }
         $("#apartimg_2").maphilight();
 
         if (@Model.ProspectId != 0) {
@@ -4337,6 +4695,64 @@
             $.alert({
                 title: "",
                 content: "Document Not Yet Signed.",
+                type: 'red'
+            });
+        }
+    };
+    var cleaseExecuteLease = function () {
+        $("#txtSignatureFullText").val("");
+        $("#txtSignatureInitials").val("");
+        $("#txtSignatureTitle").val("");
+    }
+    var executeLeaseProcess = function () {
+        if ($("#hndEsignatureId").val() != "" && $("#hndIsSignedByAll").val()==1) {
+            $("#divLoader").show();
+
+            var signatureFullText = $("#txtSignatureFullText").val();
+            var signatureInitials = $("#txtSignatureInitials").val();
+            var signatureTitle = $("#txtSignatureTitle").val();
+            var msg = "";
+            if (!signatureFullText) {
+                msg +="Please Enter Signature Full Text <br/>"
+            }
+            if (!signatureInitials) {
+                msg += "Please Enter Signature Initials <br/>"
+            }
+            if (!signatureTitle) {
+                msg += "Please Enter Signature Title <br/>"
+            }
+            if (msg != "") {
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+                $("#divLoader").hide();
+                return;
+            }
+            var param = { EsignatureId: $("#hndEsignatureId").val(), SignatureFullText: signatureFullText, SignatureInitials:signatureInitials, SignatureTitle:signatureTitle};
+            $.ajax({
+                url: "/CheckList/ExecuteLease",
+                method: "post",
+                data: JSON.stringify(param),
+                contentType: "application/json; charset=utf-8", // content type sent to server
+                dataType: "json", //Expected data format from server
+                success: function (response) {
+                    $("#divLoader").hide();
+                    $("#popExecuteLease").modal("hide");
+                    $.alert({
+                        title: "",
+                        content: "Lease Executed Successfully.",
+                        type: 'red'
+                    });
+                    refreshStatuses();
+                }
+            });
+        }
+        else {
+            $.alert({
+                title: "",
+                content: "Document Not Yet Signed By All Applicant.",
                 type: 'red'
             });
         }

@@ -24,6 +24,7 @@ namespace ShomaRM.Areas.Admin.Models
         {
             string msg = string.Empty;
             ShomaRMEntities db = new ShomaRMEntities();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.Vendor_ID == 0)
             {
                 var SaveVendor = new tbl_Vendor()
@@ -34,7 +35,7 @@ namespace ShomaRM.Areas.Admin.Models
                     Address = model.Address,
                     State = model.State,
                     City = model.City,
-                    Created_By = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+                    Created_By = userid,
                     Created_Date = DateTime.Now.Date
                 };
                 db.tbl_Vendor.Add(SaveVendor);

@@ -2,9 +2,12 @@
 using ShomaRM.Data;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 
 namespace ShomaRM.Models
 {
@@ -24,14 +27,23 @@ namespace ShomaRM.Models
         public Nullable<int> IsCheckSch { get; set; }
         public Nullable<int> IsCheckIns { get; set; }
         public Nullable<int> IsCheckElc { get; set; }
+        public Nullable<int> IsCheckPreSch { get; set; }
 
         public Nullable<int> IsCheckPO { get; set; }
         public Nullable<int> IsCheckATT { get; set; }
         public Nullable<int> IsCheckWater { get; set; }
+        public Nullable<int> IsCheckSD { get; set; }
+
+        public Nullable<System.DateTime> PreMoveInDate { get; set; }
+        public string PreMoveInDateTxt { get; set; }
+        public string PreMoveInTime { get; set; }
+        public Nullable<int> Movers { get; set; }
 
         public int IsAllChecked { get; set; }
 
         public Nullable<System.DateTime> CreatedDate { get; set; }
+
+        string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
 
         public CheckListModel GetMoveInData(long Id)
         {
@@ -39,21 +51,25 @@ namespace ShomaRM.Models
             CheckListModel model = new CheckListModel();
             model.MIID = 0;
             model.MoveInTime = "";
+            model.PreMoveInTime = "";
             model.IsCheckATT = 0;
             model.IsCheckPO = 0;
             model.IsCheckWater = 0;
             model.IsCheckPay = 0;
             model.IsCheckSch = 0;
+            model.IsCheckPreSch = 0;
             model.IsCheckIns = 0;
             model.IsCheckElc = 0;
+            model.IsCheckSD = 0;
             model.IsAllChecked = 0;
             model.InsuranceDoc = "";
             model.ElectricityDoc = "";
+            model.Movers = 0;
             var MoveInData = db.tbl_MoveInChecklist.Where(co => co.ProspectID == Id).FirstOrDefault();
             if (MoveInData != null)
             {
                 model.MIID = MoveInData.MIID;
-                if(MoveInData.MoveInCharges.HasValue)
+                if (MoveInData.MoveInCharges.HasValue)
                 {
                     model.IsCheckPay = 1;
                 }
@@ -63,8 +79,16 @@ namespace ShomaRM.Models
                     model.IsCheckSch = 1;
                 }
                 model.MoveInTime = MoveInData.MoveInTime;
+
+                model.PreMoveInDateTxt = MoveInData.PreMoveInDate.HasValue ? MoveInData.PreMoveInDate.Value.ToString("MM/dd/yyyy") : "";
+                if (MoveInData.PreMoveInDate.HasValue)
+                {
+                    model.IsCheckPreSch = 1;
+                }
+                model.PreMoveInTime = MoveInData.PreMoveInTime;
+
                 model.InsuranceDoc = MoveInData.InsuranceDoc;
-                if(!string.IsNullOrWhiteSpace( MoveInData.InsuranceDoc))
+                if (!string.IsNullOrWhiteSpace(MoveInData.InsuranceDoc))
                 {
                     model.IsCheckIns = 1;
                 }
@@ -73,19 +97,19 @@ namespace ShomaRM.Models
                 {
                     model.IsCheckElc = 1;
                 }
+
                 model.IsCheckATT = MoveInData.IsCheckATT ?? 0;
                 model.IsCheckPO = MoveInData.IsCheckPO ?? 0;
                 model.IsCheckWater = MoveInData.IsCheckWater ?? 0;
-
-                if(model.IsCheckPay == 1 && model.IsCheckSch == 1 && model.IsCheckIns == 1 && model.IsCheckElc == 1 && model.IsCheckATT==1 && model.IsCheckPO==1 && model.IsCheckWater==1)
+                model.IsCheckSD = MoveInData.IsCheckSD ?? 0;
+                model.Movers = MoveInData.Movers ?? 0;
+                if (model.IsCheckPay == 1 && model.IsCheckSch == 1 && model.IsCheckPreSch == 1 && model.IsCheckIns == 1 && model.IsCheckElc == 1 && model.IsCheckATT == 1 && model.IsCheckPO == 1 && model.IsCheckWater == 1)
                 {
                     model.IsAllChecked = 1;
                 }
             }
             return model;
         }
-
-
         public string SaveMoveInCheckList(CheckListModel model)
         {
             string msg = "";
@@ -101,13 +125,17 @@ namespace ShomaRM.Models
                         ProspectID = model.ProspectID,
                         MoveInDate = model.MoveInDate,
                         MoveInTime = model.MoveInTime,
+                        PreMoveInDate = model.PreMoveInDate,
+                        PreMoveInTime = model.PreMoveInTime,
                         MoveInCharges = model.MoveInCharges,
                         InsuranceDoc = model.InsuranceDoc,
                         ElectricityDoc = model.ElectricityDoc,
                         IsCheckPO = model.IsCheckPO,
                         IsCheckATT = model.IsCheckATT,
                         IsCheckWater = model.IsCheckWater,
+                        IsCheckSD = model.IsCheckSD,
                         CreatedDate = DateTime.Now,
+                        Movers = model.Movers
                     };
                     db.tbl_MoveInChecklist.Add(saveMoveInCheckList);
                     db.SaveChanges();
@@ -118,12 +146,17 @@ namespace ShomaRM.Models
                     loginDet.ProspectID = model.ProspectID;
                     loginDet.MoveInDate = model.MoveInDate;
                     loginDet.MoveInTime = model.MoveInTime;
+                    loginDet.PreMoveInDate = model.PreMoveInDate;
+                    loginDet.PreMoveInTime = model.PreMoveInTime;
                     loginDet.MoveInCharges = model.MoveInCharges;
                     loginDet.InsuranceDoc = model.InsuranceDoc;
                     loginDet.ElectricityDoc = model.ElectricityDoc;
                     loginDet.IsCheckPO = model.IsCheckPO;
                     loginDet.IsCheckATT = model.IsCheckATT;
                     loginDet.IsCheckWater = model.IsCheckWater;
+                    loginDet.IsCheckSD = model.IsCheckSD;
+                    loginDet.Movers = model.Movers;
+
                     db.SaveChanges();
                 }
 
@@ -210,9 +243,17 @@ namespace ShomaRM.Models
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
                 var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
-                
+                var GetPropertyDetails = db.tbl_Properties.Where(P => P.PID == 8).FirstOrDefault();
+                decimal processingFees = 0;
+
+                if(GetPropertyDetails!=null)
+                {
+                    processingFees = GetPropertyDetails.ProcessingFees ?? 0;
+                }
+
                 string transStatus = "";
                 model.Email = GetProspectData.Email;
+                model.ProcessingFees = processingFees;
                 if (model.PaymentMethod == 2)
                 {
                     transStatus = new UsaePayModel().ChargeCard(model);
@@ -226,6 +267,7 @@ namespace ShomaRM.Models
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
                 {
+                    string opid = "1";
                     if (GetPayDetails != null)
                     {
                         GetPayDetails.Name_On_Card = model.Name_On_Card;
@@ -237,7 +279,7 @@ namespace ShomaRM.Models
                         GetPayDetails.PaymentMethod = model.PaymentMethod;
 
                         db.SaveChanges();
-
+                        opid = GetPayDetails.ID.ToString();
                     }
                     else
                     {
@@ -254,16 +296,15 @@ namespace ShomaRM.Models
                         };
                         db.tbl_OnlinePayment.Add(savePaymentDetails);
                         db.SaveChanges();
+                        opid = savePaymentDetails.ID.ToString();
                     }
                     var saveTransaction = new tbl_Transaction()
                     {
                         TenantID = Convert.ToInt64(GetProspectData.UserId),
-                        Revision_Num = 1,
-                        Transaction_Type = "1",
+                      
+                        PAID = opid,
                         Transaction_Date = DateTime.Now,
-                        Run = 1,
-                        LeaseID = 0,
-                        Reference = "PID" + model.ProspectId,
+                       
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.Charge_Amount,
                         Description = model.Description + "| TransID: " + strlist[1],
@@ -271,25 +312,13 @@ namespace ShomaRM.Models
                         Charge_Type = 2,
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
-                        Miscellaneous_Amount = Convert.ToDecimal("3.95"),
+                        Miscellaneous_Amount = processingFees,
                         Accounting_Date = DateTime.Now,
-                        Journal = 0,
-                       
+                                        
                         Batch = "1",
-                        Batch_Source = "",
+                       
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
-                        GL_Trans_Reference_1 = model.PID.ToString(),
-                        GL_Trans_Reference_2 = GetProspectData.FirstName + " " + GetProspectData.LastName,
-                        GL_Entries_Created = 1,
-                        GL_Trans_Description = transStatus.ToString(),
-                        ProspectID = 0,
-                        //TAccCardName = model.Name_On_Card,
-                        //TAccCardNumber = model.CardNumber,
-                        //TBankName = model.BankName,
-                        //TRoutingNumber = model.RoutingNumber,
-                        //TCardExpirationMonth = model.CardMonth.ToString(),
-                        //TCardExpirationYear = model.CardYear.ToString(),
-                        //TSecurityNumber = model.CCVNumber.ToString(),
+                       UserID = Convert.ToInt32(GetProspectData.UserId),
 
                     };
                     db.tbl_Transaction.Add(saveTransaction);
@@ -312,8 +341,10 @@ namespace ShomaRM.Models
                     //Save  Data In tbl_MoveInChecklist//
 
                     string reportHTML = "";
-                    string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     if (model != null)
                     {
                         reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Move In Charges Received");
@@ -337,5 +368,193 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
+        public string GetProcessingFees()
+        {
+            string processingFees = "0.00";
+            ShomaRMEntities db = new ShomaRMEntities();
+            var propertyDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+            if (propertyDet != null)
+            {
+                processingFees = (propertyDet.ProcessingFees ?? 0).ToString("0.00");
+
+            }
+            db.Dispose();
+            return processingFees;
+        }
+        public List<ESignatureKeysModel> GetSignedList(long TenantID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ESignatureKeysModel> lstpr = new List<ESignatureKeysModel>();
+            List<ESignatureKeysModel> lstTransaction = new List<ESignatureKeysModel>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetSignedList";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramTID = cmd.CreateParameter();
+                    paramTID.ParameterName = "TenantID";
+                    paramTID.Value = TenantID;
+                    cmd.Parameters.Add(paramTID);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    ESignatureKeysModel pr = new ESignatureKeysModel();
+                    DateTime? createdDateString = null;
+                    try
+                    {
+                        createdDateString = Convert.ToDateTime(dr["DateSigned"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    pr.ESID = Convert.ToInt32(dr["ESID"].ToString());
+                    pr.DateSigned = createdDateString == null ? "" : createdDateString.ToString();
+                    pr.ApplicantName = dr["ApplicantName"].ToString();
+                    pr.Email = dr["Email"].ToString();
+                    pr.Key = dr["Key"].ToString();
+                    pr.ApplicantID = Convert.ToInt64(dr["ApplicantID"].ToString());
+                    pr.IsSigned = createdDateString == null ? 0 : 1;
+                    pr.IsSignedAll = Convert.ToInt32(dr["IsSignedAll"].ToString());
+                    pr.IsLeaseExecuted = Convert.ToInt32(dr["IsLeaseExecuted"].ToString());
+                    lstpr.Add(pr);
+                }
+                db.Dispose();
+                return lstpr.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+        public string UploadInsurenceDocAdminSide(HttpPostedFileBase fileBaseUploadInsurenceDoc, long ProspectId)
+        {
+            string msg = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseUploadInsurenceDoc != null && fileBaseUploadInsurenceDoc.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/ChecklistDocument/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                fileName = Path.GetFileNameWithoutExtension(fileBaseUploadInsurenceDoc.FileName);
+                Extension = Path.GetExtension(fileBaseUploadInsurenceDoc.FileName);
+                sysFileName = fileName + ProspectId + Path.GetExtension(fileBaseUploadInsurenceDoc.FileName);
+                fileBaseUploadInsurenceDoc.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseUploadInsurenceDoc.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/ChecklistDocument/") + "/" + sysFileName;
+
+                }
+
+                var moveInDet = db.tbl_MoveInChecklist.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
+                if (moveInDet == null)
+                {
+                    var saveMoveInCheckList = new tbl_MoveInChecklist()
+                    {
+                        ProspectID = ProspectId,
+                        InsuranceDoc = sysFileName.ToString(),
+                    };
+                    db.tbl_MoveInChecklist.Add(saveMoveInCheckList);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    moveInDet.InsuranceDoc = sysFileName.ToString();
+                    db.SaveChanges();
+                }
+                msg = "File Uploaded Successfully |" + sysFileName.ToString();
+            }
+            else
+            {
+                msg = "Something went wrong file not Uploaded";
+            }
+            return msg;
+        }
+        public string UploadProofOfElectricityDocAdminSide(HttpPostedFileBase fileBaseUploadProofOfElectricityDoc, long ProspectId)
+        {
+            string msg = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseUploadProofOfElectricityDoc != null && fileBaseUploadProofOfElectricityDoc.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/ChecklistDocument/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                fileName = Path.GetFileNameWithoutExtension(fileBaseUploadProofOfElectricityDoc.FileName);
+                Extension = Path.GetExtension(fileBaseUploadProofOfElectricityDoc.FileName);
+                sysFileName = fileName + ProspectId + Path.GetExtension(fileBaseUploadProofOfElectricityDoc.FileName);
+                fileBaseUploadProofOfElectricityDoc.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseUploadProofOfElectricityDoc.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/ChecklistDocument/") + "/" + sysFileName;
+
+                }
+
+                var moveInDet = db.tbl_MoveInChecklist.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
+                if (moveInDet == null)
+                {
+                    var saveMoveInCheckList = new tbl_MoveInChecklist()
+                    {
+                        ProspectID = ProspectId,
+                        ElectricityDoc = sysFileName.ToString(),
+                    };
+                    db.tbl_MoveInChecklist.Add(saveMoveInCheckList);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    moveInDet.ElectricityDoc = sysFileName.ToString();
+                    db.SaveChanges();
+                }
+                msg = "File Uploaded Successfully |" + sysFileName.ToString();
+            }
+            else
+            {
+                msg = "Something went wrong file not Uploaded|0";
+            }
+            return msg;
+        }
+    }
+    public partial class ESignatureKeysModel
+    {
+        public long ESID { get; set; }
+        public Nullable<long> TenantID { get; set; }
+        public Nullable<long> ApplicantID { get; set; }
+        public string Key { get; set; }
+        public Nullable<long> EsignatureId { get; set; }
+        public string DateSigned { get; set; }
+        public string ApplicantName { get; set; }
+        public string Email { get; set; }
+        public int IsSigned { get; set; }
+        public int IsSignedAll { get; set; }
+        public int IsLeaseExecuted { get; set; }
     }
 }

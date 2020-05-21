@@ -167,13 +167,13 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.WOID == 0)
             {
                 var saveWorkorder = new tbl_WorkOrder()
                 {
                     WOID = model.WOID,
-                    TenantID =long.Parse( ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID.ToString()),
+                    TenantID =long.Parse(userid.ToString()),
                     PropertyID = model.PropertyID,
                     ProblemID = model.ProblemID,
                     UnitID = model.UnitID,

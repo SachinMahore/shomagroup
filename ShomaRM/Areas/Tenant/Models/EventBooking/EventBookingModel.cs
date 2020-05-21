@@ -26,18 +26,19 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
+            long tenantid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID : 0;
             if (model.EventBookingID == 0)
             {
                 var saveEventBooking = new tbl_EventBooking()
                 {
                     EventBookingID = model.EventBookingID,
-                    TenantID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.TenantID,
+                    TenantID = tenantid,
                     EventID = model.EventID,
                     BookingDate = model.BookingDate,
                     NoOfGuest = model.NoOfGuest,
                     BookingDetails = model.BookingDetails,
-                    CreatedByID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+                    CreatedByID = userid,
                     CreatedDate = DateTime.Now
                 };
                 db.tbl_EventBooking.Add(saveEventBooking);
@@ -51,12 +52,12 @@ namespace ShomaRM.Areas.Tenant.Models
                 if (GetEventBookingData != null)
                 {
                     GetEventBookingData.EventBookingID = model.EventBookingID;
-                    GetEventBookingData.TenantID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID;
+                    GetEventBookingData.TenantID = tenantid;
                     GetEventBookingData.EventID = model.EventID;
                     GetEventBookingData.BookingDate = model.BookingDate;
                     GetEventBookingData.NoOfGuest = model.NoOfGuest;
                     GetEventBookingData.BookingDetails = model.BookingDetails;
-                    CreatedByID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID;
+                    CreatedByID = userid;
                     CreatedDate = DateTime.Now;
                     db.SaveChanges();
                     msg = "Event Booking Updated Successfully";

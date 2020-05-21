@@ -22,8 +22,7 @@
 <input id="hdnClubHours" type="hidden" value="0" />
 <input id="hdnSoccHours" type="hidden" value="0" />
 <input id="rcpid" type="hidden" value="0" />
-
-
+<input type="hidden" id="hndProcessingFees" value="@ViewBag.ProcessingFees" />
 
 <ul class="nav nav-tabs">
     <li class="active" id="li3"><a data-toggle="tab" onclick="goToStep(3)" href="javascript:void(0);">Payment</a></li>
@@ -828,7 +827,7 @@
                                     <!--<input type="checkbox" name="vehicle1" value="Current"> Current-->
                                     <label class="checbox">
                                         <input type="radio" id="rbtnApertmentPermission1" name="rbtnPermissionToEnter" value="1" checked="checked">
-                                        Current
+                                        Any Time
                                     </label>
                                 </div>
 
@@ -843,8 +842,8 @@
                                 </div>
                                 <div class="col-lg-8 hidden" id="PreferredDate">
                                     <div class="form-group col-md-6">
-                                        <div class="input-group date" id="datetimepicker1">
-                                            <input type="text" class="form-control" placeholder="MM/DD/YYYY" id="txtPreferredDate">
+                                        <div class="input-group" >
+                                            <input type="text" class="form-control" placeholder="mm/dd/yyyy" id="txtPreferredDateSR" />
                                             <span class="input-group-addon" id="Sdate">
                                                 <a><span class="fa fa-calendar"></span></a>
                                             </span>
@@ -2275,9 +2274,9 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label>To Date</label>
-                        <div class="input-group">
+                        <div id="divToDate" class="input-group">
                             <input id="txtToDate" type="text" class="form-control form-control-small" placeholder="MM/dd/yyyy" value="@DateTime.Now.ToString("MM/dd/yyyy")" style="width:70% !important" />
-                            <span class="input-group-btn">
+                            <span id="spToDate" class="input-group-btn">
                                 <button id="iconToDate" class="btn btn-primary search" type="button" style="height:45px!important;margin-left:-68px;background-color:transparent;border:none;"><i class="fa-calendar fa"></i></button>
                             </span>
                         </div>
@@ -3308,21 +3307,66 @@
             $("#SelectedDate").html(formatedDate);
         });
 
+        var dt = new Date();
+        dt.setFullYear(new Date().getFullYear() - 18);
+        var dts = new Date();
+        dts.setFullYear(new Date().getFullYear() - 100);
+
+        var dtstart = new Date();
+        dtstart.setFullYear(new Date().getFullYear() - 100);
+
+        var dtend = new Date();
+        dtend.setFullYear(new Date().getFullYear() + 100);
+        $('#txtDateOfBirth,#txtDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: dt, maxViewMode: 2, autoclose: true });
 
 
-        $("#txtDateOfBirth").datepicker();
-        $("#txtADateOfBirth").datepicker();
-        $("#txtFromDate").datepicker();
-        $("#txtToDate").datepicker();
-        $("#txtTransFromDate").datepicker();
-        $("#txtTransToDate").datepicker();
-        $("#txtPrefarredDate").datepicker('setStartDate', new Date());
-        $("#iconFromDate").click(function () {
-            $("#txtFromDate").focus();
+        //$("#txtDateOfBirth").datepicker();
+        //$("#txtADateOfBirth").datepicker();
+
+        $("#txtFromDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true }).on('change', function (ev) {
+            var dtendFD = new Date();
+            dtendFD.setFullYear(dtendFD.getFullYear() + 100);
+            $("#txtToDate").val("");
+            var dtstartFD = new Date($("#txtFromDate").val());
+            dtstartFD.setFullYear(dtstartFD.getFullYear() + 0);
+            $("#txtToDate").remove();
+            $("#spToDate").remove();
+            var html = '<input id="txtToDate" type="text" class="form-control form-control-small" placeholder="MM/dd/yyyy" value="@DateTime.Now.ToString("MM/dd/yyyy")" style="width:70% !important" />';
+            html += '<span id="spToDate" class="input-group-btn">';
+            html += '<button id="iconToDate" class="btn btn-primary search" type="button" style="height:45px!important;margin-left:-68px;background-color:transparent;border:none;"><i class="fa-calendar fa"></i></button>';
+            html += '</span>';
+            $("#divToDate").append(html);
+            $("#txtToDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstartFD, endDate: dtendFD, maxViewMode: 2, autoclose: true });
+            $("#iconToDate").click(function () {
+                $("#txtToDate").focus();
+            });
         });
+
+        $("#txtToDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true });
         $("#iconToDate").click(function () {
             $("#txtToDate").focus();
         });
+        //$("#txtTransFromDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true }).on('change', function (ev) {
+        //    $("#txtTerminationDateHEI").val("");
+        //    var dtstartTD = new Date($("#txtStartDateHEI").val());
+        //    dtstartTD.setFullYear(dtstartTD.getFullYear() + 0);
+        //    $("#txtTerminationDateHEI").remove();
+        //    $("#spTerminationDateHEI").remove();
+        //    var html = '<input id="txtTerminationDateHEI" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" value="" />';
+        //    html += '<span id="spTerminationDateHEI" class="input-group-btn">';
+        //    html += '<button id="IconTerminationDateHEI" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>';
+        //    html += '</span>';
+        //    $("#divTerminationDateHEI").append(html);
+        //    $("#txtTerminationDateHEI").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstartTD, endDate: "+0d", maxViewMode: 2, autoclose: true });
+        //});
+        //$("#txtTransToDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true });
+
+        $("#txtPrefarredDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: new Date(), endDate: dtend, maxViewMode: 2, autoclose: true });
+        $("#txtPreferredDateSR").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: new Date(), endDate: dtend, maxViewMode: 2, autoclose: true });
+        $("#iconFromDate").click(function () {
+            $("#txtFromDate").focus();
+        });
+       
 
         var currentTime = new Date()
         var minDate = new Date(currentTime.getFullYear(), currentTime.getMonth() + 1, +1); //one day next before month
@@ -3333,8 +3377,9 @@
         });
 
 
-        $("#txtChargeDate").datepicker();
-        $("#txtGuestVistStartDate").datepicker({ dateFormat: "MM/dd/yyyy", startDate: new Date() }).on('change', function (ev) {
+        //$("#txtChargeDate").datepicker();
+
+        $("#txtGuestVistStartDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: new Date(), endDate: dtend, maxViewMode: 2, autoclose: true } ).on('change', function (ev) {
             $("#txtGuestVistEndDate").val('');
             var startDate = $(this).val();
             var endDate = $('#txtGuestVistStartDate').datepicker('getDate');

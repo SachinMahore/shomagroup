@@ -1,0 +1,226 @@
+view/checklist/index
+--------------------------------------------------------------------------------------------------
+add this at top
+---------------------
+<input type="hidden" id="hndMoveInDate" value="0" />
+-------------------------------------------------------------------
+in document ready a very first function remove it and add below function at last of document redy
+function
+--------------------------------------------------------------------
+setTimeout(function () {
+            var moveInDateHidden = $('#hndMoveInDate').val();
+            var preMoveInBefThree = new Date(moveInDateHidden);
+            preMoveInBefThree.setDate(preMoveInBefThree.getDate() - 3);
+            $("#txtMoveInDateCL").datepicker({ startDate: '+1d', endDate: preMoveInBefThree }).on('change', function (ev) {
+                var moveindate = $(this).val();
+                if (moveindate) {
+                    $("#chkMoveinCL").attr("checked", true);
+                    $("#chkMoveinCL").prop("disabled", "disabled");
+                    $("#chkMoveinCL").parent().addClass("checked");
+                } else {
+                    $("#chkMoveinCL").prop("checked", false);
+                    $("#chkMoveinCL").removeProp("disabled");
+                    $("#chkMoveinCL").parent().removeClass("checked");
+                }
+            });
+            $("#iconMoveInDateChecklist").click(function () {
+                $("#txtMoveInDateCL").focus();
+            });
+        }, 1500);
+        $('#ddlMoveInTimeCL').on('change', function () {
+            if (!$(this).val()) {
+                $("#chkMoveinCL").prop("checked", false);
+                $("#chkMoveinCL").removeProp("disabled");
+                $("#chkMoveinCL").parent().removeClass("checked");
+            }
+            else {
+                $("#chkMoveinCL").attr("checked", true);
+                $("#chkMoveinCL").prop("disabled", "disabled");
+                $("#chkMoveinCL").parent().addClass("checked");
+            }
+        });
+
+---------------------------------------------------------------------------------------------
+
+search for getTenantInfoCL
+-------------------
+remove this line=====>>>> $("#txtMoveInDateCL").datepicker({ dateformat: "MM/dd/yyyy", startDate: response.model.MoveInDateTxt });
+---------------
+add this line
+-----------------------
+$("#hndMoveInDate").val(response.model.MoveInDateTxt);
+--------------------------------------------------------
+in same method find chkPayCL in else block remove this $("#chkPayCL").removeProp("disabled");
+---------------------
+and add this =========>>>> $("#chkPayCL").prop("disabled", "disabled");
+----------------------------------------------------------
+in same method in else block find ============>>> chkMoveinCL
+----------------------------------
+replace this ===>>> $("#chkMoveinCL").removeProp("disabled");
+--------------------------
+with =======>>> $("#chkInsCL").prop("disabled", "disabled");
+
+--------------------------------
+
+in same method find chkEleCL at else block replace this $("#chkEleCL").removeProp("disabled");
+------------------------------------
+with $("#chkEleCL").prop("disabled", "disabled");
+-----------------------------------------------------------------------
+
+view/applynow/index
+
+-------------------------------------------------------
+
+search for divEverBeenConvicted and remove hidden
+----------------------------------
+
+search for divAnyCriminalCharges and remove hidden
+------------------------------------------------------
+search for divEverBeenEvictedDetails and remove hidden
+also replace detail with 
+--------------------------------
+If yes, explain
+-------------------------
+replace input field with
+----------------------------------
+<textarea id="txtEverBeenEvictedDetails" class="form-control form-control-small" maxlength="500"></textarea>
+----------------------------------------------------
+search for divEverBeenConvictedDetails and remove hidden
+------------------------------------------------
+also replace detail with
+-------------------------------------
+If yes, explain
+--------------------------------
+replace input field with
+-------------------------
+<textarea id="txtEverBeenConvictedDetails" class="form-control form-control-small" maxlength="500"></textarea>
+---------------------------------------------
+serach for divAnyCriminalChargesDetails and remove hidden
+-----------------
+also replace detail with
+---------------------
+If yes, explain
+-------------------------------------------------------------
+also replace input field
+-----------------------------------------------------
+<textarea id="txtAnyCriminalChargesDetails" class="form-control form-control-small" maxlength="500"></textarea>
+---------------------------------------------------------------------
+search for divReferredByAnotherResidentName and remove hidden
+-----------------------------
+also replace input with
+---------------------------------------
+<textarea id="txtReferredByAnotherResidentName" class="form-control form-control-small" maxlength="500"></textarea>
+-------------------------------------------
+content/pages/applynow.js
+--------------------------------------------------------------
+search for ddlEverBeenEvictedFunction and replace whole function with following code
+---------------------------------------
+var ddlEverBeenEvictedFunction = function () {
+    if ($('#ddlEverBeenEvicted').val() == '2') {
+        $('#txtEverBeenEvictedDetails').val("");
+        $('#txtEverBeenEvictedDetails').removeProp("disabled");
+    }
+    else if ($('#ddlEverBeenEvicted').val() == '1') {
+        $('#txtEverBeenEvictedDetails').val("");
+        $('#txtEverBeenEvictedDetails').prop("disabled","disabled");
+    }
+};
+
+---------------------------------------------------------------------------
+search for ddlEverBeenConvictedFunction and replace whole function with
+-------------------------------------
+var ddlEverBeenConvictedFunction = function () {
+    if ($('#ddlEverBeenConvicted').val() == '2') {
+        $('#txtEverBeenConvictedDetails').val("");
+        $('#txtEverBeenConvictedDetails').removeProp("disabled");
+    }
+    else if ($('#ddlEverBeenConvicted').val() == '1') {
+        $('#txtEverBeenConvictedDetails').val("");
+        $('#txtEverBeenConvictedDetails').prop("disabled", "disabled");
+    }
+};
+
+------------------------------------------------
+search for ddlAnyCriminalChargesFunction and replace whole function
+-------------------------------------------
+var ddlAnyCriminalChargesFunction = function () {
+    if ($('#ddlAnyCriminalCharges').val() == '2') {
+        $('#txtAnyCriminalChargesDetails').val("");
+        $('#txtAnyCriminalChargesDetails').removeProp("disabled");
+    }
+    else if ($('#ddlAnyCriminalCharges').val() == '1') {
+        $('#txtAnyCriminalChargesDetails').val("");
+        $('#txtAnyCriminalChargesDetails').prop("disabled", "disabled");
+    }
+};
+
+-------------------------------------------------
+
+search for ddlReferredByAnotherResidentFunction and replace whole function
+-------------------------------------
+var ddlReferredByAnotherResidentFunction = function () {
+    if ($('#ddlReferredByAnotherResident').val() == '2') {
+        $('#txtReferredByAnotherResidentName').val("");
+        $('#txtReferredByAnotherResidentName').removeProp("disabled");
+    }
+    else if ($('#ddlReferredByAnotherResident').val() == '1') {
+        $('#txtReferredByAnotherResidentName').val("");
+        $('#txtReferredByAnotherResidentName').prop("disabled", "disabled");
+    }
+};
+
+---------------------------------------------------------------------
+area/admin/views/prospectverification/editprospect
+---------------------------------------------------------
+search for chkPay and replace input with
+--------------------------------------------
+<input type="checkbox" id="chkPay" checked="@(Model.MoveInChargesFMIT != 0 ? true : false)" disabled="@(Model.MoveInChargesFMIT != 0 ? "disabled" : "disabled")"><span style="margin-left: 10px;">
+-------------------------------------
+search for txtPayment and replace input with
+---------------------------------------
+<input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@(Model.MoveInChargesFMIT.ToString("0.00"))" disabled />
+--------------------------------------------------------
+search for chkMovein and replace input with
+-------------------------------
+<input type="checkbox" id="chkMovein" checked="@(!string.IsNullOrWhiteSpace(Model.MoveInDateTxt) && !string.IsNullOrWhiteSpace(Model.MoveInTime) ? true : false)" disabled /><span style="margin-left: 10px;">
+------------------------------------------------------
+area/admin/model/prospectverification/prospectverificationmodel
+-------------------------------------------------------
+add this get set property
+----------------------
+public decimal MoveInChargesFMIT { get; set; }
+----------------------------------------------------
+search for GetProspectData in this method find same like ===>>  // model.MoveInCharges
+------------------------
+now replace this with ====>>>  model.MoveInChargesFMIT = 0;
+-------------------------
+add this to ==>>> model.MoveInChargesFMIT = MoveInData.MoveInCharges ?? 0;
+---------------------------------------------------------------------
+content/assets/img/document/emailTemplateProspect3
+-----------------------------------------------------------
+add this in css style also in media query
+---------------------------
+img.g-img + div {
+            display: none;
+        }
+        img.a6T {
+            cursor: default !important;
+        }
+
+-------------------------------------------------
+in footer image (img) field =====>>> add this in class ====>>  g-img a6T
+---------------------------
+add this to  usemap="#workmap"
+----------------------
+also add this just below img ===>>> <div></div> 
+------------------------------------
+add this code below img div
+---------------------------------
+<map name="workmap">
+                        <area shape="rect" coords="356,243,433,255" alt="Phone" target="_blank" href="https://twitter.com/SHOMA_GROUP">
+                        <area shape="rect" coords="" alt="Twitter" target="_blank" href="https://twitter.com/SHOMA_GROUP">
+                        <area shape="rect" coords="545,270,552,285" alt="Facebook" target="_blank" href="https://www.facebook.com/shomagroup">
+                        <area shape="rect" coords="573,284,559,270" alt="Instagram" target="_blank" href="https://instagram.com/shomagroup">
+                        <area shape="rect" coords="356,272,529,283" alt="SanctuaryDoral" target="_blank" href="https://sanctuarydoral.com/">
+                    </map>
+--------------------------------------------------------

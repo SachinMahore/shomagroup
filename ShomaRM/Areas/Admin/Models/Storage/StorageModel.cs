@@ -18,7 +18,7 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<int> Type { get; set; }
         public Nullable<int> Status { get; set; }
 
-        public List<StorageModel> GetStorageList()
+        public List<StorageModel> GetStorageList(long TenantID, string OrderBy, string SortBy)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<StorageModel> model = new List<StorageModel>();
@@ -31,10 +31,20 @@ namespace ShomaRM.Areas.Admin.Models
                     cmd.CommandText = "usp_Get_Storage";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    //DbParameter paramC = cmd.CreateParameter();
-                    //paramC.ParameterName = "Criteria";
-                    //paramC.Value = MarketSourceName;
-                    //cmd.Parameters.Add(paramC);
+                    DbParameter paramTID = cmd.CreateParameter();
+                    paramTID.ParameterName = "TenantID";
+                    paramTID.Value = TenantID;
+                    cmd.Parameters.Add(paramTID);
+
+                    DbParameter paramOB = cmd.CreateParameter();
+                    paramOB.ParameterName = "OrderBy";
+                    paramOB.Value = OrderBy;
+                    cmd.Parameters.Add(paramOB);
+
+                    DbParameter paramSB = cmd.CreateParameter();
+                    paramSB.ParameterName = "SortBy";
+                    paramSB.Value = SortBy;
+                    cmd.Parameters.Add(paramSB);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -61,6 +71,7 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
+        
         public StorageModel GetStorageInfo(int ID = 0)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -346,29 +357,51 @@ namespace ShomaRM.Areas.Admin.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             decimal totalStorageAmt = 0;
-            var TenantStorageData = db.tbl_TenantStorage.Where(p => p.TenantID == model.TenantID).ToList();
-            db.tbl_TenantStorage.RemoveRange(TenantStorageData);
-            db.SaveChanges();
+            string result = "";
             if (model.lstTStorage != null)
-            {
-              
-                foreach (var cd in model.lstTStorage)
-                {
-                    var parkingdata = db.tbl_Storage.Where(p => p.StorageID == cd.StorageID).FirstOrDefault();
-                    var cdData = new tbl_TenantStorage
-                    {
-                        StorageID = cd.StorageID,
-                        TenantID = model.TenantID,
-                        Charges = parkingdata.Charges,
-                        CreatedDate = Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy"))
-                    };
-                    db.tbl_TenantStorage.Add(cdData);
-                    db.SaveChanges();
-                    totalStorageAmt = totalStorageAmt + Convert.ToDecimal(parkingdata.Charges);
-                }
 
+            {
+                // check storage available //
+                long storageid = model.lstTStorage[0].StorageID ?? 0;
+
+                var storagedata = db.tbl_Storage.Where(p => p.StorageID == storageid).FirstOrDefault();
+                var isStorageAvailable = db.tbl_TenantStorage.Where(p => p.StorageID == storageid && TenantID != model.TenantID).FirstOrDefault();
+                if (isStorageAvailable != null)
+                {
+                    result = "0|" + storagedata.StorageName + " - " + storagedata.Description + " is not available.<br/>Please select other storage unit.|0.00";
+                }
+                // check storage available //
+                else
+                {
+                    var TenantStorageData = db.tbl_TenantStorage.Where(p => p.TenantID == model.TenantID).ToList();
+                    db.tbl_TenantStorage.RemoveRange(TenantStorageData);
+                    db.SaveChanges();
+
+                    foreach (var cd in model.lstTStorage)
+                    {
+                        var cdData = new tbl_TenantStorage
+                        {
+                            StorageID = cd.StorageID,
+                            TenantID = model.TenantID,
+                            Charges = storagedata.Charges,
+                            CreatedDate = Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy"))
+                        };
+                        db.tbl_TenantStorage.Add(cdData);
+                        db.SaveChanges();
+                        totalStorageAmt = totalStorageAmt + Convert.ToDecimal(storagedata.Charges);
+                    }
+
+                    result = "1|Progress saved|" + totalStorageAmt.ToString();
+                }
             }
-           return totalStorageAmt.ToString();
+            else
+            {
+                var TenantStorageData = db.tbl_TenantStorage.Where(p => p.TenantID == model.TenantID).ToList();
+                db.tbl_TenantStorage.RemoveRange(TenantStorageData);
+                db.SaveChanges();
+                result = "1|Progress saved|0.00";
+            }
+            return result; 
             
         }
         public List<TenantStorageModel> GetTenantStorageList(long TenantId)

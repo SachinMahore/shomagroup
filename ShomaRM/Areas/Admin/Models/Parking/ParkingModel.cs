@@ -17,8 +17,15 @@ namespace ShomaRM.Areas.Admin.Models
         public string Description { get; set; }
         public Nullable<int> Type { get; set; }
         public Nullable<int> Status { get; set; }
+        public string Available { get; set; }
+        public string UnitNo { get; set; }
+        public string VehicleTag { get; set; }
+        public string OwnerName { get; set; }
+        public string VehicleMake { get; set; }
+        public string VehicleModel { get; set; }
+        public long AddedBy { get; set; }
 
-        public List<ParkingModel> GetParkingList()
+        public List<ParkingModel> GetParkingList(long TenantID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<ParkingModel> model = new List<ParkingModel>();
@@ -31,10 +38,10 @@ namespace ShomaRM.Areas.Admin.Models
                     cmd.CommandText = "usp_Get_Parking";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    //DbParameter paramC = cmd.CreateParameter();
-                    //paramC.ParameterName = "Criteria";
-                    //paramC.Value = MarketSourceName;
-                    //cmd.Parameters.Add(paramC);
+                    DbParameter paramTID = cmd.CreateParameter();
+                    paramTID.ParameterName = "TenantID";
+                    paramTID.Value = TenantID;
+                    cmd.Parameters.Add(paramTID);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -50,6 +57,71 @@ namespace ShomaRM.Areas.Admin.Models
                     usm.Charges = Convert.ToDecimal(dr["Charges"].ToString());
                     usm.Description = dr["Description"].ToString();
                     usm.Type = int.Parse(dr["Type"].ToString());
+                    model.Add(usm);
+              
+                }
+                db.Dispose();
+                return model.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+        public List<ParkingModel> GetParkingListByBedRoom(long TenantID, int BedRoom)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ParkingModel> model = new List<ParkingModel>();
+            try
+            {
+                model.Add(new ParkingModel() {ParkingID=1, ParkingName="1 Vehicle",Charges=100,Description="", Type=1 });
+                if (BedRoom > 2)
+                {
+                    model.Add(new ParkingModel() { ParkingID = 2, ParkingName = "2 Vehicle", Charges = 200, Description = "", Type = 1 });
+                }
+                return model.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+        public List<ParkingModel> GetUnitParkingList(int UID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ParkingModel> model = new List<ParkingModel>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_Get_UnitParking";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramC = cmd.CreateParameter();
+                    paramC.ParameterName = "UID";
+                    paramC.Value = UID;
+                    cmd.Parameters.Add(paramC);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    ParkingModel usm = new ParkingModel();
+                    usm.ParkingID = int.Parse(dr["ParkingID"].ToString());
+                    usm.PropertyID = int.Parse(dr["PropertyID"].ToString());
+                    usm.ParkingName = dr["ParkingName"].ToString();
+                    usm.Charges = Convert.ToDecimal(dr["Charges"].ToString());
+                    usm.Description = dr["Description"].ToString();
+                    usm.Type = int.Parse(dr["Type"].ToString());
+                    usm.Status = int.Parse(dr["Status"].ToString());
+                    usm.AddedBy = Convert.ToInt64(dr["AddedBy"].ToString());
                     model.Add(usm);
                 }
                 db.Dispose();
@@ -80,23 +152,12 @@ namespace ShomaRM.Areas.Admin.Models
 
             return model;
         }
-        public long SaveUpdateParking(ParkingModel model)
+        public string SaveUpdateParking(ParkingModel model)
         {
+            string msgtxt= "";
             ShomaRMEntities db = new ShomaRMEntities();
-            if (model.ParkingID == 0)
-            {
-                //var ParkingData = new tbl_Parking()
-                //{
-                //    PropertyID = model.PropertyID,
-                //    ParkingName = model.ParkingName,
-                //    Charges = model.Charges,
-                //    Description = model.Description
-                //};
-                //db.tbl_Parking.Add(ParkingData);
-                //db.SaveChanges();
-                //model.ParkingID = ParkingData.ParkingID;
-            }
-            else
+
+            if (model.ParkingID != 0)
             {
                 var ParkingInfo = db.tbl_Parking.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
                 if (ParkingInfo != null)
@@ -106,14 +167,33 @@ namespace ShomaRM.Areas.Admin.Models
                     ParkingInfo.Charges = model.Charges;
                     ParkingInfo.Description = model.Description;
                     db.SaveChanges();
+                     msgtxt += "Parking information updated successfully.</br>";
+                    var VehicleInfo = db.tbl_Vehicle.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
+                    if (VehicleInfo != null)
+                    {
+                        VehicleInfo.OwnerName = model.OwnerName;
+                        VehicleInfo.Tag = model.VehicleTag;
+                        VehicleInfo.Make = model.VehicleMake;
+                        VehicleInfo.Model = model.VehicleModel;
+                        db.SaveChanges();
+                        msgtxt += "Vehicle information updated successfully.</br>";
+                    }
+                    else
+                    {
+                        msgtxt = "Vehicle information not updated due to invalid Parking information.";
+
+                    }
                 }
                 else
                 {
-                    throw new Exception(model.ParkingName + " not exists in the system.");
-                }
-            }
+                    msgtxt = "Parking not updated successfully.";
 
-            return model.ParkingID;
+                }
+
+            }
+            
+            db.Dispose();
+            return msgtxt;
 
         }
         public ParkingModel GetParkingData(int Id)
@@ -130,10 +210,27 @@ namespace ShomaRM.Areas.Admin.Models
                 model.ParkingName = GetParkingData.ParkingName;
                 model.Charges = GetParkingData.Charges;
                 model.Description = GetParkingData.Description;
+
+                var GetUnitData = db.tbl_PropertyUnits.Where(p => p.UID == GetParkingData.PropertyID).FirstOrDefault();
+                if (GetUnitData != null)
+                {
+                    model.UnitNo = GetUnitData.UnitNo;
+                }
+                var GetVehicleData = db.tbl_Vehicle.Where(p => p.ParkingID == GetParkingData.ParkingID).FirstOrDefault();
+                if (GetVehicleData != null)
+                {
+                    model.OwnerName = GetVehicleData.OwnerName;
+                    model.VehicleTag = GetVehicleData.Tag;
+                    model.VehicleMake = GetVehicleData.Make;
+                    model.VehicleModel = GetVehicleData.Model;
+
+                }
+
             }
             model.ParkingID = Id;
             return model;
         }
+
         public List<ParkingModel> GetParkingSearchList(string SearchText)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -194,6 +291,11 @@ namespace ShomaRM.Areas.Admin.Models
                     paramC.Value = model.Criteria;
                     cmd.Parameters.Add(paramC);
 
+                    DbParameter paramCT = cmd.CreateParameter();
+                    paramCT.ParameterName = "CriteriaByText";
+                    paramCT.Value = model.CriteriaByText;
+                    cmd.Parameters.Add(paramCT);
+
                     DbParameter paramPN = cmd.CreateParameter();
                     paramPN.ParameterName = "PageNumber";
                     paramPN.Value = model.PageNumber;
@@ -250,6 +352,11 @@ namespace ShomaRM.Areas.Admin.Models
                     paramC.Value = model.Criteria;
                     cmd.Parameters.Add(paramC);
 
+                    DbParameter paramCT = cmd.CreateParameter();
+                    paramCT.ParameterName = "CriteriaByText";
+                    paramCT.Value = model.CriteriaByText;
+                    cmd.Parameters.Add(paramCT);
+
                     DbParameter paramPN = cmd.CreateParameter();
                     paramPN.ParameterName = "PageNumber";
                     paramPN.Value = model.PageNumber;
@@ -270,6 +377,7 @@ namespace ShomaRM.Areas.Admin.Models
                     param6.Value = model.OrderBy;
                     cmd.Parameters.Add(param6);
 
+
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dtTable);
@@ -279,10 +387,18 @@ namespace ShomaRM.Areas.Admin.Models
                 {
                     ParkingListModel usm = new ParkingListModel();
                     usm.ParkingID = int.Parse(dr["ParkingID"].ToString());
+                    usm.PropertyID = int.Parse(dr["PropertyID"].ToString());
                     usm.ParkingName = dr["ParkingName"].ToString();
-                    usm.PropertyID = long.Parse(dr["PropertyID"].ToString());
-                    usm.Charges = decimal.Parse(dr["Charges"].ToString());
+                    usm.Charges = Convert.ToDecimal(dr["Charges"].ToString());
                     usm.Description = dr["Description"].ToString();
+                    usm.Type = int.Parse(dr["Type"].ToString());
+                    usm.Status = int.Parse(dr["Status"].ToString());
+                    //usm.Available = dr["Available"].ToString();
+                    usm.UnitNo = dr["UnitID"].ToString();
+                    usm.VehicleTag = dr["VehicleTag"].ToString();
+                    usm.VehicleMake = dr["VehicleMake"].ToString();
+                    usm.VehicleModel = dr["VehicleModel"].ToString();
+                    usm.OwnerName = dr["TenantName"].ToString();
                     usm.NumberOfPages = int.Parse(dr["NumberOfPages"].ToString());
                     lstData.Add(usm);
                 }
@@ -295,6 +411,97 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
+        public List<ParkingModel> GetParkingNewList()
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ParkingModel> model = new List<ParkingModel>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_Get_Parking";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    ParkingModel usm = new ParkingModel();
+                    usm.ParkingID = int.Parse(dr["ParkingID"].ToString());
+                    usm.PropertyID = int.Parse(dr["PropertyID"].ToString());
+                    usm.ParkingName = dr["ParkingName"].ToString();
+                    usm.Charges = Convert.ToDecimal(dr["Charges"].ToString());
+                    usm.Description = dr["Description"].ToString();
+                    usm.Type = int.Parse(dr["Type"].ToString());
+                    model.Add(usm);
+
+                }
+                db.Dispose();
+                return model.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+
+        
+        public string SaveUpdateParkingName(ParkingModel model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (model.ParkingID != 0)
+            {
+                var ParkingInfo = db.tbl_Parking.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
+                if (ParkingInfo != null)
+                {
+                    ParkingInfo.ParkingName = model.ParkingName;
+                    db.SaveChanges();
+                    msg = "Parking information updated successfully.</br>";
+                }
+                else
+                {
+                    msg = "Parking not updated successfully.";
+
+                }
+            }
+            db.Dispose();
+            return msg;
+        }
+        public string SaveUpdateParkingLocation(ParkingModel model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (model.ParkingID != 0)
+            {
+                var ParkingInfo = db.tbl_Parking.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
+                if (ParkingInfo != null)
+                {
+                    ParkingInfo.Description = model.Description;
+                    db.SaveChanges();
+                    msg = "Parking information updated successfully.</br>";
+                }
+                else
+                {
+                    msg = "Parking not updated successfully.";
+
+                }
+
+            }
+
+            db.Dispose();
+            return msg;
+
+        }
     }
     
     public class TenantParkingModel
@@ -305,40 +512,174 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<decimal> Charges { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public List<TenantParkingModel> lstTParking { get; set; }
+        public long UID { get; set; }
 
-        public string  SaveUpdateTenantParking(TenantParkingModel model)
+        //public string  SaveUpdateTenantParking(TenantParkingModel model)
+        //{
+        //    ShomaRMEntities db = new ShomaRMEntities();
+        //    decimal totalParkingAmt = 0;
+        //    int numOfParking = 0;
+        //    string result = "";
+        //    long addParking = 0;
+        //    long deleteParking = 0;
+        //    if (model.lstTParking != null)
+        //    {
+        //        long parkingNumber = model.lstTParking[0].ParkingID ?? 0;
+        //        // check storage available //
+        //        var tenantParkingData = db.tbl_TenantParking.Where(p => p.TenantID == model.TenantID).ToList();
+        //        if (tenantParkingData.Count >0)
+        //        {
+        //            if (tenantParkingData.Count != parkingNumber)
+        //            {
+        //                long parkingDiff = tenantParkingData.Count - parkingNumber;
+        //                if(parkingDiff<0)
+        //                {
+        //                    addParking = -1 * parkingDiff;
+        //                }else
+        //                {
+        //                    deleteParking = parkingDiff;
+        //                }
+
+        //                foreach (var tpd in tenantParkingData)
+        //                {
+        //                    var remparkingdata = db.tbl_Parking.Where(p => p.PropertyID == model.UID && p.Type == 2 && p.ParkingID == tpd.ParkingID).FirstOrDefault();
+        //                    if (remparkingdata != null)
+        //                    {
+        //                        remparkingdata.PropertyID = 0;
+        //                        db.SaveChanges();
+        //                    }
+        //                }
+        //                db.tbl_TenantParking.RemoveRange(tenantParkingData);
+        //                db.SaveChanges();
+        //            }
+        //        }
+        //        else
+        //        {
+        //            addParking = parkingNumber;
+        //        }
+
+
+        //        var parkingdata = db.tbl_Parking.Where(p => p.ParkingID == parkingid).FirstOrDefault();
+        //        var isParkingAvailable = db.tbl_TenantParking.Where(p => p.ParkingID == parkingid && TenantID != model.TenantID).FirstOrDefault();
+        //        if (isParkingAvailable != null)
+        //        {
+        //            result = "0|" + parkingdata.ParkingName + " - " + parkingdata.Description + " is not available.<br/>Please select other parking unit.|0|0.00";
+        //        }
+        //        // check storage available //
+        //        else
+        //        {
+        //            var tenantParkingData = db.tbl_TenantParking.Where(p => p.TenantID == model.TenantID).ToList();
+
+        //            if (tenantParkingData != null)
+        //            {
+        //                foreach (var tpd in tenantParkingData)
+        //                {
+        //                    var remparkingdata = db.tbl_Parking.Where(p => p.PropertyID == model.UID && p.Type == 2 && p.ParkingID == tpd.ParkingID).FirstOrDefault();
+        //                    if (remparkingdata != null)
+        //                    {
+        //                        remparkingdata.PropertyID = 0;
+        //                        db.SaveChanges();
+        //                    }
+        //                }
+        //                db.tbl_TenantParking.RemoveRange(tenantParkingData);
+        //                db.SaveChanges();
+        //            }
+
+        //            foreach (var cd in model.lstTParking)
+        //            {
+        //                var cdData = new tbl_TenantParking
+        //                {
+        //                    ParkingID = cd.ParkingID,
+        //                    TenantID = model.TenantID,
+        //                    Charges = parkingdata.Charges,
+        //                    CreatedDate = Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy"))
+        //                };
+        //                db.tbl_TenantParking.Add(cdData);
+        //                db.SaveChanges();
+        //                numOfParking = numOfParking + parkingdata.Type ?? 0;
+        //                totalParkingAmt = totalParkingAmt + Convert.ToDecimal(parkingdata.Charges);
+        //                parkingdata.PropertyID = model.UID;
+        //                db.SaveChanges();
+        //            }
+        //            result = "1|Progress saved|"+ numOfParking + "|"+ totalParkingAmt.ToString();
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        var tenantParkingData = db.tbl_TenantParking.Where(p => p.TenantID == model.TenantID).ToList();
+        //        if (tenantParkingData != null)
+        //        {
+        //            foreach (var tpd in tenantParkingData)
+        //            {
+        //                var remparkingdata = db.tbl_Parking.Where(p => p.PropertyID == model.UID && p.Type == 2 && p.ParkingID == tpd.ParkingID).FirstOrDefault();
+        //                if (remparkingdata != null)
+        //                {
+        //                    remparkingdata.PropertyID = 0;
+        //                    db.SaveChanges();
+        //                }
+        //            }
+        //            db.tbl_TenantParking.RemoveRange(tenantParkingData);
+        //            db.SaveChanges();
+        //        }
+        //        result = "1|Progress saved|0|0.00";
+        //    }
+        //    return result;
+        //}
+
+        public string SaveUpdateTenantParking(TenantParkingModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-            decimal totalParkingAmt = 0;
-            var TenantParkingData = db.tbl_TenantParking.Where(p => p.TenantID == model.TenantID).ToList();
-            db.tbl_TenantParking.RemoveRange(TenantParkingData);
-            db.SaveChanges();
+            long numOfParking = 0;
+            long unitID = model.UID;
+            long tenantID = model.TenantID ?? 0;
             if (model.lstTParking != null)
             {
-               
-                foreach (var cd in model.lstTParking)
+                if (model.lstTParking.Count > 0)
                 {
-                    var parkingdata = db.tbl_Parking.Where(p => p.ParkingID == cd.ParkingID).FirstOrDefault();
-                    var cdData = new tbl_TenantParking
-                    {
-                        ParkingID = cd.ParkingID,
-                        TenantID = model.TenantID,
-                        Charges = parkingdata.Charges,
-                        CreatedDate = Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy"))
-                    };
-                    db.tbl_TenantParking.Add(cdData);
-                    db.SaveChanges();
-                    totalParkingAmt = totalParkingAmt+Convert.ToDecimal(parkingdata.Charges);
+                    numOfParking = model.lstTParking[0].ParkingID ?? 0;
                 }
-               
             }
-              
+            string result = "";
+            DataTable dtTable = new DataTable();
+            using (var cmd = db.Database.Connection.CreateCommand())
+            {
+                db.Database.Connection.Open();
+                cmd.CommandText = "usp_SaveUpdateTenantParking";
+                cmd.CommandType = CommandType.StoredProcedure;
+               
+                DbParameter paramNOP = cmd.CreateParameter();
+                paramNOP.ParameterName = "NumberOfParking";
+                paramNOP.Value = numOfParking;
+                cmd.Parameters.Add(paramNOP);
 
-            return totalParkingAmt.ToString();
+                DbParameter paramUID = cmd.CreateParameter();
+                paramUID.ParameterName = "UnitID";
+                paramUID.Value = unitID;
+                cmd.Parameters.Add(paramUID);
 
+                DbParameter paramTID = cmd.CreateParameter();
+                paramTID.ParameterName = "TenantID";
+                paramTID.Value = tenantID;
+                cmd.Parameters.Add(paramTID);
+
+                DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                da.SelectCommand = cmd;
+                da.Fill(dtTable);
+                db.Database.Connection.Close();
+            }
+            if(dtTable.Rows.Count>0)
+            {
+                result = dtTable.Rows[0][0].ToString();
+            }
+            else
+            {
+                result = "1|Error Occured. Please try again.d|0|0.00";
+            }
+            db.Dispose();
+            
+            return result;
         }
-
-
         public List<TenantParkingModel> GetTenantParkingList(long TenantId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -412,10 +753,17 @@ namespace ShomaRM.Areas.Admin.Models
         public int Type { get; set; }
         public int Status { get; set; }
         public string Criteria { get; set; }
+        public string CriteriaByText { get; set; }
         public int PageNumber { get; set; }
         public int NumberOfRows { get; set; }
         public int NumberOfPages { get; set; }
         public string SortBy { get; set; }
         public string OrderBy { get; set; }
+        public string Available { get; set; }
+        public string UnitNo { get; set; }
+        public string VehicleTag { get; set; }
+        public string OwnerName { get; set; }
+        public string VehicleMake { get; set; }
+        public string VehicleModel { get; set; }
     }
 }

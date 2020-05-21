@@ -5,6 +5,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Web;
 using ShomaRM.Data;
+using System.IO;
 
 namespace ShomaRM.Models
 {
@@ -251,7 +252,7 @@ namespace ShomaRM.Models
 
 
         }
-        public List<PropertyUnits> GetPropertyModelList(long PID, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int SortOrder)
+        public List<PropertyUnits> GetPropertyModelList(long PID, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int SortOrder, int Furnished)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<PropertyUnits> lstUnitProp = new List<PropertyUnits>();
@@ -291,6 +292,11 @@ namespace ShomaRM.Models
                     paramSO.ParameterName = "SortOrder";
                     paramSO.Value = SortOrder;
                     cmd.Parameters.Add(paramSO);
+
+                    DbParameter paramFur = cmd.CreateParameter();
+                    paramFur.ParameterName = "Furnished";
+                    paramFur.Value = Furnished;
+                    cmd.Parameters.Add(paramFur);
 
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
@@ -335,7 +341,7 @@ namespace ShomaRM.Models
 
 
         }
-        public List<PropertyUnits> GetPropertyModelUnitList(string ModelName, DateTime AvailableDate, decimal Current_Rent, int Bedroom,int LeaseTermID)
+        public List<PropertyUnits> GetPropertyModelUnitList(string ModelName, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int LeaseTermID, long ProspectId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<PropertyUnits> lstUnitProp = new List<PropertyUnits>();
@@ -371,10 +377,10 @@ namespace ShomaRM.Models
                     paramB.Value = Bedroom;
                     cmd.Parameters.Add(paramB);
 
-                    //DbParameter paramL = cmd.CreateParameter();
-                    //paramL.ParameterName = "LeaseTermID";
-                    //paramL.Value = LeaseTermID;
-                    //cmd.Parameters.Add(paramL);
+                    DbParameter paramANID = cmd.CreateParameter();
+                    paramANID.ParameterName = "ProspectId";
+                    paramANID.Value = ProspectId;
+                    cmd.Parameters.Add(paramANID);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
@@ -544,7 +550,42 @@ namespace ShomaRM.Models
             }
             return lstGallary;
         }
+        public string UploadPetPolicyFile(HttpPostedFileBase fileBaseUpload2)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string msg = "";
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
 
+            if (fileBaseUpload2 != null && fileBaseUpload2.ContentLength > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                fileName = fileBaseUpload2.FileName;
+                Extension = Path.GetExtension(fileBaseUpload2.FileName);
+                sysFileName = "Pet_Policies.pdf";
+                string old = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/Pet_Policies.pdf");
+                if (File.Exists(old))
+                {
+                    File.Delete(old);
+                }
+                fileBaseUpload2.SaveAs(filePath + "//" + sysFileName);
+                if (!string.IsNullOrWhiteSpace(fileBaseUpload2.FileName))
+                {
+                    string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/") + "/" + sysFileName;
+
+                }
+                msg = "File Upload Successfully";
+            }
+            return msg;
+        }
     }
     public partial class PropertyUnits
     {
@@ -605,6 +646,7 @@ namespace ShomaRM.Models
         public int IsAvail { get; set; }
         public int NoAvailable { get; set; }
         public string Premium { get; set; }
+        public string ModelName { get; set; }
     }
     public partial class PropertyFloor
     {
@@ -677,7 +719,7 @@ namespace ShomaRM.Models
       
             return model.ToList();
         }
-        public PropertyFloor GetPropertyFloorDetails(int FloorID, DateTime AvailableDate,  int Bedroom, decimal MaxRent, int LeaseTermID, string ModelName)
+        public PropertyFloor GetPropertyFloorDetails(int FloorID, DateTime AvailableDate, int Bedroom, decimal MaxRent, int LeaseTermID, string ModelName, long ProspectId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             PropertyFloor model = new PropertyFloor();
@@ -732,6 +774,11 @@ namespace ShomaRM.Models
                     paramMN.Value = ModelName;
                     cmd.Parameters.Add(paramMN);
 
+                    DbParameter paramANID = cmd.CreateParameter();
+                    paramANID.ParameterName = "ProspectId";
+                    paramANID.Value = ProspectId;
+                    cmd.Parameters.Add(paramANID);
+
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dtTable);
@@ -762,6 +809,7 @@ namespace ShomaRM.Models
                     pr.Area = dr["Area"].ToString();
                     pr.Premium = dr["Premium"].ToString();
                     pr.AvailableDateText = availableDate.Value.ToString("MM/dd/yyyy");
+                    pr.ModelName = dr["ModelName"].ToString();
                     var getRent = db.tbl_UnitLeasePrice.Where(p => p.LeaseID == LeaseTermID && p.UnitID == pr.UID).FirstOrDefault();
                     if (getRent != null)
                     {

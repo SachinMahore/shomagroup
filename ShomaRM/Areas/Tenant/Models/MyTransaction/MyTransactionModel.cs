@@ -88,6 +88,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
+        string ServerURL = WebConfigurationManager.AppSettings["ServerURL"];
 
         public List<MyTransactionModel> GetTenantTransactionList(long TenantID, int AccountHistoryDDL)
         {
@@ -411,36 +412,26 @@ namespace ShomaRM.Areas.Tenant.Models
                 }
 
                 model.TenantID = getTransdata.TenantID;
-                model.Revision_Num = getTransdata.Revision_Num;
-                model.Transaction_Type = getTransdata.Transaction_Type;
+           
+                model.Transaction_Type = getTransdata.PAID;
                 model.Transaction_Date = getTransdata.Transaction_Date;
-                model.Run = getTransdata.Run;
-                model.LeaseID = getTransdata.LeaseID;
-                model.Reference = getTransdata.Reference;
+              
                 model.CreatedDate = getTransdata.CreatedDate;
                 model.Credit_Amount = getTransdata.Credit_Amount;
                 model.Description = getTransdata.Description;
                 model.Charge_DateString = chargedate.Value != null ? chargedate.Value.ToString("MM/dd/yyyy") : "";
                 model.Charge_Date = getTransdata.Charge_Date;
                 model.Charge_Type = getTransdata.Charge_Type.ToString();
-                model.Payment_ID = getTransdata.Payment_ID;
+              
                 model.AuthCode = getTransdata.Authcode;
                 model.Charge_Amount = getTransdata.Charge_Amount;
                 model.Miscellaneous_Amount = getTransdata.Miscellaneous_Amount;
                 model.Accounting_Date = getTransdata.Accounting_Date;
-                model.Journal = getTransdata.Journal;
-                model.Accrual_Debit_Acct = getTransdata.Accrual_Debit_Acct;
-                model.Accrual_Credit_Acct = getTransdata.Accrual_Credit_Acct;
-                model.Cash_Debit_Account = getTransdata.Cash_Debit_Account;
-                model.Cash_Credit_Account = getTransdata.Cash_Credit_Account;
-                model.Appl_of_Origin = getTransdata.Appl_of_Origin;
+          
                 model.Batch = getTransdata.Batch;
-                model.Batch_Source = getTransdata.Batch_Source;
+           
                 model.CreatedBy = getTransdata.CreatedBy;
-                model.GL_Trans_Reference_1 = getTransdata.GL_Trans_Reference_1;
-                model.GL_Trans_Reference_2 = getTransdata.GL_Trans_Reference_1;
-                //model.GL_Entries_Created = getTransdata.GL_Entries_Created;
-                model.GL_Trans_Description = getTransdata.GL_Trans_Description;
+             
 
             }
             model.TransID = id;
@@ -517,8 +508,9 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
+            var propertyDet = db.tbl_Properties.Where(co => co.PID ==8).FirstOrDefault();
             ApplyNowModel mm = new ApplyNowModel();
             string transStatus = "";
 
@@ -530,6 +522,10 @@ namespace ShomaRM.Areas.Tenant.Models
 
             if (editPaymentAccounts != null)
             {
+                if(propertyDet!=null)
+                {
+                    mm.ProcessingFees = propertyDet.ProcessingFees ?? 0;
+                }
                 mm.Name_On_Card = editPaymentAccounts.NameOnCard;
                 mm.CardNumber = decryptedCardNumber;
                 mm.CardMonth = decrytpedCardMonth;
@@ -564,12 +560,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
 
                         TenantID = model.TenantID,
-                        Revision_Num = model.Revision_Num,
-                        Transaction_Type = "3",
+                       
+                        PAID = "3",
                         Transaction_Date = Convert.ToDateTime(model.Charge_Date),
-                        Run = 1,
-                        LeaseID = model.LeaseID,
-                        Reference = model.Reference,
+                     
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.Charge_Amount,
                         Description = model.Description + " | TransID: " + strlist[1],
@@ -581,11 +575,10 @@ namespace ShomaRM.Areas.Tenant.Models
                         Accounting_Date = DateTime.Now,
                      
                         Batch = "0",
-                        Batch_Source = "",
-                        CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
                        
-                        GL_Trans_Description = transStatus.ToString(),
-                        
+                        CreatedBy = userid,
+                       UserID=userid,
+                       
 
                     };
                     db.tbl_Transaction.Add(saveTransaction);
@@ -790,6 +783,7 @@ namespace ShomaRM.Areas.Tenant.Models
             MyTransactionModel model = new MyTransactionModel();
             ShomaRMEntities db = new ShomaRMEntities();
             List<BillModel> listbill = new List<BillModel>();
+            
             model.lstpr = listbill;
             try
             {
@@ -843,7 +837,7 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             var transDetails = db.tbl_Transaction.Where(p => p.TransID == TransID).FirstOrDefault();
 
             string transStatus = new UsaePayModel().RefundCharge(TransID);
@@ -853,14 +847,11 @@ namespace ShomaRM.Areas.Tenant.Models
             {
                 var saveTransaction = new tbl_Transaction()
                 {
-
                     TenantID = transDetails.TenantID,
-                    Revision_Num = transDetails.Revision_Num,
-                    Transaction_Type = transDetails.Transaction_Type,
+                   
+                    PAID = transDetails.PAID,
                     Transaction_Date = DateTime.Now,
-                    Run = 1,
-                    LeaseID = transDetails.LeaseID,
-                    Reference = transDetails.Reference,
+                    
                     CreatedDate = DateTime.Now,
                     Credit_Amount = transDetails.Charge_Amount,
                     Description = transDetails.Description + " | TransID: " + strlist[1],
@@ -870,15 +861,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     Charge_Amount = Convert.ToDecimal(transDetails.Charge_Amount),
                     Miscellaneous_Amount = transDetails.Miscellaneous_Amount,
                     Accounting_Date = DateTime.Now,
-
-                    CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
-
-
+                    CreatedBy = userid,
                 };
                 db.tbl_Transaction.Add(saveTransaction);
                 db.SaveChanges();
-
-
             }
 
             db.Dispose();
@@ -912,6 +898,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     var accountDet = db.tbl_PaymentAccounts.Where(p => p.PAID == PAID).FirstOrDefault();
                     var transData = db.tbl_Transaction.Where(p => p.TransID == TransId).FirstOrDefault();
                     var tenantData = db.tbl_TenantInfo.Where(p => p.TenantID == TenantID).FirstOrDefault();
+                    var propertyDet = db.tbl_Properties.Where(co => co.PID == 8).FirstOrDefault();
                     ApplyNowModel mm = new ApplyNowModel();
                     string transStatus = "";
 
@@ -923,6 +910,10 @@ namespace ShomaRM.Areas.Tenant.Models
 
                     if (accountDet != null)
                     {
+                        if (propertyDet != null)
+                        {
+                            mm.ProcessingFees = propertyDet.ProcessingFees ?? 0;
+                        }
                         mm.Name_On_Card = accountDet.NameOnCard;
                         mm.CardNumber = decryptedCardNumber;
                         mm.CardMonth = decrytpedCardMonth;
@@ -953,7 +944,7 @@ namespace ShomaRM.Areas.Tenant.Models
                             transData.Description = transData.Description + " | TransID: " + strlist[1];
                             transData.Authcode = strlist[1];
                             transData.Accounting_Date = DateTime.Now;
-                            transData.GL_Trans_Description = transStatus.ToString();
+                            
                             db.SaveChanges();
                             msg = transStatus.ToString();
                         }
@@ -963,22 +954,22 @@ namespace ShomaRM.Areas.Tenant.Models
                             var saveTransaction = new tbl_Transaction()
                             {
                                 TenantID = TenantID,
-                                Revision_Num = 1,
-                                Transaction_Type = PAID.ToString(),
+                            
+                                PAID = PAID.ToString(),
                                 Transaction_Date = DateTime.Now,
-                                Run = 0,
+                                
                                 CreatedDate = DateTime.Now,
                                 Credit_Amount = 0,
                                 Description = transData.Description,
                                 Charge_Date = DateTime.Now,
                                 Charge_Type = 11,
-                                Payment_ID = null,
+                               
                                 Authcode = "",
                                 Charge_Amount = transData.Charge_Amount,
                                 Accounting_Date = DateTime.Now,
-                                Batch = TransId.ToString(),
-                                Batch_Source = "",
-                                CreatedBy = 1
+                                Batch = TransId.ToString(),                               
+                                CreatedBy = 1,
+                                
                             };
                             db.tbl_Transaction.Add(saveTransaction);
                             db.SaveChanges();
@@ -987,8 +978,9 @@ namespace ShomaRM.Areas.Tenant.Models
                         string reportHTML = "";
                         string body = "";
                         string subject = "";
-                        string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                        string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                         reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+                        reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
                         string message = "";
                         string phonenumber = tenantData.Mobile;
 
@@ -1016,7 +1008,10 @@ namespace ShomaRM.Areas.Tenant.Models
                         message = subject + ". Please check the email for detail.";
                         if (SendMessage == "yes")
                         {
-                            new TwilioService().SMS(phonenumber, message);
+                            if (!string.IsNullOrWhiteSpace(phonenumber))
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
                         }
                     }
                 }
@@ -1030,7 +1025,7 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             List<TenantMonthlyPayments> lsttmp = new List<TenantMonthlyPayments>();
             try
             {
@@ -1062,23 +1057,23 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
 
                         TenantID = Convert.ToInt64(dr["TenantID"].ToString()),
-                        Revision_Num = Convert.ToInt32(dr["Revision_Num"].ToString()),
-                        Transaction_Type = dr["PAID"].ToString(),
+                    
+                        PAID = dr["PAID"].ToString(),
                         Transaction_Date = Convert.ToDateTime(dr["Transaction_Date"]),
-                        Run = Convert.ToInt32(dr["TMPID"].ToString()),
+                       
                         CreatedDate = DateTime.Now,
                         Credit_Amount = 0,
                         Description = dr["Description"].ToString(),
                         Charge_Date = Convert.ToDateTime(dr["Transaction_Date"]),
                         Charge_Type = 3,
-                        Payment_ID = null,
+                        
                         Authcode = "",
                         Charge_Amount = Convert.ToDecimal(dr["Charge_Amount"].ToString()),
                         Accounting_Date = DateTime.Now,
                         Batch = Batch,
-                        Batch_Source = "",
-                        CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
-
+                        
+                        CreatedBy = userid,
+                        UserID= Convert.ToInt64(dr["UserID"].ToString()),
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -1111,8 +1106,6 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
                         CreateTransBill(TransId, Convert.ToDecimal(prospectDet.StorageAmt), "Storage Charges");
                     }
-
-
                 }
                 db.Dispose();
 
@@ -1123,10 +1116,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 throw ex;
             }
 
-
             msg = "Monthly Payment Generated Successfully";
-
-
             db.Dispose();
             return msg;
         }
@@ -1205,6 +1195,7 @@ namespace ShomaRM.Areas.Tenant.Models
             string msg = "";
 
             var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
+            var propertyDet = db.tbl_Properties.Where(co => co.PID == 8).FirstOrDefault();
             ApplyNowModel mm = new ApplyNowModel();
             string transStatus = "";
             //string encryptedCardNumber = editPaymentAccounts.CardNumber == null ? null :  new EncryptDecrypt().EncryptText(editPaymentAccounts.CardNumber);
@@ -1214,7 +1205,10 @@ namespace ShomaRM.Areas.Tenant.Models
             //string encryptedRoutingNumber = editPaymentAccounts.RoutingNumber == "" ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.RoutingNumber);
             if (editPaymentAccounts != null)
             {
-
+                if (propertyDet != null)
+                {
+                    mm.ProcessingFees = propertyDet.ProcessingFees ?? 0;
+                }
                 mm.CardNumber = !string.IsNullOrWhiteSpace(editPaymentAccounts.CardNumber)?new EncryptDecrypt().DecryptText(editPaymentAccounts.CardNumber) :"";
                 mm.CardMonth = !string.IsNullOrWhiteSpace(editPaymentAccounts.Month) ? new EncryptDecrypt().DecryptText(editPaymentAccounts.Month) : "";
                 mm.CardYear = !string.IsNullOrWhiteSpace(editPaymentAccounts.Year) ? new EncryptDecrypt().DecryptText(editPaymentAccounts.Year) : "";
@@ -1250,12 +1244,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
 
                     TenantID = model.TenantID,
-                    Revision_Num = 1,
-                    Transaction_Type = model.Transaction_Type,
+                 
+                    PAID = model.Transaction_Type,
                     Transaction_Date = DateTime.Now,
-                    Run = 1,
-                    LeaseID = model.LeaseID,
-                    Reference = "AR" + model.Batch,
+                   
                     CreatedDate = DateTime.Now,
                     Credit_Amount = model.Charge_Amount,
                     Description = model.Description + " | TransID: " + strlist[1],
@@ -1267,11 +1259,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     Accounting_Date = DateTime.Now,
 
                     Batch = model.Batch,
-                    Batch_Source = "",
+                   
                     CreatedBy = Convert.ToInt32(model.UserId),
-
-                    GL_Trans_Description = transStatus.ToString(),
-
+                    UserID = Convert.ToInt32(model.UserId),
                 };
                 db.tbl_Transaction.Add(saveTransaction);
                 db.SaveChanges();
@@ -1283,8 +1273,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 string reportHTML = "";
                 string body = "";
 
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+
+                reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
 
                 string message = "";
                 string phonenumber = GetTenantData.Mobile;
@@ -1307,7 +1299,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     message = "Your Reservation Fee payment has been received. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
                 else if (model.IsAmeDepoPay == 0)
@@ -1334,7 +1329,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     message = "Your Reservation Fee payment has been received. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
                 else if (model.IsAmeDepoPay == 3)
@@ -1352,7 +1350,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     message = "Your Reservation Deposit payment has been received. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
 
@@ -1373,6 +1374,7 @@ namespace ShomaRM.Areas.Tenant.Models
             string msg = "";
 
             var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
+            var propertyDet = db.tbl_Properties.Where(co => co.PID == 8).FirstOrDefault();
             ApplyNowModel mm = new ApplyNowModel();
             string transStatus = "";
 
@@ -1384,7 +1386,10 @@ namespace ShomaRM.Areas.Tenant.Models
 
             if (editPaymentAccounts != null)
             {
-
+                if (propertyDet != null)
+                {
+                    mm.ProcessingFees = propertyDet.ProcessingFees ?? 0;
+                }
                 mm.CardNumber = decryptedCardNumber;
                 mm.CardMonth = decrytpedCardMonth;
                 mm.CardYear = decrytpedCardYear;
@@ -1419,12 +1424,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
 
                     TenantID = model.TenantID,
-                    Revision_Num = 1,
-                    Transaction_Type = model.Transaction_Type,
+                 
+                    PAID = model.Transaction_Type,
                     Transaction_Date = DateTime.Now,
-                    Run = 1,
-                    LeaseID = model.LeaseID,
-                    Reference = "SR" + model.Batch,
+                  
                     CreatedDate = DateTime.Now,
                     Credit_Amount = model.Charge_Amount,
                     Description = model.Description + " | TransID: " + strlist[1],
@@ -1436,11 +1439,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     Accounting_Date = DateTime.Now,
 
                     Batch = model.Batch,
-                    Batch_Source = "",
+                   
                     CreatedBy = Convert.ToInt32(model.UserId),
-
-                    GL_Trans_Description = transStatus.ToString(),
-
+                    UserID = Convert.ToInt32(model.UserId),
                 };
                 db.tbl_Transaction.Add(saveTransaction);
                 db.SaveChanges();
@@ -1452,8 +1453,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 string reportHTML = "";
                 string body = "";
 
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Template/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+
+                reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
 
                 string message = "";
                 string phonenumber = GetTenantData.Mobile;
@@ -1475,7 +1478,10 @@ namespace ShomaRM.Areas.Tenant.Models
                 message = "Service Repair payment has been received. Please check the email for detail.";
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
 
                 msg = "1";

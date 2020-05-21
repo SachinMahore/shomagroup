@@ -29,7 +29,9 @@ var buildPaganationProspectVerifyList = function (pagenumber, sortby, orderby) {
         PageNumber: 1,
         NumberOfRows: $("#ddlRPP_ProspectVerifyList").val(),
         SortBy: sortby,
-        OrderBy: orderby
+        OrderBy: orderby,
+        UnitNo: $("#txtUnitNo").val(),
+        ApplicationStatus: $("#ddlSearchStatus").val(),
     };
     $.ajax({
         url: "/ProspectVerification/BuildPaganationProspectVerifyList",
@@ -41,6 +43,7 @@ var buildPaganationProspectVerifyList = function (pagenumber, sortby, orderby) {
             if ($.trim(response.error) !== "") {
                 alert(response.error);
             } else {
+
                 if (response.NOP == 0) {
                     $('#divPagination_ProspectVerifyList').addClass("hidden");
                 }
@@ -67,7 +70,10 @@ var fillProspectVerifyList = function (pagenumber, sortby, orderby) {
         PageNumber: pagenumber,
         NumberOfRows: $("#ddlRPP_ProspectVerifyList").val(),
         SortBy: sortby,
-        OrderBy: orderby
+        OrderBy: orderby,
+        UnitNo: $("#txtUnitNo").val(),
+        ApplicationStatus: $("#ddlSearchStatus").val(),
+
     };
     $.ajax({
         url: '/ProspectVerification/FillProspectVerifySearchGrid',
@@ -76,13 +82,36 @@ var fillProspectVerifyList = function (pagenumber, sortby, orderby) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-          //  console.log(JSON.stringify(response));
+            //  console.log(JSON.stringify(response));
             if ($.trim(response.error) !== "") {
                 //this.cancelChanges();
             } else {
                 var html = "";
                 $("#tblProspectVerify>tbody").empty();
                 $.each(response, function (elementType, elementValue) {
+                    var k = "";
+
+                    if ($.trim(elementValue.ApplicationStatus) == 0) {
+                        k = "<select id='ddlStatus" + elementValue.UserID + "' class='form-control' onchange='abc(" + elementValue.UserID + ");'><option value='0' selected='selected'  data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "'>Select</option> <option value='Approved'  data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "'>Approved</option><option value='Denied'  data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "'>Denied</option><option value='Conditional'  data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "'>Conditional</option> </select> ";
+
+                    }
+                    else if ($.trim(elementValue.ApplicationStatus) == 'Approved') {
+                        k = "<select id='ddlStatus" + elementValue.UserID + "' class='form-control' onchange='abc(" + elementValue.UserID + ");'><option value='0'  data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "' >Select</option> <option value='Approved' selected='selected'  data-status='" + $.trim(elementValue.ApplicationStatus) + "'  data-email='" + elementValue.Email + " ' data-userId='" + elementValue.UserID + "'>Approved</option><option value='Denied'  data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "'  data-userId='" + elementValue.UserID + "'>Denied</option><option value='Conditional'  data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "'>Conditional</option> </select>";
+
+                    }
+                    else if ($.trim(elementValue.ApplicationStatus) == 'Denied') {
+                        k = "<select id='ddlStatus" + elementValue.UserID + "' class='form-control' onchange='abc(" + elementValue.UserID + ");'><option value='0'  data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "'>Select</option> <option value='Approved'   data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "'>Approved</option><option value='Denied' selected='selected'  data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "'>Denied</option><option value='Conditional'  data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "' >Conditional</option> </select>";
+
+                    }
+                    else if ($.trim(elementValue.ApplicationStatus) == 'Conditional') {
+                        k = "<select id='ddlStatus" + elementValue.UserID + "' class='form-control' onchange='abc(" + elementValue.UserID + ");'><option value='0'  data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "'>Select</option> <option value='Approved'  data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "'>Approved</option><option value='Denied'  data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "'>Denied</option><option value='Conditional' selected='selected'  data-status='" + $.trim(elementValue.ApplicationStatus) + "' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "' data-userId='" + elementValue.UserID + "'>Conditional</option> </select >";
+
+                    }
+                    else {
+                        //"<select id='ddlStatus' class='form-control' onchange='abc(this);'><option value='0' selected='selected' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "'>Select</option> <option value='Approved' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "'> Approved</option><option value='Denied'  data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "'> Denied</option><option value='Conditional' data-email='" + elementValue.Email + "' data-userId='" + elementValue.UserID + "'> Conditional</option> </select> ";
+
+                    }
+
                     html = "<tr data-value=" + elementValue.UserID + ">";
                     html += "<td>" + elementValue.FirstName + "</td>";
                     html += "<td>" + elementValue.LastName + "</td>";
@@ -90,6 +119,12 @@ var fillProspectVerifyList = function (pagenumber, sortby, orderby) {
                     html += "<td>" + elementValue.Email + "</td>";
                     html += "<td>" + elementValue.CreatedDate + "</td>";
                     html += "<td>" + elementValue.UnitNo + "</td>";
+
+                    //html += "<td><select id= 'ddlStatus' class='form-control' onchange='abc();'> <option value='0'" + (elementValue.ApplicationStatus == 0 ? "selected= 'selected'" : "") + ">Select</option> <option value='Approved' " + (elementValue.ApplicationStatus == 'Approved' ? "selected= 'selected'" : "") +"> Approved</option >";
+                    //html += "<option value='Denied' " + (elementValue.ApplicationStatus == 'Denied' ? "selected= 'selected'" : "") + "> Denied</option ><option value='Conditional'" + (elementValue.ApplicationStatus == 'Conditional'? "selected= 'selected'" : "") +" > Conditional</option > </select ></td >";
+                    //html += "</tr>";
+                    html += "<td>" + k + "</td>"
+                    html += "<td><a onclick=\"GetBackgroundScreening("+ elementValue.UserID +")\"><i class=\"fa fa-eye\"></i></a></td>"
                     html += "</tr>";
                     $("#tblProspectVerify>tbody").append(html);
                 });
@@ -99,6 +134,42 @@ var fillProspectVerifyList = function (pagenumber, sortby, orderby) {
         }
     });
 };
+
+//Get BackgroundScreening Data
+var GetBackgroundScreening = function (Id) {
+    $("#popBackgroundScreening").modal("show");
+    var model = {
+        UserId: Id
+
+    };
+    $.ajax({
+        url: '/ProspectVerification/GetBackgroundScreening',
+        method: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) { 
+            //  console.log(JSON.stringify(response));
+            if ($.trim(response.error) !== "") {
+                //this.cancelChanges();
+            } else {
+                var html = "";
+                $("#bgscrTable>tbody").empty();
+                $.each(response, function (elementType, elementValue) {                   
+
+                    html = "<tr data-value=" + elementValue.TenantId + ">";
+                    html += "<td>" + elementValue.OrderID + "</td>";
+                    html += "<td>" + elementValue.Type + "</td>";
+                    html += "<td>" + elementValue.Status + "</td>";                    
+                    html += "<td>" + elementValue.PDFUrl + "</td>";
+                    html += "</tr>";
+                    $("#bgscrTable>tbody").append(html);
+                });
+            }
+            
+        }
+    }); };
+
 $(document).ready(function () {
     fillRPP_ProspectVerifyList();
     $('#ulPagination_ProspectVerifyList').pagination({
@@ -127,6 +198,28 @@ $(document).ready(function () {
     $('#tblProspectVerify tbody').on('dblclick', 'tr', function () {
         goToEditProspectVerify();
     });
+
+
+    //$("#ddlStatus").on('change', function (evt, params) {
+    //    var selected = $(this).val();
+
+    //    $('#popChangestatus').modal('show');
+    //});
+    $('#ddlCriteria').val('1');
+    $("#ddlCriteria").on('change', function (evt, params) {
+        var selected = $(this).val();
+        if (selected == 1) {
+            $('#serchStat').removeClass('hidden');
+            $('#EnterC').addClass('hidden');
+            $('#txtUnitNo').val('');
+        } else {
+            $('#EnterC').removeClass('hidden');
+            $('#serchStat').addClass('hidden');
+            $('#txtUnitNo').val('');
+            $('#ddlSearchStatus').val('0');
+        }
+    });
+
 });
 $(document).keypress(function (e) {
     if (e.which === 13) {
@@ -145,7 +238,7 @@ var createDropDown = function (docid, selectedid) {
 
 var count = 0;
 var sortTableProspectVerification = function (sortby) {
-   
+
     var orderby = "";
     var pNumber = $("#hndPageNo").val();
     if (!pNumber) {
@@ -210,4 +303,51 @@ var sortTableProspectVerification = function (sortby) {
     count++;
     buildPaganationProspectVerifyList(pNumber, sortby, orderby);
     fillProspectVerifyList(pNumber, sortby, orderby);
+};
+var abc = function (id) {
+
+    if ($('#ddlStatus' + id).val() != '0') {
+        var k = $('#ddlStatus' + id).find(":selected").data('email');
+
+        $('#hndEmailId').val(k);
+        var c = $('#ddlStatus' + id).find(":selected").data('userid');
+        $('#hndUserId').val(c);
+
+        $('#popChangestatus').modal('show');
+        var i = $('#ddlStatus' + id).val();
+        var ddlValue = i;
+        $('#lblstatusName').html('<i class="fa fa-check fa-lg"></i> ' + "  " + ddlValue + '');
+    }
+};
+
+var Statuschange = function () {
+    $('#popChangestatus').modal('hide');
+    var emil = $('#hndEmailId').val();
+    var ProspectId = $('#hndUserId').val();
+    //var emil = $("#ddlStatus").find(":selected").data("email");
+    //var ProspectId = $("#ddlStatus").find(":selected").data("userid");
+    //var status = $("#ddlStatus").find(":selected").data("status");
+    var s = $('#lblstatusName').text();
+    var status = $.trim(s)
+    var model = {
+        Email: emil,
+        UserId: ProspectId,
+        Status: status
+    };
+
+    $.ajax({
+        url: "/ProspectVerification/SaveScreeningStatusList",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+
+            $.alert({
+                title: "",
+                content: "Confirmation Saved and Email Send Successfully",
+                type: 'red',
+            });
+        }
+    });
 };

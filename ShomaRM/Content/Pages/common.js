@@ -126,23 +126,35 @@ function nonNegDecimal(evt, cont) {
 }
 
 function checkStrength(password) {
-
     var validated = true;
-    var msg = "";
+    if (password) {
+        var msg = "";
+        var msgcount = 1;
+        if (password.length < 8) { validated = false; msg += "The Password should have a minimum of 8 characters <br/>"; msgcount += 1; };
+        if (!/\d/.test(password)) { validated = false; msg += "Password should contain at least one digit <br/>"; msgcount += 1 };
+        if (!/[a-z]/.test(password)) { validated = false; msg += "Password should contain at least one lower case <br/>"; msgcount += 1 };
+        if (!/[A-Z]/.test(password)) { validated = false; msg += "Password should contain at least one upper case <br/>"; msgcount += 1 };
+        if (!/[!@#$%^&*]/.test(password)) { validated = false; msg += "Password should contain at least one special symbols in the list !@#$%^&*<br/>"; };
 
-    if (password.length < 8) { validated = false; msg += "The Password should have a minimum of 8 characters <br/>"; }
-    if (!/\d/.test(password)) { validated = false; msg += "Password should contain at least one digit <br/>"; }
-    if (!/[a-z]/.test(password)) { validated = false; msg += "Password should contain at least one lower case <br/>"; }
-    if (!/[A-Z]/.test(password)) { validated = false; msg += "Password should contain at least one upper case <br/>"; }
-    if (/[^0-9a-zA-Z]/.test(password)) { validated = false; msg += "Password should contain at least 8 from the mentioned characters <br/>"; }
-
-    if (msg != "") {
-        $.alert({
-            title: "",
-            content: msg,
-            type: 'red'
-        });
-        validated= false;
+        if (msg != "") {
+            //msg = "Password should<br/>" + msg;
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            validated = false;
+        }
     }
     return validated;
+}
+var webURL = function () {
+    if (!window.location.origin) {
+        window.location.origin = window.location.protocol + "//"
+            + window.location.hostname
+            + (window.location.port ? ':' + window.location.port : '');
+        return window.location.origin
+    } else {
+        return window.location.origin
+    }
 }

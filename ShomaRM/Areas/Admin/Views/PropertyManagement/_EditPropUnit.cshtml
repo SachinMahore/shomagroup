@@ -155,7 +155,7 @@
                 </div>
             </div>
             <div class="col-sm-12">
-                <div class="col-sm-8">
+                <div class="col-sm-6">
                     <div class="form-group">
                         <label class="star">Premium Type</label>
                         <select id="ddlPremium" class="form-control">
@@ -177,6 +177,15 @@
                                 <button id="iconAvailableDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                             </span>
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="star">Furnished</label>
+                        <select id="ddlFurnishedUnit" class="form-control">
+                            <option value='1'>Furnished Unit</option>
+                            <option value='2'>Unfurnished Unit</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -259,6 +268,71 @@
                     <div class="form-group">
                         <label class="star">PetDetails</label>
                         <input id="txtPetDetails" type="text" class="form-control" value="@Model.PetDetails">
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-3" hidden>
+                        <div class="form-group">
+                            <label>Parking No.</label>
+                            <input id="txtParkingNo" type="text" class="form-control" value="@Model.ParkingID">
+                        </div>
+                    </div>
+                    <div class="col-sm-3" hidden>
+                        <div class="form-group">
+                            <label class="star">Charges</label>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                </span>
+                                <input id="txtCharges" class="form-control form-control-small" type="text" onkeypress="return isNumber(event)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Location</label>
+                            <select id="ddlLocation" class="form-control form-control-small">
+                                <option value="0">Please Select</option>
+                                <option value="1" data-search="E-3">E-3</option>
+                                <option value="2" data-search="E-4">E-4</option>
+                                <option value="3" data-search="E-5">E-5</option>
+                                <option value="4" data-search="W-3">W-3</option>
+                                <option value="5" data-search="W-4">W-4</option>
+                                <option value="6" data-search="W-5">W-5</option>
+                            </select>
+                            @*<select id="ddlLocation" class="form-control form-control-small">
+                        @foreach (var item in Model.LocationList)
+                        {
+                            <option value="@item.ParkingID" data-list="@item.Description" data-pid= "@item.PropertyID" data-uid="@Model.UID" @(item.PropertyID == Model.UID ? "selected" : "")>@item.Description</option>
+                        }
+                    </select>*@
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Space No.</label>
+                            <input id="txtSpaceNo" type="text" class="form-control" value="@Model.ParkingName">
+                        </div>
+                    </div>
+                    <div class="col-sm-3 hidden">
+                        <div class="form-group">
+                            <label>Leased</label>
+                            <input id="txtLeased" type="text" class="form-control" placeholder="13 Month" value="@Model.Leased">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 hidden">
+                        <div class="form-group">
+                            <label class="star">PetDetails</label>
+                            <input id="txtPetDetails" type="text" class="form-control" value="@Model.PetDetails">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <textarea id="txtUnitNotes" type="text" class="form-control">@Model.Notes</textarea>
+                        </div>
                     </div>
                 </div>
                 <div class="col-sm-12">
@@ -492,6 +566,9 @@
             $("#ddlPremium").val('@Model.Premium');
             $("#ddlPremium").trigger('change');
 
+            $("#ddlFurnishedUnit").val('@Model.IsFurnished');
+            $("#ddlFurnishedUnit").trigger('change');
+
             $("#ddlModel").val('@Model.Building');
             $("#ddlModel").trigger('change');
         }, 900);
@@ -565,12 +642,19 @@
             $("#txtBalconyArea").val(@Model.BalconyArea);
             $("#txtInteriorArea").val(@Model.InteriorArea);
         }, 1500);
-        $("#txtAvailableDate").datepicker();
-        $("#txtLeaseEndDate").datepicker();
-        $("#txtOccupancyDate").datepicker();
-        $("#txtActualMoveInDate").datepicker();
-        $("#txtIntendedMoveIn_Date").datepicker();
-        $("#txtActualMoveOutDate").datepicker();
+
+        var dtstart = new Date();
+        dtstart.setFullYear(new Date().getFullYear() - 100);
+
+        var dtend = new Date();
+        dtend.setFullYear(new Date().getFullYear() + 100);
+
+        $("#txtAvailableDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true });
+        $("#txtLeaseEndDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true });
+        $("#txtOccupancyDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true });
+        $("#txtActualMoveInDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true });
+        $("#txtIntendedMoveIn_Date").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true });
+        $("#txtActualMoveOutDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true });
 
         $("#iconAvailableDate").click(function () {
             $("#txtAvailableDate").focus();

@@ -43,6 +43,7 @@ namespace ShomaRM.Areas.Admin.Models
                     string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/Facility/") + "/" + sysFileName;
                 }
             }
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.FacilityID == 0)
             {
                 var saveFacility = new tbl_Facility()
@@ -51,7 +52,7 @@ namespace ShomaRM.Areas.Admin.Models
                     PropertyID = model.PropertyID,
                     Photo = sysFileName,
                     Description = model.Description,
-                    CreatedByID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+                    CreatedByID = userid,
                     CreatedDate = DateTime.Now.Date
                 };
                 db.tbl_Facility.Add(saveFacility);

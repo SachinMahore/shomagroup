@@ -34,8 +34,8 @@ namespace ShomaRM.Data
         public Nullable<long> TenantID { get; set; }
         public long UserId { get; set; }
         public bool IsDeleted { get; set; }
+        public bool Active { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public System.DateTime LastUpdatedDate { get; set; }
-        public bool Active { get; set; }
     }
 }

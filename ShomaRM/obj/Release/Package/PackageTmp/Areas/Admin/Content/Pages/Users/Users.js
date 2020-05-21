@@ -118,10 +118,10 @@ var saveUpdateUser = function () {
         };
         var saveurl = "";
         if ($("#hndUserID").val() == "0") {
-            saveurl= "../users/SaveUpdateUser";
+            saveurl = "../users/SaveUpdateUser";
         }
         else {
-            saveurl=  "../SaveUpdateUser";
+            saveurl =  "../SaveUpdateUser";
         }
         $.ajax({
             url: saveurl,

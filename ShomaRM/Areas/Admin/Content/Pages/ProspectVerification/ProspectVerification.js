@@ -259,6 +259,42 @@ $(document).ready(function () {
     remainingday = days;
     numberOfDays = daysInMonth;
     getEmpHistoryListPropVari();
+    setTimeout(function () {
+        fillUnitParkingList();
+    }, 1500);
+
+    document.getElementById('uploadPOI').onchange = function () {
+        var fileUploadPOIBool = restrictFileUpload($(this).val());
+        if (fileUploadPOIBool == true) {
+            uploadPOIFileAdminSide();
+        }
+        else {
+            document.getElementById('uploadPOI').value = '';
+            $('#uploadPOIShow').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+    };
+
+    document.getElementById('uploadPOE').onchange = function () {
+        var fileUploadPOEBool = restrictFileUpload($(this).val());
+        if (fileUploadPOEBool == true) {
+            uploadPOEFileAdminSide();
+        }
+        else {
+            document.getElementById('uploadPOE').value = '';
+            $('#uploadPOEShow').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+    };
+    getApplicantHistoryList();
 });
 var abcd = function () {
     alert("Hi");
@@ -282,7 +318,9 @@ var goToStep = function (stepid, id) {
         $("#li5").removeClass("active");
         $("#li6").removeClass("active");
         $("#li7").removeClass("active");
+        $("#li17").removeClass("active");
         $("#li18").removeClass("active");
+        $("#li19").removeClass("active");
         $("#step1").removeClass("hidden");
         $("#step2").addClass("hidden");
         $("#step3").addClass("hidden");
@@ -314,7 +352,9 @@ var goToStep = function (stepid, id) {
             $("#li5").removeClass("active");
             $("#li6").removeClass("active");
             $("#li7").removeClass("active");
+            $("#li17").removeClass("active");
             $("#li18").removeClass("active");
+            $("#li19").removeClass("active");
             $("#step1").addClass("hidden");
             $("#step3").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -341,34 +381,36 @@ var goToStep = function (stepid, id) {
             $("#subMenu").addClass("hidden");
             $("#as3").removeAttr("onclick")
             $("#as3").attr("onclick", "goToStep(3,3)");
-                $("#li3").addClass("active");
+            $("#li3").addClass("active");
 
-                $("#li4").removeClass("active");
-                $("#li5").removeClass("active");
-                $("#li6").removeClass("active");
-                $("#li7").removeClass("active");
-                $("#li18").removeClass("active");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").removeClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
-                $("#step17").addClass("hidden");
-                $("#step18").addClass("hidden");
-            }
-
+            $("#li4").removeClass("active");
+            $("#li5").removeClass("active");
+            $("#li6").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#li17").removeClass("active");
+            $("#li18").removeClass("active");
+            $("#li19").removeClass("active");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").removeClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
+            $("#step17").addClass("hidden");
+            $("#step18").addClass("hidden");
         }
+
+    }
     if (stepid == "4") {
         if (id == "4") {
             $("#subMenu").addClass("hidden");
@@ -376,8 +418,8 @@ var goToStep = function (stepid, id) {
             $("#as18").attr("onclick", "goToStep(4,4)");
             $("#li3").addClass("active");
             $("#li18").addClass("active");
-
-            
+            $("#li19").removeClass("active");
+            $("#li17").removeClass("active");
             $("#li4").removeClass("active");
             $("#li5").removeClass("active");
             $("#li6").removeClass("active");
@@ -410,11 +452,11 @@ var goToStep = function (stepid, id) {
             $("#li3").addClass("active");
             $("#li18").addClass("active");
             $("#li4").addClass("active");
-            
+            $("#li17").removeClass("active");
             $("#li5").removeClass("active");
             $("#li6").removeClass("active");
             $("#li7").removeClass("active");
-
+            $("#li19").removeClass("active");
             $("#step5").removeClass("hidden");
             $("#step1").addClass("hidden");
             $("#step2").addClass("hidden");
@@ -447,8 +489,8 @@ var goToStep = function (stepid, id) {
 
             $("#li6").removeClass("active");
             $("#li7").removeClass("active");
-            
-
+            $("#li19").removeClass("active");
+            $("#li17").removeClass("active");
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -479,7 +521,7 @@ var goToStep = function (stepid, id) {
             $("#li4").addClass("active");
             $("#li5").addClass("active");
             $("#li6").addClass("active");
-           
+            $("#li17").removeClass("active");
             $("#li7").removeClass("active");
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
@@ -501,7 +543,7 @@ var goToStep = function (stepid, id) {
             $("#step18").addClass("hidden");
 
             $("#li7").addClass("active");
-            $("#li8, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li16, #li17").removeClass("active");
+            $("#li8, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li16, #li17, #li19").removeClass("active");
         }
     }
     if (stepid == "8") {
@@ -511,7 +553,7 @@ var goToStep = function (stepid, id) {
             $("#li4").addClass("active");
             $("#li5").addClass("active");
             $("#li6").addClass("active");
-            
+            $("#li17").removeClass("active");
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -532,7 +574,7 @@ var goToStep = function (stepid, id) {
             $("#step18").addClass("hidden");
 
             $("#li8").addClass("active");
-            $("#li7, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+            $("#li7, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li16, #li19").removeClass("active");
 
         }
     }
@@ -544,29 +586,29 @@ var goToStep = function (stepid, id) {
             $("#li4").addClass("active");
             $("#li5").addClass("active");
             $("#li6").addClass("active");
-            
+            $("#li17").removeClass("active");
             $("#li7").removeClass("active");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").removeClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
-                $("#step17").addClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").removeClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
+            $("#step17").addClass("hidden");
             $("#step18").addClass("hidden");
 
             $("#li9").addClass("active");
-            $("#li7, #li8, #li10, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+            $("#li7, #li8, #li10, #li11, #li12, #li13, #li14, #li15, #li16, #li19").removeClass("active");
         }
     }
     if (stepid == "10") {
@@ -576,29 +618,29 @@ var goToStep = function (stepid, id) {
             $("#li18").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
-                $("#li6").addClass("active");
-                
-                $("#li7").removeClass("active");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").removeClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
+            $("#li6").addClass("active");
+            $("#li17").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").removeClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
             $("#step18").addClass("hidden");
 
             $("#li10").addClass("active");
-            $("#li7, #li8, #li9, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+            $("#li7, #li8, #li9, #li11, #li12, #li13, #li14, #li15, #li16, #li19").removeClass("active");
         }
     }
     if (stepid == "11") {
@@ -607,30 +649,30 @@ var goToStep = function (stepid, id) {
             $("#li18").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
-                $("#li6").addClass("active");
-                
-                $("#li7").removeClass("active");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").removeClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
-                $("#step17").addClass("hidden");
+            $("#li6").addClass("active");
+            $("#li17").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").removeClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
+            $("#step17").addClass("hidden");
             $("#step18").addClass("hidden");
 
             $("#li11").addClass("active");
-            $("#li7, #li8, #li9, #li10, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+            $("#li7, #li8, #li9, #li10, #li12, #li13, #li14, #li15, #li16, #li19").removeClass("active");
         }
     }
     if (stepid == "12") {
@@ -639,29 +681,29 @@ var goToStep = function (stepid, id) {
             $("#li18").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
-                $("#li6").addClass("active");
-                
-                $("#li7").removeClass("active");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").removeClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
+            $("#li6").addClass("active");
+            $("#li17").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").removeClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
             $("#step18").addClass("hidden");
 
             $("#li12").addClass("active");
-            $("#li7, #li8, #li9, #li10, #li11, #li13, #li14, #li15, #li16").removeClass("active");
+            $("#li7, #li8, #li9, #li10, #li11, #li13, #li14, #li15, #li16, #li19").removeClass("active");
         }
     }
     if (stepid == "13") {
@@ -670,39 +712,40 @@ var goToStep = function (stepid, id) {
             $("#li18").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
-                $("#li6").addClass("active");
-                
-                $("#li7").removeClass("active");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").addClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").removeClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
+            $("#li6").addClass("active");
+            $("#li17").removeClass("active");
+            $("#li7").removeClass("active");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").addClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").removeClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
             $("#step18").addClass("hidden");
 
             $("#li13").addClass("active");
-            $("#li7, #li8, #li9, #li10, #li11, #li12, #li14, #li15, #li16").removeClass("active");
+            $("#li7, #li8, #li9, #li10, #li11, #li12, #li14, #li15, #li16, #li19").removeClass("active");
         }
     }
     if (stepid == "14") {
         if (id == "14") {
+           
             $("#li3").addClass("active");
             $("#li18").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
             $("#li6").addClass("active");
-            
+            $("#li17").removeClass("active");
             $("#li7").removeClass("active");
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
@@ -724,52 +767,21 @@ var goToStep = function (stepid, id) {
             $("#step18").addClass("hidden");
 
             $("#li14").addClass("active");
-            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li15, #li16").removeClass("active");
-        }
-    }
-    if (stepid == "15") {
-        if (id == "15") {
-            $("#li3").addClass("active");
-            $("#li18").addClass("active");
-            $("#li4").addClass("active");
-            $("#li5").addClass("active");
-            $("#li6").addClass("active");
-            
-            $("#li7").removeClass("active");
-            $("#step2").addClass("hidden");
-            $("#step1").addClass("hidden");
-            $("#step4").addClass("hidden");
-            $("#step3").addClass("hidden");
-            $("#step5").addClass("hidden");
-            $("#step6").addClass("hidden");
-            $("#step7").addClass("hidden");
-            $("#step8").addClass("hidden");
-            $("#step9").addClass("hidden");
-            $("#step10").addClass("hidden");
-            $("#step11").addClass("hidden");
-            $("#step12").addClass("hidden");
-            $("#step13").addClass("hidden");
-            $("#step14").addClass("hidden");
-            $("#step15").removeClass("hidden");
-            $("#step16").addClass("hidden");
-            $("#step17").addClass("hidden");
-            $("#step18").addClass("hidden");
-
-            $("#li15").addClass("active");
-            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li14, #li16").removeClass("active");
+            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li15, #li16, #li19").removeClass("active");
         }
     }
     if (stepid == "16") {
         if (id == "16") {
+            $("#subMenu").removeClass("hidden");
             $("#as7").removeAttr("onclick")
-            $("#as7").attr("onclick", "goToStep(16,16)");
+            $("#as7").attr("onclick", "goToStep(17,17)");
             $("#li7").addClass("active");
             $("#li6").addClass("active");
             $("#li3").addClass("active");
             $("#li18").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
-            
+            $("#li17").removeClass("active");
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -790,11 +802,18 @@ var goToStep = function (stepid, id) {
             $("#step18").addClass("hidden");
 
             $("#li16").addClass("active");
-            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li14, #li15").removeClass("active");
+            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li19").removeClass("active");
         }
     }
     if (stepid == "17") {
         if (id == "17") {
+            refreshStatuses();
+           
+            getPreviousAddressInfo();
+            getBackgroundScreeningList();
+            getPreviousEmpInfo();
+            //getTransationLists($("#hdnUserId").val());
+            //getSignedLists($("#hdnOPId").val());
             $("#subMenu").addClass("hidden");
             $("#li7").addClass("active");
             $("#li17").addClass("active");
@@ -802,6 +821,7 @@ var goToStep = function (stepid, id) {
             $("#li4").addClass("active");
             $("#li5").addClass("active");
             $("#li18").addClass("active");
+            $("#li19").removeClass("active");
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
             $("#step4").addClass("hidden");
@@ -825,14 +845,15 @@ var goToStep = function (stepid, id) {
     if (stepid == "18") {
         if (id == "18") {
             $("#subMenu").addClass("hidden");
-            getTransationLists($("#hdnUserId").val());
-           
+            refreshStatuses();
+
             $("#li7").addClass("active");
             $("#li6").addClass("active");
             $("#li4").addClass("active");
             $("#li5").addClass("active");
-            $("#li18").addClass("active");
             $("#li17").addClass("active");
+            $("#li18").addClass("active");
+            $("#li19").addClass("active");
 
             $("#step2").addClass("hidden");
             $("#step1").addClass("hidden");
@@ -855,6 +876,592 @@ var goToStep = function (stepid, id) {
         }
     }
 }
+//var goToStep = function (stepid, id) {
+//    if (stepid == "1") {
+//        $("#subMenu").addClass("hidden");
+//        $("#li1").addClass("active");
+//        $("#li2").removeClass("active");
+//        $("#li3").removeClass("active");
+//        $("#li4").removeClass("active");
+//        $("#li5").removeClass("active");
+//        $("#li6").removeClass("active");
+//        $("#li7").removeClass("active");
+//        $("#li18").removeClass("active");
+//        $("#step1").removeClass("hidden");
+//        $("#step2").addClass("hidden");
+//        $("#step3").addClass("hidden");
+//        $("#step4").addClass("hidden");
+//        $("#step5").addClass("hidden");
+//        $("#step6").addClass("hidden");
+//        $("#step7").addClass("hidden");
+//        $("#step8").addClass("hidden");
+//        $("#step9").addClass("hidden");
+//        $("#step10").addClass("hidden");
+//        $("#step11").addClass("hidden");
+//        $("#step12").addClass("hidden");
+//        $("#step13").addClass("hidden");
+//        $("#step14").addClass("hidden");
+//        $("#step15").addClass("hidden");
+//        $("#step16").addClass("hidden");
+//        $("#step17").addClass("hidden");
+//        $("#step18").addClass("hidden");
+//    }
+//    if (stepid == "2") {
+
+//        if (id == "2") {
+//            $("#subMenu").addClass("hidden");
+//            $("#as2").removeAttr("onclick");
+//            $("#as2").attr("onclick", "goToStep(2,2)");
+//            $("#li2").addClass("active");
+//            $("#li3").removeClass("active");
+//            $("#li4").removeClass("active");
+//            $("#li5").removeClass("active");
+//            $("#li6").removeClass("active");
+//            $("#li7").removeClass("active");
+//            $("#li18").removeClass("active");
+//            $("#step1").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step2").removeClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+//        }
+
+//    }
+//    if (stepid == "3") {
+//        if (id == "3") {
+//            $("#subMenu").addClass("hidden");
+//            $("#as3").removeAttr("onclick")
+//            $("#as3").attr("onclick", "goToStep(3,3)");
+//                $("#li3").addClass("active");
+
+//                $("#li4").removeClass("active");
+//                $("#li5").removeClass("active");
+//                $("#li6").removeClass("active");
+//                $("#li7").removeClass("active");
+//                $("#li18").removeClass("active");
+//                $("#step2").addClass("hidden");
+//                $("#step1").addClass("hidden");
+//                $("#step4").addClass("hidden");
+//                $("#step3").removeClass("hidden");
+//                $("#step5").addClass("hidden");
+//                $("#step6").addClass("hidden");
+//                $("#step7").addClass("hidden");
+//                $("#step8").addClass("hidden");
+//                $("#step9").addClass("hidden");
+//                $("#step10").addClass("hidden");
+//                $("#step11").addClass("hidden");
+//                $("#step12").addClass("hidden");
+//                $("#step13").addClass("hidden");
+//                $("#step14").addClass("hidden");
+//                $("#step15").addClass("hidden");
+//                $("#step16").addClass("hidden");
+//                $("#step17").addClass("hidden");
+//                $("#step18").addClass("hidden");
+//            }
+
+//        }
+//    if (stepid == "4") {
+//        if (id == "4") {
+//            $("#subMenu").addClass("hidden");
+//            $("#as18").removeAttr("onclick");
+//            $("#as18").attr("onclick", "goToStep(4,4)");
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+
+            
+//            $("#li4").removeClass("active");
+//            $("#li5").removeClass("active");
+//            $("#li6").removeClass("active");
+//            $("#li7").removeClass("active");
+//            $("#step4").removeClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step2").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+//        }
+//    }
+//    if (stepid == "5") {
+//        if (id == "5") {
+//            $("#subMenu").addClass("hidden");
+//            $("#as4").removeAttr("onclick");
+//            $("#as4").attr("onclick", "goToStep(5,5)");
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+            
+//            $("#li5").removeClass("active");
+//            $("#li6").removeClass("active");
+//            $("#li7").removeClass("active");
+
+//            $("#step5").removeClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step2").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#getting-startedTimeRemainingClock").removeClass("hidden");
+//            $("#step18").addClass("hidden");
+//        }
+//    }
+//    if (stepid == "6") {
+
+//        if (id == "6") {
+//            $("#subMenu").addClass("hidden");
+//            $("#li3").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+
+//            $("#li6").removeClass("active");
+//            $("#li7").removeClass("active");
+            
+
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").removeClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+//        }
+//    }
+//    if (stepid == "7") {
+//        if (id == "7") {
+//            $("#subMenu").removeClass("hidden");
+//            $("#as6").removeAttr("onclick");
+//            $("#as6").attr("onclick", "goToStep(7,7)");
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li6").addClass("active");
+           
+//            $("#li7").removeClass("active");
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").removeClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li7").addClass("active");
+//            $("#li8, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li16, #li17").removeClass("active");
+//        }
+//    }
+//    if (stepid == "8") {
+//        if (id == "8") {
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li6").addClass("active");
+            
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").removeClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li8").addClass("active");
+//            $("#li7, #li9, #li10, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+
+//        }
+//    }
+//    if (stepid == "9") {
+//        var msg = '';
+//        if (id == "9") {
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li6").addClass("active");
+            
+//            $("#li7").removeClass("active");
+//                $("#step2").addClass("hidden");
+//                $("#step1").addClass("hidden");
+//                $("#step4").addClass("hidden");
+//                $("#step3").addClass("hidden");
+//                $("#step5").addClass("hidden");
+//                $("#step6").addClass("hidden");
+//                $("#step7").addClass("hidden");
+//                $("#step8").addClass("hidden");
+//                $("#step9").removeClass("hidden");
+//                $("#step10").addClass("hidden");
+//                $("#step11").addClass("hidden");
+//                $("#step12").addClass("hidden");
+//                $("#step13").addClass("hidden");
+//                $("#step14").addClass("hidden");
+//                $("#step15").addClass("hidden");
+//                $("#step16").addClass("hidden");
+//                $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li9").addClass("active");
+//            $("#li7, #li8, #li10, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+//        }
+//    }
+//    if (stepid == "10") {
+//        if (id == "10") {
+//            getApplicantHistoryList();
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//                $("#li6").addClass("active");
+                
+//                $("#li7").removeClass("active");
+//                $("#step2").addClass("hidden");
+//                $("#step1").addClass("hidden");
+//                $("#step4").addClass("hidden");
+//                $("#step3").addClass("hidden");
+//                $("#step5").addClass("hidden");
+//                $("#step6").addClass("hidden");
+//                $("#step7").addClass("hidden");
+//                $("#step8").addClass("hidden");
+//                $("#step9").addClass("hidden");
+//                $("#step10").removeClass("hidden");
+//                $("#step11").addClass("hidden");
+//                $("#step12").addClass("hidden");
+//                $("#step13").addClass("hidden");
+//                $("#step14").addClass("hidden");
+//                $("#step15").addClass("hidden");
+//                $("#step16").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li10").addClass("active");
+//            $("#li7, #li8, #li9, #li11, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+//        }
+//    }
+//    if (stepid == "11") {
+//        if (id == "11") {
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//                $("#li6").addClass("active");
+                
+//                $("#li7").removeClass("active");
+//                $("#step2").addClass("hidden");
+//                $("#step1").addClass("hidden");
+//                $("#step4").addClass("hidden");
+//                $("#step3").addClass("hidden");
+//                $("#step5").addClass("hidden");
+//                $("#step6").addClass("hidden");
+//                $("#step7").addClass("hidden");
+//                $("#step8").addClass("hidden");
+//                $("#step9").addClass("hidden");
+//                $("#step10").addClass("hidden");
+//                $("#step11").removeClass("hidden");
+//                $("#step12").addClass("hidden");
+//                $("#step13").addClass("hidden");
+//                $("#step14").addClass("hidden");
+//                $("#step15").addClass("hidden");
+//                $("#step16").addClass("hidden");
+//                $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li11").addClass("active");
+//            $("#li7, #li8, #li9, #li10, #li12, #li13, #li14, #li15, #li16").removeClass("active");
+//        }
+//    }
+//    if (stepid == "12") {
+//        if (id == "12") {
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//                $("#li6").addClass("active");
+                
+//                $("#li7").removeClass("active");
+//                $("#step2").addClass("hidden");
+//                $("#step1").addClass("hidden");
+//                $("#step4").addClass("hidden");
+//                $("#step3").addClass("hidden");
+//                $("#step5").addClass("hidden");
+//                $("#step6").addClass("hidden");
+//                $("#step7").addClass("hidden");
+//                $("#step8").addClass("hidden");
+//                $("#step9").addClass("hidden");
+//                $("#step10").addClass("hidden");
+//                $("#step11").addClass("hidden");
+//                $("#step12").removeClass("hidden");
+//                $("#step13").addClass("hidden");
+//                $("#step14").addClass("hidden");
+//                $("#step15").addClass("hidden");
+//                $("#step16").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li12").addClass("active");
+//            $("#li7, #li8, #li9, #li10, #li11, #li13, #li14, #li15, #li16").removeClass("active");
+//        }
+//    }
+//    if (stepid == "13") {
+//        if (id == "13") {
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//                $("#li6").addClass("active");
+                
+//                $("#li7").removeClass("active");
+//                $("#step2").addClass("hidden");
+//                $("#step1").addClass("hidden");
+//                $("#step4").addClass("hidden");
+//                $("#step3").addClass("hidden");
+//                $("#step5").addClass("hidden");
+//                $("#step6").addClass("hidden");
+//                $("#step7").addClass("hidden");
+//                $("#step8").addClass("hidden");
+//                $("#step9").addClass("hidden");
+//                $("#step10").addClass("hidden");
+//                $("#step11").addClass("hidden");
+//                $("#step12").addClass("hidden");
+//                $("#step13").removeClass("hidden");
+//                $("#step14").addClass("hidden");
+//                $("#step15").addClass("hidden");
+//                $("#step16").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li13").addClass("active");
+//            $("#li7, #li8, #li9, #li10, #li11, #li12, #li14, #li15, #li16").removeClass("active");
+//        }
+//    }
+//    if (stepid == "14") {
+//        if (id == "14") {
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li6").addClass("active");
+            
+//            $("#li7").removeClass("active");
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").removeClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li14").addClass("active");
+//            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li15, #li16").removeClass("active");
+//        }
+//    }
+//    if (stepid == "15") {
+//        if (id == "15") {
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li6").addClass("active");
+            
+//            $("#li7").removeClass("active");
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").removeClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li15").addClass("active");
+//            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li14, #li16").removeClass("active");
+//        }
+//    }
+//    if (stepid == "16") {
+//        if (id == "16") {
+//            $("#as7").removeAttr("onclick")
+//            $("#as7").attr("onclick", "goToStep(16,16)");
+//            $("#li7").addClass("active");
+//            $("#li6").addClass("active");
+//            $("#li3").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+            
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").removeClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").addClass("hidden");
+
+//            $("#li16").addClass("active");
+//            $("#li7, #li8, #li9, #li10, #li11, #li12, #li13, #li14, #li15").removeClass("active");
+//        }
+//    }
+//    if (stepid == "17") {
+//        if (id == "17") {
+//            refreshStatuses();
+//            //getTransationLists($("#hdnUserId").val());
+//            //getSignedLists($("#hdnOPId").val());
+//            $("#subMenu").addClass("hidden");
+//            $("#li7").addClass("active");
+//            $("#li17").addClass("active");
+//            $("#li6").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step18").addClass("hidden");
+//            $("#step17").removeClass("hidden");
+//        }
+//    }
+//    if (stepid == "18") {
+//        if (id == "18") {
+//            $("#subMenu").addClass("hidden");
+           
+           
+//            $("#li7").addClass("active");
+//            $("#li6").addClass("active");
+//            $("#li4").addClass("active");
+//            $("#li5").addClass("active");
+//            $("#li18").addClass("active");
+//            $("#li17").addClass("active");
+
+//            $("#step2").addClass("hidden");
+//            $("#step1").addClass("hidden");
+//            $("#step4").addClass("hidden");
+//            $("#step3").addClass("hidden");
+//            $("#step5").addClass("hidden");
+//            $("#step6").addClass("hidden");
+//            $("#step7").addClass("hidden");
+//            $("#step8").addClass("hidden");
+//            $("#step9").addClass("hidden");
+//            $("#step10").addClass("hidden");
+//            $("#step11").addClass("hidden");
+//            $("#step12").addClass("hidden");
+//            $("#step13").addClass("hidden");
+//            $("#step14").addClass("hidden");
+//            $("#step15").addClass("hidden");
+//            $("#step16").addClass("hidden");
+//            $("#step17").addClass("hidden");
+//            $("#step18").removeClass("hidden");
+//        }
+//    }
+//}
 var SaveOnlineProspect = function () {
     $("#divLoader").show();
     var msg = "";
@@ -1497,7 +2104,7 @@ var getPropertyUnitDetails = function (uid) {
             //alert(calTotalRentChargefpetd
             $("#lblRFPTotalMonthlyPayment").text(formatMoney(rfpTotalRentCharge.toFixed(2)));
             //$("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
-            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
+            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) ).toFixed(2)));
 
 
             $("#lblProrated_TrashAmt").text(parseFloat(parseFloat($("#lblTrash").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
@@ -1658,20 +2265,22 @@ var SaveLeaseDocumentVerification = function () {
 }
 var totPaid = 0;
 var getTransationLists = function (userid) {
+    $("#divLoader").show();
     var model = {
 
         TenantID: userid,
     }
     $.ajax({
-        url: "/Transaction/GetOnlineTransactionList",
+        url: "/Transaction/GetAllTransactionListOP",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-
+            
             $("#tblTransaction>tbody").empty();
-       
+            $("#tblAdminFee>tbody").empty();
+            var adminFeesPaid = 0;
             $.each(response.model, function (elementType, elementValue) {
                 totPaid = totPaid+parseFloat(elementValue.Credit_Amount);
                 var html = "<tr data-value=" + elementValue.TransID + ">";
@@ -1685,13 +2294,35 @@ var getTransationLists = function (userid) {
                 html += "<td>" + elementValue.Description + "</td>";
                 //html += "<td>" + elementValue.CreatedDateString + "</td>";
                 html += "</tr>";
+                if (elementValue.Transaction_Type == "Administrative Fee") {
+                    adminFeesPaid = 1;
+                    var adhtml = "<tr data-value=" + elementValue.TransID + ">";
+                    adhtml += "<td>" + $("#hndPriAppFullName").val() + "</td>";
+                    adhtml += "<td>" + elementValue.Description + "</td>";
+                    adhtml += "<td style='text-align: center;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                    adhtml += "<td style='text-align: center;'>" + elementValue.Transaction_DateString + "</td>";
+                    adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)' disabled='disabled'><span>Send Reminder to Pay Administration Fees </span></button></td>";
+                    $("#tblAdminFee>tbody").append(adhtml);
+
+                    $("#btnSendRemSign").removeAttr("disabled");
+                    
+                }
                 $("#tblTransaction>tbody").append(html);
             });
-          
-            if (totPaid >= parseFloat($("#txtPayment").val()) + parseFloat(totalFinalFees))
+            if (adminFeesPaid == 0) {
+                var adhtml = "<tr data-value='0'>";
+                adhtml += "<td>" + $("#hndPriAppFullName").val() + "</td>";
+                adhtml += "<td>Admin Fees</td>";
+                adhtml += "<td style='text-align: center;'>$" + formatMoney($("#lblAdminFees").text()) + "</td>";
+                adhtml += "<td style='text-align: center;'></td>";
+                adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)'><span>Send Reminder to Pay Administration Fees </span></button></td>";
+                $("#tblAdminFee>tbody").append(adhtml);
+            }
+            if (totPaid >= parseFloat($("#txtPayment").val()))
             {
                 $("#btnC2Tenant").removeAttr("disabled");
             }
+            $("#divLoader").hide();
         }
     });
 }
@@ -1930,7 +2561,7 @@ var saveupdateParking = function () {
             $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
             $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10)).toFixed(2)));
 
 
 
@@ -2034,7 +2665,7 @@ var saveupdatePetPlace = function () {
             $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblAdminFees").text(), 10)).toFixed(2)));
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#ffob").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) ).toFixed(2)));
         }
     });
 }
@@ -2299,7 +2930,7 @@ var getApplicantLists = function () {
         dataType: "JSON",
         success: function (response) {
 
-            //$("#tblApplicant").empty();
+            $("#tblApplicant").empty();
             $("#tblApplicantFinal").empty();
             $("#tblApplicantMinor").empty();
             $("#tblApplicantGuarantor").empty();
@@ -2312,6 +2943,14 @@ var getApplicantLists = function () {
                 var prhtml = '';
                 var pprhtml = '';
                 var emailhtml = '';
+
+                if (elementValue.Type == "Primary Applicant") {
+                    $("#hndPriAppFullName").val(elementValue.FirstName + " " + elementValue.LastName + "(Primary Applicant)");
+                    //$("#pappnameRes").text(elementValue.FirstName + " " + elementValue.LastName + "(Primary Applicant)");
+                    //$("#pappnameemp").text(elementValue.FirstName + " " + elementValue.LastName + "(Primary Applicant)");
+
+                }
+
                 if (elementValue.Type != "Primary Applicant") {
 
                     if (elementValue.Type == "Co-Applicant") {
@@ -2756,10 +3395,11 @@ var saveupdatePet = function () {
 var getPetLists = function () {
 
     var model = {
-        TenantID: $("#hdnOPId").val()
+        TenantID: $("#hdnOPId").val(),
+        ApplicantUserId: $("#hndApplicantUserId").val()
     };
     $.ajax({
-        url: "/Pet/GetPetList",
+        url: "/Pet/GetPetListByAdmin",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -2946,9 +3586,10 @@ var getVehicleLists = function () {
     var model = {
 
         TenantID: $("#hdnOPId").val(),
+        ApplicantUserId: $("#hndApplicantUserId").val()
     }
     $.ajax({
-        url: "/Tenant/Vehicle/GetVehicleList",
+        url: "/Tenant/Vehicle/GetVehicleListByAdmin",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -2975,7 +3616,6 @@ var getVehicleLists = function () {
         }
     });
 }
-
 var clearVehicle = function () {
     $("#hndVehicleID").val(0);
     $("#txtVehicleMake").val("");
@@ -3193,10 +3833,10 @@ var saveupdateTenantOnline = function () {
 };
 var getTenantOnlineList = function (id) {
     var model = {
-        id: id
+        id: id, TenantID: $("#hndApplicantUserId").val()
     };
     $.ajax({
-        url: '/ApplyNow/GetTenantOnlineList',
+        url: '/ApplyNow/GetTenantOnlineListProspectVerification',
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -3275,6 +3915,34 @@ var getTenantOnlineList = function (id) {
             $("#ddlStateContact").text(response.model.EmergencyStateHomeString);
 
             $("#txtEmergencyZip").text(response.model.EmergencyZipHome);
+
+
+            ////sachin m 12 may
+            //$("#summCredateF").text(response.model.MoveInDateFromTxt);
+            //$("#summCRE").text(response.model.HomeAddress1 + " , " + response.model.HomeAddress2);
+            //$("#summreCou").text(response.model.CountryString);
+            //$("#summMrent").text("$ " + formatMoney(response.model.MonthlyPayment));
+            //$("#summReson").text(response.model.Reason);
+            //$("#suACuminty").text(response.model.ApartmentCommunity);
+            //$("#sumAManagementCompany").text(response.model.ManagementCompany);
+            //$("#sumAManagementCompanyPhone").text(formatPhoneFax(response.model.ManagementCompanyPhone));
+
+            //$("#summEstartdatep").text(response.model.StartDateTxt);
+            //$("#summECountry").text(response.model.CountryString);
+            //$("#summEmployerName").text(response.model.EmployerName);
+            //$("#summOfficeAdd").text(response.model.OfficeAddress1);
+            //$("#summOfficeC").text(response.model.OfficeCity);
+            //$("#summJobTitle").text(response.model.JobTitle);
+            //$("#summAdditionalI").text("$ " + formatMoney(response.model.AdditionalIncome));
+            //$("#summSalaryp").text("$ " + formatMoney(response.model.Income));
+            //$("#summSupNa").text(response.model.SupervisorName);
+            //$("#summSupMob").text(formatPhoneFax(response.model.SupervisorPhone));
+            //$("#summEAddre1").text(response.model.OfficeAddress1 + ", " + response.model.OfficeAddress2);
+
+
+
+
+            $("#sumAIsProprNoticeLeaseAgreement").text(response.model.stringIsProprNoticeLeaseAgreement);
             //17082019 - start
             $("#ddlCityHome").text(response.model.CityHome);
             $("#ddlCityContact").text(response.model.EmergencyCityHome);
@@ -3289,32 +3957,7 @@ var getTenantOnlineList = function (id) {
             setTimeout(function () {
                 $("#txtCountry2").find("option[value='" + response.model.Country2 + "']").attr('selected', 'selected');
             }, 2000);
-            //17082019 - end
-            if (response.model.IdentityDocument != "") {
-                $("#hndHasIdentityFile").val("1");
-            } else {
-                $("#hndHasIdentityFile").val("0");
-            }
-            if (response.model.PassportDocument != "") {
-                $("#hndHasPassportFile").val("1");
-            } else {
-                $("#hndHasPassportFile").val("0");
-            }
-            if (response.model.TaxReturn != "") {
-                $("#hndHasTaxReturnFile1").val("1");
-            } else {
-                $("#hndHasTaxReturnFile1").val("0");
-            }
-            if (response.model.TaxReturn2 != "") {
-                $("#hndHasTaxReturnFile2").val("1");
-            } else {
-                $("#hndHasTaxReturnFile2").val("0");
-            }
-            if (response.model.TaxReturn3 != "") {
-                $("#hndHasTaxReturnFile3").val("1");
-            } else {
-                $("#hndHasTaxReturnFile3").val("0");
-            }
+            
             //alert(response.model.HaveVehicle + "  " + response.model.HavePet);
             //if (response.model.HaveVehicle == true) {
             //    $("#chkDontHaveVehicle").iCheck('check');
@@ -3357,48 +4000,115 @@ var getTenantOnlineList = function (id) {
                 $('#hndIdentityUploadName').attr('href', 'JavaScript:Void(0)');
                 $('#hndIdentityUploadName').attr('onclick', 'fileNotExist()');
             }
-            //$("#hndFileUploadName1").val(response.model.TaxReturn);
-            //$("#hndFileUploadName1").text(response.model.UploadOriginalFileName1);
-            $("#hndFileUploadName1").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName1);
-            $("#hndOriginalFileUploadName1").val(response.model.UploadOriginalFileName1);
-            $("#hndFileUploadName1").data('value', response.model.TaxReturn);
-            var resultTaxReturnExist = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn);
+            //For Paystub 1
+            $("#downPaystub1").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName3);
+            $("#downPaystub1").val(response.model.UploadOriginalFileName3);
+            $("#downPaystub1").data('value', response.model.TaxReturn3);
+            var resultTaxReturnExist1 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn3);
 
-            if (resultTaxReturnExist == true) {
-                $("#hndFileUploadName1").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn);
-                $("#hndFileUploadName1").prop("download", response.model.UploadOriginalFileName1);
+            if (resultTaxReturnExist1 == true) {
+                $("#downPaystub1").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn3);
+                $("#downPaystub1").prop("download", response.model.UploadOriginalFileName3);
             } else {
-                $('#hndFileUploadName1').attr('href', 'JavaScript:Void(0)');
-                $('#hndFileUploadName1').attr('onclick', 'fileNotExist()');
+                $('#downPaystub1').attr('href', 'JavaScript:Void(0)');
+                $('#downPaystub1').attr('onclick', 'fileNotExist()');
             }
-            
-           // $("#hndFileUploadName2").val(response.model.TaxReturn2);
-            //$("#hndFileUploadName2").text(response.model.UploadOriginalFileName2);
-            $("#hndFileUploadName2").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName2);
-            $("#hndOriginalFileUploadName2").val(response.model.UploadOriginalFileName2);
-            $("#hndFileUploadName2").data('value', response.model.TaxReturn2);
-            var resultTaxReturn2Exist = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn2);
 
-            if (resultTaxReturn2Exist == true) {
-                $("#hndFileUploadName2").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn2);
-                $("#hndFileUploadName2").prop("download", response.model.UploadOriginalFileName2);
+            //For Paystub 2
+            $("#downPaystub2").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName4);
+            $("#downPaystub2").val(response.model.UploadOriginalFileName4);
+            $("#downPaystub2").data('value', response.model.TaxReturn4);
+            var resultTaxReturnExist2 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn4);
+
+            if (resultTaxReturnExist2 == true) {
+                $("#downPaystub2").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn4);
+                $("#downPaystub2").prop("download", response.model.UploadOriginalFileName4);
             } else {
-                $('#hndFileUploadName2').attr('href', 'JavaScript:Void(0)');
-                $('#hndFileUploadName2').attr('onclick', 'fileNotExist()');
+                $('#downPaystub2').attr('href', 'JavaScript:Void(0)');
+                $('#downPaystub2').attr('onclick', 'fileNotExist()');
             }
-            
-           // $("#hndFileUploadName3").val(response.model.TaxReturn3);
-            $("#hndFileUploadName3").html("<i class='fa fa-download fa-lg'></i>" + " " +response.model.UploadOriginalFileName3);
-            $("#hndOriginalFileUploadName3").val(response.model.UploadOriginalFileName3);
-            $("#hndFileUploadName3").data('value', response.model.TaxReturn3);
-            var resultTaxReturn3Exist = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn3);
 
-            if (resultTaxReturn3Exist == true) {
-                $("#hndFileUploadName3").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn3);
-                $("#hndFileUploadName3").prop("download", response.model.UploadOriginalFileName3);
+            //For Paystub 3
+            $("#downPaystub3").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName5);
+            $("#downPaystub3").val(response.model.UploadOriginalFileName5);
+            $("#downPaystub3").data('value', response.model.TaxReturn5);
+            var resultTaxReturnExist3 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn5);
+
+            if (resultTaxReturnExist3 == true) {
+                $("#downPaystub3").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn5);
+                $("#downPaystub3").prop("download", response.model.UploadOriginalFileName5);
             } else {
-                $('#hndFileUploadName3').attr('href', 'JavaScript:Void(0)');
-                $('#hndFileUploadName3').attr('onclick', 'fileNotExist()');
+                $('#downPaystub3').attr('href', 'JavaScript:Void(0)');
+                $('#downPaystub3').attr('onclick', 'fileNotExist()');
+            }
+
+            //For Fedral1
+            $("#downFedral1").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName1);
+            $("#downFedral1").val(response.model.UploadOriginalFileName1);
+            $("#downFedral1").data('value', response.model.TaxReturn1);
+            var resultTaxReturnExist4 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn1);
+
+            if (resultTaxReturnExist4 == true) {
+                $("#downFedral1").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn1);
+                $("#downFedral1").prop("download", response.model.UploadOriginalFileName1);
+            } else {
+                $('#downFedral1').attr('href', 'JavaScript:Void(0)');
+                $('#downFedral1').attr('onclick', 'fileNotExist()');
+            }
+            //For Fedral2
+            $("#downFedral2").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName2);
+            $("#downFedral2").val(response.model.UploadOriginalFileName2);
+            $("#downFedral2").data('value', response.model.TaxReturn2);
+            var resultTaxReturnExist5 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn2);
+
+            if (resultTaxReturnExist5 == true) {
+                $("#downFedral2").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn2);
+                $("#downFedral2").prop("download", response.model.UploadOriginalFileName2);
+            } else {
+                $('#downFedral2').attr('href', 'JavaScript:Void(0)');
+                $('#downFedral2').attr('onclick', 'fileNotExist()');
+            }
+
+            //For Bank Statment 1
+            $("#downBankStat1").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName6);
+            $("#downBankStat1").val(response.model.UploadOriginalFileName6);
+            $("#downBankStat1").data('value', response.model.TaxReturn6);
+            var resultTaxReturnExist6 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn6);
+
+            if (resultTaxReturnExist6 == true) {
+                $("#downBankStat1").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn6);
+                $("#downBankStat1").prop("download", response.model.UploadOriginalFileName6);
+            } else {
+                $('#downBankStat1').attr('href', 'JavaScript:Void(0)');
+                $('#downBankStat1').attr('onclick', 'fileNotExist()');
+            }
+
+            //For Bank Statment 2
+            $("#downBankStat2").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName7);
+            $("#downBankStat2").val(response.model.UploadOriginalFileName7);
+            $("#downBankStat2").data('value', response.model.TaxReturn7);
+            var resultTaxReturnExist7 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn7);
+
+            if (resultTaxReturnExist7 == true) {
+                $("#downBankStat2").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn7);
+                $("#downBankStat2").prop("download", response.model.UploadOriginalFileName7);
+            } else {
+                $('#downBankStat2').attr('href', 'JavaScript:Void(0)');
+                $('#downBankStat2').attr('onclick', 'fileNotExist()');
+            }
+
+            //For Bank Statment 3
+            $("#downBankStat3").html("<i class='fa fa-download fa-lg'></i>" + " " + response.model.UploadOriginalFileName8);
+            $("#downBankStat3").val(response.model.UploadOriginalFileName8);
+            $("#downBankStat3").data('value', response.model.TaxReturn8);
+            var resultTaxReturnExist8 = doesFileExist('/Content/assets/img/PersonalInformation/' + response.model.TaxReturn8);
+
+            if (resultTaxReturnExist8 == true) {
+                $("#downBankStat3").prop("href", "/Content/assets/img/PersonalInformation/" + response.model.TaxReturn8);
+                $("#downBankStat3").prop("download", response.model.UploadOriginalFileName8);
+            } else {
+                $('#downBankStat3').attr('href', 'JavaScript:Void(0)');
+                $('#downBankStat3').attr('onclick', 'fileNotExist()');
             }
             
             //To Display File Name On Uploader
@@ -3421,10 +4131,86 @@ var getTenantOnlineList = function (id) {
             if (response.model.IsPaystub == true) {
 
                 $("#rbtnPaystub").iCheck('check');
+                $("#divUpload3").removeClass('hidden');
             }
             else {
-                $("#rbtnFedralTax").iCheck('check');
+                $("#divUpload3").addClass('hidden');
             }
+
+            if (response.model.IsFedralTax == true) {
+                $("#rbtnFedralTax").iCheck('check');
+                $("#divFederalTax").removeClass('hidden');
+            }
+            else {
+                $("#divFederalTax").addClass('hidden');
+            }
+
+            if (response.model.IsFedralTax == true) {
+                $("#rbtnBankStatement").iCheck('check');
+                $("#divBankUpload").removeClass('hidden');
+            }
+            else {
+                $("#divBankUpload").addClass('hidden');
+            }
+
+            $("#ddlIsInter").text(response.model.IsInternational == '0' ? 'Yes' : 'No');
+
+            if ($("#ddlIsInter").text() == 'No') {
+                $("#divCountryOfOrigin").removeClass('hidden');
+                $("#divSSNNumber").addClass('hidden');
+                $("#passportDiv").removeClass('hidden');
+            }
+            else {
+                $("#divCountryOfOrigin").addClass('hidden');
+                $("#divSSNNumber").removeClass('hidden');
+                $("#passportDiv").addClass('hidden');
+            }
+            $("#txtCountryOfOrigin").text(response.model.CountryOfOriginString);
+
+            $("#ddlEverBeenEvicted").text(response.model.Evicted == '2' ? 'Yes' : 'No');
+            if ($("#ddlEverBeenEvicted").text() == 'Yes') {
+                $("#divEverBeenEvictedDetails").removeClass('hidden');
+                $("#divEverBeenConvicted").removeClass('hidden');
+                $("#divAnyCriminalCharges").removeClass('hidden');
+            }
+            else {
+                $("#divEverBeenEvictedDetails").addClass('hidden');
+                $("#divEverBeenConvicted").addClass('hidden');
+                $("#divAnyCriminalCharges").addClass('hidden');
+            }
+            $("#txtEverBeenEvictedDetails").text(response.model.EvictedDetails);
+            $("#ddlEverBeenConvicted").text(response.model.ConvictedFelony == '2' ? 'Yes' : 'No');
+            if ($("#ddlEverBeenConvicted").text() == 'Yes') {
+                $("#divEverBeenConvictedDetails").removeClass('hidden');
+            }
+            else {
+                $("#divEverBeenConvictedDetails").addClass('hidden');
+            }
+            $("#txtEverBeenConvictedDetails").text(response.model.ConvictedFelonyDetails);
+            $("#ddlAnyCriminalCharges").text(response.model.CriminalChargPen == '2' ? 'Yes' : 'No');
+            if ($("#ddlAnyCriminalCharges").text() == 'Yes') {
+                $("#divAnyCriminalChargesDetails").removeClass('hidden');
+            }
+            else {
+                $("#divAnyCriminalChargesDetails").addClass('hidden');
+            }
+            $("#txtAnyCriminalChargesDetails").text(response.model.CriminalChargPenDetails);
+            $("#ddlDoYouSmoke").text(response.model.DoYouSmoke == '2' ? 'Yes' : 'No');
+            $("#ddlReferredByAnotherResident").text(response.model.ReferredResident == '2' ? 'Yes' : 'No');
+            if ($("#ddlReferredByAnotherResident").text() == 'Yes') {
+                $("#divReferredByAnotherResidentName").removeClass('hidden');
+            }
+            else {
+                $("#divReferredByAnotherResidentName").addClass('hidden');
+            }
+            $("#txtReferredByAnotherResidentName").text(response.model.ReferredResidentName);
+            $("#ddlBrokerOrMerchantReff").text(response.model.ReferredBrokerMerchant == '2' ? 'Yes' : 'No');
+
+            //History of Residence
+            $("#txtApartmentCommunity").text(response.model.ApartmentCommunity);
+            $("#txtManagementCompany").text(response.model.ManagementCompany);
+            $("#txtManagementCompanyPhone").text(formatPhoneFax(response.model.ManagementCompanyPhone));
+            $("#ddlProperNoticeLeaseAgreement").text(response.model.IsProprNoticeLeaseAgreement == '1' ? 'Yes' : 'No');
         }
     });
 };
@@ -3650,10 +4436,11 @@ var saveupdateApplicantHistory = function () {
 var getApplicantHistoryList = function () {
 
     var model = {
-        TenantID: $("#hdnOPId").val()
+        TenantID: $("#hdnOPId").val(),
+        ApplicantUserId: $("#hndApplicantUserId").val()
     };
     $.ajax({
-        url: "/ApplyNow/GetApplicantHistoryList",
+        url: "/ApplyNow/GetApplicantHistoryListForAdmin",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -3683,6 +4470,167 @@ var getApplicantHistoryList = function () {
     });
 };
 
+//sachin m 13 may
+var getPreviousAddressInfo = function () {
+
+    var model = {
+        id: $("#hdnOPId").val()
+    };
+    $.ajax({
+        url: "/ApplyNow/GetAppResidenceHistory",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            //console.log(JSON.stringify(response))
+            $("#tblResidenceStatus>tbody").empty();
+            $.each(response.model, function (elementType, elementValue) {
+                var html = "<tr id='tr_" + elementValue.ID + "' data-value='" + elementValue.ID + "'>";
+                html += "<td>" + elementValue.FirstName + " (" + elementValue.AppType +")</td>";
+                html += "<td>" + elementValue.MoveInDateFromTxt + "</td>";
+                html += "<td>$" + elementValue.MonthlyPayment + "</td>";
+                html += "<td>" + elementValue.ManagementCompany + "</td>";
+                html += "<td>" + elementValue.ManagementCompanyPhone + "</td>";
+                html += "<td>" + elementValue.HomeAddress1 + "," + elementValue.HomeAddress2 +", " + elementValue.CountryString + " - " + elementValue.ZipHome + "</td>";
+             
+                html += "<td><select id='ddlResidanceStatus" + elementValue.ID + "' class='form-control'><option value='0'>Select</option><option value='1'>Approved</option><option value='2'>Denied</option><option value='3'>Conditional</option></select></td>";
+                html += "<td><input type='text' id='txtResNotes" + elementValue.ID + "' class='form-control' value='" + elementValue.ResidenceNotes + "' /></td>";
+
+                html += "<td class='text-center'>";
+                html += "<button  id='btnupdateResStatus' class='btn btn-primary' onclick='updateResStatus(" + elementValue.ID + ")'>Save</button>";
+                html += "</tr>";
+                $("#tblResidenceStatus>tbody").append(html);
+                //$("#ddlResidanceStatus" + id).val(elementValue.ResidenceStatus)
+            });
+        }
+    });
+};
+var getPreviousEmpInfo = function () {
+
+    var model = {
+        id: $("#hdnOPId").val()
+    };
+    $.ajax({
+        url: "/ApplyNow/GetAppEmpHistory",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            //console.log(JSON.stringify(response))
+            $("#tblEmpStatus>tbody").empty();
+            $.each(response.model, function (elementType, elementValue) {
+                var html = "<tr id='tr_" + elementValue.ID + "' data-value='" + elementValue.ID + "'>";
+                html += "<td>" + elementValue.FirstName + " (" + elementValue.AppType + ")</td>";
+                html += "<td>" + elementValue.MoveInDateFromTxt + "</td>";
+                html += "<td>" + elementValue.EmployerName + "</td>";
+                html += "<td>" + elementValue.SupervisorPhone + "</td>";
+                html += "<td>" + elementValue.SupervisorName + "</td>";
+                html += "<td>" + elementValue.OfficeAddress1 + "," + elementValue.OfficeAddress2 + "- " + elementValue.OfficeZip + "</td>";
+                html += "<td>" + elementValue.JobTitle + "</td>";
+                html += "<td>$" + elementValue.Income + "</td>";
+                html += "<td>$" + elementValue.AdditionalIncome + "</td>";
+                html += "<td><select id='ddlEmpStatus" + elementValue.ID + "' class='form-control'><option value='0'>Select</option><option value='1'>Approved</option><option value='2'>Denied</option><option value='3'>Conditional</option></select></td>";
+                html += "<td><input type='text' id='txtEmpNotes" + elementValue.ID + "' class='form-control' value='" + elementValue.EmpNotes + "' /></td>";
+
+                html += "<td class='text-center'>";
+                html += "<button  id='btnupdateResStatus' class='btn btn-primary' onclick='updateEmpStatus(" + elementValue.ID + ")'>Save</button>";
+                html += "</tr>";
+                $("#tblEmpStatus>tbody").append(html);
+            });
+        }
+    });
+};
+var updateResStatus = function (id) {
+    $("#divLoader").show();
+    var msg = '';
+    
+    var resstatus = $("#ddlResidanceStatus" + id).val();
+    var resnotes = $("#txtResNotes" + id).val();
+  
+    if ($("#txtResNotes" + id).val() == '') {
+        msg += 'Please Fill Residence Notes</br>';
+    }
+
+    if (msg != '') {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'blue'
+        });
+        return
+    }
+    var model = {
+        ID: id,
+        ResidenceStatus: resstatus,
+        ResidenceNotes: resnotes,     
+    };
+
+    $.ajax({
+        url: "/ApplyNow/UpdateResStatus",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+        
+            $.alert({
+                title: "",
+                content: "Progress Saved.",
+                type: 'blue'
+            });
+            
+        }
+    });
+};
+var updateEmpStatus = function (id) {
+    $("#divLoader").show();
+    var msg = '';
+
+    var empstatus = $("#ddlEmpStatus" + id).val();
+    var empnotes = $("#txtEmpNotes" + id).val();
+   
+    if ($("#txtEmpNotes" + id).val() == '') {
+        msg += 'Please Fill Employment Notes</br>';
+    }
+
+    if (msg != '') {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'blue'
+        });
+        return
+    }
+    var model = {
+        ID: id,
+        EmpStatus: empstatus,
+        EmpNotes: empnotes,
+    };
+
+    $.ajax({
+        url: "/ApplyNow/UpdateEmpStatus",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+
+            $.alert({
+                title: "",
+                content: "Progress Saved.",
+                type: 'blue'
+            });
+
+        }
+    });
+};
+
 var getApplicantHistoryInfo = function (id) {
     var model = {
         AHID: id
@@ -3708,6 +4656,11 @@ var getApplicantHistoryInfo = function (id) {
             $("#txtMoveInDateTo2").text(response.model.MoveInDateToTxt);
             $("#txtMonthlyPayment2").text(response.model.MonthlyPayment);
             $("#txtReasonforleaving2").text(response.model.Reason);
+            $("#txtApartmentCommunity2").text(response.model.ApartmentCommunity);
+            $("#txtManagementCompany2").text(response.model.ManagementCompany);
+            $("#txtManagementCompanyPhone2").text(response.model.ManagementCompanyPhone);
+            $("#ddlProperNoticeLeaseAgreement2").text(response.model.IsProprNoticeLeaseAgreement == '2' ? 'Yes' : 'No');
+
         }
     });
 };
@@ -3969,7 +4922,7 @@ $(function () {
         cCardNum = $(this).val();
         $(this).data("value", cCardNum);
         if (cCardNum.length > 4) {
-            $(this).val(("*".repeat(cCardNum.length - 4) + cCardNum.substr(cCardNum.length - 4, 4)))
+            $(this).val(("*".repeat(cCardNum.length - 4) + cCardNum.substr(cCardNum.length - 4, 4)));
         }
     }).focus(function () {
         $(this).val($(this).data("value"));
@@ -4285,7 +5238,8 @@ var getVehicleInfo = function (id) {
             $("#txtVehicleNote").text(response.model.Notes);
             $("#ddlVehicleyear").text(response.model.Year);
             $("#ddlVState").text(response.model.StateString);
-
+            $("#txtVehicleTag").text(response.model.Tag);
+            $("#txtVehicleParkingSpace").text(response.model.ParkingName);
             var result = doesFileExist('/Content/assets/img/VehicleRegistration/' + response.model.VehicleRegistration);
 
             if (result == true) {
@@ -4304,7 +5258,7 @@ var getVehicleInfo = function (id) {
 var SaveScreeningStatus = function () {
     var emil = $("#txtEmail").text();
     var model = {
-        Email: emil, ProspectId: $("#hdnOPId").val(), Status: $("#ddlStatus").val()
+        Email: emil, ProspectId: $("#hdnOPId").val(), Status: $("#ddlStatus").val(), Notes: $("#txtStatusNotes").val()
     };
 
     $.alert({
@@ -4343,10 +5297,11 @@ var SaveScreeningStatus = function () {
 var getEmpHistoryListPropVari = function () {
     $("#divLoader").show();
     var model = {
-        TenantID: $("#hdnOPId").val()
+        TenantID: $("#hdnOPId").val(),
+        ApplicantUserId: $("#hndApplicantUserId").val()
     };
     $.ajax({
-        url: "/ApplyNow/GetEmployerHistory",
+        url: "/ApplyNow/GetEmployerHistoryByAdmin",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -4413,3 +5368,379 @@ var getEmpHistoryInfoProsVerif = function (id) {
     });
 };
 
+var downloadLeaseDocument = function () {
+    $("#divLoader").show();
+    var param = { uid: $("#hdnUserId").val() };
+    $.ajax({
+        url: "/CheckList/DownloadLeaseDocBlumoon",
+        method: "post",
+        data: JSON.stringify(param),
+        contentType: "application/json; charset=utf-8", // content type sent to server
+        dataType: "json", //Expected data format from server
+        success: function (response) {
+            $("#divLoader").hide();
+            var hyperlink = document.createElement('a');
+            hyperlink.href = "/Content/assets/img/Document/LeaseDocument_" + response.LeaseId + ".pdf";
+            hyperlink.target = '_blank';
+            hyperlink.download = "LeaseDocument_" + response.LeaseId + ".pdf";
+
+            (document.body || document.documentElement).appendChild(hyperlink);
+            hyperlink.onclick = function () {
+                (document.body || document.documentElement).removeChild(hyperlink);
+            };
+            var mouseEvent = new MouseEvent('click', {
+                view: window,
+                bubbles: true,
+                cancelable: true
+            });
+            hyperlink.dispatchEvent(mouseEvent);
+            if (!navigator.mozGetUserMedia) {
+                window.URL.revokeObjectURL(hyperlink.href);
+            }
+
+        }
+    });
+}
+var SaveSignedStatus = function () {
+    var emil = $("#txtEmail").text();
+    var model = {
+        Email: emil, ProspectId: $("#hdnOPId").val(), Status:"Signed"
+    };
+
+    $.alert({
+        title: "",
+        content: "Are you sure to send Confirmation?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: "/ProspectVerification/SaveScreeningStatus",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $.alert({
+                                title: "",
+                                content: "Confirmation Saved and Email Send Successfully",
+                                type: 'blue',
+                            });
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
+        }
+    });
+};
+var getSignedLists = function (userid) {
+    var model = {
+        TenantID: userid
+    };
+    $.ajax({
+        url: "/CheckList/GetSignedList",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#tblLeasedSign>tbody").empty();
+            var isSignedAll = 0;
+            var isLeaseExecuted = 0;
+            $("#hndIsSignedByAll").val(0);
+            if (response.model.length > 0) {
+                $.each(response.model, function (elementType, elementValue) {
+                    var html = "<tr data-value=" + elementValue.ESID + ">";
+                    html += "<td>" + elementValue.ApplicantName + "</td>";
+                    html += "<td>" + elementValue.Email + "</td>";
+                    html += "<td>" + elementValue.DateSigned + "</td>";
+                    html += "<td><button type='button' class='btn btn-primary' onclick='SendReminderEmail(2, " + elementValue.ApplicantID + ")' " + (elementValue.IsSigned == 1 ? "disabled='disabled'" : "") + ">Send Reminder to Sign Lease Document</button></td>";
+                    html += "</tr>";
+                    isSignedAll = elementValue.IsSignedAll;
+                    isLeaseExecuted = elementValue.IsLeaseExecuted;
+                    $("#tblLeasedSign>tbody").append(html);
+                });
+                if (isSignedAll == 1) {
+                    $("#hndIsSignedByAll").val(1);
+                    if (isLeaseExecuted == 0) {
+                        $("#btnExecuteLease").removeAttr("disabled");
+                        $("#btnupSignSts").attr("disabled", "disabled");
+                        $("#btnExecuteLease").attr("data-target","#popExecuteLease");
+                    }
+                    else {
+                        $("#btnupSignSts").removeAttr("disabled");
+                        $("#btnExecuteLease").attr("disabled", "disabled");
+                        $("#btnExecuteLease").removeAttr("data-target");
+                    }
+                    $("#btnleaseDownl").removeAttr("disabled");
+                    $("#btnSendRemSign").attr("disabled", "disabled");
+                }
+            }
+            else {
+                var html = "<tr><td colspan='4'><h3 class='panel-title'>Application Feed Not Paid</h3></td></tr>    ";
+                $("#tblLeasedSign>tbody").append(html);
+            }
+        }
+    });
+}
+var SendReminderEmail = function (remtype, applicantID) {
+
+    var model = {
+        ProspectId: $("#hdnOPId").val(), RemType: remtype, ApplicantID: applicantID
+
+    };
+
+    $.alert({
+        title: "",
+        content: "Are you sure to send Reminder Email?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $("#divLoader").show();
+                    $.ajax({
+                        url: "/ProspectVerification/SendReminderEmail",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $("#divLoader").hide();
+                            $.alert({
+                                title: "",
+                                content: "Reminder Email Sent Successfully",
+                                type: 'blue',
+                            });
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
+        }
+    });
+};
+
+var refreshStatuses = function () {
+    var model = {
+        ProspectId: $("#hdnOPId").val()
+    };
+    $("#divLoader").show();
+    $.ajax({
+        url: "/ProspectVerification/RefreshStatuses",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            getTransationLists($("#hdnUserId").val());
+            getSignedLists($("#hdnOPId").val());
+        }
+    });
+};
+var fillUnitParkingList = function () {
+    $("#divLoader").show();
+    var model = { UID: $("#hndUID").val() };
+    $.ajax({
+        url: '/Parking/GetUnitParkingList',
+        method: "post",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(model),
+        dataType: "json",
+        success: function (response) {
+
+            if ($.trim(response.error) != "") {
+            } else {
+                $("#lblParkSpace").text("");
+                $.each(response, function (index, elementValue) {
+                    var html = "";
+                    html += "<span style='text-decoration:underline; font - weight:bold;'>  #" + elementValue.ParkingName + " </span>";
+                    $("#lblParkSpace").append(html);
+                });
+            }
+            $("#divLoader").hide();
+        }
+    });
+}
+var uploadPOIFileAdminSide = function () {
+    $("#divLoader").show();
+    var prospectId = $('#hdnOPId').val();
+    $formData = new FormData();
+
+    var uploadPOI = document.getElementById('uploadPOI');
+
+    for (var i = 0; i < uploadPOI.files.length; i++) {
+        $formData.append('file-' + i, uploadPOI.files[i]);
+    }
+    $formData.append('ProspectId', prospectId);
+
+    $.ajax({
+        url: '/CheckList/UploadInsurenceDocAdminSide',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            var spMsg = response.model;
+            alert(spMsg);
+            var msg = [];
+            if (spMsg) {
+                msg = spMsg.split('|');
+                $('#uploadPOIShow').text(msg[1]);
+                $("#chkIns").prop("checked", true);
+                $("#chkIns").prop("disabled", "disabled");
+                $("#chkIns").parent().addClass("checked");
+
+                $("#dwnldPOI").attr('href', '/../Content/assets/img/ChecklistDocument/' + msg[1]);
+                $("#dwnldPOI").attr('download', msg[1]);
+                $("#dwnldPOI").attr('target', '_parent');
+                $("#dwnldPOI").html('<i class="fa fa-download"></i>' + ' ' + msg[1]);
+            }
+            else {
+                msg = spMsg.split('|');
+            }
+            $.alert({
+                title: "",
+                content: msg[0],
+                type: 'blue'
+            });
+        }
+    });
+};
+
+var uploadPOEFileAdminSide = function () {
+    $("#divLoader").show();
+    var prospectId = $('#hdnOPId').val();
+    $formData = new FormData();
+
+    var uploadPOE = document.getElementById('uploadPOE');
+
+    for (var i = 0; i < uploadPOE.files.length; i++) {
+        $formData.append('file-' + i, uploadPOE.files[i]);
+    }
+    $formData.append('ProspectId', prospectId);
+    $.ajax({
+        url: '/CheckList/UploadProofOfElectricityDocAdminSide',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            var spMsg = response.model;
+            var msg = [];
+            if (spMsg) {
+                msg = spMsg.split('|');
+                $('#uploadPOEShow').text(msg[1]);
+                $("#chkEle").prop("checked", true);
+                $("#chkEle").prop("disabled", "disabled");
+                $("#chkEle").parent().addClass("checked");
+
+                $("#dwnldPOE").attr('href', '/../Content/assets/img/ChecklistDocument/' + msg[1]);
+                $("#dwnldPOE").attr('download', msg[1]);
+                $("#dwnldPOE").attr('target', '_parent');
+                $("#dwnldPOE").html('<i class="fa fa-download"></i>' + ' ' + msg[1]);
+            }
+            else {
+                msg = spMsg.split('|');
+            }
+            $.alert({
+                title: "",
+                content: msg[0],
+                type: 'blue'
+            });
+        }
+    });
+};
+
+//sachin m 19 may
+var getBackgroundScreeningList= function () {
+
+    var model = {
+        TenantId: $("#hdnOPId").val()
+    };
+    $.ajax({
+        url: "/ProspectVerification/BackgroundScreeningList",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            //console.log(JSON.stringify(response))
+            $("#tblBCCCStatus>tbody").empty();
+            $.each(response, function (elementType, elementValue) {
+                var html = "<tr id='tr_" + elementValue.Id + "' data-value='" + elementValue.Id + "'>";
+                html += "<td>" + elementValue.TenantName + " </td>";
+                html += "<td>" + elementValue.Type + "</td>";
+                html += "<td>" + elementValue.Status + "</td>";
+                html += "<td>" + elementValue.PDFUrl + "</td>";
+                html += "<td><input type='text' id='txtScrNotes" + elementValue.Id + "' class='form-control' value='" + elementValue.Notes + "' /></td>";
+
+                html += "<td class='text-center'>";
+                html += "<button  id='btnupdateResStatus' class='btn btn-primary' onclick='updateScreeNotes(" + elementValue.Id + ")'>Save</button></td></tr>";
+
+                $("#tblBCCCStatus>tbody").append(html);
+                //$("#ddlResidanceStatus" + id).val(elementValue.ResidenceStatus)
+            });
+        }
+    });
+};
+
+var updateScreeNotes = function (id) {
+    $("#divLoader").show();
+    var msg = '';
+
+    var scrnotes = $("#txtScrNotes" + id).val();
+
+    if ($("#txtScrNotes" + id).val() == '') {
+        msg += 'Please Fill Notes</br>';
+    }
+
+    if (msg != '') {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'blue'
+        });
+        return
+    }
+    var model = {
+        ID: id,
+        Notes: scrnotes,
+    };
+
+    $.ajax({
+        url: "/ProspectVerification/UpdateScreeNotes",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+
+            $.alert({
+                title: "",
+                content: "Progress Saved.",
+                type: 'blue'
+            });
+
+        }
+    });
+};

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using ShomaRM.ApiService;
 using ShomaRM.Areas.Admin.Models;
 
 namespace ShomaRM.Areas.Admin.Controllers
@@ -81,7 +84,30 @@ namespace ShomaRM.Areas.Admin.Controllers
         {
             try
             {
-                return Json(new { result = 1, ID = model.SaveUpdateUser(model) }, JsonRequestBehavior.AllowGet);
+                //Service _Services = new Service();
+
+                //string body = "{ 'accountEnabled': true,'displayName': '" + model.FirstName + " " + model.LastName + "','mailNickname': '" + model.FirstName + " " + model.LastName + "','userPrincipalName': '" + model.Username + "','passwordProfile' : {'forceChangePasswordNextSignIn': true,'password': '" + model.Password + "'  }}";
+                //if (model.UserID != 0)
+                //{
+                //    var details = await _Services.CrmRequest(new HttpMethod("PATCH"), "https://graph.microsoft.com/v1.0/users/" + model.UserID, body);
+                //    if (details.IsSuccessStatusCode == true)
+                //    {
+                //        string contactsJson = await details.Content.ReadAsStringAsync();
+                //        var odataresponse = JsonConvert.DeserializeObject<RootObject>(contactsJson);
+                //    }
+                //}
+                //else
+                //{
+                //    var details = await _Services.CrmRequest(HttpMethod.Post, "https://graph.microsoft.com/v1.0/users", body);
+                //    if (details.IsSuccessStatusCode == true)
+                //    {
+                //        string contactsJson = await details.Content.ReadAsStringAsync();
+                //        var odataresponse = JsonConvert.DeserializeObject<RootObject>(contactsJson);
+                //    }
+                //}
+
+
+                    return Json(new { result = 1, ID = model.SaveUpdateUser(model) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

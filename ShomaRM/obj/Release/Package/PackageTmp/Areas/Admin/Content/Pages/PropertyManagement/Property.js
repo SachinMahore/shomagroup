@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
     onFocusProperty();
     //fillModelDDL();
     getPropertyList();
@@ -6,10 +6,8 @@
     getModelsList();
 
     TableClickModels();
-    //fillRPP_PUList();
     fillStateDDL();
     fillStateDDL1();
-    //getPremiumTypeList();
     $("#ddlFloorList").on('change', function (evt, params) {
         var noffloor = $("#txtNoOfFloor").val();
         $("#hdnFloorPlan").val("");
@@ -83,6 +81,49 @@
             });
         }
     };
+
+    $("#ddlRPP_ULWPList").on('change', function (evt, params) {
+        var selected = $(this).val();
+        var sortByValue = $("#hndULWPSortBy").val();
+        var orderByValue = $("#hndULWPOrderBy").val();
+        var page= $("#hndULWPPageNumber").val();
+        buildPaganationUnitLeaseWisePriceList(page, sortByValue, orderByValue);
+    });
+    $('#ulPagination_ULWPList').pagination({
+        items: 0,
+        currentPage: 1,
+        displayedPages: 10,
+        cssStyle: '',
+        useAnchors: false,
+        prevText: '&laquo;',
+        nextText: '&raquo;',
+        onInit: function () {
+            var sortByValue = $("#hndULWPSortBy").val();
+            var orderByValue = $("#hndULWPOrderBy").val();
+            $("#hndULWPPageNumber").val(1);
+            buildPaganationUnitLeaseWisePriceList(1, sortByValue, orderByValue);
+        },
+        onPageClick: function (page, evt) {
+            var sortByValue = $("#hndULWPSortBy").val();
+            var orderByValue = $("#hndULWPOrderBy").val();
+            $("#hndULWPPageNumber").val(page);
+            fillUnitLeaseWisePriceList(page, sortByValue, orderByValue);
+        }
+    });
+    document.getElementById('fileUploadPetPolicy').onchange = function () {
+        var fileUploadPetPolicyBool = restrictFileOnlyPDF($(this).val());
+        if (fileUploadPetPolicyBool == true) {
+            uploadPetPolicyFile();
+        }
+        else {
+            document.getElementById('fileUploadPetPolicy').value = '';
+            $.alert({
+                title: "",
+                content: "Only pdf file allows",
+                type: 'blue'
+            });
+        }
+    };
 });
 var getPropertyList = function () {
     $("#divLoader").show();
@@ -121,7 +162,6 @@ var getPropertyDetails = function (pid) {
     window.location = "/Admin/PropertyManagement/EditProperty/" + pid;
 };
 //---------------------------------Property Units----------------------------------------//
-
 var fillRPP_PUList = function () {
     //$("#ddlRPP_PUList").empty();
     //$("#ddlRPP_PUList").append("<option value='10'>10</option>");
@@ -204,8 +244,9 @@ var fillPUList = function (pagenumber, sortby, orderby) {
                     html += "<td style='width:4%;'>" + value.Building + "</td>";
 
                     html += "<td style='width:6%;cursor:pointer!important;' id='avUnitRent_" + value.UID + "' onclick='editUnitRent(" + value.UID + ")' data-udate='" + value.Current_Rent + "' data-ulrid='" + value.ULRID+"'> " + formatMoney(parseFloat(value.Current_Rent).toFixed(2)) + " <i class='fa fa-edit  pull-right' style='margin: 6px;'></i> </td>";
-                    html += "<td style='width:2%;'>" + value.Bathroom + "</td>";
                     html += "<td style='width:2%;'>" + value.Bedroom + "</td>";
+                    html += "<td style='width:2%;'>" + value.Bathroom + "</td>";
+                   
                     html += "<td style='width:6%;'>" + value.InteriorArea + "</td>";
                     html += "<td style='width:6%;'>" + value.BalconyArea + "</td>";
 
@@ -274,7 +315,6 @@ var goToEditModels = function () {
     var row = $('#tblModels tbody tr.pds-selected-row').closest('tr');
     var ID = $(row).attr("data-value");
 }
-
 var addNewModels = function () {
     //clearModels();
     gotoStep(4, 0);
@@ -381,7 +421,6 @@ var getPremiumTypeList = function () {
     });
 
 }
-
 function SaveUpdateProperty() {
     $("#divLoader").show();
     var msg = "";
@@ -408,6 +447,13 @@ function SaveUpdateProperty() {
     var dnaPetFees = unformatText($("#txtDNAPetFee").val());
     var processingFees = unformatText($("#txtProcessingFee").val());
     var propertyFile = $("#hndFileUploadPropertyPicture").val();
+
+    var applicationCCFees = unformatText($("#txtAppCCCheck").val());
+    var applicationBGFees = unformatText($("#txtAppBGCheckFees").val());
+
+    var guarantorCCFees = unformatText($("#txtGuarCCCheck").val());
+    var guarantorBGFees = unformatText($("#txtGuarBGCheck").val());
+
     if (title == "") {
         msg += " Please enter Property Title .<br />";
     }
@@ -436,12 +482,40 @@ function SaveUpdateProperty() {
     if (!applicationFees) {
         msg += " Please enter Application Fees.<br />";
     }
+    if (!applicationCCFees) {
+        msg += " Please enter Application Credit Fees.<br />";
+    }
+    if (!applicationBGFees) {
+        msg += " Please enter Application Background Fees.<br />";
+    }
+
+    var appFees = parseFloat(applicationFees);
+    var appCCBGFees = parseFloat(applicationCCFees) + parseFloat(applicationBGFees);
+
+    if (appFees != appCCBGFees) {
+        msg += " Application Fees should be equal to sum of Application Credit Fees and Application Background Fees.<br />";
+    }
+    
     if (!adminFees) {
         msg += " Please enter Admin Fees.<br />";
     }
     if (!guarantorFees) {
         msg += " Please enter Guarantor Fees.<br />";
     }
+    if (!guarantorCCFees) {
+        msg += " Please enter Guarantor Credit Fees.<br />";
+    }
+    if (!guarantorBGFees) {
+        msg += " Please enter Guarantor Background Fees.<br />";
+    }
+
+    var guarFees = parseFloat(guarantorFees);
+    var guarCCBGFees = parseFloat(guarantorCCFees) + parseFloat(guarantorBGFees);
+
+    if (guarFees != guarCCBGFees) {
+        msg += " Guarantor Fees should be equal to sum of Guarantor Credit Fees and Guarantor Background Fees.<br />";
+    }
+
     if (!pestControlFess) {
         msg += " Please enter Pest Control.<br />";
     }
@@ -493,6 +567,11 @@ function SaveUpdateProperty() {
     $formData.append('ProcessingFees', processingFees);
     $formData.append('Picture', propertyFile);
 
+    $formData.append('AppCCCheckFees', applicationCCFees);
+    $formData.append('AppBGCheckFees', applicationBGFees);
+    $formData.append('GuaCCCheckFees', guarantorCCFees);
+    $formData.append('GuaBGCheckFees', guarantorBGFees);
+
     var addAmenity = "";
     if (addAmenityArray.length > 0) {
         for (var j = 0; j < addAmenityArray.length; j++) {
@@ -528,7 +607,6 @@ function SaveUpdateProperty() {
     });
 
 }
-
 var fillStateDDL = function () {
     $("#divLoader").show();
     $.ajax({
@@ -623,12 +701,10 @@ var fillCityList1 = function (stateid) {
 var gotoPropList = function () {
     window.location = "/Admin/PropertyManagement/";
 }
-
 var addPropUnit = function () {
     // $("#hndPID").val(pid);
     window.location = "/Admin/PropertyManagement/EditPropUnit/0";
 }
-
 var saveUpdateFloor = function () {
     $("#divLoader").show();
     var msg = "";
@@ -710,7 +786,6 @@ var saveUpdateFloor = function () {
         }
     });
 }
-
 var goToStep = function (stepid, id) {
     if (stepid == "1") {
         $("#divLoader").show();
@@ -718,14 +793,17 @@ var goToStep = function (stepid, id) {
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
         $("#li4").removeClass("active");
-        $("#li6").removeClass("active");
         $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
+
         $("#step2").addClass("hidden");
         $("#step3").addClass("hidden");
         $("#step4").addClass("hidden");
         $("#step1").removeClass("hidden");
         $("#step5").addClass("hidden");
         $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
         $("#divLoader").hide();
     }
     if (stepid == "2") {
@@ -737,37 +815,42 @@ var goToStep = function (stepid, id) {
         for (var i = 1; i <= noffloor; i++) {
             $("#ddlFloorList").append("<option value=" + i + ">" + i + "</option>");
         }
-        $("#li6").removeClass("active");
-        $("#li5").removeClass("active");
-        $("#li2").addClass("active");
         $("#li1").removeClass("active");
+        $("#li2").addClass("active");
         $("#li3").removeClass("active");
         $("#li4").removeClass("active");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
+
         $("#step1").addClass("hidden");
         $("#step3").addClass("hidden");
         $("#step4").addClass("hidden");
         $("#step2").removeClass("hidden");
         $("#step5").addClass("hidden");
         $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
         $("#divLoader").hide();
     }
     if (stepid == "3") {
         $("#divLoader").show();
         getModelsList();
-        //getPropertyUnitList($("#hndPID").val());
-        // buildPaganationPUList($("#hdnCurrentPage_PU").val());
-        $("#li6").removeClass("active");
-        $("#li5").removeClass("active");
-        $("#li3").addClass("active");
-        $("#li2").removeClass("active");
+       
         $("#li1").removeClass("active");
+        $("#li2").removeClass("active");
+        $("#li3").addClass("active");
         $("#li4").removeClass("active");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
+
         $("#step2").addClass("hidden");
         $("#step1").addClass("hidden");
         $("#step4").addClass("hidden");
         $("#step3").removeClass("hidden");
         $("#step5").addClass("hidden");
         $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
         $("#divLoader").hide();
     }
     if (stepid == "4") {
@@ -778,42 +861,46 @@ var goToStep = function (stepid, id) {
             $("#divLoader").hide();
         });
 
-        $("#li6").removeClass("active");
-        $("#li5").removeClass("active");
-        $("#li4").addClass("active");
+        $("#li1").removeClass("active");
         $("#li2").removeClass("active");
         $("#li3").addClass("active");
-        $("#li1").removeClass("active");
+        $("#li4").addClass("active");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
+
         $("#step2").addClass("hidden");
         $("#step1").addClass("hidden");
         $("#step3").addClass("hidden");
         $("#step4").removeClass("hidden");
         $("#step5").addClass("hidden");
         $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
     }
     if (stepid == "5") {
 
         //getPropertyUnitList($("#hndPID").val());
         buildPaganationPUList($("#hdnCurrentPage_PU").val(), 'UnitNo', 'ASC');
         $("#tru_" + $("#hndUID").val()).addClass("select-unit");
-        $("#li3").removeClass("active");
-        $("#li2").removeClass("active");
+
         $("#li1").removeClass("active");
+        $("#li2").removeClass("active");
+        $("#li3").removeClass("active");
         $("#li4").removeClass("active");
-        $("#li6").removeClass("active");
         $("#li5").addClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").removeClass("active");
+
         $("#step2").addClass("hidden");
         $("#step1").addClass("hidden");
         $("#step4").addClass("hidden");
         $("#step3").addClass("hidden");
         $("#step5").removeClass("hidden");
         $("#step6").addClass("hidden");
+        $("#step7").addClass("hidden");
     }
     if (stepid == "6") {
         $("#hndUID").val(id);
-
-        // $("#tru_" + $("#hndUID").val()).removeClass("select-unit");
-        //$("#tru_" + $("#hndUID").val()).addClass("select-unit");
 
         $("#divLoader").show();
         clearUnit();
@@ -821,21 +908,51 @@ var goToStep = function (stepid, id) {
             $("#step6").html(data);
             $("#divLoader").hide();
         });
-        $("#li4").removeClass("active");
+
+        $("#li1").removeClass("active");
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
-        $("#li1").removeClass("active");
-        $("#li6").addClass("active");
+        $("#li4").removeClass("active");
         $("#li5").addClass("active");
+        $("#li6").addClass("active");
+        $("#li7").removeClass("active");
+
         $("#step2").addClass("hidden");
         $("#step1").addClass("hidden");
         $("#step3").addClass("hidden");
         $("#step4").addClass("hidden");
         $("#step5").addClass("hidden");
         $("#step6").removeClass("hidden");
+        $("#step7").addClass("hidden");
+    }
+    if (stepid == "7") {
+        $("#divLoader").show();
+        $("#hndLockUnlock").val(1);
+        $(".lockunlock").attr("disabled", true);
+        $("#spanLockUnLock").html("");
+        $("#spanLockUnLock").html('<i class="fa fa-lock"></i> Unlock');
+        $("#hndLockUnlock").val(1);
+
+        buildPaganationUnitLeaseWisePriceList(1, 'UnitNo', 'ASC');
+        fillUnitLeaseWisePriceList(1, 'UnitNo', 'ASC');
+        $("#li1").removeClass("active");
+        $("#li2").removeClass("active");
+        $("#li3").removeClass("active");
+        $("#li4").removeClass("active");
+        $("#li5").removeClass("active");
+        $("#li6").removeClass("active");
+        $("#li7").addClass("active");
+
+        $("#step2").addClass("hidden");
+        $("#step1").addClass("hidden");
+        $("#step3").addClass("hidden");
+        $("#step4").addClass("hidden");
+        $("#step5").addClass("hidden");
+        $("#step6").addClass("hidden");
+        $("#step7").removeClass("hidden");
+        $("#divLoader").hide();
     }
 }
-
 // Unit
 function SaveUpdatePropertyUnit() {
     $("#divLoader").show();
@@ -912,6 +1029,13 @@ function SaveUpdatePropertyUnit() {
     var balcarea = $("#txtBalconyArea").val();
     var notes = $("#txtUnitNotes").val();
 
+    var parkingNo = $("#txtParkingNo").val();
+    var charges = 0.00;
+    var type = 1;
+    var ddlLocation = $("#ddlLocation").find(':selected').data("list");
+    var spaceNo = $("#txtSpaceNo").val();
+
+    var isFurnished = $("#ddlFurnishedUnit").val();
 
     if (unitNo == "") {
         msg += " Please enter Unit Title .<br />";
@@ -1017,8 +1141,13 @@ function SaveUpdatePropertyUnit() {
     $formData.append('InteriorArea', intarea);
     $formData.append('BalconyArea', balcarea);
     $formData.append('Notes', notes);
-
+    $formData.append('ParkingID', parkingNo);
+    $formData.append('Charges', charges);
+    $formData.append('Type', type);
+    $formData.append('Description', ddlLocation);
+    $formData.append('ParkingName', spaceNo);
     $formData.append('UnitWiseRentData', unitWiseRentData);
+    $formData.append('IsFurnished', isFurnished);
     var $file = document.getElementById('unit-picture');
     if ($file.files.length > 0) {
         for (var i = 0; i < $file.files.length; i++) {
@@ -1080,7 +1209,6 @@ function getFloorList() {
         }
     });
 }
-
 var getUnitCord = function (e, cont) {
     var offset = $(cont).offset();
     var X = (e.pageX - offset.left);
@@ -1147,7 +1275,6 @@ function showFloorPlan(flid) {
     });
 
 }
-
 var clearUnit = function () {
 
     $("#hndUID").val(0);
@@ -1334,7 +1461,6 @@ var delUnit = function (uId) {
         }
     });
 };
-
 function formatPhoneFax(phonefax) {
     if (phonefax == null)
         phonefax = "";
@@ -1344,14 +1470,12 @@ function formatPhoneFax(phonefax) {
 
     return '(' + phonefax.substring(0, 3) + ') ' + phonefax.substring(3, 6) + (phonefax.length > 6 ? '-' : '') + phonefax.substring(6);
 }
-
 function unformatText(text) {
     if (text == null)
         text = "";
 
     return text.replace(/[^\d\.]/g, '');
 }
-
 function formatMoney(number) {
     number = number || 0;
     var places = 2;
@@ -1363,12 +1487,19 @@ function formatMoney(number) {
         j = (j = i.length) > 3 ? j % 3 : 0;
     return symbol + negative + (j ? i.substr(0, j) + thousand : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousand) + (places ? decimal + Math.abs(number - i).toFixed(places).slice(2) : "");
 }
-
 var onFocusProperty = function () {
 
     $("#txtApplicationFees").focusout(function () { $("#txtApplicationFees").val(formatMoney($("#txtApplicationFees").val())); })
         .focus(function () {
             $("#txtApplicationFees").val(unformatText($("#txtApplicationFees").val()));
+        });
+    $("#txtAppCCCheck").focusout(function () { $("#txtAppCCCheck").val(formatMoney($("#txtAppCCCheck").val())); })
+        .focus(function () {
+            $("#txtAppCCCheck").val(unformatText($("#txtAppCCCheck").val()));
+        });
+    $("#txtAppBGCheckFees").focusout(function () { $("#txtAppBGCheckFees").val(formatMoney($("#txtAppBGCheckFees").val())); })
+        .focus(function () {
+            $("#txtAppBGCheckFees").val(unformatText($("#txtAppBGCheckFees").val()));
         });
 
     $("#txtAdminFees").focusout(function () { $("#txtAdminFees").val(formatMoney($("#txtAdminFees").val())); })
@@ -1379,6 +1510,14 @@ var onFocusProperty = function () {
     $("#txtGuarantorFees").focusout(function () { $("#txtGuarantorFees").val(formatMoney($("#txtGuarantorFees").val())); })
         .focus(function () {
             $("#txtGuarantorFees").val(unformatText($("#txtGuarantorFees").val()));
+        });
+    $("#txtGuarCCCheck").focusout(function () { $("#txtGuarCCCheck").val(formatMoney($("#txtGuarCCCheck").val())); })
+        .focus(function () {
+            $("#txtGuarCCCheck").val(unformatText($("#txtGuarCCCheck").val()));
+        });
+    $("#txtGuarBGCheck").focusout(function () { $("#txtGuarBGCheck").val(formatMoney($("#txtGuarBGCheck").val())); })
+        .focus(function () {
+            $("#txtGuarBGCheck").val(unformatText($("#txtGuarBGCheck").val()));
         });
 
     $("#txtPestControlFees").focusout(function () { $("#txtPestControlFees").val(formatMoney($("#txtPestControlFees").val())); })
@@ -1411,9 +1550,14 @@ var editUnitDate = function (uid) {
     $("#avUnitDate_" + uid).empty();
 
     $("#avUnitDate_" + uid).append("<input class='form-control'  style='width:100px' type='text' id='editUDate_" + uid + "'  value='" + unitDate + "'/>");
-    $("#editUDate_" + uid).datepicker({
-        autoclose: true
-    }).on('changeDate', function (e) {
+
+    var dtstart = new Date();
+    dtstart.setFullYear(new Date().getFullYear() - 100);
+
+    var dtend = new Date();
+    dtend.setFullYear(new Date().getFullYear() + 100);
+
+    $("#editUDate_" + uid).datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true }).on('changeDate', function (e) {
         var availDate = $("#editUDate_" + uid).val();
         // alert(availDate);
         var pID = $("#hndPID").val();
@@ -1439,7 +1583,6 @@ var editUnitDate = function (uid) {
     });
     $("#editUDate_" + uid).focus();
 };
-
 var editUnitMoveInDate = function (uid) {
 
     $("#avUnitMoveInDate_" + uid).removeAttr("onclick");
@@ -1447,9 +1590,13 @@ var editUnitMoveInDate = function (uid) {
     $("#avUnitMoveInDate_" + uid).empty();
 
     $("#avUnitMoveInDate_" + uid).append("<input class='form-control' style='width:100px'  type='text' id='editUMoveInDate_" + uid + "'  value='" + unitDate + "'/>");
-    $("#editUMoveInDate_" + uid).datepicker({
-        autoclose: true
-    }).on('changeDate', function (e) {
+    var dtstart = new Date();
+    dtstart.setFullYear(new Date().getFullYear() - 100);
+
+    var dtend = new Date();
+    dtend.setFullYear(new Date().getFullYear() + 100);
+
+    $("#editUMoveInDate_" + uid).datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true }).on('changeDate', function (e) {
         var availDate = $("#editUMoveInDate_" + uid).val();
         // alert(availDate);
         var pID = $("#hndPID").val();
@@ -1481,10 +1628,15 @@ var editUnitMoveOutDate = function (uid) {
     var unitDate = $("#avUnitMoveOutDate_" + uid).attr("data-udate");
     $("#avUnitMoveOutDate_" + uid).empty();
 
+
     $("#avUnitMoveOutDate_" + uid).append("<input class='form-control' style='width:100px'  type='text' id='editUMoveOutDate_" + uid + "'  value='" + unitDate + "'/>");
-    $("#editUMoveOutDate_" + uid).datepicker({
-        autoclose: true
-    }).on('changeDate', function (e) {
+    var dtstart = new Date();
+    dtstart.setFullYear(new Date().getFullYear() - 100);
+
+    var dtend = new Date();
+    dtend.setFullYear(new Date().getFullYear() + 100);
+
+    $("#editUMoveOutDate_" + uid).datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true }).on('changeDate', function (e) {
         var availDate = $("#editUMoveOutDate_" + uid).val();
         // alert(availDate);
         var pID = $("#hndPID").val();
@@ -1581,42 +1733,42 @@ var editUnitNotes = function (uid) {
     });
     $("#editUNotes_" + uid).focus();
 };
-function sortTable(n) {
-    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-    table = document.getElementById("tblPUList");
-    switching = true;
-    dir = "asc";
-    while (switching) {
-        switching = false;
-        rows = table.rows;
-        for (i = 1; i < (rows.length - 1); i++) {
-            shouldSwitch = false;
-            x = rows[i].getElementsByTagName("TD")[n];
-            y = rows[i + 1].getElementsByTagName("TD")[n];
-            if (dir == "asc") {
-                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
-                }
-            } else if (dir == "desc") {
-                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
-                }
-            }
-        }
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-            switchcount++;
-        } else {
-            if (switchcount == 0 && dir == "asc") {
-                dir = "desc";
-                switching = true;
-            }
-        }
-    }
-}
+//function sortTable(n) {
+//    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+//    table = document.getElementById("tblPUList");
+//    switching = true;
+//    dir = "asc";
+//    while (switching) {
+//        switching = false;
+//        rows = table.rows;
+//        for (i = 1; i < (rows.length - 1); i++) {
+//            shouldSwitch = false;
+//            x = rows[i].getElementsByTagName("TD")[n];
+//            y = rows[i + 1].getElementsByTagName("TD")[n];
+//            if (dir == "asc") {
+//                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+//                    shouldSwitch = true;
+//                    break;
+//                }
+//            } else if (dir == "desc") {
+//                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+//                    shouldSwitch = true;
+//                    break;
+//                }
+//            }
+//        }
+//        if (shouldSwitch) {
+//            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+//            switching = true;
+//            switchcount++;
+//        } else {
+//            if (switchcount == 0 && dir == "asc") {
+//                dir = "desc";
+//                switching = true;
+//            }
+//        }
+//    }
+//}
 var areaAddition = function () {
     var balcony = $('#txtBalconyArea').val();
     var interior = $('#txtInteriorArea').val();
@@ -1651,7 +1803,6 @@ var sortTable = function (sortby) {
     buildPaganationPUList(pNumber, sortby, orderby);
     fillPUList(pNumber, sortby, orderby);
 };
-
 var tableControlFocusOut = function (cont) {
     $(cont).val(formatMoney($(cont).val()));
 }
@@ -1686,6 +1837,248 @@ var uploadPropertyPicture = function () {
                 type: 'blue'
             });
             $("#divLoader").hide();
+        }
+    });
+};
+
+var buildPaganationUnitLeaseWisePriceList = function (pagenumber, sortby, orderby) {
+    $("#hndLockUnlock").val(1);
+    $(".lockunlock").attr("disabled", true);
+    $("#spanLockUnLock").html("");
+    $("#spanLockUnLock").html('<i class="fa fa-lock"></i> Unlock');
+    $("#hndLockUnlock").val(1);
+    if (!sortby) {
+        sortby = "UnitNo";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
+    $("#divLoader").show();
+    var model = {
+        PID: $("#hndPID").val(),
+        PN: pagenumber,
+        NOR: $("#ddlRPP_ULWPList").val(),
+        SortBy: sortby,
+        OrderBy: orderby
+    };
+
+    $.ajax({
+        url: "/PropertyManagement/BuildPaganationUnitLeasePrice",
+        method: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if ($.trim(response.error) !== "") {
+                var dn = "1";
+            } else {
+                $('#ulPagination_ULWPList').pagination('updateItems', response.NOP);
+                $('#ulPagination_ULWPList').pagination('selectPage', 1);
+            }
+            $("#divLoader").hide();
+        }
+    });
+};
+var fillUnitLeaseWisePriceList = function (pagenumber, sortby, orderby) {
+    $("#hndLockUnlock").val(1);
+    $(".lockunlock").attr("disabled", true);
+    $("#spanLockUnLock").html("");
+    $("#spanLockUnLock").html('<i class="fa fa-lock"></i> Unlock');
+    $("#hndLockUnlock").val(1);
+    $("#divLoader").show();
+    if (!sortby) {
+        sortby = "UnitNo";
+    }
+    if (!orderby) {
+        orderby = "ASC";
+    }
+    var model = {
+        PID: $("#hndPID").val(),
+        PN: pagenumber,
+        NOR: $("#ddlRPP_ULWPList").val(),
+        SortBy: sortby,
+        OrderBy: orderby
+    };
+    $.ajax({
+        url: "/PropertyManagement/GetUnitLeasePrice",
+        method: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+
+            if ($.trim(response.error) !== "") {
+                //this.cancelChanges();
+            } else {
+                $("#tblUnitLeaseWisePriceList>tbody").empty();
+                var uid = 0;
+                var html = "";
+                var putclosing = 0;
+                var rowCount = response.length;
+                var rowProcess = 1;
+                $.each(response, function (elementType, value) {
+                    if (uid != value.UID) {
+                        if (uid == 0) {
+                            putclosing = 0;
+                        } else {
+                            putclosing = 1;
+                        }
+
+                        if (putclosing == 1) {
+                            html += "</tr>";
+                            $("#tblUnitLeaseWisePriceList>tbody").append(html);
+                            html = "";
+                            putclosing = 0;
+                        }
+
+                        html = "<tr id='tr_" + value.UID + "'>";
+                        uid = value.UID;
+                        html += "<td>" + value.UnitNo + "</td>";
+                        html += "<td>" + value.Building + "</td>";
+                    }
+                    if (uid = value.UID) {
+                        //html += "<td id='avUnitLeaseRent_" + value.ULPID + "' onclick='editUnitLeaseRent(" + value.UID + "," + value.ULPID + "," + value.LeaseID + "," + value.Price + ")' style='cursor: pointer!important;' >" + value.Price + "<i class='fa fa-edit pull-right' style='margin: 6px;'></i></td>";
+                        html += "<td><input style='border: 0px !important;' disabled data-ulpid=" + value.ULPID + " id='txtPrice_" + value.ULPID + "' onfocus='focusincontrol(" + value.ULPID + ")' onfocusout='focusoutcontrol(" + value.ULPID + ")' type='text' class='form-control text-right lockunlock' value='$" + formatMoney(parseFloat(value.Price).toFixed(2)) + "'/></td>";
+                    }
+                    if (rowProcess == rowCount) {
+                        html += "</tr>";
+                        $("#tblUnitLeaseWisePriceList>tbody").append(html);
+                        html = "";
+                        putclosing = 0;
+                    }
+                    rowProcess += 1;
+                });
+
+            }
+            $("#hndULWPPageNumber").val(pagenumber);
+            $("#divLoader").hide();
+        }
+    });
+};
+var focusincontrol = function (ulpid) {
+    $("#txtPrice_" + ulpid).val(unformatText($("#txtPrice_" + ulpid).val()));
+};
+
+var focusoutcontrol = function (ulpid) {
+    var currentRent = $("#txtPrice_" + ulpid).val();
+    var pID = $("#hndPID").val();
+    var model = {
+        ULPID: ulpid,
+        Price: currentRent
+    };
+    $("#divLoader").show();
+    $.ajax({
+        url: "/Admin/PropertyManagement/UpdateUnitLeasePrice/",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            $("#txtPrice_" + ulpid).val("$" + formatMoney($("#txtPrice_" + ulpid).val()));
+        }
+    });
+};
+var setlockunlock = function () {
+    if ($("#hndLockUnlock").val() == "1") {
+        //unlock
+        $(".lockunlock").removeAttr("disabled");
+        $("#spanLockUnLock").html("");
+        $("#spanLockUnLock").html('<i class="fa fa-unlock"></i> lock');
+        $("#hndLockUnlock").val(0);
+    } else {
+        //lock
+        $(".lockunlock").attr("disabled",true);
+        $("#spanLockUnLock").html("");
+        $("#spanLockUnLock").html('<i class="fa fa-lock"></i> Unlock');
+        $("#hndLockUnlock").val(1);
+    }
+}
+var sortUnitLeaseWisePrice = function (sortby) {
+    var sortByValue = $("#hndULWPSortBy").val();
+    var orderByValue = $("#hndULWPOrderBy").val();
+    var pNumber = $("#hndULWPPageNumber").val();
+    if (!pNumber) {
+        pNumber = 1;
+        $("#hndULWPPageNumber").val(1);
+    }
+    $("span.sortcolumn").empty();
+   
+    if (sortByValue != sortby) {
+        $("#hndULWPSortBy").val(sortby);
+        $("#hndULWPOrderBy").val("ASC");
+        orderby = "ASC";
+        $("#sn_" + sortby).html('<i class="fa fa-sort-asc"></i>');
+    }
+    else {
+        if (orderByValue == "ASC") {
+            $("#hndULWPOrderBy").val("DESC");
+            orderby = "DESC";
+            $("#sn_" + sortby).html('<i class="fa fa-sort-desc"></i>');
+        }
+        else {
+            $("#hndULWPOrderBy").val("ASC");
+            orderby = "ASC";
+            $("#sn_" + sortby).html('<i class="fa fa-sort-asc"></i>');
+        }
+    }
+    buildPaganationUnitLeaseWisePriceList(pNumber, sortby, orderby);
+    fillUnitLeaseWisePriceList(pNumber, sortby, orderby);
+};
+var editUnitLeaseRent = function (uid, uplid, leaseid, price) {
+
+    $("#avUnitLeaseRent_" + uplid).removeAttr("onclick");
+    $("#avUnitLeaseRent_" + uplid).empty();
+
+    $("#avUnitLeaseRent_" + uplid).append("<input class='form-control' type='text' id='editUnitLeaseRent_" + uplid + "'  value='" + price + "' />");
+    $("#avUnitLeaseRent_" + uplid).focusout(function (e) {
+        var currentRent = $("#editUnitLeaseRent_" + uplid).val();
+       
+        var pID = $("#hndPID").val();
+        var model = {
+            ULPID: uplid,
+            Price: currentRent
+        };
+
+        $.ajax({
+            url: "/Admin/PropertyManagement/UpdateUnitLeasePrice/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $("#avUnitLeaseRent_" + uplid).empty().append(currentRent + " <i class='fa fa-edit pull-right' style='margin: 6px;'></i>");
+                $("#avUnitLeaseRent_" + uplid).attr("onclick", "editUnitLeaseRent(" + uid + "," + uplid + "," + leaseid + "," + price + ")");
+            }
+        });
+    });
+    $("#editUnitLeaseRent_" + uplid).focus();
+};
+var uploadPetPolicyFile = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var upload1 = document.getElementById('fileUploadPetPolicy');
+
+    for (var i = 0; i < upload1.files.length; i++) {
+        $formData.append('file-' + i, upload1.files[i]);
+    }
+
+    $.ajax({
+        url: '/Property/UploadPetPolicyFile',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: response.model,
+                type: 'blue'
+            });
         }
     });
 };

@@ -44,6 +44,7 @@ namespace ShomaRM.Areas.Tenant.Models
         public string StatusString { get; set; }
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
+        string ServerURL = WebConfigurationManager.AppSettings["ServerURL"];
 
         public GuestRegistrationModel UploadGuestDriverLicence(HttpPostedFileBase fileBaseGuestDriverLicence, GuestRegistrationModel model)
         {
@@ -217,13 +218,13 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             var UpdateStatus = db.tbl_GuestRegistration.Where(co => co.GuestID == model.GuestID).FirstOrDefault();
 
             if (UpdateStatus != null)
             {
                 UpdateStatus.Status = model.Status;
-                UpdateStatus.ApprovedBy = Convert.ToInt32(ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID);
+                UpdateStatus.ApprovedBy = userid;
 
                 db.SaveChanges();
                 msg = "Guest Status Update Successfully";
@@ -236,10 +237,10 @@ namespace ShomaRM.Areas.Tenant.Models
                     if (model.HaveVehicleString == "Yes")
                     {
                         string reportHTML = "";
-                        string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                        string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                         reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
 
-                        //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                        reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
                         reportHTML = reportHTML.Replace("[%TenantName%]", model.TenantName);
                         reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We thank you for your request and  We are pleased to confirm your guest reservation on " + model.VisitStartDateString + " to " + model.VisitEndDateString + "  for guest " + model.GuestName + "and your Tag Information is " + model.Tag + " </p>");
                         reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
@@ -249,16 +250,19 @@ namespace ShomaRM.Areas.Tenant.Models
                         message = "Thank you for your guest reservation request. We will inform you on email. Please check the email for detail.";
                         if (SendMessage == "yes")
                         {
-                            new TwilioService().SMS(phonenumber, message);
+                            if (!string.IsNullOrWhiteSpace(phonenumber))
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
                         }
                     }
                     else
                     {
                         string reportHTMLTag = "";
-                        string filePathTag = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                        string filePathTag = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                         reportHTMLTag = System.IO.File.ReadAllText(filePathTag + "EmailTemplateAmenity.html");
 
-                        //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                        reportHTMLTag = reportHTMLTag.Replace("[%ServerURL%]", ServerURL);
                         reportHTMLTag = reportHTMLTag.Replace("[%TenantName%]", model.TenantName);
                         reportHTMLTag = reportHTMLTag.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We thank you for your request and  We are pleased to confirm your guest reservation on " + model.VisitStartDateString + " to " + model.VisitEndDateString + " for guest " + model.GuestName + ".  </p>");
                         reportHTMLTag = reportHTMLTag.Replace("[%LeaseNowButton%]", "");
@@ -268,19 +272,20 @@ namespace ShomaRM.Areas.Tenant.Models
                         message = "Thank you for your guest reservation request. We will inform you on email. Please check the email for detail.";
                         if (SendMessage == "yes")
                         {
-                            new TwilioService().SMS(phonenumber, message);
+                            if (!string.IsNullOrWhiteSpace(phonenumber))
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
                         }
-
                     }
                 }
                 else
                 {
-
                     string reportHTMLTag = "";
-                    string filePathTag = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                    string filePathTag = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTMLTag = System.IO.File.ReadAllText(filePathTag + "EmailTemplateAmenity.html");
 
-                    //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                    reportHTMLTag = reportHTMLTag.Replace("[%ServerURL%]", ServerURL);
                     reportHTMLTag = reportHTMLTag.Replace("[%TenantName%]", model.TenantName);
                     reportHTMLTag = reportHTMLTag.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; I would like to inform you that Your Request is Decline For Guest " + model.GuestName + " due to some reason please contact the Administrator. </p>");
                     reportHTMLTag = reportHTMLTag.Replace("[%LeaseNowButton%]", "");
@@ -290,17 +295,17 @@ namespace ShomaRM.Areas.Tenant.Models
                     message = "Your status regarding guest reservation is sent on email. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
-
-
             }
 
             db.Dispose();
             return msg;
         }
-
 
         public GuestRegistrationModel gotiGuestList(long TagId)
         {

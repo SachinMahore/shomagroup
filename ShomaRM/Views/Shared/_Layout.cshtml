@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Shoma Group | Residential Manager</title>
+    <title>Shoma Management | Residential Manager</title>
     <meta name="description" content="Shoma is Residential Management Web Portal">
     <meta name="author" content="Shoma">
     <meta name="keyword" content="Shoma Residential Management">
@@ -41,23 +41,27 @@
         <link rel="stylesheet" type="text/css" href="@Url.Content("../Content/assets/bootstrap/css/bootstrap.min.css")">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
 
-    <link rel="stylesheet" href="@Url.Content("/Content/jquery-confirm-master/css/jquery-confirm.css")" />
-    <link rel="stylesheet" href="@Url.Content("/content/assets/css/popupwindow.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/jquery-confirm-master/css/jquery-confirm.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/content/assets/css/popupwindow.css")" />
     @*<link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.darkneon.css")">
         <link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.flatwhite.css")">*@
-    <link rel="stylesheet" href="@Url.Content("/content/assets/css/responsive.css")">
-    <script src="@Url.Content("/content/assets/js/jquery-1.10.2.min.js")"></script>
-    <script src="@Url.Content("/content/assets/js/modernizr-2.6.2.min.js")"></script>
-    <script src="@Url.Content("/content/assets/js/popupwindow.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/content/assets/css/responsive.css")" />
+    <script src="@Url.Content("~/content/assets/js/jquery-1.10.2.min.js")"></script>
+    <script src="@Url.Content("~/content/assets/js/modernizr-2.6.2.min.js")"></script>
+    <script src="@Url.Content("~/content/assets/js/popupwindow.js")"></script>
     <script src="@Url.Content("~/Content/Pages/common.js")"></script>
-    <script src="@Url.Content("/content/assets/js/jquery.simplePagination.js")"></script>
+    <script src="@Url.Content("~/content/assets/js/jquery.simplePagination.js")"></script>
     <link rel="stylesheet" type="text/css" href="@Url.Content("/Content/assets/css/stylenew.css")">
-    <script src="~/Content/Pages/Home.js"></script>
-    <link rel="stylesheet" href="@Url.Content("/Content/fileUpload.css")" />
-    <link href="~/Content/fileUpload.css" rel="stylesheet" />
-    <link href="~/Content/timepicki.css" rel="stylesheet" />
-    <script src="~/Content/timepicki.js"></script>
-    <script src="~/Content/keyboardcontrols.js"></script>
+    <script src="@Url.Content("~/Content/Pages/Home.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/fileUpload.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/fileUpload.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/timepicki.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/jAlert.css")" />
+    
+    <script src="@Url.Content("~/Content/timepicki.js")"></script>
+    <script src="@Url.Content("~/Content/keyboardcontrols.js")"></script>
+
+
     @RenderSection("scripts", required: false)
 </head>
 <body oncontextmenu="return false;">
@@ -78,9 +82,11 @@
                     <div class="col-sm-3">
                         <h3 class="username"><i class="fa fa-map-marker " style="color: #4d738a !important;"></i> Location</h3>
                         <p>
-                            <a id="btnmapcontact" href="javascript:void(0);" style="font-weight:300;"><i class="pe-7s-map-marker strong"> </i> 9400 NW 41st Street,<br />Doral, FL 33178</a>
-                            <br>
-                            <strong>USA</strong>
+                            <a id="btnmapcontact" href="~/AddressMap" target="_blank" style="font-weight:300;">
+                                <i class="pe-7s-map-marker strong"> </i> 9400 NW 41st Street,<br />Doral, FL 33178 <br>
+                                <strong>USA</strong>
+                            </a>
+                            
                         </p>
                     </div>
                     <!-- /.col-sm-4 -->
@@ -97,8 +103,10 @@
                         <p class="text-muted">Send us a message or use our Live Chat.</p>
                         <p><strong><a href="mailto:">info@sanctuarydoral.com</a></strong></p>
                     </div>
-                    <div class="col-sm-3">
-                        <button id="btnContact" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="margin-top: 55px;">Appointment</button>
+                    <div class="col-sm-3" style="margin-top:55px;">
+
+                        @*<button id="btnContact" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="margin-top: 55px;">Appointment</button>*@
+                        <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ahernandez-28/15min-2'});return false;" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="padding:10px">Appointment</a>
                     </div>
 
                     <!-- /.col-sm-4 -->
@@ -126,7 +134,7 @@
                         <div class="single-footer">
                             <div class="social pull-right">
                                 <ul>
-                                    <li><a class="wow fadeInUp animated" target="_blank" href="https://twitter.com/SHOMA_GROUP"><i class="fa fa-twitter"></i></a></li>
+                                    @*<li><a class="wow fadeInUp animated" target="_blank" href="https://twitter.com/SHOMA_GROUP"><i class="fa fa-twitter"></i></a></li>*@
                                     <li><a class="wow fadeInUp animated" target="_blank" href="https://www.facebook.com/shomagroup" data-wow-delay="0.2s"><i class="fa fa-facebook"></i></a></li>
                                     @*<li><a class="wow fadeInUp animated" target="_blank" href="https://plus.google.com/shomagroup" data-wow-delay="0.3s"><i class="fa fa-google-plus"></i></a></li>*@
                                     <li><a class="wow fadeInUp animated" target="_blank" href="https://instagram.com/shomagroup" data-wow-delay="0.4s"><i class="fa fa-instagram"></i></a></li>
@@ -144,7 +152,7 @@
             <div class="container">
                 <div class="row">
                     <div class="pull-left">
-                        <span>©  <a href="http://www.shomagroup.com">Shoma Group</a>, All rights reserved @DateTime.Now.ToString("yyyy")   </span>
+                        <span> (C) <a href="javascript:void(0)">Shoma Management</a> , All rights reserved @DateTime.Now.ToString("yyyy")   </span>
                     </div>
                     <div class="bottom-menu pull-right">
                         <ul>
@@ -294,7 +302,7 @@
                 </div>
                 <div id="DivPass" class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="UserPassword" name="Password">
+                    <input type="password" class="form-control" id="UserPassword" name="Password" onkeydown="submitSignIn(event)">
                 </div>
             </div>
             <div id="Signinbtn" class="text-center">
@@ -310,7 +318,8 @@
 
 
     <script src="@Url.Content("/content/bootstrap/js/bootstrap.min.js")"></script>
-    <script src="@Url.Content("/content/assets/js/bootstrap-datepicker.js")"></script>
+    @*<script src="@Url.Content("/content/assets/js/bootstrap-datepicker.js")"></script>*@
+    <script src="@Url.Content("/content/assets/js/bootstrap-datepicker.min.js")"></script>
     <script src="@Url.Content("/content/assets/js/bootstrap-select.min.js")"></script>
     <script src="@Url.Content("/content/assets/js/bootstrap-hover-dropdown.js")"></script>
     <script src="@Url.Content("/content/assets/js/easypiechart.min.js")"></script>
@@ -332,6 +341,10 @@
 
     <script src="@Url.Content("/content/assets/js/main.js")"></script>
     <script src="@Url.Content("/Content/jquery-confirm-master/js/jquery-confirm.js")"></script>
+    @*<script src="@Url.Content("~/Content/store.min.js")"></script>
+        <script src="@Url.Content("~/Content/jquery-idleTimeout.min.js")"></script>*@
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
 </body>
 </html>
 <style>
@@ -443,6 +456,7 @@
 </style>
 <style>
     #divLoader {
+        z-index: 9999 !important;
         position: fixed;
         width: 100%;
         left: 0;
@@ -529,7 +543,11 @@
 
         });
     };
-
+   var  submitSignIn=function(event) {
+        if (event.which == 13) {
+            SignIn();
+        }
+    }
     var SignIn = function () {
         var msg = "";
         var email = $("#UserEmail").val();
@@ -573,12 +591,23 @@
                         window.location = "/Admin/AdminHome";
                     }
                     else if (result[1] == "te") {
-                        window.location = "/Tenant/Dashboard";
+                        $("#hndUID").val(result[0]);
+                        getTenantInfoPaymentLink(result[0]);
+                        goToStep(2, 2);
+                        $("#btnLogout").removeClass("hidden");
                     }
-                    else {
+                    else if (result[1] == "cl") {
+                        window.location = "/Checklist/";
+                    }
+                    else if (result[1] == "as") {
+                        window.location = "/ApplicationStatus/Index/" + result[2];
+                    }
+                    else if (result[1] == "an") {
                         window.location = "/ApplyNow/Index/" + result[0];
                     }
-
+                    else {
+                        window.location = "/Home/";
+                    }
                     $("#popSignIn").PopupWindow("close");
                 } else {
                     alert("Invalid Email ID / Password.")
@@ -653,9 +682,38 @@
         $("#txtMoveDate").datepicker({ autoclose: true, dateFormat: "MM/dd/yyyy", startDate: new Date() });
     });
     $(document).ready(function () {
-        $("#btnContact").on("click", function (event) {
-            $("#popContactForm").modal("show");
-        });
+        //var keepLive = webURL() + '/Account/KeepLive';
+        //var logOut = webURL() + '/Account/LogOff';
+        //var sessionstarttime = "12:00:00 AM";
+        //var sessionendtime = "11:59:59 PM";
+
+        //alert(keepLive);
+        //alert(logOut);
+
+        //$(document).idleTimeout({
+        //    redirectUrl: logOut,
+        //    keepLiveUrl: keepLive,
+        //    idleTimeLimit: 120,         // 'No activity' time limit in seconds. 840 = 15 Minutes
+        //    idleCheckHeartbeat: 2,
+        //    customCallback: false, 
+        //    activityEvents: 'keydown mousewheel mousedown touchstart touchmove',
+        //    enableDialog: true,
+        //    dialogDisplayLimit: 60,     // Time to display the warning dialog before logout (and optional callback) in seconds. 300 = 5 Minutes
+        //    dialogTitle: 'Session Expiration Warning',
+        //    dialogText: 'Because you have been inactive, your session is about to expire.',
+        //    dialogTimeRemaining: 'Time remaining',
+        //    dialogStayLoggedInButton: 'Stay Logged In',
+        //    dialogLogOutNowButton: 'Log Out Now',
+        //    errorAlertMessage: 'Please disable "Private Mode", or upgrade to a modern browser. Or perhaps a dependent file missing.',
+        //    sessionKeepAliveTimer: false,
+        //    sessionKeepAliveUrl: "",
+        //    sessionStartTime: sessionstarttime,
+        //    sessionEndTime: sessionendtime
+        //});
+
+        //$("#btnContact").on("click", function (event) {
+        //    $("#popContactForm").modal("show");
+        //});
       
         fillLStateDDL();
         $("#ddlState").on('change', function (evt, params) {
@@ -720,7 +778,7 @@
         }
         var model = { FirstName: fname, LastName: lname, PhoneNo: phone, EmailId: email, Address: address, Message: message, HavingPets: pets, UnitID: unit, PropertyID: pid, State: state, City: city, VisitDateTime: visittime, MarketSource: marketSource };
         $.ajax({
-            url: "/Prospect/SaveProspectForm/",
+            url: "/Prospect/SaveProspectFormAsync/",
             type: "post",
             contentType: "application/json utf-8",
             data: JSON.stringify(model),
@@ -847,9 +905,9 @@
         $("#divLoader").show();
     });
     $(document).ready(function () {
-        $("#btnmapfloor,#btnmaplayout,#btnmapIndex,#btnmapcontact").on('click', function (e) {
-            $("#modalMaplayout").css("display", "block");
-        });
+        //$("#btnmapfloor,#btnmaplayout,#btnmapIndex,#btnmapcontact").on('click', function (e) {
+        //    $("#modalMaplayout").css("display", "block");
+        //});
         $('.owl-carousel').trigger('stop.owl.autoplay');
 
         $('#MtDate').click(function () {

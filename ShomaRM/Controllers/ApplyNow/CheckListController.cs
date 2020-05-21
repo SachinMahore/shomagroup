@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using System.Web.Security;
+using System.Web.Configuration;
+using ShomaRM.Models.TwilioApi;
 
 namespace ShomaRM.Controllers
 {
@@ -17,6 +19,7 @@ namespace ShomaRM.Controllers
         public ActionResult Index()
         {
             ViewBag.UID = "0";
+            ViewBag.ProcessingFees = new CheckListModel().GetProcessingFees();
             if (ShomaGroupWebSession.CurrentUser != null)
             {
                 ViewBag.UID = ShomaGroupWebSession.CurrentUser.UserID.ToString();
@@ -155,6 +158,8 @@ namespace ShomaRM.Controllers
         {
             var bmservice = new BluemoonService();
             LeaseRequestModel leaseRequestModel = new LeaseRequestModel();
+            string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
+            string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
 
             ShomaRMEntities db = new ShomaRMEntities();
             string uid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID.ToString();
@@ -373,13 +378,21 @@ namespace ShomaRM.Controllers
                 db.SaveChanges();
 
                 LeaseResponseModel leaseKeys = await bmservice.GetEsignnatureDetails(SessionId: authenticateData.SessionId, EsignatureId: EsignatureResponse.EsignatureId);
-
+                
                 foreach (var apptdata in GetCoappDet)
                 {
+                    string reportHTML = "";
+                    string reportHTMLCoapp = "";
+                    string filePath = HttpContext.Server.MapPath("~/Content/Templates/");
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
+                    reportHTMLCoapp = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
+                    string message = "";
+                   
+
                     var keydata = leaseKeys.EsigneResidents.Where(p => p.Email == apptdata.Email).FirstOrDefault();
                     if (keydata != null)
                     {
-                        if (apptdata.Type == "Primary Applicant")
+                        if (apptdata.Type == "Primary Applicant" || apptdata.Type== "Co-Applicant")
                         {
                             esignaturekey = keydata.Key;
                         }
@@ -393,10 +406,34 @@ namespace ShomaRM.Controllers
                         };
                         db.tbl_ESignatureKeys.Add(EsignatureData);
                         db.SaveChanges();
+
+                        //string payid = new EncryptDecrypt().EncryptText(keydata.Key.ToString());
+                        string payid = keydata.Key.ToString();
+
+                        reportHTMLCoapp = reportHTMLCoapp.Replace("[%ServerURL%]", serverURL);
+
+                        reportHTMLCoapp = reportHTMLCoapp.Replace("[%Status%]", "Review and Sign your application");
+                        reportHTMLCoapp = reportHTMLCoapp.Replace("[%EmailHeader%]", "Review and Sign your application");
+                        reportHTMLCoapp = reportHTMLCoapp.Replace("[%StatusDet%]", "Hi <b>" + apptdata.FirstName + " " + apptdata.LastName + "</b>,<br/>Your Online application is Approved. Please click below to sign the lease </u> ");
+                        reportHTMLCoapp = reportHTMLCoapp.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/CheckList/SignLease?key=" + keydata.Key + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/CheckList/SignLease?key=" + keydata.Key + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Review and Sign</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                        reportHTMLCoapp = reportHTMLCoapp.Replace("[%TenantName%]", apptdata.FirstName + " " + apptdata.LastName);
+                        string bodyCoapp = reportHTMLCoapp;
+                        new EmailSendModel().SendEmail(apptdata.Email, "Review and Sign your application", bodyCoapp);
+                        
+                        if (SendMessage == "yes")
+                        {
+                            if (!string.IsNullOrWhiteSpace(apptdata.Phone))
+                            {
+                                new TwilioService().SMS(apptdata.Phone, "Review and Sign your application. Please check the email for Move In charges Payment Link.");
+                            }
+                        }
                     }
-                    db.Dispose();
+                   
                 }
+                db.Dispose();
             }
+
+            
             //LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseid);
             await bmservice.CloseSession(sessionId: authenticateData.SessionId);
             leaseDocumentWithEsignature.LeaseId = leaseid;
@@ -569,6 +606,23 @@ namespace ShomaRM.Controllers
             }
 
         }
+        public async System.Threading.Tasks.Task<ActionResult> DownloadLeaseDocBlumoon(string uid)
+        {
+            try
+            {
+                var data = await DownloadLeaseDocBlumoonAsync(uid);
+                if (data != null)
+                {
+                    System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/LeaseDocument_" + data.LeaseId + ".pdf"), data.leasePdf);
+                }
+                return Json(new { LeaseId = data.LeaseId }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { LeaseId = "0" }, JsonRequestBehavior.AllowGet);
+            }
+
+        }
         public async System.Threading.Tasks.Task<LeaseResponseModel> GetLeaseDocBlumoonAsync()
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -593,6 +647,270 @@ namespace ShomaRM.Controllers
                 await bmservice.CloseSession(sessionId: authenticateData.SessionId);
                 leasePdfResponse.LeaseId = LeaseId;
                 return leasePdfResponse;
+            }
+        }
+        public async System.Threading.Tasks.Task<LeaseResponseModel> DownloadLeaseDocBlumoonAsync(string uid)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            //string uid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID.ToString();
+            long UserID = Convert.ToInt64(uid);
+            var tenantData = db.tbl_ApplyNow.Where(p => p.UserId == UserID).FirstOrDefault();
+            string LeaseId = tenantData.EnvelopeID;
+            string esignatureId = tenantData.EsignatureID;
+            var bmservice = new BluemoonService();
+
+            LeaseResponseModel authenticateData = await bmservice.CreateSession();
+            if (!string.IsNullOrWhiteSpace(tenantData.EsignatureID))
+            {
+                LeaseResponseModel leaseDocumentWithEsignature = await bmservice.GetLeaseDocumentWithEsignature(SessionId: authenticateData.SessionId, EsignatureId: esignatureId);
+                await bmservice.CloseSession(sessionId: authenticateData.SessionId);
+                leaseDocumentWithEsignature.LeaseId = LeaseId;
+                return leaseDocumentWithEsignature;
+            }
+            else
+            {
+                LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: LeaseId);
+                await bmservice.CloseSession(sessionId: authenticateData.SessionId);
+                leasePdfResponse.LeaseId = LeaseId;
+                return leasePdfResponse;
+            }
+        }
+
+        public ActionResult SignLease(string key)
+        {
+           // string keyv = new EncryptDecrypt().DecryptText(key);
+            ViewBag.KeyV = key;
+            return View();
+        }
+        public ActionResult GetSignedList(long TenantID)
+        {
+            try
+            {
+                return Json(new { model = new CheckListModel().GetSignedList(TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public async System.Threading.Tasks.Task<ActionResult> ExecuteLease(string EsignatureId, string SignatureFullText, string SignatureInitials, string SignatureTitle)
+        {
+            try
+            {
+                var bmservice = new BluemoonService();
+                bool isSuccess = false;
+                LeaseResponseModel authenticateData = await bmservice.CreateSession();
+                LeaseResponseModel leaseExecuteResponse = await bmservice.ExecuteLease(SessionId: authenticateData.SessionId, EsignatureId:EsignatureId, SignatureFullText:SignatureFullText, SignatureInitials:SignatureInitials, SignatureTitle:SignatureTitle);
+                await bmservice.CloseSession(sessionId: authenticateData.SessionId);
+                if (leaseExecuteResponse != null)
+                {
+                    isSuccess = leaseExecuteResponse.Success;
+                    if(isSuccess)
+                    {
+                        ShomaRMEntities db = new ShomaRMEntities();
+                        long esignid = 0;
+                        try { esignid = Convert.ToInt64(EsignatureId); } catch { }
+                        var esignkeys = db.tbl_ESignatureKeys.Where(p => p.EsignatureId == esignid).ToList();
+                        foreach(var esk in esignkeys)
+                        {
+                            esk.IsLeaseExecuted = 1;
+                            db.SaveChanges();
+                        }
+                        db.Dispose();
+                    }
+                }
+                return Json(new { result = (isSuccess == true ? "1" : "0") }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { result = "0" }, JsonRequestBehavior.AllowGet);
+            }
+
+            //return File(data.leasePdf, "application/pdf", "LeaseDocument_" + data.LeaseId + ".pdf");
+        }
+        public async System.Threading.Tasks.Task<LeaseResponseModel> ExecuteLeaseAsync(string EsignatureId, string SignatureFullText, string SignatureInitials, string SignatureTitle)
+        {
+            var bmservice = new BluemoonService();
+            LeaseRequestModel leaseRequestModel = new LeaseRequestModel();
+
+            ShomaRMEntities db = new ShomaRMEntities();
+            string uid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID.ToString();
+            long UserID = Convert.ToInt64(uid);
+            var appData = db.tbl_ApplyNow.Where(p => p.UserId == UserID).FirstOrDefault();
+            long tid = 0;
+
+            if (appData != null)
+            {
+                tid = appData.ID;
+            }
+
+            var tenantdata = db.tbl_TenantOnline.Where(p => p.ProspectID == tid).FirstOrDefault();
+            var GetCoappDet = db.tbl_Applicant.Where(c => c.TenantID == appData.ID && c.Type != "Guarantor").ToList();
+            var GetVehicleList = db.tbl_Vehicle.Where(c => c.TenantID == appData.ID).ToList();
+            var GetPetList = db.tbl_TenantPet.Where(c => c.TenantID == appData.ID).ToList();
+
+            leaseRequestModel.UNIT_NUMBER = "Unit-" + appData.PropertyId.ToString();
+            leaseRequestModel.ADDRESS = " 9400 NW 41st Street,Doral, FL 33178, USA";
+            leaseRequestModel.DATE_OF_LEASE = appData.CreatedDate.Value.ToString("MM-dd-yyyy");
+            leaseRequestModel.LEASE_BEGIN_DATE = appData.MoveInDate.Value.ToString("MM-dd-yyyy");
+            leaseRequestModel.LEASE_END_DATE = appData.MoveInDate.Value.AddMonths(Convert.ToInt32(appData.LeaseTerm)).ToString("MM-dd-yyyy");
+            leaseRequestModel.RENT = (float)Convert.ToDecimal(appData.Rent);
+            leaseRequestModel.PRORATED_RENT = (float)Convert.ToDecimal(appData.Prorated_Rent);
+            leaseRequestModel.SECURITY_DEPOSIT = (float)Convert.ToDecimal(appData.Deposit);
+            leaseRequestModel.UTILITY_ADDENDUM_PEST_CONTROL_RATE = (float)Convert.ToDecimal(appData.PestAmt);
+            leaseRequestModel.PARKING_MONTHLY_CHARGE = (float)Convert.ToDecimal(appData.ParkingAmt);
+            leaseRequestModel.PET_ONE_TIME_FEE = (float)Convert.ToDecimal(appData.PetDeposit);
+            leaseRequestModel.UTILITY_ADDENDUM_ADMINISTRATION_FEE = (float)Convert.ToDecimal(appData.AdministrationFee);
+            leaseRequestModel.PARKING_ONE_TIME_FEE = (float)Convert.ToDecimal(appData.VehicleRegistration);
+            leaseRequestModel.RENTERS_INSURANCE_PROVIDER = "";
+
+
+            if (GetCoappDet.Count == 1)
+            {
+                leaseRequestModel.OCCUPANT_1 = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName;
+                leaseRequestModel.RESIDENT_1 = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName;
+
+            }
+            if (GetCoappDet.Count == 2)
+            {
+                leaseRequestModel.OCCUPANT_1 = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName;
+                leaseRequestModel.RESIDENT_1 = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName;
+                leaseRequestModel.OCCUPANT_2 = GetCoappDet[1].FirstName + " " + GetCoappDet[1].LastName;
+                leaseRequestModel.RESIDENT_2 = GetCoappDet[1].FirstName + " " + GetCoappDet[1].LastName;
+            }
+            if (GetCoappDet.Count == 3)
+            {
+                leaseRequestModel.OCCUPANT_1 = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName;
+                leaseRequestModel.RESIDENT_1 = GetCoappDet[0].FirstName + " " + GetCoappDet[0].LastName;
+                leaseRequestModel.OCCUPANT_2 = GetCoappDet[1].FirstName + " " + GetCoappDet[1].LastName;
+                leaseRequestModel.RESIDENT_2 = GetCoappDet[1].FirstName + " " + GetCoappDet[1].LastName;
+                leaseRequestModel.OCCUPANT_3 = GetCoappDet[2].FirstName + " " + GetCoappDet[2].LastName;
+                leaseRequestModel.RESIDENT_3 = GetCoappDet[2].FirstName + " " + GetCoappDet[2].LastName;
+            }
+            if (GetVehicleList.Count > 0)
+            {
+                long StateId1 = Convert.ToInt64(GetVehicleList[0].State);
+                var vehState1 = db.tbl_State.Where(p => p.ID == StateId1).FirstOrDefault();
+
+                if (GetVehicleList.Count == 1)
+                {
+
+
+                    leaseRequestModel.VEHICLE_MAKE_1 = GetVehicleList[0].Make;
+                    leaseRequestModel.VEHICLE_MODEL_YEAR_1 = GetVehicleList[0].Year;
+                    leaseRequestModel.VEHICLE_LICENSE_NUMBER_1 = GetVehicleList[0].License;
+                    leaseRequestModel.VEHICLE_STATE_1 = vehState1.StateName;
+                }
+                if (GetVehicleList.Count == 2)
+                {
+                    long StateId2 = Convert.ToInt64(GetVehicleList[1].State);
+                    var vehState2 = db.tbl_State.Where(p => p.ID == StateId2).FirstOrDefault();
+
+                    leaseRequestModel.VEHICLE_MAKE_1 = GetVehicleList[0].Make;
+                    leaseRequestModel.VEHICLE_MODEL_YEAR_1 = GetVehicleList[0].Year;
+                    leaseRequestModel.VEHICLE_LICENSE_NUMBER_1 = GetVehicleList[0].License;
+                    leaseRequestModel.VEHICLE_STATE_1 = vehState1.StateName;
+                    leaseRequestModel.VEHICLE_MAKE_2 = GetVehicleList[1].Make;
+                    leaseRequestModel.VEHICLE_MODEL_YEAR_2 = GetVehicleList[1].Year;
+                    leaseRequestModel.VEHICLE_LICENSE_NUMBER_2 = GetVehicleList[1].License;
+                    leaseRequestModel.VEHICLE_STATE_2 = vehState2.StateName;
+                }
+            }
+            if (GetPetList.Count > 0)
+            {
+                if (GetPetList.Count == 1)
+                {
+                    leaseRequestModel.PET_NAME = GetPetList[0].PetName;
+                    leaseRequestModel.PET_TYPE = GetPetList[0].PetType == 1 ? "" : "";
+                    leaseRequestModel.PET_WEIGHT = GetPetList[0].Weight;
+                    leaseRequestModel.PET_DR_NAME = GetPetList[0].VetsName;
+                    leaseRequestModel.PET_BREED = GetPetList[0].Breed;
+                }
+                if (GetPetList.Count == 2)
+                {
+                    leaseRequestModel.PET_NAME = GetPetList[0].PetName;
+                    leaseRequestModel.PET_TYPE = GetPetList[0].PetType == 1 ? "" : "";
+                    leaseRequestModel.PET_WEIGHT = GetPetList[0].Weight;
+                    leaseRequestModel.PET_DR_NAME = GetPetList[0].VetsName;
+                    leaseRequestModel.PET_BREED = GetPetList[0].Breed;
+
+                    leaseRequestModel.PET_2_NAME = GetPetList[1].PetName;
+                    leaseRequestModel.PET_2_TYPE = GetPetList[1].PetType == 1 ? "" : "";
+                    leaseRequestModel.PET_2_WEIGHT = GetPetList[1].Weight;
+                    leaseRequestModel.PET_2_BREED = GetPetList[1].Breed;
+                }
+            }
+            LeaseResponseModel authenticateData = await bmservice.CreateSession();
+
+
+            string leaseid = "";
+            if (!string.IsNullOrWhiteSpace(appData.EnvelopeID))
+            {
+                leaseid = appData.EnvelopeID;
+            }
+
+            if (leaseid == "")
+            {
+                LeaseResponseModel leaseCreateResponse = await bmservice.CreateLease(leaseRequestModel: leaseRequestModel, PropertyId: "112154", sessionId: authenticateData.SessionId);
+                var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == tid).FirstOrDefault();
+                onlineProspectData.EnvelopeID = leaseCreateResponse.LeaseId;
+                db.SaveChanges();
+
+                leaseid = leaseCreateResponse.LeaseId;
+            }
+            else
+            {
+                LeaseResponseModel leaseEditResponse = await bmservice.EditLease(leaseRequestModel: leaseRequestModel, leaseId: leaseid, sessionId: authenticateData.SessionId);
+            }
+
+
+            LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: leaseid);
+
+            if (leaseid != "")
+            {
+                var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == tid).FirstOrDefault();
+                db.SaveChanges();
+            }
+
+            await bmservice.CloseSession(sessionId: authenticateData.SessionId);
+            leasePdfResponse.LeaseId = leaseid;
+            return leasePdfResponse;
+        }
+        public ActionResult UploadInsurenceDocAdminSide(long ProspectId)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUploadInsurenceDoc = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUploadInsurenceDoc = Request.Files[i];
+
+                }
+
+                return Json(new { model = new CheckListModel().UploadInsurenceDocAdminSide(fileBaseUploadInsurenceDoc, ProspectId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult UploadProofOfElectricityDocAdminSide(long ProspectId)
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUploadProofOfElectricityDoc = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUploadProofOfElectricityDoc = Request.Files[i];
+
+                }
+
+                return Json(new { model = new CheckListModel().UploadProofOfElectricityDocAdminSide(fileBaseUploadProofOfElectricityDoc, ProspectId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
     }

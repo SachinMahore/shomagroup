@@ -9,6 +9,8 @@
 <input type="hidden" id="hndPID" value="0" />
 <input type="hidden" id="hndTransMethod" value="2" />
 <input type="hidden" id="hndPaymentDone" value="0" />
+<input type="hidden" id="hndProcessingFees" value="@ViewBag.ProcessingFees" />
+<input type="hidden" id="hndMoveInDate" value="0" />
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -20,7 +22,7 @@
         <div class="collapse navbar-collapse yamm" id="navigation">
             <div class="button navbar-right">
                 @*@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.Username*@
-                <button class="navbar-btn nav-button wow bounceInRight login" id="btnLogoff" onclick="gotoLogOffCheck()" data-wow-delay="0.4s">Logout</button>
+                <span id="txtname"></span>  <button class="navbar-btn nav-button wow bounceInRight login" id="btnLogoff" onclick="gotoLogOffCheck()" data-wow-delay="0.4s">Logout</button>
 
             </div>
 
@@ -34,11 +36,7 @@
         <div class="wizard-container">
             <div class="wizard-card ct-wizard-orange" id="wizardProperty">
                 <div>
-                    <div class="wizard-header">
-                        <h3>
-                            <b><span id="txtname"></span>  Lease Now  </b> <br>
-                        </h3>
-                    </div>
+                    
                     <div class="tab-content">
                         <div class="" id="step1">
                             <div class="row p-b-15">
@@ -85,12 +83,7 @@
                                     <div class="col-sm-11">
                                         <div class="form-group">
                                             <div class="">
-                                                @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn btn-primary" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
-                                                 @*<span class="hidden" style="color:#4d738a" id="lblLeaseStatus"> Your Lease Agreement already Generated and processed at Bluemoon. Lease ID:</span> <span  style="color:#4d738a" id="lblLeaseNo"></span>
-                                                <br /><br />
-                                                onclick="location.href='@Url.Action("LeaseBlumoon","CheckList")'"
-                                                onclick="location.href='@Url.Action("GetLeaseDocBlumoon","CheckList")'"
-                                                *@
+                                             
                                                 <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()"   disabled="disabled">Process Online Leasing Application</a>
                                                 <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()"  disabled="disabled">Download Leasing Application</a>
                                             </div>
@@ -135,10 +128,70 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkPayCL">    <span style="margin-left: 25px;">Pay your <b><span id="lblPaymentPer"></span>%</b> Move-in charges </span> 
+                                                    <input type="checkbox" id="chkInsCL" />
+                                                    <span style="margin-left: 25px;"> <b>Bind your insurance liability coverage</b> in the amount of $300,000. If you do not have an agent to assist you in this matter, visit Assurant (American Bankers Ins. Co. of Fl) at <a href="www.quoterenters.com" target="_blank" style="text-decoration:underline">www.quoterenters.com</a> or call them at 855-846-9278 (M-F: 8AM–10PM and Sat 10AM- 5PM). Assurant’s approximate cost for $300,000 liability coverage is $166/year or $13.84/month. For your convenience  ? nd some information herein: <a href="www.AssurantResidentSolutions.com" target="_blank" style="text-decoration:underline">www.AssurantResidentSolutions.com.</a> <span style="text-decoration:underline">Make sure to upload your insurance binder before your Pre-Move in appointment</span></span>
                                                 </label>
                                             </div>
-                                            <div class="input-group" style="margin-left: 70px;">
+                                            <input type="file" name="fileUploadPOI" id="fileUploadPOI" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                            <label for="fileUploadPOI" style="margin-left: 75px;"><i class="fa fa-upload fa-lg"></i> <span id="fileUploadPOIShow">Upload Proof of Insurance&hellip;</span></label>
+                                            <input type="hidden" id="hndHasPOI" value="0" />
+                                            <input type="hidden" id="hndPOI" value="0" />
+                                            <input type="hidden" id="hndOriginalPOI" value="0" />
+                                        </div>
+                                        <h5 style="color:#4d738a;">Set up Utilities:</h5>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkEleCL">
+                                                    <span style="margin-left: 25px;">Electricity- log in to <a href="https://fpl.com" style="text-decoration:underline" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545 . <span style="text-decoration:underline"> Make sure you upload proof of new account before your Pre-Move in appointment.</span> </span>
+                                                </label>
+                                            </div>
+
+                                            <input type="file" name="fileUploadPOE" id="fileUploadPOE" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                            <label for="fileUploadPOE" style="margin-left: 75px;"><i class="fa fa-upload fa-lg"></i> <span id="fileUploadPOEShow">Upload Proof of Electricity&hellip;</span></label>
+                                            <input type="hidden" id="hndHasPOE" value="0" />
+                                            <input type="hidden" id="hndPOE" value="0" />
+                                            <input type="hidden" id="hndOriginalPOE" value="0" />
+                                        </div>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkAtCL" />
+                                                    <span style="margin-left: 25px;"> AT&T- Call to establish your internet service and/or enhance your cable plan at <a href="www.att.com/residents" style="text-decoration:underline" target="_blank">www.att.com/residents</a> or by calling (877) 910-0501. </span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                        <div class="pull-left col-sm-12" style="margin-bottom:30px">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkWaterCL" />
+                                                    <span style="margin-left: 25px;">If needed, contact Miami Dade W&S Department to stop service at your previous address. Log into <a href="www.miamidade.gov/global/water/home.page" style="text-decoration:underline" target="_blank">www.miamidade.gov/global/water/home.page</a> or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month. </span>
+                                                </label>
+                                            </div>
+                                            <br />
+                                        </div>
+                                        <div class="pull-left col-sm-12">
+                                            <h5 style="color:#4d738a;">Deposit Alternative: </h5>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkSDP" />
+                                                    <span style="margin-left: 25px;">
+                                                        If you would like to participate in the Flex Deposit Program which may assist you in bonding your Security Deposit for a Non-Refundable fee, depending on credit, of as low as $50, please contact our leasing agents. Our leasing sta?  will begin processing your bond enrollment process with Assurant by starting an online application. Once our sta?  sets up the bond application, Assurant will automatically send you an email with a secure link to access the remaining portion of the bond application. Our property management team will be noti? ed once your Security Deposit requirement has been satis? ed. We will adjust your Security Deposit amount and your Move-in charges accordingly, so you can process your payment correctly. If you would like more information about the Flex Deposit Program please visit <a href="www.?exdeposit.com" style="text-decoration:underline" target="_blank">www.?exdeposit.com</a>  or contact them by phone, 1-877-277-4811. For your convenience ?nd some information herein: <a href="https://?exdeposit.com/public/guide-resident.htm" style="text-decoration:underline" target="_blank">https://?exdeposit.com/public/guide-resident.htm</a>
+                                                    </span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                        <div class="pull-left col-sm-12">
+                                            <h5 style="color:#4d738a;">Pay your <b><span id="lblPaymentPer"></span>%</b> Move-in charges: </h5>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkPayCL" />
+                                                    <span style="margin-left: 25px;"> Your move-in charges must be paid prior to your Pre-Move-in appointment. </span>
+                                                </label>
+                                            </div>
+                                            <div class="input-group" style="margin-left: 70px; margin-bottom:30px">
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
                                                 </span>
@@ -146,10 +199,42 @@
                                                 <input id="btnPayNowCheckLink" type="button" class="btn-success" data-toggle="modal" data-target="#popPayNow" style="width:90px;height: 34px;" value="Pay Now" />
                                             </div>
                                         </div>
-                                        <div class="pull-left col-sm-12">
+                                        <div class="pull-left col-sm-12" style="margin-bottom:30px">
+                                            <h5 style="color:#4d738a;">Schedule your Pre-move-in date appointment: </h5>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkMoveinCL">    <span style="margin-left: 25px;"> Schedule a move-in date and time</span>
+                                                    <input type="checkbox" id="chkPreMoveinCL" />
+                                                    <span style="margin-left: 25px;"> It is important that at least three days before your desired move-in date, you schedule an appointment to establish your biometrics authentication, obtain your vehicle decals, and complete your pet(s) DNA testing. If you have not already uploaded your insurance and FPL account information, please make sure you do so before your appointment. Please note we are unable to schedule your move-in date without proof of insurance and electric account set-up</span>
+                                                </label>
+                                            </div>
+                                            <div class="input-group" style="margin-left: 70px;">
+
+                                                <input id="txtPreMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text" />
+                                                <span class="input-group-btn pull-left">
+                                                    <button class="btn btn-primary search" type="button" id="iconPreMoveInDateChecklist"><i class="fa-calendar fa"></i></button>
+                                                </span>
+                                                @* <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;" type="text" />*@
+                                                <select id="ddlPreMoveInTimeCL" class="form-control" style="width: 140px;margin-left: 54px;">
+                                                    <option value="">Select a time</option>
+                                                    <option value="9:00-10:00">9:00-10:00</option>
+                                                    <option value="10:00-11:00">10:00-11:00</option>
+                                                    <option value="11:00-12:00">11:00-12:00</option>
+                                                    <option value="12:00-13:00">12:00-13:00</option>
+                                                    <option value="13:00-14:00">13:00-14:00</option>
+                                                    <option value="14:00-15:00">14:00-15:00</option>
+                                                    <option value="15:00-16:00">15:00-16:00</option>
+                                                    <option value="16:00-17:00">16:00-17:00</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="pull-left col-sm-12" style="margin-bottom:30px">
+                                            <h5 style="color:#4d738a;">Schedule your Move-in date: </h5>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkMoveinCL" />
+                                                    <span style="margin-left: 25px;"> During your pre-move-in appointment, your agent will assist you in scheduling your move-in date and time. </span>
                                                 </label>
                                             </div>
                                             <div class="input-group" style="margin-left: 70px;">
@@ -174,46 +259,13 @@
                                             </div>
                                         </div>
                                         <div class="pull-left col-sm-12">
+                                            <h5 style="color:#4d738a;">Schedule your Movers: </h5>
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkInsCL"><span style="margin-left: 25px;"> Make sure you have Renter’s insurance.  If you have not purchased it and would like to use our partner, login or call Serrod Insurance 	Agency at (305) 445-6441 </span>
-
-                                                </label>
-                                            </div>
-                                            <input type="file" name="fileUploadPOI" id="fileUploadPOI" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                            <label for="fileUploadPOI" style="margin-left: 75px;"><i class="fa fa-upload fa-lg"></i> <span id="fileUploadPOIShow">Upload Proof of Insurance&hellip;</span></label>
-                                            <input type="hidden" id="hndHasPOI" value="0" />
-                                            <input type="hidden" id="hndPOI" value="0" />
-                                            <input type="hidden" id="hndOriginalPOI" value="0" />
-                                        </div>
-
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" id="chkPoCL">    <span style="margin-left: 25px;"> Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a></span>
-                                                </label>
-                                            </div>
-
-                                        </div>
-                                        <h4 style="color:#4d738a;">Utilities</h4>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" id="chkEleCL">    <span style="margin-left: 25px;">Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545 .  </span>
-
-                                                </label>
-                                            </div>
-
-                                            <input type="file" name="fileUploadPOE" id="fileUploadPOE" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                            <label for="fileUploadPOE" style="margin-left: 75px;"><i class="fa fa-upload fa-lg"></i> <span id="fileUploadPOEShow">Upload Proof of Electricity&hellip;</span></label>
-                                            <input type="hidden" id="hndHasPOE" value="0" />
-                                            <input type="hidden" id="hndPOE" value="0" />
-                                            <input type="hidden" id="hndOriginalPOE" value="0" />
-                                        </div>
-                                        <div class="pull-left col-sm-12">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" id="chkAtCL">    <span style="margin-left: 25px;"> AT&T- Call to establish your internet service and/or enhance your cable plan.</span>
+                                                    <input type="checkbox" id="chkMovers" />
+                                                    <span style="margin-left: 25px;">
+                                                        If you do not have your own moving company, please contact our preferred movers, Johnny Moving at 786-346-0924.  We have negotiated a ?x fee of $480 for 1-bedroom and $550 for 2- or 3-bedrooms for all moves within Miami-Dade County. You can also email <a href="mailto:Johnnymoving1968@gmail.com" style="text-decoration:underline" target="_blank">Johnnymoving1968@gmail.com</a>
+                                                    </span>
                                                 </label>
                                             </div>
 
@@ -221,15 +273,16 @@
                                         <div class="pull-left col-sm-12">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox" id="chkWaterCL">    <span style="margin-left: 25px;">If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a></span>
-                                                    <span style="margin-left: 50px;">or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month. </span>
+                                                    <input type="checkbox" id="chkPoCL" />
+                                                    <span style="margin-left: 25px;"><b>Complete the Post Office change of address</b> by logging into <a href="https://movingonlineservice.com" style="text-decoration:underline" target="_blank">https://movingonlineservice.com</a></span>
                                                 </label>
                                             </div>
-                                            <br />
+
                                         </div>
+
                                         <div class="text-center">
 
-                                            <button  type="submit" class="btn btn-primary" id="btnSaveCheckList" onclick="saveMoveInCheckList()"> Save</button>
+                                            <button type="submit" class="btn btn-primary" id="btnSaveCheckList" onclick="saveMoveInCheckList()"> Save</button>
                                             <button type="submit" class="btn btn-primary" id="btnnext" onclick="printCheckList('divChecklist')"> Print</button>
                                             <br />
                                         </div>
@@ -343,6 +396,13 @@
                         </div>
 
                     </div>
+                    <div class="col-sm-12" style="margin-bottom:20px">
+                        <input type="checkbox" id="chkTermsAndCondition">
+                        <span class="chektext">
+                            I agree to the
+                            <span class="span1"><a id="ShowTermsAndCondition" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a></span>
+                        </span>
+                    </div>
                     <div class="col-sm-2">
                         <button type="submit" class="btn btn-primary" onclick="savePaymentCheckList()">Pay Now</button>
                     </div>
@@ -393,6 +453,16 @@
 </div>
 <div class="col-sm-12" id="divPrintCheckList" style="margin-top:10px !important;height:100% !important;width:100% !important">
     <div id="divPrintData"></div>
+</div>
+<div class="modal " id="modalTermsCondition" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
+    <div class="modal-dialog" style="width:1100px">
+        <div class="modal-content" style="width: 100% !important;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <div class="modal-body text-center">
+                <div><iframe src="~/Content/assets/img/Document/TermAndCondition.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+            </div>
+        </div>
+    </div>
 </div>
 <style>
     .tab-content ul li {
@@ -455,19 +525,75 @@
 </style>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#txtMoveInDateCL").datepicker({ startDate: '+1d' }).on('change', function (ev) {
-            var moveindate = $(this).val();
-            if (moveindate) {
-                $("#chkMoveinCL").attr("checked", true);
-                $("#chkMoveinCL").prop("disabled", "disabled");
-                $("#chkMoveinCL").parent().addClass("checked");
-            } else {
+        setTimeout(function () {
+            var premoveInDateHidden = $('#hndPreMoveInDate').val();
+            var preMoveInBefThree = new Date(premoveInDateHidden);
+            preMoveInBefThree.setDate(preMoveInBefThree.getDate() - 3);
+            $("#txtPreMoveInDateCL").datepicker({ startDate: '+1d' }).on('change', function (ev) {
+                var premoveindate = $(this).val();
+                if (premoveindate) {
+                    $("#chkPreMoveinCL").attr("checked", true);
+                    $("#chkPreMoveinCL").prop("disabled", "disabled");
+                    $("#chkPreMoveinCL").parent().addClass("checked");
+                } else {
+                    $("#chkPreMoveinCL").prop("checked", false);
+                    $("#chkPreMoveinCL").removeProp("disabled");
+                    $("#chkPreMoveinCL").parent().removeClass("checked");
+                }
+            });
+            $("#iconPreMoveInDateChecklist").click(function () {
+                $("#txtPreMoveInDateCL").focus();
+            });
+        }, 1500);
+        setTimeout(function () {
+            var moveInDateHidden = $('#hndMoveInDate').val();
+            var MoveInBefThree = new Date(moveInDateHidden);
+            MoveInBefThree.setDate(MoveInBefThree.getDate() - 3);
+            $("#txtMoveInDateCL").datepicker({ startDate: '+1d', endDate: MoveInBefThree }).on('change', function (ev) {
+                var moveindate = $(this).val();
+                if (moveindate) {
+                    $("#chkMoveinCL").attr("checked", true);
+                    $("#chkMoveinCL").prop("disabled", "disabled");
+                    $("#chkMoveinCL").parent().addClass("checked");
+                } else {
+                    $("#chkMoveinCL").prop("checked", false);
+                    $("#chkMoveinCL").removeProp("disabled");
+                    $("#chkMoveinCL").parent().removeClass("checked");
+                }
+            });
+            $("#iconMoveInDateChecklist").click(function () {
+                $("#txtMoveInDateCL").focus();
+            });
+        }, 1500);
+        $('#ddlPreMoveInTimeCL').on('change', function () {
+            if (!$(this).val()) {
+                $("#chkPreMoveinCL").prop("checked", false);
+                $("#chkPreMoveinCL").removeProp("disabled");
+                $("#chkPreMoveinCL").parent().removeClass("checked");
+            }
+            else {
+                $("#chkPreMoveinCL").attr("checked", true);
+                $("#chkPreMoveinCL").prop("disabled", "disabled");
+                $("#chkPreMoveinCL").parent().addClass("checked");
+            }
+        });
+
+        $('#ddlMoveInTimeCL').on('change', function () {
+            if (!$(this).val()) {
                 $("#chkMoveinCL").prop("checked", false);
                 $("#chkMoveinCL").removeProp("disabled");
                 $("#chkMoveinCL").parent().removeClass("checked");
             }
+            else {
+                $("#chkMoveinCL").attr("checked", true);
+                $("#chkMoveinCL").prop("disabled", "disabled");
+                $("#chkMoveinCL").parent().addClass("checked");
+            }
         });
 
+        $("#iconPreMoveInDateChecklist").click(function () {
+            $("#txtPreMoveInDateCL").focus();
+        });
         $("#iconMoveInDateChecklist").click(function () {
             $("#txtMoveInDateCL").focus();
         });
@@ -475,7 +601,7 @@
         getTenantInfoCL(@ViewBag.UID);
         $("#txtScheduleMoveIn").datepicker();
         if ($("#hndUID").val() != "0") {
-            goToStepCL(2, 2);
+            goToStepCL(3, 3);
         }
         else {
 
@@ -511,7 +637,7 @@
         };
     });
     function gotoLogOffCheck() {
-        $("#hndUID").val("0"); 
+        $("#hndUID").val("0");
         window.location = "/Account/LogOff";
     }
     var getTenantInfoCL = function (uid) {
@@ -527,7 +653,8 @@
                 success: function (response) {
 
                     $("#divLoader").hide();
-                    $("#txtMoveInDateCL").datepicker({ dateformat: "MM/dd/yyyy", startDate: response.model.MoveInDateTxt });
+                    $("#hndPreMoveInDate").val(response.model.PreMoveInDateTxt);
+                    $("#hndMoveInDate").val(response.model.MoveInDateTxt);
                     $("#hndProspectID").val(response.model.ProspectId);
                     if (!response.model.FirstName) {
                         $("#txtname").text("");
@@ -555,7 +682,7 @@
 
                     } else {
                         $("#chkPayCL").prop("checked", false);
-                        $("#chkPayCL").removeProp("disabled");
+                        $("#chkPayCL").prop("disabled", "disabled");
                         $("#chkPayCL").parent().removeClass("checked");
                         $("#btnPayNowCheckLink").removeClass("hidden");
                         $("#hndPaymentDone").val(0);
@@ -568,8 +695,19 @@
                         $("#ddlMoveInTimeCL").val(response.moveindata.MoveInTime);
                     } else {
                         $("#chkMoveinCL").prop("checked", false);
-                        $("#chkMoveinCL").removeProp("disabled");
+                        $("#chkInsCL").prop("disabled", "disabled");
                         $("#chkMoveinCL").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.IsCheckPreSch == 1) {
+                        $("#chkPreMoveinCL").attr("checked", true);
+                        $("#chkPreMoveinCL").prop("disabled", "disabled");
+                        $("#chkPreMoveinCL").parent().addClass("checked");
+                        $("#txtPreMoveInDateCL").val(response.moveindata.PreMoveInDateTxt);
+                        $("#ddlPreMoveInTimeCL").val(response.moveindata.PreMoveInTime);
+                    } else {
+                        $("#chkPreMoveinCL").prop("checked", false);
+                        $("#chkInsCL").prop("disabled", "disabled");
+                        $("#chkPreMoveinCL").parent().removeClass("checked");
                     }
                     if (response.moveindata.IsCheckIns == 1) {
                         $("#chkInsCL").prop("checked", true);
@@ -597,7 +735,7 @@
                         $('#fileUploadPOEShow').text(response.moveindata.ElectricityDoc);
                     } else {
                         $("#chkEleCL").prop("checked", false);
-                        $("#chkEleCL").removeProp("disabled");
+                        $("#chkEleCL").prop("disabled", "disabled");
                         $("#chkEleCL").parent().removeClass("checked");
                     }
                     if (response.moveindata.IsCheckATT == 1) {
@@ -618,7 +756,24 @@
                         $("#chkWaterCL").removeProp("disabled");
                         $("#chkWaterCL").parent().removeClass("checked");
                     }
-
+                    if (response.moveindata.IsCheckSD == 1) {
+                        $("#chkSDP").prop("checked", true);
+                        $("#chkSDP").prop("disabled", "disabled");
+                        $("#chkSDP").parent().addClass("checked");
+                    } else {
+                        $("#chkSDP").prop("checked", false);
+                        $("#chkSDP").removeProp("disabled");
+                        $("#chkSDP").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.Movers == 1) {
+                        $("#chkMovers").prop("checked", true);
+                        $("#chkMovers").prop("disabled", "disabled");
+                        $("#chkMovers").parent().addClass("checked");
+                    } else {
+                        $("#chkMovers").prop("checked", false);
+                        $("#chkMovers").removeProp("disabled");
+                        $("#chkMovers").parent().removeClass("checked");
+                    }
                     if (response.moveindata.IsAllChecked == 1) {
                         $("#btnSaveCheckList").addClass("hidden");
                     } else {
@@ -678,15 +833,22 @@
                         window.location = "/Admin/AdminHome";
                     }
                     else if (result[1] == "te") {
-                        window.location = "/Tenant/Dashboard";
+                        $("#hndUID").val(result[0]);
+                        getTenantInfo(result[0]);
+                        goToStep(2, 2);
+                        $("#btnLogout").removeClass("hidden");
                     }
-                    else if (result[1] == "an") {
-
+                    else if (result[1] == "cl") {
                         $("#hndUID").val(result[0]);
                         getTenantInfoCL(result[0]);
-
                         goToStepCL(2, 2);
                         $("#btnLogoff").removeClass("hidden");
+                    }
+                    else if (result[1] == "as") {
+                        window.location = "/ApplicationStatus/Index/" + result[2];
+                    }
+                    else if (result[1] == "an") {
+                        window.location = "/ApplyNow/Index/" + result[0];
                     }
                     else {
                         window.location = "/Home/";
@@ -722,6 +884,15 @@
     }
 
     function savePaymentCheckList() {
+        if ($("#chkTermsAndCondition").is(':unchecked')) {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: "Please accept Terms & Condition </br>",
+                type: 'red'
+            });
+            return;
+        }
         $("#divLoader").show();
         var msg = "";
         if ($("#hndTransMethod").val() == "0") {
@@ -834,12 +1005,12 @@
 
         $.alert({
             title: "",
-            content: "You have chosen to pay $" + amounttoPay + " plus a $3.95 processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(3.95)).toFixed(2) + ". Do you want to Pay Now?",
+            content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesCL()).toFixed(2)  + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesCL())).toFixed(2) + ". Do you want to Pay Now?",
             type: 'blue',
             buttons: {
                 yes: {
                     text: 'Yes',
-                    action: function (yes) { 
+                    action: function (yes) {
         $.ajax({
             url: "/CheckList/SaveMoveInPayment/",
             type: "post",
@@ -931,6 +1102,8 @@
         var paymentDone = $("#hndPaymentDone").val();
 
         var ProspectID = $("#hndProspectID").val();
+        var PreMoveInDate = $("#txtPreMoveInDateCL").val();
+        var PreMoveInTime = $("#ddlPreMoveInTimeCL").val();
         var MoveInDate = $("#txtMoveInDateCL").val();
         var MoveInTime = $("#ddlMoveInTimeCL").val();
         var MoveInCharges = $("#txtPaymentCL").val();
@@ -939,9 +1112,17 @@
         var IsCheckPO = $("#chkPoCL").is(":checked") ? "1" : "0";
         var IsCheckATT = $("#chkAtCL").is(":checked") ? "1" : "0";
         var IsCheckWater = $("#chkWaterCL").is(":checked") ? "1" : "0";
+        var IsCheckSD = $("#chkSDP").is(":checked") ? "1" : "0";
+        var Movers = $("#chkMovers").is(":checked") ? "1" : "0";
 
         if (paymentDone==0) {
             msg += "Please pay the Move In Charges</br>";
+        }
+        if (!PreMoveInDate) {
+            msg += "Please fill the Pre Move In Date</br>";
+        }
+        if (!PreMoveInTime) {
+            msg += "Please select the Pre Move In Time</br>";
         }
         if (!MoveInDate) {
             msg += "Please fill the Move In Date</br>";
@@ -971,14 +1152,18 @@
 
         var model = {
             ProspectID: ProspectID,
+            PreMoveInDate: PreMoveInDate,
+            PreMoveInTime: PreMoveInTime,
             MoveInDate: MoveInDate,
             MoveInTime: MoveInTime,
             MoveInCharges: MoveInCharges,
             IsCheckPO: IsCheckPO,
             IsCheckATT: IsCheckATT,
             IsCheckWater: IsCheckWater,
+            IsCheckSD: IsCheckSD,
             InsuranceDoc: InsuranceDoc,
             ElectricityDoc: ElectricityDoc,
+            Movers: Movers
         }
 
 
@@ -1056,7 +1241,7 @@
             }
             $(this).parent().parent().prepend(img);
         });
-       
+
         $('#divPrintData .icheckbox_square-yellow').remove();
         $("#divPrintCheckList").removeClass("hidden").printThis();
         $('#divPrintData input[id="fileUploadPOI"]').remove();
@@ -1064,8 +1249,10 @@
         $('#divPrintData input[id="txtPaymentCL"]').attr("value", $("#txtPaymentCL").val());
         $('#divPrintData input[id="txtMoveInDateCL"]').attr("value", $("#txtMoveInDateCL").val());
         $('#divPrintData input[id="ddlMoveInTimeCL"]').attr("value", $("#ddlMoveInTimeCL").val());
-        
-        
+        $('#divPrintData input[id="txtPreMoveInDateCL"]').attr("value", $("#txtPreMoveInDateCL").val());
+        $('#divPrintData input[id="ddlPreMoveInTimeCL"]').attr("value", $("#ddlPreMoveInTimeCL").val());
+
+
         setTimeout(function () {
             $("#divPrintCheckList").addClass("hidden");
             $("#divPrintData").empty();
@@ -1210,9 +1397,11 @@
                 if (!navigator.mozGetUserMedia) {
                     window.URL.revokeObjectURL(hyperlink.href);
                 }
-                
+
             }
         });
     }
-
+    var getProcessingFeesCL = function () {
+        return $("#hndProcessingFees").val();
+    };
 </script>

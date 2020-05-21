@@ -414,12 +414,12 @@
                     <div class="col-md-12" id="Bydate" style="margin-bottom:8px !important;">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <div class="col-sm-5">
+                                <div class="col-sm-5"  style="padding-right: 0px;">
                                     <label for="firstname" class="star input-group">Appointment Date :</label>
                                 </div>
                                 <div class="col-sm-7">
                                     <div class="input-group">
-                                        <input id="txtRequestedDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text">
+                                        <input id="txtRequestedDate" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text">
                                         <span class="input-group-btn">
                                             <button id="btnRequestedDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                         </span>
@@ -430,7 +430,7 @@
 
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <div class="col-sm-5">
+                                <div class="col-sm-5"  style="padding-right: 0px;">
                                     <label for="firstname" class="star">Appointment Time :</label>
                                 </div>
                                 <div class="col-sm-7">
@@ -474,7 +474,7 @@
                                 </div>
                                 <div class="col-sm-8">
                                     <div class="input-group">
-                                        <input id="txtClosingDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" />
+                                        <input id="txtClosingDate" placeholder="mm/dd/yyyy" class="form-control form-control-small" type="text" />
                                         <span class="input-group-btn">
                                             <button id="btnDesiredDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                         </span>
@@ -486,10 +486,10 @@
                         <div class="col-md-12" style="margin-bottom:8px !important;margin-left:-20px;">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <div class="col-sm-6">
-                                        <label for="firstname">Closing Pictures :</label>
+                                    <div class="col-sm-6" style="padding-right:0px">
+                                        <label for="firstname">Closing Pictures:</label>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6" style="padding-left: 20px;">
                                         <input type="file" name="fileCompleted" accept="image/*" id="fileCompleted" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
                                         <label for="fileCompleted"><i class="fa fa-upload fa-2x"></i> <span id="fileCompletedShow">&hellip;</span></label>
                                         <input type="hidden" id="hndfileCompleted" value="0" />
@@ -499,10 +499,10 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6" style="padding-right:0px;padding-left:0px">
                                         <label for="firstname">Tenant Signature:</label>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6" >
                                         <input type="file" name="uploadphoto" accept="image/*" id="uploadphoto" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
                                         <label for="uploadphoto"><i class="fa fa-upload fa-2x"></i> <span id="uploadphoto">&hellip;</span></label>
                                         <input type="hidden" id="hndHomeownerSignature" value="0" />
@@ -517,7 +517,7 @@
                                 <div class="col-sm-3">
                                     <label for="firstname">Closing Notes :</label>
                                 </div>
-                                <div class="col-sm-8" style="margin-left:-5px;">
+                                <div class="col-sm-8" style="margin-left:-15px;">
                                     <textarea class="form-control form-control-small" placeholder="Closing notes..." id="txtClosingNotes" maxlength="200" style="height:44px!important"></textarea>
                                 </div>
                             </div>
@@ -924,11 +924,14 @@
 
 <script>
     $(function () {
-        $('#txtClosingDate').datepicker();
+        var dtend100 = new Date();
+        dtend100.setFullYear(new Date().getFullYear() + 100);
+
+        $('#txtClosingDate').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: "+0d", endDate: dtend100, maxViewMode: 2, autoclose: true });
         $("#btnDesiredDate").click(function () {
             $("#txtClosingDate").focus();
         });
-        $("#txtRequestedDate").datepicker();
+        $('#txtRequestedDate').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: "+0d", endDate: dtend100, maxViewMode: 2, autoclose: true });
         $("#btnRequestedDate").click(function () {
             $("#txtRequestedDate").focus();
         });

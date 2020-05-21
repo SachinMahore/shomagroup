@@ -25,11 +25,9 @@ namespace ShomaRM.Data
             this.tbl_Gallery = new HashSet<tbl_Gallery>();
             this.tbl_Lease = new HashSet<tbl_Lease>();
             this.tbl_Notice = new HashSet<tbl_Notice>();
-            this.tbl_Parking = new HashSet<tbl_Parking>();
             this.tbl_PetPlace = new HashSet<tbl_PetPlace>();
             this.tbl_Promotion = new HashSet<tbl_Promotion>();
             this.tbl_PropertyFloor = new HashSet<tbl_PropertyFloor>();
-            this.tbl_PropertyUnits = new HashSet<tbl_PropertyUnits>();
             this.tbl_Prospect = new HashSet<tbl_Prospect>();
             this.tbl_PurchaseOrder = new HashSet<tbl_PurchaseOrder>();
             this.tbl_SalesAgent = new HashSet<tbl_SalesAgent>();
@@ -37,6 +35,7 @@ namespace ShomaRM.Data
             this.tbl_Tenant = new HashSet<tbl_Tenant>();
             this.tbl_Tenant1 = new HashSet<tbl_Tenant>();
             this.tbl_WorkOrder = new HashSet<tbl_WorkOrder>();
+            this.tbl_PropertyUnits = new HashSet<tbl_PropertyUnits>();
         }
     
         public long PID { get; set; }
@@ -70,6 +69,10 @@ namespace ShomaRM.Data
         public Nullable<decimal> AdminFees { get; set; }
         public Nullable<decimal> PetDNAAmt { get; set; }
         public Nullable<decimal> ProcessingFees { get; set; }
+        public Nullable<decimal> AppCCCheckFees { get; set; }
+        public Nullable<decimal> AppBGCheckFees { get; set; }
+        public Nullable<decimal> GuaCCCheckFees { get; set; }
+        public Nullable<decimal> GuaBGCheckFees { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_CashReceipts> tbl_CashReceipts { get; set; }
@@ -91,8 +94,6 @@ namespace ShomaRM.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Notice> tbl_Notice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_Parking> tbl_Parking { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_PetPlace> tbl_PetPlace { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Promotion> tbl_Promotion { get; set; }
@@ -103,8 +104,6 @@ namespace ShomaRM.Data
         public virtual tbl_State tbl_State { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_PropertyFloor> tbl_PropertyFloor { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_PropertyUnits> tbl_PropertyUnits { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Prospect> tbl_Prospect { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -119,5 +118,7 @@ namespace ShomaRM.Data
         public virtual ICollection<tbl_Tenant> tbl_Tenant1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_WorkOrder> tbl_WorkOrder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_PropertyUnits> tbl_PropertyUnits { get; set; }
     }
 }

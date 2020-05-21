@@ -36,11 +36,21 @@ namespace ShomaRM.Models
         public int? MonthsApplicantHistory { get; set; }
         public int? TotalMonthsApplicantHistory { get; set; }
 
+        public string ApartmentCommunity { get; set; }
+        public string ManagementCompany { get; set; }
+        public string ManagementCompanyPhone { get; set; }
+        public Nullable<int> IsProprNoticeLeaseAgreement { get; set; }
+        public string stringIsProprNoticeLeaseAgreement { get; set; }
+
+        public List<ApplicantHistoryModel> lstapphist { get; set; }
+        //Sachin Mahore 22 Apr
+        public long ParentTOID { get; set; }
+        
         public string SaveUpdateApplicantHistory(ApplicantHistoryModel model)
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.AHID == 0)
             {
                 var saveApplicantHistory = new tbl_ApplicantHistory()
@@ -56,7 +66,12 @@ namespace ShomaRM.Models
                     MoveInDateTo = model.MoveInDateTo,
                     MonthlyPayment = model.MonthlyPayment,
                     Reason = model.Reason,
-                    TenantID = model.TenantID
+                    TenantID = model.TenantID,
+                    ApartmentCommunity = model.ApartmentCommunity,
+                    ManagementCompany = model.ManagementCompany,
+                    ManagementCompanyPhone = model.ManagementCompanyPhone,
+                    IsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement,
+                    ParentTOID= userid,
                 };
                 db.tbl_ApplicantHistory.Add(saveApplicantHistory);
                 db.SaveChanges();
@@ -80,6 +95,10 @@ namespace ShomaRM.Models
                     getApplicantHistorydata.MoveInDateTo = model.MoveInDateTo;
                     getApplicantHistorydata.MonthlyPayment = model.MonthlyPayment;
                     getApplicantHistorydata.Reason = model.Reason;
+                    getApplicantHistorydata.ApartmentCommunity = model.ApartmentCommunity;
+                    getApplicantHistorydata.ManagementCompany = model.ManagementCompany;
+                    getApplicantHistorydata.ManagementCompanyPhone = model.ManagementCompanyPhone;
+                    getApplicantHistorydata.IsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement;
                 }
                 db.SaveChanges();
                 msg = "Applicant History Updated Successfully";
@@ -95,34 +114,28 @@ namespace ShomaRM.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<ApplicantHistoryModel> lstProp = new List<ApplicantHistoryModel>();
-
-            var applicantHistoryList = db.tbl_ApplicantHistory.Where(p => p.TenantID == TenantID).ToList();
+            long ptoid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var applicantHistoryList = db.tbl_ApplicantHistory.Where(p => p.TenantID == TenantID && p.ParentTOID== ptoid).ToList();
             foreach (var ahl in applicantHistoryList)
             {
                 DateTime? moveInFrom = null;
                 try
-
                 {
-
                     moveInFrom = Convert.ToDateTime(ahl.MoveInDateFrom);
                 }
                 catch
                 {
-
                 }
                 DateTime? moveInTo = null;
                 try
                 {
-
                     moveInTo = Convert.ToDateTime(ahl.MoveInDateTo);
                 }
                 catch
                 {
-
                 }
                 lstProp.Add(new ApplicantHistoryModel
                 {
-
                     AHID = ahl.AHID,
                     Country = ahl.Country,
                     HomeAddress1 = ahl.HomeAddress1,
@@ -145,7 +158,7 @@ namespace ShomaRM.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<ApplicantHistoryModel> lstProp = new List<ApplicantHistoryModel>();
-
+            long ptoid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
             try
             {
                 DataTable dtTable = new DataTable();
@@ -160,6 +173,11 @@ namespace ShomaRM.Models
                     paramF.Value = TenantID;
                     cmd.Parameters.Add(paramF);
 
+                    DbParameter paramfF = cmd.CreateParameter();
+                    paramfF.ParameterName = "ptoid";
+                    paramfF.Value = ptoid;
+                    cmd.Parameters.Add(paramfF);
+
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dtTable);
@@ -171,7 +189,6 @@ namespace ShomaRM.Models
                     try
 
                     {
-
                         moveInFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString());
                     }
                     catch
@@ -214,7 +231,83 @@ namespace ShomaRM.Models
                 throw ex;
             }
         }
+        public List<ApplicantHistoryModel> GetApplicantHistoryListPV(long TenantID,long UserID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ApplicantHistoryModel> lstProp = new List<ApplicantHistoryModel>();
+            long ptoid = UserID;
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_ApplicantHistoryList";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
+                    DbParameter paramF = cmd.CreateParameter();
+                    paramF.ParameterName = "TenantID";
+                    paramF.Value = TenantID;
+                    cmd.Parameters.Add(paramF);
+
+                    DbParameter paramfF = cmd.CreateParameter();
+                    paramfF.ParameterName = "ptoid";
+                    paramfF.Value = ptoid;
+                    cmd.Parameters.Add(paramfF);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    DateTime? moveInFrom = null;
+                    try
+
+                    {
+                        moveInFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInTo = null;
+                    try
+                    {
+
+                        moveInTo = Convert.ToDateTime(dr["MoveInDateTo"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+
+                    lstProp.Add(new ApplicantHistoryModel
+                    {
+                        AHID = Convert.ToInt64(dr["AHID"].ToString()),
+                        Country = dr["Country"].ToString(),
+                        HomeAddress1 = dr["HomeAddress1"].ToString(),
+                        HomeAddress2 = dr["HomeAddress2"].ToString(),
+                        StateHomeTxt = dr["StateHome"].ToString(),
+                        CityHome = dr["CityHome"].ToString(),
+                        ZipHome = dr["ZipHome"].ToString(),
+                        RentOwn = Convert.ToInt32(dr["RentOwn"].ToString()),
+                        MoveInDateFromTxt = moveInFrom == null ? "" : moveInFrom.Value.ToString("MM/dd/yyy"),
+                        MoveInDateToTxt = moveInTo == null ? "" : moveInTo.Value.ToString("MM/dd/yyy"),
+                        MonthlyPayment = dr["MonthlyPayment"].ToString(),
+                        Reason = dr["Reason"].ToString()
+                    });
+                }
+                db.Dispose();
+                return lstProp;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
         public ApplicantHistoryModel GetApplicantHistoryDetails(long AHID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -260,12 +353,16 @@ namespace ShomaRM.Models
                 var countryStr = db.tbl_Country.Where(co => co.ID == ctryString).FirstOrDefault();
                 model.CountryString = countryStr.CountryName;
                 model.RentOwnString = model.RentOwn == 1 ? "Rent" : model.RentOwn == 2 ? "Own" : "";
+                model.ApartmentCommunity = getAHRdata.ApartmentCommunity;
+                model.ManagementCompany = getAHRdata.ManagementCompany;
+                model.ManagementCompanyPhone = getAHRdata.ManagementCompanyPhone;
+                model.IsProprNoticeLeaseAgreement = getAHRdata.IsProprNoticeLeaseAgreement;
             }
             model.AHID = AHID;
 
             return model;
         }
-
+      
         public string DeleteApplicantHistory(long AHID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -293,10 +390,11 @@ namespace ShomaRM.Models
 
             try
             {
+                long ptoid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
                 int monthsCount = 0;
                 string fromDateDB = string.Empty;
                 string toDateDB = string.Empty;
-                var moveInApplHist = db.tbl_ApplicantHistory.Where(co => co.TenantID == TenantId).ToList();
+                var moveInApplHist = db.tbl_ApplicantHistory.Where(co => co.TenantID == TenantId && co.ParentTOID == ptoid).ToList();
                 if (moveInApplHist != null)
                 {
                     foreach (var item in moveInApplHist)
@@ -308,7 +406,7 @@ namespace ShomaRM.Models
                         DateTime dtToDB = Convert.ToDateTime(toDateDB);
                         int givenDate = ((dtToDB.Year - dtFromDB.Year) * 12) + dtToDB.Month - dtFromDB.Month;
 
-                        monthsCount += givenDate;
+                        monthsCount += givenDate+1;
                     }
                 }
 
@@ -316,7 +414,7 @@ namespace ShomaRM.Models
                 DateTime dtCurrentToDB = Convert.ToDateTime(ToDateAppHis);
 
                 int givenCurrentDate = ((dtCurrentToDB.Year - dtCurrentFromDB.Year) * 12) + dtCurrentToDB.Month - dtCurrentFromDB.Month;
-                monthsCount += givenCurrentDate;
+                monthsCount += givenCurrentDate+1;
 
 
                 model.TotalMonthsApplicantHistory = monthsCount;
@@ -330,6 +428,191 @@ namespace ShomaRM.Models
                 throw ex;
             }
         }
+        public ApplicantHistoryModel GetPreviousAddressInfo(int id)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            ApplicantHistoryModel model = new ApplicantHistoryModel();
+            long ptoid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var getAHRdata = db.tbl_ApplicantHistory.Where(p => p.TenantID == id && p.ParentTOID == ptoid).OrderByDescending(s => s.AHID).FirstOrDefault();
+            if (getAHRdata != null)
+            {
+                DateTime? moveInFrom = null;
+                try
+                {
 
+                    moveInFrom = Convert.ToDateTime(getAHRdata.MoveInDateFrom);
+                }
+                catch
+                {
+
+                }
+                DateTime? moveInTo = null;
+                try
+                {
+
+                    moveInTo = Convert.ToDateTime(getAHRdata.MoveInDateTo);
+                }
+                catch
+                {
+
+                }
+                model.Country = getAHRdata.Country;
+                model.HomeAddress1 = getAHRdata.HomeAddress1;
+                model.HomeAddress2 = getAHRdata.HomeAddress2;
+                model.StateHome = getAHRdata.StateHome;
+                model.CityHome = getAHRdata.CityHome;
+                model.ZipHome = getAHRdata.ZipHome;
+                model.RentOwn = getAHRdata.RentOwn;
+                model.MoveInDateFromTxt = moveInFrom == null ? "" : moveInFrom.Value.ToString("MM/dd/yyy");
+                model.MoveInDateToTxt = moveInTo == null ? "" : moveInTo.Value.ToString("MM/dd/yyy");
+                model.MonthlyPayment = !string.IsNullOrWhiteSpace(getAHRdata.MonthlyPayment) ? getAHRdata.MonthlyPayment : "";
+                model.Reason = !string.IsNullOrWhiteSpace(getAHRdata.Reason) ? getAHRdata.Reason : "";
+                var stateStr = db.tbl_State.Where(co => co.ID == getAHRdata.StateHome).FirstOrDefault();
+                model.StateString = stateStr.StateName;
+                int ctryString = Convert.ToInt32(model.Country);
+                var countryStr = db.tbl_Country.Where(co => co.ID == ctryString).FirstOrDefault();
+                model.CountryString = countryStr.CountryName;
+                model.RentOwnString = model.RentOwn == 1 ? "Rent" : model.RentOwn == 2 ? "Own" : "";
+                model.ApartmentCommunity = !string.IsNullOrWhiteSpace(getAHRdata.ApartmentCommunity) ? getAHRdata.ApartmentCommunity : "";
+                model.ManagementCompany = !string.IsNullOrWhiteSpace(getAHRdata.ManagementCompany) ? getAHRdata.ManagementCompany : "";
+                model.ManagementCompanyPhone = !string.IsNullOrWhiteSpace(getAHRdata.ManagementCompanyPhone) ? getAHRdata.ManagementCompanyPhone : "";
+                model.IsProprNoticeLeaseAgreement = getAHRdata.IsProprNoticeLeaseAgreement;
+                model.stringIsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement == 1 ? "Yes" : "No";
+            }
+            model.AHID = AHID;
+
+            return model;
+        }
+        public ApplicantHistoryModel GetPreviousAddressInfoPV(int id, long UserID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            ApplicantHistoryModel model = new ApplicantHistoryModel();
+            long ptoid =UserID;
+            var getAHRdata = db.tbl_ApplicantHistory.Where(p => p.TenantID == id && p.ParentTOID == ptoid).OrderByDescending(s => s.AHID).FirstOrDefault();
+            if (getAHRdata != null)
+            {
+                DateTime? moveInFrom = null;
+                try
+                {
+
+                    moveInFrom = Convert.ToDateTime(getAHRdata.MoveInDateFrom);
+                }
+                catch
+                {
+
+                }
+                DateTime? moveInTo = null;
+                try
+                {
+
+                    moveInTo = Convert.ToDateTime(getAHRdata.MoveInDateTo);
+                }
+                catch
+                {
+
+                }
+                model.Country = getAHRdata.Country;
+                model.HomeAddress1 = getAHRdata.HomeAddress1;
+                model.HomeAddress2 = getAHRdata.HomeAddress2;
+                model.StateHome = getAHRdata.StateHome;
+                model.CityHome = getAHRdata.CityHome;
+                model.ZipHome = getAHRdata.ZipHome;
+                model.RentOwn = getAHRdata.RentOwn;
+                model.MoveInDateFromTxt = moveInFrom == null ? "" : moveInFrom.Value.ToString("MM/dd/yyy");
+                model.MoveInDateToTxt = moveInTo == null ? "" : moveInTo.Value.ToString("MM/dd/yyy");
+                model.MonthlyPayment = !string.IsNullOrWhiteSpace(getAHRdata.MonthlyPayment) ? getAHRdata.MonthlyPayment : "";
+                model.Reason = !string.IsNullOrWhiteSpace(getAHRdata.Reason) ? getAHRdata.Reason : "";
+                var stateStr = db.tbl_State.Where(co => co.ID == getAHRdata.StateHome).FirstOrDefault();
+                model.StateString = stateStr.StateName;
+                int ctryString = Convert.ToInt32(model.Country);
+                var countryStr = db.tbl_Country.Where(co => co.ID == ctryString).FirstOrDefault();
+                model.CountryString = countryStr.CountryName;
+                model.RentOwnString = model.RentOwn == 1 ? "Rent" : model.RentOwn == 2 ? "Own" : "";
+                model.ApartmentCommunity = !string.IsNullOrWhiteSpace(getAHRdata.ApartmentCommunity) ? getAHRdata.ApartmentCommunity : "";
+                model.ManagementCompany = !string.IsNullOrWhiteSpace(getAHRdata.ManagementCompany) ? getAHRdata.ManagementCompany : "";
+                model.ManagementCompanyPhone = !string.IsNullOrWhiteSpace(getAHRdata.ManagementCompanyPhone) ? getAHRdata.ManagementCompanyPhone : "";
+                model.IsProprNoticeLeaseAgreement = getAHRdata.IsProprNoticeLeaseAgreement;
+                model.stringIsProprNoticeLeaseAgreement = model.IsProprNoticeLeaseAgreement == 1 ? "Yes" : "No";
+            }
+            model.AHID = AHID;
+
+            return model;
+        }
+        public List<ApplicantHistoryModel> GetApplicantHistoryListForAdmin(long TenantID, long ApplicantUserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ApplicantHistoryModel> lstProp = new List<ApplicantHistoryModel>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_ApplicantHistoryList";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramF = cmd.CreateParameter();
+                    paramF.ParameterName = "TenantID";
+                    paramF.Value = TenantID;
+                    cmd.Parameters.Add(paramF);
+
+                    DbParameter paramfF = cmd.CreateParameter();
+                    paramfF.ParameterName = "ptoid";
+                    paramfF.Value = ApplicantUserId;
+                    cmd.Parameters.Add(paramfF);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    DateTime? moveInFrom = null;
+                    try
+
+                    {
+                        moveInFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInTo = null;
+                    try
+                    {
+
+                        moveInTo = Convert.ToDateTime(dr["MoveInDateTo"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+
+                    lstProp.Add(new ApplicantHistoryModel
+                    {
+                        AHID = Convert.ToInt64(dr["AHID"].ToString()),
+                        Country = dr["Country"].ToString(),
+                        HomeAddress1 = dr["HomeAddress1"].ToString(),
+                        HomeAddress2 = dr["HomeAddress2"].ToString(),
+                        StateHomeTxt = dr["StateHome"].ToString(),
+                        CityHome = dr["CityHome"].ToString(),
+                        ZipHome = dr["ZipHome"].ToString(),
+                        RentOwn = Convert.ToInt32(dr["RentOwn"].ToString()),
+                        MoveInDateFromTxt = moveInFrom == null ? "" : moveInFrom.Value.ToString("MM/dd/yyy"),
+                        MoveInDateToTxt = moveInTo == null ? "" : moveInTo.Value.ToString("MM/dd/yyy"),
+                        MonthlyPayment = dr["MonthlyPayment"].ToString(),
+                        Reason = dr["Reason"].ToString()
+                    });
+                }
+                db.Dispose();
+                return lstProp;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
     }
 }

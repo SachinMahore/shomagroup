@@ -49,7 +49,7 @@ var saveupdateProspect = function () {
     }
     var model = { AssignAgentID: salesAgent, PID: prospectId, VisitDateTime: recheduledate, RequiredDateText: appDate, AppointmentStatus: appointmentStatus };
     $.ajax({
-        url: "/ProspectManagement/SaveProspectForm/",
+        url: "/ProspectManagement/SaveProspectFormAsync/",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),

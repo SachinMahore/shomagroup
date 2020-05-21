@@ -16,11 +16,11 @@ namespace ShomaRM.Areas.Admin.Controllers
             var model = new StorageModel().GetStorageData(Id);
             return View("..\\Storage\\Index",model);
         }
-        public ActionResult GetStorageList()
+        public ActionResult GetStorageList(long TenantID, string OrderBy, string SortBy)
         {
             try
             {
-                return Json((new StorageModel()).GetStorageList(), JsonRequestBehavior.AllowGet);
+                return Json((new StorageModel()).GetStorageList(TenantID, OrderBy, SortBy), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -89,7 +89,9 @@ namespace ShomaRM.Areas.Admin.Controllers
         {
             try
             {
-                return Json(new { result = 1, totalStorageAmt = model.SaveUpdateTenantStorage(model) }, JsonRequestBehavior.AllowGet);
+                string[] storageDetails = model.SaveUpdateTenantStorage(model).Split('|');
+
+                return Json(new { result = storageDetails[0], msg= storageDetails[1], totalStorageAmt = storageDetails[2] }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

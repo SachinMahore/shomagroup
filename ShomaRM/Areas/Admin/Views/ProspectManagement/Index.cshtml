@@ -29,21 +29,21 @@
                         </div>
                         <div class="col-sm-3">
                             <h3 class="panel-title input-group">To Date</h3>
-                            <div class="input-group">
+                            <div id="divToDate" class="input-group">
                                 <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
-                                <span class="input-group-btn">
+                                <span id="spTodate" class="input-group-btn">
                                     <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                 </span>
                             </div>
                         </div>
-                   
+
                         <div class="col-sm-3">
                             <div class="form-group  padding-top-25">
                                 <button class='btn btn-next btn-primary' name='Search' value='Search' style="text-transform:uppercase" onclick="buildPaganationProspectList(1)"><i class="glyphicon glyphicon-search"></i> Search</button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 form-group" id="divPagination_ProspectList" >
+                    <div class="col-sm-12 form-group" id="divPagination_ProspectList">
                         <div id="divPgn" class="col-sm-8 pagination">
                             <ul id="ulPagination_ProspectList"></ul>
                         </div>
@@ -73,6 +73,33 @@
                                 <tbody></tbody>
                             </table>
                         </div>
+
+                    </div>
+                    <style unselectable="on">
+                        #wrap {
+                            width: 100%;
+                            height: 900px;
+                            padding: 0;
+                            position: relative;
+                            left: 0px;
+                            top: 0px;
+                            right:0px;
+                            overflow: hidden;
+                        }
+
+                        .responsive-iframe {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            bottom: 0;
+                            right: 0;
+                            width: 100%;
+                            height: 100%;
+                            border: none;
+                        }
+                    </style>
+                    <div id="wrap" unselectable="on">
+                        <iframe class="responsive-iframe" src="https://outlook.office365.com/owa/calendar/f2994f3493a749e1b0b87b4bef7ae4b9@thinkerstepsTech.onmicrosoft.com/641badb756d744eb91a858a374f4783215314649214297281398/calendar.html"></iframe>
                     </div>
                 </div>
             </div>
@@ -81,13 +108,39 @@
 </div>
 <script>
     $(function () {
-        $("#txtFromDate").datepicker();
         $("#iconFromDate").click(function () {
             $("#txtFromDate").focus();
         });
-        $("#txtToDate").datepicker();
         $("#iconToDate").click(function () {
             $("#txtToDate").focus();
         });
+
+        var dtstart = new Date();
+        dtstart.setFullYear(new Date().getFullYear() - 100);
+        var dtend = new Date();
+        dtend.setFullYear(new Date().getFullYear() + 100);
+        var ndt = new Date($("#txtFromDate").val());
+        ndt.setFullYear(new Date().getFullYear() + 100);
+        var sdt = new Date($("#txtFromDate").val());
+        sdt.setFullYear(new Date().getFullYear() + 0);
+        $("#txtToDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: sdt, endDate: ndt, maxViewMode: 2, autoclose: true });
+        $('#txtFromDate').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true }).on('change', function (ev) {
+            changeDate();
+        });
     });
+    var changeDate = function () {
+        $("#txtToDate").val("");
+        var ndt = new Date($("#txtFromDate").val());
+        ndt.setFullYear(new Date().getFullYear() + 100);
+        var sdt = new Date($("#txtFromDate").val());
+        sdt.setFullYear(new Date().getFullYear() + 0);
+        $("#txtToDate").remove();
+        $("#spTodate").remove();
+        var html = '<input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="" />';
+        html += '<span id="spTodate" class="input-group-btn">';
+        html += '<button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>';
+        html += '</span>';
+        $("#divToDate").append(html);
+        $("#txtToDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: sdt, endDate: ndt, maxViewMode: 2, autoclose: true });
+    }
 </script>

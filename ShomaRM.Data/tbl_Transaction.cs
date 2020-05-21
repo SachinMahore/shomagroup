@@ -16,44 +16,19 @@ namespace ShomaRM.Data
     {
         public int TransID { get; set; }
         public long TenantID { get; set; }
-        public long LeaseID { get; set; }
-        public int Revision_Num { get; set; }
         public System.DateTime Transaction_Date { get; set; }
-        public int Run { get; set; }
-        public Nullable<int> Tax_Sequence { get; set; }
-        public string Transaction_Type { get; set; }
+        public string PAID { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> Charge_Date { get; set; }
-        public string Summary_Charge_Type { get; set; }
-        public Nullable<int> Payment_ID { get; set; }
-        public string Reference { get; set; }
         public Nullable<decimal> Charge_Amount { get; set; }
         public Nullable<decimal> Credit_Amount { get; set; }
         public Nullable<decimal> Miscellaneous_Amount { get; set; }
         public Nullable<System.DateTime> Accounting_Date { get; set; }
-        public Nullable<int> Journal { get; set; }
-        public string Accrual_Debit_Acct { get; set; }
-        public string Accrual_Credit_Acct { get; set; }
-        public string Cash_Debit_Account { get; set; }
-        public string Cash_Credit_Account { get; set; }
-        public string Appl_of_Origin { get; set; }
         public string Batch { get; set; }
-        public string Batch_Source { get; set; }
         public Nullable<int> CreatedBy { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
-        public string GL_Trans_Description { get; set; }
-        public string GL_Trans_Reference_1 { get; set; }
-        public string GL_Trans_Reference_2 { get; set; }
-        public Nullable<int> GL_Entries_Created { get; set; }
         public Nullable<int> Charge_Type { get; set; }
-        public Nullable<long> ProspectID { get; set; }
-        public string TBankName { get; set; }
-        public string TAccCardName { get; set; }
-        public string TAccCardNumber { get; set; }
-        public string TRoutingNumber { get; set; }
-        public string TSecurityNumber { get; set; }
-        public string TCardExpirationMonth { get; set; }
-        public string TCardExpirationYear { get; set; }
         public string Authcode { get; set; }
+        public Nullable<long> UserID { get; set; }
     }
 }

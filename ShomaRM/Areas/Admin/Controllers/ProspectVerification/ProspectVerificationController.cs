@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using ShomaRM.Areas.Admin.Models;
 using ShomaRM.Models.Bluemoon;
+using ShomaRM.Data;
+using ShomaRM.Models;
 
 namespace ShomaRM.Areas.Admin.Controllers
 {
@@ -87,18 +89,41 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult SaveScreeningStatus(string Email, long ProspectId, string Status)
+        public ActionResult SaveScreeningStatus(string Email, long ProspectId, string Status, string Notes)
         {
             try
             {
-                return Json(new { model = new ProspectVerificationModel().SaveScreeningStatus(Email,ProspectId, Status) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new ProspectVerificationModel().SaveScreeningStatus(Email, ProspectId, Status,Notes) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
+        }
+        public ActionResult SaveScreeningStatusList(string Email, long UserId, string Status)
+        {
+            try
+            {
+                new ProspectVerificationModel().SaveScreeningStatusList(Email, UserId, Status);
+                return Json(new { model = 1 }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
-
+        //Get BackgroundScreening List by UserId
+        public ActionResult GetBackgroundScreening(long UserId)
+        {            
+            try
+            {
+                return Json((new ProspectVerificationModel()).FillProspectBackgroundScreening(UserId), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
         public async System.Threading.Tasks.Task<ActionResult> GetLeaseDocBlumoonAdm(string LeaseId, string EsignatureId)
         {
@@ -134,6 +159,78 @@ namespace ShomaRM.Areas.Admin.Controllers
                 await bmservice.CloseSession(sessionId: authenticateData.SessionId);
                 leasePdfResponse.LeaseId = LeaseId;
                 return leasePdfResponse;
+            }
+        }
+        public ActionResult SendReminderEmail(long ProspectId, int RemType, long ApplicantID)
+        {
+            try
+            {
+                return Json(new { model = new ProspectVerificationModel().SendReminderEmail(ProspectId, RemType, ApplicantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public async System.Threading.Tasks.Task<ActionResult> RefreshStatuses(long ProspectId)
+        {
+            try
+            {
+                string esignatureid = "";
+                ShomaRMEntities db = new ShomaRMEntities();
+                var applyNow = db.tbl_ApplyNow.Where(p => p.ID == ProspectId).FirstOrDefault();
+                if (applyNow != null)
+                {
+                    esignatureid = !string.IsNullOrWhiteSpace(applyNow.EsignatureID) ? applyNow.EsignatureID : "";
+                    if (esignatureid != "")
+                    {
+                        var bmservice = new BluemoonService();
+                        LeaseResponseModel authenticateData = await bmservice.CreateSession();
+                        LeaseResponseModel leaseKeys = await bmservice.GetEsignnatureDetails(SessionId: authenticateData.SessionId, EsignatureId: esignatureid);
+                        
+
+                        foreach(var lks in leaseKeys.EsigneResidents)
+                        {
+                            var esignData = db.tbl_ESignatureKeys.Where(p => p.Key == lks.Key).FirstOrDefault();
+                            if (esignData != null)
+                            {
+                                esignData.DateSigned = lks.DateSigned;
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+                }
+                db.Dispose();
+                return Json(new { result = "1" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { result = "0" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        //Sachin M 19 May
+        public ActionResult BackgroundScreeningList(long TenantId)
+        {
+            try
+            {
+                return Json((new ProspectVerificationModel()).BackgroundScreeningList(TenantId), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        //sachin m 9 may
+        public ActionResult UpdateScreeNotes(long ID, string Notes)
+        {
+            try
+            {
+                return Json(new { msg = (new ProspectVerificationModel().UpdateScreeNotes(ID, Notes)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
     }

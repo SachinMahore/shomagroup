@@ -1,0 +1,559 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Co-applicant Summary</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+    @font-face { font-family: 'Montserrat-Regular'; src: url('[%ServerURL%]/Content/assets/font/Montserrat-Regular.otf') format('opentype'); }
+    @font-face { font-family: 'Montserrat-Medium'; src: url('[%ServerURL%]/Content/assets/font/Montserrat-Medium.otf') format('opentype'); }
+    @font-face { font-family: 'Montserrat-SemiBold'; src: url('[%ServerURL%]/Content/assets/font/Montserrat-SemiBold.otf') format('opentype'); }
+    body { font-size: 12px; padding: 1px; margin: 1px; font-family: Montserrat-Regular; width: 100%; }
+
+        .layout-section {
+            background-image: url('[%ServerURL%]/Content/Templates/images/tower_background.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin: 0 auto;
+            display: table;
+            height: auto;
+            padding-bottom: 30px;
+            width: 100%
+        }
+
+    .heder { background-image: url('[%ServerURL%]/Content/Templates/images/Header_quote_background.png'); width: 100%; height: 150px; }
+        .heder-img {
+            width: 40%;
+        }
+        .heder-img img {
+            width: 75%;
+            padding-left: 75px;
+        }
+        .heder-text {
+            width: 60%;
+            font-family: Montserrat-SemiBold;
+            color: #fff;
+            font-size: 30px;
+            text-align: center;
+        }
+        .heder-detail {
+            width: 100%;
+        }
+        .heder-detail-repeat {
+            width: 100%;
+            
+        }
+
+        .heder-data {
+            width: 100%;
+            color: #fff;
+        }
+
+        .heder-data-repeat {
+            width: 100%;
+            color: #fff;
+        }
+        .border-tbody {
+            
+        }
+
+        .border-tbody-repeat {
+            
+        }
+        .logo-section {
+            width: 30%;
+            padding-left: 10px;
+            height: 100px;
+        }
+
+        .address-section {
+            width: 70%;
+        }
+
+        table, th, td {
+            color: #838384;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .text-white {
+            color: #fff;
+        }
+
+        .text-white-bold-center {
+            background: #7fbc42;
+            color: #fff;
+            text-align: center;
+            font-size: 16px;
+            font-family:Montserrat-SemiBold;
+            padding:10px;
+         
+        }
+        .td-pet-bold-center {
+            color: #000;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            width: 33.33%;
+            border: 1px solid #838384;
+        }
+        .td-pet {
+            color: #000;
+            text-align: center;
+            font-size: 12px;
+            width: 33.33%;
+            border: 1px solid #838384;
+        }
+        .td-vehicle-bold-center {
+            color: #000;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            width: 16.66%;
+            border: 1px solid #838384;
+        }
+        .td-vehicle {
+            color: #000;
+            text-align: center;
+            font-size: 12px;
+            width: 16.66%;
+            border: 1px solid #838384;
+        }
+
+        .detail-section-header {
+            width: 28.5%;
+            text-align: right;
+            font-family:Montserrat-SemiBold;
+            font-size:12px;
+        }
+
+        .detail-section-data {
+            width: 21%;
+            height: 25px;
+            font-size:12px;
+        }
+
+        .detail-section-gap {
+            width: 1%;
+        }
+        .hidden{
+            display:none;
+        }
+        .additional-question {
+            width: 90%;
+            font-size:12px;
+        }
+        .additional-answer {
+            width: 10%;
+            font-size: 12px;
+        }
+        .footer{
+            width:100%;
+        }
+
+        .footer-img {
+            width: 100%;
+            text-align: center;
+        }
+        .footer-img img{
+            height:75px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="layout-section">
+        <table class="heder">
+            <tbody>
+                <tr>
+                    <td class="heder-img">
+                        <img src="[%ServerURL%]/Content/Templates/images/sanctuary_logo_white.png" />
+                    </td>
+                    <td class="heder-text">CO-APPLICANT SUMMARY</td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <table class="heder-detail">
+                <thead class="heder-data">
+                    <tr>
+                        <td colspan="5" class="text-white-bold-center">Apartment Information</td>
+                    </tr>
+                </thead>
+                <tbody class="heder-data">
+                    <tr>
+                        <td class="detail-section-header">Apartment:</td>
+                        <td class="detail-section-data">[%UnitNo%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Move In Date:</td>
+                        <td class="detail-section-data">[%MoveInDate%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Model:</td>
+                        <td class="detail-section-data">[%Model%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Lease Term: </td>
+                        <td class="detail-section-data">[%LeaseTerm%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Bed: </td>
+                        <td class="detail-section-data">[%BedRoom%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Deposit:</td>
+                        <td class="detail-section-data">$[%Deposite%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Bath:</td>
+                        <td class="detail-section-data">[%Bath%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Rent:</td>
+                        <td class="detail-section-data">$[%Rent%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Area:</td>
+                        <td class="detail-section-data">[%Area%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text"></td>
+                        <td class="detail-section-data"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="padding-top:20px">
+            <table class="heder-detail">
+                <thead class="heder-data">
+                    <tr>
+                        <td colspan="5" class="text-white-bold-center">Co-applicant Information</td>
+                    </tr>
+                </thead>
+                <tbody class="heder-data-repeat border-tbody">
+                    <tr>
+                        <td class="detail-section-header">Name:</td>
+                        <td class="detail-section-data">[%ApplicantName%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Date Of Birth:</td>
+                        <td class="detail-section-data">[%ApplicantDOB%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Email:</td>
+                        <td class="detail-section-data">[%ApplicantEmail%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">SSN#: </td>
+                        <td class="detail-section-data">[%ApplicantSSN%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Phone: </td>
+                        <td class="detail-section-data">[%ApplicantPhone%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Government Issued Id ([%ApplicantIDType%]):</td>
+                        <td class="detail-section-data">[%ApplicantIDNumber%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Government Issuing Entity:</td>
+                        <td class="detail-section-data">[%ApplicantIDIssuingState%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Government Issuing Country:</td>
+                        <td class="detail-section-data">[%ApplicantIssuingCountry%]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="padding-top:20px">
+            <table class="heder-detail">
+                <thead class="heder-data">
+                    <tr>
+                        <td colspan="5" class="text-white-bold-center">Current Residence Information</td>
+                    </tr>
+                </thead>
+                <tbody class="heder-data border-tbody">
+                    <tr>
+                        <td class="detail-section-header">Residency From:</td>
+                        <td class="detail-section-data">[%CurrentMoveInDate%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Address:</td>
+                        <td class="detail-section-data">[%CurrentAddress%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Monthly Payment:</td>
+                        <td class="detail-section-data">$[%CurrentMonthlyPayment%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Country: </td>
+                        <td class="detail-section-data">[%CurrentCountry%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Apartment Community: </td>
+                        <td class="detail-section-data">[%CurrentAptCommunity%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Was proper notice given per your lease agreement? :</td>
+                        <td class="detail-section-data">[%CurrentNoticeGiven%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Management Company:</td>
+                        <td class="detail-section-data">[%CurrentMgmtCompany%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Management Company Phone:</td>
+                        <td class="detail-section-data">[%CurrentMgmtCompanyPhone%]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="padding-top:20px" class="[%PerviousResidenceHidden%]">
+            <table class="heder-detail-repeat">
+                <thead class="heder-data">
+                    <tr>
+                        <td colspan="5" class="text-white-bold-center">Previous Residence Information</td>
+                    </tr>
+                </thead>
+                [%PreviousResidenceInformation%]
+                [%PRHStart%]
+                <tbody class="heder-data-repeat border-tbody-repeat">
+                    <tr>
+                        <td class="detail-section-header">Residency From:</td>
+                        <td class="detail-section-data">[%OtherMoveInDateFrom%]-[%OtherMoveInDateTo%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Address:</td>
+                        <td class="detail-section-data">[%OtherAddress%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Monthly Payment:</td>
+                        <td class="detail-section-data">[%OtherMonthlyPayment%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Country: </td>
+                        <td class="detail-section-data">[%OtherCountry%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Apartment Community: </td>
+                        <td class="detail-section-data">[%OtherAptCommunity%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Was proper notice given per your lease agreement?:</td>
+                        <td class="detail-section-data">[%OtherNoticeGiven%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Management Company:</td>
+                        <td class="detail-section-data">[%OtherMgmtCompany%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Management Company Phone:</td>
+                        <td class="detail-section-data">[%OtherMgmtCompanyPhone%]</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"></td>
+                    </tr>
+                </tbody>
+                [%PRHEnd%]
+            </table>
+        </div>
+        <div style="padding-top:20px">
+            <table class="heder-detail">
+                <thead class="heder-data">
+                    <tr>
+                        <td colspan="5" class="text-white-bold-center">Employment Information</td>
+                    </tr>
+                </thead>
+                <tbody class="heder-data border-tbody">
+                    <tr>
+                        <td class="detail-section-header">Country:</td>
+                        <td class="detail-section-data">[%CurrentOfficeCountry%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Job Title:</td>
+                        <td class="detail-section-data">[%CurrentJobTitle%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Employment:</td>
+                        <td class="detail-section-data">[%CurrentJobType%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Employed Since: </td>
+                        <td class="detail-section-data">[%CurrentStartDate%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Employeer: </td>
+                        <td class="detail-section-data">[%CurrentEmployerName%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Annual Income:</td>
+                        <td class="detail-section-data">$[%CurrentAnnualIncome%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Supervisor Name:</td>
+                        <td class="detail-section-data">[%CurrentSupervisorName%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Additional Annual Income:</td>
+                        <td class="detail-section-data">$[%CurrentAnnualAddIncome%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Address:</td>
+                        <td class="detail-section-data">[%CurrentEmployeerAddress%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Employers Phone:</td>
+                        <td class="detail-section-data">[%CurrentSupervisorPhone%]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="padding-top:20px" class="[%PerviousEmploymentHidden%]">
+            <table class="heder-detail-repeat">
+                <thead class="heder-data">
+                    <tr>
+                        <td colspan="5" class="text-white-bold-center">Previous Employment Information</td>
+                    </tr>
+                </thead>
+                [%PreviousEmploymentInformation%]
+                [%PEHStart%]
+                <tbody class="heder-data-repeat border-tbody-repeat">
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Employeer: </td>
+                        <td class="detail-section-data">[%OtherEmployerName%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Job Title:</td>
+                        <td class="detail-section-data">[%OtherJobTitle%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header">Previous Employer Start Date:</td>
+                        <td class="detail-section-data">[%OtherStartDate%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Previous Employer End Date:</td>
+                        <td class="detail-section-data">[%OtherTerminationDate%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Supervisor Name:</td>
+                        <td class="detail-section-data">[%OtherSupervisorName%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Address:</td>
+                        <td class="detail-section-data">[%OtherEmployeerAddress%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Annual Income:</td>
+                        <td class="detail-section-data">$[%OtherAnnualIncome%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Additional Annual Income:</td>
+                        <td class="detail-section-data">$[%OtherAnnualAddIncome%]</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5"></td>
+                    </tr>
+                </tbody>
+                [%PEHEnd%]
+            </table>
+        </div>
+        <!--<div style="padding-top:20px">
+            <table class="heder-detail">
+                <thead class="heder-data">
+                    <tr>
+                        <td colspan="5" class="text-white-bold-center">Emergency Information</td>
+                    </tr>
+                </thead>
+                <tbody class="heder-data-repeat border-tbody">
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Name:</td>
+                        <td class="detail-section-data">[%EmergencyName%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header">Relationship:</td>
+                        <td class="detail-section-data">[%EmergencyRelationship%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Phone:</td>
+                        <td class="detail-section-data">[%EmergencyHomePhone%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Email: </td>
+                        <td class="detail-section-data">[%EmergencyEmail%]</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-section-header Bold black-text">Country: </td>
+                        <td class="detail-section-data">[%EmergencyCountry%]</td>
+                        <td class="detail-section-gap"></td>
+                        <td class="detail-section-header Bold black-text">Address:</td>
+                        <td class="detail-section-data">[%EmergencyAddress%]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>-->
+        <div style="padding-top:20px">
+            <table class="heder-detail">
+                <thead class="heder-data">
+                    <tr>
+                        <td colspan="3" class="text-white-bold-center">Pet Infromation</td>
+                    </tr>
+                    <tr>
+                        <td class="td-pet-bold-center">Pet Name</td>
+                        <td class="td-pet-bold-center">Breed</td>
+                        <td class="td-pet-bold-center">Weight</td>
+                    </tr>
+                </thead>
+                <tbody class="heder-data-repeat border-tbody">
+                    [%PetInformation%]
+                </tbody>
+            </table>
+        </div>
+        <div style="padding-top:20px">
+            <table class="heder-detail">
+                <thead class="heder-data">
+                    <tr>
+                        <td colspan="6" class="text-white-bold-center">Vehicle Infromation</td>
+                    </tr>
+                    <tr>
+                        <td class="td-vehicle-bold-center">Make</td>
+                        <td class="td-vehicle-bold-center">Model</td>
+                        <td class="td-vehicle-bold-center">Year</td>
+                        <td class="td-vehicle-bold-center">Color</td>
+                        <td class="td-vehicle-bold-center">Licence</td>
+                        <td class="td-vehicle-bold-center">State</td>
+                    </tr>
+                </thead>
+                <tbody class="heder-data-repeat border-tbody">
+                    [%VehicleInfromation%]
+                </tbody>
+            </table>
+        </div>
+        <div style="padding-top:20px">
+            <table class="heder-detail">
+                <thead class="heder-data">
+                    <tr>
+                        <td colspan="2" class="text-white-bold-center">Additional Questions</td>
+                    </tr>
+                </thead>
+                <tbody class="heder-data-repeat border-tbody">
+                    <tr>
+                        <td class="additional-question">Have you ever been evicted? If yes, details <u>[%EvictedDetails%]</u></td>
+                        <td class="additional-answer">[%Evicted%]</td>
+                    </tr>
+                    <tr class="[%EvictedHidden%]">
+                        <td class="additional-question">Have you ever been convicted of a felony? If yes, explain <u>[%ConvictedFelonyDetails%]</u></td>
+                        <td class="additional-answer">[%ConvictedFelony%]</td>
+                    </tr>
+                    <tr class="[%EvictedHidden%]">
+                        <td class="additional-question">Do you have any criminal charges pending, awaiting disposition, or looming in any way?If yes, explain <u>[%CriminalChargPenDetails%]</u></td>
+                        <td class="additional-answer">[%CriminalChargPen%]</td>
+                    </tr>
+                    <tr>
+                        <td class="additional-question">Do you or any occupants smoke?</td>
+                        <td class="additional-answer">[%DoYouSmoke%]</td>
+                    </tr>
+                    <tr>
+                        <td class="additional-question">Referred by another Resident? If yes, provide name <u>[%ReferredResidentName%]</u></td>
+                        <td class="additional-answer">[%ReferredResident%]</td>
+                    </tr>
+                    <tr>
+                        <td class="additional-question">Broker or Merchant referred</td>
+                        <td class="additional-answer">[%ReferredBrokerMerchant%]</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <table class="footer">
+            <tbody>
+                <tr>
+                    <td class="footer-img">
+                        <img src="[%ServerURL%]/Content/Templates/images/Shoma_mgmt_icons.png" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

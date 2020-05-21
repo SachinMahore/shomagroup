@@ -325,5 +325,38 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetUnitLeasePrice(long PID, int PN, int NOR, string SortBy, string OrderBy)
+        {
+            try
+            {
+                return Json((new PropertyManagementModel()).GetUnitLeasePrice(PID, PN, NOR, SortBy, OrderBy), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult BuildPaganationUnitLeasePrice(long PID, int PN, int NOR, string SortBy, string OrderBy)
+        {
+            try
+            {
+                return Json(new { NOP = (new PropertyManagementModel()).BuildPaganationUnitLeasePrice(PID, PN, NOR, SortBy, OrderBy) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult UpdateUnitLeasePrice(long ULPID, decimal Price)
+        {
+            try
+            {
+                return Json(new { model = new PropertyUnits().UpdateUnitLeasePrice(ULPID, Price) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

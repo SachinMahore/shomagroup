@@ -11,6 +11,7 @@ using ShomaRM.Models;
 using System.Xml.Serialization;
 using System.Web.Configuration;
 using ShomaRM.Models.TwilioApi;
+using ShomaRM.Models.Bluemoon;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -104,6 +105,12 @@ namespace ShomaRM.Areas.Admin.Models
         public string EsignatureID { get; set; }
         public Nullable<decimal> PetDNAAmt { get; set; }
         public int LeaseTermID { get; set; }
+        public Nullable<int> IsCheckSD { get; set; }
+        public Nullable<decimal> VehicleRegistration { get; set; }
+        public decimal MoveInChargesFMIT { get; set; }
+        public long? ApplicantUserId { get; set; }
+        public string Notes { get; set; }
+
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
 
@@ -192,6 +199,17 @@ namespace ShomaRM.Areas.Admin.Models
                     paramNOR.Value = model.NumberOfRows;
                     cmd.Parameters.Add(paramNOR);
 
+                    DbParameter paramUn = cmd.CreateParameter();
+                    paramUn.ParameterName = "UnitNo";
+                    paramUn.Value = model.UnitNo == null ? model.UnitNo : "Unit " + model.UnitNo;
+                    cmd.Parameters.Add(paramUn);
+
+
+                    DbParameter paramAs = cmd.CreateParameter();
+                    paramAs.ParameterName = "Astatus";
+                    paramAs.Value = model.ApplicationStatus;
+                    cmd.Parameters.Add(paramAs);
+
                     DbParameter param5 = cmd.CreateParameter();
                     param5.ParameterName = "SortBy";
                     param5.Value = model.SortBy;
@@ -220,6 +238,37 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
+
+        //Get BackgroundScreening data list by userId
+        public List<BackgroundScreeningModel> FillProspectBackgroundScreening(long UserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var GetTenantDet = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
+            var bgscrData = db.tbl_BackgroundScreening.Where(a => a.TenantId == GetTenantDet.ID).ToList();
+
+            List<BackgroundScreeningModel> bgScrLIst = new List<BackgroundScreeningModel>();
+            try
+            {                
+                foreach (var bgscr in bgscrData)
+                {
+                    BackgroundScreeningModel bgScr = new BackgroundScreeningModel();
+                    bgScr.TenantId = bgscr.TenantId;
+                    bgScr.OrderID = bgscr.OrderID;
+                    bgScr.Status = bgscr.Status;
+                    bgScr.PDFUrl = bgscr.PDFUrl;
+                    bgScr.Type = bgscr.Type;
+                    bgScrLIst.Add(bgScr);
+                }
+                db.Dispose();
+                return bgScrLIst;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+
         public List<ProspectVerifySearchModel> FillProspectVerifySearchGrid(ProspectVerifySearchModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -253,6 +302,17 @@ namespace ShomaRM.Areas.Admin.Models
                     paramNOR.Value = model.NumberOfRows;
                     cmd.Parameters.Add(paramNOR);
 
+                    DbParameter paramUn = cmd.CreateParameter();
+                    paramUn.ParameterName = "UnitNo";
+                    paramUn.Value = model.UnitNo == null ? model.UnitNo : "Unit " + model.UnitNo;
+                    cmd.Parameters.Add(paramUn);
+
+
+                    DbParameter paramAs = cmd.CreateParameter();
+                    paramAs.ParameterName = "Astatus";
+                    paramAs.Value = model.ApplicationStatus;
+                    cmd.Parameters.Add(paramAs);
+
                     DbParameter param5 = cmd.CreateParameter();
                     param5.ParameterName = "SortBy";
                     param5.Value = model.SortBy;
@@ -284,6 +344,7 @@ namespace ShomaRM.Areas.Admin.Models
                     searchmodel.CreatedDate = dr["CreatedDate"].ToString();
                     searchmodel.PropertyId = Convert.ToInt64(dr["PropertyId"].ToString());
                     searchmodel.UnitNo = dr["UnitNo"].ToString();
+                    searchmodel.ApplicationStatus = dr["ApplicationStatus"].ToString();
                     lstProspectVerify.Add(searchmodel);
                 }
                 db.Dispose();
@@ -295,13 +356,15 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
-        public string SaveScreeningStatus(string Email, long ProspectId, string Status)
+        public string SaveScreeningStatus(string Email, long ProspectId, string Status, string Notes)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-            // var tenantData = db.tbl_TenantOnline.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
+            //var tenantData = db.tbl_TenantOnline.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
             ShomaRM.Models.TenantOnlineModel model = new ShomaRM.Models.TenantOnlineModel();
 
             var tenantData = model.GetTenantOnlineList(Convert.ToInt32(ProspectId));
+            var GetTenantDet = db.tbl_ApplyNow.Where(p => p.ID == ProspectId).FirstOrDefault();
+
             model.FirstName = tenantData.FirstName;
             model.MiddleInitial = tenantData.MiddleInitial;
             model.LastName = tenantData.LastName;
@@ -323,16 +386,24 @@ namespace ShomaRM.Areas.Admin.Models
             model.OfficeCity = tenantData.OfficeCity;
             model.OfficeState = tenantData.OfficeState;
             model.StartDateTxt = tenantData.StartDateTxt;
-            model.ProspectID = tenantData.ProspectID;
+            model.DateExpireTxt = tenantData.DateExpireTxt;
+            model.ProspectID = ProspectId;
+            model.ID = ProspectId;
 
-            var test = new AcutraqRequest();
-            var acuResult = test.PostAqutraqRequest(model);
 
+            if (GetTenantDet != null)
+            {
+                if ((GetTenantDet.IsApplyNow ?? 0) == 2)
+                {
+                    var test = new AcutraqRequest();
+                    var acuResult = test.PostAqutraqRequest(model);
+                }
+            }
 
             string msg = "";
             string reportHTML = "";
             string reportHTMLCoapp = "";
-            string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
             reportHTMLCoapp = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
             string message = "";
@@ -340,63 +411,98 @@ namespace ShomaRM.Areas.Admin.Models
 
             if (Email != null)
             {
-                var GetTenantDet = db.tbl_ApplyNow.Where(p => p.ID == ProspectId).FirstOrDefault();
+
                 if (GetTenantDet != null)
                 {
                     GetTenantDet.IsApplyNow = 5;
                     GetTenantDet.Status = Status;
+                    GetTenantDet.Notes = Notes;
                     db.SaveChanges();
                 }
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == GetTenantDet.PropertyId).FirstOrDefault();
 
-                var GetCoappDet = db.tbl_Applicant.Where(c => c.TenantID == ProspectId && c.Type != "Primary Applicant" && c.Type != "Guarantor").ToList();
-
+                var GetCoappDet = db.tbl_Applicant.Where(c => c.TenantID == ProspectId && c.Type == "Primary Applicant").FirstOrDefault();
+                var GetCoappList = db.tbl_Applicant.Where(c => c.TenantID == ProspectId && c.Type != "Primary Applicant" && c.Type != "Guarantor").ToList();
                 string phonenumber = GetTenantDet.Phone;
+
+                reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
 
                 reportHTML = reportHTML.Replace("[%EmailHeader%]", "Online Application Status");
                 reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
                 reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantDet.FirstName + " " + GetTenantDet.LastName);
+                var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                string sub = "Online Application Status";
 
 
-                if (Status == "Approved")
+                //sachin 13 may
+                var saveBGCC = new tbl_BackgroundScreening()
                 {
-                    reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved");
-                    reportHTML = reportHTML.Replace("[%StatusDet%]", "Good news! We are pleased to notify you that your document is ready and available to sign. For your convenience, this document is being delivered in format that allow for you ro review and sign the document electronically. If you have any question about your document please contact: ");
-                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\""+ serverURL+"/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\""+ serverURL+ "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Review & Sign Document</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                    TenantId =Convert.ToInt32(tenantData.ID),
+                    Type = "0",
+                    OrderID = Convert.ToInt32(ProspectId),
+                    Status = Status,
+                    Notes = Notes,
+                };
+                db.tbl_BackgroundScreening.Add(saveBGCC);
+                db.SaveChanges();
 
-                    message = "Notification: Your document is ready and available to sign. Please check the email for detail.";
 
-                    if (GetCoappDet != null)
-                    {
-                        foreach (var app in GetCoappDet)
-                        {
-                            if (app.MoveInPercentage >= 0)
-                            {
-                                string payid = new EncryptDecrypt().EncryptText(app.ApplicantID.ToString() + ",2," + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")));
+                if (Status == "BCApproved")
+                {
 
-                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%Status%]", "Congratulations ! Your Application is Approved");
-                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%EmailHeader%]", app.MoveInPercentage + "% Move In charges Payment Link");
-                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%StatusDet%]", "Hi <b>" + app.FirstName + " " + app.LastName + "</b>,<br/>Your Online application is Approved. Please click below to pay " + app.MoveInPercentage + "% Move In Charges $" + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")) + ". <br/><br/><u><b>Payment Link :<a href=''></a> </b></u> ");
-                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + app.ApplicantID + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
-                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%TenantName%]", app.FirstName + " " + app.LastName);
-                                string bodyCoapp = reportHTMLCoapp;
-                                new EmailSendModel().SendEmail(app.Email, "Move In charges Payment Link", bodyCoapp);
-                                if (SendMessage == "yes")
-                                {
-                                    new TwilioService().SMS(app.Phone, "Congratulations ! Your Application is Approved with Condition. Please check the email for Move In charges Payment Link.");
-                                }
-                            }
-                        }
-                    }
-                   
+                    string payid = new EncryptDecrypt().EncryptText(GetCoappDet.ApplicantID.ToString() + ",3," + propertDet.AdminFees.Value.ToString("0.00"));
+                    reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved and Pay your Administration Fees");
+                    reportHTML = reportHTML.Replace("[%StatusDet%]", "Good news!You have been approved.We welcome you to our community.Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move -in. Once you process your payment, you will be directed to prepare your lease.  ");
+                    // reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\""+ serverURL+"/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\""+ serverURL+ "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Review & Sign Document</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                    message = "Notification: Your Application is Approved and pay your Administration Fees. Please check the email for detail.";
+
+
                 }
-                else if (Status == "Denied")
+                else if (Status == "BCDenied")
                 {
                     reportHTML = reportHTML.Replace("[%Status%]", "Sorry ! Your Application is Denied");
                     reportHTML = reportHTML.Replace("[%StatusDet%]", "We are sorry that your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community.");
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
 
                     message = "Sorry ! Your Application is Denied. Please check the email for detail.";
+                }
+                else if (Status == "BCSigned")
+                {
+                    sub = "Lease has been finalized : Pay your Move In Charges & Accept Move In Checklist";
+
+                    reportHTML = reportHTML.Replace("[%Status%]", "Lease has been finalized : Pay your Move In Charges & Accept Move In Checklist");
+                    reportHTML = reportHTML.Replace("[%StatusDet%]", "Your Application is Signed by All Applicants and Pay your Move In Charges. Your next step is to pay the Move In Charges and Accept Move in Checklist");
+                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Accept Move In Checklist & Pay Charges</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+
+                    message = "Notification: Pay your Move In Charges and Accept Move In Checklist.";
+
+                    if (GetCoappDet != null)
+                    {
+                        foreach (var app in GetCoappList)
+                        {
+                            if (app.MoveInPercentage >= 0)
+                            {
+                                string mpayid = new EncryptDecrypt().EncryptText(app.ApplicantID.ToString() + ",2," + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")));
+                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%ServerURL%]", serverURL);
+                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%Status%]", "Congratulations ! Your Application is Approved");
+                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%EmailHeader%]", app.MoveInPercentage + "% Move In charges Payment Link");
+                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%StatusDet%]", "Hi <b>" + app.FirstName + " " + app.LastName + "</b>,<br/>Your Online application is Approved. Please click below to pay " + app.MoveInPercentage + "% Move In Charges $" + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")) + ". <br/><br/><u><b>Payment Link :<a href=''></a> </b></u> ");
+                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + app.ApplicantID + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + mpayid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%TenantName%]", app.FirstName + " " + app.LastName);
+                                string bodyCoapp = reportHTMLCoapp;
+                                new EmailSendModel().SendEmail(app.Email, "Move In charges Payment Link", bodyCoapp);
+                                if (SendMessage == "yes")
+                                {
+                                    if (!string.IsNullOrWhiteSpace(app.Phone))
+                                    {
+                                        new TwilioService().SMS(app.Phone, "Congratulations ! Your Application is Approved. Please check the email for Move In charges Payment Link.");
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                 }
                 else
                 {
@@ -416,19 +522,159 @@ namespace ShomaRM.Areas.Admin.Models
                 reportHTML = reportHTML.Replace("[%QuoteNo%]", ID.ToString());
                 reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
                 string body = reportHTML;
-                new EmailSendModel().SendEmail(Email, "Online Application Status", body);
+                new EmailSendModel().SendEmail(Email, sub, body);
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
-
             }
 
             msg = "Email Send Successfully";
             return msg;
+        }
+
+        public string SendReminderEmail(long ProspectId, int RemType, long ApplicantID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            ShomaRM.Models.TenantOnlineModel model = new ShomaRM.Models.TenantOnlineModel();
+
+            var tenantData = model.GetTenantOnlineList(Convert.ToInt32(ProspectId));
+            var GetTenantDet = db.tbl_ApplyNow.Where(p => p.ID == ProspectId).FirstOrDefault();
+            string msg = "";
+            string reportHTML = "";
+
+            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
+            string message = "";
+            var GetCoappDet = db.tbl_Applicant.Where(c => c.TenantID == ProspectId && c.Type == "Primary Applicant").FirstOrDefault();
+
+            string phonenumber = GetTenantDet.Phone;
+
+            if (RemType == 1)
+            {
+                reportHTML = reportHTML.Replace("[%EmailHeader%]", "Reminder to Pay Administration Fees");
+                reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
+                reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantDet.FirstName + " " + GetTenantDet.LastName);
+                var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+
+                string payid = new EncryptDecrypt().EncryptText(GetCoappDet.ApplicantID.ToString() + ",3," + propertDet.AdminFees.Value.ToString("0.00"));
+                reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved and Pay your Administration Fees");
+                reportHTML = reportHTML.Replace("[%StatusDet%]", "Good news!You have been approved.We welcome you to our community.Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move -in. Once you process your payment, you will be directed to prepare your lease.  ");
+                reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                message = "Notification: Your Application is Approved and pay your Administration Fees. Please check the email for detail.";
+                string body = reportHTML;
+                new EmailSendModel().SendEmail(GetTenantDet.Email, "Reminder to Pay Administration Fees", body);
+                if (SendMessage == "yes")
+                {
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
+                }
+            }
+            else if (RemType == 2)
+            {
+                List<tbl_ESignatureKeys> GetCoappList = new List<tbl_ESignatureKeys>();
+                if (ApplicantID == 0)
+                {
+                    GetCoappList = db.tbl_ESignatureKeys.Where(c => c.TenantID == ProspectId && c.DateSigned == "").ToList();
+                }
+                else
+                {
+                    GetCoappList = db.tbl_ESignatureKeys.Where(c => c.TenantID == ProspectId && c.DateSigned == "" && c.ApplicantID == ApplicantID).ToList();
+                }
+                foreach (var app in GetCoappList)
+                {
+                    var apptdata = db.tbl_Applicant.Where(c => c.ApplicantID == app.ApplicantID).FirstOrDefault();
+
+                    string payid = app.Key.ToString();
+                    reportHTML = reportHTML.Replace("[%Status%]", "Reminder Review and Sign your application");
+                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Reminder Review and Sign your application");
+                    reportHTML = reportHTML.Replace("[%StatusDet%]", "Hi <b>" + apptdata.FirstName + " " + apptdata.LastName + "</b>,<br/>Your Online application is Approved. Please click below to sign the lease </u> ");
+                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/CheckList/SignLease?key=" + app.Key.ToString() + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/CheckList/SignLease?key=" + app.Key.ToString() + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Review and Sign</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                    reportHTML = reportHTML.Replace("[%TenantName%]", apptdata.FirstName + " " + apptdata.LastName);
+
+                    string body = reportHTML;
+                    new EmailSendModel().SendEmail(apptdata.Email, "Reminder Review and Sign your application", body);
+                    if (SendMessage == "yes")
+                    {
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
+                    }
+                }
+            }
+
+            msg = "Email Send Successfully";
+            return msg;
+        }
+        public void SaveScreeningStatusList(string Email, long UserId, string Status)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var GetTenantDet = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
+            string result = SaveScreeningStatus(Email, GetTenantDet.ID, Status,"");
+            db.Dispose();
 
         }
-        
+        public List<BackgroundScreeningModel> BackgroundScreeningList(long TenantId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+         
+            var bgscrData = db.tbl_BackgroundScreening.Where(a => a.OrderID == TenantId).ToList();
+
+            List<BackgroundScreeningModel> bgScrLIst = new List<BackgroundScreeningModel>();
+            try
+            {
+                foreach (var bgscr in bgscrData)
+                {
+                    var tenDet = db.tbl_Applicant.Where(c => c.ApplicantID == bgscr.TenantId).FirstOrDefault();
+                    BackgroundScreeningModel bgScr = new BackgroundScreeningModel();
+                    bgScr.TenantName = tenDet.FirstName + " " + tenDet.LastName;
+                    bgScr.Id = bgscr.Id;
+                    bgScr.TenantId = bgscr.TenantId;
+                    bgScr.OrderID = bgscr.OrderID;
+                    bgScr.Status = bgscr.Status==null?"": bgscr.Status;
+                    bgScr.PDFUrl = bgscr.PDFUrl==null?"": bgscr.PDFUrl;
+                    bgScr.Type = bgscr.Type;
+                    bgScr.Notes = bgscr.Notes == null ? "" : bgscr.Notes;
+                    bgScrLIst.Add(bgScr);
+                }
+                db.Dispose();
+                return bgScrLIst;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+        public string UpdateScreeNotes(long ID,  string Notes)
+        {
+
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (ID != 0)
+            {
+
+                var getdata = db.tbl_BackgroundScreening.Where(p => p.Id == ID).FirstOrDefault();
+                if (getdata != null)
+                {
+                   
+                    getdata.Notes =Notes;
+                }
+                db.SaveChanges();
+
+                msg = "Notes Saved Successfully";
+            }
+            db.Dispose();
+            return msg;
+        }
         public class ProspectVerifySearchModel
         {
             public long ID { get; set; }
@@ -451,6 +697,7 @@ namespace ShomaRM.Areas.Admin.Models
             public string SortBy { get; set; }
             public string OrderBy { get; set; }
             public string UnitNo { get; set; }
+            public string ApplicationStatus { get; set; }
         }
     
         public string GetDocumentType(string DocType)
@@ -482,6 +729,7 @@ namespace ShomaRM.Areas.Admin.Models
             ShomaRMEntities db = new ShomaRMEntities();
 
             ProspectVerificationModel model = new ProspectVerificationModel();
+            model.ApplicantUserId = Id;
             model.ProspectId = 0;
             model.IsApplyNow = 1;
             model.IsApplyNowStatus = "New";
@@ -505,6 +753,7 @@ namespace ShomaRM.Areas.Admin.Models
                 {
                     var GetPaymentProspectData = db.tbl_OnlinePayment.Where(p => p.ProspectId == GetProspectData.ID).FirstOrDefault();
                     var GetDocumentVerificationData = db.tbl_DocumentVerification.Where(p => p.ProspectusID == GetProspectData.ID).FirstOrDefault();
+                    var GetApplyNowData = db.tbl_ApplyNow.Where(p => p.ID == GetProspectData.ID).FirstOrDefault();
 
                     model.FirstName = GetProspectData.FirstName;
                     model.LastName = GetProspectData.LastName;
@@ -536,9 +785,25 @@ namespace ShomaRM.Areas.Admin.Models
                     model.FOBAmt = 0;
                     model.EnvelopeID = (!string.IsNullOrWhiteSpace(GetProspectData.EnvelopeID) ? GetProspectData.EnvelopeID : "");
                     model.EsignatureID = (!string.IsNullOrWhiteSpace(GetProspectData.EsignatureID) ? GetProspectData.EsignatureID : "");
-                    model.LeaseTerm = GetProspectData.LeaseTerm ?? 12;
+
+                    model.Notes = GetProspectData.Notes == null ? "" : GetProspectData.Notes;
+                    //model.LeaseTerm = GetProspectData.LeaseTerm ?? 12;
+
+                    var leaseDet = db.tbl_LeaseTerms.Where(p => p.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
+                    if (leaseDet != null)
+                    {
+                        model.LeaseTerm = Convert.ToInt32(leaseDet.LeaseTerms);
+                    }
+                    else
+                    {
+                        model.LeaseTerm = 12;
+                    }
+
                     model.PetDNAAmt = GetProspectData.PetDNAAmt;
                     model.LeaseTermID = Convert.ToInt32(GetProspectData.LeaseTerm);
+
+                    model.VehicleRegistration = GetApplyNowData != null ? Convert.ToDecimal(GetApplyNowData.VehicleRegistration) : 0;
+
                     DateTime? dateExpire = null;
                     try
                     {
@@ -607,10 +872,12 @@ namespace ShomaRM.Areas.Admin.Models
 
                     //model.MoveInDateTxt = "";
                     model.MoveInTime = "";
-                   // model.MoveInCharges = 0;
+                    // model.MoveInCharges = 0;
+                    model.MoveInChargesFMIT = 0;
                     model.IsCheckATT = 0;
                     model.IsCheckPO = 0;
                     model.IsCheckWater = 0;
+                    model.IsCheckSD = 0;
                     model.InsuranceDoc = "";
                     model.ElectricityDoc = "";
                     var MoveInData = db.tbl_MoveInChecklist.Where(co => co.ProspectID == model.ProspectId).FirstOrDefault();
@@ -618,10 +885,12 @@ namespace ShomaRM.Areas.Admin.Models
                     {
                         model.MoveInDateTxt = MoveInData.MoveInDate.HasValue ? MoveInData.MoveInDate.Value.ToString("MM/dd/yyyy") : "";
                         model.MoveInTime = MoveInData.MoveInTime;
-                       // model.MoveInCharges = MoveInData.MoveInCharges ?? 0;
+                        // model.MoveInCharges = MoveInData.MoveInCharges ?? 0;
+                        model.MoveInChargesFMIT = MoveInData.MoveInCharges ?? 0;
                         model.IsCheckATT = MoveInData.IsCheckATT ?? 0;
                         model.IsCheckPO = MoveInData.IsCheckPO ?? 0;
                         model.IsCheckWater = MoveInData.IsCheckWater ?? 0;
+                        model.IsCheckSD = MoveInData.IsCheckSD ?? 0;
                         model.InsuranceDoc = MoveInData.InsuranceDoc;
                         model.ElectricityDoc = MoveInData.ElectricityDoc;
                     }
@@ -729,7 +998,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == prosInfo.PropertyId).FirstOrDefault();
                 string reportHTML = "";
-                string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplate.html");
                 string message = "";
                 string phonenumber = prosInfo.Phone;
@@ -754,7 +1023,10 @@ namespace ShomaRM.Areas.Admin.Models
 
                 if (SendMessage == "yes")
                 {
-                    new TwilioService().SMS(phonenumber, message);
+                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    {
+                        new TwilioService().SMS(phonenumber, message);
+                    }
                 }
             }
             db.Dispose();
@@ -776,8 +1048,9 @@ namespace ShomaRM.Areas.Admin.Models
             var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == appn.PropertyId).FirstOrDefault();
 
             string reportHTML = "";
-            string filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
             reportHTML = System.IO.File.ReadAllText(filePath + "LeaseDoc.html");
+            reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
             string Pets = "";
             string OtherResidents = "";
 

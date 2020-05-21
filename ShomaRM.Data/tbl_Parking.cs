@@ -21,7 +21,6 @@ namespace ShomaRM.Data
         public string Description { get; set; }
         public Nullable<int> Type { get; set; }
         public Nullable<int> Status { get; set; }
-    
-        public virtual tbl_Properties tbl_Properties { get; set; }
+        public Nullable<long> AddedBy { get; set; }
     }
 }

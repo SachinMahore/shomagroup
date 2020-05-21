@@ -1,0 +1,1 @@
+ALTER TABLE tbl_Prospect ADD  OutlookID VARCHAR(MAX)

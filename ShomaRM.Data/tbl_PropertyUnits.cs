@@ -66,6 +66,7 @@ namespace ShomaRM.Data
         public string BalconyArea { get; set; }
         public string InteriorArea { get; set; }
         public string Notes { get; set; }
+        public Nullable<int> IsFurnished { get; set; }
     
         public virtual tbl_Properties tbl_Properties { get; set; }
     }

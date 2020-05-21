@@ -38,7 +38,11 @@ namespace ShomaRM.Areas.Admin.Models
         public List<PropertyUnits> lstPropertyUnit { get; set; }
         public List<PropertyFloor> lstPropertyFloor { get; set; }
         public Nullable<decimal> ApplicationFees { get; set; }
+        public Nullable<decimal> AppCCCheckFees { get; set; }
+        public Nullable<decimal> AppBGCheckFees { get; set; }
         public Nullable<decimal> GuarantorFees { get; set; }
+        public Nullable<decimal> GuaCCCheckFees { get; set; }
+        public Nullable<decimal> GuaBGCheckFees { get; set; }
         public Nullable<decimal> PestControlFees { get; set; }
         public Nullable<decimal> TrashFees { get; set; }
         public Nullable<decimal> ConversionBillFees { get; set; }
@@ -46,6 +50,8 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<decimal> DNAPetFees { get; set; }
         public Nullable<decimal> ProcessingFees { get; set; }
 
+        public List<UnitLeasePriceHeader> lstUnitLeasePriceHeader { get; set; }
+        public decimal ColumnWidth { get; set; }
 
         public string SaveUpdateProperty(PropertyManagementModel model)
         {
@@ -83,7 +89,11 @@ namespace ShomaRM.Areas.Admin.Models
                     ConversionBillFees = model.ConversionBillFees,
                     AdminFees = model.AdminFees,
                     PetDNAAmt = model.DNAPetFees,
-                    ProcessingFees = model.ProcessingFees
+                    ProcessingFees = model.ProcessingFees,
+                    AppCCCheckFees = model.AppCCCheckFees,
+                    AppBGCheckFees = model.AppBGCheckFees,
+                    GuaCCCheckFees = model.GuaCCCheckFees,
+                    GuaBGCheckFees = model.GuaBGCheckFees
                 };
                 db.tbl_Properties.Add(saveProp);
                 db.SaveChanges();
@@ -130,6 +140,11 @@ namespace ShomaRM.Areas.Admin.Models
                     propUpdate.AdminFees = model.AdminFees;
                     propUpdate.PetDNAAmt = model.DNAPetFees;
                     propUpdate.ProcessingFees = model.ProcessingFees;
+                    propUpdate.ProcessingFees = model.ProcessingFees;
+                    propUpdate.AppCCCheckFees = model.AppCCCheckFees;
+                    propUpdate.AppBGCheckFees = model.AppBGCheckFees;
+                    propUpdate.GuaCCCheckFees = model.GuaCCCheckFees;
+                    propUpdate.GuaBGCheckFees = model.GuaBGCheckFees;
                 }
                 db.SaveChanges();
                 msg = "Property Details Updated Successfully";
@@ -243,8 +258,31 @@ namespace ShomaRM.Areas.Admin.Models
                 model.AdminFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.AdminFees));
                 model.DNAPetFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.PetDNAAmt));
                 model.ProcessingFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.ProcessingFees));
-
+                model.AppCCCheckFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.AppCCCheckFees));
+                model.AppBGCheckFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.AppBGCheckFees));
+                model.GuaCCCheckFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.GuaCCCheckFees));
+                model.GuaBGCheckFees = Convert.ToDecimal(String.Format("{0:0.00}", propDet.GuaBGCheckFees));
             }
+
+            var leaseTerms = db.tbl_LeaseTerms.ToList().OrderBy(p => p.LeaseTerms ?? 0);
+
+            decimal rowCount = leaseTerms.Count();
+            if(rowCount==0)
+            {
+                rowCount = 1;
+            }
+            decimal width = 80 / rowCount;
+
+            List<UnitLeasePriceHeader> ulph = new List<UnitLeasePriceHeader>();
+            ulph.Add(new UnitLeasePriceHeader() { HeaderName = "Unit No", SortName = "UnitNo", Width = (rowCount == 1 ? "50" : "5"), DefaultSort = "1", HasSorting="1" });
+            ulph.Add(new UnitLeasePriceHeader() { HeaderName = "Model", SortName = "Building", Width = (rowCount == 1 ? "50" : "5"), DefaultSort = "0", HasSorting = "1" });
+            foreach(var lt in leaseTerms)
+            {
+                ulph.Add(new UnitLeasePriceHeader() { HeaderName = (lt.LeaseTerms ?? 0).ToString() + " Months", SortName = (lt.LeaseTerms ?? 0).ToString() + "Months", Width = width.ToString("0.00"), DefaultSort = "0" , HasSorting="0"});
+            }
+
+            model.lstUnitLeasePriceHeader = ulph;
+
             var floorlist = db.tbl_PropertyFloor.Where(p => p.PID == id).ToList();
             if (floorlist != null)
             {
@@ -481,6 +519,7 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
+       
         public int BuildPaganationPropList(PropertySearch model)
         {
             int NOP = 0;
@@ -636,7 +675,125 @@ namespace ShomaRM.Areas.Admin.Models
             }
             return propertyManagementModel;
         }
+        public List<UnitLeaseWisePriceList> GetUnitLeasePrice(long PID, int PN, int NOR, string SortBy, string OrderBy)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<UnitLeaseWisePriceList> lstUnitLeasePrice = new List<UnitLeaseWisePriceList>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetUnitLeasePrice";
+                    cmd.CommandType = CommandType.StoredProcedure;
 
+                    DbParameter param0 = cmd.CreateParameter();
+                    param0.ParameterName = "PropertyId";
+                    param0.Value = PID;
+                    cmd.Parameters.Add(param0);
+
+                    DbParameter param3 = cmd.CreateParameter();
+                    param3.ParameterName = "PageNumber";
+                    param3.Value = PN;
+                    cmd.Parameters.Add(param3);
+
+                    DbParameter param4 = cmd.CreateParameter();
+                    param4.ParameterName = "NumberOfRows";
+                    param4.Value = NOR;
+                    cmd.Parameters.Add(param4);
+
+                    DbParameter param5 = cmd.CreateParameter();
+                    param5.ParameterName = "SortBy";
+                    param5.Value = SortBy;
+                    cmd.Parameters.Add(param5);
+
+                    DbParameter param6 = cmd.CreateParameter();
+                    param6.ParameterName = "OrderBy";
+                    param6.Value = OrderBy;
+                    cmd.Parameters.Add(param6);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    UnitLeaseWisePriceList searchmodel = new UnitLeaseWisePriceList();
+                    searchmodel.UID = Convert.ToInt64(dr["UID"].ToString());
+                    searchmodel.UnitNo = dr["UnitNo"].ToString();
+                    searchmodel.Building = dr["Building"].ToString();
+                    searchmodel.ULPID = Convert.ToInt64(dr["ULPID"].ToString());
+                    searchmodel.LeaseID = Convert.ToInt32(dr["LeaseID"].ToString());
+                    searchmodel.Price = Convert.ToDecimal(dr["Price"].ToString());
+                    lstUnitLeasePrice.Add(searchmodel);
+                }
+                db.Dispose();
+                return lstUnitLeasePrice.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+        public int BuildPaganationUnitLeasePrice(long PID, int PN, int NOR, string SortBy, string OrderBy)
+        {
+            int NOP = 0;
+            ShomaRMEntities db = new ShomaRMEntities();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetUnitLeasePrice";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter param0 = cmd.CreateParameter();
+                    param0.ParameterName = "PropertyId";
+                    param0.Value = PID;
+                    cmd.Parameters.Add(param0);
+
+                    DbParameter param3 = cmd.CreateParameter();
+                    param3.ParameterName = "PageNumber";
+                    param3.Value = PN;
+                    cmd.Parameters.Add(param3);
+
+                    DbParameter param4 = cmd.CreateParameter();
+                    param4.ParameterName = "NumberOfRows";
+                    param4.Value = NOR;
+                    cmd.Parameters.Add(param4);
+
+                    DbParameter param5 = cmd.CreateParameter();
+                    param5.ParameterName = "SortBy";
+                    param5.Value = SortBy;
+                    cmd.Parameters.Add(param5);
+
+                    DbParameter param6 = cmd.CreateParameter();
+                    param6.ParameterName = "OrderBy";
+                    param6.Value = OrderBy;
+                    cmd.Parameters.Add(param6);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                if (dtTable.Rows.Count > 0)
+                {
+                    NOP = int.Parse(dtTable.Rows[0]["NOP"].ToString());
+                }
+                db.Dispose();
+                return NOP;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
         public class PropertySearch
         {
             public long PID { get; set; }
@@ -723,6 +880,16 @@ namespace ShomaRM.Areas.Admin.Models
         public string UnitWiseRentData { get; set; }
         public List<PropertyUnits> lstPropertyUnit { get; set; }
         public List<PremiumTypeModel> PremiumTypeList { get; set; }
+
+        public long ParkingID { get; set; }
+        public string ParkingName { get; set; }
+        public string Charges { get; set; }
+        public string Description { get; set; }
+        public string ParkingDescription { get; set; }
+        public List<ParkingModel> LocationList { get; set; }
+        public int Type { get; set; }
+        public int? IsFurnished { get; set; }
+
         public PropertyUnits GetPropertyUnitDetails(long UID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -818,7 +985,34 @@ namespace ShomaRM.Areas.Admin.Models
                 model.InteriorArea = unitDet.InteriorArea == null?"0":unitDet.InteriorArea;
                 model.BalconyArea = unitDet.BalconyArea == null ? "0" : unitDet.BalconyArea;
                 model.Notes = unitDet.Notes;
-                
+                model.IsFurnished = unitDet.IsFurnished;
+                var ParkingInfo = db.tbl_Parking.Where(p => p.PropertyID == unitDet.UID).FirstOrDefault();
+                if (ParkingInfo != null)
+                {
+                    if (ParkingInfo.Type == 1)
+                    {
+                        model.ParkingID = ParkingInfo.ParkingID;
+                        model.ParkingName = ParkingInfo.ParkingName;
+                        model.Charges = Convert.ToDecimal(ParkingInfo.Charges).ToString();
+                        model.Description = ParkingInfo.Description;
+                    }
+
+                }
+                var ParkingInfoList = db.tbl_Parking.ToList();
+                if (ParkingInfoList != null)
+                {
+                    List<ParkingModel> lst = new List<ParkingModel>();
+                    foreach (var item in ParkingInfoList)
+                    {
+                        lst.Add(new ParkingModel()
+                        {
+                            ParkingID = item.ParkingID,
+                            PropertyID = item.PropertyID,
+                            Description = item.Description
+                        });
+                    }
+                    model.LocationList = lst;
+                }
             }
 
             return model;
@@ -931,6 +1125,7 @@ namespace ShomaRM.Areas.Admin.Models
                     BalconyArea=model.BalconyArea,
                     InteriorArea=model.InteriorArea,
                     Notes=model.Notes,
+                    IsFurnished = model.IsFurnished
                 };
                 db.tbl_PropertyUnits.Add(saveProp);
                 db.SaveChanges();
@@ -993,11 +1188,39 @@ namespace ShomaRM.Areas.Admin.Models
                     propUnitUpdate.BalconyArea = model.BalconyArea;
                     propUnitUpdate.InteriorArea = model.InteriorArea;
                     propUnitUpdate.Notes = model.Notes;
+                    propUnitUpdate.IsFurnished = model.IsFurnished;
                 }
                 db.SaveChanges();
                 msg = "Property Unit Details Updated Successfully";
             }
+            if (model.ParkingID == 0)
+            {
+                var saveParking = new tbl_Parking()
+                {
+                    //ParkingID = model.ParkingID,
+                    ParkingName = model.ParkingName,
+                    Charges = Convert.ToDecimal(model.Charges),
+                    Description = model.ParkingDescription,
+                    Type = model.Type
+                };
+                db.tbl_Parking.Add(saveParking);
+                db.SaveChanges();
+            }
+            else
+            {
+                var parkingUpdate = db.tbl_Parking.Where(p => p.ParkingID == model.ParkingID).FirstOrDefault();
+                if (parkingUpdate != null)
+                {
+                    if (parkingUpdate.Type == 1)
+                    {
+                        parkingUpdate.ParkingName = model.ParkingName;
+                        parkingUpdate.Charges = Convert.ToDecimal(model.Charges);
+                        parkingUpdate.Description = model.Description;
+                        db.SaveChanges();
+                    }
 
+                }
+            }
             // Unit Wise Rent //
             var unitWiseRent = db.tbl_UnitLeasePrice.Where(p => p.UnitID == model.UID).ToList();
             if(unitWiseRent.Count>0)
@@ -1270,6 +1493,24 @@ namespace ShomaRM.Areas.Admin.Models
                 throw ex;
             }
         }
+        public long UpdateUnitLeasePrice(long ULPID, decimal Price)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+            if (ULPID != 0)
+            {
+                var propUnitLeaseUpdate = db.tbl_UnitLeasePrice.Where(p => p.ULPID == ULPID).FirstOrDefault();
+                if (propUnitLeaseUpdate != null)
+                {
+                    propUnitLeaseUpdate.Price = Price;
+                    db.SaveChanges();
+                    msg = "Property Unit Details Updated Successfully";
+                }
+            }
+            
+            db.Dispose();
+            return ULPID;
+        }
     }
     public partial class PropertyFloor
     {
@@ -1413,6 +1654,10 @@ namespace ShomaRM.Areas.Admin.Models
 
                 if (UpdateModels != null)
                 {
+                    string oldmodelName = UpdateModels.ModelName;
+                    decimal olddeposit = UpdateModels.Deposit??0;
+
+
                     UpdateModels.Area = model.Area;
                     UpdateModels.Rent = model.Rent;
                     UpdateModels.Bedroom = model.Bedroom;
@@ -1425,14 +1670,42 @@ namespace ShomaRM.Areas.Admin.Models
                     UpdateModels.BalconyArea = model.BalconyArea;
                     UpdateModels.InteriorArea = model.InteriorArea;
                     db.SaveChanges();
+
+                    if (oldmodelName != model.ModelName || olddeposit != (model.Deposit ?? 0))
+                    {
+                        DataTable dtTable = new DataTable();
+                        using (var cmd = db.Database.Connection.CreateCommand())
+                        {
+                            db.Database.Connection.Open();
+                            cmd.CommandText = "usp_UpdateUnitDepostiteAndModelName";
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            DbParameter paramOMN = cmd.CreateParameter();
+                            paramOMN.ParameterName = "OldModelName";
+                            paramOMN.Value = oldmodelName;
+                            cmd.Parameters.Add(paramOMN);
+
+                            DbParameter paramNMN = cmd.CreateParameter();
+                            paramNMN.ParameterName = "NewModelName";
+                            paramNMN.Value = model.ModelName;
+                            cmd.Parameters.Add(paramNMN);
+
+                            DbParameter paramDA = cmd.CreateParameter();
+                            paramDA.ParameterName = "Deposit";
+                            paramDA.Value = model.Deposit ?? 0;
+                            cmd.Parameters.Add(paramDA);
+
+                            DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                            da.SelectCommand = cmd;
+                            da.Fill(dtTable);
+                            db.Database.Connection.Close();
+                        }
+
+                    }
                 }
             }
-
-
             return model;
         }
-
-        
 
         public ModelsModel GetModelsData(int Id)
         {
@@ -1631,5 +1904,24 @@ namespace ShomaRM.Areas.Admin.Models
         public int? LeaseTerms { get; set; }
         public decimal? Price { get; set; }
         public decimal? Deposit { get; set; }
+    }
+
+    public class UnitLeaseWisePriceList
+    {
+        public long UID { get; set; }
+        public string UnitNo { get; set; }
+        public string Building { get; set; }
+        public long ULPID { get; set; }
+        public long LeaseID { get; set; }
+        public decimal Price { get; set; }
+    } 
+
+    public class UnitLeasePriceHeader
+    {
+        public string HeaderName { get; set; }
+        public string SortName { get; set; }
+        public string Width { get; set; }
+        public string DefaultSort { get; set; }
+        public string HasSorting { get; set; }
     }
 }

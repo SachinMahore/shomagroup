@@ -9,6 +9,7 @@
 <input type="hidden" id="hndTenantID" value="@Model.TenantID" />
 <input type="hidden" id="hndARID" value="@ViewBag.ARID" />
 <input type="hidden" id="hndDepoPay" value="0" />
+<input type="hidden" id="hndProcessingFees" value="@ViewBag.ProcessingFees" />
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
@@ -471,15 +472,6 @@
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
-                //if (response != "0") {
-                //    $("#hndUID").val(response);
-                //    getTenantInfo(response);
-                //    goToStep(2, 2);
-                //    $("#btnLogout").removeClass("hidden");
-                //} else {
-                //    alert("Invalid Email ID / password.")
-                //}
-
                 var result = response.UserData.split("|");
 
                 if (result[0] == -1) {
@@ -494,6 +486,15 @@
                         getTenantInfoPaymentLink(result[0]);
                         goToStep(2, 2);
                         $("#btnLogout").removeClass("hidden");
+                    }
+                    else if (result[1] == "cl") {
+                        window.location = "/Checklist/";
+                    }
+                    else if (result[1] == "as") {
+                        window.location = "/ApplicationStatus/Index/" + result[2];
+                    }
+                    else if (result[1] == "an") {
+                        window.location = "/ApplyNow/Index/" + result[0];
                     }
                     else {
                         window.location = "/Home/";
@@ -612,7 +613,7 @@
         };
         $.alert({
             title: "",
-            content: "You have chosen to pay $" + chargeAmount + " plus a $3.95 processing fee, your total will be $" + parseFloat(parseFloat(chargeAmount) + parseFloat(3.95)).toFixed(2) + ". Do you want to Pay Now?",
+            content: "You have chosen to pay $" + chargeAmount + " plus a $" + parseFloat(getProcessingFeesPAC()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(chargeAmount) + parseFloat(getProcessingFeesPAC())).toFixed(2) + ". Do you want to Pay Now?",
             type: 'blue',
             buttons: {
                 yes: {
@@ -675,5 +676,8 @@
                 window.location.href = '/Tenant/MyAccount/Index/' + response.model;
             }
         });
+    };
+    var getProcessingFeesPAC = function () {
+        return $("#hndProcessingFees").val();
     };
 </script>

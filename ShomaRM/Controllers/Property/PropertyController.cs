@@ -97,11 +97,11 @@ namespace ShomaRM.Controllers
             }
 
         }
-        public ActionResult GetPropertyModelUnitList(string ModelName, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int LeaseTermID)
+        public ActionResult GetPropertyModelUnitList(string ModelName, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int LeaseTermID, long ProspectId)
         {
             try
             {
-                return Json(new { model = (new PropertyModel().GetPropertyModelUnitList(ModelName, AvailableDate, Current_Rent, Bedroom, LeaseTermID)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = (new PropertyModel().GetPropertyModelUnitList(ModelName, AvailableDate, Current_Rent, Bedroom, LeaseTermID, ProspectId)) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
@@ -145,11 +145,11 @@ namespace ShomaRM.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult GetPropertyFloorDetails(int FloorID, DateTime AvailableDate, int Bedroom, decimal MaxRent, int LeaseTermID, string ModelName)
+        public ActionResult GetPropertyFloorDetails(int FloorID, DateTime AvailableDate, int Bedroom, decimal MaxRent, int LeaseTermID, string ModelName, long ProspectId)
         {
             try
             {
-                return Json(new { model = (new PropertyFloor().GetPropertyFloorDetails(FloorID, AvailableDate, Bedroom, MaxRent, LeaseTermID, ModelName)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = (new PropertyFloor().GetPropertyFloorDetails(FloorID, AvailableDate, Bedroom, MaxRent, LeaseTermID, ModelName, ProspectId)) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
@@ -192,11 +192,11 @@ namespace ShomaRM.Controllers
             }
 
         }
-        public ActionResult GetPropertyModelList(long PID, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int SortOrder)
+        public ActionResult GetPropertyModelList(long PID, DateTime AvailableDate, decimal Current_Rent, int Bedroom, int SortOrder, int Furnished)
         {
             try
             {
-                return Json(new { model = (new PropertyModel().GetPropertyModelList(PID, AvailableDate, Current_Rent, Bedroom, SortOrder)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = (new PropertyModel().GetPropertyModelList(PID, AvailableDate, Current_Rent, Bedroom, SortOrder, Furnished)) }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
@@ -205,6 +205,23 @@ namespace ShomaRM.Controllers
             }
 
         }
-   
+        public ActionResult UploadPetPolicyFile()
+        {
+            try
+            {
+                HttpPostedFileBase fileBaseUpload1 = null;
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBaseUpload1 = Request.Files[i];
+
+                }
+
+                return Json(new { model = new PropertyModel().UploadPetPolicyFile(fileBaseUpload1) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

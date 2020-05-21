@@ -100,7 +100,7 @@ namespace ShomaRM.Data
         public Nullable<bool> HavePet { get; set; }
         public string PassportDocumentOriginalFile { get; set; }
         public string IdentityDocumentOriginalFile { get; set; }
-        public Nullable<bool> IsPaystub { get; set; }
+        public Nullable<int> IsPaystub { get; set; }
         public string ProfilePicture { get; set; }
         public string OrginalProfilePicture { get; set; }
         public Nullable<int> IsAgreePostDisclaimer { get; set; }

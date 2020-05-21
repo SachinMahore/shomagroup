@@ -1,4 +1,5 @@
 ﻿using ShomaRM.Data;
+using ShomaRM.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,11 +42,13 @@ namespace ShomaRM.Areas.Tenant.Models
         public string TerminationDateString { get; set; }
         public string TerminationReason { get; set; }
         public int TotalMonthsEmployerHistory { get; set; }
-
+        //Sachin Mahore 23 Apr
+        public long ParentTOID { get; set; }
         public string saveUpdateEmployerHistory(EmployerHistoryModel model)
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.HEIID == 0)
             {
                 var saveEmployerHistory = new tbl_EmployerHistory()
@@ -68,7 +71,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     City = model.City,
                     Zip = model.Zip,
                     TenantId = model.TenantId,
-                    TerminationReason = model.TerminationReason
+                    TerminationReason = model.TerminationReason,
+                    ParentTOID= userid,
                 };
                 db.tbl_EmployerHistory.Add(saveEmployerHistory);
                 db.SaveChanges();
@@ -110,7 +114,8 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             List<EmployerHistoryModel> model = new List<EmployerHistoryModel>();
             ShomaRMEntities db = new ShomaRMEntities();
-            var getEmployerHistorydata = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId).ToList();
+            long addedby = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var getEmployerHistorydata = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId && co.ParentTOID == addedby).ToList();
             if (getEmployerHistorydata != null)
             {
                 foreach (var item in getEmployerHistorydata)
@@ -167,71 +172,7 @@ namespace ShomaRM.Areas.Tenant.Models
             return msg;
         }
 
-        //public EmployerHistoryModel GetMonthsFromEmployerHistory(long TenantId, string EmpStartDate, string EmpTerminationDate)
-        //{
-        //    ShomaRMEntities db = new ShomaRMEntities();
-        //    EmployerHistoryModel model = new EmployerHistoryModel();
-
-        //    try
-        //    {
-        //        int monthsCount = 0;
-        //        string fromDateDB = string.Empty;
-        //        string toDateDB = string.Empty;
-        //        var startDateEmpHist = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId).OrderBy(co => co.StartDate).ToList();
-        //        if (startDateEmpHist != null)
-        //        {
-        //            foreach (var item in startDateEmpHist)
-        //            {
-        //                fromDateDB = Convert.ToString(item.StartDate);
-        //                break;
-        //            }
-        //        }
-        //        var terminationDateEmpHist = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId).OrderByDescending(co => co.TerminationDate).ToList();
-        //        if (terminationDateEmpHist != null)
-        //        {
-        //            foreach (var item in terminationDateEmpHist)
-        //            {
-        //                toDateDB = Convert.ToString(item.TerminationDate);
-        //                break;
-        //            }
-        //        }
-        //        if (fromDateDB != string.Empty && toDateDB != string.Empty)
-        //        {
-        //            DateTime dt1FromDB = Convert.ToDateTime(fromDateDB);
-        //            DateTime dt2ToDB = Convert.ToDateTime(toDateDB);
-        //            if (EmpStartDate != string.Empty && EmpTerminationDate != string.Empty)
-        //            {
-        //                DateTime dt1Form = Convert.ToDateTime(EmpStartDate);
-        //                DateTime dt2Form = Convert.ToDateTime(EmpTerminationDate);
-        //                bool fDate = dt1FromDB < dt1Form;
-        //                bool tDate = dt2ToDB > dt2Form;
-
-        //                DateTime finalDt1 = Convert.ToDateTime(fDate == true ? dt1FromDB : dt1Form);
-        //                DateTime finalDt2 = Convert.ToDateTime(tDate == true ? dt2ToDB : dt2Form);
-
-        //                int givenDate = ((finalDt2.Year - finalDt1.Year) * 12) + finalDt2.Month - finalDt1.Month;
-        //                monthsCount = monthsCount + givenDate;
-        //            }
-        //        }
-        //        else if (EmpStartDate != string.Empty && EmpTerminationDate != string.Empty)
-        //        {
-        //            DateTime dt1 = Convert.ToDateTime(EmpStartDate);
-        //            DateTime dt2 = Convert.ToDateTime(EmpTerminationDate);
-        //            int givenDate = ((dt2.Year - dt1.Year) * 12) + dt2.Month - dt1.Month;
-        //            monthsCount = monthsCount + givenDate;
-        //        }
-        //        model.TotalMonthsEmployerHistory = monthsCount;
-
-        //        db.Dispose();
-        //        return model;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        db.Database.Connection.Close();
-        //        throw ex;
-        //    }
-        //}
-
+     
         public EmployerHistoryModel EditEmployerHistory(long HEIID)
         {
             EmployerHistoryModel model = new EmployerHistoryModel();
@@ -279,7 +220,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 int monthsCount = 0;
                 string fromDateDB = string.Empty;
                 string toDateDB = string.Empty;
-                var empHist = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId).ToList();
+                long ptoid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+                var empHist = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId && co.ParentTOID == ptoid).ToList();
                 if (empHist != null)
                 {
                     foreach (var item in empHist)
@@ -291,7 +233,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         DateTime dtToDB = Convert.ToDateTime(toDateDB);
                         int givenDate = ((dtToDB.Year - dtFromDB.Year) * 12) + dtToDB.Month - dtFromDB.Month;
 
-                        monthsCount += givenDate;
+                        monthsCount += givenDate+1;
                     }
                 }
 
@@ -299,7 +241,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 DateTime dtCurrentToDB = Convert.ToDateTime(EmpTerminationDate);
 
                 int givenCurrentDate = ((dtCurrentToDB.Year - dtCurrentFromDB.Year) * 12) + dtCurrentToDB.Month - dtCurrentFromDB.Month;
-                monthsCount += givenCurrentDate;
+                monthsCount += givenCurrentDate+1;
 
 
                 model.TotalMonthsEmployerHistory = monthsCount;
@@ -312,6 +254,128 @@ namespace ShomaRM.Areas.Tenant.Models
                 db.Database.Connection.Close();
                 throw ex;
             }
+        }
+        
+        public EmployerHistoryModel GetPriousEmploymentInfo(int id)
+        {
+            EmployerHistoryModel model = new EmployerHistoryModel();
+            ShomaRMEntities db = new ShomaRMEntities();
+            long ptoid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var PriousEmploymentdata = db.tbl_EmployerHistory.Where(co => co.TenantId == id && co.ParentTOID == ptoid).OrderByDescending(s => s.HEIID).FirstOrDefault();
+
+            if (PriousEmploymentdata != null)
+            {
+                var countryName = db.tbl_Country.Where(co => co.ID == PriousEmploymentdata.Country).FirstOrDefault();
+                var StateName = db.tbl_State.Where(co => co.ID == PriousEmploymentdata.State).FirstOrDefault();
+
+                model.HEIID = PriousEmploymentdata.HEIID;
+                model.EmployerName = !string.IsNullOrWhiteSpace(PriousEmploymentdata.EmployerName) ? PriousEmploymentdata.EmployerName : "";
+                model.JobTitle = !string.IsNullOrWhiteSpace(PriousEmploymentdata.JobTitle) ? PriousEmploymentdata.JobTitle : "";
+                model.JobType = PriousEmploymentdata.JobType;
+                model.StartDate = PriousEmploymentdata.StartDate;
+                model.TerminationDate = PriousEmploymentdata.TerminationDate;
+                model.AnnualIncome = PriousEmploymentdata.AnnualIncome;
+                model.AddAnnualIncome = PriousEmploymentdata.AddAnnualIncome;
+                model.SupervisorName = !string.IsNullOrWhiteSpace(PriousEmploymentdata.SupervisorName) ? PriousEmploymentdata.SupervisorName : "";
+                model.SupervisorPhone = PriousEmploymentdata.SupervisorPhone;
+                model.SupervisorEmail = !string.IsNullOrWhiteSpace(PriousEmploymentdata.SupervisorEmail) ? PriousEmploymentdata.SupervisorEmail : "";
+                model.Country = PriousEmploymentdata.Country;
+                model.Address1 = !string.IsNullOrWhiteSpace(PriousEmploymentdata.Address1) ? PriousEmploymentdata.Address1 : "";
+                model.Address2 = !string.IsNullOrWhiteSpace(PriousEmploymentdata.Address2) ? PriousEmploymentdata.Address2 : "";
+                model.State = PriousEmploymentdata.State;
+                model.City = !string.IsNullOrWhiteSpace(PriousEmploymentdata.City) ? PriousEmploymentdata.City : "";
+                model.Zip = !string.IsNullOrWhiteSpace(PriousEmploymentdata.Zip) ? PriousEmploymentdata.Zip : "";
+                model.StartDateString = PriousEmploymentdata.StartDate != null ? PriousEmploymentdata.StartDate.Value.ToString("MM/dd/yyyy") : "";
+                model.TerminationDateString = PriousEmploymentdata.TerminationDate != null ? PriousEmploymentdata.TerminationDate.Value.ToString("MM/dd/yyyy") : "";
+                model.TerminationReason = !string.IsNullOrWhiteSpace(PriousEmploymentdata.TerminationReason) ? PriousEmploymentdata.TerminationReason : "";
+                model.CountryName = countryName != null ? countryName.CountryName : "";
+                model.StateName = StateName != null ? StateName.StateName : "";
+                model.JobTypeName = PriousEmploymentdata.JobType == 1 ? "Permanent" : PriousEmploymentdata.JobType == 2 ? "Contract Basis" : "";
+            }
+            return model;
+        }
+        
+
+        public EmployerHistoryModel GetPriousEmploymentInfoPV(int id, long UserID)
+        {
+            EmployerHistoryModel model = new EmployerHistoryModel();
+            ShomaRMEntities db = new ShomaRMEntities();
+            long ptoid = UserID;
+            var PriousEmploymentdata = db.tbl_EmployerHistory.Where(co => co.TenantId == id && co.ParentTOID == ptoid).OrderByDescending(s => s.HEIID).FirstOrDefault();
+
+            if (PriousEmploymentdata != null)
+            {
+                var countryName = db.tbl_Country.Where(co => co.ID == PriousEmploymentdata.Country).FirstOrDefault();
+                var StateName = db.tbl_State.Where(co => co.ID == PriousEmploymentdata.State).FirstOrDefault();
+
+                model.HEIID = PriousEmploymentdata.HEIID;
+                model.EmployerName = !string.IsNullOrWhiteSpace(PriousEmploymentdata.EmployerName) ? PriousEmploymentdata.EmployerName : "";
+                model.JobTitle = !string.IsNullOrWhiteSpace(PriousEmploymentdata.JobTitle) ? PriousEmploymentdata.JobTitle : "";
+                model.JobType = PriousEmploymentdata.JobType;
+                model.StartDate = PriousEmploymentdata.StartDate;
+                model.TerminationDate = PriousEmploymentdata.TerminationDate;
+                model.AnnualIncome = PriousEmploymentdata.AnnualIncome;
+                model.AddAnnualIncome = PriousEmploymentdata.AddAnnualIncome;
+                model.SupervisorName = !string.IsNullOrWhiteSpace(PriousEmploymentdata.SupervisorName) ? PriousEmploymentdata.SupervisorName : "";
+                model.SupervisorPhone = PriousEmploymentdata.SupervisorPhone;
+                model.SupervisorEmail = !string.IsNullOrWhiteSpace(PriousEmploymentdata.SupervisorEmail) ? PriousEmploymentdata.SupervisorEmail : "";
+                model.Country = PriousEmploymentdata.Country;
+                model.Address1 = !string.IsNullOrWhiteSpace(PriousEmploymentdata.Address1) ? PriousEmploymentdata.Address1 : "";
+                model.Address2 = !string.IsNullOrWhiteSpace(PriousEmploymentdata.Address2) ? PriousEmploymentdata.Address2 : "";
+                model.State = PriousEmploymentdata.State;
+                model.City = !string.IsNullOrWhiteSpace(PriousEmploymentdata.City) ? PriousEmploymentdata.City : "";
+                model.Zip = !string.IsNullOrWhiteSpace(PriousEmploymentdata.Zip) ? PriousEmploymentdata.Zip : "";
+                model.StartDateString = PriousEmploymentdata.StartDate != null ? PriousEmploymentdata.StartDate.Value.ToString("MM/dd/yyyy") : "";
+                model.TerminationDateString = PriousEmploymentdata.TerminationDate != null ? PriousEmploymentdata.TerminationDate.Value.ToString("MM/dd/yyyy") : "";
+                model.TerminationReason = !string.IsNullOrWhiteSpace(PriousEmploymentdata.TerminationReason) ? PriousEmploymentdata.TerminationReason : "";
+                model.CountryName = countryName != null ? countryName.CountryName : "";
+                model.StateName = StateName != null ? StateName.StateName : "";
+                model.JobTypeName = PriousEmploymentdata.JobType == 1 ? "Permanent" : PriousEmploymentdata.JobType == 2 ? "Contract Basis" : "";
+            }
+            return model;
+        }
+        public List<EmployerHistoryModel> GetEmployerHistoryByAdmin(long TenantId, long ApplicantUserId)
+        {
+            List<EmployerHistoryModel> model = new List<EmployerHistoryModel>();
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            var getEmployerHistorydata = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId && co.ParentTOID == ApplicantUserId).ToList();
+            if (getEmployerHistorydata != null)
+            {
+                foreach (var item in getEmployerHistorydata)
+                {
+                    var countryName = db.tbl_Country.Where(co => co.ID == item.Country).FirstOrDefault();
+                    var StateName = db.tbl_State.Where(co => co.ID == item.State).FirstOrDefault();
+                    model.Add(new EmployerHistoryModel()
+                    {
+                        HEIID = item.HEIID,
+                        EmployerName = item.EmployerName,
+                        JobTitle = !string.IsNullOrWhiteSpace(item.JobTitle) ? item.JobTitle : "",
+                        JobType = item.JobType,
+                        StartDate = item.StartDate,
+                        TerminationDate = item.TerminationDate,
+                        AnnualIncome = item.AnnualIncome,
+                        AddAnnualIncome = item.AddAnnualIncome,
+                        SupervisorName = item.SupervisorName,
+                        SupervisorPhone = item.SupervisorPhone,
+                        SupervisorEmail = item.SupervisorEmail,
+                        Country = item.Country,
+                        Address1 = item.Address1,
+                        Address2 = item.Address2,
+                        State = item.State,
+                        City = item.City,
+                        Zip = item.Zip,
+                        CountryName = countryName != null ? countryName.CountryName : "",
+                        StateName = StateName != null ? StateName.StateName : "",
+                        JobTypeName = item.JobType == 1 ? "Permanent" : item.JobType == 2 ? "Contract Basis" : "",
+                        StartDateString = item.StartDate != null ? item.StartDate.Value.ToString("MM/dd/yyyy") : "",
+                        TerminationDateString = item.TerminationDate != null ? item.TerminationDate.Value.ToString("MM/dd/yyyy") : "",
+                        TerminationReason = !string.IsNullOrWhiteSpace(item.TerminationReason) ? item.TerminationReason : ""
+                    });
+                }
+
+            }
+            return model;
         }
     }
 }

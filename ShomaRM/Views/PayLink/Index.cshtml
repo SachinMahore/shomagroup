@@ -8,6 +8,8 @@
 <input type="hidden" id="hndPID" value="0" />
 <input type="hidden" id="hndTransMethod" value="2" />
 <input type="hidden" id="hndAID" value="@ViewBag.AID" />
+<input type="hidden" id="hndFromAcc" value="@ViewBag.FromAcc" />
+<input type="hidden" id="hndProcessingFees" value="@ViewBag.ProcessingFees" />
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -80,7 +82,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label id="lblAccCardnum" class="star">Account Number</label>
-                                                <input id="txtAccountNumber" type="text" class="form-control" placeholder="Account Number"  onkeypress="return isOnlyNumber(event)" maxlength="12" value="">
+                                                <input id="txtAccountNumber" type="text" class="form-control" placeholder="Account Number" onkeypress="return isOnlyNumber(event)" maxlength="12" value="">
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
@@ -125,10 +127,17 @@
                                         </div>
 
                                     </div>
+                                    <div class="col-sm-12" style="margin-bottom:20px">
+                                        <input type="checkbox" id="chkTermsAndCondition">
+                                        <span class="chektext">
+                                            I agree to the
+                                            <span class="span1"><a id="ShowTermsAndCondition" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <button type="submit" class="btn btn-primary" onclick="saveCoAppPayment()">Pay Now</button>
+                                        </span>
+                                    </div>
                                     <div class="col-sm-2">
-                                        <button type="submit" class="btn btn-primary" onclick="saveCoAppPayment()">Pay Now</button>
+                                        
                                         <br />
-                                       
+
                                     </div>
                                     <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center"><b id="ResponseMsg"></b></p></div>
                                 </div>
@@ -140,23 +149,42 @@
         </div>
     </div>
 </div>
-
-<script>  
+<div class="modal " id="modalTermsCondition" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
+    <div class="modal-dialog" style="width:1100px">
+        <div class="modal-content" style="width: 100% !important;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <div class="modal-body text-center">
+                <div><iframe src="~/Content/assets/img/Document/TermAndCondition.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
     var charge_Type = 1;
     $(document).ready(function () {
-      
+
         if (@ViewBag.FromAcc=="2")
         {
             $("#lblDes").text("Co-Applicant Move In Charges ");
             charge_Type = 2;
-        } else {
+        }else if (@ViewBag.FromAcc=="1") {
             $("#lblDes").text("Co-Applicant Online Application Fees ");
             charge_Type = 1;
+        } else if (@ViewBag.FromAcc=="3") {
+            $("#lblDes").text("Applicant Administration Fees ");
+            charge_Type = 3;
+        }else if (@ViewBag.FromAcc=="4") {
+            $("#lblDes").text("Credit Check Fees ");
+            charge_Type = 4;
         }
-        if ("@Model.Type"=="5")
+        else if (@ViewBag.FromAcc=="5") {
+            $("#lblDes").text("Background Check Fees ");
+            charge_Type = 5;
+        }
+        if ("@Model.Type"=="100")
         {
             $("#step1").addClass("hidden");
-            $("#lblDes").text("You Already paid Co-Applicant Online Application Fees ");
+            $("#lblDes").text("You Already Paid @Model.FeesPaidType ");
         } else {
             $("#step1").removeClass("hidden");
         }
@@ -180,6 +208,15 @@
         $("#lblPaymentDet").text("Enter Credit Card Details.");
     }
     function saveCoAppPayment() {
+        if ($("#chkTermsAndCondition").is(':unchecked')) {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: "Please accept Terms & Condition </br>",
+                type: 'red'
+            });
+            return;
+        }
         $("#divLoader").show();
         var msg = "";
         if ($("#hndTransMethod").val() == "0") {
@@ -191,7 +228,7 @@
             });
             return;
         }
-        
+
         if ($("#hndTransMethod").val() == "2") {
             var paymentMethod = 2;
             var propertyId = $("#hndPID").val();
@@ -269,7 +306,7 @@
                 return;
             }
         }
-     var model = {
+        var model = {
             PID: propertyId,
             Name_On_Card: nameonCard,
             CardNumber: cardNumber,
@@ -285,69 +322,80 @@
             BankName: bankName,
             PaymentMethod: paymentMethod,
             AID: $("#hndAID").val(),
+            FromAcc: $("#hndFromAcc").val(),
+
         };
 
-     $.alert({
-         title: "",
-         content: "You have chosen to pay $" + amounttoPay + " plus a $3.95 processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(3.95)).toFixed(2) + ". Do you want to Pay Now?",
-         type: 'blue',
-         buttons: {
-             yes: {
-                 text: 'Yes',
-                 action: function (yes) {   
-        $.ajax({
-            url: "/ApplyNow/saveCoAppPayment/",
-            type: "post",
-            contentType: "application/json utf-8",
-            data: JSON.stringify(model),
-            dataType: "JSON",
-            success: function (response) {
-                $("#divLoader").hide();
-                if (response.Msg != "") {
-                    if (response.Msg == "1")
-                    {
-                        $("#ResponseMsg").html("Payment successfull");
+        $.alert({
+            title: "",
+            content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesPL()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesPL())).toFixed(2) + ". Do you want to Pay Now?",
+            type: 'blue',
+            buttons: {
+                yes: {
+                    text: 'Yes',
+                    action: function (yes) {
+                        $.ajax({
+                            url: "/ApplyNow/saveCoAppPayment/",
+                            type: "post",
+                            contentType: "application/json utf-8",
+                            data: JSON.stringify(model),
+                            dataType: "JSON",
+                            success: function (response) {
+                                if (response.Msg != "") {
+                                    if (response.Msg == "1") {
+                                        $("#ResponseMsg").html("Payment successfull");
 
-                        $("#divLoader").hide();
-                        $.alert({
-                            title: "",
-                            content: "You want to go to Sanctuary Doral Web portal?",
-                            type: 'blue',
-                            buttons: {
-                                yes: {
-                                    text: 'Yes',
-                                    action: function (yes) {
-                                        window.location = "/Home/";
-                                    }
-                                },
-                                no: {
-                                    text: 'No',
-                                    action: function (no) {
+                                        if ($("#hndFromAcc").val() == 3) {
+                                            $("#divLoader").show();
+                                            $.ajax({
+                                                url: "/CheckList/LeaseBlumoon",
+                                                method: "post",
+                                                //data: JSON.stringify(param),
+                                                contentType: "application/json; charset=utf-8", // content type sent to server
+                                                dataType: "json", //Expected data format from server
+                                                success: function (response) {
+                                                    $("#divLoader").hide();
+                                                    $.alert({
+                                                        title: "",
+                                                        content: "Lease Document Generated. Check your Email to verify and sign",
+                                                        type: 'red'
+                                                    });
+                                                }
+                                            });
+                                        } else {
+                                            $.alert({
+                                                title: "",
+                                                content: "You want to go to Sanctuary Doral Web portal?",
+                                                type: 'blue',
+                                                buttons: {
+                                                    yes: {
+                                                        text: 'Yes',
+                                                        action: function (yes) {
+                                                            window.location = "/Account/Login";
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        }
+
+                                    } else {
+                                        $("#ResponseMsg").html("Payment failed");
                                     }
                                 }
                             }
                         });
-
-                       
-
-                       
-                    } else {
-                        $("#ResponseMsg").html("Payment failed");
                     }
-                  
-                    //getTransationLists($("#hdnUserId").val());
+                },
+                no: {
+                    text: 'No',
+                    action: function (no) {
+                        $("#divLoader").hide();
+                    }
                 }
             }
-                     });
-                 }
-             },
-             no: {
-                 text: 'No',
-                 action: function (no) {
-                     $("#divLoader").hide();
-                 }
-             }
-         }
-     });
+        });
     }
+    var getProcessingFeesPL = function () {
+        return $("#hndProcessingFees").val();
+    };
 </script>

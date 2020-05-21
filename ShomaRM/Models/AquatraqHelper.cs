@@ -41,7 +41,7 @@ namespace ShomaRM.Models
                 throw new Exception("An error occurred", ex);
             }
         }
-
+       
 
         public static string SetAttributeValue(string defaultXML, string ordernumber)
         {
@@ -62,6 +62,9 @@ namespace ShomaRM.Models
 
                 defaultXML = defaultXML.Replace("<OrderDetailCriminal", "<OrderDetail");
                 defaultXML = defaultXML.Replace("</OrderDetailCriminal", "</OrderDetail");
+
+                defaultXML = defaultXML.Replace("<OrderXMLTenant", "<OrderXML");
+                defaultXML = defaultXML.Replace("</OrderXMLTenant", "</OrderXML");
 
 
                 return defaultXML;
@@ -132,10 +135,6 @@ namespace ShomaRM.Models
 
                 //reading stream  
                 var ServiceResult = rd.ReadToEnd();
-                ////writting stream result on console  
-                //Console.WriteLine(ServiceResult);
-                //Console.ReadLine();
-
                 xmlDocument = XDocument.Parse(ServiceResult);
 
 

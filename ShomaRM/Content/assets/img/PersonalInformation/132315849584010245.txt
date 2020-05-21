@@ -1,0 +1,33 @@
+ Sachin Mahore Work 06 Apr to 12 Apr
+
+06 Apr - 
+new work Quotation analysis 1 hr
+865 Prospect Portal - b.Responsibility Pricing Overage 4hr
+866 Prospect Portal - Pet Image Broken 2hr
+
+07 Apr
+864 Discuss How Password Reset Should Be Handled Seperate Link for Password Reset 6hr
+Dispaly applicant name in Prospect Header in all steps 2hr
+
+08 Apr
+872 Prospect Portal - Can't Print Floor Plan Summary 4hr
+873 Prospect Portal - Comparing Units Is Broken 4hr
+
+09 Apr 
+new work Quotation analysis 2 hr
+874 Prospect Portal - Summary 3hr
+876 Prospect Portal: Edge Browser: Popups do not work 2hr
+Fix summary data issue when new created 1hr
+ 
+10 Apr
+New Work distribution 1 hr
+Changes to the parking space assignments: 
+Creating data for PArking Unit assigned + Additional 1 Hr
+Step 3 in application workflow: User clicks on the Button (+Add Parking) Show popup messages; bringing across data from the Unit table into this step for assigned parking; dynamically adding parking if chosen here to the admin side; keeping track of the remaining available parking spots; updating wording requested by client 6 Hr
+
+11 Apr
+Step 5 in application workflow: Policies & Conditions - G. Vehicle Info (Include 9); updating database so the vehicle (extra or one pre assigned to the unit) is linked correctly. 8 Hr
+
+12 Apr
+Step 5 in application workflow: Policies & Conditions - I. Payment Info; updating charges for monthly fees based on the amount (1 or 2 additional if applicable) of parking selected, also the move-in charges for vehicle registration 8 Hr
+

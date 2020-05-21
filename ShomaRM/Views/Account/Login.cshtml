@@ -31,27 +31,32 @@
                             <span style="float: right;"><a href="~/Home/Index">Click here for Registation</a></span>
                         }
 
-                        <form action="" method="post">
-                            <div class="form-group">
-                                <label for="email" class="username">Email ID</label>
-                                <input type="text" class="form-control" id="UserName" name="UserName">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="username">Password</label>
-                                <input type="password" class="form-control" id="password" name="Password">
-                            </div>
-                            <div class="form-group">
-                                <div class="controls pull-right">
-                                    <span class="username"><input type="checkbox" id="chkRemeber" /> Remember Me?</span>
+                            <form action="" method="post">
+                                <div class="form-group">
+                                    <label for="email" class="username">Email ID</label>
+                                    <input type="text" class="form-control" id="UserName" name="UserName">
                                 </div>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary username"> Sign in</button>
-                            </div>
-                            <div class="text-center">
-                                <a href="javascript:void(0);" onclick="ForgetPassword()" class="pull-right username" style="padding-top:2%">Forgot Password?</a>
-                            </div>
-                        </form>
+                                <div class="form-group">
+                                    <label for="password" class="username">Password</label>
+                                    <input type="password" class="form-control" id="password" name="Password">
+                                </div>
+                                <h2 class="hidden">OR :</h2>
+                                <div class="form-group hidden">
+                                    <button type="button" id="btnShowQuotationSignIn" class="btn btn-primary" onclick="showPopUpOnQuotationNo()">Sign In Using Quotation No.</button>
+                                </div>
+                                <div class="form-group">
+                                    <div class="controls pull-right">
+                                        <span class="username"><input type="checkbox" id="chkRemeber" /> Remember Me?</span>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary username"> Sign in</button>
+                                </div>
+
+                                <div class="text-center">
+                                    <a href="javascript:void(0);" onclick="ForgetPassword()" class="pull-right username" style="padding-top:2%">Forgot Password?</a>
+                                </div>
+                            </form>
                     }
                     <br>
 
@@ -63,7 +68,46 @@
         <div class="col-md-3 username"></div>
     </div>
 </div>
-
+<div id="popQuotationSignIn" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close pull-right" data-dismiss="modal" style="color:black;margin-right:-160px;">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="text-justify" id="divQuotationQuotationNo">
+                <div class="form-group">
+                    <label for="txtQuotationNo">Quotation No</label>
+                    <input type="text" class="form-control" id="txtQuotationNo" name="QuotationNo">
+                </div>
+            </div>
+            <div class="text-justify hidden" id="divQuotationUserName">
+                <div class="form-group">
+                    <label for="txtUserName">User Name</label>
+                    <input type="text" class="form-control" id="txtQuotationUserName" name="UserName" disabled>
+                </div>
+            </div>
+            <div class="text-justify hidden" id="divQuotationPassword">
+                <div class="form-group">
+                    <label for="txtQuotationPassword">Enter New Password</label>
+                    <input type="password" class="form-control" id="txtQuotationPassword" name="Password">
+                </div>
+            </div>
+            <div class="text-justify hidden" id="divQuotationConfirmPassword">
+                <div class="form-group">
+                    <label for="txtQuotationConfirmPassword">Enter New Confirm Password</label>
+                    <input type="password" class="form-control" id="txtQuotationConfirmPassword" name="ConfirmPassword">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="pull-right">
+                <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" style="margin-right:6px;"> Close</button>
+                <button type="button" class="btn btn-primary pull-right" style="margin-right:6px;" id="btnVerifyQuotation" onclick="verifyQuotationNo()"> Next</button>
+                <button type="submit" class="btn btn-primary pull-right" style="margin-right:6px;" id="btnQuotationSignIn" onclick="signInUsingQuotationNo()"> Sign In</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="popForgetIn" class="modal">
     <div class="modal-header">
         <span class="close" data-dismiss="modal">&times;</span>
@@ -146,5 +190,109 @@
 
         });
     };
+    var signInUsingQuotationNo = function () {
+        var msg = "";
+        var quotationNo = $("#txtQuotationNo").val();
+        var password = $("#txtQuotationPassword").val();
+        var confirmPassword = $("#txtQuotationConfirmPassword").val();
+        var userName = $("#txtQuotationUserName").val();
+        //if (!quotationNo) {
+        //    msg += "Enter Quotation No</br>";
+        //}
+        if (!password) {
+            msg += "Please fill the Password </br>";
+        } else {
+            var result = checkStrength(password);
+            if (!result) {
+                return;
+            }
+            if (password != confirmPassword) {
+                msg += "Password and Confirm Password must be the same</br>";
+            }
+        }
+        if (msg != "") {
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+
+        var model = {
+            QuotationNo: quotationNo, UserName: userName, Password: password
+        };
+        $.ajax({
+            url: "/Applynow/SignInUsingQuotationNo",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                window.location = response;
+            }
+        });
+    };
+
+    var showPopUpOnQuotationNo = function () {
+        $('#txtQuotationNo').attr('disabled', false);
+        $('#txtQuotationNo').val('');
+        $('#txtQuotationUserName').val('');
+        $('#txtQuotationPassword').val('');
+        $('#txtQuotationConfirmPassword').val('');
+        $('#divQuotationQuotationNo').removeClass('hidden');
+        $('#divQuotationUserName').addClass('hidden');
+        $('#divQuotationPassword').addClass('hidden');
+        $('#divQuotationConfirmPassword').addClass('hidden');
+        $('#btnVerifyQuotation').removeClass('hidden');
+        $('#btnQuotationSignIn').addClass('hidden');
+        $('#popQuotationSignIn').modal('show');
+    }
+
+    var verifyQuotationNo = function () {
+        var msg = "";
+        var quotationNo = $("#txtQuotationNo").val();
+
+        if (!quotationNo) {
+            msg += "Enter Quotation No</br>";
+        }
+        if (msg != "") {
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+
+        var model = {
+            QuotationNo: quotationNo
+        };
+        $.ajax({
+            url: "/Applynow/VerifyQuotationNo",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                if (response == "User Not Found") {
+                    $.alert({
+                        title: "",
+                        content: response,
+                        type: 'red'
+                    });
+                }
+                else {
+                    $('#txtQuotationNo').attr('disabled', true);
+                    $('#divQuotationUserName').removeClass('hidden');
+                    $('#txtQuotationUserName').val(response);
+                    $('#divQuotationPassword').removeClass('hidden');
+                    $('#divQuotationConfirmPassword').removeClass('hidden');
+                    $('#btnVerifyQuotation').addClass('hidden');
+                    $('#btnQuotationSignIn').removeClass('hidden');
+                }
+            }
+        });
+    }
 </script>
 

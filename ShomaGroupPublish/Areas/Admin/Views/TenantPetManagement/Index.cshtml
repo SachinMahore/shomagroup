@@ -1,0 +1,271 @@
+﻿
+@{
+    ViewBag.Title = "Tenant Pet Management";
+    DateTime now = DateTime.Now;
+    var startDate = new DateTime(now.Year, now.Month, 1);
+    var endDate = startDate.AddMonths(12).AddDays(-1);
+}
+<script src="~/Areas/Admin/Content/Pages/TenantPetManagement/TenantPetManagementList.js"></script>
+<!-- property area -->
+<input type="hidden" id="hdnSearchType" value="1" />
+<input type="hidden" id="hdnCurrentPage" value="1" />
+<input type="hidden" id="hndPageNo" value="0" />
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container" style="width:100%!important">
+        <div class="row">
+            <div class="breadcrumb" style="margin-bottom:0px">
+                <h4 class="">Tenant Pet List</h4>
+            </div>
+
+            <div class="col-md-12  pr0  properties-page">
+                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                    <div class="panel-heading">
+                        <div class="col-sm-3">
+                            <h3 class="panel-title input-group">Expiry From Date</h3>
+                            <div class="input-group">
+                                <input id="txtFromDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@startDate.ToString("MM/dd/yyyy")" />
+                                <span class="input-group-btn">
+                                    <button id="iconFromDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <h3 class="panel-title input-group">Expiry To Date</h3>
+                            <div id="divToDate" class="input-group">
+                                <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
+                                <span id="spTodate" class="input-group-btn">
+                                    <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <h3 class="panel-title">Criteria</h3>
+                                <select id="ddlCriteria" class="form-control">
+                                    <option value='0' data-value="All" selected>All</option>
+                                    <option value='1' data-value="TenantName">Tenant Name</option>
+                                    <option value='2' data-value="UnitNo">Unit No</option>
+                                    <option value='3' data-value="UniqID">UniqID</option>
+                                </select>
+                            </div>
+                        </div>
+                        @*<div class="col-sm-2" id="serchStat">
+                                <div class="form-group">
+                                    <h3 class="panel-title">Status</h3>
+                                    <select id="ddlSearchStatus" class="form-control">
+                                        <option value="">Select</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Denied">Denied</option>
+                                        <option value="Conditional">Conditional</option>
+                                    </select>
+                                </div>
+                            </div>*@
+                        <div class="col-sm-2" id="div_txtCriteria">
+                            <div class="form-group">
+                                <h3 class="panel-title">Status</h3>
+                                <input id="txtCriteria" class="form-control form-control-small" type="text" value="" />
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-2">
+                            <div class="form-group padding-top-25">
+                                <button type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="buildPaganationPetPlaceList(1)"><i class="fa fa-search"></i> SEARCH</button>
+                            </div>
+                        </div>
+                        @*<div class="col-sm-3">
+                                <div class="form-group  padding-top-25">
+                                </div>
+                            </div>*@
+                    </div>
+                    <div class="col-sm-12 form-group" id="divPagination_PetPlaceList">
+                        <div id="divPgn" class="col-sm-8 pagination">
+                            <ul id="ulPagination_PetPlaceList"></ul>
+                        </div>
+                        <div class="col-sm-3 padding-0 pull-right" style="margin-top: 24px;">
+                            <div class="col-sm-6">
+                                <label class="control-label">Row/Page</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <select id="ddlRPP_PetPlaceList" class="form-control form-control-small"></select>
+                                <div class="pull-right" style="margin-top:10px ">
+                                    <input type="hidden" id="hndLockUnlock" value="1" />
+                                    <button id="btnLockUnLock" class="btn btn-primary pull-right" onclick="setlockunlock()"><span id="spanLockUnLock"><i class="fa fa-lock"></i> Unlock</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 padding-5">
+
+                    </div>
+                    <div class="panel-body search-widget">
+                        <div class="col-md-12 clear">
+                            <table id="tblPetPlace" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:20% !important;" title="Sort" onclick="sortTablePetPlace('TenantName')">Tenant Name <i id="sortTenantNameIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:10% !important;" title="Sort" onclick="sortTablePetPlace('UnitNo')">Unit No <i id="sortUnitNoIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:15% !important;" title="Sort" onclick="sortTablePetPlace('PetName')">Pet Name <i id="sortPetNameIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:10% !important;" title="Sort" onclick="sortTablePetPlace('Weight')">Weight(lbs) <i id="sortWeightIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:15% !important;" title="Sort" onclick="sortTablePetPlace('UniqID')">Unique ID <i id="sortUniqIDIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:15% !important;" title="Sort" onclick="sortTablePetPlace('ExpiryDate')">Expiry Date <i id="sortExpiryDateIcon" class=""></i></th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:15% !important;" title="Sort">View Certificate </th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:10% !important;" title="Sort">Send Remainder </th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalPetVaccination" class="modal">
+    <div class="modal-dialog" style="width:80%">
+        <div class="modal-content text-center" style="width: 100% !important">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <div class="modal-body">
+                <div><iframe id="VacciCertiframe" src="" width="1000" height="600" frameborder="0" style="border:0;overflow-y:no-display" allowfullscreen></iframe></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="popChangestatus">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:400px; height:204px;">
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%; padding:0px;">
+                @*<h5 class="modal-title">Change Status</h5>*@
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px;color:black;">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="hndEmailId">
+                <input type="hidden" id="hndUserId">
+                <div style="padding: 10px 15px;text-align:center;">
+                    <h2 class="panel-title">
+                        <b>Do You want to change Status ?</b>
+                    </h2>
+                </div>
+                <div class="col-sm-12" style="margin-left: 97px;color: green;">
+                    <label id="lblstatusName"></label>
+                </div>
+                <div class="col-sm-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <div class="col-sm-6">
+                    <button type="submit" class="btn btn-primary" onclick="Statuschange();">Yes</button>
+                </div>
+                <div class="col-sm-6">
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+        $(function () {
+            $("#iconFromDate").click(function () {
+                $("#txtFromDate").focus();
+            });
+            $("#iconToDate").click(function () {
+                $("#txtToDate").focus();
+            });
+
+            var dtstart = new Date();
+            dtstart.setFullYear(new Date().getFullYear() - 100);
+            var dtend = new Date();
+            dtend.setFullYear(new Date().getFullYear() + 100);
+            var ndt = new Date($("#txtFromDate").val());
+            ndt.setFullYear(new Date().getFullYear() + 100);
+            var sdt = new Date($("#txtFromDate").val());
+            sdt.setFullYear(new Date().getFullYear() + 0);
+            $("#txtToDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: sdt, endDate: ndt, maxViewMode: 2, autoclose: true });
+            $('#txtFromDate').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true }).on('change', function (ev) {
+                changeDate();
+            });
+        });
+        var changeDate = function () {
+            $("#txtToDate").val("");
+            var ndt = new Date($("#txtFromDate").val());
+            ndt.setFullYear(new Date().getFullYear() + 100);
+            var sdt = new Date($("#txtFromDate").val());
+            sdt.setFullYear(new Date().getFullYear() + 0);
+            $("#txtToDate").remove();
+            $("#spTodate").remove();
+            var html = '<input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="" />';
+            html += '<span id="spTodate" class="input-group-btn">';
+            html += '<button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>';
+            html += '</span>';
+            $("#divToDate").append(html);
+            $("#txtToDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: sdt, endDate: ndt, maxViewMode: 2, autoclose: true });
+        }
+</script>
+
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        /*z-index: 1;*/ /* Sit on top */
+        padding-top: 5px !important; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .modal-header {
+        margin: auto;
+        padding: 20px;
+        width: 35%;
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 30%;
+        text-align: justify;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #fff;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        opacity: 1;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 1;
+        }
+
+    .grid-box {
+        border: 2px solid black;
+        margin-bottom: 5px !important;
+    }
+
+    .modal-footer-custom {
+        padding: 35px;
+        text-align: right;
+    }
+</style>

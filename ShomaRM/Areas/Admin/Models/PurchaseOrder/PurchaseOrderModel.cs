@@ -34,6 +34,7 @@ namespace ShomaRM.Areas.Admin.Models
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.POID == 0)
             {
                 var SavePurchaseOrder = new tbl_PurchaseOrder()
@@ -49,7 +50,7 @@ namespace ShomaRM.Areas.Admin.Models
                     ApprovedBy = model.ApprovedBy,
                     CanceledDate = model.CanceledDate,
                     CanceledBy = model.CanceledBy,
-                    CreatedBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+                    CreatedBy = userid,
                     CreatedDate = Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy"))
                 };
                 db.tbl_PurchaseOrder.Add(SavePurchaseOrder);

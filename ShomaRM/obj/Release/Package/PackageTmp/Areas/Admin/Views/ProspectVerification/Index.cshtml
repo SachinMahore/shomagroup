@@ -1,16 +1,18 @@
 ﻿
 @{
-    ViewBag.Title = "Prospect Verification";
-    DateTime now = DateTime.Now;
-    var startDate = new DateTime(now.Year, now.Month, 1);
-    var endDate = startDate.AddMonths(1).AddDays(-1);
+                /**/
+
+                ViewBag.Title = "Prospect Verification";
+                DateTime now = DateTime.Now;
+                var startDate = new DateTime(now.Year, now.Month, 1);
+                var endDate = startDate.AddMonths(1).AddDays(-1);
 }
 
 <script src="~/Areas/Admin/Content/Pages/ProspectVerification/ProspectVerificationList.js"></script>
 <!-- property area -->
 <input type="hidden" id="hndPageNo" value="0" />
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
-    <div class="container"  style="width:100%!important">
+    <div class="container" style="width:100%!important">
         <div class="row">
             <div class="breadcrumb" style="margin-bottom:0px">
                 <h4 class="">Online Application List</h4>
@@ -30,46 +32,73 @@
                         </div>
                         <div class="col-sm-3">
                             <h3 class="panel-title input-group">To Date</h3>
-                            <div class="input-group">
+                            <div id="divToDate" class="input-group">
                                 <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
-                                <span class="input-group-btn">
+                                <span id="spTodate" class="input-group-btn">
                                     <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                 </span>
                             </div>
                         </div>
-                        @*<div class="col-sm-3">
+                        <div class="col-sm-2">
                             <div class="form-group">
-                                <h3 class="panel-title">From Date</h3>
-                                <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
-                                <span class="input-group-btn" style="width:0% !important">
-                                    <button class="btn btn-primary search" type="button" id="iconFromDate" style="margin-top: -60px;margin-left: 290px;"><i class="fa-calendar fa"></i></button>
-                                </span>
+                                <h3 class="panel-title">Criteria</h3>
+                                <select id="ddlCriteria" class="form-control">
+                                    <option value='1' data-value="Status">Status</option>
+                                    <option value='2' data-value="Unit">Unit No</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2" id="serchStat">
                             <div class="form-group">
-                                <h3 class="panel-title">To Date</h3>
-                                <input id="txtToDate" type="text" class="form-control" value="@endDate.ToString("MM/dd/yyyy")">
-                                <span class="input-group-btn" style="width:0% !important">
-                                    <button class="btn btn-primary search" type="button" id="iconToDate" style="margin-top: -60px;margin-left: 290px;"><i class="fa-calendar fa"></i></button>
-                                </span>
+                                <h3 class="panel-title">Status</h3>
+                                <select id="ddlSearchStatus" class="form-control">
+                                    <option value="">Select</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Denied">Denied</option>
+                                    <option value="Conditional">Conditional</option>
+                                </select>
                             </div>
-                        </div>*@
-                        <div class="col-sm-3">
+                        </div>
+
+                        <div class="col-sm-2 hidden" id="EnterC">
+                            <div class="form-group">
+                                <h3 class="panel-title"> Unit No</h3>
+                                <input id="txtUnitNo" type="text" onkeypress="return isOnlyNumber(event)" class="form-control">
+                            </div>
+                        </div>
+                        @*<div class="col-sm-3">
+                                <div class="form-group">
+                                    <h3 class="panel-title">From Date</h3>
+                                    <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                                    <span class="input-group-btn" style="width:0% !important">
+                                        <button class="btn btn-primary search" type="button" id="iconFromDate" style="margin-top: -60px;margin-left: 290px;"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <h3 class="panel-title">To Date</h3>
+                                    <input id="txtToDate" type="text" class="form-control" value="@endDate.ToString("MM/dd/yyyy")">
+                                    <span class="input-group-btn" style="width:0% !important">
+                                        <button class="btn btn-primary search" type="button" id="iconToDate" style="margin-top: -60px;margin-left: 290px;"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>*@
+                        <div class="col-sm-2">
                             <div class="form-group padding-top-25">
                                 <button type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="buildPaganationProspectVerifyList(1)"><i class="fa fa-search"></i> SEARCH</button>
                             </div>
                         </div>
-                        <div class="col-sm-3">
-                            <div class="form-group  padding-top-25">
-                            </div>
-                        </div>
+                        @*<div class="col-sm-3">
+                                <div class="form-group  padding-top-25">
+                                </div>
+                            </div>*@
                     </div>
                     <div class="col-sm-12 form-group" id="divPagination_ProspectVerifyList">
                         <div id="divPgn" class="col-sm-8 pagination">
                             <ul id="ulPagination_ProspectVerifyList"></ul>
                         </div>
-                        <div class="col-sm-3 padding-0 pull-right">
+                        <div class="col-sm-3 padding-0 pull-right" style="margin-top: 24px;">
                             <div class="col-sm-6">
                                 <label class="control-label">Row/Page</label>
                             </div>
@@ -89,7 +118,8 @@
                                         <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('EmailAddress')">Email Address <i id="sortEmailAddressIcon" class=""></i></th>
                                         <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('ApplyDate')">Apply Date <i id="sortApplyDateIcon" class=""></i></th>
                                         <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('UnitNo')">Unit No <i id="sortUnitNoIcon" class=""></i></th>
-                                        @*<th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Action</th>*@
+                                        <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort">Status</th>
+                                        <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Background Screening</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -102,15 +132,180 @@
         </div>
     </div>
 </div>
+<div class="modal" id="popBackgroundScreening" style="background-color: rgb(249, 249, 249);">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:507px; height:450px;">
+            <!-- Modal Header -->
+
+            <div class="modal-header" style="width: 100%; padding:0px;">
+                <h5 class="modal-title">Background Screening </h5>
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px;color:black;">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="register-area">
+                    <div class="container" style="width:100%!important">
+                        <div class="row">
+
+                            <div class="panel-body search-widget" style="overflow-y:scroll;max-height: 300px;">
+                               
+                                    <table id="bgscrTable" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100% ;">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort">Order Id <i id="sortFirstNameIcon" class=""></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort">Type <i id="sortFirstNameIcon" class=""></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort">Status <i id="sortLastNameIcon" class=""></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;">PDF Url <i id="sortPhoneNoIcon" class=""></i></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="popChangestatus">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:400px; height:204px;">
+            <!-- Modal Header -->
+            <div class="modal-header" style="width: 100%; padding:0px;">
+                @*<h5 class="modal-title">Change Status</h5>*@
+                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px;color:black;">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <input type="hidden" id="hndEmailId">
+                <input type="hidden" id="hndUserId">
+                <div style="padding: 10px 15px;text-align:center;">
+                    <h2 class="panel-title">
+                        <b>Do You want to change Status ?</b>
+                    </h2>
+                </div>
+                <div class="col-sm-12" style="margin-left: 97px;color: green;">
+                    <label id="lblstatusName"></label>
+                </div>
+                <div class="col-sm-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="col-sm-12 text-center">
+                <div class="col-sm-6">
+                    <button type="submit" class="btn btn-primary" onclick="Statuschange();">Yes</button>
+                </div>
+                <div class="col-sm-6">
+                    <button type="submit" class="btn btn-primary" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     $(function () {
-        $("#txtFromDate").datepicker();
         $("#iconFromDate").click(function () {
             $("#txtFromDate").focus();
         });
-        $("#txtToDate").datepicker();
         $("#iconToDate").click(function () {
             $("#txtToDate").focus();
         });
+
+        var dtstart = new Date();
+        dtstart.setFullYear(new Date().getFullYear() - 100);
+        var dtend = new Date();
+        dtend.setFullYear(new Date().getFullYear() + 100);
+        var ndt = new Date($("#txtFromDate").val());
+        ndt.setFullYear(new Date().getFullYear() + 100);
+        var sdt = new Date($("#txtFromDate").val());
+        sdt.setFullYear(new Date().getFullYear() + 0);
+        $("#txtToDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: sdt, endDate: ndt, maxViewMode: 2, autoclose: true });
+        $('#txtFromDate').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstart, endDate: dtend, maxViewMode: 2, autoclose: true }).on('change', function (ev) {
+            changeDate();
+        });
     });
+    var changeDate = function () {
+        $("#txtToDate").val("");
+        var ndt = new Date($("#txtFromDate").val());
+        ndt.setFullYear(new Date().getFullYear() + 100);
+        var sdt = new Date($("#txtFromDate").val());
+        sdt.setFullYear(new Date().getFullYear() + 0);
+        $("#txtToDate").remove();
+        $("#spTodate").remove();
+        var html = '<input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="" />';
+        html += '<span id="spTodate" class="input-group-btn">';
+        html += '<button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>';
+        html += '</span>';
+        $("#divToDate").append(html);
+        $("#txtToDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: sdt, endDate: ndt, maxViewMode: 2, autoclose: true });
+    }
 </script>
+
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        /*z-index: 1;*/ /* Sit on top */
+        padding-top: 5px !important; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .modal-header {
+        margin: auto;
+        padding: 20px;
+        width: 35%;
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 30%;
+        text-align: justify;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #fff;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        opacity: 1;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 1;
+        }
+
+    .grid-box {
+        border: 2px solid black;
+        margin-bottom: 5px !important;
+    }
+
+    .modal-footer-custom {
+        padding: 35px;
+        text-align: right;
+    }
+</style>

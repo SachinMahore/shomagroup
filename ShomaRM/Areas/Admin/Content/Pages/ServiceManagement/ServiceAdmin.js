@@ -35,13 +35,6 @@ $(document).ready(function () {
             });
         }
     };
-    $("#txtClosingDate").datepicker();
-    $('#ClosingDate').click(function () {
-        $("#txtClosingDate").focus();
-    });
-    $('#RequestedDate').click(function () {
-        $("#txtRequestedDate").focus();
-    });
 
     $('input[name="Warranty"]').on('ifClicked', function (event) {
         if (this.value == 'yes') {

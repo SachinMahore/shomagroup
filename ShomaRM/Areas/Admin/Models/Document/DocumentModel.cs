@@ -41,7 +41,7 @@ namespace ShomaRM.Areas.Admin.Models
                 }
             }
 
-
+            int userid = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.DocID == 0)
             {
                 var saveDocument = new tbl_Document()
@@ -50,7 +50,7 @@ namespace ShomaRM.Areas.Admin.Models
                     DocumentName = sysFileName,
                     DocumentType = model.DocumentType,
                     DocumentNumber = model.DocumentNumber,
-                    UploadBy = ShomaGroupWebSession.CurrentUser.UserID,
+                    UploadBy = userid,
                     UploadDate = DateTime.Now.Date
                 };
                 db.tbl_Document.Add(saveDocument);
@@ -60,14 +60,13 @@ namespace ShomaRM.Areas.Admin.Models
             else
             {
                 var GetDocumentData = db.tbl_Document.Where(p => p.DocID == model.DocID).FirstOrDefault();
-
                 if (GetDocumentData != null)
                 {
                     GetDocumentData.TenantID = model.TenantID;
                     GetDocumentData.DocumentName = sysFileName;
                     GetDocumentData.DocumentType = model.DocumentType;
                     GetDocumentData.DocumentNumber = model.DocumentNumber;
-                    GetDocumentData.UploadBy = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID;
+                    GetDocumentData.UploadBy = userid;
                     GetDocumentData.UploadDate = DateTime.Now.Date;
                     db.SaveChanges();
                     msg = "Document Updated Successfully";

@@ -1,0 +1,1 @@
+ALTER TABLE tbl_MoveInChecklist ADD IsCheckSD INT

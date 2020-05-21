@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{68CF2378-F894-4DE1-8819-9795A5EF4156}</ProjectGuid>
+    <ProjectGuid>{6FB7D52F-0D76-4463-BBB5-82B2482074A9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ShomaRM.Data</RootNamespace>
@@ -95,6 +95,9 @@
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_AuditHistoryDetail.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_BackgroundScreening.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_BankAccount.cs">
@@ -256,6 +259,9 @@
     <Compile Include="tbl_ServiceRequest.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_SMSMessages.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_State.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
@@ -269,6 +275,9 @@
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_TenantEventJoinApprove.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tbl_TenantFob.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="tbl_TenantInfo.cs">

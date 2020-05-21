@@ -6,11 +6,12 @@ using System.Web.Mvc;
 using System.Web.Security;
 using ShomaRM.Data;
 using ShomaRM.Models;
+using LoggerEngine;
 
 namespace ShomaRM.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : ShomaBaseController
     {
         private ShomaRMEntities db = new ShomaRMEntities();
         //public AccountController()
@@ -51,13 +52,15 @@ namespace ShomaRM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
+            //string dec = new EncryptDecrypt().DecryptText("9P0BvvisXQdsuk951dZSlw");
             string encryptedPassword = new EncryptDecrypt().EncryptText(model.Password);
             if (ModelState.IsValid)
             {
                 var user = db.tbl_Login.Where(p => p.Username == model.UserName && p.Password == encryptedPassword && p.IsActive == 1).FirstOrDefault();
                 if (user != null)
                 {
-
+                    
+                    //LogError("Vijay Ramteke");
                     SignIn(model.UserName, model.RememberMe);
                     // Set Current User
                     var currentUser = new CurrentUser();
@@ -86,7 +89,7 @@ namespace ShomaRM.Controllers
                     db.tbl_LoginHistory.Add(loginHistory);
                     db.SaveChanges();
 
-                    if (currentUser.TenantID == 0 && currentUser.UserType != 3)
+                    if (currentUser.TenantID == 0 && currentUser.UserType != 3 && currentUser.UserType != 33 && currentUser.UserType != 34)
                     {
                         return RedirectToAction("../Admin/AdminHome");
                     }
@@ -94,32 +97,54 @@ namespace ShomaRM.Controllers
                     {
                         return RedirectToAction("../Tenant/Dashboard");
                     }
-                    else
+                    else if (user.ParentUserID == null)
                     {
                         var checkExpiry = db.tbl_ApplyNow.Where(co => co.UserId == currentUser.UserID).FirstOrDefault();
-
                         checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
-
-                        if (checkExpiry.Status.Trim() == "Approved")
+                        if ((checkExpiry.StepCompleted??0)==18 && checkExpiry.Status.Trim()=="")
+                        {
+                            return RedirectToAction("../ApplicationStatus/Index/"+(new EncryptDecrypt().EncryptText("In Progress")));
+                        }
+                        else if (checkExpiry.Status.Trim() == "Approved")
+                        {
+                            checkExpiry.StepCompleted = 18;
+                            db.SaveChanges();
+                            return RedirectToAction("../ApplicationStatus/Index/" + (new EncryptDecrypt().EncryptText("Approved")));
+                        }
+                        else if (checkExpiry.Status.Trim() == "Signed")
                         {
                             return RedirectToAction("../Checklist/");
                         }
-                        if (checkExpiry != null)
+                        else
                         {
-                            DateTime expDate = Convert.ToDateTime(DateTime.Now.AddHours(-72).ToString("MM/dd/yyyy") + " 23:59:59");
-
-                            if (checkExpiry.CreatedDate < expDate)
+                            checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
+                            if (checkExpiry != null)
                             {
-                                new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID, currentUser.UserID);
-                                Session["DelDatAll"] = "Del";
-                                return RedirectToAction("../Home");
-                            }
-                            else
-                            {
-                                Session["DelDatAll"] = null;
-                                return RedirectToAction("../ApplyNow/Index/" + currentUser.UserID);
-                            }
+                                DateTime expDate = Convert.ToDateTime(DateTime.Now.AddHours(-72).ToString("MM/dd/yyyy") + " 23:59:59");
 
+                                if (checkExpiry.CreatedDate < expDate)
+                                {
+                                    new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID, currentUser.UserID);
+                                    Session["DelDatAll"] = "Del";
+                                    return RedirectToAction("../Home");
+                                }
+                                else
+                                {
+                                    Session["DelDatAll"] = null;
+                                    return RedirectToAction("../ApplyNow/Index/" + currentUser.UserID);
+                                }
+                            }
+                        }
+                    }
+                    else if (user.ParentUserID != null)
+                    {
+                        if (currentUser.UserType == 33)
+                        {
+                            return RedirectToAction("../ApplyNow/CoApplicantDet/" + user.ParentUserID + "-" + currentUser.UserID);
+                        }
+                        else if (currentUser.UserType == 34)
+                        {
+                            return RedirectToAction("../ApplyNow/GuarantorDet/" + user.ParentUserID + "-" + currentUser.UserID);
                         }
                     }
                     // return RedirectToLocal(returnUrl);
@@ -142,8 +167,6 @@ namespace ShomaRM.Controllers
                     }
                 }
             }
-
-            // If we got this far, something failed, redisplay form
             return View(model);
         }
         
@@ -177,7 +200,7 @@ namespace ShomaRM.Controllers
         {
             return View();
         }
-
+       
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
@@ -228,11 +251,11 @@ namespace ShomaRM.Controllers
             Session.RemoveAll();
             FormsAuthentication.SignOut();
             (new ShomaGroupWebSession()).RemoveWebSession();
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             new CommonModel().AddPageLoginHistory("");
             try
             {
-                var loginHistory = db.tbl_LoginHistory.Where(p => p.UserID == ShomaGroupWebSession.CurrentUser.UserID && p.SessionID == Session.SessionID.ToString() && p.LogoutDateTime == null).FirstOrDefault();
+                var loginHistory = db.tbl_LoginHistory.Where(p => p.UserID == userid && p.SessionID == Session.SessionID.ToString() && p.LogoutDateTime == null).FirstOrDefault();
 
                 if (loginHistory != null)
                 {
@@ -257,7 +280,7 @@ namespace ShomaRM.Controllers
             }
             return Json(new { IsLogOut = "1" }, JsonRequestBehavior.AllowGet);
         }
-
+        [AllowAnonymous]
         public ActionResult KeepLive()
         {
             return Json(new { result = "OK" }, JsonRequestBehavior.AllowGet);

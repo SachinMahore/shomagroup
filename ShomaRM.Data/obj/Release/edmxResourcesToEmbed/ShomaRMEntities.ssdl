@@ -78,6 +78,10 @@
     <Property Name="MonthlyPayment" Type="money" />
     <Property Name="OtherGender" Type="varchar" MaxLength="100" />
     <Property Name="Paid" Type="int" />
+    <Property Name="AddedBy" Type="bigint" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="CreditPaid" Type="int" />
+    <Property Name="BackGroundPaid" Type="int" />
   </EntityType>
   <EntityType Name="tbl_ApplicantHistory">
     <Key>
@@ -96,6 +100,11 @@
     <Property Name="MoveInDateTo" Type="datetime" />
     <Property Name="MonthlyPayment" Type="varchar" MaxLength="50" />
     <Property Name="Reason" Type="varchar" MaxLength="50" />
+    <Property Name="ApartmentCommunity" Type="varchar" MaxLength="500" />
+    <Property Name="ManagementCompany" Type="varchar" MaxLength="500" />
+    <Property Name="ManagementCompanyPhone" Type="varchar" MaxLength="20" />
+    <Property Name="IsProprNoticeLeaseAgreement" Type="int" />
+    <Property Name="ParentTOID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_ApplyNow">
     <Key>
@@ -143,6 +152,8 @@
     <Property Name="PetDNAAmt" Type="money" />
     <Property Name="StepCompleted" Type="int" />
     <Property Name="AcceptSummary" Type="int" />
+    <Property Name="AdditionalParking" Type="int" />
+    <Property Name="Notes" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="tbl_AuditHistory">
     <Key>
@@ -164,6 +175,19 @@
     <Property Name="PKColumnValue" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="FKColumnValue" Type="varchar" MaxLength="50" />
     <Property Name="AuditDetails" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="tbl_BackgroundScreening">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenantId" Type="int" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" />
+    <Property Name="PDFUrl" Type="nvarchar(max)" />
+    <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="SSNNumber" Type="varchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="tbl_BankAccount">
     <Key>
@@ -355,6 +379,7 @@
     <Property Name="PaystubValue" Type="int" />
     <Property Name="TenantId" Type="bigint" />
     <Property Name="TerminationReason" Type="nvarchar(max)" />
+    <Property Name="ParentTOID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_ESignatureKeys">
     <Key>
@@ -366,6 +391,7 @@
     <Property Name="Key" Type="varchar(max)" />
     <Property Name="EsignatureId" Type="bigint" />
     <Property Name="DateSigned" Type="varchar" MaxLength="100" />
+    <Property Name="IsLeaseExecuted" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Estimate">
     <Key>
@@ -598,6 +624,9 @@
     <Property Name="IsSuperUser" Type="int" />
     <Property Name="UserType" Type="int" />
     <Property Name="ParentTenantID" Type="bigint" />
+    <Property Name="IsChangePass" Type="int" />
+    <Property Name="ChangeDate" Type="datetime" />
+    <Property Name="ParentUserID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_LoginHistory">
     <Key>
@@ -663,6 +692,10 @@
     <Property Name="IsCheckATT" Type="int" />
     <Property Name="IsCheckWater" Type="int" />
     <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="IsCheckSD" Type="int" />
+    <Property Name="PreMoveInDate" Type="datetime" />
+    <Property Name="PreMoveInTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="Movers" Type="int" />
   </EntityType>
   <EntityType Name="tbl_MoveInPayment">
     <Key>
@@ -731,6 +764,7 @@
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
     <Property Name="Type" Type="int" />
     <Property Name="Status" Type="int" />
+    <Property Name="AddedBy" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_PaymentAccounts">
     <Key>
@@ -818,6 +852,10 @@
     <Property Name="AdminFees" Type="money" />
     <Property Name="PetDNAAmt" Type="money" />
     <Property Name="ProcessingFees" Type="money" />
+    <Property Name="AppCCCheckFees" Type="money" />
+    <Property Name="AppBGCheckFees" Type="money" />
+    <Property Name="GuaCCCheckFees" Type="money" />
+    <Property Name="GuaBGCheckFees" Type="money" />
   </EntityType>
   <EntityType Name="tbl_PropertyFloor">
     <Key>
@@ -885,6 +923,7 @@
     <Property Name="BalconyArea" Type="varchar" MaxLength="100" />
     <Property Name="InteriorArea" Type="varchar" MaxLength="100" />
     <Property Name="Notes" Type="varchar" MaxLength="1000" />
+    <Property Name="IsFurnished" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Prospect">
     <Key>
@@ -923,6 +962,7 @@
     <Property Name="PropertyID" Type="bigint" />
     <Property Name="AssignAgentId" Type="bigint" />
     <Property Name="AppointmentStatus" Type="int" />
+    <Property Name="OutlookID" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="tbl_PurchaseOrder">
     <Key>
@@ -1036,6 +1076,15 @@
     <Property Name="ModifiedBy" Type="bigint" />
     <Property Name="ModifiedDate" Type="datetime" />
   </EntityType>
+  <EntityType Name="tbl_SMSMessages">
+    <Key>
+      <PropertyRef Name="MsgID" />
+    </Key>
+    <Property Name="MsgID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="15" />
+    <Property Name="Message" Type="varchar" MaxLength="1000" />
+    <Property Name="ReceivedDate" Type="datetime" />
+  </EntityType>
   <EntityType Name="tbl_State">
     <Key>
       <PropertyRef Name="ID" />
@@ -1123,6 +1172,20 @@
     <Property Name="TenantID" Type="bigint" />
     <Property Name="Status" Type="int" />
     <Property Name="Date" Type="date" />
+  </EntityType>
+  <EntityType Name="tbl_TenantFob">
+    <Key>
+      <PropertyRef Name="TFobID" />
+    </Key>
+    <Property Name="TFobID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenantID" Type="bigint" />
+    <Property Name="FobID" Type="nvarchar" MaxLength="500" />
+    <Property Name="ApplicantID" Type="bigint" />
+    <Property Name="Status" Type="int" />
+    <Property Name="OtherFirstName" Type="varchar" MaxLength="50" />
+    <Property Name="OtherLastName" Type="varchar" MaxLength="50" />
+    <Property Name="OtherRelationship" Type="varchar" MaxLength="50" />
+    <Property Name="OtherId" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_TenantInfo">
     <Key>
@@ -1214,7 +1277,7 @@
     <Property Name="HavePet" Type="bit" />
     <Property Name="PassportDocumentOriginalFile" Type="varchar" MaxLength="500" />
     <Property Name="IdentityDocumentOriginalFile" Type="varchar" MaxLength="500" />
-    <Property Name="IsPaystub" Type="bit" />
+    <Property Name="IsPaystub" Type="int" />
     <Property Name="ProfilePicture" Type="varchar" MaxLength="500" />
     <Property Name="OrginalProfilePicture" Type="varchar" MaxLength="500" />
     <Property Name="IsAgreePostDisclaimer" Type="int" />
@@ -1321,7 +1384,42 @@
     <Property Name="HavePet" Type="bit" />
     <Property Name="PassportDocumentOriginalFile" Type="varchar" MaxLength="500" />
     <Property Name="IdentityDocumentOriginalFile" Type="varchar" MaxLength="500" />
-    <Property Name="IsPaystub" Type="bit" />
+    <Property Name="IsPaystub" Type="int" />
+    <Property Name="CountryOfOrigin" Type="bigint" />
+    <Property Name="Evicted" Type="int" />
+    <Property Name="EvictedDetails" Type="varchar" MaxLength="500" />
+    <Property Name="ConvictedFelony" Type="int" />
+    <Property Name="ConvictedFelonyDetails" Type="varchar" MaxLength="500" />
+    <Property Name="CriminalChargPen" Type="int" />
+    <Property Name="CriminalChargPenDetails" Type="varchar" MaxLength="500" />
+    <Property Name="DoYouSmoke" Type="int" />
+    <Property Name="ReferredResident" Type="int" />
+    <Property Name="ReferredResidentName" Type="varchar" MaxLength="200" />
+    <Property Name="ReferredBrokerMerchant" Type="int" />
+    <Property Name="ApartmentCommunity" Type="varchar" MaxLength="500" />
+    <Property Name="ManagementCompany" Type="varchar" MaxLength="500" />
+    <Property Name="ManagementCompanyPhone" Type="varchar" MaxLength="20" />
+    <Property Name="IsProprNoticeLeaseAgreement" Type="int" />
+    <Property Name="ParentTOID" Type="bigint" />
+    <Property Name="StepCompleted" Type="int" />
+    <Property Name="IsRentalPolicy" Type="int" />
+    <Property Name="IsRentalQualification" Type="int" />
+    <Property Name="TaxReturn4" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturn5" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturn6" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturn7" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturn8" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile4" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile5" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile6" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile7" Type="nvarchar" MaxLength="500" />
+    <Property Name="TaxReturnOrginalFile8" Type="nvarchar" MaxLength="500" />
+    <Property Name="IsFedralTax" Type="int" />
+    <Property Name="IsBankState" Type="int" />
+    <Property Name="ResidenceStatus" Type="int" />
+    <Property Name="ResidenceNotes" Type="nvarchar(max)" />
+    <Property Name="EmpStatus" Type="int" />
+    <Property Name="EmpNotes" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="tbl_TenantParking">
     <Key>
@@ -1349,6 +1447,9 @@
     <Property Name="VetsName" Type="varchar" MaxLength="500" />
     <Property Name="OriginalPhoto" Type="varchar" MaxLength="500" />
     <Property Name="OriginalVaccinationCert" Type="varchar" MaxLength="500" />
+    <Property Name="UniqID" Type="varchar" MaxLength="50" />
+    <Property Name="ExpiryDate" Type="datetime" />
+    <Property Name="AddedBy" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_TenantPetPlace">
     <Key>
@@ -1376,45 +1477,20 @@
     </Key>
     <Property Name="TransID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenantID" Type="bigint" Nullable="false" />
-    <Property Name="LeaseID" Type="bigint" Nullable="false" />
-    <Property Name="Revision_Num" Type="int" Nullable="false" />
     <Property Name="Transaction_Date" Type="datetime" Nullable="false" />
-    <Property Name="Run" Type="int" Nullable="false" />
-    <Property Name="Tax_Sequence" Type="int" />
-    <Property Name="Transaction_Type" Type="varchar" MaxLength="20" />
+    <Property Name="PAID" Type="varchar" MaxLength="20" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
     <Property Name="Charge_Date" Type="datetime" />
-    <Property Name="Summary_Charge_Type" Type="varchar" MaxLength="10" />
-    <Property Name="Payment_ID" Type="int" />
-    <Property Name="Reference" Type="varchar" MaxLength="10" />
     <Property Name="Charge_Amount" Type="money" />
     <Property Name="Credit_Amount" Type="money" />
     <Property Name="Miscellaneous_Amount" Type="money" />
     <Property Name="Accounting_Date" Type="datetime" />
-    <Property Name="Journal" Type="int" />
-    <Property Name="Accrual_Debit_Acct" Type="varchar" MaxLength="29" />
-    <Property Name="Accrual_Credit_Acct" Type="varchar" MaxLength="29" />
-    <Property Name="Cash_Debit_Account" Type="varchar" MaxLength="29" />
-    <Property Name="Cash_Credit_Account" Type="varchar" MaxLength="29" />
-    <Property Name="Appl_of_Origin" Type="varchar" MaxLength="3" />
     <Property Name="Batch" Type="varchar" MaxLength="10" />
-    <Property Name="Batch_Source" Type="varchar" MaxLength="20" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="datetime" />
-    <Property Name="GL_Trans_Description" Type="nvarchar" MaxLength="500" />
-    <Property Name="GL_Trans_Reference_1" Type="varchar" MaxLength="100" />
-    <Property Name="GL_Trans_Reference_2" Type="varchar" MaxLength="100" />
-    <Property Name="GL_Entries_Created" Type="int" />
     <Property Name="Charge_Type" Type="int" />
-    <Property Name="ProspectID" Type="bigint" />
-    <Property Name="TBankName" Type="nvarchar" MaxLength="100" />
-    <Property Name="TAccCardName" Type="nvarchar" MaxLength="100" />
-    <Property Name="TAccCardNumber" Type="nvarchar" MaxLength="29" />
-    <Property Name="TRoutingNumber" Type="nvarchar" MaxLength="29" />
-    <Property Name="TSecurityNumber" Type="nvarchar" MaxLength="29" />
-    <Property Name="TCardExpirationMonth" Type="nvarchar" MaxLength="29" />
-    <Property Name="TCardExpirationYear" Type="nvarchar" MaxLength="29" />
     <Property Name="Authcode" Type="nvarchar" MaxLength="20" />
+    <Property Name="UserID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_UnitLeasePrice">
     <Key>
@@ -1467,6 +1543,10 @@
     <Property Name="OriginalVehicleReg" Type="nvarchar" MaxLength="100" />
     <Property Name="Year" Type="nvarchar" MaxLength="50" />
     <Property Name="State" Type="varchar" MaxLength="5" />
+    <Property Name="Tag" Type="nvarchar" MaxLength="50" />
+    <Property Name="ParkingID" Type="int" />
+    <Property Name="AddedBy" Type="bigint" />
+    <Property Name="VehicleType" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Vendor">
     <Key>
@@ -1893,18 +1973,6 @@
       </Principal>
       <Dependent Role="tbl_Notice">
         <PropertyRef Name="TID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_tbl_Parking_tbl_Parking">
-    <End Role="tbl_Properties" Type="Self.tbl_Properties" Multiplicity="0..1" />
-    <End Role="tbl_Parking" Type="Self.tbl_Parking" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="tbl_Properties">
-        <PropertyRef Name="PID" />
-      </Principal>
-      <Dependent Role="tbl_Parking">
-        <PropertyRef Name="PropertyID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2471,6 +2539,7 @@
     <EntitySet Name="tbl_ApplyNow" EntityType="Self.tbl_ApplyNow" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_AuditHistory" EntityType="Self.tbl_AuditHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_AuditHistoryDetail" EntityType="Self.tbl_AuditHistoryDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_BackgroundScreening" EntityType="Self.tbl_BackgroundScreening" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_BankAccount" EntityType="Self.tbl_BankAccount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Bill" EntityType="Self.tbl_Bill" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_CashReceipts" EntityType="Self.tbl_CashReceipts" Schema="dbo" store:Type="Tables" />
@@ -2524,11 +2593,13 @@
     <EntitySet Name="tbl_ServiceIssue" EntityType="Self.tbl_ServiceIssue" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_ServiceLocation" EntityType="Self.tbl_ServiceLocation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_ServiceRequest" EntityType="Self.tbl_ServiceRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_SMSMessages" EntityType="Self.tbl_SMSMessages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_State" EntityType="Self.tbl_State" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Storage" EntityType="Self.tbl_Storage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Tenant" EntityType="Self.tbl_Tenant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_TenantEventJoin" EntityType="Self.tbl_TenantEventJoin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_TenantEventJoinApprove" EntityType="Self.tbl_TenantEventJoinApprove" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_TenantFob" EntityType="Self.tbl_TenantFob" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_TenantInfo" EntityType="Self.tbl_TenantInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_TenantMonthlyPayments" EntityType="Self.tbl_TenantMonthlyPayments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_TenantOnline" EntityType="Self.tbl_TenantOnline" Schema="dbo" store:Type="Tables" />
@@ -2668,10 +2739,6 @@
     <AssociationSet Name="FK_tbl_Notice_tbl_Tenant" Association="Self.FK_tbl_Notice_tbl_Tenant">
       <End Role="tbl_Tenant" EntitySet="tbl_Tenant" />
       <End Role="tbl_Notice" EntitySet="tbl_Notice" />
-    </AssociationSet>
-    <AssociationSet Name="FK_tbl_Parking_tbl_Parking" Association="Self.FK_tbl_Parking_tbl_Parking">
-      <End Role="tbl_Properties" EntitySet="tbl_Properties" />
-      <End Role="tbl_Parking" EntitySet="tbl_Parking" />
     </AssociationSet>
     <AssociationSet Name="FK_tbl_PetPlace_tbl_Properties" Association="Self.FK_tbl_PetPlace_tbl_Properties">
       <End Role="tbl_Properties" EntitySet="tbl_Properties" />

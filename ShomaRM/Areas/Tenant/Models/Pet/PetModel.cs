@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using ShomaRM.Models;
 
 
 namespace ShomaRM.Areas.Tenant.Models
@@ -30,34 +31,46 @@ namespace ShomaRM.Areas.Tenant.Models
 
         public string SaveUpdatePet(PetModel model)
         {
-
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
 
-            if (model.PetID == 0)
+            var availableSpace = db.tbl_TenantPetPlace.Where(p => p.TenantID == model.TenantID).FirstOrDefault();
+            var availablePetList = db.tbl_TenantPet.Where(p => p.TenantID == model.TenantID).ToList();
+
+            if (availablePetList.Count < availableSpace.PetPlaceID)
             {
-                var savePet = new tbl_TenantPet()
-                {
-                    PetID = model.PetID,
-                    TenantID = model.TenantID,
-                    PetType = model.PetType,
-                    Breed = model.Breed,
-                    Weight = model.Weight,
-                    Age = model.Age,
-                    Photo = model.Photo,
-                    PetVaccinationCert = model.PetVaccinationCertificate,
-                    OriginalPhoto = model.OriginalPetNameFile,
-                    OriginalVaccinationCert = model.OriginalPetVaccinationCertificateFile,
-                    PetName = model.PetName,
-                    VetsName = model.VetsName
-                };
-                db.tbl_TenantPet.Add(savePet);
-                db.SaveChanges();
-                msg = savePet.TenantID.ToString();
 
-                msg += ",Pet Saved Successfully";
+                if (model.PetID == 0)
+                {
+                    var savePet = new tbl_TenantPet()
+                    {
+                        PetID = model.PetID,
+                        TenantID = model.TenantID,
+                        PetType = model.PetType,
+                        Breed = model.Breed,
+                        Weight = model.Weight,
+                        Age = model.Age,
+                        Photo = model.Photo,
+                        PetVaccinationCert = model.PetVaccinationCertificate,
+                        OriginalPhoto = model.OriginalPetNameFile,
+                        OriginalVaccinationCert = model.OriginalPetVaccinationCertificateFile,
+                        PetName = model.PetName,
+                        VetsName = model.VetsName,
+                        AddedBy = userid
+                    };
+                    db.tbl_TenantPet.Add(savePet);
+                    db.SaveChanges();
+                    msg = savePet.TenantID.ToString();
+
+                    msg += ",Pet Saved Successfully";
+                }
             }
             else
+            {
+                msg = "You can not add Vehicle Due to Un-available Pet Space";
+            }
+            if (model.PetID != 0)
             {
                 var getPetdata = db.tbl_TenantPet.Where(p => p.PetID == model.PetID).FirstOrDefault();
                 if (getPetdata != null)
@@ -81,8 +94,6 @@ namespace ShomaRM.Areas.Tenant.Models
 
             db.Dispose();
             return msg;
-
-
         }
 
         public List<PetModel> GetPetList(long TenantID)
@@ -90,7 +101,12 @@ namespace ShomaRM.Areas.Tenant.Models
             ShomaRMEntities db = new ShomaRMEntities();
             List<PetModel> lstProp = new List<PetModel>();
 
-            var petList = db.tbl_TenantPet.Where(p => p.TenantID == TenantID).ToList();
+            //var petList = db.tbl_TenantPet.Where(p => p.TenantID == TenantID).ToList();
+            //var petList = db.tbl_TenantPet.Where(p => p.TenantID == TenantID && p.AddedBy == ShomaGroupWebSession.CurrentUser.UserID).ToList();
+
+            long addedby = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+
+            var petList = db.tbl_TenantPet.Where(p => p.TenantID == TenantID && p.AddedBy == addedby).ToList();
             foreach (var pl in petList)
             {
                 lstProp.Add(new PetModel
@@ -139,11 +155,11 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
-
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (PetID != 0)
             {
 
-                var petData = db.tbl_TenantPet.Where(p => p.PetID == PetID).FirstOrDefault();
+                var petData = db.tbl_TenantPet.Where(p => p.PetID == PetID && p.AddedBy == userid).FirstOrDefault();
                 if (petData != null)
                 {
                     db.tbl_TenantPet.Remove(petData);
@@ -351,6 +367,31 @@ namespace ShomaRM.Areas.Tenant.Models
                 db.tbl_TenantPet.Remove(petDelete);
                 db.SaveChanges();
             }
+        }
+        public List<PetModel> GetPetListByAdmin(long TenantID, long ApplicantUserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<PetModel> lstProp = new List<PetModel>();
+
+            var petList = db.tbl_TenantPet.Where(p => p.TenantID == TenantID && p.AddedBy == ApplicantUserId).ToList();
+            foreach (var pl in petList)
+            {
+                lstProp.Add(new PetModel
+                {
+                    PetID = pl.PetID,
+                    TenantID = pl.TenantID,
+                    PetType = pl.PetType,
+                    Breed = pl.Breed,
+                    Weight = string.IsNullOrWhiteSpace(pl.Weight) ? "" : pl.Weight,
+                    Age = string.IsNullOrWhiteSpace(pl.Age) ? "" : pl.Age,
+                    Photo = pl.Photo,
+                    PetVaccinationCertificate = pl.PetVaccinationCert,
+                    PetName = pl.PetName,
+                    VetsName = !string.IsNullOrWhiteSpace(pl.VetsName) ? pl.VetsName : ""
+                });
+
+            }
+            return lstProp;
         }
     }
 }

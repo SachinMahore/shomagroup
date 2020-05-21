@@ -156,6 +156,7 @@ namespace ShomaRM.Areas.Admin.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.CRID == 0)
             {
                 var saveCashReceipt = new tbl_CashReceipts()
@@ -177,7 +178,7 @@ namespace ShomaRM.Areas.Admin.Models
                     DateStamp = model.DateStamp,
                     IsApplicant = model.IsApplicant,
                     DepositAcctDate = model.DepositAcctDate,
-                    UserID = ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID,
+                    UserID = userid,
                 };
                 db.tbl_CashReceipts.Add(saveCashReceipt);
                 db.SaveChanges();

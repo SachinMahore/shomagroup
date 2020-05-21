@@ -31,6 +31,7 @@ namespace ShomaRM.Models
             try
             {
                 ShomaRMEntities db = new ShomaRMEntities();
+                int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
                 using (var cmd = db.Database.Connection.CreateCommand())
                 {
                     try
@@ -41,7 +42,7 @@ namespace ShomaRM.Models
 
                         DbParameter paramUserID = cmd.CreateParameter();
                         paramUserID.ParameterName = "UserID";
-                        paramUserID.Value = (ShomaGroupWebSession.CurrentUser.UserID == 0 ? 0 : ShomaGroupWebSession.CurrentUser.UserID);
+                        paramUserID.Value = userid;
                         cmd.Parameters.Add(paramUserID);
 
                         DbParameter paramSessionID = cmd.CreateParameter();
