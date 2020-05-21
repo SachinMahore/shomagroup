@@ -228,7 +228,8 @@ html, head, body{
   top: 5px;
   padding: 5px;
   right: 0;
-  margin-top: -30px;
+  margin-top: -30
+  px;
   top: -33px;
 }
 
@@ -5296,20 +5297,108 @@ nav{text-align:left}
 .header-area .main-header-area .main-menu .menu3{background-image:url(../img/nav-bg.png);background-size: 100% 100%;padding: 10px 0px;text-align: center;}
 .header-area .main-header-area .main-menu .menu4{background-image:url(../img/nav-bg.png);background-size: 100% 100%;padding: 10px 0px;text-align: center;}
 .header-area .main-header-area .main-menu .menu5{background-image:url(../img/nav-bg.png);background-size: 100% 100%;padding: 10px 0px;text-align: center;}
-.header-area .main-header-area .main-menu .menu6{background-image:url(../img/nav-bg.png);background-size: 100% 100%;padding: 10px 0px;text-align: center;}
+.header-area .main-header-area .main-menu .menu6{background-image:url(../img/menu-6.png);background-size: 100% 100%;padding: 10px 0px;text-align: center;}
 
 .header-area .main-header-area .main-menu .menu2:hover,
 .header-area .main-header-area .main-menu .menu3:hover,
 .header-area .main-header-area .main-menu .menu4:hover,
 .header-area .main-header-area .main-menu .menu5:hover{background-image:url(../img/nav-bg-hover.png);}
-.header-area .main-header-area .main-menu .menu6:hover{background-image:url(../img/nav-bg-hover.png)}
+.header-area .main-header-area .main-menu .menu6:hover{background-image:url(../img/menu-6-hover.png)}
 .header-area .main-header-area .main-menu .menu2.active{background-image:url(../img/nav-bg-hover.png);}
+.header-area .main-header-area .main-menu .menu3.active{background-image:url(../img/nav-bg-hover.png);}
+.header-area .main-header-area .main-menu .menu4.active{background-image:url(../img/nav-bg-hover.png);}
+.header-area .main-header-area .main-menu .menu5.active{background-image:url(../img/nav-bg-hover.png);}
+.header-area .main-header-area .main-menu .menu6.active {background-image: url(../img/menu-6-hover.png);}
 
 nav a {
     font-size: 13px;
     color: #fff;
     font-weight: 600;
 }
+
+
+/******** complete application **********/
+
+/*.rowbox{
+    margin-top: 10px;
+    background: #557388;
+}
+
+.header-area .main-header-area .main-menu .option1{background: #557388;}
+.header-area .main-header-area .main-menu .option2{background: #557388;}
+.header-area .main-header-area .main-menu .option3{background: #557388;}
+.header-area .main-header-area .main-menu .option4{background: #557388;}
+.header-area .main-header-area .main-menu .option5{background: #557388;}
+.header-area .main-header-area .main-menu .option6{background: #557388;}
+.header-area .main-header-area .main-menu .option7{background: #557388;}
+.header-area .main-header-area .main-menu .option8{background: #557388;}
+.header-area .main-header-area .main-menu .option9{background: #557388;}
+.header-area .main-header-area .main-menu .option10{background: #557388;}
+
+.header-area .main-header-area .main-menu .col a{
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: none;
+}
+
+.header-area .main-header-area .main-menu .option1.active{background: #fff;}
+.header-area .main-header-area .main-menu .option1.active a{color: #557388;}
+
+ul.option{
+    margin: 0px;
+    padding-left: 10px;
+}
+
+.col{
+    padding: 4px 9px;
+}
+
+*/
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: none;
+    background-color: #557388;
+    margin-top: 10px;
+    color: #fff;
+    padding-left: 15px;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 4px 10px;
+    transition: 0.3s;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #fff;
+    color: #557388;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #fff;
+    color: #557388;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+ /* border: 1px solid #ccc;*/
+  border-top: none;
+}
+
 /****************************/
 
 .mark_pro p,.main_pro p{line-height: 12px;font-weight:400; font-size: 13px;}
@@ -5338,9 +5427,9 @@ input[type=date],select{padding: 8px;
 .unit_thumb{text-align:center}
 .unit_thumb img{width:100%}
 .unit_thumb.map img{width:100%}
-.unit_thumb ul{padding: 8px 25px;}
-.unit_thumb ul li{display: inline;font-size:17px;position: relative;padding-left:35px;}
-.unit_thumb ul li:before{content: "";position: absolute;width:18px;height:18px;background: #8eb63b;top: 4px;left:14px;border-radius: 50%;}
+.unit_thumb ul{padding: 8px 0px;display: flex;}
+.unit_thumb ul li{display: inline;font-size: 15px;position: relative;padding-left: 35px;}
+.unit_thumb ul li:before{content: "";position: absolute;width: 18px;height: 18px;background: #8eb63b;top: 2px;left: 15px;border-radius: 50%;}
 .unit_thumb ul li.op:before{background: #f0e514;}
 .unit_thumb ul li.un:before{background: #c82828;}
 
@@ -5396,7 +5485,7 @@ th, td {
   background: #dfdfdf;
   border-radius: 5px;
   overflow: hidden;
-  margin: 50px auto;
+  margin: 20px auto;
   box-shadow: 0 0 20px rgba(#000, .3); 
   cursor: zoom-in;
   img{
@@ -5583,6 +5672,9 @@ th, td {
   }
   .unit_thumb ul li {
     display: inline-block;
+  }
+  td.charges {
+    display: flex;
   }
 }
 
