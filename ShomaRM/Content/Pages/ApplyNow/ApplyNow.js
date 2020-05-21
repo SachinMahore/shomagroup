@@ -4073,7 +4073,7 @@ var getCompareModelList = function () {
 
 
 
-    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder:"0" };
+    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: "0", Furnished:"1" };
     $.ajax({
         url: "/Property/GetPropertyModelList/",
         type: "post",
@@ -4177,6 +4177,10 @@ function displayImg() {
 function displayCompImg(modname) {
     $("#imgFloorPlan2").attr("src", "/content/assets/img/plan/" + modname + "Det.jpg");
     $("#popFloorPlan").modal("show");
+}
+function displayComp() {
+    
+    $("#ex1").modal("show");
 }
 var SaveUpdateDocumentVerification = function () {
     $("#divLoader").show();
@@ -11093,3 +11097,5 @@ var getPropertyUnitDetails = function (uid) {
         }
     });
 }
+
+
