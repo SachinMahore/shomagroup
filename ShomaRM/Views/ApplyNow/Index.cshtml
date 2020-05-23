@@ -53,17 +53,16 @@
                     </div>
 
                     <ul style="line-height: 14px;" class="nav nav-tabs wizard">
-
-                        <li class="active tab-mobile" style="padding-right:2px" id="li1"><a href="javascript:void(0);" onclick="goToStep(1,0)"> 1. Floor Plan </a></li>
-                        <li id="li2" class="tab-mobile"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,0)">2. Select Units</a></li>
-                        <li id="li3" class="tab-mobile"><a href="javascript:void(0);" id="as3" onclick="goToStep(3,3)">3. Select Options</a></li>
-                        <li id="li4" class="tab-mobile"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5)">4. Quotation</a></li>
-                        <li id="li5" class="tab-mobile"><a href="javascript:void(0);" id="as5" onclick="goToStep(6,6)">5. Policies & Conditions </a></li>
-                        <li id="li6" class="tab-mobile"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,7)">6. Complete Application</a></li>
+                        <li class="active" style="padding-right:2px" id="li1"><a href="javascript:void(0);" onclick="goToStep(1,0,0)"> 1. Floor Plan </a></li>
+                        <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStep(2,2,1)">2. Select Units</a></li>
+                        <li id="li3"><a href="javascript:void(0);" id="as3" onclick="goToStep(4,4,0)">3. Select Options</a></li>
+                        <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStep(5,5,0)">4. Quotation</a></li>
+                        <li id="li5"><a href="javascript:void(0);" id="as5" onclick="goToStep(6,6,0)">5. Policies & Conditions </a></li>
+                        <li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,7,0)">6. Complete Application</a></li>
 
                     </ul>
                     <div class="text-center">
-                        <ul class="nav nav-tabs hidden text-center" style="margin-top:-14px !important;background-color:#4d738a !important;height:auto !important" id="subMenu">
+                        <ul class="nav nav-tabs hidden text-center" style="margin-top:-14px !important;background-color:#4d738a !important;height:29px !important" id="subMenu">
                             <li class="active" id="li7"><a style="padding: 3px 15px!important;margin-left:4px !important" onclick="goToStep(7,7)" href="javascript:void(0);">a. Applicants</a></li>
                             <li id="li8"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(8,8,0)">b. Responsibility</a></li>
                             <li id="li9"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(9,9,0)">c. Personal Info</a></li>
@@ -88,13 +87,10 @@
                                             </div>
                                     <p>View available floor plans. Select more than one to compare or select just one to choose your new apartment.</p>
                                 </div>
-
-                                <div class="col-xs-12 hidden" id="divMainSearch">
-                                    <div class="col-xs-12 padding-5 form-inline">
-
-                                        <h5 class="col-xs-12 col-sm-12 col-md-2 Move-In-mobile">Desired Move-In </h5>
-                                        <div class="col-xs-12 col-sm-12 col-md-2">
-
+                                <div class="col-md-12 hidden justify-content-center" id="divMainSearch">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Desired Move-In</label>
                                             <div class="input-group">
                                                 <input type="text" id="txtDate" data-date-format="mm/dd/yyyy" class="form-control" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" />
                                                 <span class="input-group-btn">
@@ -102,11 +98,10 @@
                                                 </span>
                                             </div>
                                         </div>
-
-                                        <h5 class="col-xs-12 col-sm-12 col-md-2 Move-In-mobile">Bedrooms</h5>
-                                        <div class="col-xs-12 col-sm-12 col-md-2 ">
-
-
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Bedrooms</label>
                                             <select id="ddlRoom" class="form-control">
                                                 <option value='0'>All</option>
                                                 <option value='1'>1 Bedroom</option>
@@ -118,24 +113,23 @@
                                     <input type="hidden" id="hndbuilding" value="1" />
                                     <input type="hidden" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
 
-
-                                        <input type="hidden" id="hndbuilding" value="1" />
-                                        <input type="hidden" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
-
-                                        <h5 class="col-xs-12 col-sm-12 col-md-1 Move-In-mobile">Sort</h5>
-                                        <div class="col-xs-12 col-sm-12 col-md-2">
-                                            @*<div class="col-xs-12">*@
-                                          
-                                                <select id="ddlSortOrder" class="form-control">
-                                                    <option value='0'>Low To High</option>
-                                                    <option value='1'>High To Low</option>
-
-                                                </select>
-                                            @*</div>*@
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Sort</label>
+                                            <select id="ddlSortOrder" class="form-control">
+                                                <option value='0'>Low To High</option>
+                                                <option value='1'>High To Low</option>
+                                            </select>
                                         </div>
-                                        <div class="col-sm-12 col-xs-12 col-md-1">
-                                            <button class="btn-primary hollow btn button-serchmobile" style="padding: 7px 7px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
-
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label>Furnished</label>
+                                            <select id="ddlFurnishedUnit" class="form-control">
+                                                <option value='0' selected="selected">All</option>
+                                                <option value='1'>Furnished Unit</option>
+                                                <option value='2'>Unfurnished Unit</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -164,7 +158,7 @@
                     </div>
                     <div class="hidden" id="step2">
                         <div class="row p-b-15  ">
-                            <div class="col-xs-12 col-sm-12 col-md-7">
+                            <div class="col-xs-7 col-sm-7">
                                 <div class="col-sm-12">
 
 
@@ -189,7 +183,7 @@
                                     <br />
                                 </div>
 
-                                <div class=" col-xs-12 col-md-3 col-sm-12 dealer-face">
+                                <div class="col-xs-3 col-sm-3 dealer-face">
                                     <div id="uDet">
                                         <a href="JavaScript:Void(0)" onclick="displayImg()">
                                             <img src="" id="imgFloorPlan" class="img-responsive">
@@ -205,35 +199,34 @@
                                                 <h6 class=""><span id="lblUnitModel"></span></h6>
                                             </div>
                                             <div class="panel-body recent-property-widget">
-                                                    <div class="col-sm-7 box1">
-                                                        <span id="">Bedrooms: </span>
-                                                    </div>
-                                                    <div class="col-sm-3 box1">
-                                                        <span id="lblBed22"></span>
-                                                    </div>
-
-                                                <div class="col-sm-7 box1">
+                                                <div class="col-sm-7">
+                                                    <span id="">Bedrooms: </span>
+                                                </div>
+                                                <div class="col-sm-3">
+                                                    <span id="lblBed22"></span>
+                                                </div>
+                                                <div class="col-sm-7">
                                                     <span id="">Bathrooms: </span>
                                                 </div>
-                                                <div class="col-sm-2 box1">
+                                                <div class="col-sm-2">
                                                     <span id="lblBath22"></span>
                                                 </div>
-                                                <div class="col-sm-7 box1">
+                                                <div class="col-sm-7">
                                                     <span id="">Sq. Ft.: </span>
                                                 </div>
-                                                <div class="col-sm-2 box1">
+                                                <div class="col-sm-2">
                                                     <span id="lblArea22"></span>
                                                 </div>
-                                                <div class="col-sm-7 box1">
+                                                <div class="col-sm-7">
                                                     <span id="">Occupancy: </span>
                                                 </div>
-                                                <div class="col-sm-2 box1">
+                                                <div class="col-sm-2">
                                                     <span id="lblOccupancy22"></span>
                                                 </div>
-                                                <div class="col-sm-7 box1">
+                                                <div class="col-sm-7">
                                                     <span id="">Deposit: </span>
                                                 </div>
-                                                <div class="col-sm-2 box1">
+                                                <div class="col-sm-2">
                                                     <span id="lblDeposit22"></span>
                                                 </div>
                                                 <div class="col-sm-7 hidden">
@@ -251,7 +244,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-12 col-md-9 print-summerymobile">
+                                <div class="col-xs-9">
                                     <div>
                                         <table class="" cellspacing="0" style="width:100%;">
                                             <thead>
@@ -286,7 +279,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-5">
+                            <div class="col-xs-5 col-sm-5">
                                 <div id="divFloor">
 
                                     <img src="/content/assets/img/demo/@Model.Picture" usemap="#apartment_2" id="apartimg_2">
@@ -537,7 +530,7 @@
                     <div class="hidden" id="step4">
 
                         <div class="row p-b-15  ">
-                            <div class="col-xs-12 col-sm-12 col-md-3 dealer-face">
+                            <div class="col-xs-3 col-sm-3 dealer-face">
 
                                 <div id="uDet">
                                     <a href="JavaScript:Void(0)" onclick="displayImg()">
@@ -559,14 +552,14 @@
                                                     <span class="property-info-value"><span id="lblArea"></span><b class="property-info-unit">Sq Ft</b></span>
                                                 </span>
                                             </div>
-                                            <div class="col-xs-6 col-sm-12 col-md-6 p-b-15">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 p-b-15">
 
                                                 <span class="property-info-entry">
                                                     <span class="property-info-label">Lease</span>
                                                     <span class="property-info-value"><span id="lblLease">@Model.LeaseTerm</span> Mo</span>
                                                 </span>
                                             </div>
-                                            <div class="col-xs-6 col-sm-12 col-md-6 p-b-15">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 p-b-15">
 
                                                 <span class="property-info-entry">
                                                     <span class="property-info-label">Bedrooms</span>
@@ -574,7 +567,7 @@
                                                 </span>
                                             </div>
 
-                                            <div class="col-xs-6 col-sm-12 col-md-6 p-b-15">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 p-b-15">
 
                                                 <span class="property-info-entry">
                                                     <span class="property-info-label">Bathrooms</span>
@@ -582,14 +575,14 @@
                                                 </span>
                                             </div>
 
-                                            <div class="col-xs-6 col-sm-12 col-md-6 p-b-15">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 p-b-15">
 
                                                 <span class="property-info-entry">
                                                     <span class="property-info-label">Deposit</span>
                                                     <span class="property-info-value">$<span id="lblDeposit"></span></span>
                                                 </span>
                                             </div>
-                                            <div class="col-xs-6 col-sm-12 col-md-6 p-b-15">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 p-b-15">
 
                                                 <span class="property-info-entry">
                                                     <span class="property-info-label">Rent</span>
@@ -602,7 +595,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-7">
+                            <div class="col-xs-9">
                                 <div class="col-sm-1">
                                     <span>UNIT</span>
                                 </div>
@@ -875,133 +868,116 @@
                                 </div>
 
                                 <div class="col-sm-12 clear">
-
-                                    <div class="col-sm-6 ">
-                                        <div class="col-sm-4 box1">
-                                            <span>QUOTE# </span>
+                                    <div class="col-sm-5">
+                                        <div class="col-sm-6">
+                                            <span>QUOTE DATE : </span>
                                         </div>
-                                        <div class="col-sm-8 box1">
-                                            <span id="lblFNLQuote" style="text-decoration:underline;font-weight:bold;"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="col-sm-4 box1">
-                                            <span>PREPARED FOR: </span>
-                                        </div>
-                                        <div class="col-sm-8 box1">
-                                            <span id="lblFNLPreparedFor" style="text-decoration:underline;font-weight:bold;"></span>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 clear">
-
-                                    <div class="col-sm-6">
-                                        <div class="col-sm-4 box1">
-                                            <span>QUOTE DATE: </span>
-                                        </div>
-                                        <div class="col-sm-8 box1">
+                                        <div class="col-sm-6">
                                             <span id="lblFNLQuoteDate" style="text-decoration:underline;font-weight:bold;">@Model.CreatedDate.ToString("MM/dd/yyyy hh:mm tt")</span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="col-sm-4 box1">
-                                            <span>QUOTE EXPIRES: </span>
+                                    <div class="col-sm-7">
+                                        <div class="col-sm-6">
+                                            <span>PREPARED FOR (RESIDENT NAME) : </span>
                                         </div>
-                                        <div class="col-sm-8 box1">
+                                        <div class="col-sm-6 margin-RN">
+                                            <span id="lblFNLResidentName1" style="text-decoration:underline;font-weight:bold;">@Model.FirstName @Model.LastName</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 clear">
+                                    <div class="col-sm-5">
+                                        <div class="col-sm-6">
+                                            <span>QUOTE EXPIRES : </span>
+                                        </div>
+                                        <div class="col-sm-6">
                                             <span id="lblFNLQuoteExpires" style="text-decoration:underline;font-weight:bold;">@Model.ExpireDate</span>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="col-sm-12 clear">
-                                    <div class="col-sm-8">
-                                        <div class="col-sm-3 box1">
-                                            <span>RESIDENT NAME: </span>
+                                    <div class="col-sm-7">
+                                        <div class="col-sm-2">
+                                            <span>PHONE : </span>
                                         </div>
-                                        <div class="col-sm-9 box1">
-                                            <span id="lblFNLResidentName" style="text-decoration:underline;font-weight:bold;">@Model.FirstName @Model.LastName</span>
+                                        <div class="col-sm-3 margin-left-0">
+                                            <span id="lblFNLPhone" style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="col-sm-3 box1">
-                                            <span>UNIT#: </span>
+                                        <div class="col-sm-2">
+                                            <span>EMAIL : </span>
                                         </div>
-                                        <div class="col-sm-9 box1">
-                                            <span id="lblFNLUnit" style="text-decoration:underline;font-weight:bold;"></span>
-
+                                        <div class="col-sm-6 margin-left-0">
+                                            <span id="lblFNLEmail" style="text-decoration:underline;font-weight:bold;">@Model.Email</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 clear">
-
-                                    <div class="col-sm-8 box1">
-                                        <div class="col-sm-3 box1">
-                                            <span>PHONE: </span>
-                          </div>
+                                    <div class="col-sm-5">
+                                        <div class="col-sm-6">
+                                            <span>DESIRED MOVE IN : </span>
+                                        </div>
                                         <div class="col-sm-6">
                                             <span id="lblFNLDesiredMoveIn" style="text-decoration:underline;font-weight:bold;">@Model.MoveInDateTxt</span>
                                         </div>
                                     </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="col-sm-3 box1">
-                                            <span>MODEL: </span>
+                                    <div class="col-sm-7">
+                                        <div class="col-sm-2">
+                                            <span>UNIT# : </span>
                                         </div>
-                                        <div class="col-sm-9 box1">
-
+                                        <div class="col-sm-3 margin-left-0">
+                                            <span id="lblFNLUnit" style="text-decoration:underline;font-weight:bold;"></span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span>MODEL : </span>
+                                        </div>
+                                        <div class="col-sm-6 margin-left-0">
                                             <span id="lblFNLModel" style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 clear">
-
-                                    <div class="col-sm-8 box1">
-                                        <div class="col-sm-3 box1">
-                                            <span>EMAIL: </span>
+                                    <div class="col-sm-5">
+                                        <div class="col-sm-6">
+                                            <span>LEASE TERM : </span>
                                         </div>
-                                        <div class="col-sm-9 box1">
-                                            <span id="lblFNLEmail" style="text-decoration:underline;font-weight:bold;">@Model.Email</span>
+                                        <div class="col-sm-6">
+                                            <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;">@Model.LeaseTerm</span>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 ">
-                                        <div class="col-sm-3 box1">
-                                            <span>TERM: </span>
+                                    <div class="col-sm-7">
+                                        <div class="col-sm-5">
+                                            <span>ASSIGNED PARKING SPACE :  </span>
                                         </div>
-                                        <div class="col-sm-9 box1">
-                                            <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;">@Model.LeaseTerm</span>
-
+                                        <div class="col-sm-7 margin-left-0">
+                                            <span id="lblAssginPakingSpace" style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 clear">
+                                    <div class="col-sm-8">
+                                        <div class="col-sm-3">
 
-                                    <div class="col-sm-8 box1">
-                                        <div class="col-sm-3 box1">
-                                            <span>DESIRED MOVE IN: </span>
                                         </div>
-                                        <div class="col-sm-9 box1">
-                                            <span id="lblFNLDesiredMoveIn" style="text-decoration:underline;font-weight:bold;">@Model.MoveInDateTxt</span>
-                     </div>
+                                        <div class="col-sm-9">
+
+                                        </div>
                                     </div>
-                                    <div class="col-sm-4 box1">
+                                    <div class="col-sm-4">
 
                                     </div>
                                 </div>
                                 <div class="col-sm-12 clear">&nbsp;</div>
+                                <div class="col-sm-12 clear">
+                                    <div class="col-sm-6">
+                                        <div class="col-sm-5">
+                                            <span style="text-decoration:underline;font-weight:bold;">INITIAL FEES :</span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span style="text-decoration:underline;font-weight:bold;">Amount</span>
+                                        </div>
 
-
-                                <div class="col-sm-8 box1">
-                                    <div class="col-sm-6 box1">
-                                        <span style="text-decoration:underline;font-weight:bold;">Initial Fees and Costs</span>
-                                    </div>
-                                    <div class="col-sm-3 box1">
-
-                                        <span style="text-decoration:underline;font-weight:bold;">Amount</span>
-                                    </div>
-                                    <div class="col-sm-12 ">
-                                        <div class="col-sm-3 box1">
-                                            <span>Application Fee: </span>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span>APPLICATION FEE : </span>
 
                                                 </div>
                                                 <div class="col-sm-7">
@@ -1028,148 +1004,182 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-3 box1">
-                                            <span id="lblFNLApplicationFee" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))/Adult</span>
-                                        </div>
-                                        <div class="col-sm-3 box1" style="color:green">
-                                            $<span id="lblFNLAmount" style="text-decoration:underline;font-weight:bold;">@((Model.ApplicationFees ?? 0).ToString("0.00"))</span>
-                                        </div>
                                     </div>
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-3 box1">
-                                            <span>Renter's Insurance*: </span>
+                                    <div class="col-sm-6">
+                                        <div class="col-sm-5">
+                                            <span style="text-decoration:underline;font-weight:bold;">MOVE-IN FEES:</span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span style="text-decoration:underline;font-weight:bold;">Amount</span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span>Security Deposit **: </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    $<span style="text-decoration:underline;font-weight:bold;" id="fdepo">@((Model.Deposit ?? 0).ToString("0.00"))</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="spfpetd">Pet Non-Refundable Deposit: </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    $<span style="text-decoration:underline;font-weight:bold;" id="fpetd">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="spanPetDNAFee2">Pet DNA Fee:</span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    $<span style="text-decoration:underline;font-weight:bold;" id="fpetdna">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span id="spanVechReg">Vehicle Registration@(((Model.VehicleRegistration ?? 0) / 15) > 0 ? " (" + ((Model.VehicleRegistration ?? 0) / 15).ToString() + " Vehicle)" : ""): @(((Model.VehicleRegistration ?? 0) / 15) > 0 ? " (" + ((Model.VehicleRegistration ?? 0) / 15).ToString() + " Vehicle)" : "")</span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="col-sm-5">
+                                                    <span>Insurance*** </span>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                </div>
+                                            </div>
 
                                         </div>
-                                        <div class="col-sm-3 box1">
-                                            <a href="javascript:void(0);" id="lblFNLRentersInsurance" style="text-decoration:underline;">www.erenterplan.com</a>
-                                        </div>
-
                                     </div>
                                 </div>
                                 <div class="col-sm-8">
 
-
-                                    <div class="col-sm-3 box1">
-                                        <span style="text-decoration:underline;font-weight:bold;">Monthly Payment</span>
+                                    <div class="col-sm-4">
+                                        <span style="text-decoration:underline;font-weight:bold;">MONTHLY CHARGES:</span>
                                     </div>
-                                    <div class="col-sm-2 box1">
+                                    <div class="col-sm-1">
 
                                     </div>
-                                    <div class="col-sm-3 box1">
+                                    <div class="col-sm-3">
 
                                         <span style="text-decoration:underline;font-weight:bold;">Monthly</span>
                                     </div>
-                                    <div class="col-sm-3 box1">
+                                    <div class="col-sm-3">
 
                                         <span style="text-decoration:underline;font-weight:bold;">Prorated</span>
                                     </div>
-
-                                    <div class="col-sm-12 box1">
-                                        <div class="col-sm-3 box1">
-                                            <span> Monthly Charge </span>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <span> Monthly Rent </span>
 
                                         </div>
-                                        <div class="col-sm-2 box1">&nbsp;</div>
-                                        <div class="col-sm-3 box1">
 
+                                        <div class="col-sm-2">&nbsp;</div>
+                                        <div class="col-sm-3">
                                             $<span id="lblMonthly_MonthlyCharge" style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
-                                        <div class="col-sm-3 box1">
+                                        <div class="col-sm-3">
                                             $ <span id="lblProrated_MonthlyCharge" style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
                                     </div>
-
-                                    <div class="col-sm-12 box1">
-                                        <div class="col-sm-3 box1">
-                                            <span> Aditional Parking </span>
-
-                                        </div>
-                                        <div class="col-sm-2 box1">
-                                            <span style="text-decoration:underline;font-weight:bold;" id="parkUnit"></span>
-                                        </div>
-                                        <div class="col-sm-3 box1">
-                                            $<span id="lblMonthly_AditionalParking" style="text-decoration:underline;font-weight:bold;">@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
-                                        </div>
-                                        <div class="col-sm-3 box1">
-                                            $ <span id="lblProrated_AditionalParking" style="text-decoration:underline;font-weight:bold;"></span>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <span><i> Additional Services </i></span>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
-                                        <div class="col-sm-3 box1">
-                                            <span> Storage </span>
-
-                                        </div>
-                                        <div class="col-sm-2 box1">
-                                            <span style="text-decoration:underline;font-weight:bold;" id="storUnit"></span>
-                                        </div>
-                                        <div class="col-sm-3 box1">
-                                            $<span id="lblMonthly_Storage" style="text-decoration:underline;font-weight:bold;">@((Model.StorageAmt ?? 0).ToString("0.00"))</span>
-                                        </div>
-                                        <div class="col-sm-3 box1">
-                                            $ <span id="lblProrated_Storage" style="text-decoration:underline;font-weight:bold;"></span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <div class="col-sm-3 box1">
-                                            <span> Pet Rent </span>
-
-
-                                        </div>
-                                        <div class="col-sm-2 box1">
-                                            <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
-                                        </div>
-
-                                        <div class="col-sm-3 box1">
-                                            $<span id="lblMonthly_PetRent" style="text-decoration:underline;font-weight:bold;">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
-                                        </div> 
-                                        <div class="col-sm-3 box1">
-                                            $ <span id="lblProrated_PetRent" style="text-decoration:underline;font-weight:bold;"></span>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12">
-
-                                        <div class="col-sm-3 box1">
+                                        <div class="col-sm-3">
                                             <span> Trash/Recycle </span>
 
                                         </div>
-                                        <div class="col-sm-2 box1">
+                                        <div class="col-sm-2">
                                             <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                         </div>
-                                        <div class="col-sm-3 box1">
-                                            $<span style="text-decoration:underline;font-weight:bold;">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
+                                        <div class="col-sm-3">
+                                            $<span id="spanTrashRecycle" style="text-decoration:underline;font-weight:bold;">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
                                         </div>
-                                        <div class="col-sm-3 box1">
+                                        <div class="col-sm-3">
                                             $ <span id="lblProrated_TrashAmt" style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
-                                        <div class="col-sm-3 box1">
+                                        <div class="col-sm-3">
                                             <span> Pest Control </span>
 
                                         </div>
-                                        <div class="col-sm-2 box1">
+                                        <div class="col-sm-2">
                                             <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                         </div>
-                                        <div class="col-sm-3 box1">
-                                            $<span style="text-decoration:underline;font-weight:bold;">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
+                                        <div class="col-sm-3">
+                                            $<span id="spanPestControl" style="text-decoration:underline;font-weight:bold;">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
                                         </div>
-                                        <div class="col-sm-3 box1">
+                                        <div class="col-sm-3">
                                             $ <span id="lblProrated_PestAmt" style="text-decoration:underline;font-weight:bold;"></span>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
-                                        <div class="col-sm-3 box1">
+                                        <div class="col-sm-3">
                                             <span> Convergent billing fee </span>
-
                                         </div>
-                                        <div class="col-sm-2 box1">
+                                        <div class="col-sm-2">
                                             <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                         </div>
+                                        <div class="col-sm-3">
+                                            $<span id="spanConvergentAmt" style="text-decoration:underline;font-weight:bold;">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            $ <span id="lblProrated_ConvergentAmt" style="text-decoration:underline;font-weight:bold;"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <span><i> Selected Options </i></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <span> Aditional Parking </span>
 
-                                        <div class="col-sm-3 box1">
-                                            $<span style="text-decoration:underline;font-weight:bold;">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span style="text-decoration:underline;font-weight:bold;" id="parkUnit"></span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            $<span id="lblMonthly_AditionalParking" style="text-decoration:underline;font-weight:bold;">@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            $ <span id="lblProrated_AditionalParking" style="text-decoration:underline;font-weight:bold;"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <span> Storage </span>
 
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span style="text-decoration:underline;font-weight:bold;" id="storUnit"></span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            $<span id="lblMonthly_Storage" style="text-decoration:underline;font-weight:bold;">@((Model.StorageAmt ?? 0).ToString("0.00"))</span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            $ <span id="lblProrated_Storage" style="text-decoration:underline;font-weight:bold;"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-3">
+                                            <span> Pet Fee </span>
+
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            $<span id="lblMonthly_PetRent" style="text-decoration:underline;font-weight:bold;">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
                                         </div>
                                         <div class="col-sm-3">
                                             $ <span id="lblProrated_PetRent" style="text-decoration:underline;font-weight:bold;"></span>
@@ -1259,7 +1269,7 @@
                                 </div>
                                 <div class="col-sm-12 ">
                                     <div class="col-sm-4"></div>
-                                    <div class="col-sm-8 col-md-8">
+                                    <div class="col-sm-4">
                                         <h4>Welcome To Online Leasing</h4>
                                     </div>
                                     <div class="col-sm-4"></div>
@@ -1415,91 +1425,76 @@
                                     <div class="panel-heading">
                                         <h3 class="panel-title">NOW TELL US WHO IS RESPONSIBLE FOR PAYMENT </h3>
                                     </div>
-                                    <div class="col-md-4 grid-box box1">
+                                    <div class="col-md-4 grid-box">
                                         <div class="col-sm-12"><span style="text-decoration:underline;font-weight:bold;">Move In Charges</span></div>
-                                        <div class="col-md-8 "></div>
+                                        <div class="col-md-8"></div>
                                         <div class="col-md-1"></div>
                                         <div class="col-md-3"></div>
-
-                                        <div class="col-xs-12 col-sm-12 box1">
-                                            <div class="col-xs-5 col-sm-8 box1">
-                                                <span>Administration Fee: </span>
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
+                                                <span id="spanVechReg1">Vehicle Registration@(((Model.VehicleRegistration ?? 0) / 15) > 0 ? " (" + ((Model.VehicleRegistration ?? 0) / 15).ToString() + " Vehicle)" : ""): </span>
                                             </div>
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-5 col-sm-3 box1">
-                                                $<span style="text-decoration:underline;font-weight:bold;">350.00</span>
-                                            </div>
-                                        </div>
-                                        <div class="ol-xs-12 col-sm-12 box1">
-                                            <div class="col-xs-6 col-sm-8 box1">
-                                                <span>Vehicle Registration: </span>
-                                            </div>
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-4 col-sm-3 box1">
-                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees1">15.00</span>
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees1">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 box1">
-                                            <div class="col-xs-5 col-sm-8 box1">
-                                                <span>Security Deposit: </span>
-
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
+                                                <span>Security Deposit **: </span>
                                             </div>
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-5 col-sm-3 box1">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
                                                 $<span style="text-decoration:underline;font-weight:bold;" id="lbdepo6">@((Model.Deposit ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
-
-                                        <div class="col-xs-12 col-sm-12 box1">
-                                            <div class="col-xs-5 col-sm-8 box1">
-                                                <span>Pet Deposit: </span>
-
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
+                                                <span id="spPetNRDep6">Pet Non-refundable Deposit: </span>
                                             </div>
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-5 col-sm-3 box1">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
                                                 $<span style="text-decoration:underline;font-weight:bold;" id="lbpetd6">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
-
-                                        <div class="col-xs-12 col-sm-12 box1">
-                                            <div class="col-xs-5 col-sm-8 box1">
-                                                <span>Pet DNA Amt: </span>
-
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
+                                                <span id="spanPetDNAFee3">Pet DNA Fee: </span>
                                             </div>
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-5 col-sm-3 box1">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
                                                 $<span style="text-decoration:underline;font-weight:bold;" id="lbpetdna6">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 box1">
-                                            <div class="col-xs-5 col-sm-8 box1">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
                                                 <span>Prorated Rent: </span>
                                             </div>
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-5 col-sm-3 box1">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
                                                 $<span id="lblProratedRent6" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 box1 hidden">
-                                            <div class="col-xs-5 col-sm-8 box1">
+                                        <div class="col-sm-12 hidden">
+                                            <div class="col-sm-8">
                                                 <span>Key Fobs: </span>
                                             </div>
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-5 col-sm-3 box1">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
                                                 $<span style="text-decoration:underline;font-weight:bold;" id="keyfobsamt">@((Model.FOBAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 box1">
-                                            <div class="col-sm-8 box1"></div>
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8"></div>
 
-                                            <div class="col-sm-4 box1"><hr></div>
+                                            <div class="col-sm-4"><hr></div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12">
-                                            <div class="col-xs-5 col-sm-8 box1">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
                                                 <span>Total Due at Move In</span>
-                                            </div> 
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-5 col-sm-3 box1" style="color:green;">
+                                            </div>
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3" style="color:green;">
                                                 $<span style="text-decoration:underline;font-weight:bold;" id="lbtotdueatmov6"></span>
                                             </div>
                                         </div>
@@ -1508,66 +1503,66 @@
                                         <div class="col-md-8"></div>
                                         <div class="col-md-1"></div>
                                         <div class="col-md-3"></div>
-                                        <div class="col-xs-12 col-sm-12 box1">
-                                            <div class="col-xs-5 col-sm-8 box1">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
                                                 <span>Monthly Charges</span>
                                             </div>
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-5 col-sm-3 box1">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
                                                 $<span id="lblRFPMonthlyCharges" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 box1">
-                                            <div class="col-xs-5 col-sm-8 box1">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
                                                 <span>Additional Parking</span>
                                             </div>
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-5 col-sm-3 box1">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
                                                 $<span id="lblRFPAdditionalParking" style="text-decoration:underline;font-weight:bold;">@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 box1">
-                                            <div class="col-xs-5 col-sm-8 box1">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
                                                 <span>Storage Unit#</span>
                                             </div>
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-5 col-sm-3 box1">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
                                                 $<span id="lblRFPStorageUnit" style="text-decoration:underline;font-weight:bold;">@((Model.StorageAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 box1">
-                                            <div class="col-xs-5 col-sm-8 box1">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
                                                 <span>Pet Rent </span>
                                             </div>
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-5 col-sm-3 box1">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
                                                 $<span id="lblRFPPetRent" style="text-decoration:underline;font-weight:bold;">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 box1">
-                                            <div class="col-xs-5 col-sm-8">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
                                                 <span>Trash/Recycle </span>
                                             </div>
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-5 col-sm-3 box1">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
                                                 $<span id="lblRFPTrashRecycling" style="text-decoration:underline;font-weight:bold;">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 box1">
-                                            <div class="col-xs-5 col-sm-8 box1">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
                                                 <span>Pest Control </span>
                                             </div>
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-5 col-sm-3 box1">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
                                                 $<span id="lblRFPPestControl" style="text-decoration:underline;font-weight:bold;">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 box1">
-                                            <div class="col-xs-5 col-sm-8 box1">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
                                                 <span>Convergent billing fee </span>
                                             </div>
-                                            <div class="col-sm-1 box1"></div>
-                                            <div class="col-xs-5 col-sm-3 box1">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-3">
                                                 $<span id="lblRFPConvergentbillingfee" style="text-decoration:underline;font-weight:bold;">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
@@ -1576,12 +1571,12 @@
 
                                             <div class="col-sm-4"><hr></div>
                                         </div>
-                                        <div class="col-xs-12 col-sm-12 box1">
-                                            <div class="col-xs-5 col-sm-8">
+                                        <div class="col-sm-12">
+                                            <div class="col-sm-8">
                                                 <span>Total Monthly Payment</span>
                                             </div>
                                             <div class="col-sm-1"></div>
-                                            <div class="col-xs-5 col-sm-3" style="color:green;">
+                                            <div class="col-sm-3" style="color:green;">
                                                 $<span id="lblRFPTotalMonthlyPayment" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
@@ -6106,7 +6101,9 @@
     .nav-tabs > li > a {
         margin-right: 2px;
         line-height: 1.42857143;
-        border: 1px solid #b3b3b3 !important;
+        /*border: 0px;
+        border-style: none !important;*/
+        border: 1px solid #4d738a !important;
         border-radius: 0;
         color: #fff;
     }
@@ -6156,7 +6153,7 @@
 
         .nav-tabs.wizard > li > a {
             opacity: 1;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .nav-tabs.wizard a:hover {
