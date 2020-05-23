@@ -95,7 +95,7 @@
                         <p class="text-muted">
                             Call us to schedule an appointment
                         </p>
-                        <p><strong>786.437.8658</strong></p>
+                        <p><strong><span id="footerphone">786.437.8658</span></strong></p>
                     </div>
                     <!-- /.col-sm-4 -->
                     <div class="col-sm-3">
@@ -106,7 +106,7 @@
                     <div class="col-sm-3" style="margin-top:55px;">
 
                         @*<button id="btnContact" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="margin-top: 55px;">Appointment</button>*@
-                        <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ahernandez-28/15min-2'});return false;" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="padding:10px">Appointment</a>
+                        <a href="" onclick="https://calendly.com/sanctuarydoral/leasingtours" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="padding:10px">Appointment</a>
                     </div>
 
                     <!-- /.col-sm-4 -->
@@ -496,6 +496,26 @@
     }
 </style>
 <script>
+    // Parse the URL parameter
+    function getParam(source, url) {
+        if (!url) url = window.location.href;
+        // url = window.location.href;
+        source = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + source + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    // Assign the referral source to the UTM code
+    var sourceName = getParam('utm_source');
+    document.addEventListener("DOMContentLoaded", function () {
+        // Check the UTM code and assign the correct unique phone number per source
+        if (sourceName == 'google') document.getElementById('footerphone').innerHTML = '<a href="tel:+1-415-111-0000">415.111.0000</a>';
+        else if (sourceName == 'facebook') document.getElementById('footerphone').innerHTML = '<a href="tel:+1-415-111-0000">415.222.0000</a>';
+        else if (sourceName == 'zillow') document.getElementById('footerphone').innerHTML = '<a href="tel:+1-415-333-0000">415.333.0000</a>';
+        else document.getElementById('footerphone').innerHTML = '<a href="tel:+1-786-437-8658">786.437.8658</a>';
+    });
     var ForgetPasswordss = function () {
         var msg = "";
         var email = $("#UserEmail").val();
