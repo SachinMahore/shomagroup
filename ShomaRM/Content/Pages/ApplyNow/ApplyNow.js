@@ -3909,9 +3909,9 @@ var getCompareModelList = function () {
     }
     var availdate = $("#txtDate").val();
 
+    var furnished = $("#ddlFurnishedUnit").val();
 
-
-    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder:"0" };
+    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: "0", Furnished: furnished};
     $.ajax({
         url: "/Property/GetPropertyModelList/",
         type: "post",
