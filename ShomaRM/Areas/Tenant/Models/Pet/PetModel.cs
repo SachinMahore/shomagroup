@@ -368,5 +368,30 @@ namespace ShomaRM.Areas.Tenant.Models
                 db.SaveChanges();
             }
         }
+        public List<PetModel> GetPetListByAdmin(long TenantID, long ApplicantUserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<PetModel> lstProp = new List<PetModel>();
+
+            var petList = db.tbl_TenantPet.Where(p => p.TenantID == TenantID && p.AddedBy == ApplicantUserId).ToList();
+            foreach (var pl in petList)
+            {
+                lstProp.Add(new PetModel
+                {
+                    PetID = pl.PetID,
+                    TenantID = pl.TenantID,
+                    PetType = pl.PetType,
+                    Breed = pl.Breed,
+                    Weight = string.IsNullOrWhiteSpace(pl.Weight) ? "" : pl.Weight,
+                    Age = string.IsNullOrWhiteSpace(pl.Age) ? "" : pl.Age,
+                    Photo = pl.Photo,
+                    PetVaccinationCertificate = pl.PetVaccinationCert,
+                    PetName = pl.PetName,
+                    VetsName = !string.IsNullOrWhiteSpace(pl.VetsName) ? pl.VetsName : ""
+                });
+
+            }
+            return lstProp;
+        }
     }
 }

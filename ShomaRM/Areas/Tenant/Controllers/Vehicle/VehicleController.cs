@@ -86,6 +86,18 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetVehicleListByAdmin(long TenantID, long ApplicantUserId)
+        {
+            try
+            {
+                return Json(new { model = new VehicleModel().GetVehicleListByAdmin(TenantID, ApplicantUserId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
 
+
+        }
     }
 }

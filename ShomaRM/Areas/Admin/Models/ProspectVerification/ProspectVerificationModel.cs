@@ -621,6 +621,60 @@ namespace ShomaRM.Areas.Admin.Models
             db.Dispose();
 
         }
+        public List<BackgroundScreeningModel> BackgroundScreeningList(long TenantId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+         
+            var bgscrData = db.tbl_BackgroundScreening.Where(a => a.OrderID == TenantId).ToList();
+
+            List<BackgroundScreeningModel> bgScrLIst = new List<BackgroundScreeningModel>();
+            try
+            {
+                foreach (var bgscr in bgscrData)
+                {
+                    var tenDet = db.tbl_Applicant.Where(c => c.ApplicantID == bgscr.TenantId).FirstOrDefault();
+                    BackgroundScreeningModel bgScr = new BackgroundScreeningModel();
+                    bgScr.TenantName = tenDet.FirstName + " " + tenDet.LastName;
+                    bgScr.Id = bgscr.Id;
+                    bgScr.TenantId = bgscr.TenantId;
+                    bgScr.OrderID = bgscr.OrderID;
+                    bgScr.Status = bgscr.Status==null?"": bgscr.Status;
+                    bgScr.PDFUrl = bgscr.PDFUrl==null?"": bgscr.PDFUrl;
+                    bgScr.Type = bgscr.Type;
+                    bgScr.Notes = bgscr.Notes == null ? "" : bgscr.Notes;
+                    bgScrLIst.Add(bgScr);
+                }
+                db.Dispose();
+                return bgScrLIst;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
+        public string UpdateScreeNotes(long ID,  string Notes)
+        {
+
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (ID != 0)
+            {
+
+                var getdata = db.tbl_BackgroundScreening.Where(p => p.Id == ID).FirstOrDefault();
+                if (getdata != null)
+                {
+                   
+                    getdata.Notes =Notes;
+                }
+                db.SaveChanges();
+
+                msg = "Notes Saved Successfully";
+            }
+            db.Dispose();
+            return msg;
+        }
         public class ProspectVerifySearchModel
         {
             public long ID { get; set; }

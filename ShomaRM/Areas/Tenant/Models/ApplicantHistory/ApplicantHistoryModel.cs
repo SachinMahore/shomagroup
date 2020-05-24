@@ -538,5 +538,81 @@ namespace ShomaRM.Models
 
             return model;
         }
+        public List<ApplicantHistoryModel> GetApplicantHistoryListForAdmin(long TenantID, long ApplicantUserId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<ApplicantHistoryModel> lstProp = new List<ApplicantHistoryModel>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_ApplicantHistoryList";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramF = cmd.CreateParameter();
+                    paramF.ParameterName = "TenantID";
+                    paramF.Value = TenantID;
+                    cmd.Parameters.Add(paramF);
+
+                    DbParameter paramfF = cmd.CreateParameter();
+                    paramfF.ParameterName = "ptoid";
+                    paramfF.Value = ApplicantUserId;
+                    cmd.Parameters.Add(paramfF);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    DateTime? moveInFrom = null;
+                    try
+
+                    {
+                        moveInFrom = Convert.ToDateTime(dr["MoveInDateFrom"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+                    DateTime? moveInTo = null;
+                    try
+                    {
+
+                        moveInTo = Convert.ToDateTime(dr["MoveInDateTo"].ToString());
+                    }
+                    catch
+                    {
+
+                    }
+
+                    lstProp.Add(new ApplicantHistoryModel
+                    {
+                        AHID = Convert.ToInt64(dr["AHID"].ToString()),
+                        Country = dr["Country"].ToString(),
+                        HomeAddress1 = dr["HomeAddress1"].ToString(),
+                        HomeAddress2 = dr["HomeAddress2"].ToString(),
+                        StateHomeTxt = dr["StateHome"].ToString(),
+                        CityHome = dr["CityHome"].ToString(),
+                        ZipHome = dr["ZipHome"].ToString(),
+                        RentOwn = Convert.ToInt32(dr["RentOwn"].ToString()),
+                        MoveInDateFromTxt = moveInFrom == null ? "" : moveInFrom.Value.ToString("MM/dd/yyy"),
+                        MoveInDateToTxt = moveInTo == null ? "" : moveInTo.Value.ToString("MM/dd/yyy"),
+                        MonthlyPayment = dr["MonthlyPayment"].ToString(),
+                        Reason = dr["Reason"].ToString()
+                    });
+                }
+                db.Dispose();
+                return lstProp;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
     }
 }

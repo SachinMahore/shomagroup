@@ -1477,45 +1477,20 @@
     </Key>
     <Property Name="TransID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="TenantID" Type="bigint" Nullable="false" />
-    <Property Name="LeaseID" Type="bigint" Nullable="false" />
-    <Property Name="Revision_Num" Type="int" Nullable="false" />
     <Property Name="Transaction_Date" Type="datetime" Nullable="false" />
-    <Property Name="Run" Type="int" Nullable="false" />
-    <Property Name="Tax_Sequence" Type="int" />
-    <Property Name="Transaction_Type" Type="varchar" MaxLength="20" />
+    <Property Name="PAID" Type="varchar" MaxLength="20" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
     <Property Name="Charge_Date" Type="datetime" />
-    <Property Name="Summary_Charge_Type" Type="varchar" MaxLength="10" />
-    <Property Name="Payment_ID" Type="int" />
-    <Property Name="Reference" Type="varchar" MaxLength="10" />
     <Property Name="Charge_Amount" Type="money" />
     <Property Name="Credit_Amount" Type="money" />
     <Property Name="Miscellaneous_Amount" Type="money" />
     <Property Name="Accounting_Date" Type="datetime" />
-    <Property Name="Journal" Type="int" />
-    <Property Name="Accrual_Debit_Acct" Type="varchar" MaxLength="29" />
-    <Property Name="Accrual_Credit_Acct" Type="varchar" MaxLength="29" />
-    <Property Name="Cash_Debit_Account" Type="varchar" MaxLength="29" />
-    <Property Name="Cash_Credit_Account" Type="varchar" MaxLength="29" />
-    <Property Name="Appl_of_Origin" Type="varchar" MaxLength="3" />
     <Property Name="Batch" Type="varchar" MaxLength="10" />
-    <Property Name="Batch_Source" Type="varchar" MaxLength="20" />
     <Property Name="CreatedBy" Type="int" />
     <Property Name="CreatedDate" Type="datetime" />
-    <Property Name="GL_Trans_Description" Type="nvarchar" MaxLength="500" />
-    <Property Name="GL_Trans_Reference_1" Type="varchar" MaxLength="100" />
-    <Property Name="GL_Trans_Reference_2" Type="varchar" MaxLength="100" />
-    <Property Name="GL_Entries_Created" Type="int" />
     <Property Name="Charge_Type" Type="int" />
-    <Property Name="ProspectID" Type="bigint" />
-    <Property Name="TBankName" Type="nvarchar" MaxLength="100" />
-    <Property Name="TAccCardName" Type="nvarchar" MaxLength="100" />
-    <Property Name="TAccCardNumber" Type="nvarchar" MaxLength="29" />
-    <Property Name="TRoutingNumber" Type="nvarchar" MaxLength="29" />
-    <Property Name="TSecurityNumber" Type="nvarchar" MaxLength="29" />
-    <Property Name="TCardExpirationMonth" Type="nvarchar" MaxLength="29" />
-    <Property Name="TCardExpirationYear" Type="nvarchar" MaxLength="29" />
     <Property Name="Authcode" Type="nvarchar" MaxLength="20" />
+    <Property Name="UserID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_UnitLeasePrice">
     <Key>

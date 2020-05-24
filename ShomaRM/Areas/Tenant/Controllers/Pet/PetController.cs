@@ -116,5 +116,18 @@ namespace ShomaRM.Areas.Tenant.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetPetListByAdmin(long TenantID, long ApplicantUserId)
+        {
+            try
+            {
+                return Json(new { model = new PetModel().GetPetListByAdmin(TenantID, ApplicantUserId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
     }
 }

@@ -62,6 +62,7 @@ namespace ShomaRM.Areas.Tenant.Models
         public Nullable<decimal> GuarCreditFees { get; set; }
         public Nullable<decimal> GuarBackGroundFees { get; set; }
 
+        public int HasSSN { get; set; }
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -536,6 +537,16 @@ namespace ShomaRM.Areas.Tenant.Models
 
             foreach (var ap in applicantDataList)
             {
+                int hasSSN = 0;
+                var tenantOnline = db.tbl_TenantOnline.Where(p => p.ParentTOID == ap.UserID).FirstOrDefault();
+                if (tenantOnline != null)
+                {
+                    if (!string.IsNullOrWhiteSpace(tenantOnline.SSN))
+                    {
+                        hasSSN = 1;
+                    }
+                }
+
                 string compl = "";
                 string Rel = "";
                 if ((ap.CreditPaid ?? 0) == 0)
@@ -601,6 +612,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     AppBackGroundFees = propertyData.AppBGCheckFees,
                     GuarCreditFees = propertyData.GuaCCCheckFees,
                     GuarBackGroundFees = propertyData.GuaBGCheckFees,
+                    HasSSN = hasSSN
                 });
             }
             return lstAppli;
@@ -627,6 +639,16 @@ namespace ShomaRM.Areas.Tenant.Models
             var CoAppDataList = db.tbl_Applicant.Where(p => p.TenantID == TenantID).ToList();
             foreach (var ap in CoAppDataList)
             {
+                int hasSSN = 0;
+                var tenantOnline = db.tbl_TenantOnline.Where(p => p.ParentTOID == ap.UserID).FirstOrDefault();
+                if (tenantOnline != null)
+                {
+                    if (!string.IsNullOrWhiteSpace(tenantOnline.SSN))
+                    {
+                        hasSSN = 1;
+                    }
+                }
+
                 string compl = "";
                 string Rel = "";
                 if ((ap.CreditPaid ?? 0) == 0)
@@ -692,7 +714,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     GuarCreditFees = propertyData.GuaCCCheckFees,
                     GuarBackGroundFees = propertyData.GuaBGCheckFees,
                     ApplicantUserId = ap.UserID,
-                    ApplicantAddedBy = ap.AddedBy??0
+                    ApplicantAddedBy = ap.AddedBy??0,
+                    HasSSN = hasSSN
                 });
             }
 
@@ -740,7 +763,7 @@ namespace ShomaRM.Areas.Tenant.Models
             }
             var getApplicantDet = db.tbl_Applicant.Where(p => p.ApplicantID == id).FirstOrDefault();
             var getTenantDet = db.tbl_ApplyNow.Where(p => p.ID == getApplicantDet.TenantID).FirstOrDefault();
-            var getAppliTransDet = db.tbl_Transaction.Where(p => p.TenantID == getTenantDet.UserId && p.Transaction_Type == transType).FirstOrDefault();
+            var getAppliTransDet = db.tbl_Transaction.Where(p => p.TenantID == getTenantDet.UserId && p.PAID == transType).FirstOrDefault();
             //if(ptotid==0)
             //{
                 ptotid = getApplicantDet.UserID??0;
@@ -1710,7 +1733,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 }
                 var getApplicantDet = db.tbl_Applicant.Where(p => p.ApplicantID == id).FirstOrDefault();
                 var getTenantDet = db.tbl_ApplyNow.Where(p => p.ID == getApplicantDet.TenantID).FirstOrDefault();
-                var getAppliTransDet = db.tbl_Transaction.Where(p => p.TenantID == getTenantDet.UserId && p.Transaction_Type == transType).FirstOrDefault();
+                var getAppliTransDet = db.tbl_Transaction.Where(p => p.TenantID == getTenantDet.UserId && p.PAID == transType).FirstOrDefault();
                 if (ptotid == 0)
                 {
                     ptotid = getApplicantDet.UserID ?? 0;

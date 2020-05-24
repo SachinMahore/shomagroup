@@ -334,5 +334,48 @@ namespace ShomaRM.Areas.Tenant.Models
             }
             return model;
         }
+        public List<EmployerHistoryModel> GetEmployerHistoryByAdmin(long TenantId, long ApplicantUserId)
+        {
+            List<EmployerHistoryModel> model = new List<EmployerHistoryModel>();
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            var getEmployerHistorydata = db.tbl_EmployerHistory.Where(co => co.TenantId == TenantId && co.ParentTOID == ApplicantUserId).ToList();
+            if (getEmployerHistorydata != null)
+            {
+                foreach (var item in getEmployerHistorydata)
+                {
+                    var countryName = db.tbl_Country.Where(co => co.ID == item.Country).FirstOrDefault();
+                    var StateName = db.tbl_State.Where(co => co.ID == item.State).FirstOrDefault();
+                    model.Add(new EmployerHistoryModel()
+                    {
+                        HEIID = item.HEIID,
+                        EmployerName = item.EmployerName,
+                        JobTitle = !string.IsNullOrWhiteSpace(item.JobTitle) ? item.JobTitle : "",
+                        JobType = item.JobType,
+                        StartDate = item.StartDate,
+                        TerminationDate = item.TerminationDate,
+                        AnnualIncome = item.AnnualIncome,
+                        AddAnnualIncome = item.AddAnnualIncome,
+                        SupervisorName = item.SupervisorName,
+                        SupervisorPhone = item.SupervisorPhone,
+                        SupervisorEmail = item.SupervisorEmail,
+                        Country = item.Country,
+                        Address1 = item.Address1,
+                        Address2 = item.Address2,
+                        State = item.State,
+                        City = item.City,
+                        Zip = item.Zip,
+                        CountryName = countryName != null ? countryName.CountryName : "",
+                        StateName = StateName != null ? StateName.StateName : "",
+                        JobTypeName = item.JobType == 1 ? "Permanent" : item.JobType == 2 ? "Contract Basis" : "",
+                        StartDateString = item.StartDate != null ? item.StartDate.Value.ToString("MM/dd/yyyy") : "",
+                        TerminationDateString = item.TerminationDate != null ? item.TerminationDate.Value.ToString("MM/dd/yyyy") : "",
+                        TerminationReason = !string.IsNullOrWhiteSpace(item.TerminationReason) ? item.TerminationReason : ""
+                    });
+                }
+
+            }
+            return model;
+        }
     }
 }

@@ -5,7 +5,6 @@
 <script src="~/Content/Pages/Home.js"></script>
 <div class="slide-2">
     <div class="slider-area">
-        id="txtMoveInDate"
         <div class="slider">
             <div id="bg-slider" class="owl-carousel owl-theme">
                 <div class="item">
@@ -23,7 +22,7 @@
                             LIFE AT SANCTUARY IS ALL ABOUT BREATHING ROOM.
                         </h4>
                         <h5 class="sliderSlogans">
-                            We offer you approximately 8 acres of Amenity packed land so you can enjoy what South Florida is best known<br />for, our enviable climate. Our community is located in the heart of Doral, at <a id="btnmapIndex" href="javascript:void(0);" onclick="stopcarousel()"><b><i class="fa fa-map-marker"></i> 9400 NW 41 St.</b></a><br />
+                            We offer you approximately 8 acres of Amenity packed land so you can enjoy what South Florida is best known<br />for, our enviable climate. Our community is located in the heart of Doral, at <a id="btnmapIndex" href="~/AddressMap" target="_blank" onclick="stopcarousel()"><b><i class="fa fa-map-marker"></i> 9400 NW 41 St.</b></a><br />
                         </h5>
                     </div>
                 </div>
@@ -90,10 +89,10 @@
             <div class="">
                 <div class="form-horizontal">
                     <div class="col-md-12" style="margin: 10px;">
-                        <div class="col-md-2">
-                            <button class="btn btn-primary search" type="button">Desired Move In</button>
+                        <div class="col-md-1">
+                            <button class="btn btn-primary search hidden" type="button">Desired Move In</button>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary search tooltips" type="button" id="iconMoveInDate">
@@ -128,7 +127,7 @@
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary search" type="button">
                                         <i class="fa-bed fa"></i>
-                                        <span> Number Beds</span>
+                                        <span> Beds</span>
                                     </button>
                                 </span>
                                 <select id="ddlBedroom" class="form-control" style="background-color:white;">

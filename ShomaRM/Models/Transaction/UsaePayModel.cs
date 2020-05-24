@@ -63,7 +63,7 @@ namespace ShomaRM.Models
             usaepay.UseSandbox = true;
             var getTransData = db.tbl_Transaction.Where(p => p.TransID == TransID).FirstOrDefault();
             usaepay.Amount =Convert.ToDecimal(getTransData.Credit_Amount);
-            string RefNo = getTransData.Payment_ID.ToString();
+            string RefNo = getTransData.TransID.ToString();
             try
             {
                 usaepay.Refund(RefNo);

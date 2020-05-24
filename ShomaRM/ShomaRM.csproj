@@ -409,6 +409,7 @@
     <Compile Include="Areas\Tenant\Models\WorkOrder\WorkOrderModel.cs" />
     <Compile Include="Areas\Tenant\TenantAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddressMap\AddressMapController.cs" />
     <Compile Include="Controllers\ApplyNow\ApplicationStatusController.cs" />
     <Compile Include="Controllers\ApplyNow\ApplyNowController.cs" />
     <Compile Include="Controllers\ApplyNow\CheckListController.cs" />
@@ -2308,6 +2309,7 @@
     <Content Include="Content\assets\img\pro-ads.jpg" />
     <Content Include="Content\assets\img\property-video.jpg" />
     <Content Include="Content\assets\img\ProUntitled.png" />
+    <Content Include="Content\assets\img\Sanctuary_footer_v2.png" />
     <Content Include="Content\assets\img\similar\property-1.jpg" />
     <Content Include="Content\assets\img\similar\property-2.jpg" />
     <Content Include="Content\assets\img\similar\property-3.jpg" />
@@ -2533,17 +2535,28 @@
     <Content Include="Content\Templates\EmailTemplateRegBG.html" />
     <Content Include="Content\Templates\ForgetPassword.html" />
     <Content Include="Content\Templates\GuarantorPrintTemplate.html" />
+    <Content Include="Content\Templates\images\bootstrap.min.css" />
     <Content Include="Content\Templates\images\divider.png" />
     <Content Include="Content\Templates\images\facebook%402x.png" />
     <Content Include="Content\Templates\images\googleplus%402x.png" />
     <Content Include="Content\Templates\images\Header_quote.png" />
     <Content Include="Content\Templates\images\Header_quote_background.png" />
+    <Content Include="Content\Templates\images\img1.png" />
+    <Content Include="Content\Templates\images\img2.png" />
+    <Content Include="Content\Templates\images\img3.png" />
+    <Content Include="Content\Templates\images\img4.png" />
     <Content Include="Content\Templates\images\logo.png" />
+    <Content Include="Content\Templates\images\mailbox_view.png" />
     <Content Include="Content\Templates\images\rounder-dwn.png" />
     <Content Include="Content\Templates\images\rounder-up.png" />
+    <Content Include="Content\Templates\images\Sanctuary_footer_v1.png" />
+    <Content Include="Content\Templates\images\Sanctuary_footer_v2.png" />
+    <Content Include="Content\Templates\images\Sanctuary_footer_v3.png" />
+    <Content Include="Content\Templates\images\Sanctuary_footer_v4.png" />
     <Content Include="Content\Templates\images\sanctuary_logo.png" />
     <Content Include="Content\Templates\images\sanctuary_logo_white.png" />
     <Content Include="Content\Templates\images\Shoma_mgmt_icons.png" />
+    <Content Include="Content\Templates\images\stars.png" />
     <Content Include="Content\Templates\images\tower_background.png" />
     <Content Include="Content\Templates\images\twitter%402x.png" />
     <Content Include="Content\Templates\LeaseDoc.html" />
@@ -2905,6 +2918,7 @@
     <Content Include="Views\ApplyNow\CoApplicantDet.cshtml" />
     <Content Include="Views\ApplicationStatus\Index.cshtml" />
     <Content Include="Views\ApplyNow\GuarantorDet.cshtml" />
+    <Content Include="Views\AddressMap\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

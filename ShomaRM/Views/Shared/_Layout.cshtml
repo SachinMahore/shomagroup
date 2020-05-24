@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Shoma Group | Residential Manager</title>
+    <title>Shoma Management | Residential Manager</title>
     <meta name="description" content="Shoma is Residential Management Web Portal">
     <meta name="author" content="Shoma">
     <meta name="keyword" content="Shoma Residential Management">
@@ -83,9 +83,11 @@
                     <div class="col-sm-3">
                         <h3 class="username"><i class="fa fa-map-marker " style="color: #4d738a !important;"></i> Location</h3>
                         <p>
-                            <a id="btnmapcontact" href="javascript:void(0);" style="font-weight:300;"><i class="pe-7s-map-marker strong"> </i> 9400 NW 41st Street,<br />Doral, FL 33178</a>
-                            <br>
-                            <strong>USA</strong>
+                            <a id="btnmapcontact" href="~/AddressMap" target="_blank" style="font-weight:300;">
+                                <i class="pe-7s-map-marker strong"> </i> 9400 NW 41st Street,<br />Doral, FL 33178 <br>
+                                <strong>USA</strong>
+                            </a>
+                            
                         </p>
                     </div>
                     <!-- /.col-sm-4 -->
@@ -102,8 +104,10 @@
                         <p class="text-muted">Send us a message or use our Live Chat.</p>
                         <p><strong><a href="mailto:">info@sanctuarydoral.com</a></strong></p>
                     </div>
-                    <div class="col-sm-3">
-                        <button id="btnContact" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="margin-top: 55px;">Appointment</button>
+                    <div class="col-sm-3" style="margin-top:55px;">
+
+                        @*<button id="btnContact" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="margin-top: 55px;">Appointment</button>*@
+                        <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ahernandez-28/15min-2'});return false;" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="padding:10px">Appointment</a>
                     </div>
 
                     <!-- /.col-sm-4 -->
@@ -131,7 +135,7 @@
                         <div class="single-footer">
                             <div class="social pull-right">
                                 <ul>
-                                    <li><a class="wow fadeInUp animated" target="_blank" href="https://twitter.com/SHOMA_GROUP"><i class="fa fa-twitter"></i></a></li>
+                                    @*<li><a class="wow fadeInUp animated" target="_blank" href="https://twitter.com/SHOMA_GROUP"><i class="fa fa-twitter"></i></a></li>*@
                                     <li><a class="wow fadeInUp animated" target="_blank" href="https://www.facebook.com/shomagroup" data-wow-delay="0.2s"><i class="fa fa-facebook"></i></a></li>
                                     @*<li><a class="wow fadeInUp animated" target="_blank" href="https://plus.google.com/shomagroup" data-wow-delay="0.3s"><i class="fa fa-google-plus"></i></a></li>*@
                                     <li><a class="wow fadeInUp animated" target="_blank" href="https://instagram.com/shomagroup" data-wow-delay="0.4s"><i class="fa fa-instagram"></i></a></li>
@@ -149,7 +153,7 @@
             <div class="container">
                 <div class="row">
                     <div class="pull-left">
-                        <span>©  <a href="http://www.shomagroup.com">Shoma Group</a>, All rights reserved @DateTime.Now.ToString("yyyy")   </span>
+                        <span> (C) <a href="javascript:void(0)">Shoma Management</a> , All rights reserved @DateTime.Now.ToString("yyyy")   </span>
                     </div>
                     <div class="bottom-menu pull-right">
                         <ul>
@@ -340,7 +344,8 @@
     <script src="@Url.Content("/Content/jquery-confirm-master/js/jquery-confirm.js")"></script>
     @*<script src="@Url.Content("~/Content/store.min.js")"></script>
         <script src="@Url.Content("~/Content/jquery-idleTimeout.min.js")"></script>*@
-   
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
 </body>
 </html>
 <style>
@@ -707,9 +712,9 @@
         //    sessionEndTime: sessionendtime
         //});
 
-        $("#btnContact").on("click", function (event) {
-            $("#popContactForm").modal("show");
-        });
+        //$("#btnContact").on("click", function (event) {
+        //    $("#popContactForm").modal("show");
+        //});
       
         fillLStateDDL();
         $("#ddlState").on('change', function (evt, params) {
@@ -901,9 +906,9 @@
         $("#divLoader").show();
     });
     $(document).ready(function () {
-        $("#btnmapfloor,#btnmaplayout,#btnmapIndex,#btnmapcontact").on('click', function (e) {
-            $("#modalMaplayout").css("display", "block");
-        });
+        //$("#btnmapfloor,#btnmaplayout,#btnmapIndex,#btnmapcontact").on('click', function (e) {
+        //    $("#modalMaplayout").css("display", "block");
+        //});
         $('.owl-carousel').trigger('stop.owl.autoplay');
 
         $('#MtDate').click(function () {

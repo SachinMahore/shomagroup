@@ -1271,5 +1271,29 @@ namespace ShomaRM.Controllers
                 return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetApplicantHistoryListForAdmin(long TenantID, long ApplicantUserId)
+        {
+            try
+            {
+                return Json(new { model = new ApplicantHistoryModel().GetApplicantHistoryListForAdmin(TenantID, ApplicantUserId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
+        public JsonResult GetEmployerHistoryByAdmin(long TenantId, long ApplicantUserId)
+        {
+            try
+            {
+                return Json(new { model = new EmployerHistoryModel().GetEmployerHistoryByAdmin(TenantId, ApplicantUserId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

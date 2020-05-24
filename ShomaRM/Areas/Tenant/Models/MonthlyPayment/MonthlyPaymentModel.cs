@@ -61,38 +61,27 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
 
                         TenantID =Convert.ToInt64(model.UserID),
-                        Revision_Num = 1,
-                        Transaction_Type = "5",
+                       
+                        PAID = "5",
                         Transaction_Date = DateTime.Now,
-                        Run = 1,
-                        LeaseID = 0,
-                        Reference = "PID" + applyNow.ID,
+                       
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.TotalMonthlyCharges,
                         Description = "Monthly Payment",
                         Charge_Date = DateTime.Now,
                         Charge_Type = 3,
-                        Payment_ID = null,
+                       
                         Authcode="",
                         Charge_Amount = 0,
                         
                         Miscellaneous_Amount = 0,
                         Accounting_Date = DateTime.Now,
-                        Journal = 0,
-                        Accrual_Debit_Acct = "400-5000-10500",
-                        Accrual_Credit_Acct = "400-5000-40030",
-                        Cash_Debit_Account = "400-5100-10011",
-                        Cash_Credit_Account = "400-5100-40085",
-                        Appl_of_Origin = "SRM",
+                      
                         Batch = "1",
-                        Batch_Source = "",
+                       
                         CreatedBy = Convert.ToInt32(model.UserID),
-                        GL_Trans_Reference_1 = applyNow.ID.ToString(),
-                        GL_Trans_Reference_2 = applyNow.FirstName + " " + applyNow.LastName,
-                        GL_Entries_Created = 1,
-                        GL_Trans_Description = null,
-                        ProspectID = applyNow.ID,
-                     
+                       UserID = Convert.ToInt32(model.UserID),
+
                     };
                     db.tbl_Transaction.Add(saveMonthlyTransaction);
                     db.SaveChanges();
@@ -116,38 +105,24 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
 
                         TenantID = Convert.ToInt64(model.UserID),
-                        Revision_Num = 1,
-                        Transaction_Type = "5",
+                   
+                        PAID = "5",
                         Transaction_Date = DateTime.Now,
-                        Run = 1,
-                        LeaseID = 0,
-                        Reference = "PID" + applyNow.ID,
+                      
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.MoveInCharges,
                         Description = "Monthly Payment",
                         Charge_Date = DateTime.Now,
                         Charge_Type = 2,
-                        Payment_ID = null,
+                      
                         Authcode="",
                         Charge_Amount = 0,
 
                         Miscellaneous_Amount = 0,
-                        Accounting_Date = DateTime.Now,
-                        Journal = 0,
-                        Accrual_Debit_Acct = "400-5000-10500",
-                        Accrual_Credit_Acct = "400-5000-40030",
-                        Cash_Debit_Account = "400-5100-10011",
-                        Cash_Credit_Account = "400-5100-40085",
-                        Appl_of_Origin = "SRM",
-                        Batch = "1",
-                        Batch_Source = "",
-                        CreatedBy = Convert.ToInt32(model.UserID),
-                        GL_Trans_Reference_1 = applyNow.ID.ToString(),
-                        GL_Trans_Reference_2 = applyNow.FirstName + " " + applyNow.LastName,
-                        GL_Entries_Created = 1,
-                        GL_Trans_Description = null,
-                        ProspectID = applyNow.ID,
-
+                        Accounting_Date = DateTime.Now,            
+                        Batch = "1",                  
+                        CreatedBy = Convert.ToInt32(model.UserID),             
+                        UserID = Convert.ToInt32(model.UserID),
                     };
                     db.tbl_Transaction.Add(saveMoveInTransaction);
                     db.SaveChanges();
