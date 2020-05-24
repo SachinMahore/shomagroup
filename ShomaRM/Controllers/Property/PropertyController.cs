@@ -223,5 +223,17 @@ namespace ShomaRM.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult GetPropertyUnitDetailsByPriceTable(long UID, int LeaseTermID)
+        {
+            try
+            {
+                return Json(new { model = (new PropertyModel().GetPropertyUnitDetailsByPriceTable(UID, LeaseTermID)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

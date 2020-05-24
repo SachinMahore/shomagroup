@@ -69,10 +69,10 @@ namespace ShomaRM.Models
                 foreach (DataRow dr in dtTable.Rows)
                 {
                     PropertyModel pr = new PropertyModel();
-                   
+
                     pr.PID = Convert.ToInt32(dr["PID"].ToString());
                     pr.NoOfUnits = Convert.ToInt32(dr["NoOfUnits"].ToString());
-                    pr.Title = dr["Title"].ToString();                
+                    pr.Title = dr["Title"].ToString();
                     pr.Area = dr["Area"].ToString();
                     pr.NoOfFloors = Convert.ToInt32(dr["NoOfFloors"].ToString());
                     pr.Description = dr["Description"].ToString();
@@ -96,7 +96,7 @@ namespace ShomaRM.Models
             List<PropertyFloor> listfloor = new List<PropertyFloor>();
             model.lstPropertyFloor = listfloor;
             var propDet = db.tbl_Properties.Where(p => p.PID == PID).FirstOrDefault();
-            if(propDet !=null)
+            if (propDet != null)
             {
                 model.PID = propDet.PID;
                 model.Title = propDet.Title;
@@ -114,7 +114,7 @@ namespace ShomaRM.Models
                 model.Status = propDet.Status;
                 model.Amenities = propDet.Amenities;
             }
-            
+
             try
             {
                 DataTable dtTable = new DataTable();
@@ -172,7 +172,7 @@ namespace ShomaRM.Models
             }
             return model;
         }
-        public List<PropertyUnits> GetPropertyUnitList(long PID,DateTime AvailableDate, decimal Current_Rent, int Bedroom)
+        public List<PropertyUnits> GetPropertyUnitList(long PID, DateTime AvailableDate, decimal Current_Rent, int Bedroom)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<PropertyUnits> lstUnitProp = new List<PropertyUnits>();
@@ -194,7 +194,7 @@ namespace ShomaRM.Models
                     paramF.ParameterName = "AvailableDate";
                     paramF.Value = AvailableDate;
                     cmd.Parameters.Add(paramF);
-                    if(Current_Rent==0)
+                    if (Current_Rent == 0)
                     {
                         Current_Rent = 10000;
                     }
@@ -208,7 +208,7 @@ namespace ShomaRM.Models
                     paramB.Value = Bedroom;
                     cmd.Parameters.Add(paramB);
 
-                  
+
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dtTable);
@@ -226,7 +226,7 @@ namespace ShomaRM.Models
                     {
 
                     }
-                    
+
                     pr.PID = Convert.ToInt32(dr["PID"].ToString());
                     pr.UID = Convert.ToInt32(dr["UID"].ToString());
                     pr.UnitNo = dr["UnitNo"].ToString();
@@ -318,13 +318,13 @@ namespace ShomaRM.Models
                     //}
 
                     //pr.PID = Convert.ToInt32(dr["PID"].ToString());
-                 
+
                     pr.Building = dr["ModelName"].ToString();
                     pr.Bathroom = Convert.ToInt32(dr["Bathroom"].ToString());
                     pr.Bedroom = Convert.ToInt32(dr["Bedroom"].ToString());
                     pr.NoAvailable = Convert.ToInt32(dr["NoAvailable"].ToString());
                     pr.Area = dr["Area"].ToString();
-               
+
                     pr.FloorPlan = dr["FloorPlan"].ToString();
                     //pr.AvailableDateText = availableDate.Value.ToString("MM/dd/yyyy");
                     pr.RentRange = dr["RentRange"].ToString();
@@ -412,7 +412,7 @@ namespace ShomaRM.Models
                     pr.FloorPlan = dr["FloorPlan"].ToString();
                     pr.AvailableDateText = availableDate.Value.ToString("MM/dd/yyyy");
                     var getRent = db.tbl_UnitLeasePrice.Where(p => p.LeaseID == LeaseTermID && p.UnitID == pr.UID).FirstOrDefault();
-                    if(getRent!=null)
+                    if (getRent != null)
                     {
                         pr.Current_Rent = Convert.ToDecimal(getRent.Price);
                     }
@@ -420,7 +420,7 @@ namespace ShomaRM.Models
                     {
                         pr.Current_Rent = Convert.ToDecimal("0.00");
                     }
-                  
+
                     pr.Premium = dr["Premium"].ToString();
                     lstUnitProp.Add(pr);
                 }
@@ -435,13 +435,13 @@ namespace ShomaRM.Models
 
 
         }
-       
+
         public PropertyUnits GetPropertyUnitDetails(long UID, int LeaseTermID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             PropertyUnits model = new PropertyUnits();
             var unitDet = db.tbl_PropertyUnits.Where(p => p.UID == UID).FirstOrDefault();
-            if(unitDet!=null)
+            if (unitDet != null)
             {
                 DateTime? availableDate = null;
                 try
@@ -497,7 +497,7 @@ namespace ShomaRM.Models
                 {
                     model.Current_Rent = Convert.ToDecimal("0.00");
                 }
-               // model.Current_Rent = unitDet.Current_Rent;
+                // model.Current_Rent = unitDet.Current_Rent;
                 model.Previous_Rent = unitDet.Previous_Rent;
                 model.Market_Rent = unitDet.Market_Rent;
                 model.Wing = unitDet.Wing;
@@ -527,14 +527,125 @@ namespace ShomaRM.Models
                 //model.PendingMoveIn = unitDet.PendingMoveIn;
                 //model.VacancyLoss_DateText = vacancylosssdate.Value.ToString("MM/dd/yyyy");
                 //model.IntendedMoveIn_Date = unitDet.IntendedMoveIn_Date;
-               // model.IntendMoveOutDate = unitDet.IntendMoveOutDate;
-               // model.ActualMoveInDateText = actualmoveinDate.Value.ToString("MM/dd/yyyy");
+                // model.IntendMoveOutDate = unitDet.IntendMoveOutDate;
+                // model.ActualMoveInDateText = actualmoveinDate.Value.ToString("MM/dd/yyyy");
                 //model.ActualMoveOutDate = unitDet.ActualMoveOutDate;
                 model.Coordinates = unitDet.Coordinates;
+                model.Premium = Convert.ToString(unitDet.Premium);
+
+                //For Price Table
+                //For current Price Table
+                DataTable dtTable1 = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_PriceTableCurrentValue";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramPID = cmd.CreateParameter();
+                    paramPID.ParameterName = "UnitID";
+                    paramPID.Value = UID;
+                    cmd.Parameters.Add(paramPID);
+
+                    DbParameter paramF = cmd.CreateParameter();
+                    paramF.ParameterName = "LeaseTermID";
+                    paramF.Value = LeaseTermID;
+                    cmd.Parameters.Add(paramF);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable1);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable1.Rows)
+                {
+                    model.PriceTableRentCurrent = dr["Price"].ToString();
+                    model.PriceTableLeaseTermCurrent = dr["LeaseTerms"].ToString();
+                    model.PriceTableLeaseTermIDCurrent = dr["LTID"].ToString();
+                }
+
+                //end current price
+
+                //For best Price Table
+                DataTable dtTable2 = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_PriceTableBestValue";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramPID = cmd.CreateParameter();
+                    paramPID.ParameterName = "UnitID";
+                    paramPID.Value = UID;
+                    cmd.Parameters.Add(paramPID);
+
+                    DbParameter paramF = cmd.CreateParameter();
+                    paramF.ParameterName = "LeaseTermID";
+                    paramF.Value = LeaseTermID;
+                    cmd.Parameters.Add(paramF);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable2);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable2.Rows)
+                {
+                    model.PriceTableRentBest = dr["Price"].ToString();
+                    model.PriceTableLeaseTermBest = dr["LeaseTerms"].ToString();
+                    model.PriceTableLeaseTermIDBest = dr["LTID"].ToString();
+                }
+
+                //end best price table
+
+                //For great Price Table
+                DataTable dtTable3 = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_PriceTableGreatValue";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramPID = cmd.CreateParameter();
+                    paramPID.ParameterName = "UnitID";
+                    paramPID.Value = UID;
+                    cmd.Parameters.Add(paramPID);
+
+                    DbParameter paramF = cmd.CreateParameter();
+                    paramF.ParameterName = "LeaseTermID";
+                    paramF.Value = LeaseTermID;
+                    cmd.Parameters.Add(paramF);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable3);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable3.Rows)
+                {
+                    model.PriceTableRentGreat = dr["Price"].ToString();
+                    model.PriceTableLeaseTermGreat = dr["LeaseTerms"].ToString();
+                    model.PriceTableLeaseTermIDGreat = dr["LTID"].ToString();
+                }
+                model.PriceTableUID = Convert.ToString(UID);
+
+                var propDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                if (propDet != null)
+                {
+                    model.ConvergentAmt = propDet.ConversionBillFees ?? 0;
+                    model.PestAmt = propDet.PestControlFees ?? 0;
+                    model.TrashAmt = propDet.TrashFees ?? 0;
+                }
+                else
+                {
+                    model.ConvergentAmt = 0;
+                    model.PestAmt = 0;
+                    model.TrashAmt = 0;
+                }
             }
-         
+
             return model;
-        }      
+        }
         public List<GalleryModel> GetPropertyGallary(long PID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -585,6 +696,101 @@ namespace ShomaRM.Models
                 msg = "File Upload Successfully";
             }
             return msg;
+        }
+
+        public PropertyUnits GetPropertyUnitDetailsByPriceTable(long UID, int LeaseTermID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            PropertyUnits model = new PropertyUnits();
+            var unitDet = db.tbl_PropertyUnits.Where(p => p.UID == UID).FirstOrDefault();
+            if (unitDet != null)
+            {
+                DateTime? availableDate = null;
+                try
+                {
+                    availableDate = Convert.ToDateTime(unitDet.AvailableDate.ToString());
+                }
+                catch
+                {
+
+                }
+                DateTime? vacancylosssdate = null;
+                try
+                {
+                    vacancylosssdate = Convert.ToDateTime(unitDet.VacancyLoss_Date.ToString());
+                }
+                catch
+                {
+
+                }
+                DateTime? ocupancyDate = null;
+                try
+                {
+                    ocupancyDate = Convert.ToDateTime(unitDet.OccupancyDate.ToString());
+                }
+                catch
+                {
+
+                }
+                DateTime? actualmoveinDate = null;
+                try
+                {
+                    actualmoveinDate = Convert.ToDateTime(unitDet.ActualMoveInDate.ToString());
+                }
+                catch
+                {
+
+                }
+                model.PID = unitDet.PID;
+                model.UID = unitDet.UID;
+                model.UnitNo = unitDet.UnitNo;
+                model.Rooms = unitDet.Rooms;
+                model.Bedroom = unitDet.Bedroom;
+                model.Bathroom = unitDet.Bathroom;
+
+                model.Hall = unitDet.Hall;
+                model.Deposit = Convert.ToDecimal(unitDet.Deposit);
+                var getRent = db.tbl_UnitLeasePrice.Where(p => p.LeaseID == LeaseTermID && p.UnitID == UID).FirstOrDefault();
+                if (getRent != null)
+                {
+                    model.Current_Rent = Convert.ToDecimal(getRent.Price);
+                }
+                else
+                {
+                    model.Current_Rent = Convert.ToDecimal("0.00");
+                }
+                // model.Current_Rent = unitDet.Current_Rent;
+                model.Previous_Rent = unitDet.Previous_Rent;
+                model.Market_Rent = unitDet.Market_Rent;
+                model.Wing = unitDet.Wing;
+                model.Building = unitDet.Building;
+                model.Leased = unitDet.Leased;
+                model.PetDetails = unitDet.PetDetails;
+                model.FloorNo = unitDet.FloorNo;
+                model.Area = unitDet.Area;
+                model.FloorPlan = unitDet.FloorPlan;
+                model.Carpet_Color = unitDet.Carpet_Color;
+                model.Wall_Paint_Color = unitDet.Wall_Paint_Color;
+                model.Furnished = unitDet.Furnished;
+                model.Washer = unitDet.Washer;
+                model.Refrigerator = unitDet.Refrigerator;
+                model.Drapes = unitDet.Drapes;
+                model.Dryer = unitDet.Dryer;
+                model.Dishwasher = unitDet.Dishwasher;
+                model.Disposal = unitDet.Disposal;
+                model.Elec_Range = unitDet.Elec_Range;
+                model.Gas_Range = unitDet.Gas_Range;
+                model.Carpet = unitDet.Carpet;
+                model.Air_Conditioning = unitDet.Air_Conditioning;
+                model.Fireplace = unitDet.Fireplace;
+                model.Den = unitDet.Den;
+                model.Coordinates = unitDet.Coordinates;
+                model.Premium = Convert.ToString(unitDet.Premium);
+                //For Price Table
+
+            }
+
+            return model;
         }
     }
     public partial class PropertyUnits
@@ -647,6 +853,33 @@ namespace ShomaRM.Models
         public int NoAvailable { get; set; }
         public string Premium { get; set; }
         public string ModelName { get; set; }
+        public string PriceTableRent { get; set; }
+        public string PriceTableLeaseTerm { get; set; }
+        public string PriceTableLeaseTermID { get; set; }
+        public string PriceTableUID { get; set; }
+
+        //for currentvalue
+        public string PriceTableRentCurrent { get; set; }
+        public string PriceTableLeaseTermCurrent { get; set; }
+        public string PriceTableLeaseTermIDCurrent { get; set; }
+        public string PriceTableUIDCurrent { get; set; }
+
+        //for best value
+        public string PriceTableRentBest { get; set; }
+        public string PriceTableLeaseTermBest { get; set; }
+        public string PriceTableLeaseTermIDBest { get; set; }
+        public string PriceTableUIDBest { get; set; }
+
+        //for great value
+        public string PriceTableRentGreat { get; set; }
+        public string PriceTableLeaseTermGreat { get; set; }
+        public string PriceTableLeaseTermIDGreat { get; set; }
+        public string PriceTableUIDGreat { get; set; }
+
+        public decimal? ConvergentAmt { get; set; }
+        public decimal? PestAmt { get; set; }
+        public decimal? TrashAmt { get; set; }
+        public int? LeasedTerms;
     }
     public partial class PropertyFloor
     {
@@ -657,7 +890,7 @@ namespace ShomaRM.Models
         public string FloorPlan { get; set; }
         public int IsAvail { get; set; }
         public List<PropertyUnits> lstUnitFloor { get; set; }
-        public List<PropertyFloor> GetFloorList(int PID,  DateTime AvailableDate, int Bedroom, decimal MaxRent)
+        public List<PropertyFloor> GetFloorList(int PID, DateTime AvailableDate, int Bedroom, decimal MaxRent)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             List<PropertyFloor> model = new List<PropertyFloor>();
@@ -675,7 +908,7 @@ namespace ShomaRM.Models
                     paramPID.Value = PID;
                     cmd.Parameters.Add(paramPID);
 
-                  
+
                     DbParameter paramF = cmd.CreateParameter();
                     paramF.ParameterName = "AvailableDate";
                     paramF.Value = AvailableDate;
@@ -699,11 +932,11 @@ namespace ShomaRM.Models
                 foreach (DataRow dr in dtTable.Rows)
                 {
                     PropertyFloor pr = new PropertyFloor();
-                   
+
                     pr.FloorID = Convert.ToInt32(dr["FloorID"].ToString());
                     pr.FloorNo = dr["FloorID"].ToString();
                     pr.Coordinates = dr["Coordinates"].ToString();
-                  
+
                     pr.IsAvail = Convert.ToInt32(dr["IsAvail"].ToString());
 
                     model.Add(pr);
@@ -716,7 +949,7 @@ namespace ShomaRM.Models
                 db.Database.Connection.Close();
                 throw ex;
             }
-      
+
             return model.ToList();
         }
         public PropertyFloor GetPropertyFloorDetails(int FloorID, DateTime AvailableDate, int Bedroom, decimal MaxRent, int LeaseTermID, string ModelName, long ProspectId)
@@ -726,14 +959,14 @@ namespace ShomaRM.Models
             var unitDet = db.tbl_PropertyFloor.Where(p => p.FloorID == FloorID).FirstOrDefault();
             if (unitDet != null)
             {
-                model.PID = unitDet.PID;             
+                model.PID = unitDet.PID;
                 model.FloorPlan = unitDet.FloorPlan;
                 model.FloorID = unitDet.FloorID;
                 model.FloorNo = unitDet.FloorNo;
             }
             List<PropertyUnits> listfloor = new List<PropertyUnits>();
             model.lstUnitFloor = listfloor;
-           
+
 
             try
             {
@@ -801,7 +1034,7 @@ namespace ShomaRM.Models
                     pr.UID = Convert.ToInt32(dr["UID"].ToString());
                     pr.UnitNo = dr["UnitNo"].ToString();
                     pr.Coordinates = dr["Coordinates"].ToString();
-                   // pr.Area = dr["Area"].ToString();
+                    // pr.Area = dr["Area"].ToString();
                     pr.FloorNoText = dr["FloorNo"].ToString();
                     pr.IsAvail = Convert.ToInt32(dr["IsAvail"].ToString());
                     pr.Bedroom = Convert.ToInt32(dr["Bedroom"].ToString());
@@ -819,6 +1052,11 @@ namespace ShomaRM.Models
                     {
                         pr.Current_Rent = Convert.ToDecimal("0.00");
                     }
+                    var getLease = db.tbl_LeaseTerms.Where(p => p.LTID == LeaseTermID).FirstOrDefault();
+                    if (getLease != null)
+                    {
+                        pr.LeasedTerms = getLease.LeaseTerms;
+                    }
                     listfloor.Add(pr);
                 }
                 db.Dispose();
@@ -831,6 +1069,6 @@ namespace ShomaRM.Models
             }
             return model;
         }
- 
+
     }
 }
