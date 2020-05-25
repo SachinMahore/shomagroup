@@ -1788,8 +1788,10 @@ namespace ShomaRM.Models
                 ApplyNowUserId = Convert.ToInt64(dtTable.Rows[0]["UserId"].ToString());
                 ApplyNowQuotationNo = dtTable.Rows[0]["QuotationNo"].ToString();
                 ApplyNowEmail = dtTable.Rows[0]["Email"].ToString();
+
                 msg = dtTable.Rows[0]["Email"].ToString() + "|"+ dtTable.Rows[0]["IsTempPass"].ToString();
                 //msg = ApplyNowEmail;
+
             }
             else
             {
