@@ -17,6 +17,7 @@
 <!-- register-area -->
 <div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container">
+        <input type="hidden" id="hndIsTempPass" value="0" />
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div class="box-for overflow">
@@ -40,21 +41,21 @@
                                     <label for="password" class="username">Password</label>
                                     <input type="password" class="form-control" id="password" name="Password">
                                 </div>
-                                <h2 class="hidden">OR :</h2>
-                                <div class="form-group hidden">
-                                    <button type="button" id="btnShowQuotationSignIn" class="btn btn-primary" onclick="showPopUpOnQuotationNo()">Sign In Using Quotation No.</button>
-                                </div>
+
                                 <div class="form-group">
+                                    <div class="controls pull-left">
+                                        <button type="submit" class="btn btn-primary username"> Sign in</button>
+                                    </div>
                                     <div class="controls pull-right">
-                                        <span class="username"><input type="checkbox" id="chkRemeber" /> Remember Me?</span>
+                                        <a href="javascript:void(0);" onclick="ForgetPassword()" class="pull-right username">Forgot Password?</a> <span class="username"><input type="checkbox" id="chkRemeber" /> Remember Me?</span>&nbsp;&nbsp;&nbsp;&nbsp;
                                     </div>
                                 </div>
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-primary username"> Sign in</button>
+                                <div class="clearfix">
+                                    <h5 style="margin:10px;text-align:center;">OR :</h5>
                                 </div>
-
-                                <div class="text-center">
-                                    <a href="javascript:void(0);" onclick="ForgetPassword()" class="pull-right username" style="padding-top:2%">Forgot Password?</a>
+                                
+                                <div class="form-group text-center">
+                                    <button type="button" id="btnShowQuotationSignIn" class="btn btn-primary" onclick="showPopUpOnQuotationNo()">Sign In Using Quotation Number</button>
                                 </div>
                             </form>
                     }
@@ -76,7 +77,7 @@
         <div class="modal-body">
             <div class="text-justify" id="divQuotationQuotationNo">
                 <div class="form-group">
-                    <label for="txtQuotationNo">Quotation No</label>
+                    <label for="txtQuotationNo">Quotation #</label>
                     <input type="text" class="form-control" id="txtQuotationNo" name="QuotationNo">
                 </div>
             </div>
@@ -275,7 +276,7 @@
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
-                if (response == "User Not Found") {
+                if (response == "Quotation Number Not Found") {
                     $.alert({
                         title: "",
                         content: response,
@@ -283,6 +284,8 @@
                     });
                 }
                 else {
+                    //var result = response.split('|');
+
                     $('#txtQuotationNo').attr('disabled', true);
                     $('#divQuotationUserName').removeClass('hidden');
                     $('#txtQuotationUserName').val(response);

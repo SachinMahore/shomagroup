@@ -6023,4 +6023,36 @@ h1 {
     min-width: 992px !important;
     padding: 56px;
 }
+.custom-mb-12 {
+    margin-bottom: -12rem !important
+}
 
+.custom-date {
+    margin-left: -60px;
+    margin-top: -7px;
+}
+
+.custom-date-icon {
+    margin-left: -25px;
+    margin-top: -6px;
+}
+
+.custom-padding-1 {
+    padding-top: 72px;
+}
+
+.custom-text-primary, .custom-text-primary:hover {
+    color: #557388;
+}
+
+.custom-leaseterm {
+    font-size: 18px;
+}
+
+.custom-card-mb {
+    margin-bottom: -30px;
+}
+
+.custom-card-button-mt {
+    margin-bottom: 12px !important;
+}
