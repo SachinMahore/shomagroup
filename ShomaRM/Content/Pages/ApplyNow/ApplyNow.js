@@ -3804,8 +3804,11 @@ var addModelArray = [];
 var noofcomapre = 0;
 
 
+
 var addToCompare = function (modelname) {
-       if (noofcomapre < 3) {
+    if ($("#btnCompare" + modelname).is(':checked') == true) {
+
+        if (noofcomapre < 3) {
             $("#chkCompareid" + modelname).removeClass("hidden");
             $("#chkCompareid" + modelname).prop("checked", true);
             $("#divCompare").removeClass("hidden");
@@ -3827,7 +3830,16 @@ var addToCompare = function (modelname) {
             })
             $("#btnCompare" + modelname).removeAttr('checked');
         }
-    
+    } else {
+        addModelArray = jQuery.grep(addModelArray, function (value) {
+            return value != modelname;
+
+        });
+        console.log(addModelArray)
+        noofcomapre = addModelArray.length;
+        $("#btncompare").text("Compare(" + noofcomapre + ")");
+        getCompareModelList();
+    }
 }
 var removeToCompare = function (modelname) {
     $("#chkCompareid" + modelname).addClass("hidden");
@@ -3954,7 +3966,7 @@ var getPropertyUnitList = function (modelname, filldata) {
     });
 }
 var getPropertyUnitDetails = function (uid) {
-    
+    $("#unitdiv_" + $("#hndOldUID").val()).removeClass("select-unit");
     $("#divLoader").show();
     var model = { UID: uid, LeaseTermID:$("#hndLeaseTermID").val() };
     $.ajax({
@@ -10698,7 +10710,7 @@ var getPropertyModelUnitList = function (stype, pid) {
 
 var getPropertyUnitDetails = function (uid) {
    
-    $("#unitdiv_" + $("#hndOldUID").val()).removeClass("select-unit");
+    $("#unitdiv_" + $("#hndUID").val()).removeClass("select-unit");
     $("#divLoader").show();
     var model = { UID: uid, LeaseTermID: $("#hndLeaseTermID").val() };
     $.ajax({
