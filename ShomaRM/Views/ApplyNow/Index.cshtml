@@ -1019,112 +1019,109 @@
                     <span class="hidden" id="lblAdminFees">@((Model.AdminFees ?? 0).ToString("0.00"))</span>
                     <span class="hidden" id="lblApplicationFees">@((Model.ApplicationFees ?? 0).ToString("0.00"))</span>
                     <span id="lblGuarantorFees" class="hidden">@((Model.GuarantorFees ?? 0).ToString("0.00"))</span>
-                    <div class="row p-b-15  ">
-                        <div class="col-sm-12" id="printable" style="overflow: hidden !important;">
+                    <div class="row">
+                        <div class="col-lg-12 col-xs-12 col-sm-12" id="printable" style="overflow: hidden !important;">
                             <p>Thank you for your interest in Sanctuary Doral. This quote expires on midnight of the 3rd day. Please make sure you submit your application before midnight of the third day to secure your selected unit. If you have any questions or need assistance, please feel free to contact us.</p>
                             <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                                 <div class="panel-heading center">
                                     <h3 class="panel-title">Quotation</h3>
                                 </div>
                             </div>
+                            <div class="col-lg-12 m-bt-30 box-wrpper-pading">
+                                <div class="row">
+                                    <div class="col-xs-12 col-lg-6">
+                                        <div class="row">
+                                            <div class="col-mr-30 col-sm-4 col-lg-6 box1">
+                                                <span>QUOTE DATE : </span>
+                                            </div>
+                                            <div class="col-mr-60 col-sm-6 col-lg-6 box1">
+                                                <span id="lblFNLQuoteDate" style="text-decoration:underline;font-weight:bold;">@Model.CreatedDate.ToString("MM/dd/yyyy hh:mm tt")</span>
+                                            </div>
 
-                            <div class="col-sm-12 clear">
-                                <div class="col-sm-5">
-                                    <div class="col-sm-6">
-                                        <span>QUOTE DATE : </span>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <span id="lblFNLQuoteDate" style="text-decoration:underline;font-weight:bold;">@Model.CreatedDate.ToString("MM/dd/yyyy hh:mm tt")</span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-7">
-                                    <div class="col-sm-6">
-                                        <span>PREPARED FOR (RESIDENT NAME) : </span>
-                                    </div>
-                                    <div class="col-sm-6 margin-RN">
-                                        <span id="lblFNLResidentName1" style="text-decoration:underline;font-weight:bold;">@Model.FirstName @Model.LastName</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 clear">
-                                <div class="col-sm-5">
-                                    <div class="col-sm-6">
-                                        <span>QUOTE EXPIRES : </span>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <span id="lblFNLQuoteExpires" style="text-decoration:underline;font-weight:bold;">@Model.ExpireDate</span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-7">
-                                    <div class="col-sm-2">
-                                        <span>PHONE : </span>
-                                    </div>
-                                    <div class="col-sm-3 margin-left-0">
-                                        <span id="lblFNLPhone" style="text-decoration:underline;font-weight:bold;"></span>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <span>EMAIL : </span>
-                                    </div>
-                                    <div class="col-sm-6 margin-left-0">
-                                        <span id="lblFNLEmail" style="text-decoration:underline;font-weight:bold;">@Model.Email</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 clear">
-                                <div class="col-sm-5">
-                                    <div class="col-sm-6">
-                                        <span>DESIRED MOVE IN : </span>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <span id="lblFNLDesiredMoveIn" style="text-decoration:underline;font-weight:bold;">@Model.MoveInDateTxt</span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-7">
-                                    <div class="col-sm-2">
-                                        <span>UNIT# : </span>
-                                    </div>
-                                    <div class="col-sm-3 margin-left-0">
-                                        <span id="lblFNLUnit" style="text-decoration:underline;font-weight:bold;"></span>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <span>MODEL : </span>
-                                    </div>
-                                    <div class="col-sm-6 margin-left-0">
-                                        <span id="lblFNLModel" style="text-decoration:underline;font-weight:bold;"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 clear">
-                                <div class="col-sm-5">
-                                    <div class="col-sm-6">
-                                        <span>LEASE TERM : </span>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;">@Model.LeaseTerm</span>
-                                    </div>
-                                </div>
-                                <div class="col-sm-7">
-                                    <div class="col-sm-5">
-                                        <span>ASSIGNED PARKING SPACE :  </span>
-                                    </div>
-                                    <div class="col-sm-7 margin-left-0">
-                                        <span id="lblAssginPakingSpace" style="text-decoration:underline;font-weight:bold;"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 clear">
-                                <div class="col-sm-8">
-                                    <div class="col-sm-3">
+                                            <div class="col-mr-30 col-sm-4 col-lg-6 box1">
+                                                <span>PREPARED FOR (RESIDENT NAME) : </span>
+                                            </div>
+                                            <div class="col-mr-60 col-sm-6 col-lg-6 box1">
+                                                <span id="lblFNLResidentName1" style="text-decoration:underline;font-weight:bold;">@Model.FirstName @Model.LastName</span>
+                                            </div>
 
+                                        </div>
                                     </div>
-                                    <div class="col-sm-9">
+                                    <div class="col-lg-6 m-tt-20">
+                                        <div class="row">
+                                            <div class="col-mr-30 col-sm-4 col-lg-4 box1">
+                                                <span>QUOTE EXPIRES : </span>
+                                            </div>
 
+                                            <div class="col-mr-60 col-sm-6 col-lg-8 box1">
+                                                <span id="lblFNLQuoteExpires" style="text-decoration:underline;font-weight:bold;">@Model.ExpireDate</span>
+                                            </div>
+
+                                            <div class="col-mr-30 col-sm-4 col-lg-4 box1">
+                                                <span>PHONE : </span>
+                                            </div>
+                                            <div class="col-mr-60 col-sm-6 col-lg-8 box1">
+                                                <span id="lblFNLPhone" style="text-decoration:underline;font-weight:bold;"></span>
+                                            </div>
+                                            <div class="col-mr-30 col-sm-4 col-lg-4 box1">
+                                                <span>EMAIL : </span>
+                                            </div>
+                                            <div class="col-mr-60 col-sm-6 col-lg-8 box1">
+                                                <span id="lblFNLEmail" style="text-decoration:underline;font-weight:bold;">@Model.Email</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-4">
 
+                                    <div class="col-xs-12 col-lg-6">
+                                        <div class="row">
+                                            <div class="col-mr-30 col-sm-4 col-lg-6 box1">
+                                                <span>DESIRED MOVE IN : </span>
+                                            </div>
+                                            <div class="col-mr-60 col-sm-6 col-lg-8 box1">
+                                                <span id="lblFNLDesiredMoveIn" style="text-decoration:underline;font-weight:bold;">@Model.MoveInDateTxt</span>
+                                            </div>
+
+                                            <div class="col-mr-30 col-sm-4 col-lg-4 box1">
+
+                                                <span>UNIT# : </span>
+                                            </div>
+                                            <div class="col-mr-60 col-sm-6 col-lg-8 box1">
+                                                <span id="lblFNLUnit" style="text-decoration:underline;font-weight:bold;"></span>
+                                            </div>
+                                            <div class="col-mr-30 col-sm-4 col-lg-4 box1">
+                                                <span>MODEL : </span>
+                                            </div>
+                                            <div class="col-mr-60 col-sm-6 col-lg-8 box1">
+                                                <span id="lblFNLModel" style="text-decoration:underline;font-weight:bold;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 m-tt-20">
+                                        <div class="row">
+                                            <div class="col-mr-30 col-sm-4 col-lg-6 box1">
+
+                                                <span>LEASE TERM : </span>
+                                            </div>
+                                            <div class="col-mr-60 col-sm-6 col-lg-8 box1">
+                                                <span id="lblFNLTerm" style="text-decoration:underline;font-weight:bold;">@Model.LeaseTerm</span>
+                                            </div>
+
+                                            <div class="col-mr-30 col-sm-4 col-lg-6 box1">
+
+                                                <span>ASSIGNED PARKING SPACE :  </span>
+                                            </div>
+                                            <div class="col-mr-60 col-sm-6 col-lg-8 box1">
+                                                <span id="lblAssginPakingSpace" style="text-decoration:underline;font-weight:bold;"></span>
+                                            </div>
+                                       
+
+                                         
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
                             <div class="col-sm-12 clear">&nbsp;</div>
                             <div class="col-sm-12 clear">
                                 <div class="col-sm-6">
