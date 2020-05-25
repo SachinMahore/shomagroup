@@ -1162,10 +1162,10 @@ var getPetLists = function () {
                 //html += "<td>" + elementValue.Weight + "</td>";
                 //html += "<td>" + elementValue.VetsName + "</td>";
                 // html += "<td>";
-                // html += "<a style='background: transparent; margin-right:10px' href='JavaScript:Void(0);' id='updatePetInfo' onclick='getPetInfo(" + elementValue.PetID + ")'><span class='fa fa-edit' ></span></a>";
+                // html += "<a style='background: transparent; margin-right:10px' href='javascript:void(0);' id='updatePetInfo' onclick='getPetInfo(" + elementValue.PetID + ")'><span class='fa fa-edit' ></span></a>";
                 //html += "<td> <a href='javascript:void(0);' id='updatePetInfo' onclick='getPetInfo(" + elementValue.PetID + ")'><i class='fa fa-edit'></i></a> </td>";
                 //html += "<td> <a href='javascript:void(0);' onclick='delPet(" + elementValue.PetID + ")' > <i class='fa fa-trash'></i></a > </td>";
-                // html += "<a style='background: transparent; margin-right:10px' href='JavaScript:Void(0);' onclick='delPet(" + elementValue.PetID + ")'><span class='fa fa-trash' ></span></a>";
+                // html += "<a style='background: transparent; margin-right:10px' href='javascript:void(0);' onclick='delPet(" + elementValue.PetID + ")'><span class='fa fa-trash' ></span></a>";
                 //  html += "<a href='../../Content/assets/img/pet/" + elementValue.PetVaccinationCertificate + "' download=" + elementValue.PetVaccinationCertificate + " target='_blank'><span class='fa fa-download'></span></a>";
                 html += "</td >";
                 html += "</tr>";
