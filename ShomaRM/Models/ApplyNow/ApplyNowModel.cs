@@ -1652,27 +1652,27 @@ namespace ShomaRM.Models
             {
                 ShomaRMEntities db = new ShomaRMEntities();
 
-                DataTable dtTable = new DataTable();
-                using (var cmd = db.Database.Connection.CreateCommand())
-                {
-                    db.Database.Connection.Open();
-                    cmd.CommandText = "usp_GetQuotationNoByEmail";
-                    cmd.CommandType = CommandType.StoredProcedure;
+                //DataTable dtTable = new DataTable();
+                //using (var cmd = db.Database.Connection.CreateCommand())
+                //{
+                //    db.Database.Connection.Open();
+                //    cmd.CommandText = "usp_GetQuotationNoByEmail";
+                //    cmd.CommandType = CommandType.StoredProcedure;
 
-                    DbParameter paramCUID = cmd.CreateParameter();
-                    paramCUID.ParameterName = "Email";
-                    paramCUID.Value = Email;
-                    cmd.Parameters.Add(paramCUID);
+                //    DbParameter paramCUID = cmd.CreateParameter();
+                //    paramCUID.ParameterName = "Email";
+                //    paramCUID.Value = Email;
+                //    cmd.Parameters.Add(paramCUID);
 
-                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
-                    da.SelectCommand = cmd;
-                    da.Fill(dtTable);
-                    db.Database.Connection.Close();
-                }
-                if (dtTable.Rows.Count > 0)
-                {
-                    ApplyNowQuotationNo = dtTable.Rows[0]["QuotationNo"].ToString();
-                }
+                //    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                //    da.SelectCommand = cmd;
+                //    da.Fill(dtTable);
+                //    db.Database.Connection.Close();
+                //}
+                //if (dtTable.Rows.Count > 0)
+                //{
+                //    ApplyNowQuotationNo = dtTable.Rows[0]["QuotationNo"].ToString();
+                //}
 
                 long tenantID = 0;
                 try
@@ -1688,8 +1688,11 @@ namespace ShomaRM.Models
                     var getAppldata = db.tbl_Applicant.Where(p => p.UserID == applyNowData.UserId).FirstOrDefault();
                     string pass = new EncryptDecrypt().DecryptText(appDetails.Password);
 
+                  
+
                     if (appDetails != null)
                     {
+                        ApplyNowQuotationNo = applyNowData.CreatedDate.HasValue ? applyNowData.CreatedDate.Value.ToString("yyyyMMddHHmm")+"-"+ applyNowData.ID.ToString() : "";
                         var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
                         string payid = new EncryptDecrypt().EncryptText(getAppldata.ApplicantID.ToString() + ",4," + propertDet.AppCCCheckFees.Value.ToString("0.00"));
 
@@ -1772,11 +1775,12 @@ namespace ShomaRM.Models
                 ApplyNowUserId = Convert.ToInt64(dtTable.Rows[0]["UserId"].ToString());
                 ApplyNowQuotationNo = dtTable.Rows[0]["QuotationNo"].ToString();
                 ApplyNowEmail = dtTable.Rows[0]["Email"].ToString();
+                //msg = dtTable.Rows[0]["Email"].ToString() + "|"+ dtTable.Rows[0]["IsTempPass"].ToString()+"|"+ dtTable.Rows[0]["UserId"].ToString();
                 msg = ApplyNowEmail;
             }
             else
             {
-                msg = "User Not Found";
+                msg = "Quotation Number Not Found";
             }
             return msg;
         }
