@@ -36,7 +36,7 @@
 <input type="hidden" id="hndOldUID" value="0" />
 
 
-<div class="content-area submit-property" style="background-color: #FCFCFC;">
+<div class="content-area submit-property sanctuary-background-img">
     &nbsp;
     <div class="container-box m-t">
 
@@ -352,7 +352,7 @@
                                                 <area id="fa_@lstcord.FloorID" data-aval="@lstcord.IsAvail" data-floorid="@lstcord.FloorID" shape="poly" class="tooltip buildplan" @*data-title="Floor -@lstcord.FloorID"*@ href="javascript:void(0);" coords="@lstcord.Coordinates" onclick="getPropertyUnitListByFloor(@lstcord.FloorID)">
                                                 @*<span style="display: none">@lstcord.FloorID</span>*@
                                                 <div id="dfa_@lstcord.FloorID" class="hidden divtooltip">
-                                                    <span>Floor - @lstcord.FloorID</span>
+                                                    @*<span>Floor - @lstcord.FloorID</span>*@
                                                 </div>
                                             }
                                         </map>
@@ -373,7 +373,8 @@
                                 </div>
 
                             </div>
-                        </div><!--unit,price section end-->
+                        </div>
+                        <!--unit,price section end-->
                         <!---->
                     </div>
                     <div id="divPriceTable" class="hidden">
@@ -6625,6 +6626,15 @@
 
     .margin-RN {
         margin-left: -60px;
+    }
+    .popContinueBtn {
+        border-radius: 25px;
+        border: 2px solid #fff;
+        background-color: #fff;
+        font-size: 25px;
+        color: #73AD21;
+        width: 200px;
+        height: 60px;
     }
 </style>
 <script>

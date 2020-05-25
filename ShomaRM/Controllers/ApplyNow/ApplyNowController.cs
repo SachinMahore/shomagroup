@@ -764,12 +764,22 @@ namespace ShomaRM.Controllers
         }
         public ActionResult ChangePassword(string uid)
         {
-            string uidd = new EncryptDecrypt().DecryptText(uid);
-            ViewBag.UID = uidd;
-            var model = new ApplyNowModel().ExpireChangePassword(Convert.ToInt64(uidd));
-            ViewBag.LinkExp = model;
+            string[] uidd = new EncryptDecrypt().DecryptText(uid).Split(',');
+            ViewBag.UID = uidd[0];
+            if (uidd[1] == "0")
+            {
+                var model = new ApplyNowModel().ExpireChangePassword(Convert.ToInt64(uidd[0]));
+                ViewBag.LinkExp = model;
+                ViewBag.IsTempPass = "0";
+            }
+            else
+            {
+                var email= new ApplyNowModel().GetEmailAddress(Convert.ToInt64(uidd[0]));
+                ViewBag.Email = email;
+                ViewBag.LinkExp = "No";
+                ViewBag.IsTempPass = "1";
+            }
             return View();
-           
         }
         public JsonResult SaveChangePassword(long UserID,string EmailId, string NewPassword)
         {
@@ -1260,11 +1270,11 @@ namespace ShomaRM.Controllers
             }
         }
 
-        public JsonResult SignInUsingQuotationNo(string QuotationNo, string UserName, string Password)
+        public JsonResult SignInUsingQuotationNo(string QuotationNo, string UserName, string Password, int IsTempPass)
         {
             try
             {
-                return Json(new ApplyNowModel().SignInUsingQuotationNo(QuotationNo, UserName, Password), JsonRequestBehavior.AllowGet);
+                return Json(new ApplyNowModel().SignInUsingQuotationNo(QuotationNo, UserName, Password, IsTempPass), JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {
@@ -1289,6 +1299,17 @@ namespace ShomaRM.Controllers
             try
             {
                 return Json(new { model = new EmployerHistoryModel().GetEmployerHistoryByAdmin(TenantId, ApplicantUserId) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public JsonResult CheckUserNameAndPassword(long UserID, string EmailId, string OldPassword)
+        {
+            try
+            {
+                return Json(new { model = new ApplyNowModel().CheckUserNameAndPassword(UserID, EmailId, OldPassword) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {

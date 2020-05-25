@@ -60,10 +60,7 @@
                             </form>
                     }
                     <br>
-
-
                 </div>
-
             </div>
         </div>
         <div class="col-md-3 username"></div>
@@ -89,7 +86,7 @@
             </div>
             <div class="text-justify hidden" id="divQuotationPassword">
                 <div class="form-group">
-                    <label for="txtQuotationPassword">Enter New Password</label>
+                    <label for="txtQuotationPassword" id="lblQuotationPassword">Enter New Password</label>
                     <input type="password" class="form-control" id="txtQuotationPassword" name="Password">
                 </div>
             </div>
@@ -197,6 +194,8 @@
         var password = $("#txtQuotationPassword").val();
         var confirmPassword = $("#txtQuotationConfirmPassword").val();
         var userName = $("#txtQuotationUserName").val();
+        var isTempPass = $("#hndIsTempPass").val();
+
         //if (!quotationNo) {
         //    msg += "Enter Quotation No</br>";
         //}
@@ -207,8 +206,10 @@
             if (!result) {
                 return;
             }
-            if (password != confirmPassword) {
-                msg += "Password and Confirm Password must be the same</br>";
+            if (parseInt(isTempPass) == 1) {
+                if (password != confirmPassword) {
+                    msg += "Password and Confirm Password must be the same</br>";
+                }
             }
         }
         if (msg != "") {
@@ -221,7 +222,7 @@
         }
 
         var model = {
-            QuotationNo: quotationNo, UserName: userName, Password: password
+            QuotationNo: quotationNo, UserName: userName, Password: password, IsTempPass:isTempPass
         };
         $.ajax({
             url: "/Applynow/SignInUsingQuotationNo",
@@ -230,7 +231,14 @@
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
-                window.location = response;
+                $.alert({
+                    title: "",
+                    content: "Password changed successfully",
+                    type: 'red'
+                });
+                setTimeout(function () {
+                    window.location = "/Account/Login/";
+                }, 1500)
             }
         });
     };
@@ -248,6 +256,7 @@
         $('#btnVerifyQuotation').removeClass('hidden');
         $('#btnQuotationSignIn').addClass('hidden');
         $('#popQuotationSignIn').modal('show');
+        $('#lblQuotationPassword').text("Enter New Password");
     }
 
     var verifyQuotationNo = function () {
@@ -284,13 +293,21 @@
                     });
                 }
                 else {
-                    //var result = response.split('|');
-
+                    var result = response.split('|');
+                    $('#hndIsTempPass').val(result[1]);
                     $('#txtQuotationNo').attr('disabled', true);
                     $('#divQuotationUserName').removeClass('hidden');
-                    $('#txtQuotationUserName').val(response);
+                    $('#txtQuotationUserName').val(result[0]);
+                    if (result[1] == 1) {
+                        $('#divQuotationConfirmPassword').removeClass('hidden');
+                        $('#lblQuotationPassword').text("Enter New Password");
+                    }
+                    else {
+                        $('#lblQuotationPassword').text("Enter Password");
+                        $('#divQuotationConfirmPassword').add('hidden');
+                    }
                     $('#divQuotationPassword').removeClass('hidden');
-                    $('#divQuotationConfirmPassword').removeClass('hidden');
+                   
                     $('#btnVerifyQuotation').addClass('hidden');
                     $('#btnQuotationSignIn').removeClass('hidden');
                 }

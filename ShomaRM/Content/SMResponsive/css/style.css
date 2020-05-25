@@ -6056,3 +6056,9 @@ h1 {
 .custom-card-button-mt {
     margin-bottom: 12px !important;
 }
+.sanctuary-background-img {
+    background-image: url('../../Templates/images/tower_background.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}

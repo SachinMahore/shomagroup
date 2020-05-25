@@ -6897,19 +6897,21 @@ function showFloorPlan(flid, numbedroom, modelname) {
             $("#popUnitDet").addClass("hidden");
             $("#popPromotion").addClass("hidden");
             $("#divUdet").addClass("hidden");
+
            // var html = "<h3 style='color: #4d738a; text-align:center;'>Selected : Floor " + response.model.FloorNo + "</h3>";
             var html = "";
             //html += "<div class='col-sm-12' style='background:#fff;text-align:center!important;'><span style='background-color:#006400;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Available</span>&nbsp;&nbsp;<span style='background-color:#ffff00;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Other Options</span>&nbsp;&nbsp;<span style='background-color:#FF0000;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Unavailable</span></div><br/><br/>";
+
             html += "<img src ='/content/assets/img/plan/" + response.model.FloorPlan + "' id='imgFloorCoordinate' class='' usemap='#unitimg'>";
             html += "<map name='unitimg' id='imgFloorCoordinateDiv'>";
-            console.log(JSON.stringify(response.model.lstUnitFloor));
+            //console.log(JSON.stringify(response.model.lstUnitFloor));
             $.each(response.model.lstUnitFloor, function (elementType, value) {
                 if (value.IsAvail == 1) {
                     html += "<area shape='poly' id='unId_" + value.UID + "' class='tooltips UAarea' coords='" + value.Coordinates + "' href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'>";
                     //html += "<span class='tooltip-text' style='display: none'>" + value.UnitNo + "</span>";
                     //html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>Unit No: " + value.UnitNo + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba</span><span> Available: Yes</span></div>";
                     //html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>" + value.UnitNo + "<br/> Model: #" + value.ModelName + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba<br/> Price: $" + formatMoney(value.Current_Rent) + "</span><span> Available: Yes</span></div>";
-                    html += "<div id='floorunId_" + value.UID + "' class=' divtooltipUnit'>" +
+                    html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'>" +
                         "<span><img src='/content/assets/img/plan/" + value.ModelName + ".png' id='imgModel_" + value.UID + "' class='img-responsive' /></span><hr>" +
                         "<span class='labelDivTool'>" + value.UnitNo + "</span><br />" +
                         "<span> Model: #" + value.ModelName + "</span><br />" +
@@ -6924,7 +6926,7 @@ function showFloorPlan(flid, numbedroom, modelname) {
                     // html += "<span class='tooltip-text' style='display: none'>" + value.UnitNo + "</span>";
                     //html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>Unit No: " + value.UnitNo + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba</span><span> Available: Other</span></div>";
                     // html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>" + value.UnitNo + "<br/> Model: #" + value.ModelName + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba<br/> Price: $" + formatMoney(value.Current_Rent) + "</span><span> Available: Other</span></div>";
-                    html += "<div id='floorunId_" + value.UID + "' class=' divtooltipUnit'>" +
+                    html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'>" +
                         "<span><img src='/content/assets/img/plan/" + value.ModelName + ".png' id='imgModel_" + value.UID + "' class='img-responsive' /></span><hr>" +
                         "<span class='labelDivTool'>" + value.UnitNo + "</span><br />" +
                         "<span> Model: #" + value.ModelName + "</span><br />" +
@@ -6936,7 +6938,7 @@ function showFloorPlan(flid, numbedroom, modelname) {
                     html += "<area shape='poly' id='unId_" + value.UID + "' class='tooltips Uarea' coords='" + value.Coordinates + "' >";
                     //html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>Unit No: " + value.UnitNo + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba</span><span> Available: No</span></div>";
                     //html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>" + value.UnitNo + "<br/> Model: #" + value.ModelName + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba<br/> Price: $" + formatMoney(value.Current_Rent) + "</span><span> Available: No</span></div>";
-                    html += "<div id='floorunId_" + value.UID + "' class=' divtooltipUnit'>" +
+                    html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'>" +
                         "<span><img src='/content/assets/img/plan/" + value.ModelName + ".png' id='imgModel_" + value.UID + "' class='img-responsive' /></span><hr>" +
                         "<span class='labelDivTool'>" + value.UnitNo + "</span><br />" +
                         "<span> Model: #" + value.ModelName + "</span><br />" +
@@ -6968,11 +6970,14 @@ function showFloorPlan(flid, numbedroom, modelname) {
                 var Y = (e.pageY - offset.top);
                 X = X - 25;//X = X - 25;//X = X - 30
                 if (Y < 0) {
-                    Y = Y - 250; // Y = Y + 615;//Y = Y + 525
+                    Y = Y + 200; // Y = Y + 615;//Y = Y + 525
                 }
                 else {
                     Y = Y - 180; // Y = Y + 390;//Y = Y + 300
                 }
+
+                console.log("Floor X : " + X + " Floor Y :" + Y);
+
                 var thisId = $(this).attr('id');
                 var divID = thisId.split("_");
                 $(".divtooltipUnit").addClass("hidden");
@@ -7019,6 +7024,8 @@ function getPropertyUnitListByFloor(flid) {
             $("#popPromotion").addClass("hidden");
             $("#divUdet").addClass("hidden");
 
+            //var html = "<h3 style='color: #4d738a; text-align:center;'>Selected : Floor " + response.model.FloorNo + "</h3>";
+
             var html = "";
             // html += "<div class='col-sm-12' style='background:#fff;text-align:center!important;'><span style='background-color:#006400;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Available</span>&nbsp;&nbsp;<span style='background-color:#ffff00;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Other Options</span>&nbsp;&nbsp;<span style='background-color:#FF0000;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Unavailable</span></div><br/><br/>";
             //<div class='col-sm-4'><div style='background-color: #fa6500; width: 10px; height: 10px'></div><span>Not Available</span></div> <div class='col-sm-4'><div style='background-color:red;width:10px;height:10px'></div > <span>Available</span></div>
@@ -7031,7 +7038,7 @@ function getPropertyUnitListByFloor(flid) {
                     //html += "<span class='tooltip-text' style='display: none'>" + value.UnitNo + "</span>";
                     //html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>Unit No: " + value.UnitNo + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba</span><span> Available: Yes</span></div>";
                     // html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>" + value.UnitNo + "<br/> Model: #" + value.ModelName + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba<br/> Price: $" + formatMoney(value.Current_Rent) + "</span><span> Available: Yes</span></div>";
-                    html += "<div id='floorunId_" + value.UID + "' class=' divtooltipUnit'>" +
+                    html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'>" +
                         "<span><img src='/content/assets/img/plan/" + value.ModelName + ".png' id='imgModel_" + value.UID + "' class='img-responsive' /></span><hr>" +
                         "<span class='labelDivTool'>" + value.UnitNo + "</span><br />" +
                         "<span> Model: #" + value.ModelName + "</span><br />" +
@@ -7045,7 +7052,7 @@ function getPropertyUnitListByFloor(flid) {
                     // html += "<span class='tooltip-text' style='display: none'>" + value.UnitNo + "</span>";
                     //html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>Unit No: " + value.UnitNo + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba</span><span> Available: Other</span></div>";
                     // html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>" + value.UnitNo + "<br/> Model: #" + value.ModelName + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba<br/> Price: $" + formatMoney(value.Current_Rent) + "</span><span> Available: Other</span></div>";
-                    html += "<div id='floorunId_" + value.UID + "' class=' divtooltipUnit'>" +
+                    html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'>" +
                         "<span><img src='/content/assets/img/plan/" + value.ModelName + ".png' id='imgModel_" + value.UID + "' class='img-responsive' /></span><hr>" +
                         "<span class='labelDivTool'>" + value.UnitNo + "</span><br />" +
                         "<span> Model: #" + value.ModelName + "</span><br />" +
@@ -7057,7 +7064,7 @@ function getPropertyUnitListByFloor(flid) {
                     html += "<area shape='poly' id='unId_" + value.UID + "' class='tooltips Uarea' coords='" + value.Coordinates + "' >";
                     //html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>Unit No: " + value.UnitNo + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba</span><span> Available: No</span></div>";
                     //html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>" + value.UnitNo + "<br/> Model: #" + value.ModelName + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba<br/> Price: $" + formatMoney(value.Current_Rent) + "</span><span> Available: No</span></div>";
-                    html += "<div id='floorunId_" + value.UID + "' class=' divtooltipUnit'>" +
+                    html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'>" +
                         "<span><img src='/content/assets/img/plan/" + value.ModelName + ".png' id='imgModel_" + value.UID + "' class='img-responsive' /></span><hr>" +
                         "<span class='labelDivTool'>" + value.UnitNo + "</span><br />" +
                         "<span> Model: #" + value.ModelName + "</span><br />" +
@@ -7074,7 +7081,7 @@ function getPropertyUnitListByFloor(flid) {
                     //html += "<span class='tooltip-text' style='display: none'>" + value.UnitNo + "</span>";
                     //html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>Unit No: " + value.UnitNo + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba</span><span> Available: Yes</span></div>";
                     //html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>" + value.UnitNo + "<br/> Model: #" + value.ModelName + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba<br/> Price: $" + formatMoney(value.Current_Rent) + "</span><span> Available: Yes</span></div>";
-                    html += "<div id='floorunId_" + value.UID + "' class=' divtooltipUnit'>" +
+                    html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'>" +
                         "<span><img src='/content/assets/img/plan/" + value.ModelName + ".png' id='imgModel_" + value.UID + "' class='img-responsive' /></span><hr>" +
                         "<span class='labelDivTool'>" + value.UnitNo + "</span><br />" +
                         "<span> Model: #" + value.ModelName + "</span><br />" +
@@ -7119,11 +7126,12 @@ function getPropertyUnitListByFloor(flid) {
                 var Y = (e.pageY - offset.top);
                 X = X - 25;//X = X - 25;//X = X - 30
                 if (Y < 0) {
-                    Y = Y - 250; // Y = Y + 615;//Y = Y + 525
+                    Y = Y + 200; // Y = Y + 615;//Y = Y + 525
                 }
                 else {
                     Y = Y - 180; // Y = Y + 390;//Y = Y + 300
                 }
+                console.log("Unit X : " + X + " Unit Y :" + Y);
                 var thisId = $(this).attr('id');
                 var divID = thisId.split("_");
                 $(".divtooltipUnit").addClass("hidden");
@@ -10592,8 +10600,8 @@ var getPropertyModelUnitList = function (stype, pid) {
 }
 
 var getPropertyUnitDetails = function (uid) {
-   
-    $("#unitdiv_" + $("#hndOldUID").val()).removeClass("select-unit");
+    $("#listUnitNew tr").removeClass("select-unit");
+    //$("#unitdiv_" + $("#hndOldUID").val()).removeClass("select-unit");
     $("#divLoader").show();
     var model = { UID: uid, LeaseTermID: $("#hndLeaseTermID").val() };
     $.ajax({
