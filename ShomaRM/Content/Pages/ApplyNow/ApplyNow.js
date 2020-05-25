@@ -3997,18 +3997,6 @@ var getPropertyUnitList = function (modelname, filldata) {
     });
 }
 
-var getPropertyUnitDetails = function (uid) {
-    $("#unitdiv_" + $("#hndOldUID").val()).removeClass("select-unit");
-    $("#divLoader").show();
-    var model = { UID: uid, LeaseTermID:$("#hndLeaseTermID").val() };
-    $.ajax({
-        url: "/Property/GetPropertyUnitDetails/",
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-
 
 
 function displayImg() {
@@ -10605,7 +10593,7 @@ var getPropertyModelUnitList = function (stype, pid) {
 
 var getPropertyUnitDetails = function (uid) {
    
-    $("#unitdiv_" + $("#hndUID").val()).removeClass("select-unit");
+    $("#unitdiv_" + $("#hndOldUID").val()).removeClass("select-unit");
     $("#divLoader").show();
     var model = { UID: uid, LeaseTermID: $("#hndLeaseTermID").val() };
     $.ajax({
