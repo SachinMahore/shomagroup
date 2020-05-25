@@ -690,7 +690,7 @@ namespace ShomaRM.Models
                 catch
                 {
                 }
-                string uidd = new EncryptDecrypt().EncryptText(forgetPassword.UserID.ToString());
+                string uidd = new EncryptDecrypt().EncryptText(forgetPassword.UserID.ToString() + "," + (forgetPassword.IsTempPass ?? 0).ToString());
                 string reportHTML = "";
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "ForgetPassword.html");
@@ -730,6 +730,18 @@ namespace ShomaRM.Models
             db.Dispose();
             return IsLinkExpired;
         }
+        public string GetEmailAddress(long UserID)
+        {
+            string emailaddress = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+            var user = db.tbl_Login.Where(co => co.UserID == UserID).FirstOrDefault();
+            if (user!=null)
+            {
+                emailaddress = user.Email;
+            }
+            db.Dispose();
+            return emailaddress;
+        }
         public string SaveChangePassword(long UserID,string EmailId,string NewPassword)
         {
             string IsEmailExist = string.Empty;
@@ -740,6 +752,7 @@ namespace ShomaRM.Models
             {
                 isUserCorrct.Password = pass;
                 isUserCorrct.IsChangePass = 0;
+                isUserCorrct.IsTempPass = 0;
                 db.SaveChanges();
             }
             else
@@ -1775,7 +1788,7 @@ namespace ShomaRM.Models
                 ApplyNowUserId = Convert.ToInt64(dtTable.Rows[0]["UserId"].ToString());
                 ApplyNowQuotationNo = dtTable.Rows[0]["QuotationNo"].ToString();
                 ApplyNowEmail = dtTable.Rows[0]["Email"].ToString();
-                msg = dtTable.Rows[0]["Email"].ToString() + "|"+ dtTable.Rows[0]["IsTempPass"].ToString()+"|"+ dtTable.Rows[0]["UserId"].ToString();
+                msg = dtTable.Rows[0]["Email"].ToString() + "|"+ dtTable.Rows[0]["IsTempPass"].ToString();
                 //msg = ApplyNowEmail;
             }
             else
@@ -1784,17 +1797,20 @@ namespace ShomaRM.Models
             }
             return msg;
         }
-        public string SignInUsingQuotationNo(string QuotationNo, string UserName, string Password)
+        public string SignInUsingQuotationNo(string QuotationNo, string UserName, string Password, int IsTempPass)
         {
             string msg = string.Empty;
             ShomaRMEntities db = new ShomaRMEntities();
             var userLogin = db.tbl_Login.Where(co => co.Username == UserName).FirstOrDefault();
             if (userLogin != null)
             {
-                string pass = new EncryptDecrypt().EncryptText(Password.ToString());
-                userLogin.Password = pass;
-                db.SaveChanges();
-
+                if (IsTempPass == 1)
+                {
+                    string pass = new EncryptDecrypt().EncryptText(Password.ToString());
+                    userLogin.Password = pass;
+                    userLogin.IsTempPass = 0;
+                    db.SaveChanges();
+                }
                 string encryptedPassword = new EncryptDecrypt().EncryptText(Password.ToString());
                 var user = db.tbl_Login.Where(p => p.Username == UserName && p.Password == encryptedPassword && p.IsActive == 1).FirstOrDefault();
                 if (user != null)
@@ -1891,6 +1907,23 @@ namespace ShomaRM.Models
                 }
             }
             return msg;
+        }
+        public string CheckUserNameAndPassword(long UserID, string EmailId, string OldPassword)
+        {
+            string IsAllCorrect = "1";
+            ShomaRMEntities db = new ShomaRMEntities();
+            string pass = new EncryptDecrypt().EncryptText(OldPassword.ToString());
+            var isUserCorrct = db.tbl_Login.Where(co => co.Email == EmailId && co.UserID == UserID && co.Password == pass).FirstOrDefault();
+            if (isUserCorrct != null)
+            {
+                IsAllCorrect = "1";
+            }
+            else
+            {
+                IsAllCorrect = "0";
+            }
+            db.Dispose();
+            return IsAllCorrect;
         }
     }
 }
