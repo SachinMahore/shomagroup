@@ -1775,8 +1775,8 @@ namespace ShomaRM.Models
                 ApplyNowUserId = Convert.ToInt64(dtTable.Rows[0]["UserId"].ToString());
                 ApplyNowQuotationNo = dtTable.Rows[0]["QuotationNo"].ToString();
                 ApplyNowEmail = dtTable.Rows[0]["Email"].ToString();
-                //msg = dtTable.Rows[0]["Email"].ToString() + "|"+ dtTable.Rows[0]["ID"].ToString()+"|"+ dtTable.Rows[0]["UserId"].ToString();
-                msg = ApplyNowEmail;
+                msg = dtTable.Rows[0]["Email"].ToString() + "|"+ dtTable.Rows[0]["IsTempPass"].ToString()+"|"+ dtTable.Rows[0]["UserId"].ToString();
+                //msg = ApplyNowEmail;
             }
             else
             {
@@ -1784,7 +1784,7 @@ namespace ShomaRM.Models
             }
             return msg;
         }
-        public string SignInUsingQuotationNo(string QuotationNo, string UserName, string Password, int IsTempPass)
+        public string SignInUsingQuotationNo(string QuotationNo, string UserName, string Password)
         {
             string msg = string.Empty;
             ShomaRMEntities db = new ShomaRMEntities();
