@@ -601,6 +601,7 @@
     <Content Include="Content\assets\css\PrintGuest.css" />
     <Content Include="Content\assets\css\responsive.css" />
     <Content Include="Content\assets\css\slider.css" />
+    <Content Include="Content\assets\css\styleresponsiv.css" />
     <Content Include="Content\assets\css\Tenantstyle.css" />
     <Content Include="Content\assets\css\stylenew.css" />
     <Content Include="Content\assets\css\styleNoJS.css" />
