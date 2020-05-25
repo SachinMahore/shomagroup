@@ -605,6 +605,7 @@
     <Content Include="Content\assets\css\Tenantstyle.css" />
     <Content Include="Content\assets\css\stylenew.css" />
     <Content Include="Content\assets\css\styleNoJS.css" />
+    <Content Include="Content\assets\css\themify-icons.css" />
     <Content Include="Content\assets\css\wizard.css" />
     <Content Include="Content\assets\fontawesome\css\all.css" />
     <Content Include="Content\assets\fontawesome\css\all.min.css" />

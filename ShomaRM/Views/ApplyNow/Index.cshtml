@@ -101,8 +101,13 @@
                         <div class="col-md-12 hidden justify-content-center" id="divMainSearch">
                             <div class="col-md-2">
                                 <div class="form-group">
+                                   
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
                                     <b>Desired Move-In</b>
-                                    <div class="input-group">
+                                    <div class="">
                                         <input type="text" id="txtDate" data-date-format="mm/dd/yyyy" class="form-control" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" />
 
                                     </div>
@@ -142,7 +147,7 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn-success btn" style="padding: 7px 7px;margin-top:26px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
+                                <button class="btn-success btn" style="padding: 7px 7px;margin-top:19px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
                             </div>
                         </div>
                         <div class="col-xs-12 hidden" id="divCompare">
@@ -186,26 +191,28 @@
                         </div>
                     </div>*@
                         <div class="row justify-content-center">
-                            <div class="col-xl-8">
-                                <div class="col-xl-6 col-md-4 text-center float-left">
-                                    <div class="">
-                                        @*<img src="~/Content/SMResponsive/img/floor-plan-big.png" />*@
-                                        <img src="" id="imgFloorPlanNew">
+                            <div class="col-md-2"></div>
+                             <div class="col-md-8">
+                                    <div class="col-xl-6 col-md-6 text-center float-left">
+                                        <div class="">
+                                            @*<img src="~/Content/SMResponsive/img/floor-plan-big.png" />*@
+                                            <img src="" id="imgFloorPlanNew">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-md-6 float-left">
+                                        <div class="unit-txt1">
+                                            <h2>Floor Plan</h2>
+                                            <span>
+                                                <span id="lblBed33"></span> Bed | <span id="lblBath33"></span> Bath<br />
+                                                <span id="lblArea33"></span> Sq Ft<br />
+                                                Starting at $<span id="lblRent33"></span> / month
+                                            </span>
+                                            @*<p><a href="#" class="genric-btn success">Success</a></p>*@
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-md-8 float-left">
-                                    <div class="unit-txt1">
-                                        <h2>Floor Plan</h2>
-                                        <span>
-                                            <span id="lblBed33"></span> Bed | <span id="lblBath33"></span> Bath<br />
-                                            <span id="lblArea33"></span> Sq Ft<br />
-                                            Starting at $<span id="lblRent33"></span> / month
-                                        </span>
-                                        @*<p><a href="#" class="genric-btn success">Success</a></p>*@
-                                    </div>
-                                </div>
+                            <div class="col-md-2"></div>
                             </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="contain-text">
@@ -248,84 +255,7 @@
                                             }
                                         </tbody>
                                     </table>
-                                    @*<table border="0" cellpadding="5" cellspacing="5">
-                                    <tr>
-                                        <th class="unit">Unit</th>
-                                        <th class="price">Price</th>
-                                        <th class="available">Available</th>
-                                        <th class="charges"></th>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="unit">Unit#</td>
-                                        <td class="price">$1,800</td>
-                                        <td class="available">5/10/20</td>
-                                        <td class="charges">
-                                            <a href="price-table.html" class="genric-btn success">Apply</a>
-                                            <!-- <a href="#" class="genric-btn success">Monthly Charges</a> -->
-
-                                            <script>$("#fade").modal({ fadeDuration: 100 });</script>
-                                            <div id="ex1" class="modal">
-
-
-                                                <div class="container">
-                                                    <div class="row-full">
-                                                        <div class="col-xs-12 monthly-charges">
-
-                                                            <div class="col-xl-6 col-md-6 float-left">
-                                                                <div class="property_thumb text-center">
-                                                                    <img src="img/floor-plan.jpg" alt="">
-                                                                </div>
-                                                                <h3>
-                                                                    <strong>
-                                                                        Model A1<br />
-                                                                        Unit #<br />
-                                                                        12 Month Lease Term<br>
-                                                                        Desired Move-In:5/10/20
-                                                                    </strong>
-                                                                </h3>
-
-                                                                <div class="box margin-top1">
-                                                                    <p>Bedrooms <span class="float-right">1</span></p>
-                                                                    <p>Bathrooms <span class="float-right">1</span></p>
-                                                                    <p>Sq.Ft.<span class="float-right">835</span></p>
-                                                                    <p>Occupancy<span class="float-right">2</span></p>
-                                                                    <p>Deposit<span class="float-right">$500.00</span></p>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="col-xl-6 col-md-6 float-left">
-                                                                <h3 class="text-center"><strong>Summary of Monthly Charges</strong></h3>
-                                                                <div class="box">
-                                                                    <p>Base Rent<span class="float-right">$1.875.00</span></p>
-                                                                    <p>Premium<span class="float-right">$0.00</span></p>
-                                                                    <p>Promotion<span class="float-right">$0.00</span></p>
-                                                                    <p>Subtotal<span class="float-right">$0.00</span></p>
-                                                                    <p><strong>Additional Services</strong></p>
-                                                                    <p>Pest Control<span class="float-right">$5.00</span></p>
-                                                                    <p>Trash/Recycle<span class="float-right">$15.00</span></p>
-                                                                    <p>Convergent Billing Fee<span class="float-right">$6.50</span></p>
-                                                                    <p>Subtotal<span class="float-right">$1901.50</span></p>
-                                                                    <p>TOTAL MONTHLY CHARGES*<span class="float-right"><strong>$1901.50</strong></span></p>
-                                                                </div>
-                                                                <small>*Does not include water & sewer charges based on acual monthly consumption</small>
-                                                            </div>
-                                                            <div class="clearfix"></div>
-                                                            <div class="text-center padding-top1"><a href="#" class="genric-btn available">Print</a></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Link to open the modal -->
-                                            <a href="#ex1" rel="modal:open" class="genric-btn success">Monthly Charges</a>
-
-                                            <!--TPAYMENT POPUP END-->
-
-                                            <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
-
-                                        </td>
-                                    </tr>
-                                </table>*@
+                                   
                                 </div>
 
                             </div>
@@ -360,7 +290,7 @@
                                             <li class="un">Unavailable</li>
                                         </ul>
                                     </div>
-                                    <div class="" id="popUnitPlan" style="background:#fff;color:#4d738a; padding:5px;"></div>
+                                    <div class="panel panel-default sidebar-menu wow fadeInRight animated animated" id="popUnitPlan" style="background:#fff;color:#4d738a; padding:5px;"></div>
                                 </div>
 
                             </div>

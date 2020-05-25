@@ -1416,7 +1416,7 @@ span.ui-slider-handle.ui-corner-all.ui-state-default:focus {
 
 .footer .footer_top {
   padding-top: 100px;
-  padding-bottom:80px;
+  /*padding-bottom:80px;*/
 }
 
 hr {

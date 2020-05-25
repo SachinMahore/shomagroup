@@ -3805,28 +3805,29 @@ var noofcomapre = 0;
 
 
 var addToCompare = function (modelname) {
-    if (noofcomapre < 3) {
-        $("#chkCompareid" + modelname).removeClass("hidden");
-        $("#chkCompareid" + modelname).prop("checked", true);
-        $("#divCompare").removeClass("hidden");
-        $("#divMainSearch").addClass("hidden");
-        $("#btncompRemove" + modelname).removeClass("hidden");
-        $("#btnCompare" + modelname).addClass("hidden");
+       if (noofcomapre < 3) {
+            $("#chkCompareid" + modelname).removeClass("hidden");
+            $("#chkCompareid" + modelname).prop("checked", true);
+            $("#divCompare").removeClass("hidden");
+            $("#divMainSearch").addClass("hidden");
+            $("#btncompRemove" + modelname).removeClass("hidden");
+            // $("#btnCompare" + modelname).addClass("hidden");
 
-        $("#chkComp" + modelname).addClass("hidden");
-        addModelArray.push(modelname);
+            // $("#chkComp" + modelname).addClass("hidden");
+            addModelArray.push(modelname);
 
-        noofcomapre = addModelArray.length;
-        $("#btncompare").text("Compare(" + noofcomapre + ")");
-        getCompareModelList();
-    } else {
-        $.alert({
-            title: "",
-            content: "Please Select up to three to compare ",
-            type: 'red'
-        })
-    }
-
+            noofcomapre = addModelArray.length;
+            $("#btncompare").text("Compare(" + noofcomapre + ")");
+            getCompareModelList();
+        } else {
+            $.alert({
+                title: "",
+                content: "Please Select up to three to compare ",
+                type: 'red'
+            })
+            $("#btnCompare" + modelname).removeAttr('checked');
+        }
+    
 }
 var removeToCompare = function (modelname) {
     $("#chkCompareid" + modelname).addClass("hidden");
@@ -7001,8 +7002,9 @@ function showFloorPlan(flid, numbedroom, modelname) {
             $("#popUnitDet").addClass("hidden");
             $("#popPromotion").addClass("hidden");
             $("#divUdet").addClass("hidden");
-            var html = "<h3 style='color: #4d738a; text-align:center;'>Selected : Floor " + response.model.FloorNo + "</h3>";
-            html += "<div class='col-sm-12' style='background:#fff;text-align:center!important;'><span style='background-color:#006400;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Available</span>&nbsp;&nbsp;<span style='background-color:#ffff00;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Other Options</span>&nbsp;&nbsp;<span style='background-color:#FF0000;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Unavailable</span></div><br/><br/>";
+           // var html = "<h3 style='color: #4d738a; text-align:center;'>Selected : Floor " + response.model.FloorNo + "</h3>";
+            var html = "";
+            //html += "<div class='col-sm-12' style='background:#fff;text-align:center!important;'><span style='background-color:#006400;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Available</span>&nbsp;&nbsp;<span style='background-color:#ffff00;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Other Options</span>&nbsp;&nbsp;<span style='background-color:#FF0000;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Unavailable</span></div><br/><br/>";
             html += "<img src ='/content/assets/img/plan/" + response.model.FloorPlan + "' id='imgFloorCoordinate' class='' usemap='#unitimg'>";
             html += "<map name='unitimg' id='imgFloorCoordinateDiv'>";
             console.log(JSON.stringify(response.model.lstUnitFloor));
@@ -7122,7 +7124,7 @@ function getPropertyUnitListByFloor(flid) {
             $("#popPromotion").addClass("hidden");
             $("#divUdet").addClass("hidden");
 
-            var html = "<h3 style='color: #4d738a; text-align:center;'>Selected : Floor " + response.model.FloorNo + "</h3>";
+            var html = "";
             // html += "<div class='col-sm-12' style='background:#fff;text-align:center!important;'><span style='background-color:#006400;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Available</span>&nbsp;&nbsp;<span style='background-color:#ffff00;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Other Options</span>&nbsp;&nbsp;<span style='background-color:#FF0000;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Unavailable</span></div><br/><br/>";
             //<div class='col-sm-4'><div style='background-color: #fa6500; width: 10px; height: 10px'></div><span>Not Available</span></div> <div class='col-sm-4'><div style='background-color:red;width:10px;height:10px'></div > <span>Available</span></div>
             html += "<img src ='/content/assets/img/plan/" + response.model.FloorPlan + "' id='imgFloorCoordinate' class='' usemap='#unitimg'>";
@@ -10671,11 +10673,11 @@ var getPropertyModelUnitList = function (stype, pid) {
             if (response != null) {
                 $("#listModelUnit").empty();
                 $.each(response.model, function (elementType, value) {
-                    var html = "<div class='col-xl-5 col-md-6 col-lg-5' id='modeldiv" + value.Building + "'><div class='single_property'><div class='row'><div class='col-md-5 col-sm-5'><div class='property_thumb'>";
+                    var html = "<div class='col-xl-5 col-md-6 col-lg-5' id='modeldiv" + value.Building + "'><div class='single_property'><div class='row'><div class='col-md-6 col-sm-6'><div class='property_thumb'>";
                     html += "<img src='/content/assets/img/plan/" + value.FloorPlan + "' style='height:250px'; alt=''></div></div>";
-                    html += "<div class='col-md-7 col-sm-7'><div class='property_content'><div class='main_pro'><h3>Floor Plan " + value.Building + "</h3> ";
+                    html += "<div class='col-md-6 col-sm-6'><div class='property_content'><div class='main_pro'><h3>Floor Plan " + value.Building + "</h3> ";
                     html += "<div class='mark_pro'><p>" + value.Bedroom + " Bed | " + value.Bathroom + "Bath</p><p> " + value.Area + " Sq Ft</p><p>Starting at " + value.RentRange + "  / month</p></div>";
-                    html += "<div class='button'><button class='btn' style='margin-top: -19px;margin-bottom: -48px;'  onclick='getPropertyUnitList(\"" + value.Building + "\")'><a href='javascript:void(0);' class='genric-btn available'>" + value.NoAvailable + " Available</a></button><br><p><a  onclick='addToCompare(\"" + value.Building + "\")'  href='javascript:void(0);'  id='btnCompare" + value.Building + "'><div class='input-group' id='chkComp" + value.Building + "'><span class='input-group checkbox' ></span><label style='padding-left: 82px;'>Compare</label> </div></a></p></div>";
+                    html += "<div class='button'><button class='btn' style='margin-top: -19px;margin-bottom: -48px;'  onclick='getPropertyUnitList(\"" + value.Building + "\")'><a href='javascript:void(0);' class='genric-btn available'>" + value.NoAvailable + " Available</a></button><br><p><div class='input-group' id='chkComp" + value.Building + "'><span class='input-group checkbox' ><input class='form-control' type='checkbox' onclick='addToCompare(\"" + value.Building + "\")' id='btnCompare" + value.Building + "'/></span><label>Compare</label> </div></p></div>";
                     html += "</div></div></div></div></div></div>";
 
                     //var html = "<div class='col-sm-4 col-md-4 p0' id='modeldiv" + value.Building + "'><div class='box-two proerty-item'>";
