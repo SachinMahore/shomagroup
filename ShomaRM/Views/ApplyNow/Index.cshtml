@@ -101,8 +101,13 @@
                         <div class="col-md-12 hidden justify-content-center" id="divMainSearch">
                             <div class="col-md-2">
                                 <div class="form-group">
+                                   
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
                                     <b>Desired Move-In</b>
-                                    <div class="input-group">
+                                    <div class="">
                                         <input type="text" id="txtDate" data-date-format="mm/dd/yyyy" class="form-control" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" />
 
                                     </div>
@@ -142,7 +147,7 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn-success btn" style="padding: 7px 7px;margin-top:26px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
+                                <button class="btn-success btn" style="padding: 7px 7px;margin-top:19px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
                             </div>
                         </div>
                         <div class="col-xs-12 hidden" id="divCompare">
@@ -186,26 +191,28 @@
                                 </div>
                             </div>*@
                         <div class="row justify-content-center">
-                            <div class="col-xl-8">
-                                <div class="col-xl-6 col-md-4 text-center float-left">
-                                    <div class="">
-                                        @*<img src="~/Content/SMResponsive/img/floor-plan-big.png" />*@
-                                        <img src="" id="imgFloorPlanNew">
+                            <div class="col-md-2"></div>
+                             <div class="col-md-8">
+                                    <div class="col-xl-6 col-md-6 text-center float-left">
+                                        <div class="">
+                                            @*<img src="~/Content/SMResponsive/img/floor-plan-big.png" />*@
+                                            <img src="" id="imgFloorPlanNew">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-md-6 float-left">
+                                        <div class="unit-txt1">
+                                            <h2>Floor Plan</h2>
+                                            <span>
+                                                <span id="lblBed33"></span> Bed | <span id="lblBath33"></span> Bath<br />
+                                                <span id="lblArea33"></span> Sq Ft<br />
+                                                Starting at $<span id="lblRent33"></span> / month
+                                            </span>
+                                            @*<p><a href="#" class="genric-btn success">Success</a></p>*@
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-md-8 float-left">
-                                    <div class="unit-txt1">
-                                        <h2>Floor Plan</h2>
-                                        <span>
-                                            <span id="lblBed33"></span> Bed | <span id="lblBath33"></span> Bath<br />
-                                            <span id="lblArea33"></span> Sq Ft<br />
-                                            Starting at $<span id="lblRent33"></span> / month
-                                        </span>
-                                        @*<p><a href="#" class="genric-btn success">Success</a></p>*@
-                                    </div>
-                                </div>
+                            <div class="col-md-2"></div>
                             </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="contain-text">
@@ -248,6 +255,7 @@
                                             }
                                         </tbody>
                                     </table>
+
                                     @*<table border="0" cellpadding="5" cellspacing="5">
                                             <tr>
                                                 <th class="unit">Unit</th>
@@ -326,6 +334,7 @@
                                                 </td>
                                             </tr>
                                         </table>*@
+
                                 </div>
 
                             </div>
@@ -360,7 +369,7 @@
                                             <li class="un">Unavailable</li>
                                         </ul>
                                     </div>
-                                    <div class="" id="popUnitPlan" style="background:#fff;color:#4d738a; padding:5px;"></div>
+                                    <div class="panel panel-default sidebar-menu wow fadeInRight animated animated" id="popUnitPlan" style="background:#fff;color:#4d738a; padding:5px;"></div>
                                 </div>
 
                             </div>

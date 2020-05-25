@@ -56,7 +56,7 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/fileUpload.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/timepicki.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/jAlert.css")" />
-
+  
     <script src="@Url.Content("~/Content/timepicki.js")"></script>
     <script src="@Url.Content("~/Content/keyboardcontrols.js")"></script>
 
@@ -72,72 +72,72 @@
     <div id="divLoader" style="display:none"></div>
     <div id="divLoaderFullData" style="display:none"></div>
     <div id="divLoaderFloorData" style="display:none"></div>
-    <!-- Footer area-->
-    <div class="footer-area">
-        <div class=" footer" style="padding:0 !important">
-
+   
+    <!-- footer start -->
+    <footer class="footer">
+        <div class="footer_top">
             <div class="container">
-                <div class="row grid-container" style="text-align: center;">
-                    <div class="col-sm-3">
-                        <h3 class="username"><i class="fa fa-map-marker " style="color: #4d738a !important;"></i> Location</h3>
-                        <p>
-                            <a id="btnmapcontact" href="~/AddressMap" target="_blank" style="font-weight:300;">
-                                <i class="pe-7s-map-marker strong"> </i> 9400 NW 41st Street,<br />Doral, FL 33178 <br>
-                                <strong>USA</strong>
-                            </a>
-                            
-                        </p>
-                    </div>
-                    <!-- /.col-sm-4 -->
-                    <div class="col-sm-3">
-                        <h3 class="username"><i class="fa fa-phone"></i> Call Us</h3>
-                        <p class="text-muted">
-                            Call us to schedule an appointment
-                        </p>
-                        <p><strong>786.437.8658</strong></p>
-                    </div>
-                    <!-- /.col-sm-4 -->
-                    <div class="col-sm-3">
-                        <h3 class="username"><i class="fa fa-envelope"></i> Message Us</h3>
-                        <p class="text-muted">Send us a message or use our Live Chat.</p>
-                        <p><strong><a href="mailto:">info@sanctuarydoral.com</a></strong></p>
-                    </div>
-                    <div class="col-sm-3" style="margin-top:55px;">
-
-                        @*<button id="btnContact" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="margin-top: 55px;">Appointment</button>*@
-                        <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ahernandez-28/15min-2'});return false;" class="nav-button wow bounceInRight login" data-wow-delay="0.5s" style="padding:10px">Appointment</a>
-                    </div>
-
-                    <!-- /.col-sm-4 -->
-
-                </div>
                 <div class="row">
-                    <div class="col-md-4 col-sm-6 wow fadeInRight animated">
-                        <div class="single-footer news-letter">
-                            <h4 class="username">Office Hours</h4>
-                            <div class="footer-title-line"></div>
-                            <p>M-F : 9AM - 6PM</p>
-                            <p>SAT : 9AM - 5PM</p>
-                            <p>SUN : 1PM - 5PM</p>
+                    <div class="col-xl-2 col-md-6 col-lg-2 ft1">
+                        <div class="footer_widget">
+                            <h3 class="footer_title">Office Hours</h3>
+                            <hr>
+                            <p>
+                                M-F 9am-6pm <br>
+                                SAT 9am-5pm  <br>
+                                SUN 1pm-5pm
+                            </p>
 
 
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 wow fadeInRight animated hidden">
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget text-center">
 
-                    </div>
-                    <div class="col-md-4 col-sm-6 wow fadeInRight animated ">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <h3 class="footer_title">Location</h3>
+                            <p><a id="btnmapcontact" href="~/AddressMap" target="_blank" style="font-weight:300;">9400 NW 41st Street,<br>Dral, FL 33178</a></p>
 
+                        </div>
                     </div>
-                    <div class="col-md-4 col-sm-6 wow fadeInRight animated " style="margin-top: 90px;">
-                        <div class="single-footer">
-                            <div class="social pull-right">
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget text-center">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <h3 class="footer_title">Call Us</h3>
+                            <p>786-437-8658</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget text-center">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <h3 class="footer_title">Message Us</h3>
+                            <p><a href="mailto:">info@sanctuarydoral.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget text-center">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            <h3 class="footer_title">Visit Us</h3>
+                            <p><a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ahernandez-28/15min-2'});return false;">Make an appointment</a></p>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget social_wide text-center">
+                            <div class="socail_links">
                                 <ul>
-                                    @*<li><a class="wow fadeInUp animated" target="_blank" href="https://twitter.com/SHOMA_GROUP"><i class="fa fa-twitter"></i></a></li>*@
-                                    <li><a class="wow fadeInUp animated" target="_blank" href="https://www.facebook.com/shomagroup" data-wow-delay="0.2s"><i class="fa fa-facebook"></i></a></li>
-                                    @*<li><a class="wow fadeInUp animated" target="_blank" href="https://plus.google.com/shomagroup" data-wow-delay="0.3s"><i class="fa fa-google-plus"></i></a></li>*@
-                                    <li><a class="wow fadeInUp animated" target="_blank" href="https://instagram.com/shomagroup" data-wow-delay="0.4s"><i class="fa fa-instagram"></i></a></li>
-                                    @*<li><a class="wow fadeInUp animated" target="_blank" href="https://instagram.com/shomagroup" data-wow-delay="0.6s"><i class="fa fa-dribbble"></i></a></li>*@
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                   
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-instagram"></i>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -147,22 +147,9 @@
             </div>
         </div>
 
-        <div class="footer-copy text-center">
-            <div class="container">
-                <div class="row">
-                    <div class="pull-left">
-                        <span> (C) <a href="javascript:void(0)">Shoma Management</a> , All rights reserved @DateTime.Now.ToString("yyyy")   </span>
-                    </div>
-                    <div class="bottom-menu pull-right">
-                        <ul>
-                            <li><a class="wow fadeInUp animated" href="~/Home/Index" data-wow-delay="0.2s">Home</a></li>
-                            <li><a id="btnsignIn" class="wow fadeInUp animated" href="javascript:void(0);" data-wow-delay="0.3s">Sign In</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </footer>
+    <!--/ footer end  -->
+
     <div id="modalMaplayout" class="modal">
         <div class="modal-header">
             <span class="close" id="closemap" onclick="startcarousel()">&times;</span>
@@ -494,6 +481,7 @@
         z-index: 9999 !important;
     }
 </style>
+
 <script>
     var ForgetPasswordss = function () {
         var msg = "";

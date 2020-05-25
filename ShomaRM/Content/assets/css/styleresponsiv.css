@@ -111,8 +111,8 @@ p {
   width: 1230px;
   height: auto;
   margin: 0 auto;
-  border: groove;
-  border-color: black;
+  /*border: groove;
+  border-color: black;*/
   margin-top: 30px;
   box-sizing: border-box;
   /*padding-bottom: 90px;*/
