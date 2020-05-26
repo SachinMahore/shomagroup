@@ -51,13 +51,13 @@ a:hover {
   margin-right:15px;
 }
 a {
-  color: #1f2222;
-  color: #4d738a;
-  outline: 0;
-  text-decoration: none;
-  font-weight: bold;
-  -webkit-transition: all .8s ease;
-  transition: all .8s ease;
+    color: #1f2222;
+    color: #4d738a;
+    outline: 0;
+    text-decoration: none;
+    font-weight: bold;
+    /*-webkit-transition: all .8s ease;
+  transition: all .8s ease;*/
 }
 .box-padding{
   padding-left:0px;
