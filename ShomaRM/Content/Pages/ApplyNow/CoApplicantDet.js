@@ -34,6 +34,7 @@ $(document).ready(function () {
             $('#btnsaveappl').addClass('hidden');
             modal.find('.modal-content').css("height", "760px");
             $('#divCreditCheckPayment').removeClass('hidden');
+            $("#sppayFees").text($("#hndAppCreditFees").val());
         }
         else {
             //$("#popCCPay").modal("hide");
@@ -5112,10 +5113,11 @@ var payFeePop = function (aid, ct) {
     if (ct == 5) {
         $("#lblpopcctitle").text("Pay Background Check Fees");
         $("#sppayFees2").text($("#hndAppBackgroundFees").val());
+        $("#sppayFees").text($("#hndAppBackgroundFees").val());
     } else {
         $("#lblpopcctitle").text("Pay Credit Check Fees");
         $("#sppayFees2").text($("#hndAppCreditFees").val());
-
+        $("#sppayFees").text($("#hndAppCreditFees").val());
     }
     $("#popCCPay").modal("show");
 }
@@ -9779,7 +9781,7 @@ function saveCoAppPaymentPopup() {
 
     $.alert({
         title: "",
-        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFees()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFees())).toFixed(2) + ". Do you want to Pay Now?",
+        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesCoApplicant()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesCoApplicant())).toFixed(2) + ". Do you want to Pay Now?",
         type: 'blue',
         buttons: {
             yes: {
@@ -9794,10 +9796,10 @@ function saveCoAppPaymentPopup() {
                         success: function (response) {
                             if (response.Msg != "") {
                                 if (response.Msg == "1") {
-                                    $("#ResponseMsg1").html("Payment successfull");
-                                    getApplicantLists();
+                                    $("#ResponseMsg2").html("Payment successfull");
+                                    getApplicantListsCoApplicant();
                                 } else {
-                                    $("#ResponseMsg1").html("Payment failed");
+                                    $("#ResponseMsg2").html("Payment failed");
                                 }
                             }
                         }
