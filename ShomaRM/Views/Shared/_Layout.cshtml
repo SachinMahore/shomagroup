@@ -78,23 +78,23 @@
         <div class="footer_top">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-2 col-md-6 col-lg-2 ft1">
-                        <div class="footer_widget">
+                    <div class="col-xl-2 col-md-6 col-lg-2">
+                        <div class="footer_widget text-center">
+
+                            <i class="fa fa-building large-fa" aria-hidden="true"></i>
                             <h3 class="footer_title">Office Hours</h3>
-                            <hr>
                             <p>
                                 M-F 9am-6pm <br>
                                 SAT 9am-5pm  <br>
                                 SUN 1pm-5pm
                             </p>
 
-
                         </div>
                     </div>
                     <div class="col-xl-2 col-md-6 col-lg-2">
                         <div class="footer_widget text-center">
 
-                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <i class="fa fa-map-marker large-fa" aria-hidden="true"></i>
                             <h3 class="footer_title">Location</h3>
                             <p><a id="btnmapcontact" href="~/AddressMap" target="_blank" style="font-weight:300;">9400 NW 41st Street,<br>Dral, FL 33178</a></p>
 
@@ -102,14 +102,14 @@
                     </div>
                     <div class="col-xl-2 col-md-6 col-lg-2">
                         <div class="footer_widget text-center">
-                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <i class="fa fa-phone large-fa" aria-hidden="true"></i>
                             <h3 class="footer_title">Call Us</h3>
-                            <p>786-437-8658</p>
+                            <p><span id="phonelayout">786.437.8658</span></p>
                         </div>
                     </div>
                     <div class="col-xl-2 col-md-6 col-lg-2">
                         <div class="footer_widget text-center">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <i class="fa fa-envelope large-fa" aria-hidden="true"></i>
                             <h3 class="footer_title">Message Us</h3>
                             <p><a href="mailto:">info@sanctuarydoral.com</a></p>
                         </div>
@@ -117,9 +117,9 @@
 
                     <div class="col-xl-2 col-md-6 col-lg-2">
                         <div class="footer_widget text-center">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            <i class="fa fa-calendar large-fa" aria-hidden="true"></i>
                             <h3 class="footer_title">Visit Us</h3>
-                            <p><a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/ahernandez-28/15min-2'});return false;">Make an appointment</a></p>
+                            <p><a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/sanctuarydoral/leasingtours'});return false;">Make an appointment</a></p>
                         </div>
                     </div>
 
@@ -132,7 +132,7 @@
                                             <i class="fa fa-facebook"></i>
                                         </a>
                                     </li>
-                                   
+
                                     <li>
                                         <a href="#">
                                             <i class="fa fa-instagram"></i>
@@ -483,6 +483,26 @@
 </style>
 
 <script>
+    // Parse the URL parameter
+    function getParam(source, url) {
+        if (!url) url = window.location.href;
+        // url = window.location.href;
+        source = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + source + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+    // Assign the referral source to the UTM code
+    var sourceName = getParam('utm_source');
+    document.addEventListener("DOMContentLoaded", function () {
+        // Check the UTM code and assign the correct unique phone number per source
+        if (sourceName == 'google') document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.111.0000</a>';
+        else if (sourceName == 'facebook') document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.222.0000</a>';
+        else if (sourceName == 'zillow') document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-333-0000">415.333.0000</a>';
+        else document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-786-437-8658">786.437.8658</a>';
+    });
     var ForgetPasswordss = function () {
         var msg = "";
         var email = $("#UserEmail").val();
