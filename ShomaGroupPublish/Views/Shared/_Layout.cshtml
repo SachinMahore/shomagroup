@@ -49,8 +49,10 @@
     <script src="@Url.Content("~/content/assets/js/jquery.simplePagination.js")"></script>
 
 
+    <link rel="stylesheet" type="text/css" href="@Url.Content("/Content/assets/css/stylenew.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/styleresponsiv.css")">
     <script src="@Url.Content("~/Content/Pages/Home.js")"></script>
+    <link rel="stylesheet" href="@Url.Content("~/Content/fileUpload.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/fileUpload.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/timepicki.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/jAlert.css")" />
@@ -76,10 +78,9 @@
         <div class="footer_top">
             <div class="container">
                 <div class="row">
-                    
                     <div class="col-xl-2 col-md-6 col-lg-2">
                         <div class="footer_widget text-center">
-                            <i class="fa fa-building" aria-hidden="true" style="font-size: 28px;color: #4d738a;"></i>
+                            <i class="fa fa-building large-fa" aria-hidden="true"></i>
                             <h3 class="footer_title">Office Hours</h3>
                             <p>
                                 M-F 9am-6pm <br>
@@ -91,7 +92,7 @@
                     <div class="col-xl-2 col-md-6 col-lg-2">
                         <div class="footer_widget text-center">
 
-                            <i class="fa fa-map-marker" aria-hidden="true" style="font-size: 28px;color: #4d738a;"></i>
+                            <i class="fa fa-map-marker large-fa" aria-hidden="true"></i>
                             <h3 class="footer_title">Location</h3>
                             <p><a id="btnmapcontact" href="~/AddressMap" target="_blank" style="font-weight:300;">9400 NW 41st Street,<br>Dral, FL 33178</a></p>
 
@@ -99,14 +100,14 @@
                     </div>
                     <div class="col-xl-2 col-md-6 col-lg-2">
                         <div class="footer_widget text-center">
-                            <i class="fa fa-phone" aria-hidden="true" style="font-size: 28px;color: #4d738a;"></i>
+                            <i class="fa fa-phone large-fa" aria-hidden="true"></i>
                             <h3 class="footer_title">Call Us</h3>
-                            <p><span id="spanPhoneLP">786.437.8658</span></p>
+                            <p><span id="phonelayout">786.437.8658</span></p>
                         </div>
                     </div>
                     <div class="col-xl-2 col-md-6 col-lg-2">
                         <div class="footer_widget text-center">
-                            <i class="fa fa-envelope" aria-hidden="true" style="font-size: 28px;color: #4d738a;"></i>
+                            <i class="fa fa-envelope large-fa" aria-hidden="true"></i>
                             <h3 class="footer_title">Message Us</h3>
                             <p><a href="mailto:">info@sanctuarydoral.com</a></p>
                         </div>
@@ -114,12 +115,11 @@
 
                     <div class="col-xl-2 col-md-6 col-lg-2">
                         <div class="footer_widget text-center">
-                            <i class="fa fa-calendar" aria-hidden="true" style="font-size: 28px;color: #4d738a;"></i>
+                            <i class="fa fa-calendar large-fa" aria-hidden="true"></i>
                             <h3 class="footer_title">Visit Us</h3>
                             <p><a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/sanctuarydoral/leasingtours'});return false;">Make an appointment</a></p>
                         </div>
                     </div>
-
                     <div class="col-xl-2 col-md-6 col-lg-2">
                         <div class="footer_widget social_wide text-center">
                             <div class="socail_links">
@@ -139,7 +139,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -495,10 +494,10 @@
     var sourceName = getParam('utm_source');
     document.addEventListener("DOMContentLoaded", function () {
         // Check the UTM code and assign the correct unique phone number per source
-        if (sourceName == 'google') document.getElementById('spanPhoneLP').innerHTML = '<a href="tel:+1-415-111-0000">415.111.0000</a>';
-        else if (sourceName == 'facebook') document.getElementById('spanPhoneLP').innerHTML = '<a href="tel:+1-415-111-0000">415.222.0000</a>';
-        else if (sourceName == 'zillow') document.getElementById('spanPhoneLP').innerHTML = '<a href="tel:+1-415-333-0000">415.333.0000</a>';
-        else document.getElementById('spanPhoneLP').innerHTML = '<a href="tel:+1-786-437-8658">786.437.8658</a>';
+        if (sourceName == 'google') document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.111.0000</a>';
+        else if (sourceName == 'facebook') document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.222.0000</a>';
+        else if (sourceName == 'zillow') document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-333-0000">415.333.0000</a>';
+        else document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-786-437-8658">786.437.8658</a>';
     });
     var ForgetPasswordss = function () {
         var msg = "";

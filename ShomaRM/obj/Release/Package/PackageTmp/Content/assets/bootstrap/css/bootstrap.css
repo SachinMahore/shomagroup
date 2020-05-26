@@ -10221,4 +10221,20 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
+.justify-content-center {
+    -webkit-box-pack: center !important;
+    -ms-flex-pack: center !important;
+    justify-content: center !important
+}
+
+.justify-content-between {
+    -webkit-box-pack: justify !important;
+    -ms-flex-pack: justify !important;
+    justify-content: space-between !important
+}
+
+.justify-content-around {
+    -ms-flex-pack: distribute !important;
+    justify-content: space-around !important
+}
 /*# sourceMappingURL=bootstrap.css.map */

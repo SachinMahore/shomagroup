@@ -627,6 +627,7 @@
     <Property Name="IsChangePass" Type="int" />
     <Property Name="ChangeDate" Type="datetime" />
     <Property Name="ParentUserID" Type="bigint" />
+    <Property Name="IsTempPass" Type="int" />
   </EntityType>
   <EntityType Name="tbl_LoginHistory">
     <Key>

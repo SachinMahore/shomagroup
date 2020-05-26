@@ -202,11 +202,11 @@
         if (!password) {
             msg += "Please fill the Password </br>";
         } else {
-            var result = checkStrength(password);
-            if (!result) {
-                return;
-            }
             if (parseInt(isTempPass) == 1) {
+                var result = checkStrength(password);
+                if (!result) {
+                    return;
+                }
                 if (password != confirmPassword) {
                     msg += "Password and Confirm Password must be the same</br>";
                 }
@@ -240,8 +240,7 @@
                     setTimeout(function () {
                         window.location = "/Account/Login/";
                     }, 1500)
-                }
-                else {
+                } else {
                     window.location = response;
                 }
             }

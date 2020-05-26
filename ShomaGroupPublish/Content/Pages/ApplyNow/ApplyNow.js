@@ -740,6 +740,9 @@ function checkFormstatus() {
 }
 var totalAmt = 0;
 var goToStep = function (stepid, id, calldataupdate) {
+    if (parseInt($("#hdnStepCompleted").val()) >= 15) {
+        $(".gotosummary").removeClass('hidden');
+    }
     $.jTimeout.setTimeOutAfter(780);
     //$.jTimeout().reset();
     if (stepid > 7) {
@@ -2198,6 +2201,7 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "16") {
+        $(".gotosummary").removeClass('hidden');
         if (parseInt($("#hdnStepCompleted").val()) < 15) {
             msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 16);
             $.alert({
@@ -3838,12 +3842,15 @@ var addToCompare = function (modelname) {
     } else {
         addModelArray = jQuery.grep(addModelArray, function (value) {
             return value != modelname;
-
         });
         console.log(addModelArray)
         noofcomapre = addModelArray.length;
         $("#btncompare").text("Compare(" + noofcomapre + ")");
         getCompareModelList();
+        if (noofcomapre == 0) {
+            $("#divCompare").addClass("hidden");
+            $("#divMainSearch").removeClass("hidden");
+        }
     }
 }
 var removeToCompare = function (modelname) {
@@ -3910,7 +3917,7 @@ var getCompareModelList = function () {
                             chtml += "<div class='col-sm-3'>" +
                                 "<div class='col-sm-12 center'>" +
                                 "<span>" +
-                                "<a href = '#' onclick='displayCompImg(\"" + value.Building + "\")'> <img src='/content/assets/img/plan/" + value.FloorPlan + "' style='height:220px'></a>" +
+                                "<a href = '#' onclick='displayCompImg(\"" + value.Building + "\")'> <img src='/content/assets/img/plan/" + value.FloorPlan + "' style='height:245px'></a>" +
                                 "</span></div>" +
                                 "<div class='col-sm-12 center'><span><b>" + value.Building + "</b> </span></div>" +
                                 "<div class='col-sm-12 center'>" +
@@ -4164,7 +4171,7 @@ var getTransationLists = function (userid) {
             setTimeout(function () {
                 if (paidamt == (totpaid + totnotpaid) && (totpaid + totnotpaid) > 0) {
                     $("#carddetails").addClass("hidden");
-                    //$("#getting-startedTimeRemainingClock").addClass("hidden");
+                    $("#getting-startedTimeRemainingClock").addClass("hidden");
                 }
             }, 1500);
         }
@@ -4968,7 +4975,7 @@ var getApplicantLists = function () {
             $("#tblApplicantFinal").empty();
             $("#tblApplicantMinor").empty();
             $("#tblApplicantGuarantor").empty();
-            $("#tblResponsibilityPay>tbody").empty();
+            $("#tblResponsibilityPay").empty();
             $("#tblPayment>tbody").empty();
             $("#tblEmailCoapplicant>tbody").empty();
             var totalFinalFees = 0;
@@ -5006,8 +5013,8 @@ var getApplicantLists = function () {
                 var emailhtml = '';
                 if (elementValue.Type != "Primary Applicant") {
                     html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
-                        "<div class='form-group col-sm-3'><br>" +
-                        "<img src='/Content/assets/img/user.png'></div>" +
+                        "<div class='form-group col-sm-3 text-center'><br>" +
+                        "<img src='/Content/assets/img/user.png' style='width:100px;'></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                         "<label> " + elementValue.Type + " </label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
@@ -5022,8 +5029,8 @@ var getApplicantLists = function () {
                 }
                 else {
                     html += "<div class='col-sm-4 box-two proerty-item'>" +
-                        "<div class='form-group col-sm-3'><br>" +
-                        "<img src='/Content/assets/img/user.png'></div>" +
+                        "<div class='form-group col-sm-3 text-center'><br>" +
+                        "<img src='/Content/assets/img/user.png' style='width:100px;'></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
 
                         "<label>Primary Applicant</label><br/>" +
@@ -5036,27 +5043,14 @@ var getApplicantLists = function () {
                     html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
-                    prhtml += "<tr data-id='" + elementValue.ApplicantID + "'>" +
-                        "<td style='width:18%; padding:6px;'>" + elementValue.Type + "<br /><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></td>" +
-                        "<td style='width:30%;'>" +
-                        "<div class='input-group input-group-btn'>" +
-                        "<button class='btn btn-primary search ' type='button'><i class='fa fa-percent'></i></button>" +
-                        "<input type='text' class='form-control form-control-small payper' id='txtpayper" + elementValue.ApplicantID + "' style='width:60% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MoveInPercentage + "' />" +
-                        "</div >" +
-                        "<div class='input-group input-group-btn'>" +
-                        "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "'/>" +
-                        "</div ></td>" +
-                        "<td style='width:30%;'>" +
-                        "<div class='input-group input-group-btn'>" +
-                        "<button class='btn btn-primary search ' type='button'><i class='fa fa-percent'></i></button>" +
-                        "<input type='text' class='form-control form-control-small payperMo' id='txtpayperMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MonthlyPercentage + "'/>" +
-                        "</div >" +
-                        "<div class='input-group input-group-btn'>" +
-                        "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "'/>" +
-                        "</div >" +
-                        "</td></tr>";
+                    prhtml += "<div class='row respo' data-id='" + elementValue.ApplicantID + "'><div class='col-sm-12  col-lg-2 box-padding'><div class='col-lg-12'></div>" +
+                        "<div class='col-lg-12'>" + elementValue.Type + "</div><div class='col-lg-12'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></div></div>" +
+                        "<div class='col-sm-12  col-lg-5'><div class='col-lg-12'></div><div class='col-lg-12 box-padding'><b>Move In Charges</b></div><div class='row'><div class='col-lg-6'>" +
+                        "<input class='input-box payper' type='text' id='txtpayper" + elementValue.ApplicantID + "' value='" + elementValue.MoveInPercentage + "'/><span class='input-box-span'><b>%</b></span></div><div class='col-lg-6'>" +
+                        "<span class='input-box-span'><b>$</b></span><input class='input-box' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "' type='text'  id='txtpayamt" + elementValue.ApplicantID + "'/></div></div></div>" +
+                        "<div class='col-sm-12  col-lg-5'><div class='col-lg-12'></div><div class='col-lg-12 box-padding'><b>Monthly Payment</b></div><div class='row'><div class='col-lg-6'>" +
+                        "<input class='input-box payperMo' value='" + elementValue.MonthlyPercentage + "' type='text'  id='txtpayperMo" + elementValue.ApplicantID + "' /><span class='input-box-span'><b>%</b></span></div><div class='col-lg-6'><span class='input-box-span'><b>$</b></span><input class='input-box' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "' type='text' id='txtpayamtMo" + elementValue.ApplicantID + "'/></div></div> </div>" +
+                        "</div>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
                     if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
@@ -5155,7 +5149,7 @@ var getApplicantLists = function () {
                 $("#tblRespo15>tbody").append(htmlResp15);
                 $("#tblRespo15p>tbody").append(htmlResp15);
 
-                $("#tblResponsibilityPay>tbody").append(prhtml);
+                $("#tblResponsibilityPay").append(prhtml);
                 $("#tblPayment>tbody").append(pprhtml);
                 $("#tblEmailCoapplicant>tbody").append(emailhtml);
 
@@ -5678,7 +5672,7 @@ var saveupdatePet = function () {
             getPetLists();
             $.alert({
                 title: "",
-                content: response.Msg,
+                content: tId[1],
                 type: 'blue'
             });
             $("#popPet").modal("hide");
@@ -6858,6 +6852,7 @@ var delApplicant = function (appliId) {
     });
 
 }
+
 function showFloorPlan(flid, numbedroom, modelname) {
     $("#divLoaderFloorData").show();
     setTimeout(function () { $("#returnButton").removeClass("hidden"); $("#returnButton").html("Return to List View"); }, 1000);
@@ -6897,8 +6892,7 @@ function showFloorPlan(flid, numbedroom, modelname) {
             $("#popUnitDet").addClass("hidden");
             $("#popPromotion").addClass("hidden");
             $("#divUdet").addClass("hidden");
-
-           // var html = "<h3 style='color: #4d738a; text-align:center;'>Selected : Floor " + response.model.FloorNo + "</h3>";
+            // var html = "<h3 style='color: #4d738a; text-align:center;'>Selected : Floor " + response.model.FloorNo + "</h3>";
             var html = "";
             //html += "<div class='col-sm-12' style='background:#fff;text-align:center!important;'><span style='background-color:#006400;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Available</span>&nbsp;&nbsp;<span style='background-color:#ffff00;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Other Options</span>&nbsp;&nbsp;<span style='background-color:#FF0000;width:10px;height:10px'>&nbsp;&nbsp;&nbsp;&nbsp;</span><span style='color:#4d738a;'>&nbsp;&nbsp;Unavailable</span></div><br/><br/>";
 
@@ -6988,6 +6982,7 @@ function showFloorPlan(flid, numbedroom, modelname) {
         }
     });
 }
+
 function getPropertyUnitListByFloor(flid) {
     $("#divLoader").show();
     var bedroom = 0;
@@ -7147,13 +7142,15 @@ function getPropertyUnitListByFloor(flid) {
 function saveupdatePaymentResponsibility(stepcompleted) {
     $("#divLoader").show();
     var model = new Array();
-    $("#tblResponsibilityPay TBODY TR").each(function () {
+    $(".respo").each(function () {
         var row = $(this);
         var customer = {};
+
         customer.applicantID = row.attr("data-id");
-        customer.moveInPercentage = row.find("td:eq(1) input[type='text']").val();
+
+        customer.moveInPercentage = $("#txtpayper" + customer.applicantID).val();
         customer.moveInCharge = $("#txtpayamt" + customer.applicantID).val();
-        customer.monthlyPercentage = row.find("td:eq(2) input[type='text']").val();
+        customer.monthlyPercentage = $("#txtpayperMo" + customer.applicantID).val();
         customer.monthlyPayment = $("#txtpayamtMo" + customer.applicantID).val();
 
         var applicantID = customer.applicantID;
@@ -10580,7 +10577,7 @@ var getPropertyModelUnitList = function (stype, pid) {
                     html += "<img src='/content/assets/img/plan/" + value.FloorPlan + "' style='height:250px'; alt=''></div></div>";
                     html += "<div class='col-md-6 col-sm-6'><div class='property_content'><div class='main_pro'><h3>Floor Plan " + value.Building + "</h3> ";
                     html += "<div class='mark_pro'><p>" + value.Bedroom + " Bed | " + value.Bathroom + "Bath</p><p> " + value.Area + " Sq Ft</p><p>Starting at " + value.RentRange + "  / month</p></div>";
-                    html += "<div class='button'><button class='btn' style='margin-top: -19px;margin-bottom: -48px;'  onclick='getPropertyUnitList(\"" + value.Building + "\")'><a href='javascript:void(0);' class='genric-btn available'>" + value.NoAvailable + " Available</a></button><br><p><div class='input-group' id='chkComp" + value.Building + "'><span class='input-group checkbox' ><input class='form-control' type='checkbox' onclick='addToCompare(\"" + value.Building + "\")' id='btnCompare" + value.Building + "'/></span><label>Compare</label> </div></p></div>";
+                    html += "<div class='button'><button class='btn' style='margin-top: -19px;margin-bottom: -48px;'  onclick='getPropertyUnitList(\"" + value.Building + "\")'><a href='javascript:void(0);' class='genric-btn available'>" + value.NoAvailable + " Available</a></button><br><p><div class='input-group' id='chkComp" + value.Building + "'><span class='input-group checkbox' ><input class='form-control'  style='cursor: pointer;' type='checkbox' onclick='addToCompare(\"" + value.Building + "\")' id='btnCompare" + value.Building + "'/></span><label>Compare</label> </div></p></div>";
                     html += "</div></div></div></div></div></div>";
 
                     //var html = "<div class='col-sm-4 col-md-4 p0' id='modeldiv" + value.Building + "'><div class='box-two proerty-item'>";

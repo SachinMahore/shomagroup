@@ -861,6 +861,7 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "7") {
+        alert($("#hdnStepCompleted").val());
         if (parseInt($("#hdnStepCompleted").val()) < 6) {
             var msg = getStepCompletedMsgGuarantor(parseInt($("#hdnStepCompleted").val()) + 2, 9);
             $.alert({
@@ -2659,7 +2660,7 @@ var getPropertyModelUnitList = function (stype, pid) {
     }
     var availdate = $("#txtDate").val();
 
-    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: sortorder };
+    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: sortorder, Furnished: 0 };
     $.ajax({
         url: "/Property/GetPropertyModelList/",
         type: "post",
@@ -2749,7 +2750,7 @@ var getCompareModelList = function () {
 
 
 
-    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: "0" };
+    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: "0", Furnished: 0 };
     $.ajax({
         url: "/Property/GetPropertyModelList/",
         type: "post",

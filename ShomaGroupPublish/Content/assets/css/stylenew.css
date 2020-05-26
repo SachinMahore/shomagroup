@@ -118,7 +118,8 @@ p {
     margin: 0;
 }
 
-a {
+/*a {
+  
     color: #4d738a;
     outline: 0;
     font-weight: bold;
@@ -128,10 +129,11 @@ a {
 
     a:hover {
         text-decoration: none;
+      
         color: #B7B0A7;
         -webkit-transition: all .8s ease;
         transition: all .8s ease;
-    }
+    }*/
 
     a:focus {
         /*color: #999696;*/
@@ -3954,9 +3956,10 @@ div#bellDiv {
 
         .footer .socail_links ul li a:hover {
             color: #fff !important;
-            background: #FD955D;
+            background: #B7B0A7;
             border-color: transparent;
         }
+
 .footer .socail_links {
     margin-top: 20px;
 }
@@ -3969,4 +3972,10 @@ div#bellDiv {
     color: #919191;
     font-size: 13px;
     line-height: 42px;
+}
+
+.large-fa {
+    font-size: 28px;
+    color: #4d738a;
+    margin-bottom: 0px;
 }
