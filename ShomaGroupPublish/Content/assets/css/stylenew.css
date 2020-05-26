@@ -12,6 +12,7 @@
     font-family: Futura Medium;
     src: url('../font/Futura Medium.otf');
 }
+
 html, body {
     width: 100%;
     overflow-x: hidden;
@@ -25,7 +26,7 @@ body {
     margin: 0;
     font-size: 14px;
     line-height: 28px;
-    color:black;
+    color: black;
     /*color: #B4ADA5;*/
     background: #fff;
     position: relative;
@@ -118,7 +119,6 @@ p {
 }
 
 a {
-    /*color: #1f2222;*/
     color: #4d738a;
     outline: 0;
     font-weight: bold;
@@ -128,7 +128,6 @@ a {
 
     a:hover {
         text-decoration: none;
-        /*color: #4D738A;*/
         color: #B7B0A7;
         -webkit-transition: all .8s ease;
         transition: all .8s ease;
@@ -290,7 +289,8 @@ input {
     font-family: FuturaMedium !important;
     line-height: 1.42857143;
 }
-#btnskip{
+
+#btnskip {
     padding: 6px 12px;
     border: 2px solid #B4ADA5;
     color: #fff !important;
@@ -336,7 +336,6 @@ input {
     color: #B7B0A7 !important;
     border-color: #B7B0A7 !important;
     background-color: #ffffff;
-    
 }
 
     btn-add-on:hover, .btn-add-on:focus, .btn-add-on:active, .btn-add-on.active {
@@ -364,7 +363,6 @@ input {
     color: #4d738a !important;
     margin-bottom: 5px;
     margin-left: -15px;
-
 }
 
     .btn-primary.hollow:hover, .btn-primary.hollow:focus, .btn-primary.hollow:active, .btn-primary.hollow.active, .open .dropdown-toggle.btn-primary.hollow {
@@ -1058,7 +1056,7 @@ label small {
     border: 1px solid #4D738A;
     color: #fff;
     font-size: 16px;
-    height:34px;
+    height: 34px;
     /*padding: 8px 20px;*/
     /*border-radius: 4px;*/
     -webkit-transition: all 0.4s ease;
@@ -1272,64 +1270,49 @@ label small {
     margin-bottom: 10px;
 }
 
-.divtooltip {
-    height: 50px;
-    width: 100px;
-    background: #4d738a !important;
-    color: #fff;
-    position: absolute;
-    cursor: default;
-   /*border: 3px double black;*/
-    border-radius: 0px !important;
-    z-index: 10 !important;
-    text-align: center;
-}
-
-    .divtooltip:before {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 45px;
-        height: 10px;
-        width: 10px;
-        background: #4d738a !important;
-        color: #fff;
-        box-sizing: border-box;
-        transform: rotate(45deg) translate(-50%);
-        border-bottom: inherit;
-        border-right: inherit;
-        box-shadow: inherit;
-    }
-
 .divtooltipUnit {
     height: auto;
-    width: 100px;
-    background: #4d738a !important;
-    color: #fff;
+    width: 140px;
+    background: #fff !important;
+    color: #000;
     position: absolute;
     cursor: default;
-    /*border: 3px double black;*/
+    border: 2px solid black;
     border-radius: 0px !important;
     z-index: 10 !important;
-    text-align: center;
+    text-align: justify;
     font-size: 12px;
 }
 
-    .divtooltipUnit:before {
+    .divtooltipUnit span {
+        margin-left: 15px;
+        margin-bottom: 30px;
+    }
+
+        .divtooltipUnit span img {
+            width: 140px;
+            height: 140px;
+        }
+
+.labelDivTool {
+    font-size: 14px;
+    font-weight: bold
+}
+/*.divtooltipUnit:before {
         content: "";
         position: absolute;
         top: 100%;
-        left: 45px;
+        left: 110px;
         height: 10px;
         width: 10px;
-        background: #4d738a;
+        background: #fff;
         box-sizing: border-box;
         transform: rotate(45deg) translate(-50%);
         border-bottom: inherit;
         border-right: inherit;
         box-shadow: inherit;
         transition: all 0.8s;
-    }
+    }*/
 /*.tooltip {
     font-size: 14px;
     font-weight: bold;
@@ -1455,9 +1438,11 @@ label small {
     position: relative;
     height: 630px
 }
+
 .modal-content {
-    border-radius:0px !important;
+    border-radius: 0px !important;
 }
+
 textarea {
     font-family: FuturaMedium !important;
     color: #6C6E72 !important;
@@ -1504,9 +1489,11 @@ textarea {
     width: 100%;
     z-index: 0 !important;
 }
+
 .input-group-btn {
     z-index: 0 !important;
 }
+
 .slider .owl-theme .owl-controls .owl-page span {
     background: #4D738A;
 }
@@ -2570,7 +2557,7 @@ single property page
     z-index: 9;
     right: 0px;
     padding: 15px;
-    display:none;
+    display: none;
 }
 
     .favorite-and-print .add-to-fav {
@@ -3321,6 +3308,7 @@ blog
     .large-search .search-row {
         overflow: hidden;
     }
+
 .username {
     font-family: Futura Medium;
 }
@@ -3536,8 +3524,8 @@ blog
 }
 
     .footer ul li i {
-        padding-right: 10px;
-        color: #000;
+        padding-right: 2px;
+        color: #fff;
     }
 
 .footer-copy {
@@ -3909,9 +3897,11 @@ ul.footer-blog li {
         color: #fff !important;
         text-transform: uppercase;
     }
-    .datepicker-days table tr td.new,.old{
-        visibility:hidden;
-    }
+
+.datepicker-days table tr td.new, .old {
+    visibility: hidden;
+}
+
 .SqFtCustome {
     text-transform: unset !important;
     position: absolute !important;
@@ -3920,6 +3910,7 @@ ul.footer-blog li {
     padding-right: 11px !important;
     padding-left: 15px !important;
 }
+
 #DivCommunityActivityList img {
     height: 50px !important;
     max-width: 100% !important;
@@ -3932,4 +3923,50 @@ div#bellDiv {
     -ms-transform: rotate(20deg); /* IE 9 */
     -webkit-transform: rotate(20deg); /* Safari prior 9.0 */
     transform: rotate(20deg);
+}
+.footer .socail_links {
+    margin-top: 30px;
+}
+
+}
+
+.footer .socail_links ul li {
+    display: inline-block;
+}
+
+    .footer .socail_links ul li a {
+        font-size: 18px;
+        color: #fff;
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        text-align: center;
+        background: transparent;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        line-height: 50px !important;
+        margin-right: 7px;
+        line-height: 40px !important;
+        border: 1px solid #E8E8E8;
+        background: #557388;
+    }
+
+        .footer .socail_links ul li a:hover {
+            color: #fff !important;
+            background: #FD955D;
+            border-color: transparent;
+        }
+.footer .socail_links {
+    margin-top: 20px;
+}
+
+    .footer .socail_links ul {
+        display: flex;
+    }
+
+.footer .footer_top .footer_widget ul li {
+    color: #919191;
+    font-size: 13px;
+    line-height: 42px;
 }
