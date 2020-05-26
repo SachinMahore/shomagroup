@@ -14,11 +14,11 @@
 <input type="hidden" id="hndHistory" value="0" />
 <input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
 <input type="hidden" id="hdnEmployerHistory" value="0" />
-<input type="hidden" id="hdnStepCompleted" value="@Model.StepCompleted" />
+<input type="hidden" id="hdnStepCompleted" value="@((Model.StepCompleted==0 ||Model.StepCompleted==1 )?6:Model.StepCompleted)" />
 <input type="hidden" id="hndShowTermPolicy" value="1" />
 <input type="hidden" id="hndShowPaymentPolicy" value="1" />
 <input type="hidden" id="hndShowPropertyDetails" value="0" />
-<input type="hidden" id="hndIsModelSelected" value="@((Model.StepCompleted==0 ||Model.StepCompleted==1 )?0:1)" />
+<input type="hidden" id="hndIsModelSelected" value="@((Model.StepCompleted==0 ||Model.StepCompleted==1 )?6:Model.StepCompleted)" />
 <input type="hidden" id="hndFloorNo" value="@(Model.FloorID)" />
 <input type="hidden" id="hndBedRoom" value="@(Model.Bedroom)" />
 <input type="hidden" id="hndBuilding" value="@(Model.Building)" />
@@ -69,7 +69,7 @@
                         </ul>
                     </div>
                     <div class="tab-content">
-                        <div class="" id="step1">
+                        <div class="hidden" id="step1">
                             <div class="row p-b-15  ">
                                 <div class="col-sm-12">
                                     <p>
@@ -1131,7 +1131,7 @@
                         </div>
                     </div>
                     @*//Sachin Mahore 23 Apr 2020*@
-                    <div class="hidden" id="step6">
+                    <div class="" id="step6">
                         <div class="row p-b-15  ">
                             <div class="col-sm-12">
                                 <div class="panel panel-default sidebar-menu wow fadeInRight animated">

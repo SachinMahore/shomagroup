@@ -78,6 +78,9 @@ namespace ShomaRM.Areas.Tenant.Models
             var countMinor = db.tbl_Applicant.Where(p => p.TenantID == model.TenantID && p.Type == "Minor").Count();
             var countGuar = db.tbl_Applicant.Where(p => p.TenantID == model.TenantID && p.Type == "Guarantor").Count();
             var unitDet = db.tbl_PropertyUnits.Where(p => p.UID == mainappdet.PropertyId).FirstOrDefault();
+
+            string ApplyNowQuotationNo = "";
+
             if (model.ApplicantID == 0)
             {
                 if (model.Type != "Guarantor")
@@ -250,8 +253,16 @@ namespace ShomaRM.Areas.Tenant.Models
                 db.SaveChanges();
                 if (model.Type == "Co-Applicant")
                 {
+                    ApplyNowQuotationNo = mainappdet.CreatedDate.HasValue ? mainappdet.CreatedDate.Value.ToString("yyyyMMddHHmm") + "-" + mainappdet.ID.ToString() : "";
                     if (model.Email != "")
                     {
+                        if((createCoApplLogin.IsTempPass??1)==1)
+                        {
+                            createCoApplLogin.IsTempPass = 1;
+                            db.SaveChanges();
+                        }
+
+
                         string reportCoappHTML = "";
                         string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                         reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect5.html");
@@ -279,6 +290,12 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
                     if (model.Email != "")
                     {
+                        if ((createCoApplLogin.IsTempPass ?? 1) == 1)
+                        {
+                            createCoApplLogin.IsTempPass = 1;
+                            db.SaveChanges();
+                        }
+
                         string reportGurHTML = "";
                         string gurfilePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                         reportGurHTML = System.IO.File.ReadAllText(gurfilePath + "EmailTemplateProspect5.html");

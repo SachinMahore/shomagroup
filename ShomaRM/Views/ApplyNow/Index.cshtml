@@ -142,18 +142,13 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <button class="btn-success btn" style="padding: 7px 7px;margin-top:26px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
+                                <button class="btn-success btn" style="padding: 7px 7px;margin-top:18px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
                             </div>
                         </div>
                         <div class="col-xs-12 hidden" id="divCompare">
-
-                            <h5 class="col-xs-2">Compare floor plans : </h5>
-                            <h5 class="col-xs-3">Select up to three to compare</h5>
-                            <div class="col-xs-5"></div>
-                            <div class="col-xs-1"><button type="submit" class="btn-cancle btn" style="margin-top: -2px;" id="btncompCancel" onclick="getPropertyModelUnitList()"> Cancel</button></div>
-                            <div class="col-xs-1"><a href="javascript:void(0);" data-toggle="modal" data-target="#ModelCompare" style="padding: 5px;" class="btn-success btn" id="btncompare"></a></div>
-
-
+                            <h5 class="col-xs-6">Compare floor plans : Select up to three to compare</h5>
+                            <div class="col-xs-6"><a href="javascript:void(0);" data-toggle="modal" data-target="#ModelCompare" style="padding: 5px;" class="btn-success btn" id="btncompare"></a> <button class="btn-cancle btn" id="btncompCancel" onclick="getPropertyModelUnitList()"> Cancel</button></div>
+                            <div class="col-xs-1"></div>
                         </div>
 
                     </div>
@@ -450,7 +445,7 @@
                             <button type="submit" class="btn btn-success" onclick="goToStep(1,1,0)"> Back</button>
                         </div>
                         <div class="pull-right text-center">
-                            <button type="submit" class="btn btn-success" id="btnnext" onclick="goToStep(3,3,0)"> Continue</button>
+                            <button type="button" class="nav-button wow animated gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button> <button type="submit" class="btn btn-success" id="btnnext" onclick="goToStep(3,3,0)"> Continue</button> 
                         </div>
                     </div>
                     <br />
@@ -664,7 +659,7 @@
                                 <button type="submit" class="btn btn-success" onclick="goToStep(2,2,1)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-success" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
+                                <button type="button" class="nav-button wow animated gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button> <button type="submit" class="btn btn-success" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
                             </div>
                         </div>
                     </div>
@@ -1008,7 +1003,7 @@
                                     <button type="submit" class="btn btn-success" onclick="goToStep(3,3,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-success" id="btnnext" onclick="goToStep(5,5,0)"> Continue</button>
+                                    <button type="button" class="nav-button wow animated gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button> <button type="submit" class="btn btn-success" id="btnnext" onclick="goToStep(5,5,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1629,7 +1624,7 @@
                             <button type="submit" class="nav-button wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
                         </div>
                         <div class="pull-right text-center">
-                            <button type="submit" class="nav-button wow elvetica-font  @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
+                            <button type="button" class="nav-button wow animated gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button> <button type="submit" class="nav-button wow elvetica-font  @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
                         </div>
 
                     </div>
@@ -6538,10 +6533,10 @@
         text-align: justify;
     }
 
-    #btncompCancel, #btncompare {
+    /*#btncompCancel, #btncompare {
         padding: 5px;
         margin-left: -40px;
-    }
+    }*/
 
     .modal-content-compare {
         background-color: #fefefe;

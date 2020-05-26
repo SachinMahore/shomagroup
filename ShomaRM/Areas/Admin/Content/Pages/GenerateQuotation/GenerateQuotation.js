@@ -7328,7 +7328,7 @@ var ddlDocumentTypePersonal = function (id) {
 var sendQuotationEmail = function () {
     $.alert({
         title: "",
-        content: "Do you want to send quotation and pay credit chekc link?",
+        content: "Do you want to send quotation and pay credit check link?",
         type: 'blue',
         buttons: {
             yes: {

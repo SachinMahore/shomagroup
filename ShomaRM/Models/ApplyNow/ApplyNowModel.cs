@@ -1705,6 +1705,12 @@ namespace ShomaRM.Models
 
                     if (appDetails != null)
                     {
+                        if((appDetails.IsTempPass??1)==1)
+                        {
+                            appDetails.IsTempPass = 1;
+                            db.SaveChanges();
+                        }
+
                         ApplyNowQuotationNo = applyNowData.CreatedDate.HasValue ? applyNowData.CreatedDate.Value.ToString("yyyyMMddHHmm")+"-"+ applyNowData.ID.ToString() : "";
                         var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
                         string payid = new EncryptDecrypt().EncryptText(getAppldata.ApplicantID.ToString() + ",4," + propertDet.AppCCCheckFees.Value.ToString("0.00"));
@@ -1849,11 +1855,11 @@ namespace ShomaRM.Models
 
                     if (currentUser.TenantID == 0 && currentUser.UserType != 3 && currentUser.UserType != 33 && currentUser.UserType != 34)
                     {
-                        msg = "../Admin/AdminHome";
+                        msg = "/Admin/AdminHome";
                     }
                     else if (currentUser.TenantID != 0)
                     {
-                        msg = "../Tenant/Dashboard";
+                        msg = "/Tenant/Dashboard";
                     }
                     else if (user.ParentUserID == null)
                     {
@@ -1861,17 +1867,17 @@ namespace ShomaRM.Models
                         checkExpiry.Status = (!string.IsNullOrWhiteSpace(checkExpiry.Status) ? checkExpiry.Status : "");
                         if ((checkExpiry.StepCompleted ?? 0) == 18 && checkExpiry.Status.Trim() == "")
                         {
-                            msg = "../ApplicationStatus/Index/" + (new EncryptDecrypt().EncryptText("In Progress"));
+                            msg = "/ApplicationStatus/Index/" + (new EncryptDecrypt().EncryptText("In Progress"));
                         }
                         else if (checkExpiry.Status.Trim() == "Approved")
                         {
                             checkExpiry.StepCompleted = 18;
                             db.SaveChanges();
-                            msg = "../ApplicationStatus/Index/" + (new EncryptDecrypt().EncryptText("Approved"));
+                            msg = "/ApplicationStatus/Index/" + (new EncryptDecrypt().EncryptText("Approved"));
                         }
                         else if (checkExpiry.Status.Trim() == "Signed")
                         {
-                            msg = "../Checklist/";
+                            msg = "/Checklist/";
                         }
                         else
                         {
@@ -1884,25 +1890,31 @@ namespace ShomaRM.Models
                                 {
                                     new ApplyNowController().DeleteApplicantTenantID(checkExpiry.ID, currentUser.UserID);
                                     HttpContext.Current.Session["DelDatAll"] = "Del";
-                                    msg = "../Home";
+                                    msg = "/Home";
                                 }
                                 else
                                 {
                                     HttpContext.Current.Session["DelDatAll"] = null;
-                                    msg = "../ApplyNow/Index/" + currentUser.UserID; ;
+                                    msg = "/ApplyNow/Index/" + currentUser.UserID; ;
                                 }
                             }
                         }
                     }
                     else if (user.ParentUserID != null)
                     {
-                        if (currentUser.UserType == 33)
+                        if (IsTempPass != 1)
                         {
-                            msg = "../ApplyNow/CoApplicantDet/" + user.ParentUserID + "-" + currentUser.UserID;
-                        }
-                        else if (currentUser.UserType == 34)
+                            if (currentUser.UserType == 33)
+                            {
+                                msg = "/ApplyNow/CoApplicantDet/" + user.ParentUserID + "-" + currentUser.UserID;
+                            }
+                            else if (currentUser.UserType == 34)
+                            {
+                                msg = "/ApplyNow/GuarantorDet/" + user.ParentUserID + "-" + currentUser.UserID;
+                            }
+                        }else
                         {
-                            msg = "../ApplyNow/GuarantorDet/" + user.ParentUserID + "-" + currentUser.UserID;
+                            msg = "/Account/Login/";
                         }
                     }
                     // return RedirectToLocal(returnUrl);

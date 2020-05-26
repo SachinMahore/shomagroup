@@ -3172,7 +3172,7 @@ var getPropertyModelUnitListCoApplicant = function (stype, pid) {
     }
     var availdate = $("#txtDate").val();
 
-    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: sortorder, Furnished: furnished };
+    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: sortorder, Furnished: 0 };
     $.ajax({
         url: "/Property/GetPropertyModelList/",
         type: "post",
@@ -3262,7 +3262,7 @@ var getCompareModelList = function () {
 
 
 
-    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: "0", Furnished: furnished };
+    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: "0", Furnished: 0 };
     $.ajax({
         url: "/Property/GetPropertyModelList/",
         type: "post",
