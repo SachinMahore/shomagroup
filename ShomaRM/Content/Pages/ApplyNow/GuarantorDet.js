@@ -49,6 +49,7 @@ $(document).ready(function () {
             $('#btnsaveappl').addClass('hidden');
             modal.find('.modal-content').css("height", "760px");
             $('#divCreditCheckPayment').removeClass('hidden');
+            $("#sppayFees").text($("#hndAppCreditFees").val());
         }
         else {
             //$("#popCCPay").modal("hide");
@@ -8868,7 +8869,7 @@ function saveCoAppPaymentPopup() {
                             if (response.Msg != "") {
                                 if (response.Msg == "1") {
                                     $("#ResponseMsg1").html("Payment successfull");
-                                    getApplicantLists();
+                                    getApplicantListsGuarantor();
                                 } else {
                                     $("#ResponseMsg1").html("Payment failed");
                                 }
