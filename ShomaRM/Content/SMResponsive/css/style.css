@@ -1269,7 +1269,7 @@ html, head, body{
 }
 
 .popular_property .single_property .property_content .main_pro h3 {
-  font-size: 13px;
+  font-size: 28px;
   color: #001D38;
   font-weight: 500;
   margin-bottom: 0;
@@ -1481,7 +1481,9 @@ hr {
 }
 
 h3.footer_title {
-    font-size: 16px;
+    font-size: 28px;
+    margin: 0px 0 10px;
+    color: #4d738a;
 }
 
 .footer .footer_top .footer_widget p {
@@ -1491,13 +1493,13 @@ h3.footer_title {
     line-height: 18px;
 }
 
-.footer .footer_top .footer_widget p a {
-  color: #919191;
-}
+    .footer .footer_top .footer_widget p a {
+        color: #4d738a;
+    }
 
-.footer .footer_top .footer_widget p a:hover {
-  color: #FD955D;
-}
+    .footer .footer_top .footer_widget p a:hover {
+        color: #B7B0A7;
+    }
 
 .footer .footer_top .footer_widget p.footer_text {
   font-size: 16px;
@@ -1542,9 +1544,9 @@ h3.footer_title {
   font-weight: 400;
 }
 
-.footer .footer_top .footer_widget ul li a:hover {
-  color: #FD955D;
-}
+    .footer .footer_top .footer_widget ul li a:hover {
+        color: #B7B0A7;
+    }
 
 .footer .footer_top .footer_widget .newsletter_form {
   position: relative;
@@ -1659,11 +1661,11 @@ h3.footer_title {
   background: #557388;
 }
 
-.footer .socail_links ul li a:hover {
-  color: #fff !important;
-  background: #FD955D;
-  border-color: transparent;
-}
+    .footer .socail_links ul li a:hover {
+        color: #fff !important;
+        background: #B7B0A7;
+        border-color: transparent;
+    }
 
 .bradcam_bg_1 {
   background-image: url(../img/banner/bradcam.png);
@@ -6061,4 +6063,9 @@ h1 {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
+}
+.large-fa {
+    font-size: 28px;
+    color: #4d738a;
+    margin-bottom: 0px;
 }
