@@ -3973,3 +3973,9 @@ div#bellDiv {
     font-size: 13px;
     line-height: 42px;
 }
+
+.large-fa {
+    font-size: 28px;
+    color: #4d738a;
+    margin-bottom: 0px;
+}
