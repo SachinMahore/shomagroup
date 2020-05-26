@@ -3153,24 +3153,61 @@ var getApplicantListsGenerateQuotation = function () {
                 var pprhtml = '';
                 var emailhtml = '';
                 if (elementValue.Type != "Primary Applicant") {
-                    html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
-                        "<div class='form-group col-sm-3'><br>" +
-                        "<img src='/Content/assets/img/user.png'></div>" +
-                        "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
-                        "<label> " + elementValue.Type + " </label><br/>" +
-                        "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
-                        "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
-                        "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
+                    //html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>" +
+                    //    "<div class='form-group col-sm-3'><br>" +
+                    //    "<img class='card-img-top img-fluid mx-auto d-block img-fluid-icon' src='/Content/assets/img/user.png'></div>" +
+                    //    "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
+                    //    "<label> " + elementValue.Type + " </label><br/>" +
+                    //    "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
+                    //    "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
+                    //    "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
+
+                    html += " <div class='col-sm-6 col-lg-4 col-xl-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "' >" +
+                        "<div class='row'>" +
+                        "<div class='col-sm-4 col-lg-4'>" +
+                        "<img class='card-img-top img-fluid mx-auto d-block img-fluid-icon' src='images/icons/user-icon.png' />" +
+                        "</div>" +
+                        "<div class='col-sm-8 col-lg-8'>" +
+                        "<div><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></div>" +
+                        "<div>" + elementValue.Type + "</div>" +
+                        "<div><a onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></div>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "<div class='col-sm-4 col-lg-4 col-xl-3 box-two proerty-item additem-linehight additem-linehight-addbutton'>" +
+                        //"<a class='' href='javascript:void(0)' id='btnAddApplicant' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'><i class='fa fa-plus-circle'></i>Edit/Complete Information</a>" +
+                        "<a class='' href='javascript:void(0)' id='btnAddApplicant' onclick='delApplicant(" + elementValue.ApplicantID + ")'><i class='fa fa-trash'></i></a>" +
+                        "</div>";
+
                 }
                 else {
-                    html += "<div class='col-sm-4 box-two proerty-item'>" +
-                        "<div class='form-group col-sm-3'><br>" +
-                        "<img src='/Content/assets/img/user.png'></div>" +
-                        "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
+                    //html += "<div class='col-sm-4 box-two proerty-item'>" +
+                    //    "<div class='form-group col-sm-3'><br>" +
+                    //    "<img src='/Content/assets/img/user.png'></div>" +
+                    //    "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
 
-                        "<label>Primary Applicant</label><br/>" +
-                        "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>" +
-                        "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
+                    //    "<label>Primary Applicant</label><br/>" +
+                    //    "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>" +
+                    //    "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
+
+
+                    html += " <div class='col-sm-6 col-lg-4 col-xl-4 box-two proerty-item' >" +
+                        "<div class='row'>" +
+                        "<div class='col-sm-4 col-lg-4'>" +
+                        "<img class='card-img-top img-fluid mx-auto d-block img-fluid-icon' src='images/icons/user-icon.png' />" +
+                        "</div>" +
+                        "<div class='col-sm-8 col-lg-8'>" +
+                        "<div><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></div>" +
+                        "<div>Primary Applicant</div>" +
+                        "<div><a onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></div>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "<div class='col-sm-4 col-lg-4 col-xl-3 box-two proerty-item additem-linehight additem-linehight-addbutton'>" +
+                        //"<a class='' href='javascript:void(0)' id='btnAddApplicant' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'><i class='fa fa-plus-circle'></i>Edit/Complete Information</a>" +
+                        "<div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div>" +
+                        "</div>";
+
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
                     //Amit's work 17-10
@@ -3196,6 +3233,13 @@ var getApplicantListsGenerateQuotation = function () {
                         "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "'/>" +
                         "</div >" +
                         "</td></tr>";
+
+
+
+
+
+
+
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
                     if (elementValue.Paid == "0") {
@@ -3270,7 +3314,7 @@ var getApplicantListsGenerateQuotation = function () {
                 $("#tblRespo15>tbody").append(htmlResp15);
                 $("#tblRespo15p>tbody").append(htmlResp15);
 
-                $("#tblResponsibilityPay>tbody").append(prhtml);
+                $("#tblResponsibilityPay").append(prhtml);
                 $("#tblPayment>tbody").append(pprhtml);
                 $("#tblEmailCoapplicant>tbody").append(emailhtml);
 
