@@ -118,8 +118,8 @@ p {
     margin: 0;
 }
 
-a {
-    /*color: #1f2222;*/
+/*a {
+  
     color: #4d738a;
     outline: 0;
     font-weight: bold;
@@ -129,11 +129,11 @@ a {
 
     a:hover {
         text-decoration: none;
-        /*color: #4D738A;*/
+      
         color: #B7B0A7;
         -webkit-transition: all .8s ease;
         transition: all .8s ease;
-    }
+    }*/
 
     a:focus {
         /*color: #999696;*/
@@ -3526,8 +3526,8 @@ blog
 }
 
     .footer ul li i {
-        padding-right: 10px;
-        color: #000;
+        padding-right: 2px;
+        color: #fff;
     }
 
 .footer-copy {

@@ -106,25 +106,6 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" Width="1.5" PointX="19.375" PointY="10.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ApplicantHistory" Width="1.5" PointX="19.375" PointY="14.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" Width="1.5" PointX="9.375" PointY="20.75" />
-        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Login" Width="1.5" PointX="0.75" PointY="82" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_ChargeType_tbl_Login" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_DocumentVerification_tbl_Login" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Login" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Login" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Login" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_FacilityBooking_tbl_Login" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Invoice_tbl_Login" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login1" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login1" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Parking" Width="1.5" PointX="15.375" PointY="0.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_TenantPet" Width="1.5" PointX="23" PointY="38.875" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Applicant" Width="1.5" PointX="23" PointY="21.875" />
@@ -137,8 +118,6 @@
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_FOB_tbl_Properties" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Gallery_tbl_Properties" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Properties" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Notice_tbl_Properties" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_PetPlace_tbl_Properties" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Promotion_tbl_Promotion" />
@@ -170,6 +149,27 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_PropertyUnits" Width="1.5" PointX="10.25" PointY="67.5" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_PropertyUnits_tbl_Properties" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Transaction" Width="1.5" PointX="19.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Login" Width="1.5" PointX="0.75" PointY="81.875" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_ChargeType_tbl_Login" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_DocumentVerification_tbl_Login" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Event_tbl_Login" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_EventBooking_tbl_Login" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Facility_tbl_Login" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_FacilityBooking_tbl_Login" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Invoice_tbl_Login" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Lease_tbl_Login" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Prospect_tbl_Login1" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_PurchaseOrder_tbl_Login1" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login1" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login2" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

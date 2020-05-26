@@ -690,7 +690,7 @@ namespace ShomaRM.Models
                 catch
                 {
                 }
-                string uidd = new EncryptDecrypt().EncryptText(forgetPassword.UserID.ToString());
+                string uidd = new EncryptDecrypt().EncryptText(forgetPassword.UserID.ToString() + "," + (forgetPassword.IsTempPass ?? 0).ToString());
                 string reportHTML = "";
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                 reportHTML = System.IO.File.ReadAllText(filePath + "ForgetPassword.html");
@@ -730,6 +730,18 @@ namespace ShomaRM.Models
             db.Dispose();
             return IsLinkExpired;
         }
+        public string GetEmailAddress(long UserID)
+        {
+            string emailaddress = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+            var user = db.tbl_Login.Where(co => co.UserID == UserID).FirstOrDefault();
+            if (user!=null)
+            {
+                emailaddress = user.Email;
+            }
+            db.Dispose();
+            return emailaddress;
+        }
         public string SaveChangePassword(long UserID,string EmailId,string NewPassword)
         {
             string IsEmailExist = string.Empty;
@@ -740,6 +752,7 @@ namespace ShomaRM.Models
             {
                 isUserCorrct.Password = pass;
                 isUserCorrct.IsChangePass = 0;
+                isUserCorrct.IsTempPass = 0;
                 db.SaveChanges();
             }
             else
@@ -1652,27 +1665,27 @@ namespace ShomaRM.Models
             {
                 ShomaRMEntities db = new ShomaRMEntities();
 
-                DataTable dtTable = new DataTable();
-                using (var cmd = db.Database.Connection.CreateCommand())
-                {
-                    db.Database.Connection.Open();
-                    cmd.CommandText = "usp_GetQuotationNoByEmail";
-                    cmd.CommandType = CommandType.StoredProcedure;
+                //DataTable dtTable = new DataTable();
+                //using (var cmd = db.Database.Connection.CreateCommand())
+                //{
+                //    db.Database.Connection.Open();
+                //    cmd.CommandText = "usp_GetQuotationNoByEmail";
+                //    cmd.CommandType = CommandType.StoredProcedure;
 
-                    DbParameter paramCUID = cmd.CreateParameter();
-                    paramCUID.ParameterName = "Email";
-                    paramCUID.Value = Email;
-                    cmd.Parameters.Add(paramCUID);
+                //    DbParameter paramCUID = cmd.CreateParameter();
+                //    paramCUID.ParameterName = "Email";
+                //    paramCUID.Value = Email;
+                //    cmd.Parameters.Add(paramCUID);
 
-                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
-                    da.SelectCommand = cmd;
-                    da.Fill(dtTable);
-                    db.Database.Connection.Close();
-                }
-                if (dtTable.Rows.Count > 0)
-                {
-                    ApplyNowQuotationNo = dtTable.Rows[0]["QuotationNo"].ToString();
-                }
+                //    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                //    da.SelectCommand = cmd;
+                //    da.Fill(dtTable);
+                //    db.Database.Connection.Close();
+                //}
+                //if (dtTable.Rows.Count > 0)
+                //{
+                //    ApplyNowQuotationNo = dtTable.Rows[0]["QuotationNo"].ToString();
+                //}
 
                 long tenantID = 0;
                 try
@@ -1688,8 +1701,11 @@ namespace ShomaRM.Models
                     var getAppldata = db.tbl_Applicant.Where(p => p.UserID == applyNowData.UserId).FirstOrDefault();
                     string pass = new EncryptDecrypt().DecryptText(appDetails.Password);
 
+                  
+
                     if (appDetails != null)
                     {
+                        ApplyNowQuotationNo = applyNowData.CreatedDate.HasValue ? applyNowData.CreatedDate.Value.ToString("yyyyMMddHHmm")+"-"+ applyNowData.ID.ToString() : "";
                         var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
                         string payid = new EncryptDecrypt().EncryptText(getAppldata.ApplicantID.ToString() + ",4," + propertDet.AppCCCheckFees.Value.ToString("0.00"));
 
@@ -1772,25 +1788,31 @@ namespace ShomaRM.Models
                 ApplyNowUserId = Convert.ToInt64(dtTable.Rows[0]["UserId"].ToString());
                 ApplyNowQuotationNo = dtTable.Rows[0]["QuotationNo"].ToString();
                 ApplyNowEmail = dtTable.Rows[0]["Email"].ToString();
-                msg = ApplyNowEmail;
+
+                msg = dtTable.Rows[0]["Email"].ToString() + "|"+ dtTable.Rows[0]["IsTempPass"].ToString();
+                //msg = ApplyNowEmail;
+
             }
             else
             {
-                msg = "User Not Found";
+                msg = "Quotation Number Not Found";
             }
             return msg;
         }
-        public string SignInUsingQuotationNo(string QuotationNo, string UserName, string Password)
+        public string SignInUsingQuotationNo(string QuotationNo, string UserName, string Password, int IsTempPass)
         {
             string msg = string.Empty;
             ShomaRMEntities db = new ShomaRMEntities();
             var userLogin = db.tbl_Login.Where(co => co.Username == UserName).FirstOrDefault();
             if (userLogin != null)
             {
-                string pass = new EncryptDecrypt().EncryptText(Password.ToString());
-                userLogin.Password = pass;
-                db.SaveChanges();
-
+                if (IsTempPass == 1)
+                {
+                    string pass = new EncryptDecrypt().EncryptText(Password.ToString());
+                    userLogin.Password = pass;
+                    userLogin.IsTempPass = 0;
+                    db.SaveChanges();
+                }
                 string encryptedPassword = new EncryptDecrypt().EncryptText(Password.ToString());
                 var user = db.tbl_Login.Where(p => p.Username == UserName && p.Password == encryptedPassword && p.IsActive == 1).FirstOrDefault();
                 if (user != null)
@@ -1887,6 +1909,23 @@ namespace ShomaRM.Models
                 }
             }
             return msg;
+        }
+        public string CheckUserNameAndPassword(long UserID, string EmailId, string OldPassword)
+        {
+            string IsAllCorrect = "1";
+            ShomaRMEntities db = new ShomaRMEntities();
+            string pass = new EncryptDecrypt().EncryptText(OldPassword.ToString());
+            var isUserCorrct = db.tbl_Login.Where(co => co.Email == EmailId && co.UserID == UserID && co.Password == pass).FirstOrDefault();
+            if (isUserCorrct != null)
+            {
+                IsAllCorrect = "1";
+            }
+            else
+            {
+                IsAllCorrect = "0";
+            }
+            db.Dispose();
+            return IsAllCorrect;
         }
     }
 }
