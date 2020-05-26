@@ -223,7 +223,7 @@
                                     </thead>
                                 </table>
 
-                                <div style="height:322px; overflow-y:scroll;overflow-x:auto;width:99.5%">
+                                <div style="max-height:322px; overflow-y:scroll;overflow-x:auto;width:99.5%">
                                     <table id="listUnitNew" border="0" cellpadding="5" cellspacing="5">
                                         <tbody>
                                             @if (Model.lstPropertyUnit != null)
@@ -2468,7 +2468,9 @@
                         </div>
                     </div>
                     <div class="col-sm-6 ">
-                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popApplicantHistory" id="btnAddAHR"><i class="fa fa-plus-circle"></i> Add Other</button>
+                        @*check for button*@
+                        <button type="button" class="btn btn-primary pull-right mt-10" data-toggle="modal" data-target="#popApplicantHistory" id="btnAddAHR"><i class="fa fa-plus-circle"></i> Add Other</button>
+                        <button type="submit" class="btn btn-primary hidden" id="btnnext" onclick="goToStep(11,11,0)"> Continue</button>
                         <input id="hdnAHRId" type="hidden" value="0" />
                     </div>
                 </div>
@@ -4935,8 +4937,8 @@
 </div>
 
 <div class="modal " id="popApplicant" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:1100px !important; height:700px;">
-        <div class="modal-content" style="width: 100% !important; height:557px!important;">
+    <div class="modal-dialog" style="width:100%; ">
+        <div class="modal-content" style="width: 100% !important;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Applicant</h5>
@@ -5330,7 +5332,7 @@
 </div>
 <div class="modal" id="popVehicle">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:750px; height:607px;">
+        <div class="modal-content" style="width:100%;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">

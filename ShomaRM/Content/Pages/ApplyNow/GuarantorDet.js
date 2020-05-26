@@ -861,7 +861,6 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "7") {
-        alert($("#hdnStepCompleted").val());
         if (parseInt($("#hdnStepCompleted").val()) < 6) {
             var msg = getStepCompletedMsgGuarantor(parseInt($("#hdnStepCompleted").val()) + 2, 9);
             $.alert({

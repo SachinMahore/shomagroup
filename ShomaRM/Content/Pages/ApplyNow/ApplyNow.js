@@ -127,7 +127,7 @@ $(document).ready(function () {
             //$("#popCCPay").modal("show");
             $('#btnsaveapplandpay').removeClass('hidden');
             $('#btnsaveappl').addClass('hidden');
-            modal.find('.modal-content').css("height", "760px");
+            //modal.find('.modal-content').css("height", "760px");
             $('#divCreditCheckPayment').removeClass('hidden');
         }
         else {
@@ -136,7 +136,7 @@ $(document).ready(function () {
             clearCard1();
             $('#btnsaveapplandpay').addClass('hidden');
             $('#btnsaveappl').removeClass('hidden');
-            modal.find('.modal-content').css("height", "560px");
+            //modal.find('.modal-content').css("height", "560px");
             $('#divCreditCheckPayment').addClass('hidden');
         }
     });
@@ -5413,17 +5413,17 @@ var goToEditApplicant = function (aid) {
                         $("#sppayFees").text($("#hndAppCreditFees").val());
                         if (!ssnnumber) {
                             $("#divchkCCPay").addClass("hidden");
-                            modal.find('.modal-content').css("height", "560px");
+                            //modal.find('.modal-content').css("height", "560px");
                         }
                         else {
                             $("#divchkCCPay").removeClass("hidden");
-                            modal.find('.modal-content').css("height", "530px");
+                            //modal.find('.modal-content').css("height", "530px");
                         }
                     }
                 }
                 else if (response.model.Type == "Co-Applicant") {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
-                    modal.find('.modal-content').css("height", "375px");
+                    //modal.find('.modal-content').css("height", "375px");
                     modal.find('.modal-title').text('Edit Co-Applicant');
                     $("#popApplicant").modal("show");
                     $("#ddlApplicantType").text("Co-Applicant");
@@ -5472,7 +5472,7 @@ var goToEditApplicant = function (aid) {
                 }
                 else if (response.model.Type == "Guarantor") {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
-                    modal.find('.modal-content').css("height", "375px");
+                    //modal.find('.modal-content').css("height", "375px");
                     modal.find('.modal-title').text('Edit Guarantor');
                     $("#popApplicant").modal("show");
                     $("#ddlApplicantType").text("Guarantor");
@@ -5520,7 +5520,7 @@ var goToEditApplicant = function (aid) {
                 }
                 else if (response.model.Type == "Minor") {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
-                    modal.find('.modal-content').css("height", "300px");
+                    ///modal.find('.modal-content').css("height", "300px");
                     modal.find('.modal-title').text('Edit Minor');
                     $("#popApplicant").modal("show");
                     $("#ddlApplicantType").text("Minor");
@@ -8352,7 +8352,7 @@ var onFocusApplyNow = function () {
                 $("#divchkCCPay").removeClass("hidden");
             }
             var modal = $("#popApplicant");
-            modal.find('.modal-content').css("height", "560px");
+            //modal.find('.modal-content').css("height", "560px");
         }
         if (ssn.length > 4) {
             getEncDecValue(this, 2);
