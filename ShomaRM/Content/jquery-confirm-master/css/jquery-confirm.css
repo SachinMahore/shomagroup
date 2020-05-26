@@ -521,7 +521,8 @@ body[class*=jconfirm-no-scroll-] {
   -webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
           box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  width: 441px;
+  /*width: 441px;*/
+  width:100%;
 }
 .jconfirm.jconfirm-white .jconfirm-box .jconfirm-title-c .jconfirm-icon-c,
 .jconfirm.jconfirm-light .jconfirm-box .jconfirm-title-c .jconfirm-icon-c {

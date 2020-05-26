@@ -1207,10 +1207,10 @@ html, head, body{
   color: #fff;
 }
 
-.popular_property {
+/*.popular_property {
     padding-top: 30px;
     padding-left: 70px;
-}
+}*/
 
 .popular_property.plus_padding {
   padding-top: 186px;
@@ -5363,7 +5363,7 @@ ul.option{
 
 [type=submit]{background:#557388;padding: 5px 19px;height: 42px;border: none;color: #fff;
     font-size: 14px;}
-.fa{font-size: 28px;color:#68676b;margin-bottom: 0px;}
+/*.fa{font-size: 28px;color:#68676b;margin-bottom: 0px;}*/
 .ti-facebook:before,.ti-twitter-alt:before,.fa-instagram:before{;font-size: 18px;line-height: 40px;color:#fff}
 
 input[type=date],select{padding: 8px;
@@ -5408,8 +5408,8 @@ button.btn:hover {color: #fff;/*background: #b4ada6;*/}
 button.btn {
 
     border-radius: 0px;
-    margin-top:25px;
-    margin-top: 13px;margin-bottom: 13px;
+    /*margin-top:25px;
+    margin-top: 13px;margin-bottom: 13px;*/
 }
 table {
   border-collapse: collapse;
