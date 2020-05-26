@@ -138,13 +138,29 @@ namespace ShomaRM.Controllers
                     }
                     else if (user.ParentUserID != null)
                     {
+                        string uidd = new EncryptDecrypt().EncryptText(user.UserID.ToString() + "," + (user.IsTempPass ?? 0).ToString());
                         if (currentUser.UserType == 33)
                         {
-                            return RedirectToAction("../ApplyNow/CoApplicantDet/" + user.ParentUserID + "-" + currentUser.UserID);
+                            if ((user.IsTempPass ?? 0) == 1)
+                            {
+
+                                return RedirectToAction("../ApplyNow/ChangePassword",new { uid= uidd });
+                            }
+                            else
+                            {
+                                return RedirectToAction("../ApplyNow/CoApplicantDet/" + user.ParentUserID + "-" + currentUser.UserID);
+                            }
                         }
                         else if (currentUser.UserType == 34)
                         {
-                            return RedirectToAction("../ApplyNow/GuarantorDet/" + user.ParentUserID + "-" + currentUser.UserID);
+                            if ((user.IsTempPass ?? 0) == 1)
+                            {
+                                return RedirectToAction("../ApplyNow/ChangePassword", new { uid = uidd });
+                            }
+                            else
+                            {
+                                return RedirectToAction("../ApplyNow/GuarantorDet/" + user.ParentUserID + "-" + currentUser.UserID);
+                            }
                         }
                     }
                     // return RedirectToLocal(returnUrl);
