@@ -5406,7 +5406,7 @@ button.btn:hover {color: #fff;/*background: #b4ada6;*/}
     font-size: 13px;
 }
 button.btn {
-    background: transparent;
+    /*background: transparent;*/
     border-radius: 0px;
     margin-top:25px;
     margin-top: 13px;margin-bottom: 13px;
