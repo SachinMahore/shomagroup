@@ -41,8 +41,8 @@ body {
 }
 
 a:hover {
-  color: #0056b3;
-  text-decoration: none;
+    color: #B7B0A7;
+    text-decoration: none;
 }
 
 /*---coman-calsses---*/
@@ -1119,3 +1119,8 @@ li.nav-item-sub {
       padding-left: 0px;
     }
   }
+.large-fa {
+    font-size: 28px;
+    color: #4d738a;
+    margin-bottom: 0px;
+}

@@ -3926,3 +3926,50 @@ div#bellDiv {
     -webkit-transform: rotate(20deg); /* Safari prior 9.0 */
     transform: rotate(20deg);
 }
+.footer .socail_links {
+    margin-top: 30px;
+}
+
+}
+
+.footer .socail_links ul li {
+    display: inline-block;
+}
+
+    .footer .socail_links ul li a {
+        font-size: 18px;
+        color: #fff;
+        width: 40px;
+        height: 40px;
+        display: inline-block;
+        text-align: center;
+        background: transparent;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        line-height: 50px !important;
+        margin-right: 7px;
+        line-height: 40px !important;
+        border: 1px solid #E8E8E8;
+        background: #557388;
+    }
+
+        .footer .socail_links ul li a:hover {
+            color: #fff !important;
+            background: #B7B0A7;
+            border-color: transparent;
+        }
+
+.footer .socail_links {
+    margin-top: 20px;
+}
+
+    .footer .socail_links ul {
+        display: flex;
+    }
+
+.footer .footer_top .footer_widget ul li {
+    color: #919191;
+    font-size: 13px;
+    line-height: 42px;
+}
