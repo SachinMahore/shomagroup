@@ -34,7 +34,6 @@ $(document).ready(function () {
             $('#btnsaveappl').addClass('hidden');
             modal.find('.modal-content').css("height", "760px");
             $('#divCreditCheckPayment').removeClass('hidden');
-            $("#sppayFees").text($("#hndAppCreditFees").val());
         }
         else {
             //$("#popCCPay").modal("hide");
@@ -3173,7 +3172,7 @@ var getPropertyModelUnitListCoApplicant = function (stype, pid) {
     }
     var availdate = $("#txtDate").val();
 
-    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: sortorder, Furnished: 0 };
+    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: sortorder, Furnished: 1 };
     $.ajax({
         url: "/Property/GetPropertyModelList/",
         type: "post",
@@ -3263,7 +3262,7 @@ var getCompareModelList = function () {
 
 
 
-    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: "0", Furnished: 0 };
+    var model = { PID: 8, AvailableDate: availdate, Current_Rent: maxrent, Bedroom: bedroom, SortOrder: "0", Furnished: furnished };
     $.ajax({
         url: "/Property/GetPropertyModelList/",
         type: "post",
@@ -5113,11 +5112,10 @@ var payFeePop = function (aid, ct) {
     if (ct == 5) {
         $("#lblpopcctitle").text("Pay Background Check Fees");
         $("#sppayFees2").text($("#hndAppBackgroundFees").val());
-        $("#sppayFees").text($("#hndAppBackgroundFees").val());
     } else {
         $("#lblpopcctitle").text("Pay Credit Check Fees");
         $("#sppayFees2").text($("#hndAppCreditFees").val());
-        $("#sppayFees").text($("#hndAppCreditFees").val());
+
     }
     $("#popCCPay").modal("show");
 }
@@ -9781,7 +9779,7 @@ function saveCoAppPaymentPopup() {
 
     $.alert({
         title: "",
-        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesCoApplicant()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesCoApplicant())).toFixed(2) + ". Do you want to Pay Now?",
+        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFees()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFees())).toFixed(2) + ". Do you want to Pay Now?",
         type: 'blue',
         buttons: {
             yes: {
@@ -9796,10 +9794,10 @@ function saveCoAppPaymentPopup() {
                         success: function (response) {
                             if (response.Msg != "") {
                                 if (response.Msg == "1") {
-                                    $("#ResponseMsg2").html("Payment successfull");
-                                    getApplicantListsCoApplicant();
+                                    $("#ResponseMsg1").html("Payment successfull");
+                                    getApplicantLists();
                                 } else {
-                                    $("#ResponseMsg2").html("Payment failed");
+                                    $("#ResponseMsg1").html("Payment failed");
                                 }
                             }
                         }
