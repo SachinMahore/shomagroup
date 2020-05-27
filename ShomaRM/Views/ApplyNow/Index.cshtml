@@ -97,13 +97,15 @@
                             <p>View available floor plans. Select more than one to compare or select just one to choose your new apartment.</p>
                         </div>
                         <div class="col-md-12 hidden justify-content-center" id="divMainSearch">
+                            <div class="col-md-1">
+                               
+                            </div>
                             <div class="col-md-2">
-                                <div class="form-group">
+                                 <div class="form-group">
                                     <b>Desired Move-In</b>
-                                    <div class="">
-                                        <input type="text" id="txtDate" data-date-format="mm/dd/yyyy" class="form-control" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" />
+                                    <input class="input-box" id="txtDate" data-date-format="mm/dd/yyyy" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" type="text" /><span class="input-box-cal">
+                                     <i class="fa-calendar fa large-fa"></i></span>
 
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -139,15 +141,26 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 pull-right">
                                 <button class="btn-success btn" style="padding: 7px 7px;margin-top:19px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
+                            </div>
+                            <div class="col-md-1">
+
                             </div>
                         </div>
                         <div class="col-xs-12 hidden" id="divCompare">
-                            <h5 class="col-xs-6">Compare floor plans : Select up to three to compare</h5>
-                            <div class="col-xs-6"><a href="javascript:void(0);" data-toggle="modal" data-target="#ModelCompare" style="padding: 5px;" class="btn-success btn" id="btncompare"></a>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-cancle btn" style="margin-top: 0px;" id="btncompCancel" onclick="getPropertyModelUnitList()"> Cancel</button></div>
-                        </div>
+                            <div class="form-group">
+                                <div class="col-md-2">
 
+                                </div>
+
+                                <h5 class="col-md-4">Compare floor plans : Select up to three to compare</h5>
+                                <div class="col-md-4"><a href="javascript:void(0);" data-toggle="modal" data-target="#ModelCompare" style="padding: 5px;" class="btn-success btn" id="btncompare"></a>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-cancle btn" style="margin-top: 0px;" id="btncompCancel" onclick="getPropertyModelUnitList()"> Cancel</button></div>
+                                <div class="col-md-2">
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- popular_property  -->
@@ -165,10 +178,7 @@
                 </div>
                 <div class="hidden" id="step2">
                     <input type="hidden" id="hndUID" value="0" />
-                    @*Start Old code*@
-
-                    @*Start old code*@
-
+                
                     @*Start New code*@
                     <div id="divSelectUnit">
                         @*<div class="row">
@@ -201,10 +211,13 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="contain-text">
-                                    <h3>Select Floor Plan</h3>
-                                    <p>View available floor plans, Selcet more than one to compare or select just one to choose your new apartment.</p>
+                                <div class="panel panel-default sidebar-menu wow fadeInRight animated NoBorder">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Select Your Unit</h3>
+
+                                    </div>
                                 </div>
+                                <p>View available floor plans. Select more than one to compare or select just one to choose your new apartment.</p>
                             </div>
                         </div>
                         <div class="row justify-content-center">
@@ -327,7 +340,7 @@
                             <div class="col-xl-12 ">
 
                                 <div class="col-xl-7 col-md-7 float-left">
-                                    <div id="divFloor">
+                                    <div id="divFloor" class="topfloor">
                                         <img src="/content/assets/img/demo/@Model.Picture" usemap="#apartment_2" id="apartimg_2">
                                         @*<img src="~/Content/SMResponsive/img/@Model.Picture" usemap="#apartment_2" id="apartimg_2" />*@
                                         <map name="apartment_2" id="floorImgdiv">
@@ -387,7 +400,7 @@
                                         <input type="text" class="form-control" id="priceTableDate" name="date" placeholder="mm/dd/yyyy" />
                                     </div>
                                     <div class="col-md-1 custom-date-icon">
-                                        <i class="fa fa-calendar"></i>
+                                        <i class="fa fa-calendar large-fa"></i>
                                     </div>
                                     <input type="hidden" id="hndpriceTableUID" />
                                 </div>
@@ -398,6 +411,7 @@
                             <div class="col-xl-10 padding-top2">
                                 <div class="container2 mb-5 mt-5 center-block">
                                     <div class="pricing card-deck flex-column flex-md-row mb-3">
+                                        
                                         <div class="card card-pricing text-center px-3 mb-4">
                                             <span class="h6 w-60 mx-auto px-4 py-1 bg-primary text-white shadow-sm bg-transparent">Current Selection</span><hr>
                                             <div class="bg-transparent card-header pt-4 border-0">
@@ -6377,6 +6391,68 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+</div>
+<div id="popAvailableFloorPlanDetailss" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="width:800px; height:438px;">
+            <div class="modal-header" style="width:100%;margin-top:-40px;margin-bottom:-31px;">
+                <button type="button" class="close" data-dismiss="modal" style="color:red;">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="container" style="width: 100%;">
+                    <div class="row-full">
+                        <div class="col-xs-12 monthly-charges">
+                            <div class="col-xl-6 col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="property_thumb text-center">
+                                            <img id="imgAvailableFloorPlanImage" src="" alt="" style="width:50%;margin-top:79px;" class="center-block">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="contain-text">
+                                            <h3><span id="lblAvailableFloorPlanUnit"></span> #</h3>
+                                            <span id="lblAvailableFloorPlanBedroom"></span> Bedroom | <span id="lblAvailableFloorPlanBathroom"></span> Bathroom
+                                            <br />
+                                            <span id="lblAvailableFloorPlanArea"></span> Sq Ft
+                                            <br />
+                                            Starting at $<span id="lblAvailableFloorPlanStartingPrice"></span> / month
+                                            <br />
+                                            <strong>Available <span id="lblAvailableFloorPlanAvailableDate"></span></strong>
+                                            <br />
+                                            <span style="color: #4d738a;cursor:pointer;font-size:18px;"><i class="fa fa-share-alt"></i><span> Share</span></span>
+                                            <hr />
+                                            <br />
+                                            <div class="col-sm-12" style="margin-left: -15px;">
+                                                <div class="form-group">
+                                                    <label for="txtAvailableFloorPlanMoveInDate">Move-In Date</label>
+                                                    <input type="text" class="form-control" id="txtAvailableFloorPlanMoveInDate" value="" placeholder="mm/dd/yyyy">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12" style="margin-left: -16px;">
+                                                <div class="form-group">
+                                                    <label> Select Lease Term</label>
+                                                    <select id="ddlAvailableFloorPlanLeaseTerm" class="form-control" style="margin-left: 1px;"></select>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="genric-btn available" onclick="applyFromFloorPlanDetails()">Apply Now</a>
+                                            <input type="hidden" id="hndAvailableFloorPlanUID" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -3980,6 +3980,11 @@ div#bellDiv {
     margin-bottom: 0px;
 }
 
+.backModel {
+    background-color: white;
+}
+
+
 .btn-alltype {
     color: #fff !important;
     background-color: #4d738a;
@@ -4000,3 +4005,4 @@ div#bellDiv {
         height: 42px;
         font-size: 14px;
     }
+
