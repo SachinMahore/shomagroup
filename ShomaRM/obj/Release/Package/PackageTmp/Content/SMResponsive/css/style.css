@@ -1207,10 +1207,10 @@ html, head, body{
   color: #fff;
 }
 
-/*.popular_property {
-    padding-top: 30px;
-    padding-left: 70px;
-}*/
+.popular_property {
+    /*padding-top: 30px;*/
+    padding-left: 110px;
+}
 
 .popular_property.plus_padding {
   padding-top: 186px;
@@ -1222,11 +1222,12 @@ html, head, body{
 
 .popular_property .single_property {
   overflow: hidden;border:1px solid #c2bcb6;
-  margin-bottom:70px;
+  margin-bottom:35px;
   -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  padding: 30px;
+  padding: 15px;
+  background:#fff;
 }
 
 .popular_property .single_property .property_thumb {
@@ -1269,7 +1270,7 @@ html, head, body{
 }
 
 .popular_property .single_property .property_content .main_pro h3 {
-  font-size: 28px;
+  font-size: 18px;
   color: #001D38;
   font-weight: 500;
   margin-bottom: 0;
@@ -1415,7 +1416,7 @@ span.ui-slider-handle.ui-corner-all.ui-state-default:focus {
 }
 
 .footer .footer_top {
-  padding-top: 100px;
+  padding-top: 0px;
   /*padding-bottom:80px;*/
 }
 
@@ -5361,7 +5362,7 @@ ul.option{
 
 /****************************/
 
-.mark_pro p,.main_pro p{line-height: 12px;font-weight:400; font-size: 13px;}
+.mark_pro p,.main_pro p{line-height: 0px;font-weight:400; font-size: 13px;}
 
 [type=submit]{background:#557388;padding: 5px 19px;height: 42px;border: none;color: #fff;
     font-size: 14px;}
@@ -5392,7 +5393,14 @@ input[type=date],select{padding: 8px;
 .unit_thumb ul li:before{content: "";position: absolute;width: 18px;height: 18px;background: #8eb63b;top: 2px;left: 15px;border-radius: 50%;}
 .unit_thumb ul li.op:before{background: #f0e514;}
 .unit_thumb ul li.un:before{background: #c82828;}
-
+/*//Sachin Mahore 27 may*/
+.topfloor {
+    margin-top: 116px;
+}
+.modelimg {
+    width:230px;
+    height:200px;
+}
 .genric-btn.available {
     color: #fff;
     background: #557388;
@@ -5401,6 +5409,7 @@ input[type=date],select{padding: 8px;
     font-size: 16px;
     margin-top: 13px;
     margin-bottom: 13px;
+    text-decoration:none;
 }
 button.btn:hover {color: #fff;/*background: #b4ada6;*/}
 .button {
@@ -5590,10 +5599,11 @@ th, td {
   .popular_property.plus_padding {
     padding-top: 50px;
   }
-  .popular_property {
-    padding-top: 50px;
-    padding-bottom: 20px;
-  }
+    .popular_property {
+        padding-top: 50px;
+        padding-bottom: 20px;
+        padding-left: 0px;
+    }
   #slider {
     margin-top: 20px;
     margin-bottom: 30px;

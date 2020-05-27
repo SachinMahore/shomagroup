@@ -850,16 +850,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/26/2020 18:49:15</publishTime>
     </File>
     <File Include="bin/ShomaRM.Data.dll.config">
-      <publishTime>05/25/2020 18:01:58</publishTime>
+      <publishTime>05/27/2020 18:04:20</publishTime>
     </File>
     <File Include="bin/ShomaRM.Data.pdb">
       <publishTime>05/26/2020 18:49:15</publishTime>
     </File>
     <File Include="bin/ShomaRM.dll">
-      <publishTime>05/26/2020 18:49:21</publishTime>
+      <publishTime>05/27/2020 21:54:24</publishTime>
     </File>
     <File Include="bin/ShomaRM.pdb">
-      <publishTime>05/26/2020 18:49:21</publishTime>
+      <publishTime>05/27/2020 21:54:24</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
       <publishTime>04/18/2020 15:13:46</publishTime>
@@ -1156,13 +1156,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/25/2020 19:10:51</publishTime>
     </File>
     <File Include="Content/assets/css/stylenew.css">
-      <publishTime>05/26/2020 18:47:14</publishTime>
+      <publishTime>05/27/2020 20:13:10</publishTime>
     </File>
     <File Include="Content/assets/css/styleNoJS.css">
       <publishTime>05/13/2019 14:29:46</publishTime>
     </File>
     <File Include="Content/assets/css/styleresponsiv.css">
-      <publishTime>05/26/2020 18:47:22</publishTime>
+      <publishTime>05/27/2020 20:13:10</publishTime>
     </File>
     <File Include="Content/assets/css/Tenantstyle.css">
       <publishTime>05/22/2020 11:25:00</publishTime>
@@ -7072,7 +7072,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/31/2020 12:25:32</publishTime>
     </File>
     <File Include="Content/bootstrap/css/bootstrap.css">
-      <publishTime>03/09/2020 13:26:00</publishTime>
+      <publishTime>05/27/2020 15:19:50</publishTime>
     </File>
     <File Include="Content/bootstrap/css/bootstrap.css.map">
       <publishTime>01/31/2020 12:25:32</publishTime>
@@ -7264,16 +7264,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2019 17:16:58</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/ApplyNow.js">
-      <publishTime>05/26/2020 18:39:04</publishTime>
+      <publishTime>05/27/2020 21:51:57</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/CoApplicantDet.js">
-      <publishTime>05/26/2020 17:52:20</publishTime>
+      <publishTime>05/27/2020 18:12:33</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/DocumentVerification.js">
       <publishTime>01/30/2020 13:11:54</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/GuarantorDet.js">
-      <publishTime>05/26/2020 18:05:43</publishTime>
+      <publishTime>05/27/2020 18:12:33</publishTime>
     </File>
     <File Include="Content/Pages/common.js">
       <publishTime>05/12/2020 21:30:06</publishTime>
@@ -7327,7 +7327,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/24/2020 11:23:14</publishTime>
     </File>
     <File Include="Content/SMResponsive/css/style.css">
-      <publishTime>05/26/2020 18:39:04</publishTime>
+      <publishTime>05/27/2020 20:40:09</publishTime>
     </File>
     <File Include="Content/SMResponsive/css/style.map">
       <publishTime>05/24/2020 11:23:14</publishTime>
@@ -7894,7 +7894,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/26/2020 17:38:46</publishTime>
     </File>
     <File Include="Views/AddressMap/Index.cshtml">
-      <publishTime>05/24/2020 10:57:03</publishTime>
+      <publishTime>05/27/2020 18:12:33</publishTime>
     </File>
     <File Include="Views/Admin/Users/AddEdit.cshtml">
       <publishTime>01/30/2020 13:11:58</publishTime>
@@ -7909,13 +7909,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/26/2020 08:32:11</publishTime>
     </File>
     <File Include="Views/ApplyNow/CoApplicantDet.cshtml">
-      <publishTime>05/26/2020 18:17:25</publishTime>
+      <publishTime>05/27/2020 18:12:33</publishTime>
     </File>
     <File Include="Views/ApplyNow/GuarantorDet.cshtml">
-      <publishTime>05/26/2020 18:16:32</publishTime>
+      <publishTime>05/27/2020 18:12:33</publishTime>
     </File>
     <File Include="Views/ApplyNow/Index.cshtml">
-      <publishTime>05/26/2020 18:41:05</publishTime>
+      <publishTime>05/27/2020 21:40:20</publishTime>
     </File>
     <File Include="Views/ApplyNow/PrintSummary.cshtml">
       <publishTime>01/30/2020 13:11:58</publishTime>
@@ -7945,7 +7945,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/28/2020 20:54:26</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>05/24/2020 10:57:04</publishTime>
+      <publishTime>05/27/2020 20:32:14</publishTime>
     </File>
     <File Include="Views/Home/Terms.cshtml">
       <publishTime>02/08/2020 21:14:46</publishTime>
@@ -7984,7 +7984,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/30/2020 13:11:58</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>05/26/2020 18:46:20</publishTime>
+      <publishTime>05/27/2020 20:43:59</publishTime>
     </File>
     <File Include="Views/Verification/Index.cshtml">
       <publishTime>03/23/2020 10:18:33</publishTime>
@@ -7996,7 +7996,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/30/2020 13:11:58</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/26/2020 18:49:24</publishTime>
+      <publishTime>05/27/2020 21:54:38</publishTime>
     </File>
   </ItemGroup>
 </Project>

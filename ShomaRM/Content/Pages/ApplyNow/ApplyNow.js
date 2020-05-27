@@ -3899,7 +3899,7 @@ var getCompareModelList = function () {
             if (response != null) {
                 $("#listModelCompare").empty();
                 //console.log(addModelArray)
-                var chtml = "<div class='col-sm-3' style='margin-top:276px'>" +
+                var chtml = "<div class='col-sm-3' style='margin-top:230px'>" +
                     "<div class='col-sm-12'center>" +
                     "<span ></span>" +
                     "</div>" +
@@ -3954,6 +3954,7 @@ var getPropertyUnitList = function (modelname, filldata) {
     $("#divLoader").show();
     var maxrent = 0;
     if ($("#txtMaxRent").val() == "0") {
+        maxrent = 100000; 
     }
     else {
         maxrent = $("#txtMaxRent").val();
@@ -3986,7 +3987,7 @@ var getPropertyUnitList = function (modelname, filldata) {
                 $("#listUnitNew>tbody").empty();
                 $.each(response.model, function (elementType, value) {
                     var html = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td style='text-align: center;width=100px'>$" + formatMoney(value.Current_Rent) + "</td><td style='text-align: center; width:45%'>" + value.Premium + "</td><td style='text-align: center;width=100px'>" + value.AvailableDateText + "</td></tr>";
-                    var htmlNew = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td class='unit'><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td class='price'>$" + formatMoney(value.Current_Rent) + "</td><td class='available'>" + value.AvailableDateText + "</td><td class='charges'><a href ='javascript:void(0);' class='genric-btn success' onclick='showPriceTable(" + value.UID + ")'> Apply</a><a href='javascript:void(0);' class='genric-btn success' onclick='showMonthlyCharges(" + value.UID + ")'>Monthly Charges</a><a href='javascript:void(0);'><i class='fa fa-map-marker' aria-hidden='true'></i></a></td ></tr>";
+                    var htmlNew = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td class='unit'><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td class='price'>$" + formatMoney(value.Current_Rent) + "</td><td class='available'>" + value.AvailableDateText + "</td><td class='charges'><a href ='javascript:void(0);' class='genric-btn success' onclick='showPriceTable(" + value.UID + ")'> Apply</a><a href='javascript:void(0);' class='genric-btn success' onclick='showMonthlyCharges(" + value.UID + ")'>Monthly Charges</a></td ></tr>";
                     $("#listUnit>tbody").append(html);
                     $("#listUnitNew>tbody").append(htmlNew);
                     $("#lblArea22").text(value.Area);
@@ -7003,8 +7004,10 @@ function getPropertyUnitListByFloor(flid) {
     var leaseterm = $("#hndLeaseTermID").val();
 
     var prospectid = $("#hdnOPId").val();
+    var modelname = $("#hndBuilding").val();
 
-    var model = { FloorID: flid, AvailableDate: availdate, Bedroom: bedroom, MaxRent: maxrent, LeaseTermID: leaseterm, ProspectId: prospectid };
+    var model = { FloorID: flid, AvailableDate: availdate, Bedroom: bedroom, MaxRent: maxrent, LeaseTermID: leaseterm, ModelName: modelname, ProspectId: prospectid };
+
     $.ajax({
         url: "/Property/GetPropertyFloorDetails/",
         type: "post",
@@ -10578,7 +10581,7 @@ var getPropertyModelUnitList = function (stype, pid) {
                 $.each(response.model, function (elementType, value) {
                     var html = "<div class='col-xl-5 col-md-6 col-lg-5 ' id='modeldiv" + value.Building + "'><div class='single_property'><div class='row'><div class='col-md-6 col-sm-6'><div class='property_thumb backModel'>";
                     html += "<img src='/content/assets/img/plan/" + value.FloorPlan + "' class='modelimg' alt=''></div></div>";
-                    html += "<div class='col-md-6 col-sm-6'><div class='property_content'><div class='main_pro'><h3>Floor Plan " + value.Building + "</h3> ";
+                    html += "<div class='col-md-6 col-sm-6'><div class='property_content'><div class='main_pro'><h5>Floor Plan " + value.Building + "</h5> ";
                     html += "<div class='mark_pro'><p>" + value.Bedroom + " Bed | " + value.Bathroom + "Bath</p><p> " + value.Area + " Sq Ft</p><p>Starting at </p><p>" + value.RentRange + "  / month</p></div>";
                     html += "<div class='button'><button class='btn' style='margin-top: -19px;margin-bottom: -48px;'  onclick='getPropertyUnitList(\"" + value.Building + "\")'><a href='javascript:void(0);' class='genric-btn available'>" + value.NoAvailable + " Available</a></button><br><p><div class='input-group' style='width:100%;margin-top: 25px;' id='chkComp" + value.Building + "'><div style='width:15%;float:left' ><input  style='cursor: pointer;' type='checkbox' onclick='addToCompare(\"" + value.Building + "\")' id='btnCompare" + value.Building + "'/></div> <div style='width:85%;float:left;text-align: left;'>Compare</div> </div></p></div>";
                     html += "</div></div></div></div></div></div>";
@@ -10908,6 +10911,7 @@ var getPropertyUnitDetails = function (uid) {
 
 
 var applyFromFloorPlanDetails = function () {
+
     $("#listUnitNew tr").removeClass("select-unit");
     var uid = $("#hndAvailableFloorPlanUID").val();
     $("#hndLeaseTermID").val($("#ddlAvailableFloorPlanLeaseTerm").val());
@@ -11100,6 +11104,7 @@ var applyFromFloorPlanDetails = function () {
 }
 
 function showPopAvailableFloorPlan(id) {
+   $("#hndAvailableFloorPlanUID").val(id);
     getPropertyUnitDetails(id);
     $('#popAvailableFloorPlanDetailss').modal('show');
 }

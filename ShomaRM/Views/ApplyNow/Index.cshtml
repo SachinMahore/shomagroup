@@ -96,15 +96,16 @@
                                 </div>
                             <p>View available floor plans. Select more than one to compare or select just one to choose your new apartment.</p>
                         </div>
-                        <div class="col-md-12 hidden justify-content-center" id="divMainSearch">
-                            <div class="col-md-1">
-                               
+                        <div class="col-md-12 hidden justify-content-center popular_property" id="divMainSearch">
+                            <div class="col-md-2">
+
                             </div>
                             <div class="col-md-2">
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <b>Desired Move-In</b>
-                                    <input class="input-box" id="txtDate" data-date-format="mm/dd/yyyy" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" type="text" /><span class="input-box-cal">
-                                     <i class="fa-calendar fa large-fa"></i></span>
+                                    <input class="input-box" id="txtDate" data-date-format="mm/dd/yyyy" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" type="text" style="padding: 5px 10px;" /><span class="input-box-cal">
+                                        <i class="fa-calendar fa large-fa"></i>
+                                    </span>
 
                                 </div>
                             </div>
@@ -129,35 +130,29 @@
                                         <option value='0'>Low To High</option>
                                         <option value='1'>High To Low</option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <b>Furnished</b>
-                                    <select id="ddlFurnishedUnit" class="form-control">
+                                    <select id="ddlFurnishedUnit" class="form-control hidden">
                                         <option value='0' selected="selected">All</option>
                                         <option value='1'>Furnished Unit</option>
                                         <option value='2'>Unfurnished Unit</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-2 pull-right">
-                                <button class="btn-success btn" style="padding: 7px 7px;margin-top:19px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
+
+                            <div class="col-md-2">
+                                <button class="btn-success btn" style="float: left;margin-top:19px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
                             </div>
-                            <div class="col-md-1">
+                           
+                            <div class="col-md-2">
 
                             </div>
                         </div>
-                        <div class="col-xs-12 hidden" id="divCompare">
+                        <div class="col-xs-12 hidden" id="divCompare" style="margin-bottom:15px;">
                             <div class="form-group">
                                 <div class="col-md-2">
-
                                 </div>
-
                                 <h5 class="col-md-4">Compare floor plans : Select up to three to compare</h5>
                                 <div class="col-md-4"><a href="javascript:void(0);" data-toggle="modal" data-target="#ModelCompare" style="padding: 5px;" class="btn-success btn" id="btncompare"></a>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-cancle btn" style="margin-top: 0px;" id="btncompCancel" onclick="getPropertyModelUnitList()"> Cancel</button></div>
                                 <div class="col-md-2">
-
                                 </div>
                             </div>
                         </div>
@@ -221,7 +216,8 @@
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-xl-10">
+
+                            <div class="col-xl-6">
                                 <table class="" style="width:100%;" cellspacing="0">
                                     <thead>
                                         <tr>
@@ -366,7 +362,7 @@
                                             <li class="un">Unavailable</li>
                                         </ul>
                                     </div>
-                                    <div class="" id="popUnitPlan" style="background:#fff;color:#4d738a; padding:5px;"></div>
+                                    <div class="" id="popUnitPlan" style="background:#fff;color:#4d738a; padding:5px;border: 1px gray solid;"></div>
                                 </div>
 
                             </div>
@@ -4765,8 +4761,8 @@
     </div>
 </div>
 <div class="modal " id="popApplicant" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:100%; ">
-        <div class="modal-content" style="width: 100% !important;">
+    <div class="modal-dialog" style="width:1100px !important; height:700px;">
+        <div class="modal-content" style="width: 100% !important; height:557px!important;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Applicant</h5>
@@ -5050,8 +5046,8 @@
 </div>
 @*Sachin M 15 May*@
 <div class="modal " id="popCCPay" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:100%;">
-        <div class="modal-content" style="width: 100% !important; ">
+    <div class="modal-dialog" style="width:1100px !important; height:700px;">
+        <div class="modal-content" style="width: 100% !important; height:375px!important;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title"><span id="lblpopcctitle">Credit Check Fees</span>  $<span id="sppayFees2"></span></h5>
@@ -5160,7 +5156,7 @@
 </div>
 <div class="modal" id="popVehicle">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:100%;">
+        <div class="modal-content"  style="width:750px; height:607px;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
@@ -5289,7 +5285,7 @@
 </div>
 <div class="modal" id="popPet">
     <div class="modal-dialog">
-        <div class="modal-content" style="width: 100%;">
+        <div class="modal-content" style="width: 100%; height:400px;">
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Add Pet</h5>
@@ -5379,8 +5375,8 @@
     </div>
 </div>
 <div class="modal" id="ModelCompare">
-    <div class="modal-dialog" style="padding-right: 1218px;">
-        <div class="modal-content" style="width:100%;">
+    <div class="modal-dialog" style="padding-right: 900px;">
+        <div class="modal-content" style="width:900px;height:500px">
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title"></h5>
@@ -5389,23 +5385,17 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <div class="container">
+                
                     <div class="row-full">
                         <div class="col-md-12">
-
-
-                            <div class="col-xs-12">
-                                <div class="row p-b-15  ">
-                                    <div class="col-sm-12"><b>Compare Floor Plans </b></div>
-                                    <div class="col-sm-12" id="listModelCompare"></div>
-
-                                </div>
+                            <div class="row p-b-15  ">
+                                <div class="col-sm-12"><b>Compare Floor Plans </b></div>
+                                <div class="col-sm-12" id="listModelCompare"></div>
                             </div>
                             <div class="col-sm-12"><span>*Price subject to change</span></div>
-
                         </div>
                     </div>
-                </div>
+                
 
                 <!-- Modal footer -->
 
@@ -5415,7 +5405,7 @@
 </div>
 <div class="modal" id="popApplicantHistory">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:100%;">
+        <div class="modal-content" style="width:850px; height:750px;">
 
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
@@ -5747,7 +5737,7 @@
 </div>
 <div class="modal" id="popHistoryEmpAndIncome">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:100%;">
+        <div class="modal-content" style="width:750px; height:700px;">
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title">Employment History</h5>
@@ -5980,7 +5970,7 @@
     </div>
 </div>
 <div class="modal " id="popQuote" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:100%">
+    <div class="modal-dialog" style="width:1100px">
         <div class="modal-content" style="width: 100% !important;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <div class="modal-body" id="divQuotes">
@@ -6210,7 +6200,7 @@
     </div>
 </div>
 <div class="modal " id="modalTermsCondition" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:100%">
+    <div class="modal-dialog" style="width:1100px">
         <div class="modal-content" style="width: 100% !important;">
             <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
             <div class="modal-body text-center">
@@ -6220,7 +6210,7 @@
     </div>
 </div>
 <div class="modal" id="popMonthlyCharges">
-    <div class="modal-dialog" style="padding-right: 100%;">
+    <div class="modal-dialog" style="width:1100px">
         <div class="modal-content" style="width:100%;">
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
@@ -6398,7 +6388,7 @@
     <div class="modal-dialog">
 
         <!-- Modal content-->
-        <div class="modal-content" style="width:800px; height:438px;">
+        <div class="modal-content" style="width:650px; height:438px;">
             <div class="modal-header" style="width:100%;margin-top:-40px;margin-bottom:-31px;">
                 <button type="button" class="close" data-dismiss="modal" style="color:red;">&times;</button>
             </div>
@@ -6410,7 +6400,7 @@
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="property_thumb text-center">
-                                            <img id="imgAvailableFloorPlanImage" src="" alt="" style="width:50%;margin-top:79px;" class="center-block">
+                                            <img id="imgAvailableFloorPlanImage" src="" alt="" style="margin-top:79px;" class="center-block modelimg">
                                         </div>
                                     </div>
                                 </div>

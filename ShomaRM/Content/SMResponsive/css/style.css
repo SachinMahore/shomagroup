@@ -1222,7 +1222,7 @@ html, head, body{
 
 .popular_property .single_property {
   overflow: hidden;border:1px solid #c2bcb6;
-  margin-bottom:70px;
+  margin-bottom:35px;
   -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
@@ -1416,7 +1416,7 @@ span.ui-slider-handle.ui-corner-all.ui-state-default:focus {
 }
 
 .footer .footer_top {
-  padding-top: 100px;
+  padding-top: 0px;
   /*padding-bottom:80px;*/
 }
 
@@ -5379,7 +5379,7 @@ input[type=date],select{padding: 8px;
     letter-spacing: 1px;padding-bottom: 6px;}
 .contain-text p{font-size: 19px;font-weight: 400;color: #8d8d90;margin-bottom: 24px;margin-top: 10px;font-family: 'Oxygen', sans-serif;}
 .unit-txt1{padding-top: 17%;}
-.charges .genric-btn.success{margin-top:0;margin-right: 10px;}
+.charges .genric-btn.success{margin-top:0;margin-right: 10px;text-decoration:none}
 
 .padding-top1{padding-top:25px;}
 .padding-top2{padding-top:35px;}
@@ -5409,6 +5409,7 @@ input[type=date],select{padding: 8px;
     font-size: 16px;
     margin-top: 13px;
     margin-bottom: 13px;
+    text-decoration:none;
 }
 button.btn:hover {color: #fff;/*background: #b4ada6;*/}
 .button {

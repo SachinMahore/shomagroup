@@ -19,7 +19,7 @@
 <input type="hidden" id="hndShowTermPolicy" value="1" />
 <input type="hidden" id="hndShowPaymentPolicy" value="1" />
 <input type="hidden" id="hndShowPropertyDetails" value="0" />
-<input type="hidden" id="hndIsModelSelected" value="@((Model.StepCompleted==0 ||Model.StepCompleted==1 )?6:Model.StepCompleted)" />
+<input type="hidden" id="hndIsModelSelected" value="@((Model.StepCompleted==0 ||Model.StepCompleted==1 )?0:1)" />
 <input type="hidden" id="hndFloorNo" value="@(Model.FloorID)" />
 <input type="hidden" id="hndBedRoom" value="@(Model.Bedroom)" />
 <input type="hidden" id="hndBuilding" value="@(Model.Building)" />
@@ -5883,8 +5883,8 @@
     }
 
     .wizard-card {
-        border: groove;
-        border-color: black;
+        /*border: groove;
+        border-color: black;*/
     }
 
     .btn-blue {
