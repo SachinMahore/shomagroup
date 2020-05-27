@@ -3979,3 +3979,24 @@ div#bellDiv {
     color: #4d738a;
     margin-bottom: 0px;
 }
+
+.btn-alltype {
+    color: #fff !important;
+    background-color: #4d738a;
+    border-color: #4d738a;
+    font-weight: 600;
+    font-family: FuturaMedium !important;
+    padding: 5px 19px;
+    height: 42px;
+    font-size: 14px;
+}
+
+    .btn-alltype:hover, .btn-alltype:focus, .btn-alltype:active, .btn-alltype.active, .btn-alltype:active:focus, .open > .dropdown-toggle.btn-alltype {
+        color: #fff;
+        background-color: #B4ADA5;
+        border-color: #B4ADA5;
+        font-weight: 600;
+        padding: 5px 19px;
+        height: 42px;
+        font-size: 14px;
+    }
