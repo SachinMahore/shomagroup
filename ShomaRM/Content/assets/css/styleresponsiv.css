@@ -104,8 +104,12 @@ a {
   padding-left:15px;
 }
 p {
-  font-size: 15px;
-  line-height: 1.6180em;
+    font-size: 14px;
+    font-weight: 400;
+    color: #8d8d90;
+    margin-bottom: 24px;
+    margin-top: 10px;
+    font-family: 'Oxygen', sans-serif;
 }
 .container-box {
   width: 1230px;
@@ -227,13 +231,20 @@ h3, .h3 {
 }
 
 
-  .panel.sidebar-menu .panel-heading h1, .panel.sidebar-menu .panel-heading h2, .panel.sidebar-menu .panel-heading h3, .panel.sidebar-menu .panel-heading h4, .panel.sidebar-menu .panel-heading h5 {
-    display: inline-block;
-    border-bottom: solid 3px #6C6E72;
-    line-height: 1.1;
-    margin-bottom: 0;
-    padding-bottom: 10px;
-  }
+    .panel.sidebar-menu .panel-heading h1, .panel.sidebar-menu .panel-heading h2, .panel.sidebar-menu .panel-heading h3, .panel.sidebar-menu .panel-heading h4, .panel.sidebar-menu .panel-heading h5 {
+        display: inline-block;
+        border-bottom: solid 3px #6C6E72;
+        line-height: 1.1;
+        margin-bottom: 0;
+        padding-bottom: 10px;
+        font-size: 22px;
+        text-transform: capitalize;
+        letter-spacing: 2px;
+        font-weight: 400;
+        color: #8d8d90;
+        font-family: 'Oxygen', sans-serif;
+        font-size: 22px;
+    }
 p.padding-box {
   padding: 0px 15px;
 }
@@ -302,7 +313,7 @@ h3, .h3 {
 }
 
 .m-t {
-  margin-top: 30px;
+  margin-top: -18px;
 }
 
 .wizard-container {
@@ -525,9 +536,19 @@ span.agree-text {
   color: green;
 }
 .input-box {
-  width: 70%;
-  float: left;
-  height: 40px;
+    width: 70%;
+    float: left;
+    height: 34px;
+    border: 1px solid #8d8d90;
+}
+.input-box-cal {
+    width: 30%;
+    float: left;
+ 
+    text-align: center;
+    padding: 2px 10px;
+    color: #4D738A;
+    height: 40px;
 }
 .input-box-span {
   width: 30%;

@@ -10573,10 +10573,10 @@ var getPropertyModelUnitList = function (stype, pid) {
             if (response != null) {
                 $("#listModelUnit").empty();
                 $.each(response.model, function (elementType, value) {
-                    var html = "<div class='col-xl-5 col-md-6 col-lg-5' id='modeldiv" + value.Building + "'><div class='single_property'><div class='row'><div class='col-md-6 col-sm-6'><div class='property_thumb'>";
-                    html += "<img src='/content/assets/img/plan/" + value.FloorPlan + "' style='height:250px'; alt=''></div></div>";
+                    var html = "<div class='col-xl-5 col-md-6 col-lg-5 ' id='modeldiv" + value.Building + "'><div class='single_property'><div class='row'><div class='col-md-6 col-sm-6'><div class='property_thumb backModel'>";
+                    html += "<img src='/content/assets/img/plan/" + value.FloorPlan + "' class='modelimg' alt=''></div></div>";
                     html += "<div class='col-md-6 col-sm-6'><div class='property_content'><div class='main_pro'><h3>Floor Plan " + value.Building + "</h3> ";
-                    html += "<div class='mark_pro'><p>" + value.Bedroom + " Bed | " + value.Bathroom + "Bath</p><p> " + value.Area + " Sq Ft</p><p>Starting at " + value.RentRange + "  / month</p></div>";
+                    html += "<div class='mark_pro'><p>" + value.Bedroom + " Bed | " + value.Bathroom + "Bath</p><p> " + value.Area + " Sq Ft</p><p>Starting at </p><p>" + value.RentRange + "  / month</p></div>";
                     html += "<div class='button'><button class='btn' style='margin-top: -19px;margin-bottom: -48px;'  onclick='getPropertyUnitList(\"" + value.Building + "\")'><a href='javascript:void(0);' class='genric-btn available'>" + value.NoAvailable + " Available</a></button><br><p><div class='input-group' style='width:100%;margin-top: 25px;' id='chkComp" + value.Building + "'><div style='width:15%;float:left' ><input  style='cursor: pointer;' type='checkbox' onclick='addToCompare(\"" + value.Building + "\")' id='btnCompare" + value.Building + "'/></div> <div style='width:85%;float:left;text-align: left;'>Compare</div> </div></p></div>";
                     html += "</div></div></div></div></div></div>";
 
