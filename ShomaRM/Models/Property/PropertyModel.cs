@@ -532,7 +532,25 @@ namespace ShomaRM.Models
                 //model.ActualMoveOutDate = unitDet.ActualMoveOutDate;
                 model.Coordinates = unitDet.Coordinates;
                 model.Premium = Convert.ToString(unitDet.Premium);
+                model.StartingPriceString = unitDet.Current_Rent.ToString("0.00");
+                //DateTime dt = Convert.ToDateTime(availableDate , new System.Globalization.CultureInfo("en-GB"));
+                model.AvailableDateText = availableDate.Value.ToString("MMMM dd");
 
+                var leaseTerm = db.tbl_LeaseTerms.OrderBy(co => co.LeaseTerms).ToList();
+                List<PropertyUnits> list = new List<PropertyUnits>();
+                foreach (var item in leaseTerm)
+                {
+                    var unitPrice = db.tbl_UnitLeasePrice.Where(co => co.LeaseID == item.LTID && co.UnitID == UID).FirstOrDefault();
+                    string uPrice = unitPrice != null ? unitPrice.Price.Value.ToString("0.00") : "0.00";
+
+                    list.Add(new PropertyUnits()
+                    {
+                        LeaseId = item.LTID,
+                        LeaseName = item.LeaseTerms,
+                        LeasePrice = uPrice
+                    });
+                }
+                model.LeaseTerms = list;
                 //For Price Table
                 //For current Price Table
                 DataTable dtTable1 = new DataTable();
@@ -880,6 +898,14 @@ namespace ShomaRM.Models
         public decimal? PestAmt { get; set; }
         public decimal? TrashAmt { get; set; }
         public int? LeasedTerms;
+
+        public string AvailableDateString { get; set; }
+        public string StartingPriceString { get; set; }
+
+        public int LeaseId { get; set; }
+        public int? LeaseName { get; set; }
+        public string LeasePrice { get; set; }
+        public List<PropertyUnits> LeaseTerms { get; set; }
     }
     public partial class PropertyFloor
     {

@@ -6593,6 +6593,68 @@
         </div>
     </div>
 </div>
+<div id="popAvailableFloorPlanDetailss" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="width:800px; height:438px;">
+            <div class="modal-header" style="width:100%;margin-top:-40px;margin-bottom:-31px;">
+                <button type="button" class="close" data-dismiss="modal" style="color:red;">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="container" style="width: 100%;">
+                    <div class="row-full">
+                        <div class="col-xs-12 monthly-charges">
+                            <div class="col-xl-6 col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="property_thumb text-center">
+                                            <img id="imgAvailableFloorPlanImage" src="" alt="" style="width:50%;margin-top:79px;" class="center-block">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="contain-text">
+                                            <h3><span id="lblAvailableFloorPlanUnit"></span> #</h3>
+                                            <span id="lblAvailableFloorPlanBedroom"></span> Bedroom | <span id="lblAvailableFloorPlanBathroom"></span> Bathroom
+                                            <br />
+                                            <span id="lblAvailableFloorPlanArea"></span> Sq Ft
+                                            <br />
+                                            Starting at $<span id="lblAvailableFloorPlanStartingPrice"></span> / month
+                                            <br />
+                                            <strong>Available <span id="lblAvailableFloorPlanAvailableDate"></span></strong>
+                                            <br />
+                                            <span style="color: #4d738a;cursor:pointer;font-size:18px;"><i class="fa fa-share-alt"></i><span> Share</span></span>
+                                            <hr />
+                                            <br />
+                                            <div class="col-sm-12" style="margin-left: -15px;">
+                                                <div class="form-group">
+                                                    <label for="txtAvailableFloorPlanMoveInDate">Move-In Date</label>
+                                                    <input type="text" class="form-control" id="txtAvailableFloorPlanMoveInDate" value="" placeholder="mm/dd/yyyy">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12" style="margin-left: -16px;">
+                                                <div class="form-group">
+                                                    <label> Select Lease Term</label>
+                                                    <select id="ddlAvailableFloorPlanLeaseTerm" class="form-control" style="margin-left: 1px;"></select>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="genric-btn available" onclick="applyFromFloorPlanDetails()">Apply Now</a>
+                                            <input type="hidden" id="hndAvailableFloorPlanUID" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <style>
 
     .whiteText {

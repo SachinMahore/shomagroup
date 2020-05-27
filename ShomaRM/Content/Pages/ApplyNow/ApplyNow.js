@@ -3917,7 +3917,7 @@ var getCompareModelList = function () {
                             chtml += "<div class='col-sm-3'>" +
                                 "<div class='col-sm-12 center'>" +
                                 "<span>" +
-                                "<a href = '#' onclick='displayCompImg(\"" + value.Building + "\")'> <img src='/content/assets/img/plan/" + value.FloorPlan + "' style='height:245px'></a>" +
+                                "<a href = '#' onclick='displayCompImg(\"" + value.Building + "\")'> <img src='/content/assets/img/plan/" + value.FloorPlan + "' class='modelimg'></a>" +
                                 "</span></div>" +
                                 "<div class='col-sm-12 center'><span><b>" + value.Building + "</b> </span></div>" +
                                 "<div class='col-sm-12 center'>" +
@@ -6901,7 +6901,7 @@ function showFloorPlan(flid, numbedroom, modelname) {
             //console.log(JSON.stringify(response.model.lstUnitFloor));
             $.each(response.model.lstUnitFloor, function (elementType, value) {
                 if (value.IsAvail == 1) {
-                    html += "<area shape='poly' id='unId_" + value.UID + "' class='tooltips UAarea' coords='" + value.Coordinates + "' href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'>";
+                    html += "<area shape='poly' id='unId_" + value.UID + "' class='tooltips UAarea' coords='" + value.Coordinates + "' href='javascript:void(0);' onclick='showPopAvailableFloorPlan(" + value.UID + ")'>";
                     //html += "<span class='tooltip-text' style='display: none'>" + value.UnitNo + "</span>";
                     //html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>Unit No: " + value.UnitNo + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba</span><span> Available: Yes</span></div>";
                     //html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>" + value.UnitNo + "<br/> Model: #" + value.ModelName + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba<br/> Price: $" + formatMoney(value.Current_Rent) + "</span><span> Available: Yes</span></div>";
@@ -10005,7 +10005,8 @@ var btnApplyNowLeaseCurrent = function () {
     $("#divLoader").show();
     //alert($("#hndpriceTableUID").val());
     //alert($("#hndpriceTableLeaseTermId1").val());
-    var model = { UID: $("#hndpriceTableUID").val(), LeaseTermID: $("#hndpriceTableLeaseTermId1").val() };
+    $("#hndLeaseTermID").val($("#hndpriceTableLeaseTermId1").val());
+    var model = { UID: $("#hndpriceTableUID").val(), LeaseTermID: $("#hndLeaseTermID").val() };
     $.ajax({
         url: "/Property/GetPropertyUnitDetailsByPriceTable",
         type: "post",
@@ -10173,7 +10174,8 @@ var btnApplyNowLeaseCurrent = function () {
 };
 var btnApplyNowLeaseBest = function () {
     $("#divLoader").show();
-    var model = { UID: $("#hndpriceTableUID").val(), LeaseTermID: $("#hndpriceTableLeaseTermId2").val() };
+    $("#hndLeaseTermID").val($("#hndpriceTableLeaseTermId2").val());
+    var model = { UID: $("#hndpriceTableUID").val(), LeaseTermID: $("#hndLeaseTermID").val() };
     $.ajax({
         url: "/Property/GetPropertyUnitDetailsByPriceTable",
         type: "post",
@@ -10343,7 +10345,8 @@ var btnApplyNowLeaseBest = function () {
 var btnApplyNowLeaseGreat = function () {
     $('#hndUID').val($("#hndpriceTableUID").val());
     $("#divLoader").show();
-    var model = { UID: $("#hndpriceTableUID").val(), LeaseTermID: $("#hndpriceTableLeaseTermId3").val() };
+    $("#hndLeaseTermID").val($("#hndpriceTableLeaseTermId3").val());
+    var model = { UID: $("#hndpriceTableUID").val(), LeaseTermID: $("#hndLeaseTermID").val() };
     $.ajax({
         url: "/Property/GetPropertyUnitDetailsByPriceTable",
         type: "post",
@@ -10649,6 +10652,28 @@ var getPropertyUnitDetails = function (uid) {
             $('#popMonthlyChargesOccupancy').text((parseInt(response.model.Bedroom) * 2).toString());
             $('#popMonthlyChargesDeposit').text("$" + formatMoney(parseFloat(response.model.Deposit).toFixed(2)));
 
+            //for new available floor plan details
+            $("#imgAvailableFloorPlanImage").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
+            $('#lblAvailableFloorPlanUnit').text(response.model.UnitNo);
+            $('#lblAvailableFloorPlanBedroom').text(response.model.Bedroom);
+            $('#lblAvailableFloorPlanBathroom').text(response.model.Bathroom);
+            $('#lblAvailableFloorPlanArea').text(response.model.Area);
+            $('#lblAvailableFloorPlanStartingPrice').text(formatMoney(response.model.StartingPriceString));
+            $('#lblAvailableFloorPlanAvailableDate').text(response.model.AvailableDateText);
+            var dts = new Date();
+            dts.setFullYear(new Date().getFullYear() - 100);
+            $("#txtAvailableFloorPlanMoveInDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true });
+            $("#txtAvailableFloorPlanMoveInDate").val($('#txtDate').val());
+            //ddl
+            $('#ddlAvailableFloorPlanLeaseTerm').empty();
+
+            $.each(response.model.LeaseTerms, function (elementType, value) {
+                $("#ddlAvailableFloorPlanLeaseTerm").append("<option value=" + value.LeaseId + ">" + value.LeaseName + ' ($' + formatMoney(value.LeasePrice) + ') ' + "</option>");
+
+            });
+
+            $('#ddlAvailableFloorPlanLeaseTerm').val($("#hndLeaseTermID").val());
+
             var popMCBRent = parseFloat(response.model.Current_Rent).toFixed(2);
             $('#popMonthlyChargesBaseRent').text("$" + formatMoney((parseFloat(response.model.Current_Rent)).toFixed(2)));
             var popMCPremium = response.model.Premium;
@@ -10882,3 +10907,199 @@ var getPropertyUnitDetails = function (uid) {
 }
 
 
+var applyFromFloorPlanDetails = function () {
+    $("#listUnitNew tr").removeClass("select-unit");
+    var uid = $("#hndAvailableFloorPlanUID").val();
+    $("#hndLeaseTermID").val($("#ddlAvailableFloorPlanLeaseTerm").val());
+    $("#divLoader").show();
+    var model = { UID: uid, LeaseTermID: $("#hndLeaseTermID").val() };
+    $.ajax({
+        url: "/Property/GetPropertyUnitDetails/",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+
+            var popMCBRent = parseFloat(response.model.Current_Rent).toFixed(2);
+            $('#popMonthlyChargesBaseRent').text("$" + formatMoney((parseFloat(response.model.Current_Rent)).toFixed(2)));
+            var popMCPremium = response.model.Premium;
+            $('#popMonthlyChargesPremium').text("$" + formatMoney(response.model.Premium));
+            var popMCPromotion = 0;
+            $('#popMonthlyChargesPropmotion').text("$" + formatMoney(0));
+            var popMonthlyChargessubtotals1 = parseFloat((parseFloat(popMCBRent) + parseFloat(popMCPremium) + parseFloat(popMCPromotion))).toFixed(2);
+            $('#popMonthlyChargesSubtotal1').text("$" + formatMoney(popMonthlyChargessubtotals1));
+
+            var popMCPControl = response.model.PestAmt;
+            $('#popMonthlyChargesPestControl').text("$" + formatMoney(response.model.PestAmt));
+            var popMCTRecycle = response.model.TrashAmt;
+            $('#popMonthlyChargesTrashRecycle').text("$" + formatMoney(response.model.TrashAmt));
+            var popMCCBilling = response.model.ConvergentAmt;
+            $('#popMonthlyChargesConvergentBilling').text("$" + formatMoney(response.model.ConvergentAmt));
+            var popMonthlyChargessubtotals2 = parseFloat((parseFloat(popMCPControl) + parseFloat(popMCTRecycle) + parseFloat(popMCCBilling))).toFixed(2);
+            $('#popMonthlyChargesSubtotal2').text("$" + formatMoney(popMonthlyChargessubtotals2));
+            var popMonthlyChargesTotal = parseFloat(parseFloat(popMonthlyChargessubtotals1) + parseFloat(popMonthlyChargessubtotals2)).toFixed(2);
+            $('#popMonthlyChargesTotalMonthlyCharges').text("$" + formatMoney(popMonthlyChargesTotal));
+
+            $("#hndShowPropertyDetails").val(1);
+            $("#ModelCompare").modal("hide");
+            $("#popUnitDet").addClass("hidden");
+            $("#popFloorCoordinate").addClass("hidden");
+            $("#lblUnitNo").text("#" + response.model.UnitNo);
+            $("#lblUnitTitle").text("#" + response.model.UnitNo);
+            $("#lblUnitTitle2").text("#" + response.model.UnitNo);
+            $("#lblFNLPreparedFor").text("#" + response.model.UnitNo);
+            // $("#parkUnit").text("#" + response.model.UnitNo);
+            $("#storUnit").text("#" + response.model.UnitNo);
+            $("#txtAvailableDate").val(response.model.AvailableDateText);
+            $("#hndAvailableFloorPlanUID").val(uid);
+
+
+            $("#unitdiv_" + uid).addClass("select-unit");
+            $("#hndUID").val(uid);
+
+            fillUnitParkingList();
+            if ($("#unitdiv_" + uid).length) {
+                $("#unitdiv_" + uid)[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+
+            }
+
+            $("#lblRent").text(formatMoney(response.model.Current_Rent));
+            $("#lblArea").text(response.model.Area);
+            $("#lblBed").text(response.model.Bedroom);
+            $("#lblBath").text(response.model.Bathroom);
+            $("#lblHall").text(response.model.Hall);
+            $("#lblDeposit").text(formatMoney(response.model.Deposit));
+            // $("#lblLease").text(response.model.Leased);
+
+            $("#lblRent22").text("$" + response.model.Current_Rent);
+            $("#lblArea22").text(response.model.Area);
+            $("#lblBed22").text(response.model.Bedroom);
+            $("#lblUnitModel").text("Model: #" + response.model.Building);
+            $("#lblBath22").text(response.model.Bathroom);
+
+            $("#lblOccupancy22").text((parseInt(response.model.Bedroom) * 2).toString());
+            $("#lblOccupancy").text((parseInt(response.model.Bedroom) * 2).toString());
+
+            $("#lblDeposit22").text("$" + response.model.Deposit);
+            //$("#lblLease22").text(response.model.Leased);
+
+            //$("#lblLease2").text(response.model.Leased);
+            // $("#lblDeposit").text(response.model.Rent);
+            $("#imgFloorPlan").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
+            $("#imgFloorPlan1").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
+            $("#imgFloorPlan2").attr("src", "/content/assets/img/plan/" + response.model.Building + "Det.jpg");
+            $("#lblUnitNo1").text("Selected : Floor" + response.model.FloorNo + "- Unit " + response.model.UnitNo + "  ($" + response.model.Current_Rent + ")");
+            $("#hndUID").val(uid);
+
+            $("#txtRooms").val(response.model.Rooms);
+            $("#txtBedroom").val(response.model.Bedroom);
+            $("#txtBathroom").val(response.model.Bathroom);
+            $("#txtHall").val(response.model.Hall);
+
+            $("#txtPetDetails").val(response.model.PetDetails);
+            $("#ddlFloorNo").val(response.model.FloorNo);
+            $("#txtArea").val(response.model.Area);
+
+            $("#txtCarpet_Color").val(response.model.Carpet_Color);
+            $("#txtWall_Paint_Color").val(response.model.Wall_Paint_Color);
+
+            $("#txtOccupancyDate").val(response.model.OccupancyDateText);
+            //$("#chkPendingMoveIn").is(":checked") ? "1" : "0";
+            $("#txtVacancyLoss_Date").val(response.model.VacancyLoss_DateText);
+            $("#txtIntendedMoveIn_Date").val(response.model.IntendedMoveIn_Date);
+            $("#txtIntendMoveOutDate").val(response.model.IntendMoveOutDate);
+            $("#txtActualMoveInDate").val(response.model.ActualMoveInDateText);
+
+            $("#lbldeposit1").text(formatMoney(parseFloat(response.model.Deposit).toFixed(2)));
+            $("#lbdepo6").text(parseFloat(response.model.Deposit).toFixed(2));
+
+            $("#lblFMRent").text(formatMoney(parseFloat(response.model.Current_Rent).toFixed(2)));
+
+            totalAmt = (parseFloat(response.model.Current_Rent) + parseFloat(unformatText($("#lblAdditionalParking").text())) + parseFloat(unformatText($("#lblStorageUnit").text())) + parseFloat(unformatText($("#lblTrashAmt").text())) + parseFloat($("#lblPestAmt").text()) + parseFloat($("#lblConvergentAmt").text()) + parseFloat(unformatText($("#lblPetFee").text()))).toFixed(2);
+            $("#lbltotalAmount").text(formatMoney(totalAmt));
+
+            //Amit's Work for final Quotation form 15-10
+            $("#lblFNLUnit").text("#" + response.model.UnitNo);
+            $("#lblFNLModel").text(response.model.Building);
+            $("#lblFNLModel1").text(response.model.Building);
+            //$("#lblFNLTerm").text(response.model.Leased);
+            $("#lblMonthly_MonthlyCharge").text(formatMoney(response.model.Current_Rent.toFixed(2)));
+            $("#lblProrated_MonthlyCharge").text(formatMoney(parseFloat(parseFloat(response.model.Current_Rent) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblMonthly_MonthlyCharge1").text(formatMoney(response.model.Current_Rent.toFixed(2)));
+            $("#lblProrated_MonthlyCharge1").text(formatMoney(parseFloat(parseFloat(response.model.Current_Rent) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+
+            $("#lblRFPMonthlyCharges").text(formatMoney(response.model.Current_Rent.toFixed(2)));
+
+            $("#fdepo").text((response.model.Deposit).toFixed(2));
+            $("#lbdepo6").text((response.model.Deposit).toFixed(2));
+
+            $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
+            $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+            $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+
+            var rfpMonthlyCharge = unformatText($("#lblRFPMonthlyCharges").text());
+            var rfpParkingCharge = $("#lblRFPAdditionalParking").text();
+            var rfpStorageCharge = $("#lblRFPStorageUnit").text();
+            var rfpPetcharge = $("#lblRFPPetRent").text();
+
+            var rfpTotalRentCharge = parseFloat(rfpMonthlyCharge, 10) + parseFloat(rfpParkingCharge, 10) + parseFloat(rfpStorageCharge, 10) + parseFloat(rfpPetcharge, 10);
+            //alert(calTotalRentChargefpetd
+            //$("#lblRFPTotalMonthlyPayment").text((parseFloat($("#lblRFPMonthlyCharges").text())) + (parseFloat($("#lblRFPAdditionalParking").text())) + (parseFloat($("#lblRFPStorageUnit").text())) + (parseFloat($("#lblRFPPetRent").text())));
+
+            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+
+            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(response.model.Deposit, 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+
+            $("#lblRFPTotalMonthlyPayment").text(formatMoney((parseFloat(unformatText($("#lblRFPMonthlyCharges").text()))) + (parseFloat($("#lblRFPAdditionalParking").text())) + (parseFloat($("#lblRFPStorageUnit").text())) + (parseFloat($("#lblRFPPetRent").text())) + (parseFloat($("#lblRFPTrashRecycling").text())) + (parseFloat($("#lblRFPPestControl").text())) + (parseFloat($("#lblRFPConvergentbillingfee").text()))));
+
+            $("#lblProrated_TrashAmt").text(parseFloat(parseFloat($("#lblTrash").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_TrashAmt1").text(parseFloat(parseFloat($("#lblTrash").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_PestAmt").text(parseFloat(parseFloat($("#lblPestControl").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_PestAmt1").text(parseFloat(parseFloat($("#lblPestControl").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_ConvergentAmt").text(parseFloat(parseFloat($("#lblConvergentAmt").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+            $("#lblProrated_ConvergentAmt1").text(parseFloat(parseFloat($("#lblConvergentAmt").text()) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+
+            $("#lblRent2").text((parseFloat(response.model.Current_Rent)).toFixed(2));
+            $("#txtModal").text(response.model.Building);
+            $("#lblArea1").text(response.model.Area);
+            $("#lblBed1").text(response.model.Bedroom);
+            $("#lblBath1").text(response.model.Bathroom);
+            $("#lblHall1").text(response.model.Hall);
+            $("#lblDeposit1").text(formatMoney(response.model.Deposit));
+            //$("#lblLease3").text(response.model.Leased);
+            //$("#lblLease4").text(response.model.Leased);
+            $("#imgFloorPlanSumm").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
+            $("#lbldeposit2").text(parseFloat(response.model.Deposit).toFixed(2));
+            $("#lblFMRent1").text(parseFloat(response.model.Current_Rent).toFixed(2));
+            $("#lblUnitTitle3").text("#" + response.model.UnitNo);
+            //$("#lblLeaseStartDate").text(response.model.AvailableDateText);
+            //$("#lblLeaseStartDate").text($("#hndsummaryDesireMoveIn").val());
+            $("#lblSubtotalsumm").text((parseFloat(response.model.Current_Rent) + parseFloat(unformatText($("#lblTrashAmt").text())) + parseFloat(unformatText($("#lblPestAmt").text())) + parseFloat(unformatText($("#lblConvergentAmt").text()))).toFixed(2));
+            $("#lbltotalAmountSumm").text((parseFloat(response.model.Current_Rent) + parseFloat(unformatText($("#lblTrashAmt").text())) + parseFloat(unformatText($("#lblPestAmt").text())) + parseFloat(unformatText($("#lblConvergentAmt").text()))).toFixed(2));
+            localStorage.setItem("floorfromplan", response.model.FloorNo);
+            $("#hndFloorNo").val(response.model.FloorNo);
+            $("#hndBedRoom").val(response.model.Bedroom);
+            $("#hndBuilding").val(response.model.Building);
+
+            $("#lblMonthly_TotalRentSp").text("$" + (formatMoney(totalAmt)));
+            $("#lblAp32").text("#" + response.model.UnitNo);
+            $("#lblArea32").text("Sq.Ft. " + response.model.Area);
+            $("#lblBed32").text(response.model.Bedroom);
+            $("#lblUnitModel3").text(response.model.Building);
+            $("#lblBath32").text(response.model.Bathroom);
+            $("#lblDeposit3").text("$" + (formatMoney(response.model.Deposit)));
+
+            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            $("#popAvailableFloorPlanDetailss").modal('hide');
+            $("#divLoader").hide();
+            goToStep(3, 3, 0);
+        }
+    });
+}
+
+function showPopAvailableFloorPlan(id) {
+    getPropertyUnitDetails(id);
+    $('#popAvailableFloorPlanDetailss').modal('show');
+}
