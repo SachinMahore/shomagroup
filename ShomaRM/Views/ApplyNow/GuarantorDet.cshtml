@@ -19,7 +19,7 @@
 <input type="hidden" id="hndShowTermPolicy" value="1" />
 <input type="hidden" id="hndShowPaymentPolicy" value="1" />
 <input type="hidden" id="hndShowPropertyDetails" value="0" />
-<input type="hidden" id="hndIsModelSelected" value="@((Model.StepCompleted==0 ||Model.StepCompleted==1 )?6:Model.StepCompleted)" />
+<input type="hidden" id="hndIsModelSelected" value="@((Model.StepCompleted==0 ||Model.StepCompleted==1 )?0:1)" />
 <input type="hidden" id="hndFloorNo" value="@(Model.FloorID)" />
 <input type="hidden" id="hndBedRoom" value="@(Model.Bedroom)" />
 <input type="hidden" id="hndBuilding" value="@(Model.Building)" />
@@ -68,7 +68,7 @@
                             <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16,0)">e. Payment </a></li>
                         </ul>
                     </div>
-                    <div class="container-fluid">
+                    <div class="tab-content">
                         <div class="hidden" id="step1">
                             <div class="row p-b-15  ">
                                 <div class="col-sm-12">
@@ -4559,7 +4559,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12" id="divCard2">
+                    <div class="col-sm-12" id="divCard1">
                         <div class="form-group col-sm-3">
                             <label for="name">Name on Card</label>
                             <input type="text" class="form-control" id="txtNameonCard2" placeholder="Name on Card" value="">
@@ -5883,7 +5883,8 @@
     }
 
     .wizard-card {
-        
+        /*border: groove;
+        border-color: black;*/
     }
 
     .btn-blue {
