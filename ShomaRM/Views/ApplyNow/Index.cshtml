@@ -176,11 +176,11 @@
                 
                     @*Start New code*@
                     <div id="divSelectUnit">
-                        @*<div class="row">
+                        <div class="row">
                                 <div class="col-xl-12 col-md-12 padding-top1">
-                                    <a href="javascript:void(0)" onclick="goToPriceTable()" class="genric-btn available">Back</a>
+                                    <a href="javascript:void(0)" onclick="goToStep(1,1,0)" class="genric-btn available">Back</a>
                                 </div>
-                            </div>*@
+                            </div>
                         <div class="row justify-content-center">
                             <div class="col-md-2"></div>
                             <div class="col-xl-8 col-md-8">
@@ -212,13 +212,14 @@
 
                                     </div>
                                 </div>
-                                <p>View available floor plans. Select more than one to compare or select just one to choose your new apartment.</p>
+                                <p>Now that you have selected your floor plan, lets decided on your unit. If you click on the interactive building on the below, you will be able to see all the availbale units within your choosen floor plan per floor. If any floor appears in red, It indicates there are no available units on that floor of your desire floor plan. Using the building model will allow you to choose your unit based on location.
+                                If you prefer to choose your unit from the list shown below, you may still see if there are any premiums and/or promotions on that unit. Once you choose your unit, click continue below to choose your personalized options.</p>
                             </div>
                         </div>
                         <div class="row justify-content-center">
 
                             <div class="col-xl-6">
-                                <table class="" style="width:100%;" cellspacing="0">
+                                <table class="" style="width:79.5%;margin:auto;" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th style="width:20%;font-size:18px;font-weight:bold;" class="unit">Unit</th>
@@ -229,7 +230,7 @@
                                     </thead>
                                 </table>
 
-                                <div style="max-height:322px; overflow-y:scroll;overflow-x:auto;width:99.5%">
+                                <div style="max-height:322px; overflow-y:scroll;overflow-x:auto;width:79.5%;margin:auto;">
                                     <table id="listUnitNew" border="0" cellpadding="5" cellspacing="5">
                                         <tbody>
                                             @if (Model.lstPropertyUnit != null)
@@ -455,11 +456,11 @@
                     </div>
                     @*End New code*@
                     <div class="col-sm-12">
-                        <div class="pull-left text-center">
+                        <div class="pull-left text-center hidden">
                             <button type="submit" class="btn btn-success" onclick="goToStep(1,1,0)"> Back</button>
                         </div>
                         <div class="pull-right text-center">
-                            <button type="button" class="nav-button wow animated gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button> <button type="submit" class="btn btn-success" id="btnnext" onclick="goToStep(3,3,0)"> Continue</button>
+                            <button type="button" class="nav-button wow animated gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button> 
                         </div>
                     </div>
                     <br />
@@ -5679,13 +5680,13 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <img src="" width="320" id="imgFloorPlanSumm">
+                                    <img src="" width="220" id="imgFloorPlanSumm">
                                     <h3><span id="lblUnitNo"></span></h3><span id="lblRent"></span>
                                     <span id="">LEASE TERM  : </span><span id="lblLease4">@Model.LeaseTerm</span> Mo
                                     <br /><span id="">DESIRED MOVE IN  : </span><span id="lblLeaseStartDate"></span>
                                 </td>
                                 <td><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-                                <td width="350px">
+                                <td width="400px">
                                     <H5 style="text-decoration:underline;">SUMMARY OF RENTAL CHARGES</H5><br />
                                     <span style="font-weight:bold;" id="">UNIT  : </span>
                                     <span style="font-weight:bold;" id="lblUnitTitle3"></span>
@@ -6282,7 +6283,9 @@
                                             <p>Subtotal<span class="pull-right" id="popMonthlyChargesSubtotal2"></span></p>
                                             <p>TOTAL MONTHLY CHARGES*<span class="pull-right" id="popMonthlyChargesTotalMonthlyCharges"><strong></strong></span></p>
                                         </div>
-                                        <small>*Does not include water & sewer charges based on acual monthly consumption</small>
+                                        <small>*Does not include water & sewer charges based on acual monthly consumption</small><br />
+                                        <small>**Does not include water & sewer charges based on annual monthly consumption” add “If you would like to participate in the Flexdeposit Program which may assist you in bonding your Security Deposit for a Non-Refundable fee of as low as $50 (depending on credit), please contact our leasing agents.</small><br />
+                                        <small>***Fee to unify the charges in one billing</small>
                                     </div>
                                 </div>
                             </div>
@@ -6428,8 +6431,7 @@
                                             <br />
                                             <strong>Available <span id="lblAvailableFloorPlanAvailableDate"></span></strong>
                                             <br />
-                                            <span style="color: #4d738a;cursor:pointer;font-size:18px;"><i class="fa fa-share-alt"></i><span> Share</span></span>
-                                            <hr />
+                                           <hr />
                                             <br />
                                             <div class="col-sm-12" style="margin-left: -15px;">
                                                 <div class="form-group">
