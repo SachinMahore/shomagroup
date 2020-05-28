@@ -2735,6 +2735,7 @@ h6 {
   border: 1px solid transparent;
   margin-top:25px;
   font-size: 16px;
+  text-decoration:none;
 }
 
 /* line 241, ../../Arafath/CL/CL October/217. Real Estate/HTML/scss/_elements.scss */
@@ -5379,7 +5380,7 @@ input[type=date],select{padding: 8px;
     letter-spacing: 1px;padding-bottom: 6px;}
 .contain-text p{font-size: 19px;font-weight: 400;color: #8d8d90;margin-bottom: 24px;margin-top: 10px;font-family: 'Oxygen', sans-serif;}
 .unit-txt1{padding-top: 17%;}
-.charges .genric-btn.success{margin-top:0;margin-right: 10px;}
+.charges .genric-btn.success{margin-top:0;margin-right: 10px;text-decoration:none}
 
 .padding-top1{padding-top:25px;}
 .padding-top2{padding-top:35px;}

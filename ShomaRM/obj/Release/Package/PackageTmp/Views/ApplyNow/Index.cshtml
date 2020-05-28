@@ -96,15 +96,16 @@
                                 </div>
                             <p>View available floor plans. Select more than one to compare or select just one to choose your new apartment.</p>
                         </div>
-                        <div class="col-md-12 hidden justify-content-center" id="divMainSearch">
-                            <div class="col-md-1">
-                               
+                        <div class="col-md-12 hidden justify-content-center popular_property" id="divMainSearch">
+                            <div class="col-md-2">
+
                             </div>
                             <div class="col-md-2">
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <b>Desired Move-In</b>
-                                    <input class="input-box" id="txtDate" data-date-format="mm/dd/yyyy" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" type="text" /><span class="input-box-cal">
-                                     <i class="fa-calendar fa large-fa"></i></span>
+                                    <input class="input-box" id="txtDate" data-date-format="mm/dd/yyyy" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" type="text" style="padding: 5px 10px;" /><span class="input-box-cal">
+                                        <i class="fa-calendar fa large-fa"></i>
+                                    </span>
 
                                 </div>
                             </div>
@@ -129,22 +130,19 @@
                                         <option value='0'>Low To High</option>
                                         <option value='1'>High To Low</option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2 hidden">
-                                <div class="form-group">
-                                    <b>Furnished</b>
-                                    <select id="ddlFurnishedUnit" class="form-control">
+                                    <select id="ddlFurnishedUnit" class="form-control hidden">
                                         <option value='0' selected="selected">All</option>
                                         <option value='1'>Furnished Unit</option>
                                         <option value='2'>Unfurnished Unit</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-2 pull-right">
-                                <button class="btn-success btn" style="padding: 7px 7px;margin-top:19px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
+
+                            <div class="col-md-2">
+                                <button class="btn-success btn" style="float: left;margin-top:19px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
                             </div>
-                            <div class="col-md-1">
+                           
+                            <div class="col-md-2">
 
                             </div>
                         </div>
@@ -178,11 +176,11 @@
                 
                     @*Start New code*@
                     <div id="divSelectUnit">
-                        @*<div class="row">
+                        <div class="row">
                                 <div class="col-xl-12 col-md-12 padding-top1">
-                                    <a href="javascript:void(0)" onclick="goToPriceTable()" class="genric-btn available">Back</a>
+                                    <a href="javascript:void(0)" onclick="goToStep(1,1,0)" class="genric-btn success">Back</a>
                                 </div>
-                            </div>*@
+                            </div>
                         <div class="row justify-content-center">
                             <div class="col-md-2"></div>
                             <div class="col-xl-8 col-md-8">
@@ -214,12 +212,14 @@
 
                                     </div>
                                 </div>
-                                <p>View available floor plans. Select more than one to compare or select just one to choose your new apartment.</p>
+                                <p>Now that you have selected your floor plan, lets decided on your unit. If you click on the interactive building on the below, you will be able to see all the availbale units within your choosen floor plan per floor. If any floor appears in red, It indicates there are no available units on that floor of your desire floor plan. Using the building model will allow you to choose your unit based on location.
+                                If you prefer to choose your unit from the list shown below, you may still see if there are any premiums and/or promotions on that unit. Once you choose your unit, click continue below to choose your personalized options.</p>
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-xl-10">
-                                <table class="" style="width:100%;" cellspacing="0">
+
+                            <div class="col-xl-6">
+                                <table class="" style="width:79.5%;margin:auto;" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th style="width:20%;font-size:18px;font-weight:bold;" class="unit">Unit</th>
@@ -230,7 +230,7 @@
                                     </thead>
                                 </table>
 
-                                <div style="max-height:322px; overflow-y:scroll;overflow-x:auto;width:99.5%">
+                                <div style="max-height:322px; overflow-y:scroll;overflow-x:auto;width:79.5%;margin:auto;">
                                     <table id="listUnitNew" border="0" cellpadding="5" cellspacing="5">
                                         <tbody>
                                             @if (Model.lstPropertyUnit != null)
@@ -363,7 +363,7 @@
                                             <li class="un">Unavailable</li>
                                         </ul>
                                     </div>
-                                    <div class="" id="popUnitPlan" style="background:#fff;color:#4d738a; padding:5px;"></div>
+                                    <div class="" id="popUnitPlan" style="background:#fff;color:#4d738a; padding:5px;border: 1px gray solid;"></div>
                                 </div>
 
                             </div>
@@ -407,8 +407,7 @@
                         <div class="row justify-content-center">
                             <div class="col-xl-10 padding-top2">
                                 <div class="container2 mb-5 mt-5 center-block">
-                                    <div class="pricing card-deck flex-column flex-md-row mb-3">
-                                        
+                                    <diiv class="pricing card-deck flex-column flex-md-row mb-3">
                                         <div class="card card-pricing text-center px-3 mb-4">
                                             <span class="h6 w-60 mx-auto px-4 py-1 bg-primary text-white shadow-sm bg-transparent">Current Selection</span><hr>
                                             <div class="bg-transparent card-header pt-4 border-0">
@@ -449,18 +448,18 @@
                                                 <input type="hidden" id="hndpriceTableLeaseTermId3" />
                                             </div>
                                         </div>
-                                    </div>
+                                    </diiv>
                                 </div>
                             </div>
                         </div><!-- price table section end-->
                     </div>
                     @*End New code*@
                     <div class="col-sm-12">
-                        <div class="pull-left text-center">
+                        <div class="pull-left text-center hidden">
                             <button type="submit" class="btn btn-success" onclick="goToStep(1,1,0)"> Back</button>
                         </div>
                         <div class="pull-right text-center">
-                            <button type="button" class="nav-button wow animated gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button> <button type="submit" class="btn btn-success" id="btnnext" onclick="goToStep(3,3,0)"> Continue</button>
+                            <button type="button" class="nav-button wow animated gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button> 
                         </div>
                     </div>
                     <br />
@@ -666,15 +665,15 @@
                                 </div>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="SaveOnlineProspect()"> Save</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="SaveOnlineProspect()"> Save</button>
                             </div>
                         </div>
                         <div class="col-sm-12 hidden" id="divstep3">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-success" onclick="goToStep(2,2,1)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(2,2,1)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="button" class="nav-button wow animated gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button> <button type="submit" class="btn btn-success" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button> <button type="submit" class="btn btn-success" id="btnnext" onclick="goToStep(4,4,0)"> Continue</button>
                             </div>
                         </div>
                     </div>
@@ -794,7 +793,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row hidden">
                                 <div class="col-sm-6 col-lg-4 m-bt-15">
                                     Do you need additional FOBS (limit 2)?
                                 </div>
@@ -1015,10 +1014,11 @@
                         <div class="row m-t-30">
                             <div class="col-sm-12 button-box-wrapper ">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-success" onclick="goToStep(3,3,0)"> Back</button>
+                                    <button type="submit" class="btn-alltype" onclick="goToStep(3,3,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="button" class="nav-button wow animated gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button> <button type="submit" class="btn btn-success" id="btnnext" onclick="goToStep(5,5,0)"> Continue</button>
+                                    <button type="button" class="btn-alltype wow animated gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                    <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(5,5,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1442,12 +1442,13 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="pull-left text-center">
-                            <button type="submit" class="btn btn-primary" onclick="goToStep(4,4,0)"> Back</button>
+                            <button type="submit" class="btn-alltype" onclick="goToStep(4,4,0)"> Back</button>
                         </div>
                         <div class="text-center">
-                            <button id="quotePrint" class="btn btn-primary" onclick="printQuotationPrint()"> Print</button>
+                            <button id="quotePrint" class="btn-alltype" onclick="printQuotationPrint()"> Print</button>
                             <div class="pull-right">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(6,6,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(6,6,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -1542,10 +1543,11 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="nav-button wow" onclick="goToStep(5,5,0)"> Back</button>
+                                <button type="submit" class="btn-alltype wow" onclick="goToStep(5,5,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center hidden">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(7,7,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(7,7,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -1602,17 +1604,17 @@
                             </div>
                         </div>
                         <div id="divAppWarning" class="col-sm-12 @(Model.CreditPaid != 0 ? "hidden" : "") pt-4">
-                            <h3 class="panel-title pull-right">Please Pay Credit Check Fees, Please fill Information to get the Credit Pay Link, if alerady filled please check email for detail.</h3>
+                            <h3 class="panel-title pull-right">Please click on ‘Edit/Complete Information’, located on the Primary Application card, to proceed to the Credit Check.</h3>
                         </div>
                         <div class="row m-t-30">
                             <div class="col-sm-12 button-box-wrapper ">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="nav-button wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
+                                    <button type="submit" class="btn-alltype wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
                                     <!--<button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>-->
 
-                                    <button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>
+                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1816,10 +1818,11 @@
                         <div class="row m-t-30">
                             <div class="col-sm-12 button-box-wrapper ">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-up btn-primary elvetica-font" onclick="goToStep(7,7,0)"> Back</button>
+                                    <button type="submit" class="btn-up btn-alltype elvetica-font" onclick="goToStep(7,7,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#popResponsibilityContinue"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                    <button type="submit" class="btn-alltype" data-toggle="modal" data-target="#popResponsibilityContinue"> Continue</button>
+                                    <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                                 </div>
                             </div>
                         </div>
@@ -2145,10 +2148,11 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(8,8,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(8,8,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(10,10,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(10,10,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                         @*identification end*@
@@ -2311,8 +2315,8 @@
                             </div>
                             <div class="col-sm-6 ">
                                 @*check for button*@
-                                <button type="button" class="btn btn-primary pull-right mt-10" data-toggle="modal" data-target="#popApplicantHistory" id="btnAddAHR"><i class="fa fa-plus-circle"></i> Add Other</button>
-                                <button type="submit" class="btn btn-primary hidden" id="btnnext" onclick="goToStep(11,11,0)"> Continue</button>
+                                <button type="button" class="btn-alltype pull-right mt-10" data-toggle="modal" data-target="#popApplicantHistory" id="btnAddAHR"><i class="fa fa-plus-circle"></i> Add Other</button>
+                                <button type="submit" class="btn-alltype hidden" id="btnnext" onclick="goToStep(11,11,0)"> Continue</button>
                                 <input id="hdnAHRId" type="hidden" value="0" />
                             </div>
                         </div>
@@ -2346,10 +2350,11 @@
 
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(9,9,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(9,9,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(11,11,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(11,11,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -2617,7 +2622,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 ">
-                                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popHistoryEmpAndIncome" id="btnAddHEI"><i class="fa fa-plus-circle"></i> Add Other</button>
+                                <button type="button" class="btn-alltype pull-right" data-toggle="modal" data-target="#popHistoryEmpAndIncome" id="btnAddHEI"><i class="fa fa-plus-circle"></i> Add Other</button>
 
                             </div>
                         </div>
@@ -2648,10 +2653,11 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(10,10,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(10,10,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(12,12,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(12,12,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -2769,10 +2775,11 @@
 
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(11,11,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(11,11,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(13,13,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(13,13,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -2783,7 +2790,7 @@
                             <div class="panel panel-default sidebar-menu wow fadeInRight animated NoBorder">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Vehicle Information </h3>
-                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>
+                                    <button type="button" class="btn-alltype pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>
                                 </div>
                                 <div class="row hidden" id="divDontHaveVeh">
                                     <div class="col-sm-12">
@@ -2821,10 +2828,11 @@
 
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(12,12,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(12,12,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(14,14,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(14,14,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -2835,7 +2843,7 @@
                             <div class="panel panel-default sidebar-menu wow fadeInRight animated NoBorder">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Add Pet Information</h3>
-                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus-circle"></i> Add</button>
+                                    <button type="button" class="btn-alltype pull-right" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus-circle"></i> Add</button>
                                     <input type="hidden" id="hndPetPlaceCount" value="0" />
                                 </div>
                                 <div class="row">
@@ -2875,10 +2883,11 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(13,13,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(13,13,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(15,15,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(15,15,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -4182,16 +4191,16 @@
                                     </div>
                                 </div>*@
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnPrintSummary" onclick="printSummary()"><i class="fa fa-print"></i> Print</button>
+                                <button type="submit" class="btn-alltype" id="btnPrintSummary" onclick="printSummary()"><i class="fa fa-print"></i> Print</button>
                             </div>
                         </div>
                         <div class="col-sm-12">
 
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(14,14,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(14,14,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(16,16,0)"> Continue</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(16,16,0)"> Continue</button>
                             </div>
 
                         </div>
@@ -4261,10 +4270,10 @@
                                     <br />
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="button" class='btn  btn-info' id="chkBank" onclick="clearBank()" value="Bank Account">
+                                    <input type="button" class='btn-alltype' id="chkBank" onclick="clearBank()" value="Bank Account">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="button" class='btn btn-info active' id="chkACH" onclick="clearCard()" value="Credit Card">
+                                    <input type="button" class='btn-alltype active' id="chkACH" onclick="clearCard()" value="Credit Card">
                                 </div>
 
                                 <div class="col-sm-12">
@@ -4381,10 +4390,10 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(15,15,0)"> Back</button>
+                                    <button type="submit" class="btn-alltype" onclick="goToStep(15,15,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary payNext" id="btnpaynext" onclick="goToStep(17,17,0)" disabled> Continue</button>
+                                    <button type="submit" class="btn-alltype payNext" id="btnpaynext" onclick="goToStep(17,17,0)" disabled> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -4410,7 +4419,7 @@
                             </div>
 
                         </div>
-                        <div class="col-sm-12 table-bordered" id="divFinalcoappemail">
+                        <div class="col-sm-12 table-bordered hidden" id="divFinalcoappemail">
                             <div>
                                 <h5> <center> Now?</center></h5>
                                 <p>
@@ -4433,10 +4442,10 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(15,15,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(15,15,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" id="btnC2Tenant" class="btn btn-primary" onclick="cancel()">Submit Application</button>
+                                <button type="submit" id="btnC2Tenant" class="btn-alltype" onclick="cancel()">Submit Application</button>
                             </div>
                         </div>
                     </div>
@@ -4541,17 +4550,17 @@
                             <div class="col-sm-12 form-inline hidden">
                                 <div style="margin-top:30px"></div>
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveLeaseDocumentVerification()"><span id="spanSaveUpdate">Save</span></button>
+                                    <button type="button" class="btn-alltype" id="btnSave" onclick="SaveLeaseDocumentVerification()"><span id="spanSaveUpdate">Save</span></button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsgFinal"></b></p></div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(15,15,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(15,15,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(17,17,0)"> Continue</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(17,17,0)"> Continue</button>
                             </div>
                         </div>
                     </div>
@@ -5038,8 +5047,8 @@
             </div>
             <div class="modal-footer-custom">
                 <div class="col-sm-12 text-center">
-                    <button type="submit" class="btn btn-primary" id="btnsaveappl" onclick="saveupdateApplicant()">Save</button>
-                    <button type="submit" class="btn btn-primary hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
+                    <button type="submit" class="btn-alltype" id="btnsaveappl" onclick="saveupdateApplicant()">Save</button>
+                    <button type="submit" class="btn-alltype hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
                 </div>
             </div>
         </div>
@@ -5376,8 +5385,8 @@
     </div>
 </div>
 <div class="modal" id="ModelCompare">
-    <div class="modal-dialog" style="padding-right: 800px;">
-        <div class="modal-content" style="width:800px;height:500px">
+    <div class="modal-dialog" style="padding-right: 900px;">
+        <div class="modal-content" style="width:900px;height:500px">
             <!-- Modal Header -->
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title"></h5>
@@ -5556,7 +5565,7 @@
                 </div>
             </div>
             <div class="col-sm-12 text-center">
-                <button type="button" class="btn btn-primary" onclick="saveupdateApplicantHistory()"><i class="fa fa-save"></i> Save</button>
+                <button type="button" class="btn-alltype" onclick="saveupdateApplicantHistory()"><i class="fa fa-save"></i> Save</button>
             </div>
 
         </div>
@@ -5664,19 +5673,19 @@
         <div class="modal-content-summary">
             <div class="modal-body" style="padding: -15px;">
                 <button type="button" class="close" data-dismiss="modal" style="color:black;">&times;</button>
-                <button type="button" class="btn btn-primary" onclick="print('printables')">Print</button>
+                <button type="button" class="genric-btn success" onclick="print('printables')">Print</button>
                 <div id="printables">
                     <table>
                         <tbody>
                             <tr>
                                 <td>
-                                    <img src="" width="320" id="imgFloorPlanSumm">
+                                    <img src="" width="220" id="imgFloorPlanSumm">
                                     <h3><span id="lblUnitNo"></span></h3><span id="lblRent"></span>
                                     <span id="">LEASE TERM  : </span><span id="lblLease4">@Model.LeaseTerm</span> Mo
                                     <br /><span id="">DESIRED MOVE IN  : </span><span id="lblLeaseStartDate"></span>
                                 </td>
                                 <td><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
-                                <td width="350px">
+                                <td width="400px">
                                     <H5 style="text-decoration:underline;">SUMMARY OF RENTAL CHARGES</H5><br />
                                     <span style="font-weight:bold;" id="">UNIT  : </span>
                                     <span style="font-weight:bold;" id="lblUnitTitle3"></span>
@@ -5905,8 +5914,8 @@
             <!-- Modal footer -->
             <div class="modal-footer-custom">
                 <div class="col-sm-12 text-center">
-                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary pull-right" onclick="saveEmployerHistory()" style="margin-right: 10px;">Save</button>
+                    <button type="button" class="btn-alltype pull-right" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn-alltype pull-right" onclick="saveEmployerHistory()" style="margin-right: 10px;">Save</button>
                 </div>
             </div>
         </div>
@@ -6269,17 +6278,19 @@
                                             <p><strong>Additional Services</strong></p>
                                             <p>Pest Control<span class="pull-right" id="popMonthlyChargesPestControl"></span></p>
                                             <p>Trash/Recycle<span class="pull-right" id="popMonthlyChargesTrashRecycle"></span></p>
-                                            <p>Convergent Billing Fee<span class="pull-right" id="popMonthlyChargesConvergentBilling"></span></p>
+                                            <p>Convergent Billing Fee***<span class="pull-right" id="popMonthlyChargesConvergentBilling"></span></p>
                                             <p>Subtotal<span class="pull-right" id="popMonthlyChargesSubtotal2"></span></p>
                                             <p>TOTAL MONTHLY CHARGES*<span class="pull-right" id="popMonthlyChargesTotalMonthlyCharges"><strong></strong></span></p>
                                         </div>
-                                        <small>*Does not include water & sewer charges based on acual monthly consumption</small>
+                                        <small>*Does not include water & sewer charges based on acual monthly consumption</small><br />
+                                        <small>**If you would like to participate in the Flexdeposit Program which may assist you in bonding your Security Deposit for a Non-Refundable fee of as low as $50 (depending on credit), please contact our leasing agents.</small><br />
+                                        <small>***Fee to unify the charges in one billing</small>
                                     </div>
                                 </div>
                             </div>
                             <div class=""></div>
                             <div class="clearfix"></div>
-                            <div class="text-center padding-top1"><a href="#" class="btn btn-primary" onclick="print('printables')">Print</a></div>
+                            <div class="text-center padding-top1"><a href="#" class="genric-btn success" onclick="print('printables')">Print</a></div>
                         </div>
                     </div>
                 </div>
@@ -6291,7 +6302,7 @@
     </div>
 </div>
 <div class="modal " id="popApplicantContinue" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:100%">
+    <div class="modal-dialog" style="width:40%">
         <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg'); width: 100% !important;">
 
             <div class="modal-body">
@@ -6333,7 +6344,7 @@
     </div>
 </div>
 <div class="modal " id="popResponsibilityContinue" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:100%">
+    <div class="modal-dialog" style="width:40%">
         <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg'); width: 100% !important;">
 
             <div class="modal-body">
@@ -6419,8 +6430,7 @@
                                             <br />
                                             <strong>Available <span id="lblAvailableFloorPlanAvailableDate"></span></strong>
                                             <br />
-                                            <span style="color: #4d738a;cursor:pointer;font-size:18px;"><i class="fa fa-share-alt"></i><span> Share</span></span>
-                                            <hr />
+                                           <hr />
                                             <br />
                                             <div class="col-sm-12" style="margin-left: -15px;">
                                                 <div class="form-group">
