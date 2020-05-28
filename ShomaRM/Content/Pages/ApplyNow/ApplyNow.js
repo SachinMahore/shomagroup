@@ -127,7 +127,7 @@ $(document).ready(function () {
             //$("#popCCPay").modal("show");
             $('#btnsaveapplandpay').removeClass('hidden');
             $('#btnsaveappl').addClass('hidden');
-            //modal.find('.modal-content').css("height", "760px");
+            modal.find('.modal-content').css("height", "760px");
             $('#divCreditCheckPayment').removeClass('hidden');
         }
         else {
@@ -136,7 +136,7 @@ $(document).ready(function () {
             clearCard1();
             $('#btnsaveapplandpay').addClass('hidden');
             $('#btnsaveappl').removeClass('hidden');
-            //modal.find('.modal-content').css("height", "560px");
+            modal.find('.modal-content').css("height", "560px");
             $('#divCreditCheckPayment').addClass('hidden');
         }
     });
@@ -5110,7 +5110,9 @@ var getApplicantLists = function () {
                     if (elementValue.Email != null) {
                         emailhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:20%; padding:6px;'>" + elementValue.FirstName + " " + elementValue.LastName + "</td><td style='width:18%; padding:6px;'>" + elementValue.Email + " </td><td style='width:30%; padding:6px;'><input type='checkbox' onclick='addEmail(\"" + elementValue.Email + "\")' id='chkEmail" + elementValue.ApplicantID + "' style='width:25%; border:1px solid;' /></td></tr>";
                     }
-                }
+
+                    $("#divFinalcoappemail").removeClass('hidden');
+                } 
 
                 if (elementValue.Type == "Minor") {
                     $("#tblApplicantMinor").append(html);
@@ -7129,7 +7131,7 @@ function getPropertyUnitListByFloor(flid) {
                 else {
                     Y = Y - 180; // Y = Y + 390;//Y = Y + 300
                 }
-                console.log("Unit X : " + X + " Unit Y :" + Y);
+               // console.log("Unit X : " + X + " Unit Y :" + Y);
                 var thisId = $(this).attr('id');
                 var divID = thisId.split("_");
                 $(".divtooltipUnit").addClass("hidden");
@@ -10925,6 +10927,47 @@ var applyFromFloorPlanDetails = function () {
         dataType: "JSON",
         success: function (response) {
 
+            //new code for price table
+            $('#priceTableUnit').text(response.model.UnitNo);
+            $('#priceTableBedroom').text(response.model.Bedroom);
+            $('#priceTableBathroom').text(response.model.Bathroom);
+            $('#priceTableArea').text(response.model.Area);
+
+            //for current
+            $('#priceTableRent1').text(parseFloat(response.model.PriceTableRentCurrent).toFixed(2));
+            $('#priceTableLeaseTerm1').text(response.model.PriceTableLeaseTermCurrent);
+            $('#hndpriceTableLeaseTermId1').val(response.model.PriceTableLeaseTermIDCurrent);
+
+            //for best
+            $('#priceTableRent2').text(parseFloat(response.model.PriceTableRentBest).toFixed(2));
+            $('#priceTableLeaseTerm2').text(response.model.PriceTableLeaseTermBest);
+            $('#hndpriceTableLeaseTermId2').val(response.model.PriceTableLeaseTermIDBest);
+
+            //for great
+            $('#priceTableRent3').text(parseFloat(response.model.PriceTableRentGreat).toFixed(2));
+            $('#priceTableLeaseTerm3').text(response.model.PriceTableLeaseTermGreat);
+            $('#hndpriceTableLeaseTermId3').val(response.model.PriceTableLeaseTermIDGreat);
+
+            //alert(response.model.PriceTableUID)
+            $('#hndpriceTableUID').val(response.model.PriceTableUID);
+
+            $("#priceTableDate").val($('#txtDate').val());
+            $("#priceTableMoveInDate1").text($('#txtDate').val());
+            $("#priceTableMoveInDate2").text($('#txtDate').val());
+            $("#priceTableMoveInDate3").text($('#txtDate').val());
+
+            //for new pop up
+            $("#popMonthlyChargesFloorPlan").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
+            $('#popMonthlyChargesModel').text(response.model.Building);
+            $('#popMonthlyChargesUnit').text(response.model.UnitNo);
+            $('#popMonthlyChargesLeaseTerm').text(response.model.PriceTableLeaseTermCurrent);
+            $('#popMonthlyChargesDesMoveIn').text($('#txtDate').val());
+            $('#popMonthlyChargesBedrooms').text(response.model.Bedroom);
+            $('#popMonthlyChargesBathrooms').text(response.model.Bathroom);
+            $('#popMonthlyChargesArea').text(response.model.Area);
+            $('#popMonthlyChargesOccupancy').text((parseInt(response.model.Bedroom) * 2).toString());
+            $('#popMonthlyChargesDeposit').text("$" + formatMoney(parseFloat(response.model.Deposit).toFixed(2)));
+
             var popMCBRent = parseFloat(response.model.Current_Rent).toFixed(2);
             $('#popMonthlyChargesBaseRent').text("$" + formatMoney((parseFloat(response.model.Current_Rent)).toFixed(2)));
             var popMCPremium = response.model.Premium;
@@ -11098,7 +11141,8 @@ var applyFromFloorPlanDetails = function () {
             showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
             $("#popAvailableFloorPlanDetailss").modal('hide');
             $("#divLoader").hide();
-            goToStep(3, 3, 0);
+            $('#divPriceTable').removeClass('hidden');
+            $('#divSelectUnit').addClass('hidden');
         }
     });
 }

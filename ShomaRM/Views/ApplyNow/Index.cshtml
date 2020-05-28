@@ -793,7 +793,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row hidden">
                                 <div class="col-sm-6 col-lg-4 m-bt-15">
                                     Do you need additional FOBS (limit 2)?
                                 </div>
@@ -1014,10 +1014,11 @@
                         <div class="row m-t-30">
                             <div class="col-sm-12 button-box-wrapper ">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-success" onclick="goToStep(3,3,0)"> Back</button>
+                                    <button type="submit" class="btn-alltype" onclick="goToStep(3,3,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="button" class="nav-button wow animated gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button> <button type="submit" class="btn btn-success" id="btnnext" onclick="goToStep(5,5,0)"> Continue</button>
+                                    <button type="button" class="btn-alltype wow animated gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                    <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(5,5,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1441,12 +1442,13 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="pull-left text-center">
-                            <button type="submit" class="btn btn-primary" onclick="goToStep(4,4,0)"> Back</button>
+                            <button type="submit" class="btn-alltype" onclick="goToStep(4,4,0)"> Back</button>
                         </div>
                         <div class="text-center">
-                            <button id="quotePrint" class="btn btn-primary" onclick="printQuotationPrint()"> Print</button>
+                            <button id="quotePrint" class="btn-alltype" onclick="printQuotationPrint()"> Print</button>
                             <div class="pull-right">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(6,6,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(6,6,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -1541,10 +1543,11 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="nav-button wow" onclick="goToStep(5,5,0)"> Back</button>
+                                <button type="submit" class="btn-alltype wow" onclick="goToStep(5,5,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center hidden">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(7,7,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(7,7,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -1601,17 +1604,17 @@
                             </div>
                         </div>
                         <div id="divAppWarning" class="col-sm-12 @(Model.CreditPaid != 0 ? "hidden" : "") pt-4">
-                            <h3 class="panel-title pull-right">Please Pay Credit Check Fees, Please fill Information to get the Credit Pay Link, if alerady filled please check email for detail.</h3>
+                            <h3 class="panel-title pull-right">Please click on ‘Edit/Complete Information’, located on the Primary Application card, to proceed to the Credit Check.</h3>
                         </div>
                         <div class="row m-t-30">
                             <div class="col-sm-12 button-box-wrapper ">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="nav-button wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
+                                    <button type="submit" class="btn-alltype wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
                                     <!--<button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>-->
 
-                                    <button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>
+                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -1815,10 +1818,11 @@
                         <div class="row m-t-30">
                             <div class="col-sm-12 button-box-wrapper ">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-up btn-primary elvetica-font" onclick="goToStep(7,7,0)"> Back</button>
+                                    <button type="submit" class="btn-up btn-alltype elvetica-font" onclick="goToStep(7,7,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#popResponsibilityContinue"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                    <button type="submit" class="btn-alltype" data-toggle="modal" data-target="#popResponsibilityContinue"> Continue</button>
+                                    <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                                 </div>
                             </div>
                         </div>
@@ -2144,10 +2148,11 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(8,8,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(8,8,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(10,10,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(10,10,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                         @*identification end*@
@@ -2310,8 +2315,8 @@
                             </div>
                             <div class="col-sm-6 ">
                                 @*check for button*@
-                                <button type="button" class="btn btn-primary pull-right mt-10" data-toggle="modal" data-target="#popApplicantHistory" id="btnAddAHR"><i class="fa fa-plus-circle"></i> Add Other</button>
-                                <button type="submit" class="btn btn-primary hidden" id="btnnext" onclick="goToStep(11,11,0)"> Continue</button>
+                                <button type="button" class="btn-alltype pull-right mt-10" data-toggle="modal" data-target="#popApplicantHistory" id="btnAddAHR"><i class="fa fa-plus-circle"></i> Add Other</button>
+                                <button type="submit" class="btn-alltype hidden" id="btnnext" onclick="goToStep(11,11,0)"> Continue</button>
                                 <input id="hdnAHRId" type="hidden" value="0" />
                             </div>
                         </div>
@@ -2345,10 +2350,11 @@
 
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(9,9,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(9,9,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(11,11,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(11,11,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -2616,7 +2622,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 ">
-                                <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popHistoryEmpAndIncome" id="btnAddHEI"><i class="fa fa-plus-circle"></i> Add Other</button>
+                                <button type="button" class="btn-alltype pull-right" data-toggle="modal" data-target="#popHistoryEmpAndIncome" id="btnAddHEI"><i class="fa fa-plus-circle"></i> Add Other</button>
 
                             </div>
                         </div>
@@ -2647,10 +2653,11 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(10,10,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(10,10,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(12,12,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(12,12,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -2768,10 +2775,11 @@
 
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(11,11,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(11,11,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(13,13,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(13,13,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -2782,7 +2790,7 @@
                             <div class="panel panel-default sidebar-menu wow fadeInRight animated NoBorder">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Vehicle Information </h3>
-                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>
+                                    <button type="button" class="btn-alltype pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>
                                 </div>
                                 <div class="row hidden" id="divDontHaveVeh">
                                     <div class="col-sm-12">
@@ -2820,10 +2828,11 @@
 
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(12,12,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(12,12,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(14,14,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(14,14,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -2834,7 +2843,7 @@
                             <div class="panel panel-default sidebar-menu wow fadeInRight animated NoBorder">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Add Pet Information</h3>
-                                    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus-circle"></i> Add</button>
+                                    <button type="button" class="btn-alltype pull-right" data-toggle="modal" data-target="#popPet" id="btnAddPet"><i class="fa fa-plus-circle"></i> Add</button>
                                     <input type="hidden" id="hndPetPlaceCount" value="0" />
                                 </div>
                                 <div class="row">
@@ -2874,10 +2883,11 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(13,13,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(13,13,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(15,15,0)"> Continue</button> <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(15,15,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -4181,16 +4191,16 @@
                                     </div>
                                 </div>*@
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnPrintSummary" onclick="printSummary()"><i class="fa fa-print"></i> Print</button>
+                                <button type="submit" class="btn-alltype" id="btnPrintSummary" onclick="printSummary()"><i class="fa fa-print"></i> Print</button>
                             </div>
                         </div>
                         <div class="col-sm-12">
 
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(14,14,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(14,14,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(16,16,0)"> Continue</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(16,16,0)"> Continue</button>
                             </div>
 
                         </div>
@@ -4260,10 +4270,10 @@
                                     <br />
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="button" class='btn  btn-info' id="chkBank" onclick="clearBank()" value="Bank Account">
+                                    <input type="button" class='btn-alltype' id="chkBank" onclick="clearBank()" value="Bank Account">
                                 </div>
                                 <div class="col-sm-3">
-                                    <input type="button" class='btn btn-info active' id="chkACH" onclick="clearCard()" value="Credit Card">
+                                    <input type="button" class='btn-alltype active' id="chkACH" onclick="clearCard()" value="Credit Card">
                                 </div>
 
                                 <div class="col-sm-12">
@@ -4380,10 +4390,10 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(15,15,0)"> Back</button>
+                                    <button type="submit" class="btn-alltype" onclick="goToStep(15,15,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary payNext" id="btnpaynext" onclick="goToStep(17,17,0)" disabled> Continue</button>
+                                    <button type="submit" class="btn-alltype payNext" id="btnpaynext" onclick="goToStep(17,17,0)" disabled> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -4409,7 +4419,7 @@
                             </div>
 
                         </div>
-                        <div class="col-sm-12 table-bordered" id="divFinalcoappemail">
+                        <div class="col-sm-12 table-bordered hidden" id="divFinalcoappemail">
                             <div>
                                 <h5> <center> Now?</center></h5>
                                 <p>
@@ -4432,10 +4442,10 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(15,15,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(15,15,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" id="btnC2Tenant" class="btn btn-primary" onclick="cancel()">Submit Application</button>
+                                <button type="submit" id="btnC2Tenant" class="btn-alltype" onclick="cancel()">Submit Application</button>
                             </div>
                         </div>
                     </div>
@@ -4540,17 +4550,17 @@
                             <div class="col-sm-12 form-inline hidden">
                                 <div style="margin-top:30px"></div>
                                 <div class="text-center">
-                                    <button type="button" class="btn btn-primary" id="btnSave" onclick="SaveLeaseDocumentVerification()"><span id="spanSaveUpdate">Save</span></button>
+                                    <button type="button" class="btn-alltype" id="btnSave" onclick="SaveLeaseDocumentVerification()"><span id="spanSaveUpdate">Save</span></button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsgFinal"></b></p></div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(15,15,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(15,15,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(17,17,0)"> Continue</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(17,17,0)"> Continue</button>
                             </div>
                         </div>
                     </div>
@@ -5037,8 +5047,8 @@
             </div>
             <div class="modal-footer-custom">
                 <div class="col-sm-12 text-center">
-                    <button type="submit" class="btn btn-primary" id="btnsaveappl" onclick="saveupdateApplicant()">Save</button>
-                    <button type="submit" class="btn btn-primary hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
+                    <button type="submit" class="btn-alltype" id="btnsaveappl" onclick="saveupdateApplicant()">Save</button>
+                    <button type="submit" class="btn-alltype hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
                 </div>
             </div>
         </div>
@@ -5555,7 +5565,7 @@
                 </div>
             </div>
             <div class="col-sm-12 text-center">
-                <button type="button" class="btn btn-primary" onclick="saveupdateApplicantHistory()"><i class="fa fa-save"></i> Save</button>
+                <button type="button" class="btn-alltype" onclick="saveupdateApplicantHistory()"><i class="fa fa-save"></i> Save</button>
             </div>
 
         </div>
@@ -5904,8 +5914,8 @@
             <!-- Modal footer -->
             <div class="modal-footer-custom">
                 <div class="col-sm-12 text-center">
-                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary pull-right" onclick="saveEmployerHistory()" style="margin-right: 10px;">Save</button>
+                    <button type="button" class="btn-alltype pull-right" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn-alltype pull-right" onclick="saveEmployerHistory()" style="margin-right: 10px;">Save</button>
                 </div>
             </div>
         </div>
@@ -6290,7 +6300,7 @@
     </div>
 </div>
 <div class="modal " id="popApplicantContinue" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:100%">
+    <div class="modal-dialog" style="width:40%">
         <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg'); width: 100% !important;">
 
             <div class="modal-body">
@@ -6332,7 +6342,7 @@
     </div>
 </div>
 <div class="modal " id="popResponsibilityContinue" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:100%">
+    <div class="modal-dialog" style="width:40%">
         <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg'); width: 100% !important;">
 
             <div class="modal-body">

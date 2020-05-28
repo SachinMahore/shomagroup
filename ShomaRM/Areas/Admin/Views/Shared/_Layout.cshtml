@@ -20,7 +20,7 @@
 
 
 
-    <link href="~/Content/assets/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/normalize.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/font-awesome.min.css")">
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/fontello.css")">
@@ -42,25 +42,31 @@
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/stylenew.css")">
     <link rel="stylesheet" href="@Url.Content("/Content/jquery-confirm-master/css/jquery-confirm.css")" />
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/popupwindow.css")">
-    <link href="~/Content/fileUpload.css" rel="stylesheet" />
-    @*<link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.darkneon.css")">
-
-        <link rel="stylesheet" href="@Url.Content("/content/assets/css/glDatePicker.flatwhite.css")">*@
-
     <link rel="stylesheet" href="@Url.Content("/content/assets/css/responsive.css")">
     <script src="@Url.Content("/content/assets/js/jquery-1.10.2.min.js")"></script>
     <script src="@Url.Content("/content/assets/js/modernizr-2.6.2.min.js")"></script>
     <script src="@Url.Content("/content/assets/js/popupwindow.js")"></script>
+    <script src="@Url.Content("~/Content/Pages/common.js")"></script>
+    <script src="@Url.Content("/content/assets/js/jquery.simplePagination.js")"></script>
 
-    <link rel="stylesheet" href="@Url.Content("/Content/assets/css/jAlert.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("/Content/assets/css/stylenew.css")">
+    <link rel="stylesheet" href="@Url.Content("/content/assets/css/styleresponsiv.css")">
+    <script src="@Url.Content("~/Content/Pages/Home.js")"></script>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/fileUpload.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/timepicki.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/jAlert.css")" />
 
     <script src="@Url.Content("/content/assets/js/jAlert.min.js")"></script>
     <script src="@Url.Content("/content/assets/js/jTimeout.js")"></script>
-    <script src="@Url.Content("~/Content/Pages/common.js")"></script>
-    <script src="@Url.Content("/content/assets/js/jquery.simplePagination.js")"></script>
+
+
     <script src="@Url.Content("/Content/jquery.countdown.js")"></script>
     <script src="@Url.Content("/Content/jquery.countdown.min.js")"></script>
-    <script src="~/Content/keyboardcontrols.js"></script>
+
+
+    <script src="@Url.Content("~/Content/timepicki.js")"></script>
+    <script src="@Url.Content("~/Content/keyboardcontrols.js")"></script>
+
     @RenderSection("scripts", required: false)
 </head>
 <body oncontextmenu="return false;">

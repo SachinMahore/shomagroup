@@ -1567,6 +1567,7 @@ page-header
 .content-area {
     background-color: #FCFCFC;
     padding-bottom: 55px;
+    align-content:center;
 }
 
 .layout-switcher a {
@@ -3996,13 +3997,13 @@ div#bellDiv {
     font-size: 14px;
 }
 
-    .btn-alltype:hover, .btn-alltype:focus, .btn-alltype:active, .btn-alltype.active, .btn-alltype:active:focus, .open > .dropdown-toggle.btn-alltype {
-        color: #fff;
-        background-color: #B4ADA5;
-        border-color: #B4ADA5;
-        font-weight: 600;
-        padding: 5px 19px;
-        height: 42px;
-        font-size: 14px;
-    }
+.btn-alltype:hover, .btn-alltype:focus, .btn-alltype:active, .btn-alltype.active, .btn-alltype:active:focus, .open > .dropdown-toggle.btn-alltype {
+    color: #fff;
+    background-color: #B4ADA5;
+    border-color: #B4ADA5;
+    font-weight: 600;
+    padding: 5px 19px;
+    height: 42px;
+    font-size: 14px;
+}
 
