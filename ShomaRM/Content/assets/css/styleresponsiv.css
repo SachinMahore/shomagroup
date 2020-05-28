@@ -447,7 +447,7 @@ h3, .h3 {
 }
 
 .btn:hover {
-  color: #212529 !important;
+  /*color: #212529 !important;*/
   text-decoration: none !important;
 }
 
