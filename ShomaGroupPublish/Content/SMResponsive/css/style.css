@@ -5866,9 +5866,10 @@ a, button {
     -webkit-box-orient: horizontal !important;
     -webkit-box-direction: normal !important;
     -ms-flex-direction: row !important;
-    flex-direction: row !important
+    flex-direction: row !important;
+    padding: 140px;
+    padding-top: 0px;
 }
-
 .card {
     position: relative;
     display: -webkit-box;
@@ -6079,4 +6080,29 @@ h1 {
     font-size: 28px;
     color: #4d738a;
     margin-bottom: 0px;
+}
+@media (min-width:360px) and (max-width: 640px) {
+    .flex-md-row {
+        -webkit-box-orient: horizontal !important;
+        -webkit-box-direction: normal !important;
+        -ms-flex-direction: row !important;
+        flex-direction: column !important;
+        padding: 0px;
+    }
+}
+@media (min-width:360px) and (max-width: 640px) {
+    .custom-date-mb-1 {
+        margin-bottom: 30px;
+    }
+
+    .custom-date {
+        margin-left: 0px;
+        margin-top: 0px;
+        width: 330px;
+    }
+
+    .custom-date-icon {
+        margin-left: 305px;
+        margin-top: -33px;
+    }
 }

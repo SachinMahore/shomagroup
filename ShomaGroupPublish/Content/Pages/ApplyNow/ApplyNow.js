@@ -669,6 +669,18 @@ $(document).ready(function () {
     $("#ddlFurnishedUnit").on("change", function () {
         getPropertyModelUnitList();
     });
+
+    $("#listUnitNew tbody").on("click", "tr", function (e) {
+        var floorfromplan = localStorage.getItem("floorfromplan");
+        var floorid = $(this).data("floorid");
+        $("#fa_" + floorid).addClass('active_area', 'active_mouse').data('maphilight', { alwaysOn: true, fillColor: '0af11c', strokeColor: '0af11c' }).trigger('alwaysOn.maphilight');
+        if (floorid == floorfromplan) {
+            $("#fa_" + floorid).addClass('active_area', 'active_mouse').data('maphilight', { alwaysOn: true, fillColor: '0af11c', strokeColor: '0af11c' }).trigger('alwaysOn.maphilight');
+        }
+        else {
+            $("#fa_" + floorfromplan).removeClass('active_area', 'active_mouse').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
+        }
+    });
 });
 
 var cancel = function () {
@@ -6948,7 +6960,15 @@ function showFloorPlan(flid, numbedroom, modelname) {
 
                 if (value.UID == $("#hndUID").val()) {
                     html += "<area shape='poly' id='unId_" + value.UID + "' class='tooltips UUUarea' coords='" + value.Coordinates + "' href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")' >";
-                    html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>" + value.UnitNo + "<br/> Model: #" + value.ModelName + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba<br/> Price: $" + formatMoney(value.Current_Rent) + "</span><span> Available: Yes</span></div>";
+                    //html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'><span>" + value.UnitNo + "<br/> Model: #" + value.ModelName + "<br/>" + value.Bedroom + " bd / " + value.Bathroom + " ba<br/> Price: $" + formatMoney(value.Current_Rent) + "</span><span> Available: Yes</span></div>";
+                    html += "<div id='floorunId_" + value.UID + "' class='hidden divtooltipUnit'>" +
+                        "<span><img src='/content/assets/img/plan/" + value.ModelName + ".png' id='imgModel_" + value.UID + "' class='img-responsive' /></span><hr>" +
+                        "<span class='labelDivTool'>" + value.UnitNo + "</span><br />" +
+                        "<span> Model: #" + value.ModelName + "</span><br />" +
+                        "<span>" + value.Bedroom + " Bed / " + value.Bathroom + " Bath </span><br />" +
+                        "<span>" + value.LeasedTerms + " Months</span><br />" +
+                        "<span> Price: $" + formatMoney(value.Current_Rent) + "</span><br />" +
+                        "<span> Available: " + value.AvailableDateText + "</span><br /></div>";
                 }
             });
             html += "</map><br/>";
@@ -6965,16 +6985,19 @@ function showFloorPlan(flid, numbedroom, modelname) {
                 var offset = $(this).offset();
                 var X = (e.pageX - offset.left);
                 var Y = (e.pageY - offset.top);
-                X = X - 25;//X = X - 25;//X = X - 30
+                if (X < 0) {
+                    X = X + 55;
+                }
+                else if (X > 0) {
+                    X = X - 55;
+                }
+
                 if (Y < 0) {
-                    Y = Y + 200; // Y = Y + 615;//Y = Y + 525
+                    Y = Y + 200;
                 }
-                else {
-                    Y = Y - 180; // Y = Y + 390;//Y = Y + 300
+                else if (Y > 0) {
+                    Y = Y - 230;
                 }
-
-                console.log("Floor X : " + X + " Floor Y :" + Y);
-
                 var thisId = $(this).attr('id');
                 var divID = thisId.split("_");
                 $(".divtooltipUnit").addClass("hidden");
@@ -7105,33 +7128,22 @@ function getPropertyUnitListByFloor(flid) {
             $('.UUUarea').addClass('active_unavil').data('maphilight', { alwaysOn: true, fillColor: '324a59', strokeColor: '324a59', fillOpacity: 0.9 }).trigger('alwaysOn.maphilight');
             $(".tooltips").mouseout(function () { $(".divtooltipUnit").addClass("hidden"); });
             $(".tooltips").mouseover(function (e) {
-                //var offset = $(this).offset();
-                //var X = (e.pageX - offset.left);
-                //var Y = (e.pageY - offset.top);
-                //X = X - 30;
-                //if (Y < 0) {
-                //    Y = Y + 525;
-                //}
-                //else {
-                //    Y = Y + 300;
-                //}
-                //var thisId = $(this).attr('id');
-                //var divID = thisId.split("_");
-                //$(".divtooltipUnit").addClass("hidden");
-                //$("#floorunId_" + divID[1]).removeClass("hidden");
-                //$("#floorunId_" + divID[1]).css({ top: Y, left: X, position: 'absolute' });
-
                 var offset = $(this).offset();
                 var X = (e.pageX - offset.left);
                 var Y = (e.pageY - offset.top);
-                X = X - 25;//X = X - 25;//X = X - 30
+                if (X < 0) {
+                    X = X + 55;
+                }
+                else if (X > 0) {
+                    X = X - 55;
+                }
+
                 if (Y < 0) {
-                    Y = Y + 200; // Y = Y + 615;//Y = Y + 525
+                    Y = Y + 200;
                 }
-                else {
-                    Y = Y - 180; // Y = Y + 390;//Y = Y + 300
+                else if (Y > 0) {
+                    Y = Y - 230;
                 }
-               // console.log("Unit X : " + X + " Unit Y :" + Y);
                 var thisId = $(this).attr('id');
                 var divID = thisId.split("_");
                 $(".divtooltipUnit").addClass("hidden");
@@ -10523,19 +10535,20 @@ var btnApplyNowLeaseGreat = function () {
 var showPriceTable = function (uid) {
 
     $("#hndUID").val(uid);
-    getPropertyUnitDetails(uid)
+    getPropertyUnitDetails(uid);
     $('#divPriceTable').removeClass('hidden');
     $('#divSelectUnit').addClass('hidden');
 };
 
 var showMonthlyCharges = function (uid) {
-    getPropertyUnitDetails(uid)
+    getPropertyUnitDetails(uid);
     $('#popMonthlyCharges').modal('show');
 };
 var goToSelectUnit = function () {
     $('#divPriceTable').addClass('hidden');
     $('#divSelectUnit').removeClass('hidden');
     $("#hndOldUID").val($("#hndUID").val());
+    getPropertyUnitDetails($("#hndUID").val());
 };
 var goToPriceTable = function () {
     $('#divPriceTable').removeClass('hidden');
@@ -10675,6 +10688,9 @@ var getPropertyUnitDetails = function (uid) {
             $.each(response.model.LeaseTerms, function (elementType, value) {
                 $("#ddlAvailableFloorPlanLeaseTerm").append("<option value=" + value.LeaseId + ">" + value.LeaseName + ' ($' + formatMoney(value.LeasePrice) + ') ' + "</option>");
 
+                if ($("#hndLeaseTermID").val() == value.LeaseId) {
+                    $('#lblAvailableFloorPlanStartingPrice').text(formatMoney(value.LeasePrice));
+                }
             });
 
             $('#ddlAvailableFloorPlanLeaseTerm').val($("#hndLeaseTermID").val());

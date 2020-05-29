@@ -4549,19 +4549,19 @@ var updateResStatus = function (id) {
     var resstatus = $("#ddlResidanceStatus" + id).val();
     var resnotes = $("#txtResNotes" + id).val();
   
-    if ($("#txtResNotes" + id).val() == '') {
-        msg += 'Please Fill Residence Notes</br>';
-    }
+    //if ($("#txtResNotes" + id).val() == '') {
+    //    msg += 'Please Fill Residence Notes</br>';
+    //}
 
-    if (msg != '') {
-        $("#divLoader").hide();
-        $.alert({
-            title: "",
-            content: msg,
-            type: 'blue'
-        });
-        return
-    }
+    //if (msg != '') {
+    //    $("#divLoader").hide();
+    //    $.alert({
+    //        title: "",
+    //        content: msg,
+    //        type: 'blue'
+    //    });
+    //    return
+    //}
     var model = {
         ID: id,
         ResidenceStatus: resstatus,
@@ -4593,19 +4593,19 @@ var updateEmpStatus = function (id) {
     var empstatus = $("#ddlEmpStatus" + id).val();
     var empnotes = $("#txtEmpNotes" + id).val();
    
-    if ($("#txtEmpNotes" + id).val() == '') {
-        msg += 'Please Fill Employment Notes</br>';
-    }
+    //if ($("#txtEmpNotes" + id).val() == '') {
+    //    msg += 'Please Fill Employment Notes</br>';
+    //}
 
-    if (msg != '') {
-        $("#divLoader").hide();
-        $.alert({
-            title: "",
-            content: msg,
-            type: 'blue'
-        });
-        return
-    }
+    //if (msg != '') {
+    //    $("#divLoader").hide();
+    //    $.alert({
+    //        title: "",
+    //        content: msg,
+    //        type: 'blue'
+    //    });
+    //    return
+    //}
     var model = {
         ID: id,
         EmpStatus: empstatus,
