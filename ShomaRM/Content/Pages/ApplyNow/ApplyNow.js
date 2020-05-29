@@ -11168,3 +11168,60 @@ function showPopAvailableFloorPlan(id) {
     getPropertyUnitDetails(id);
     $('#popAvailableFloorPlanDetailss').modal('show');
 }
+var printMonthlySummary = function () {
+    $("#divLoader").show();
+    var modelImage = $("#popMonthlyChargesModel").text();
+    var modelName = $("#popMonthlyChargesModel").text();
+    var unitNo = $("#popMonthlyChargesUnit").text();
+    var leaseTerm = $("#popMonthlyChargesLeaseTerm").text();
+    var moveInDate = $("#popMonthlyChargesDesMoveIn").text();
+    var bedrooms = $("#popMonthlyChargesBedrooms").text();
+    var bathrooms = $("#popMonthlyChargesBathrooms").text();
+    var sqFt = $("#popMonthlyChargesArea").text();
+    var occupancy = $("#popMonthlyChargesOccupancy").text();
+    var deposit = $("#popMonthlyChargesDeposit").text();
+    var baseRent = $("#popMonthlyChargesBaseRent").text();
+    var premium = $('#popMonthlyChargesPremium').text();
+    var promotion = $('#popMonthlyChargesPropmotion').text();
+    var subtotal = $('#popMonthlyChargesSubtotal1').text();
+    var pestControl = $('#popMonthlyChargesPestControl').text();
+    var trashRecycle = $('#popMonthlyChargesTrashRecycle').text();
+    var convergentBillingFee = $('#popMonthlyChargesConvergentBilling').text();
+    var additionalSubtotal = $('#popMonthlyChargesSubtotal2').text();
+    var totalMonthlyCharges = $('#popMonthlyChargesTotalMonthlyCharges').text();
+    var model = {
+        ModelImage: modelImage,
+        ModelName: modelName,
+        UnitNo: unitNo,
+        LeaseTerm: leaseTerm,
+        MoveInDate: moveInDate,
+        Bedrooms: bedrooms,
+        Bathrooms: bathrooms,
+        SqFt: sqFt,
+        Occupancy: occupancy,
+        Deposit: deposit,
+        BaseRent: baseRent,
+        Premium: premium,
+        Promotion: promotion,
+        Subtotal: subtotal,
+        PestControl: pestControl,
+        TrashRecycle: trashRecycle,
+        ConvergentBillingFee: convergentBillingFee,
+        AdditionalSubtotal: additionalSubtotal,
+        TotalMonthlyCharges: totalMonthlyCharges
+    };
+    $.ajax({
+        url: '/ApplyNow/PrintMonthlySummary',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            $("#ifrmMonthlySummary").attr("src", response.filename);
+            setTimeout(function () {
+                $("#ifrmMonthlySummary").get(0).contentWindow.print();
+            }, 3000);
+        }
+    });
+};
