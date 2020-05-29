@@ -1654,6 +1654,66 @@ namespace ShomaRM.Models
 
             return filename;
         }
+        public string PrintMonthlySummary(PrintMonthlySummary model)
+        {
+            string filename = "";
+            try
+            {
+
+                string reportHTML = "";
+                string savePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/Document/");
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+                reportHTML = System.IO.File.ReadAllText(filePath + "MonthlySummary.html");
+
+                reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+
+                reportHTML = reportHTML.Replace("[%ModelImage%]", model.ModelImage);
+                reportHTML = reportHTML.Replace("[%ModelName%]", model.ModelName);
+                reportHTML = reportHTML.Replace("[%UnitNo%]", model.UnitNo);
+                reportHTML = reportHTML.Replace("[%LeaseTerm%]", model.LeaseTerm);
+                reportHTML = reportHTML.Replace("[%MoveInDate%]", model.MoveInDate);
+                reportHTML = reportHTML.Replace("[%Bedrooms%]", model.Bedrooms);
+                reportHTML = reportHTML.Replace("[%Bathrooms%]", model.Bathrooms);
+                reportHTML = reportHTML.Replace("[%SqFt%]", model.SqFt);
+                reportHTML = reportHTML.Replace("[%Occupancy%]", model.Occupancy);
+                reportHTML = reportHTML.Replace("[%Deposit%]", model.Deposit);
+                reportHTML = reportHTML.Replace("[%BaseRent%]", model.BaseRent);
+                reportHTML = reportHTML.Replace("[%Premium%]", model.Premium);
+                reportHTML = reportHTML.Replace("[%Promotion%]", model.Promotion);
+                reportHTML = reportHTML.Replace("[%Subtotal%]", model.Subtotal);
+                reportHTML = reportHTML.Replace("[%PestControl%]", model.PestControl);
+                reportHTML = reportHTML.Replace("[%TrashRecycle%]", model.TrashRecycle);
+                reportHTML = reportHTML.Replace("[%ConvergentBillingFee%]", model.ConvergentBillingFee);
+                reportHTML = reportHTML.Replace("[%AdditionalSubtotal%]", model.AdditionalSubtotal);
+                reportHTML = reportHTML.Replace("[%TotalMonthlyCharges%]", model.TotalMonthlyCharges);
+
+                List<IElement> elements = iText.Html2pdf.HtmlConverter.ConvertToElements(reportHTML).ToList();
+                byte[] bytes;
+                using (var stream = new MemoryStream())
+                {
+                    PdfDocument pdf = new PdfDocument(new PdfWriter(stream));
+                    pdf.SetTagged();
+                    Document document = new Document(pdf);
+                    document.SetMargins(0, 0, 0, 0);
+                    foreach (IElement element in elements)
+                    {
+                        document.Add((IBlockElement)element);
+                    }
+                    document.Close();
+                    bytes = stream.ToArray();
+                }
+                string fileUID = DateTime.Now.ToFileTime().ToString();
+                filename = savePath + "MonthlySummary_" + fileUID + ".pdf";
+                System.IO.File.WriteAllBytes(filename, bytes);
+                filename = "/Content/assets/img/Document/MonthlySummary_" + fileUID + ".pdf";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return filename;
+        }
         public string SendQuotationEmail(PrintQuotationModel model)
         {
             string ApplyNowQuotationNo = "";
