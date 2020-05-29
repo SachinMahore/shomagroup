@@ -1,7 +1,7 @@
 ﻿@using ShomaRM.Models
 @model OnlineProspectModule
 @{
-    ViewBag.Title = "Apply Now";
+    ViewBag.Title = "Apply Now"; 
 
 }
 <link rel="stylesheet" href="@Url.Content("~/content/bootstrap.min.css")" />
@@ -6233,7 +6233,6 @@
                 <h5 class="modal-title"></h5>
                 <button type="button" class="close" data-dismiss="modal" style="color:black;"><i class="fa fa-times-circle"></i></button>
             </div>
-
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="container" style="width: 100%;">
@@ -6271,7 +6270,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-xl-6 col-md-6">
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -6296,7 +6294,9 @@
                             </div>
                             <div class=""></div>
                             <div class="clearfix"></div>
-                            <div class="text-center padding-top1"><a href="#" class="genric-btn success" onclick="print('printables')">Print</a></div>
+                            @*<div class="text-center"><a href="#" class="genric-btn success" onclick="print('printables')">Print</a></div>*@
+                            <div class="text-center"><a href="#" class="genric-btn success" onclick="printMonthlySummary()">Print</a></div>
+                            <iframe id="ifrmMonthlySummary" class="hidden" width="100%" height="625" frameborder="0" style="border:0" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
