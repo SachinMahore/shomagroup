@@ -281,7 +281,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         {
                             if (!string.IsNullOrWhiteSpace(model.Phone))
                             {
-                                new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Your Application Added As Co-applicant. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
+                                new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.Phone, "Hello this is Sanctuary Doral. " + mainappdet.FirstName + " " + mainappdet.LastName + " has added you as a "+ model.Type + ". Please go to "+ serverURL+" and signin with ID: " + model.Email + " & Password :" + pass );
                             }
                         }
                     }
