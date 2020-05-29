@@ -4361,7 +4361,7 @@ var getApplicantListsGuarantor = function () {
                 if (elementValue.Type != "Primary Applicant") {
                     html += "<div class='col-sm-4 box-two proerty-item' id='div_" + elementValue.ApplicantID + "'>";
                     html += "<div class='form-group col-sm-3'><br>";
-                    html += "<img src='/Content/assets/img/user.png'></div>";
+                    html += "<img src='/Content/assets/img/user.png' style='width: 100px;'></div>";
                     html += "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>";
                     html += "<label> " + elementValue.Type + " </label><br/>";
                     if (elementValue.Type == "Guarantor") {
@@ -4374,13 +4374,14 @@ var getApplicantListsGuarantor = function () {
                         html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                     }
                     else {
-                        html += "<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;";
+                        html += "<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;"+
+                        "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                     }
                 }
                 else {
                     html += "<div class='col-sm-4 box-two proerty-item'>" +
                         "<div class='form-group col-sm-3'><br>" +
-                        "<img src='/Content/assets/img/user.png'></div>" +
+                        "<img src='/Content/assets/img/user.png' style='width: 100px;'></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                         "<label>Primary Applicant</label><br/>" +
                         "<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;" +
