@@ -77,6 +77,17 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult SaveOnlineProspectGeneratrQuote(OnlineProspectModule model)
+        {
+            try
+            {
+                return Json(new { msg = (new OnlineProspectModule().SaveOnlineProspectGeneratrQuote(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         public ActionResult GetTenantOnlineListGenerateQuotation(int id, long UserId)
         {

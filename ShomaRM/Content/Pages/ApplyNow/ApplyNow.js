@@ -9878,20 +9878,31 @@ function saveCoAppPaymentPopup() {
         return;
     }
 
-    if ($("#hndTransMethod2").val() == "2") {
-        var paymentMethod = 2;
-        var propertyId = $("#hndUID").val();
-        var nameonCard = $("#txtNameonCard2").val();
-        var cardNumber = $("#txtCardNumber2").val();
-        var cardMonth = $("#ddlcardmonth2").val();
-        var cardYear = $("#ddlcardyear2").val();
-        var ccvNumber = $("#txtCCVNumber2").val();
-        var prospectID = $("#hdnOPId").val();
-        var amounttoPay = $("#sppayFees").text();
-        var description = $("#lblpopcctitle").text();
+    var paymentMethod = 2;
+    var propertyId =0;
+    var nameonCard = "";
+    var cardNumber = "";
+    var cardMonth = 0;
+    var cardYear = 0;
+    var ccvNumber = "";
+    var prospectID = 0;
+    var amounttoPay = 0;
+    var description ="";
 
-        var routingNumber = $("#txtRoutingNumber2").val();
-        var bankName = $("#txtBankName1").val();
+    if ($("#hndTransMethod2").val() == "2") {
+        paymentMethod = 2;
+        propertyId = $("#hndUID").val();
+        nameonCard = $("#txtNameonCard2").val();
+        cardNumber = $("#txtCardNumber2").val();
+        cardMonth = $("#ddlcardmonth2").val();
+        cardYear = $("#ddlcardyear2").val();
+        ccvNumber = $("#txtCCVNumber2").val();
+        prospectID = $("#hdnOPId").val();
+        amounttoPay = $("#sppayFees2").text();
+        description = $("#lblpopcctitle").text();
+
+        routingNumber = $("#txtRoutingNumber2").val();
+        bankName = $("#txtBankName1").val();
 
         if (!nameonCard) {
             msg += "Please Enter Name on Card</br>";
@@ -9926,18 +9937,18 @@ function saveCoAppPaymentPopup() {
             return;
         }
     } else {
-        var paymentMethod = 1;
-        var nameonCard = $("#txtAccountName2").val();
-        var cardNumber = $("#txtAccountNumber2").val();
-        var cardMonth = 0;
-        var cardYear = 0;
-        var ccvNumber = 0;
-        var routingNumber = $("#txtRoutingNumber2").val();
-        var bankName = $("#txtBankName2").val();
-        var amounttoPay = $("#sppayFees2").text();
-        var description = $("#lblpopcctitle").text();
-        var prospectID = $("#hdnOPId").val();
-        var propertyId = $("#hndUID").val();
+        paymentMethod = 1;
+        nameonCard = $("#txtAccountName2").val();
+        cardNumber = $("#txtAccountNumber2").val();
+        cardMonth = 0;
+         cardYear = 0;
+        ccvNumber = 0;
+        routingNumber = $("#txtRoutingNumber2").val();
+        bankName = $("#txtBankName2").val();
+        amounttoPay = $("#sppayFees2").text();
+        description = $("#lblpopcctitle").text();
+         prospectID = $("#hdnOPId").val();
+        propertyId = $("#hndUID").val();
         if (nameonCard == "") {
             msg += "Please Enter Account Name</br>";
         }
@@ -9992,10 +10003,15 @@ function saveCoAppPaymentPopup() {
                         success: function (response) {
                             if (response.Msg != "") {
                                 if (response.Msg == "1") {
-                                    $("#ResponseMsg1").html("Payment successfull");
+                                    $("#ResponseMsg2").html("Payment successfull");
+                                    if (parseInt($("#hndFromAcc").val()) == 4) {
+                                        $("#divAppWarning").addClass("hidden");
+                                        $("#btnnextAppinfo").removeClass("hidden");
+                                    }
                                     getApplicantLists();
+                                    $("#popCCPay").modal("hide");
                                 } else {
-                                    $("#ResponseMsg1").html("Payment failed");
+                                    $("#ResponseMsg2").html("Payment failed");
                                 }
                             }
                         }

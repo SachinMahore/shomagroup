@@ -7839,19 +7839,19 @@ var SaveOnlineProspectQuotation = function () {
         }
     }
 
-    if (!password) {
-        msg += "Please fill the Password </br>";
-    } else {
+    //if (!password) {
+    //    msg += "Please fill the Password </br>";
+    //} else {
 
-        var result = checkStrength($("#txtPassword").val());
-        if (!result) {
-            return;
-        }
+    //    var result = checkStrength($("#txtPassword").val());
+    //    if (!result) {
+    //        return;
+    //    }
 
-        if (password != confirmPassword) {
-            msg += "Password and Confirm Password must be the same</br>";
-        }
-    }
+    //    if (password != confirmPassword) {
+    //        msg += "Password and Confirm Password must be the same</br>";
+    //    }
+    //}
 
     if (msg != "") {
         $.alert({
@@ -7872,7 +7872,7 @@ var SaveOnlineProspectQuotation = function () {
         Email: emailId,
         Phone: phoneNumber,
         Address: address,
-        Password: password,
+        Password: "password",
         DateofBirth: dob,
         AnnualIncome: annualIncome,
         AddiAnnualIncome: addiAnnualIncome,
@@ -7896,7 +7896,7 @@ var SaveOnlineProspectQuotation = function () {
     };
 
     $.ajax({
-        url: '/ApplyNow/SaveOnlineProspect',
+        url: '/GenerateQuotation/SaveOnlineProspectGeneratrQuote',
         type: 'post',
         data: JSON.stringify(model),
         contentType: 'application/json; charset=utf-8',
