@@ -1725,28 +1725,6 @@ namespace ShomaRM.Models
             {
                 ShomaRMEntities db = new ShomaRMEntities();
 
-                //DataTable dtTable = new DataTable();
-                //using (var cmd = db.Database.Connection.CreateCommand())
-                //{
-                //    db.Database.Connection.Open();
-                //    cmd.CommandText = "usp_GetQuotationNoByEmail";
-                //    cmd.CommandType = CommandType.StoredProcedure;
-
-                //    DbParameter paramCUID = cmd.CreateParameter();
-                //    paramCUID.ParameterName = "Email";
-                //    paramCUID.Value = Email;
-                //    cmd.Parameters.Add(paramCUID);
-
-                //    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
-                //    da.SelectCommand = cmd;
-                //    da.Fill(dtTable);
-                //    db.Database.Connection.Close();
-                //}
-                //if (dtTable.Rows.Count > 0)
-                //{
-                //    ApplyNowQuotationNo = dtTable.Rows[0]["QuotationNo"].ToString();
-                //}
-
                 long tenantID = 0;
                 try
                 {
@@ -1760,8 +1738,6 @@ namespace ShomaRM.Models
                     var appDetails = db.tbl_Login.Where(co => co.UserID == applyNowData.UserId).FirstOrDefault();
                     var getAppldata = db.tbl_Applicant.Where(p => p.UserID == applyNowData.UserId).FirstOrDefault();
                     string pass = new EncryptDecrypt().DecryptText(appDetails.Password);
-
-                  
 
                     if (appDetails != null)
                     {
@@ -1783,9 +1759,11 @@ namespace ShomaRM.Models
                         reportCoappHTML = reportCoappHTML.Replace("[%ServerURL%]", serverURL);
 
                         reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Your Application Added as Primary Applicant. Fill your Details");
-                        reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Online Application Added as per details provided by you for Sanctuary Doral. Fill your Details by clicking \"LOGIN\" link using credintials <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + appDetails.Username + " </br>Password :" + pass + "<br/><br/>OR<br/><br/>Using Quotation Number : " + ApplyNowQuotationNo + "<br/><br/>You can pay your credit check fees by clicking \"PAY NOW\" link");
+                        //reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Online Application Added as per details provided by you for Sanctuary Doral. Fill your Details by clicking \"LOGIN\" link using credintials <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + appDetails.Username + " </br>Password :" + pass + "<br/><br/>OR<br/><br/>Using Quotation Number : " + ApplyNowQuotationNo + "<br/><br/>You can pay your credit check fees by clicking \"PAY NOW\" link");
+                        reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Online Application Added as per details provided by you for Sanctuary Doral. Fill your Details by clicking \"LOGIN\" link using credintials <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + appDetails.Username + " </br>Password :" + pass + "<br/><br/>OR<br/><br/>Using Quotation Number : " + ApplyNowQuotationNo + "<br/>");
                         reportCoappHTML = reportCoappHTML.Replace("[%TenantName%]", appDetails.FirstName + " " + appDetails.LastName);
-                        reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]--><!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                        //reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]--><!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                        reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
                         string coappbody = reportCoappHTML;
 
                         List<string> filePaths = new List<string>();
@@ -1801,13 +1779,13 @@ namespace ShomaRM.Models
                         catch { }
                         new EmailSendModel().SendEmailWithAttachment(model.Email, "Your Application Added. Fill your Details", coappbody, filePaths);
 
-                        //if (SendMessage == "yes")
-                        //{
-                        //    if (!string.IsNullOrWhiteSpace(model.PhoneNumber))
-                        //    {
-                        //        new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.PhoneNumber, "Your Application Added. Fill your Details. Credentials has been sent on your email. Please check the email for detail.");
-                        //    }
-                        //}
+                        if (SendMessage == "yes")
+                        {
+                            if (!string.IsNullOrWhiteSpace(model.PhoneNumber))
+                            {
+                                new ShomaRM.Models.TwilioApi.TwilioService().SMS(model.PhoneNumber, "Hello this is Sanctuary Doral. "+ appDetails.FirstName + " "+ appDetails.LastName + " has added you as a primary applicant. Please go to "+ serverURL + "/Account/Login and signin using quotation #"+ ApplyNowQuotationNo);
+                            }
+                        }
                     }
                     msg = "Email send successfully";
                 }

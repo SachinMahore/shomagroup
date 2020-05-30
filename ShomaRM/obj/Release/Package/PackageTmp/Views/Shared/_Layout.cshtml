@@ -56,7 +56,7 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/fileUpload.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/timepicki.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/jAlert.css")" />
-  
+
     <script src="@Url.Content("~/Content/timepicki.js")"></script>
     <script src="@Url.Content("~/Content/keyboardcontrols.js")"></script>
 
@@ -72,7 +72,7 @@
     <div id="divLoader" style="display:none"></div>
     <div id="divLoaderFullData" style="display:none"></div>
     <div id="divLoaderFloorData" style="display:none"></div>
-   
+
     <!-- footer start -->
     <footer class="footer">
         <div class="footer_top">
@@ -369,6 +369,7 @@
         font-weight: bold;
         opacity: 1;
     }
+
     .closeSign {
         color: #fff;
         float: right;
@@ -377,13 +378,14 @@
         opacity: 1;
     }
 
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-            opacity: 1;
-        }
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        opacity: 1;
+    }
+
     .closeSign:hover,
     .closeSign:focus {
         color: #000;
@@ -432,6 +434,7 @@
         margin-top: 10px;
         border: 2px solid black;
     }
+
     #btnAddVehicle {
         margin: 15px !important;
     }
@@ -449,8 +452,9 @@
         background: url(/Content/assets/img/loader.gif) center no-repeat rgba(255,255,255,0.5);
         display: none;
     }
+
     #divLoaderFullData {
-        z-index:9999!important;
+        z-index: 9999 !important;
         position: fixed;
         width: 100%;
         left: 0;
@@ -461,6 +465,7 @@
         background: url(/Content/assets/img/loader.gif) center no-repeat rgba(255,255,255,0.75);
         display: none;
     }
+
     #divLoaderFloorData {
         z-index: 9999 !important;
         position: fixed;
@@ -473,11 +478,12 @@
         background: url(/Content/assets/img/loader.gif) center no-repeat rgba(255,255,255,0.75);
         display: none;
     }
+
     .popupwindow_container {
         z-index: 9999 !important;
     }
 </style>
-
+ <script src = "https://widget.flow.ai/w/MGNjYzQ0ZTgtNWU4NS00NGM5LTg1NjQtMjZjNjNiNWNmOTNkfDZmYTMzYjY5LTMzYTItNDA0Mi1hYmZjLTUzY2NiMjU3Mzc4ZA==/flow-webclient-1.1.2.min.js" ></script>
 <script>
     // Parse the URL parameter
     function getParam(source, url) {
@@ -546,7 +552,7 @@
 
         });
     };
-   var  submitSignIn=function(event) {
+    var submitSignIn = function (event) {
         if (event.which == 13) {
             SignIn();
         }
@@ -647,10 +653,10 @@
 
     // Get the button that opens the modal
     ////var btn = document.getElementById("btnsignIn");
-   
+
     var span = document.getElementsByClassName("closeSign")[0];
 
-   
+
     ////btn.onclick = function () {
     ////    goToSignIn();
     ////    modal.style.display = "block";
@@ -668,19 +674,21 @@
         }
     }
 
-    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-    (function () {
-        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-        s1.async = true;
-        s1.src = 'https://embed.tawk.to/5ba1e602c9abba579677af49/1dhol8k6b';
-        s1.charset = 'UTF-8';
-        s1.setAttribute('crossorigin', '*');
-        s0.parentNode.insertBefore(s1, s0);
-    })();
+    //var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    //(function () {
+    //    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+    //    s1.async = true;
+    //    s1.src = 'https://embed.tawk.to/5ba1e602c9abba579677af49/1dhol8k6b';
+    //    s1.charset = 'UTF-8';
+    //    s1.setAttribute('crossorigin', '*');
+    //    s0.parentNode.insertBefore(s1, s0);
+    //})();
+
+
 
 
     $(function () {
-  
+
 
         $("#txtMoveDate").datepicker({ autoclose: true, dateFormat: "MM/dd/yyyy", startDate: new Date() });
     });
@@ -698,7 +706,7 @@
         //    keepLiveUrl: keepLive,
         //    idleTimeLimit: 120,         // 'No activity' time limit in seconds. 840 = 15 Minutes
         //    idleCheckHeartbeat: 2,
-        //    customCallback: false, 
+        //    customCallback: false,
         //    activityEvents: 'keydown mousewheel mousedown touchstart touchmove',
         //    enableDialog: true,
         //    dialogDisplayLimit: 60,     // Time to display the warning dialog before logout (and optional callback) in seconds. 300 = 5 Minutes
@@ -717,7 +725,7 @@
         //$("#btnContact").on("click", function (event) {
         //    $("#popContactForm").modal("show");
         //});
-      
+
         fillLStateDDL();
         $("#ddlState").on('change', function (evt, params) {
             var selected = $(this).val();
@@ -728,7 +736,7 @@
         fillMarketSourceDDL();
     });
     var saveProspectForm = function () {
-     
+
         $("#divLoader").show();
         var msg = "";
         var fname = $("#txtFirstName1").val();
@@ -915,10 +923,10 @@
 
         $('#MtDate').click(function () {
             $("#txtMoveDate").focus();
-        }); 
+        });
         onFocusMainLayout();
     });
-    
+
     function goToSignIn() {
         $("#Signinbtn, #DivPass, #signInHead").removeClass("hidden");
         $("#forgtPassHead, #Forgtbtn").addClass("hidden");

@@ -62,13 +62,13 @@
 
 
 
-            <ul style="line-height: 14px;width:1500px;" class="nav nav-tabs wizard">
+            <ul style="line-height: 14px;" class="nav nav-tabs wizard">
                 <li class="active" style="padding-right:2px" id="li1"><a href="javascript:void(0);" onclick="goToStepQuotation(1,0,0)"> 1. Floor Plan </a></li>
                 <li id="li2"><a href="javascript:void(0);" id="as2" onclick="goToStepQuotation(2,2,1)">2. Select Units</a></li>
                 <li id="li3"><a href="javascript:void(0);" id="as3" onclick="goToStepQuotation(4,4,0)">3. Select Options</a></li>
-                <li id="li4"><a href="javascript:void(0);" id="as4" onclick="goToStepQuotation(5,5,0)">4. Quotation</a></li>
+                <li id="li4"><a href="javascript:void(0);" id="as4">4. Quotation</a></li>
                 @*<li id="li5"><a href="javascript:void(0);" id="as5" onclick="goToStepQuotation(6,6,0)">5. Policies & Conditions </a></li>*@
-                <li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStepQuotation(7,7,0)">5. Complete Application</a></li>
+                @*<li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStepQuotation(7,7,0)">5. Complete Application</a></li>*@
 
             </ul>
             @*<div class="text-center">
@@ -646,13 +646,13 @@
                                 <input class="form-control form-control-small" id="txtZipReg" maxlength="7" />
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 hidden">
                             <div class="form-group">
                                 <label for="txtPassword" class="star">Password</label>&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-info-circle" style="cursor: pointer;" onclick="passwordInfo()"></i>
                                 <input type="password" class="form-control" id="txtPassword" value="@Model.Password" placeholder="Password" onblur="checkStrength($(this).val());">
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4 hidden">
                             <div class="form-group">
                                 <label for="txtPassword" class="star">Confirm Password</label>
                                 <input type="password" class="form-control" id="txtConfPassword" value="@Model.Password" placeholder="Confirm Password">
@@ -1028,6 +1028,7 @@
                                 <div class="pull-right text-center">
                                     <button type="button" class="btn-alltype wow animated gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                                     <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStepQuotation(5,5,0)"> Continue</button>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -1456,8 +1457,9 @@
                         <div class="text-center">
                             <button id="quotePrint" class="btn-alltype" onclick="printQuotationPrint()"> Print</button>
                             <div class="pull-right">
-                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStepQuotation(7,7,0)"> Continue</button>
-                                <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
+                                @*<button type="submit" class="btn-alltype" id="btnnext" onclick="goToStepQuotation(7,7,0)"> Continue</button>
+        <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>*@
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="sendQuotationEmail();">Send Quotation</button>
                             </div>
                         </div>
                     </div>
@@ -1618,7 +1620,7 @@
                                     <button type="submit" class="btn-alltype wow elvetica-font" onclick="goToStepQuotation(5,5,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn-alltype" id="btnnext" onclick="sendQuotationEmail();"> Send Quotation & Pay Credit Check Link</button>
+                                    <button type="submit" class="btn-alltype" id="btnnext" onclick="sendQuotationEmail();">Send Quotation</button>
                                 </div>
                             </div>
                         </div>
