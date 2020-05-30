@@ -1281,231 +1281,231 @@
 
                                 @*monthlychargesstart*@
 
-                            <div class="row" style="margin-top:4%;">
-                                <div class="col-md-6 col-sm-12 col-xs-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <span style="text-decoration:underline;font-weight:bold;">MONTHLY CHARGES:</span>
+                                <div class="row" style="margin-top:4%;">
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <span style="text-decoration:underline;font-weight:bold;">MONTHLY CHARGES:</span>
 
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                <span style="text-decoration:underline;font-weight:bold;">Monthly</span>
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                <span style="text-decoration:underline;font-weight:bold;">Prorated</span>
+
+                                            </div>
                                         </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            <span style="text-decoration:underline;font-weight:bold;">Monthly</span>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-xs-6" rowspan="2">
+                                                <span> Monthly Rent </span>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $<span id="lblMonthly_MonthlyCharge" style="text-decoration:underline;font-weight:bold;"></span>
 
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $ <span id="lblProrated_MonthlyCharge" style="text-decoration:underline;font-weight:bold;"></span>
+
+                                            </div>
                                         </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            <span style="text-decoration:underline;font-weight:bold;">Prorated</span>
 
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <span><i> Additional Services </i></span>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                                <span> Trash/Recycle </span>
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                                <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $<span id="spanTrashRecycle" style="text-decoration:underline;font-weight:bold;">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $ <span id="lblProrated_TrashAmt" style="text-decoration:underline;font-weight:bold;"></span>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                                <span> Pest Control </span>
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                                <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $<span id="spanPestControl" style="text-decoration:underline;font-weight:bold;">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $ <span id="lblProrated_PestAmt" style="text-decoration:underline;font-weight:bold;"></span>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                                <span> Convergent billing fee </span>
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                                <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $<span id="spanConvergentAmt" style="text-decoration:underline;font-weight:bold;">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $ <span id="lblProrated_ConvergentAmt" style="text-decoration:underline;font-weight:bold;"></span>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                <span><i> Selected Options </i></span>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                                <span> Aditional Parking </span>
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                                <span style="text-decoration:underline;font-weight:bold;" id="parkUnit"></span>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $<span id="lblMonthly_AditionalParking" style="text-decoration:underline;font-weight:bold;">@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $ <span id="lblProrated_AditionalParking" style="text-decoration:underline;font-weight:bold;"></span>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                                <span> Storage </span>
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                                <span style="text-decoration:underline;font-weight:bold;" id="storUnit"></span>
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $<span id="lblMonthly_Storage" style="text-decoration:underline;font-weight:bold;">@((Model.StorageAmt ?? 0).ToString("0.00"))</span>
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $ <span id="lblProrated_Storage" style="text-decoration:underline;font-weight:bold;"></span>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                                <span> Pet Fee </span>
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                                <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $<span id="lblMonthly_PetRent" style="text-decoration:underline;font-weight:bold;">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $ <span id="lblProrated_PetRent" style="text-decoration:underline;font-weight:bold;"></span>
+
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                <hr>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                <hr>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                                <span> Estimated Monthly Charges </span>
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                                <span style="text-decoration:underline;font-weight:bold;"></span>
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $<span id="lblMonthly_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
+
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                $ <span id="lblProrated_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                            </div>
+                                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3" style="color:green">
+                                                <hr>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                                <hr>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12 col-xs-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div class="box mt-10"> Move-in fees and pro-rated rent is due at or before move-in.</div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6 col-xs-6" rowspan="2">
-                                            <span> Monthly Rent </span>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $<span id="lblMonthly_MonthlyCharge" style="text-decoration:underline;font-weight:bold;"></span>
-
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $ <span id="lblProrated_MonthlyCharge" style="text-decoration:underline;font-weight:bold;"></span>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <span><i> Additional Services </i></span>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-4 col-xs-4">
-                                            <span> Trash/Recycle </span>
-                                        </div>
-                                        <div class="col-md-2 col-sm-2 col-xs-2">
-                                            <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $<span id="spanTrashRecycle" style="text-decoration:underline;font-weight:bold;">@((Model.TrashAmt ?? 0).ToString("0.00"))</span>
-
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $ <span id="lblProrated_TrashAmt" style="text-decoration:underline;font-weight:bold;"></span>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-4 col-xs-4">
-                                            <span> Pest Control </span>
-                                        </div>
-                                        <div class="col-md-2 col-sm-2 col-xs-2">
-                                            <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $<span id="spanPestControl" style="text-decoration:underline;font-weight:bold;">@((Model.PestAmt ?? 0).ToString("0.00"))</span>
-
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $ <span id="lblProrated_PestAmt" style="text-decoration:underline;font-weight:bold;"></span>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-4 col-xs-4">
-                                            <span> Convergent billing fee </span>
-                                        </div>
-                                        <div class="col-md-2 col-sm-2 col-xs-2">
-                                            <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $<span id="spanConvergentAmt" style="text-decoration:underline;font-weight:bold;">@((Model.ConvergentAmt ?? 0).ToString("0.00"))</span>
-
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $ <span id="lblProrated_ConvergentAmt" style="text-decoration:underline;font-weight:bold;"></span>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <span><i> Selected Options </i></span>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-4 col-xs-4">
-                                            <span> Aditional Parking </span>
-                                        </div>
-                                        <div class="col-md-2 col-sm-2 col-xs-2">
-                                            <span style="text-decoration:underline;font-weight:bold;" id="parkUnit"></span>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $<span id="lblMonthly_AditionalParking" style="text-decoration:underline;font-weight:bold;">@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
-
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $ <span id="lblProrated_AditionalParking" style="text-decoration:underline;font-weight:bold;"></span>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-4 col-xs-4">
-                                            <span> Storage </span>
-                                        </div>
-                                        <div class="col-md-2 col-sm-2 col-xs-2">
-                                            <span style="text-decoration:underline;font-weight:bold;" id="storUnit"></span>
-
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $<span id="lblMonthly_Storage" style="text-decoration:underline;font-weight:bold;">@((Model.StorageAmt ?? 0).ToString("0.00"))</span>
-
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $ <span id="lblProrated_Storage" style="text-decoration:underline;font-weight:bold;"></span>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-4 col-xs-4">
-                                            <span> Pet Fee </span>
-                                        </div>
-                                        <div class="col-md-2 col-sm-2 col-xs-2">
-                                            <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
-
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $<span id="lblMonthly_PetRent" style="text-decoration:underline;font-weight:bold;">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
-
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $ <span id="lblProrated_PetRent" style="text-decoration:underline;font-weight:bold;"></span>
-
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-4 col-xs-4">
-                                        </div>
-                                        <div class="col-md-2 col-sm-2 col-xs-2">
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            <hr>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            <hr>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-4 col-xs-4">
-                                            <span> Estimated Monthly Charges </span>
-                                        </div>
-                                        <div class="col-md-2 col-sm-2 col-xs-2">
-                                            <span style="text-decoration:underline;font-weight:bold;"></span>
-
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $<span id="lblMonthly_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
-
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            $ <span id="lblProrated_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-4 col-sm-4 col-xs-4">
-                                        </div>
-                                        <div class="col-md-2 col-sm-2 col-xs-2">
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3" style="color:green">
-                                            <hr>
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 col-xs-3">
-                                            <hr>
-                                        </div>
-                                    </div>
-
-
-                                  
-
-
                                 </div>
-                              
-                                <div class="col-md-6 col-sm-12 col-xs-12">
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <div class="box mt-10"> Move-in fees and pro-rated rent is due at or before move-in.</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                                 @*monthlychargesend*@
 
                             </div>
 
-                          
+
 
 
                             <div class="col-lg-6 m-tt-20">
                                 <div class="row">
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -2886,7 +2886,7 @@
                             <div class="panel panel-default sidebar-menu wow fadeInRight animated NoBorder">
                                 <div class="panel-heading">
                                     <h3 class="panel-title">Vehicle Information </h3>
-                                    <button type="button" class="btn-alltype pull-right" data-toggle="modal" data-target="#popVehicle" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>
+                                    <button type="button" class="btn-alltype pull-right" data-toggle="modal" data-target="#myModal" id="btnAddVehicle"><i class="fa fa-plus-circle"></i> Add</button>
                                 </div>
                                 <div class="row hidden" id="divDontHaveVeh">
                                     <div class="col-sm-12">
@@ -4866,13 +4866,20 @@
         </div>
     </div>
 </div>
-<div class="modal " id="popApplicant" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:1100px !important; height:700px;">
-        <div class="modal-content" style="width: 100% !important; height:557px!important;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
-            <div class="modal-header" style="width: 100%; padding:0px;">
-                <h5 class="modal-title">Add Applicant</h5>
+
+
+<!-- The Modal -->
+<div class="modal" id="popApplicant">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h1 class="modal-title">Add Applicant</h1>
+                <button type="button" class="close" data-dismiss="modal">X</button>
             </div>
+
+            <!-- Modal body -->
             <div class="modal-body">
                 <input type="hidden" id="hndApplicantID" value="0" />
                 <div class="col-sm-12">
@@ -5141,12 +5148,13 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer-custom">
-                <div class="col-sm-12 text-center">
-                    <button type="submit" class="btn-alltype" id="btnsaveappl" onclick="saveupdateApplicant()">Save</button>
-                    <button type="submit" class="btn-alltype hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
-                </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer" style="border-top:none">
+                <button type="submit" class="btn-alltype" id="btnsaveappl" onclick="saveupdateApplicant()">Save</button>
+                <button type="submit" class="btn-alltype hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
             </div>
+
         </div>
     </div>
 </div>
@@ -5261,17 +5269,50 @@
         </div>
     </div>
 </div>
-<div class="modal" id="popVehicle">
+
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
     <div class="modal-dialog">
-        <div class="modal-content" style="width:750px; height:607px;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+        <div class="modal-content">
+
             <!-- Modal Header -->
-            <div class="modal-header" style="width: 100%; padding:0px;">
-                <h5 class="modal-title">Add Vehicle</h5>
+            <div class="modal-header">
+                <h1 class="modal-title">Modal Heading</h1>
+                <button type="button" class="close" data-dismiss="modal">×</button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
+           
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer" style="border-top:none">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="popVehicle">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h1 class="modal-title">Add Vehicle</h1>
+                <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <!-- Modal body -->
+
                 <input type="hidden" id="hndVehicleID" value="0" />
                 <div class="col-sm-7">
                     <div class="form-group">
@@ -6556,6 +6597,24 @@
 </div>
 <style>
 
+
+    @@media (min-width: 768px) {
+        .modal-dialog {
+            width: 600px;
+            margin: 30px auto;
+        }
+    }
+
+   
+
+
+    @@media (min-width: 1200px) {
+        .modal-xl {
+            width: 1140px;
+        }
+    }
+
+
     .whiteText {
         font-size: 20px;
         color: white;
@@ -6602,9 +6661,9 @@
     }
 
     /*#btncompCancel, #btncompare {
-        padding: 5px;
-        margin-left: -40px;
-    }*/
+            padding: 5px;
+            margin-left: -40px;
+        }*/
 
     .modal-content-compare {
         background-color: #fefefe;
@@ -6633,7 +6692,7 @@
         margin-right: 2px;
         line-height: 1.42857143;
         /*border: 0px;
-        border-style: none !important;*/
+            border-style: none !important;*/
         /*border: 1px solid #4d738a !important;*/
         border-radius: 0;
         color: #fff;
