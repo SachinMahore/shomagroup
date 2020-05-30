@@ -127,7 +127,7 @@ $(document).ready(function () {
             //$("#popCCPay").modal("show");
             $('#btnsaveapplandpay').removeClass('hidden');
             $('#btnsaveappl').addClass('hidden');
-            modal.find('.modal-content').css("height", "760px");
+            //modal.find('.modal-content').css("height", "760px");
             $('#divCreditCheckPayment').removeClass('hidden');
         }
         else {
@@ -136,7 +136,7 @@ $(document).ready(function () {
             clearCard1();
             $('#btnsaveapplandpay').addClass('hidden');
             $('#btnsaveappl').removeClass('hidden');
-            modal.find('.modal-content').css("height", "560px");
+            //modal.find('.modal-content').css("height", "560px");
             $('#divCreditCheckPayment').addClass('hidden');
         }
     });
@@ -4695,7 +4695,7 @@ var addApplicant = function (at) {
     var modal = $("#popApplicant");
     if (at == 1) {
         $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
-        modal.find('.modal-content').css("height", "375px");
+        //modal.find('.modal-content').css("height", "375px");
         modal.find('.modal-title').text('Add Co-Applicant');
         $("#popApplicant").modal("show");
         $("#ddlApplicantType").text("Co-Applicant");
@@ -4740,7 +4740,7 @@ var addApplicant = function (at) {
     }
     else if (at == 2) {
         $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
-        modal.find('.modal-content').css("height", "300px");
+        //modal.find('.modal-content').css("height", "300px");
         modal.find('.modal-title').text('Add Minor');
         $("#popApplicant").modal("show");
         $("#ddlApplicantType").text("Minor");
@@ -4765,7 +4765,7 @@ var addApplicant = function (at) {
     }
     else if (at == 3) {
         $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
-        modal.find('.modal-content').css("height", "375px");
+        //modal.find('.modal-content').css("height", "375px");
         modal.find('.modal-title').text('Add Guarantor');
         $("#popApplicant").modal("show");
         $("#ddlApplicantType").text("Guarantor");
