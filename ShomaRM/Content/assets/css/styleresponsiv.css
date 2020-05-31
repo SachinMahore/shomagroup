@@ -1081,6 +1081,8 @@ li.nav-item-sub {
       width: 40% !important;
       position: relative;
     }
+
+  
   }
 
   @media only screen and (max-device-width: 575px) {
@@ -1144,4 +1146,117 @@ li.nav-item-sub {
     font-size: 28px;
     color: #4d738a;
     margin-bottom: 0px;
+}
+
+
+
+    /* Floating Social Media Bar Style Ends Here */
+
+
+/* Fixed/sticky icon bar (vertically aligned 50% from the top of the screen) */
+
+@media screen and (max-width: 600px) {
+    .web {
+        display: none;
+    }
+    .mobile {
+        display: block !important;
+    }
+    .mobile .icon-bar {
+        position: fixed;
+      bottom:0;
+      width:100%    
+    }
+
+        /* Style the icon bar links */
+        .mobile .icon-bar a {
+            text-align: center;
+            padding: 16px;
+            transition: all 0.3s ease;
+            color: white;
+            font-size: 20px;
+            float: left;
+            width: 20%;
+        }
+
+    /* Style the social media icons with color, if you want */
+    .mobile .icon-bar a:hover {
+        background-color: #000;
+    }
+
+        .mobile .facebook {
+            background: #3B5998;
+            color: white;
+        }
+
+        .mobile .envelope {
+            background: #55ACEE;
+            color: white;
+        }
+
+        .mobile .calender {
+            background: #dd4b39;
+            color: white;
+        }
+
+        .mobile .phone {
+            background: #007bb5;
+            color: white;
+        }
+
+        .mobile .instagram {
+            background: #bb0000;
+            color: white;
+        }
+
+}
+.mobile {
+    display: none;
+}
+        /* Style the icon bar links */
+
+.web .icon-bar {
+    position: fixed;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.web .icon-bar a {
+    display: block;
+    text-align: center;
+    padding: 16px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 20px;    
+}
+
+            /* Style the social media icons with color, if you want */
+.web .icon-bar a:hover {
+    background-color: #000;
+}
+
+.web .facebook {
+    background: #3B5998;
+    color: white;
+}
+
+.web .envelope {
+    background: #55ACEE;
+    color: white;
+}
+
+.web .calender {
+    background: #dd4b39;
+    color: white;
+}
+
+.web .phone {
+    background: #007bb5;
+    color: white;
+}
+
+.web .instagram {
+    background: #bb0000;
+    color: white;
 }
