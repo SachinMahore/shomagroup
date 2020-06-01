@@ -29,5 +29,6 @@ namespace ShomaRM.Data
         public Nullable<System.DateTime> PreMoveInDate { get; set; }
         public string PreMoveInTime { get; set; }
         public Nullable<int> Movers { get; set; }
+        public Nullable<long> ParentTOID { get; set; }
     }
 }

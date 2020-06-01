@@ -2987,6 +2987,7 @@
     <Content Include="Views\ApplicationStatus\Index.cshtml" />
     <Content Include="Views\ApplyNow\GuarantorDet.cshtml" />
     <Content Include="Views\AddressMap\Index.cshtml" />
+    <Content Include="Views\CheckList\CoApplicant.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -149,14 +149,22 @@ namespace ShomaRM.Controllers
                         string uidd = new EncryptDecrypt().EncryptText(user.UserID.ToString() + "," + (user.IsTempPass ?? 0).ToString());
                         if (currentUser.UserType == 33)
                         {
-                            if ((user.IsTempPass ?? 0) == 1)
+                            var chkstatus = db.tbl_TenantOnline.Where(v => v.ParentTOID == user.UserID && v.ResidenceStatus==1 && v.EmpStatus==1).FirstOrDefault();
+                            if (chkstatus!=null)
                             {
-
-                                return RedirectToAction("../ApplyNow/ChangePassword",new { uid= uidd });
+                                return RedirectToAction("../Checklist/CoApplicant");
                             }
                             else
                             {
-                                return RedirectToAction("../ApplyNow/CoApplicantDet/" + user.ParentUserID + "-" + currentUser.UserID);
+                                if ((user.IsTempPass ?? 0) == 1)
+                                {
+
+                                    return RedirectToAction("../ApplyNow/ChangePassword", new { uid = uidd });
+                                }
+                                else
+                                {
+                                    return RedirectToAction("../ApplyNow/CoApplicantDet/" + user.ParentUserID + "-" + currentUser.UserID);
+                                }
                             }
                         }
                         else if (currentUser.UserType == 34)

@@ -702,6 +702,7 @@
           <Property Name="PreMoveInDate" Type="datetime" />
           <Property Name="PreMoveInTime" Type="nvarchar" MaxLength="50" />
           <Property Name="Movers" Type="int" />
+          <Property Name="ParentTOID" Type="bigint" />
         </EntityType>
         <EntityType Name="tbl_MoveInPayment">
           <Key>
@@ -3206,7 +3207,6 @@
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
           </AssociationSet>
-          <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" />
           <EntitySet Name="tbl_TenantInfo" EntityType="ShomaRMEntitiesModel.tbl_TenantInfo" />
           <EntitySet Name="tbl_TenantOnline" EntityType="ShomaRMEntitiesModel.tbl_TenantOnline" />
           <EntitySet Name="tbl_ApplyNow" EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" />
@@ -3331,6 +3331,7 @@
             <End Role="tbl_Login" EntitySet="tbl_Login" />
             <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
           </AssociationSet>
+          <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" />
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -5210,26 +5211,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tbl_MoveInChecklist">
-          <Key>
-            <PropertyRef Name="MIID" />
-          </Key>
-          <Property Name="MIID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProspectID" Type="Int64" />
-          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
-          <Property Name="MoveInTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="MoveInCharges" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="InsuranceDoc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ElectricityDoc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="IsCheckPO" Type="Int32" />
-          <Property Name="IsCheckATT" Type="Int32" />
-          <Property Name="IsCheckWater" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsCheckSD" Type="Int32" />
-          <Property Name="PreMoveInDate" Type="DateTime" Precision="3" />
-          <Property Name="PreMoveInTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Movers" Type="Int32" />
-        </EntityType>
         <EntityType Name="tbl_TenantInfo">
           <Key>
             <PropertyRef Name="TenantID" />
@@ -6015,6 +5996,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_MoveInChecklist">
+          <Key>
+            <PropertyRef Name="MIID" />
+          </Key>
+          <Property Name="MIID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProspectID" Type="Int64" />
+          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
+          <Property Name="MoveInTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MoveInCharges" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="InsuranceDoc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ElectricityDoc" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsCheckPO" Type="Int32" />
+          <Property Name="IsCheckATT" Type="Int32" />
+          <Property Name="IsCheckWater" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsCheckSD" Type="Int32" />
+          <Property Name="PreMoveInDate" Type="DateTime" Precision="3" />
+          <Property Name="PreMoveInTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Movers" Type="Int32" />
+          <Property Name="ParentTOID" Type="Int64" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7279,27 +7281,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_MoveInChecklist">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_MoveInChecklist">
-              <MappingFragment StoreEntitySet="tbl_MoveInChecklist">
-                <ScalarProperty Name="Movers" ColumnName="Movers" />
-                <ScalarProperty Name="PreMoveInTime" ColumnName="PreMoveInTime" />
-                <ScalarProperty Name="PreMoveInDate" ColumnName="PreMoveInDate" />
-                <ScalarProperty Name="IsCheckSD" ColumnName="IsCheckSD" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="IsCheckWater" ColumnName="IsCheckWater" />
-                <ScalarProperty Name="IsCheckATT" ColumnName="IsCheckATT" />
-                <ScalarProperty Name="IsCheckPO" ColumnName="IsCheckPO" />
-                <ScalarProperty Name="ElectricityDoc" ColumnName="ElectricityDoc" />
-                <ScalarProperty Name="InsuranceDoc" ColumnName="InsuranceDoc" />
-                <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
-                <ScalarProperty Name="MoveInTime" ColumnName="MoveInTime" />
-                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
-                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
-                <ScalarProperty Name="MIID" ColumnName="MIID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_TenantInfo">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantInfo">
               <MappingFragment StoreEntitySet="tbl_TenantInfo">
@@ -7710,6 +7691,28 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_MoveInChecklist">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_MoveInChecklist">
+              <MappingFragment StoreEntitySet="tbl_MoveInChecklist">
+                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
+                <ScalarProperty Name="Movers" ColumnName="Movers" />
+                <ScalarProperty Name="PreMoveInTime" ColumnName="PreMoveInTime" />
+                <ScalarProperty Name="PreMoveInDate" ColumnName="PreMoveInDate" />
+                <ScalarProperty Name="IsCheckSD" ColumnName="IsCheckSD" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsCheckWater" ColumnName="IsCheckWater" />
+                <ScalarProperty Name="IsCheckATT" ColumnName="IsCheckATT" />
+                <ScalarProperty Name="IsCheckPO" ColumnName="IsCheckPO" />
+                <ScalarProperty Name="ElectricityDoc" ColumnName="ElectricityDoc" />
+                <ScalarProperty Name="InsuranceDoc" ColumnName="InsuranceDoc" />
+                <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
+                <ScalarProperty Name="MoveInTime" ColumnName="MoveInTime" />
+                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+                <ScalarProperty Name="MIID" ColumnName="MIID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

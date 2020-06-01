@@ -1183,6 +1183,117 @@ namespace ShomaRM.Models
 
             return model;
         }
+        public OnlineProspectModule GetCoAppData(long Id)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            OnlineProspectModule model = new OnlineProspectModule();
+            string dtMoveInDate = DateTime.Now.ToString("MM/dd/yyyy");
+            model.ProspectId = 0;
+            model.IsApplyNow = 1;
+            model.IsApplyNowStatus = "New";
+            model.ParkingAmt = 0;
+            model.PetPlaceAmt = 0;
+            model.StorageAmt = 0;
+            model.PetPlaceID = "0";
+            model.ParkingSpaceID = "0";
+            model.StorageSpaceID = "0";
+            model.FOBAmt = 0;
+            model.EnvelopeID = "";
+            model.EsignatureID = "";
+            model.LeaseTerm = 12;
+            model.FirstName = "";
+            model.LastName = "";
+            model.PetDNAAmt = 0;
+            model.LeaseTermID = 0;
+            model.CountryList = FillCountryList();
+            model.StateList = FillStateByCountryID(1);
+            model.AcceptSummary = 0;
+            model.StepCompleted = 1;
+            model.HasPropertyList = 0;
+            model.Building = "";
+            model.FloorID = 0;
+            model.Bedroom = 0;
+            model.AdditionalParking = 0;
+            model.CreditPaid = 0;
+            model.IsRentalPolicy = 0;
+            model.IsRentalQualification = 0;
+
+            model.ApplicationFees = 0;
+            model.AppCCCheckFees = 0;
+            model.AppBGCheckFees = 0;
+
+            model.GuarantorFees = 0;
+            model.GuaCCCheckFees = 0;
+            model.GuaBGCheckFees = 0;
+
+            var propDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+            if (propDet != null)
+            {
+                model.Picture = propDet.Picture;
+                model.ConvergentAmt = propDet.ConversionBillFees ?? 0;
+                model.PestAmt = propDet.PestControlFees ?? 0;
+                model.TrashAmt = propDet.TrashFees ?? 0;
+                model.AdminFees = propDet.AdminFees ?? 0;
+
+
+                model.ProcessingFees = propDet.ProcessingFees ?? 0;
+
+                model.ApplicationFees = propDet.ApplicationFees ?? 0;
+                model.AppCCCheckFees = propDet.AppCCCheckFees ?? 0;
+                model.AppBGCheckFees = propDet.AppBGCheckFees ?? 0;
+
+                model.GuarantorFees = propDet.GuarantorFees ?? 0;
+                model.GuaCCCheckFees = propDet.GuaCCCheckFees ?? 0;
+                model.GuaBGCheckFees = propDet.GuaBGCheckFees ?? 0;
+            }
+            else
+            {
+                model.Picture = "";
+                model.ConvergentAmt = 0;
+                model.PestAmt = 0;
+                model.TrashAmt = 0;
+                model.AdminFees = 0;
+                model.ApplicationFees = 0;
+                model.AppCCCheckFees = 0;
+                model.AppBGCheckFees = 0;
+
+                model.GuarantorFees = 0;
+                model.GuaCCCheckFees = 0;
+                model.GuaBGCheckFees = 0;
+
+                model.ProcessingFees = 0;
+            }
+
+            if (Id != 0)
+            {
+                var GetProspectData = db.tbl_TenantOnline.Where(p => p.ParentTOID == Id).FirstOrDefault();
+
+                if (GetProspectData != null)
+                {
+                    var GetPaymentProspectData = db.tbl_OnlinePayment.Where(p => p.ProspectId == GetProspectData.ID).FirstOrDefault();
+                    var GetDocumentVerificationData = db.tbl_DocumentVerification.Where(p => p.ProspectusID == GetProspectData.ID).FirstOrDefault();
+                    
+                    model.FirstName = GetProspectData.FirstName;
+                    model.LastName = GetProspectData.LastName;
+                    model.Email = GetProspectData.Email;
+                  
+                    model.ProspectId = GetProspectData.ProspectID;
+                    model.TenantID = Convert.ToInt64(GetProspectData.ParentTOID);
+    
+                   
+                    var getApplicantDet = db.tbl_Applicant.Where(p => p.TenantID == GetProspectData.ID && p.Email == GetProspectData.Email).FirstOrDefault();
+                    if (getApplicantDet != null)
+                    {
+                        model.PartialMoveInCharges = ((model.MoveInCharges * getApplicantDet.MoveInPercentage) / 100);
+                        model.MoveInPercentage = getApplicantDet.MoveInPercentage;
+                    }
+                  }
+
+   
+            }
+           
+            return model;
+        }
         public string ScheduleEmail()
         {
             string msg = "";
