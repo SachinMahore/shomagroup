@@ -468,6 +468,23 @@ namespace ShomaRM.Areas.Admin.Models
                         // reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\""+ serverURL+"/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\""+ serverURL+ "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Review & Sign Document</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
                         reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
                         message = "Notification: Your Application is Approved and pay your Administration Fees. Please check the email for detail.";
+                        reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+                        reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
+                        reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
+                        reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
+                        reportHTML = reportHTML.Replace("[%TenantEmail%]", Email);
+
+                        reportHTML = reportHTML.Replace("[%QuoteNo%]", ID.ToString());
+                        reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+                        string body = reportHTML;
+                        new EmailSendModel().SendEmail(Email, sub, body);
+                        if (SendMessage == "yes")
+                        {
+                            if (!string.IsNullOrWhiteSpace(phonenumber))
+                            {
+                                new TwilioService().SMS(phonenumber, message);
+                            }
+                        }
                     }
 
                 }
@@ -482,6 +499,24 @@ namespace ShomaRM.Areas.Admin.Models
                     var log = db.tbl_Login.Where(p => p.UserID == GetTenantDet.UserId).FirstOrDefault();
                     log.IsActive = 0;
                     db.SaveChanges();
+
+                    reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+                    reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
+                    reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
+                    reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
+                    reportHTML = reportHTML.Replace("[%TenantEmail%]", Email);
+
+                    reportHTML = reportHTML.Replace("[%QuoteNo%]", ID.ToString());
+                    reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+                    string body = reportHTML;
+                    new EmailSendModel().SendEmail(Email, sub, body);
+                    if (SendMessage == "yes")
+                    {
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
+                    }
                 }
                 else if (Status == "Signed")
                 {
@@ -527,25 +562,27 @@ namespace ShomaRM.Areas.Admin.Models
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
 
                     message = "Congratulations ! Your Application is Approved with Condition. Please check the email for detail.";
-                }
 
-                reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
-                reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
-                reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
-                reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
-                reportHTML = reportHTML.Replace("[%TenantEmail%]", Email);
+                    reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+                    reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
+                    reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
+                    reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
+                    reportHTML = reportHTML.Replace("[%TenantEmail%]", Email);
 
-                reportHTML = reportHTML.Replace("[%QuoteNo%]", ID.ToString());
-                reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
-                string body = reportHTML;
-                new EmailSendModel().SendEmail(Email, sub, body);
-                if (SendMessage == "yes")
-                {
-                    if (!string.IsNullOrWhiteSpace(phonenumber))
+                    reportHTML = reportHTML.Replace("[%QuoteNo%]", ID.ToString());
+                    reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+                    string body = reportHTML;
+                    new EmailSendModel().SendEmail(Email, sub, body);
+                    if (SendMessage == "yes")
                     {
-                        new TwilioService().SMS(phonenumber, message);
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
                     }
                 }
+
+                
             }
 
             msg = "Email Send Successfully";
