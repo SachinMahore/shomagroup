@@ -36,7 +36,7 @@
         <div class="wizard-container">
             <div class="wizard-card ct-wizard-orange" id="wizardProperty">
                 <div>
-                    
+
                     <div class="tab-content">
                         <div class="" id="step1">
                             <div class="row p-b-15">
@@ -83,9 +83,9 @@
                                     <div class="col-sm-11">
                                         <div class="form-group">
                                             <div class="">
-                                             
-                                                <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()"   disabled="disabled">Process Online Leasing Application</a>
-                                                <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()"  disabled="disabled">Download Leasing Application</a>
+
+                                                <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()" disabled="disabled">Process Online Leasing Application</a>
+                                                <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
                                             </div>
                                         </div>
                                     </div>
@@ -183,7 +183,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="pull-left col-sm-12">
+                                        <div class="pull-left col-sm-12 hidden">
                                             <h5 style="color:#4d738a;">Pay your <b><span id="lblPaymentPer"></span>%</b> Move-in charges: </h5>
                                             <div class="checkbox">
                                                 <label>
@@ -199,7 +199,7 @@
                                                 <input id="btnPayNowCheckLink" type="button" class="btn-success" data-toggle="modal" data-target="#popPayNow" style="width:90px;height: 34px;" value="Pay Now" />
                                             </div>
                                         </div>
-                                        <div class="pull-left col-sm-12" style="margin-bottom:30px">
+                                        <div class="pull-left col-sm-12 hidden" style="margin-bottom:30px">
                                             <h5 style="color:#4d738a;">Schedule your Pre-move-in date appointment: </h5>
                                             <div class="checkbox">
                                                 <label>
@@ -229,7 +229,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="pull-left col-sm-12" style="margin-bottom:30px">
+                                        <div class="pull-left col-sm-12 hidden" style="margin-bottom:30px">
                                             <h5 style="color:#4d738a;">Schedule your Move-in date: </h5>
                                             <div class="checkbox">
                                                 <label>
@@ -645,7 +645,7 @@
             $("#divLoader").show();
             var model = { UID: uid }
             $.ajax({
-                url: '/CheckList/GetProspectMoveInData/',
+                url: '/CheckList/GetCoAppMoveInData/',
                 type: "post",
                 contentType: "application/json utf-8",
                 data: JSON.stringify(model),
@@ -1115,21 +1115,7 @@
         var IsCheckSD = $("#chkSDP").is(":checked") ? "1" : "0";
         var Movers = $("#chkMovers").is(":checked") ? "1" : "0";
 
-        if (paymentDone==0) {
-            msg += "Please pay the Move In Charges</br>";
-        }
-        if (!PreMoveInDate) {
-            msg += "Please fill the Pre Move In Date</br>";
-        }
-        if (!PreMoveInTime) {
-            msg += "Please select the Pre Move In Time</br>";
-        }
-        //if (!MoveInDate) {
-        //    msg += "Please fill the Move In Date</br>";
-        //}
-        if (!MoveInTime) {
-            msg += "Please select the Move In Time</br>";
-        }
+        
 
         if (InsuranceDoc == "Upload Proof of Insurance…")
         {

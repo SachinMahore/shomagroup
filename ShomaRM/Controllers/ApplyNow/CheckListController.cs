@@ -27,12 +27,37 @@ namespace ShomaRM.Controllers
 
             return View();
         }
+        public ActionResult CoApplicant()
+        {
+            ViewBag.UID = "0";
+            ViewBag.ProcessingFees = new CheckListModel().GetProcessingFees();
+            if (ShomaGroupWebSession.CurrentUser != null)
+            {
+                ViewBag.UID = ShomaGroupWebSession.CurrentUser.UserID.ToString();
+            }
+
+            return View();
+        }
         public ActionResult GetProspectMoveInData(long UID)
         {
             try
             {
                 var tenantData = (new OnlineProspectModule().GetProspectData(UID));
-                var moveinData = (new CheckListModel().GetMoveInData(tenantData.ProspectId ?? 0));
+                var moveinData = (new CheckListModel().GetMoveInData(tenantData.ProspectId ?? 0, UID));
+
+                return Json(new { model = tenantData, moveindata = moveinData }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult GetCoAppMoveInData(long UID)
+        {
+            try
+            {
+                var tenantData = (new OnlineProspectModule().GetCoAppData(UID));
+                var moveinData = (new CheckListModel().GetMoveInData(tenantData.ProspectId ?? 0, UID));
 
                 return Json(new { model = tenantData, moveindata = moveinData }, JsonRequestBehavior.AllowGet);
             }

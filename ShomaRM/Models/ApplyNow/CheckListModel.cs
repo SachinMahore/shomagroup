@@ -45,7 +45,7 @@ namespace ShomaRM.Models
 
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
 
-        public CheckListModel GetMoveInData(long Id)
+        public CheckListModel GetMoveInData(long Id, long UID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             CheckListModel model = new CheckListModel();
@@ -65,7 +65,8 @@ namespace ShomaRM.Models
             model.InsuranceDoc = "";
             model.ElectricityDoc = "";
             model.Movers = 0;
-            var MoveInData = db.tbl_MoveInChecklist.Where(co => co.ProspectID == Id).FirstOrDefault();
+            var MoveInData = db.tbl_MoveInChecklist.Where(co => co.ProspectID == Id && co.ParentTOID==UID).FirstOrDefault();
+            var isSDcheck = db.tbl_MoveInChecklist.Where(co => co.ProspectID == Id && co.IsCheckSD==1).FirstOrDefault();
             if (MoveInData != null)
             {
                 model.MIID = MoveInData.MIID;
@@ -101,12 +102,17 @@ namespace ShomaRM.Models
                 model.IsCheckATT = MoveInData.IsCheckATT ?? 0;
                 model.IsCheckPO = MoveInData.IsCheckPO ?? 0;
                 model.IsCheckWater = MoveInData.IsCheckWater ?? 0;
-                model.IsCheckSD = MoveInData.IsCheckSD ?? 0;
+               
+                
                 model.Movers = MoveInData.Movers ?? 0;
                 if (model.IsCheckPay == 1 && model.IsCheckSch == 1 && model.IsCheckPreSch == 1 && model.IsCheckIns == 1 && model.IsCheckElc == 1 && model.IsCheckATT == 1 && model.IsCheckPO == 1 && model.IsCheckWater == 1)
                 {
                     model.IsAllChecked = 1;
                 }
+            }
+            if (isSDcheck != null)
+            {
+                model.IsCheckSD = 1;
             }
             return model;
         }
@@ -117,7 +123,7 @@ namespace ShomaRM.Models
 
             if (model.ProspectID != null)
             {
-                var loginDet = db.tbl_MoveInChecklist.Where(p => p.ProspectID == model.ProspectID).FirstOrDefault();
+                var loginDet = db.tbl_MoveInChecklist.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
                 if (loginDet == null)
                 {
                     var saveMoveInCheckList = new tbl_MoveInChecklist()
@@ -135,8 +141,10 @@ namespace ShomaRM.Models
                         IsCheckWater = model.IsCheckWater,
                         IsCheckSD = model.IsCheckSD,
                         CreatedDate = DateTime.Now,
-                        Movers = model.Movers
-                    };
+                        Movers = model.Movers,
+                        ParentTOID= ShomaGroupWebSession.CurrentUser.UserID
+
+                };
                     db.tbl_MoveInChecklist.Add(saveMoveInCheckList);
                     db.SaveChanges();
                 }
