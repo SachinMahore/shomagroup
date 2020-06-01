@@ -66,69 +66,105 @@
         <div class="col-md-3 username"></div>
     </div>
 </div>
-<div id="popQuotationSignIn" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close pull-right" data-dismiss="modal" style="color:black;margin-right:-160px;">&times;</button>
-        </div>
-        <div class="modal-body">
-            <div class="text-justify" id="divQuotationQuotationNo">
-                <div class="form-group">
-                    <label for="txtQuotationNo">Quotation #</label>
-                    <input type="text" class="form-control" id="txtQuotationNo" name="QuotationNo">
+
+<div class="modal" id="popQuotationSignIn">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:none;">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12">
+                    <div class="text-justify" id="divQuotationQuotationNo">
+                        <div class="form-group">
+                            <label for="txtQuotationNo">Quotation #</label>
+                            <input type="text" class="form-control" id="txtQuotationNo" name="QuotationNo">
+                        </div>
+                    </div>
+                    <div class="text-justify hidden" id="divQuotationUserName">
+                        <div class="form-group">
+                            <label for="txtUserName">User Name</label>
+                            <input type="text" class="form-control" id="txtQuotationUserName" name="UserName" disabled>
+                        </div>
+                    </div>
+                    <div class="text-justify hidden" id="divQuotationPassword">
+                        <div class="form-group">
+                            <label for="txtQuotationPassword" id="lblQuotationPassword">Enter New Password</label>
+                            <input type="password" class="form-control" id="txtQuotationPassword" name="Password">
+                        </div>
+                    </div>
+                    <div class="text-justify hidden" id="divQuotationConfirmPassword">
+                        <div class="form-group">
+                            <label for="txtQuotationConfirmPassword">Enter New Confirm Password</label>
+                            <input type="password" class="form-control" id="txtQuotationConfirmPassword" name="ConfirmPassword">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="text-justify hidden" id="divQuotationUserName">
-                <div class="form-group">
-                    <label for="txtUserName">User Name</label>
-                    <input type="text" class="form-control" id="txtQuotationUserName" name="UserName" disabled>
+            <div class="modal-footer" style="border-top:none">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" style="margin-right:6px;"> Close</button>
+                    <button type="button" class="btn btn-primary pull-right" style="margin-right:6px;" id="btnVerifyQuotation" onclick="verifyQuotationNo()"> Next</button>
+                    <button type="submit" class="btn btn-primary pull-right" style="margin-right:6px;" id="btnQuotationSignIn" onclick="signInUsingQuotationNo()"> Sign In</button>
                 </div>
-            </div>
-            <div class="text-justify hidden" id="divQuotationPassword">
-                <div class="form-group">
-                    <label for="txtQuotationPassword" id="lblQuotationPassword">Enter New Password</label>
-                    <input type="password" class="form-control" id="txtQuotationPassword" name="Password">
-                </div>
-            </div>
-            <div class="text-justify hidden" id="divQuotationConfirmPassword">
-                <div class="form-group">
-                    <label for="txtQuotationConfirmPassword">Enter New Confirm Password</label>
-                    <input type="password" class="form-control" id="txtQuotationConfirmPassword" name="ConfirmPassword">
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <div class="pull-right">
-                <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" style="margin-right:6px;"> Close</button>
-                <button type="button" class="btn btn-primary pull-right" style="margin-right:6px;" id="btnVerifyQuotation" onclick="verifyQuotationNo()"> Next</button>
-                <button type="submit" class="btn btn-primary pull-right" style="margin-right:6px;" id="btnQuotationSignIn" onclick="signInUsingQuotationNo()"> Sign In</button>
             </div>
         </div>
     </div>
 </div>
-<div id="popForgetIn" class="modal">
-    <div class="modal-header">
-        <span class="close" data-dismiss="modal">&times;</span>
-    </div>
-    <!-- Modal content -->
-    <div class="modal-content">
-        <div id="forgtPassHead" class="text-center hide">
-            <h5 class="username">Retrive Password</h5>
-        </div>
-        <div class="text-justify">
-            <div class="form-group">
-                <label for="email">Email ID</label>
-                <input type="text" class="form-control" id="txtEmailForgetPassword" name="UserName">
+<div class="modal" id="popForgetIn">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:none;">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12">
+                        <div id="forgtPassHead" class="text-center hide">
+                            <h5 class="username">Retrive Password</h5>
+                        </div>
+                        <div class="text-justify">
+                            <div class="form-group">
+                                <label for="email">Email ID</label>
+                                <input type="text" class="form-control" id="txtEmailForgetPassword" name="UserName">
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top:none">
+                <div id="Signinbtn" class="text-center">
+                    <button type="submit" class="btn btn-primary" onclick="RetrieveForgetPasswordss()"> Verify</button>
+                    <button type="submit" class="btn btn-primary" onclick="SignInPass();">Go Back</button>
+                </div>
             </div>
         </div>
-        <div id="Signinbtn" class="text-center">
-            <button type="submit" class="btn btn-primary" onclick="RetrieveForgetPasswordss()"> Verify</button>
-            <a href="javascript:void(0);" onclick="SignInPass();" class="pull-right" style="padding-top:2%">Go Back</a>
-        </div>
     </div>
-
 </div>
+<style>
+    @@media (min-width: 768px) {
+        .modal-dialog {
+            width: 600px;
+            margin: 30px auto;
+        }
+    }
 
+    @@media (min-width: 1200px) {
+        .modal-xl {
+            width: 1140px;
+        }
+    }
+
+    @@media(min-width:992px) {
+        .nav-tabs.wizard li {
+            position: relative;
+            padding: 0;
+            margin: 4px 4px 4px 0;
+            width: 16.3%;
+            float: left;
+            text-align: center;
+        }
+    }
+            
+</style>
 <script>
     function ForgetPassword() {
         $("#popForgetIn").modal({

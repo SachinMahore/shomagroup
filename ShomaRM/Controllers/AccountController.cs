@@ -130,8 +130,16 @@ namespace ShomaRM.Controllers
                                 }
                                 else
                                 {
-                                    Session["DelDatAll"] = null;
-                                    return RedirectToAction("../ApplyNow/Index/" + currentUser.UserID);
+                                    if ((user.IsTempPass ?? 0) == 1)
+                                    {
+                                        string uide = new EncryptDecrypt().EncryptText(currentUser.UserID.ToString()+",1");
+                                        return RedirectToAction("../ApplyNow/ChangePassword", new { uid = uide });
+                                    }
+                                    else
+                                    {
+                                        Session["DelDatAll"] = null;
+                                        return RedirectToAction("../ApplyNow/Index/" + currentUser.UserID);
+                                    }
                                 }
                             }
                         }

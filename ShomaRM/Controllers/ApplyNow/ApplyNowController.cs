@@ -1316,5 +1316,16 @@ namespace ShomaRM.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult PrintMonthlySummary(PrintMonthlySummary model)
+        {
+            try
+            {
+                return Json(new { filename = new ApplyNowModel().PrintMonthlySummary(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { filename = "" }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

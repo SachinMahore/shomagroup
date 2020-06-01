@@ -437,6 +437,7 @@
     <Compile Include="Models\ApplyNow\ApplyNowModel.cs" />
     <Compile Include="Models\ApplyNow\CheckListModel.cs" />
     <Compile Include="Models\ApplyNow\OnlineProspectModule.cs" />
+    <Compile Include="Models\ApplyNow\PrintMonthlySummary.cs" />
     <Compile Include="Models\ApplyNow\PrintQuotationModel.cs" />
     <Compile Include="Models\AquatraqHelper.cs" />
     <Compile Include="Models\BackgroundScreeningModel.cs" />
@@ -2586,6 +2587,7 @@
     <Content Include="Content\SMResponsive\js\waypoints.min.js" />
     <Content Include="Content\SMResponsive\js\wow.min.js" />
     <Content Include="Content\store.min.js" />
+    <Content Include="Content\Templates\MonthlySummary.html" />
     <Content Include="Content\Templates\ApplicationPrintTemplate.html" />
     <Content Include="Content\Templates\AppSummary.html" />
     <Content Include="Content\Templates\CoapplicantApplicationPrintTemplate.html" />

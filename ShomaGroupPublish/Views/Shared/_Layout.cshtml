@@ -56,14 +56,14 @@
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/fileUpload.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/timepicki.css")" />
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/jAlert.css")" />
-  
+
     <script src="@Url.Content("~/Content/timepicki.js")"></script>
-    <script src="@Url.Content("~/Content/keyboardcontrols.js")"></script>
+    @*<script src="@Url.Content("~/Content/keyboardcontrols.js")"></script>*@
 
 
     @RenderSection("scripts", required: false)
 </head>
-<body oncontextmenu="return false;">
+<body>
     @*<div id="preloader">
             <div id="status">&nbsp;</div>
         </div>*@
@@ -72,12 +72,15 @@
     <div id="divLoader" style="display:none"></div>
     <div id="divLoaderFullData" style="display:none"></div>
     <div id="divLoaderFloorData" style="display:none"></div>
-   
+
     <!-- footer start -->
     <footer class="footer">
         <div class="footer_top">
             <div class="container">
                 <div class="row">
+                    <div class="col-xl-2 col-md-6 col-lg-1">
+                    </div>
+
                     <div class="col-xl-2 col-md-6 col-lg-2">
                         <div class="footer_widget text-center">
                             <i class="fa fa-building large-fa" aria-hidden="true"></i>
@@ -89,6 +92,7 @@
                             </p>
                         </div>
                     </div>
+
                     <div class="col-xl-2 col-md-6 col-lg-2">
                         <div class="footer_widget text-center">
 
@@ -120,25 +124,9 @@
                             <p><a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/sanctuarydoral/leasingtours'});return false;">Make an appointment</a></p>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-md-6 col-lg-2">
-                        <div class="footer_widget social_wide text-center">
-                            <div class="socail_links">
-                                <ul>
-                                    <li>
-                                        <a href="https://www.facebook.com/pages/category/Property-Management-Company/Sanctuary-Doral-351001812054769/" target="_blank">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="https://www.instagram.com/sanctuarydoral/" target="_blank">
-                                            <i class="fa fa-instagram"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="col-xl-2 col-md-6 col-lg-1">
                     </div>
+
                 </div>
             </div>
         </div>
@@ -297,70 +285,115 @@
             </div>
         </div>
     </div>
+    <!-- Floating Social Media bar Starts -->
+    @*<div class="float-sm desktop">
+            <div class="fl-fl float-fb  ">
+
+                <a href="https://www.facebook.com/pages/category/Property-Management-Company/Sanctuary-Doral-351001812054769/" target="_blank">  <i class="fa fa-facebook"> </i></a>
+
+            </div>
 
 
-    <script src="@Url.Content("/content/bootstrap/js/bootstrap.min.js")"></script>
-    @*<script src="@Url.Content("/content/assets/js/bootstrap-datepicker.js")"></script>*@
-    <script src="@Url.Content("/content/assets/js/bootstrap-datepicker.min.js")"></script>
-    <script src="@Url.Content("/content/assets/js/bootstrap-select.min.js")"></script>
-    <script src="@Url.Content("/content/assets/js/bootstrap-hover-dropdown.js")"></script>
-    <script src="@Url.Content("/content/assets/js/easypiechart.min.js")"></script>
-    <script src="@Url.Content("/content/assets/js/jquery.easypiechart.min.js")"></script>
-    <script src="@Url.Content("/content/assets/js/owl.carousel.min.js")"></script>
-    <script src="@Url.Content("/content/assets/js/wow.js")"></script>
-    <script src="@Url.Content("/content/assets/js/icheck.min.js")"></script>
-    <script src="@Url.Content("/content/assets/js/price-range.js")"></script>
-    <script src="@Url.Content("/content/assets/js/lightslider.min.js")"></script>
-    <script src="@Url.Content("/content/assets/js/jquery.ba-cond.min.js")"></script>
-    <script src="@Url.Content("/content/assets/js/jquery.slitslider.js")"></script>
-    <script src="@Url.Content("/content/assets/js/jquery.bootstrap.wizard.js")"></script>
-    <script src="@Url.Content("/content/assets/js/jquery.validate.min.js")"></script>
-    <script src="@Url.Content("/content/assets/js/wizard.js")"></script>
+            <div class="fl-fl float-en">
 
-    <script src="@Url.Content("/Content/file-Upload.js")"></script>
-    <script src="@Url.Content("/Content/jquery.countdown.js")"></script>
-    <script src="@Url.Content("/Content/jquery.countdown.min.js")"></script>
+                <a href="mailto:info@sanctuarydoral.com" target="_blank"> <i class="fa fa-envelope "></i></a>
+            </div>
+            <div class="fl-fl float-ph"id="phonelayout">
+                <i class="fa fa-phone "></i>
 
-    <script src="@Url.Content("/content/assets/js/main.js")"></script>
-    <script src="@Url.Content("/Content/jquery-confirm-master/js/jquery-confirm.js")"></script>
-    @*<script src="@Url.Content("~/Content/store.min.js")"></script>
-        <script src="@Url.Content("~/Content/jquery-idleTimeout.min.js")"></script>*@
-    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
+            </div>
+            <div class="fl-fl float-ca">
+
+                <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/sanctuarydoral/leasingtours'});return false;"> <i class="fa fa-calendar "></i></a>
+            </div>
+            <div class="fl-fl float-ig">
+
+                <a href="https://www.instagram.com/sanctuarydoral/" target="_blank">       <i class="fa fa-instagram "></i></a>
+            </div>
+
+        </div>
+
+        <div class="float-sm mobile">
+              <div class="fl-fl float-fb  ">
+
+                <a href="https://www.facebook.com/pages/category/Property-Management-Company/Sanctuary-Doral-351001812054769/" target="_blank">  <i class="fa fa-facebook"> </i></a>
+
+            </div>
+
+
+            <div class="fl-fl float-en">
+
+                <a href="mailto:info@sanctuarydoral.com" target="_blank"> <i class="fa fa-envelope "></i></a>
+            </div>
+            <div class="fl-fl float-ph"id="phonelayout">
+                <i class="fa fa-phone "></i>
+
+            </div>
+            <div class="fl-fl float-ca">
+
+                <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/sanctuarydoral/leasingtours'});return false;"> <i class="fa fa-calendar "></i></a>
+            </div>
+            <div class="fl-fl float-ig">
+
+                <a href="https://www.instagram.com/sanctuarydoral/" target="_blank">       <i class="fa fa-instagram "></i></a>
+            </div>
+
+        </div>*@
+    <!-- Floating Social Media bar Ends -->
+    <!-- The social media icon bar -->
+    <div class="web">
+        <div class="icon-bar ">
+            
+            <a href="https://www.facebook.com/pages/category/Property-Management-Company/Sanctuary-Doral-351001812054769/" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a href="mailto:info@sanctuarydoral.com"  class="envelope"><i class="fa fa-envelope"></i></a>
+            <a href="#" class="calender" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/sanctuarydoral/leasingtours'});return false;"><i class="fa fa-calendar"></i></a>
+            <a href="tel:+1-786-437-8658" class="phone" id="phonelayoutweb"><i class="fa fa-phone"></i></a>
+            <a  href="https://www.instagram.com/sanctuarydoral/" target="_blank" class="instagram"><i class="fa fa-instagram"></i></a>
+        </div>
+    </div>
+    <div class="mobile">
+        <div class="icon-bar ">
+            <a href="https://www.facebook.com/pages/category/Property-Management-Company/Sanctuary-Doral-351001812054769/" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a href="mailto:info@sanctuarydoral.com" class="envelope"><i class="fa fa-envelope"></i></a>
+            <a href="#" class="calender" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/sanctuarydoral/leasingtours'});return false;"><i class="fa fa-calendar"></i></a>
+            <a href="tel:+1-786-437-8658" class="phone" id="phonelayoutmobile"><i class="fa fa-phone"></i></a>
+            <a href="https://www.instagram.com/sanctuarydoral/" target="_blank" class="instagram"><i class="fa fa-instagram"></i></a>
+        </div>
+        </div>
+        <script src="@Url.Content("/content/bootstrap/js/bootstrap.min.js")"></script>
+        @*<script src="@Url.Content("/content/assets/js/bootstrap-datepicker.js")"></script>*@
+        <script src="@Url.Content("/content/assets/js/bootstrap-datepicker.min.js")"></script>
+        <script src="@Url.Content("/content/assets/js/bootstrap-select.min.js")"></script>
+        <script src="@Url.Content("/content/assets/js/bootstrap-hover-dropdown.js")"></script>
+        <script src="@Url.Content("/content/assets/js/easypiechart.min.js")"></script>
+        <script src="@Url.Content("/content/assets/js/jquery.easypiechart.min.js")"></script>
+        <script src="@Url.Content("/content/assets/js/owl.carousel.min.js")"></script>
+        <script src="@Url.Content("/content/assets/js/wow.js")"></script>
+        <script src="@Url.Content("/content/assets/js/icheck.min.js")"></script>
+        <script src="@Url.Content("/content/assets/js/price-range.js")"></script>
+        <script src="@Url.Content("/content/assets/js/lightslider.min.js")"></script>
+        <script src="@Url.Content("/content/assets/js/jquery.ba-cond.min.js")"></script>
+        <script src="@Url.Content("/content/assets/js/jquery.slitslider.js")"></script>
+        <script src="@Url.Content("/content/assets/js/jquery.bootstrap.wizard.js")"></script>
+        <script src="@Url.Content("/content/assets/js/jquery.validate.min.js")"></script>
+        <script src="@Url.Content("/content/assets/js/wizard.js")"></script>
+
+        <script src="@Url.Content("/Content/file-Upload.js")"></script>
+        <script src="@Url.Content("/Content/jquery.countdown.js")"></script>
+        <script src="@Url.Content("/Content/jquery.countdown.min.js")"></script>
+
+        <script src="@Url.Content("/content/assets/js/main.js")"></script>
+        <script src="@Url.Content("/Content/jquery-confirm-master/js/jquery-confirm.js")"></script>
+        @*<script src="@Url.Content("~/Content/store.min.js")"></script>
+            <script src="@Url.Content("~/Content/jquery-idleTimeout.min.js")"></script>*@
+        <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+        <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
 </body>
 </html>
 <style>
-    /* The Modal (background) */
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        /*z-index: 1;*/ /* Sit on top */
-        padding-top: 100px; /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
 
-    .modal-header {
-        margin: auto;
-        padding: 20px;
-        width: 45%;
-    }
 
-    /* Modal Content */
-    .modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 40%;
-        text-align: justify;
-    }
-
+   
     /* The Close Button */
     .close {
         color: #fff;
@@ -369,6 +402,7 @@
         font-weight: bold;
         opacity: 1;
     }
+
     .closeSign {
         color: #fff;
         float: right;
@@ -377,13 +411,14 @@
         opacity: 1;
     }
 
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-            opacity: 1;
-        }
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        opacity: 1;
+    }
+
     .closeSign:hover,
     .closeSign:focus {
         color: #000;
@@ -432,6 +467,7 @@
         margin-top: 10px;
         border: 2px solid black;
     }
+
     #btnAddVehicle {
         margin: 15px !important;
     }
@@ -449,8 +485,9 @@
         background: url(/Content/assets/img/loader.gif) center no-repeat rgba(255,255,255,0.5);
         display: none;
     }
+
     #divLoaderFullData {
-        z-index:9999!important;
+        z-index: 9999 !important;
         position: fixed;
         width: 100%;
         left: 0;
@@ -461,6 +498,7 @@
         background: url(/Content/assets/img/loader.gif) center no-repeat rgba(255,255,255,0.75);
         display: none;
     }
+
     #divLoaderFloorData {
         z-index: 9999 !important;
         position: fixed;
@@ -473,11 +511,12 @@
         background: url(/Content/assets/img/loader.gif) center no-repeat rgba(255,255,255,0.75);
         display: none;
     }
+
     .popupwindow_container {
         z-index: 9999 !important;
     }
 </style>
-
+ <script src = "https://widget.flow.ai/w/MGNjYzQ0ZTgtNWU4NS00NGM5LTg1NjQtMjZjNjNiNWNmOTNkfDZmYTMzYjY5LTMzYTItNDA0Mi1hYmZjLTUzY2NiMjU3Mzc4ZA==/flow-webclient-1.1.2.min.js" ></script>
 <script>
     // Parse the URL parameter
     function getParam(source, url) {
@@ -494,10 +533,26 @@
     var sourceName = getParam('utm_source');
     document.addEventListener("DOMContentLoaded", function () {
         // Check the UTM code and assign the correct unique phone number per source
-        if (sourceName == 'google') document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.111.0000</a>';
-        else if (sourceName == 'facebook') document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.222.0000</a>';
-        else if (sourceName == 'zillow') document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-333-0000">415.333.0000</a>';
-        else document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-786-437-8658">786.437.8658</a>';
+        if (sourceName == 'google') {
+            document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.111.0000</a>';
+            $("#phonelayoutweb").attr("href", "tel:+1-786-437-8658");
+            $("#phonelayoutmobile").attr("href", "tel:+1-786-437-8658");
+        }
+        else if (sourceName == 'facebook') {
+            document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.222.0000</a>';
+            $("#phonelayoutweb").attr("href", "tel:+1-786-437-8658");
+            $("a").attr("href", "tel:+1-786-437-8658");
+        }
+        else if (sourceName == 'zillow') {
+            document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-333-0000">415.333.0000</a>';
+            $("#phonelayoutweb").attr("href", "tel:+1-786-437-8658");
+            $("#phonelayoutmobile").attr("href", "tel:+1-786-437-8658");
+        }
+        else {
+            document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-786-437-8658">786.437.8658</a>';
+            $("#phonelayoutweb").attr("href", "tel:+1-786-437-8658");
+            $("#phonelayoutmobile").attr("href", "tel:+1-786-437-8658");
+        }
     });
     var ForgetPasswordss = function () {
         var msg = "";
@@ -546,7 +601,7 @@
 
         });
     };
-   var  submitSignIn=function(event) {
+    var submitSignIn = function (event) {
         if (event.which == 13) {
             SignIn();
         }
@@ -647,10 +702,10 @@
 
     // Get the button that opens the modal
     ////var btn = document.getElementById("btnsignIn");
-   
+
     var span = document.getElementsByClassName("closeSign")[0];
 
-   
+
     ////btn.onclick = function () {
     ////    goToSignIn();
     ////    modal.style.display = "block";
@@ -668,19 +723,21 @@
         }
     }
 
-    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-    (function () {
-        var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-        s1.async = true;
-        s1.src = 'https://embed.tawk.to/5ba1e602c9abba579677af49/1dhol8k6b';
-        s1.charset = 'UTF-8';
-        s1.setAttribute('crossorigin', '*');
-        s0.parentNode.insertBefore(s1, s0);
-    })();
+    //var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    //(function () {
+    //    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+    //    s1.async = true;
+    //    s1.src = 'https://embed.tawk.to/5ba1e602c9abba579677af49/1dhol8k6b';
+    //    s1.charset = 'UTF-8';
+    //    s1.setAttribute('crossorigin', '*');
+    //    s0.parentNode.insertBefore(s1, s0);
+    //})();
+
+
 
 
     $(function () {
-  
+
 
         $("#txtMoveDate").datepicker({ autoclose: true, dateFormat: "MM/dd/yyyy", startDate: new Date() });
     });
@@ -698,7 +755,7 @@
         //    keepLiveUrl: keepLive,
         //    idleTimeLimit: 120,         // 'No activity' time limit in seconds. 840 = 15 Minutes
         //    idleCheckHeartbeat: 2,
-        //    customCallback: false, 
+        //    customCallback: false,
         //    activityEvents: 'keydown mousewheel mousedown touchstart touchmove',
         //    enableDialog: true,
         //    dialogDisplayLimit: 60,     // Time to display the warning dialog before logout (and optional callback) in seconds. 300 = 5 Minutes
@@ -717,7 +774,7 @@
         //$("#btnContact").on("click", function (event) {
         //    $("#popContactForm").modal("show");
         //});
-      
+
         fillLStateDDL();
         $("#ddlState").on('change', function (evt, params) {
             var selected = $(this).val();
@@ -728,7 +785,7 @@
         fillMarketSourceDDL();
     });
     var saveProspectForm = function () {
-     
+
         $("#divLoader").show();
         var msg = "";
         var fname = $("#txtFirstName1").val();
@@ -915,10 +972,10 @@
 
         $('#MtDate').click(function () {
             $("#txtMoveDate").focus();
-        }); 
+        });
         onFocusMainLayout();
     });
-    
+
     function goToSignIn() {
         $("#Signinbtn, #DivPass, #signInHead").removeClass("hidden");
         $("#forgtPassHead, #Forgtbtn").addClass("hidden");

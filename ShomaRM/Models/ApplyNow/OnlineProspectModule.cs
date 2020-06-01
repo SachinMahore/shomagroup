@@ -372,6 +372,259 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
+        public string SaveOnlineProspectGeneratrQuote(OnlineProspectModule model)
+        {
+            string msg = "";
+
+            ShomaRMEntities db = new ShomaRMEntities();
+            long Uid = 0;
+            string pass = "";
+            string _allowedChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*";
+
+            Random randNum = new Random();
+            char[] chars = new char[8];
+            int allowedCharCount = _allowedChars.Length;
+            for (int i = 0; i < 8; i++)
+            {
+                chars[i] = _allowedChars[(int)((_allowedChars.Length) * randNum.NextDouble())];
+            }
+
+            pass = new string(chars);
+
+            string encryptedPassword = new EncryptDecrypt().EncryptText(pass);
+
+            string[] result = (new ApplyNowModel().CheckUnitAvailable(model.PropertyId ?? 0, 0)).Split('|');
+            if (result[0] == "0")
+            {
+                msg = "0|" + result[1] + " is not available.<br/>Please select other unit.|0";
+                return msg;
+            }
+
+            if (model.ID == 0)
+            {
+                var loginDet = db.tbl_Login.Where(p => p.Email == model.Email).FirstOrDefault();
+                if (loginDet == null)
+                {
+                    var saveUserNamePassword = new tbl_Login()
+                    {
+                        Username = model.Email,
+                        Password = encryptedPassword,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        IsActive = 1,
+                        TenantID = 0,
+                        UserType = 3,
+                        IsTempPass=1
+                    };
+                    db.tbl_Login.Add(saveUserNamePassword);
+                    db.SaveChanges();
+                    Uid = saveUserNamePassword.UserID;
+                    loginDet = db.tbl_Login.Where(p => p.UserID == Uid).FirstOrDefault();
+                }
+                else
+                {
+                    Uid = loginDet.UserID;
+                }
+
+                //SignIn(model.Email, false);
+                //// Set Current User
+                //var currUser = new CurrentUser();
+                //currUser.UserID = loginDet.UserID;
+                //currUser.Username = loginDet.Username;
+                //currUser.FullName = loginDet.FirstName + " " + loginDet.LastName;
+                //currUser.EmailAddress = loginDet.Email;
+                //currUser.IsAdmin = (loginDet.IsSuperUser.HasValue ? loginDet.IsSuperUser.Value : 0);
+                //currUser.EmailAddress = loginDet.Email;
+                //currUser.UserType = Convert.ToInt32(loginDet.UserType == null ? 0 : loginDet.UserType);
+                //currUser.LoggedInUser = loginDet.FirstName;
+                //currUser.TenantID = loginDet.TenantID == 0 ? 0 : Convert.ToInt64(loginDet.TenantID);
+                //currUser.UserType = Convert.ToInt32((loginDet.UserType).ToString());
+
+                //(new ShomaGroupWebSession()).SetWebSession(currUser);
+                //// Store the Log.
+                //var loginHistory = new tbl_LoginHistory
+                //{
+                //    UserID = loginDet.UserID,
+                //    IPAddress = HttpContext.Current.Request.UserHostAddress,
+                //    PageName = "Home",
+                //    LoginDateTime = DateTime.Now,
+                //    SessionID = HttpContext.Current.Session.SessionID.ToString()
+                //};
+
+                //db.tbl_LoginHistory.Add(loginHistory);
+                //db.SaveChanges();
+                var saveOnlineProspect = new tbl_ApplyNow()
+                {
+                    PropertyId = model.PropertyId,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Email = model.Email,
+                    Phone = model.Phone,
+                    Date = DateTime.Now,
+                    Status = model.Status,
+                    Address = model.Address,
+                    Password = encryptedPassword,
+                    IsApplyNow = 1,
+                    CreatedDate = DateTime.Now,
+                    DateofBirth = model.DateofBirth,
+                    AnnualIncome = model.AnnualIncome,
+                    AddiAnnualIncome = model.AddiAnnualIncome,
+                    Marketsource = model.Marketsource,
+                    UserId = Uid,
+                    MoveInDate = model.MoveInDate,
+                    LeaseTerm = model.LeaseTerm,
+                    StepCompleted = 4,
+                    AdditionalParking = 0
+                };
+
+                db.tbl_ApplyNow.Add(saveOnlineProspect);
+                db.SaveChanges();
+                model.ID = saveOnlineProspect.ID;
+
+                var saveApplicant = new tbl_Applicant()
+                {
+                    TenantID = model.ID,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Phone = model.Phone,
+                    Email = model.Email,
+                    Gender = model.Gender,
+                    Relationship = "1",
+                    Type = "Primary Applicant",
+                    UserID = (int)Uid,
+                    CreditPaid = 0,
+                    Paid = 0,
+                    BackGroundPaid = 0
+                };
+                db.tbl_Applicant.Add(saveApplicant);
+                db.SaveChanges();
+
+                var getAppldata = new tbl_TenantOnline()
+                {
+                    ProspectID = model.ID,
+                    FirstName = model.FirstName,
+                    MiddleInitial = model.MiddleInitial,
+                    LastName = model.LastName,
+                    DateOfBirth = model.DateofBirth,
+                    Gender = model.Gender,
+                    Email = model.Email,
+                    Mobile = model.Phone,
+                    PassportNumber = "",
+                    IDType = model.DocumentType,
+                    State = Convert.ToInt64(model.DocumentState),
+                    IDNumber = model.DocumentIDNumber,
+                    Country = model.Country,
+                    HomeAddress1 = model.HomeAddress1,
+                    HomeAddress2 = model.HomeAddress2,
+                    StateHome = model.StateHome,
+                    CityHome = model.CityHome,
+                    ZipHome = model.ZipHome,
+                    RentOwn = 0,
+                    MoveInDate = model.MoveInDate,
+                    JobType = 0,
+                    OfficeCountry = "1",
+                    OfficeState = 0,
+                    EmergencyCountry = "1",
+                    EmergencyStateHome = 0,
+                    CreatedDate = DateTime.Now,
+                    IsInternational = 0,
+                    OtherGender = model.OtherGender,
+                    Country2 = "1",
+                    StateHome2 = 0,
+                    ZipHome2 = "",
+                    RentOwn2 = 0,
+                    SSN = model.SSN,
+                    CountryOfOrigin = 1,
+                    Evicted = 1,
+                    ConvictedFelony = 1,
+                    CriminalChargPen = 1,
+                    DoYouSmoke = 1,
+                    ReferredResident = 1,
+                    ReferredBrokerMerchant = 1,
+                    IsProprNoticeLeaseAgreement = 1,
+                    StepCompleted = 4,
+                    ParentTOID = Uid,
+                    IsRentalPolicy = 0,
+                    IsRentalQualification = 0,
+                };
+                db.tbl_TenantOnline.Add(getAppldata);
+                db.SaveChanges();
+
+                var defaultParking = db.tbl_Parking.Where(p => p.PropertyID == model.PropertyId && p.Type == 1).ToList();
+
+                foreach (var dp in defaultParking)
+                {
+                    var addTenantParking = new tbl_TenantParking() { ParkingID = dp.ParkingID, Charges = 0, TenantID = model.ID, CreatedDate = DateTime.Now };
+                    db.tbl_TenantParking.Add(addTenantParking);
+                    db.SaveChanges();
+                }
+
+                //var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.PropertyId).FirstOrDefault();
+                //string reportHTML = "";
+
+                //string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+                ////reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateRegBG.html");
+                //reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                //reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                //string phonenumber = model.Phone;
+                //try
+                //{
+                //    if (model != null)
+                //    {
+                //        //var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                //        //string payid = new EncryptDecrypt().EncryptText(saveApplicant.ApplicantID.ToString() + ",4," + propertDet.BGCheckFees.Value.ToString("0.00"));
+                //        //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submitted and Payment Link for Credit Check");
+                //        //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  Thank you for registering on our fast and easy Leasing Portal!  Your account has been successfully created as follows:</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Username : [%TenantEmail%]</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Please pay your fees $" + propertDet.BGCheckFees.Value.ToString("0.00") + " for credit check. We are excited you are considering us as your place to live.  If you need any assistance in completing your online application or have any questions about our community, </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Please feel free to contact us at your convenience.  Our contact information with some highlights about our property is shown below. We look forward to serving you.</p>");
+                //        //reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                //        //reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
+                //        //reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+                //        //reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+                //        //reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
+                //        //reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
+                //        //reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
+                //        //reportHTML = reportHTML.Replace("[%TenantEmail%]", model.Email);
+                //        //reportHTML = reportHTML.Replace("[%QuoteNo%]", model.ID.ToString());
+                //        //reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+
+                //        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                //        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  Thank you for registering on our fast and easy Leasing Portal!  Your account has been successfully created as follows:</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Username : [%TenantEmail%]</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;We are excited you are considering us as your place to live.  If you need any assistance in completing your online application or have any questions about our community, </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Please feel free to contact us at your convenience.  Our contact information with some highlights about our property is shown below. We look forward to serving you.</p>");
+                //        reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
+                //        reportHTML = reportHTML.Replace("[%TenantAddress%]", model.Address);
+                //        reportHTML = reportHTML.Replace("[%LeaseStartDate%]", DateTime.Now.ToString());
+                //        reportHTML = reportHTML.Replace("[%LeaseEndDate%]", DateTime.Now.AddMonths(13).ToString());
+                //        reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+                //        reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
+                //        reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
+                //        reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
+                //        reportHTML = reportHTML.Replace("[%TenantEmail%]", model.Email);
+                //        reportHTML = reportHTML.Replace("[%TenantPassword%]", model.Password);
+                //        reportHTML = reportHTML.Replace("[%QuoteNo%]", model.ID.ToString());
+                //        reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+
+                //        //message = "Your account has been successfully created. Please pay your fees $" + propertDet.BGCheckFees.Value.ToString("0.00") + " for Credit check. Please check the email for detail.";
+                //        message = "Your account has been successfully created. Please check the email for detail.";
+                //    }
+                //    string body = reportHTML;
+                //    new EmailSendModel().SendEmail(model.Email, "Application Submission", body);
+                //    if (SendMessage == "yes")
+                //    {
+                //        if (!string.IsNullOrWhiteSpace(phonenumber))
+                //        {
+                //            new TwilioService().SMS(phonenumber, message);
+                //        }
+                //    }
+                //}
+                //catch (Exception ex)
+                //{
+                //    LoggerEngine.LoggingHelper.LogMessage(ex, System.Diagnostics.TraceLevel.Info);
+                //}
+            }
+            msg = model.ID.ToString() + "|Online Prospect Save Successfully|" + Uid;
+
+            db.Dispose();
+            return msg;
+        }
         public void SignIn(string userName, bool rememberMe)
         {
             System.Web.Security.FormsAuthentication.SetAuthCookie(userName, rememberMe);

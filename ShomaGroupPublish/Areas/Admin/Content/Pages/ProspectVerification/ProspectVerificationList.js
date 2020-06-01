@@ -345,7 +345,7 @@ var Statuschange = function () {
 
             $.alert({
                 title: "",
-                content: "Confirmation Saved and Email Send Successfully",
+                content: "Status Changed Successfully.",
                 type: 'red',
             });
         }
