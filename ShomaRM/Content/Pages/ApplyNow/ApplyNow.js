@@ -10553,9 +10553,9 @@ var getPropertyUnitDetails = function (uid) {
             $('#lblAvailableFloorPlanArea').text(response.model.Area);
             $('#lblAvailableFloorPlanStartingPrice').text(formatMoney(response.model.StartingPriceString));
             $('#lblAvailableFloorPlanAvailableDate').text(response.model.AvailableDateText);
-            var dts = new Date();
-            dts.setFullYear(new Date().getFullYear() - 100);
-            $("#txtAvailableFloorPlanMoveInDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true });
+            var dtend100 = new Date();
+            dtend100.setFullYear(new Date().getFullYear() + 100);
+            $("#txtAvailableFloorPlanMoveInDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: "+1d", endDate: dtend100, maxViewMode: 2, autoclose: true });
             $("#txtAvailableFloorPlanMoveInDate").val($('#txtDate').val());
             //ddl
             $('#ddlAvailableFloorPlanLeaseTerm').empty();
@@ -11100,3 +11100,25 @@ var printMonthlySummary = function () {
         }
     });
 };
+var saveToDiskPDF = function (filePath, fileName) {
+    var saveUrl = filePath;
+    saveUrl = webURL() + saveUrl;
+    var downloadFileName = fileName;
+    var hyperlink = document.createElement('a');
+    hyperlink.href = saveUrl;
+    hyperlink.target = '_blank';
+    hyperlink.download = downloadFileName;
+    (document.body || document.documentElement).appendChild(hyperlink);
+    hyperlink.onclick = function () {
+        (document.body || document.documentElement).removeChild(hyperlink);
+    };
+    var mouseEvent = new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+    });
+    hyperlink.dispatchEvent(mouseEvent);
+    if (!navigator.mozGetUserMedia) { 
+        window.URL.revokeObjectURL(hyperlink.href);
+    }
+}
