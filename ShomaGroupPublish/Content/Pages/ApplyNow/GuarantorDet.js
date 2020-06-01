@@ -47,7 +47,7 @@ $(document).ready(function () {
             //$("#popCCPay").modal("show");
             $('#btnsaveapplandpay').removeClass('hidden');
             $('#btnsaveappl').addClass('hidden');
-            modal.find('.modal-content').css("height", "760px");
+            //modal.find('.modal-content').css("height", "760px");
             $('#divCreditCheckPayment').removeClass('hidden');
             $("#sppayFees").text($("#hndAppCreditFees").val());
         }
@@ -57,7 +57,7 @@ $(document).ready(function () {
             clearCard1();
             $('#btnsaveapplandpay').addClass('hidden');
             $('#btnsaveappl').removeClass('hidden');
-            modal.find('.modal-content').css("height", "560px");
+            //modal.find('.modal-content').css("height", "560px");
             $('#divCreditCheckPayment').addClass('hidden');
         }
     });
@@ -3729,7 +3729,7 @@ var addApplicant = function (at) {
     var modal = $("#popApplicant");
     if (at == 1) {
         $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
-        modal.find('.modal-content').css("height", "530px");
+        //modal.find('.modal-content').css("height", "530px");
         modal.find('.modal-title').text('Add Co-Applicant');
         $("#popApplicant").modal("show");
         $("#ddlApplicantType").text("Co-Applicant");
@@ -3773,7 +3773,7 @@ var addApplicant = function (at) {
     }
     else if (at == 2) {
         $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
-        modal.find('.modal-content').css("height", "300px");
+        //modal.find('.modal-content').css("height", "300px");
         modal.find('.modal-title').text('Add Minor');
         $("#popApplicant").modal("show");
         $("#ddlApplicantType").text("Minor");
@@ -3798,7 +3798,7 @@ var addApplicant = function (at) {
     }
     else if (at == 3) {
         $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
-        modal.find('.modal-content').css("height", "530px");
+        //modal.find('.modal-content').css("height", "530px");
         modal.find('.modal-title').text('Add Guarantor');
         $("#popApplicant").modal("show");
         $("#ddlApplicantType").text("Guarantor");
@@ -4082,7 +4082,7 @@ var saveupdateApplicant = function () {
         }
     });
 };
-var goToEditApplicant = function (aid) {
+var goToEditApplicantGuarantor = function (aid) {
     clearApplicant();
     if (aid != null) {
         //sacxhis
@@ -4104,7 +4104,7 @@ var goToEditApplicant = function (aid) {
 
                 if (response.model.Type == "Primary Applicant") {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
-                    modal.find('.modal-content').css("height", "530px");
+                    //modal.find('.modal-content').css("height", "530px");
                     modal.find('.modal-title').text('Edit Primary Applicant');
                     $("#popApplicant").modal("show");
                     $("#ddlApplicantType").text("Primary Applicant");
@@ -4154,7 +4154,7 @@ var goToEditApplicant = function (aid) {
                 }
                 else if (response.model.Type == "Co-Applicant") {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
-                    modal.find('.modal-content').css("height", "530px");
+                    //modal.find('.modal-content').css("height", "530px");
                     modal.find('.modal-title').text('Edit Co-Applicant');
                     $("#popApplicant").modal("show");
                     $("#ddlApplicantType").text("Co-Applicant");
@@ -4205,7 +4205,7 @@ var goToEditApplicant = function (aid) {
                 }
                 else if (response.model.Type == "Guarantor") {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
-                    modal.find('.modal-content').css("height", "530px");
+                    //modal.find('.modal-content').css("height", "530px");
                     modal.find('.modal-title').text('Edit Guarantor');
                     $("#popApplicant").modal("show");
                     $("#ddlApplicantType").text("Guarantor");
@@ -4254,7 +4254,7 @@ var goToEditApplicant = function (aid) {
                 }
                 else if (response.model.Type == "Minor") {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
-                    modal.find('.modal-content').css("height", "300px");
+                    //modal.find('.modal-content').css("height", "300px");
                     modal.find('.modal-title').text('Edit Minor');
                     $("#popApplicant").modal("show");
                     $("#ddlApplicantType").text("Minor");
@@ -4365,7 +4365,7 @@ var getApplicantListsGuarantor = function () {
                     html += "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>";
                     html += "<label> " + elementValue.Type + " </label><br/>";
                     if (elementValue.Type == "Guarantor") {
-                        html += "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
+                        html += "<label><a href='javascript:void(0)' onclick='goToEditApplicantGuarantor(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
                         if (parseInt(elementValue.CreditPaid) == 0 && parseInt(elementValue.HasSSN) == 1) {
                             html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
                         } else if (parseInt(elementValue.CreditPaid) == 1 && parseInt(elementValue.BackGroundPaid) == 0) {
@@ -7443,7 +7443,7 @@ var onFocusApplyNow = function () {
                 $("#divchkCCPay").removeClass("hidden");
             }
             var modal = $("#popApplicant");
-            modal.find('.modal-content').css("height", "560px");
+            //modal.find('.modal-content').css("height", "560px");
         }
         if (ssn.length > 4) {
             getEncDecValue(this, 2);

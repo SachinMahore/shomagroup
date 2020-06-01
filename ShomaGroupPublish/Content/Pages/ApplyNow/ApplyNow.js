@@ -3774,12 +3774,12 @@ var getCompareModelList = function () {
                     "<span ></span>" +
                     "</div>" +
                     "<div class='col-sm-12'><span><br /> </span></div>" +
-                    "<div class='col-sm-12'><span> </span></div> <div class='col-sm-12'><span>Monthly Rent: </span></div>" +
-                    "<div class='col-sm-12'><span>Square feet: </span></div>" +
-                    "<div class='col-sm-12'><span id=''>Bedrooms: </span></div>" +
-                    "<div class='col-sm-12'><span id=''>Bathrooms: </span></div>" +
-                    "<div class='col-sm-12'><span>Available: </span></div>" +
-                    "<div class='col-sm-12'><span id=''>Occupancy: </span></div>" +
+                    "<div class='col-sm-12'><span> </span></div> <div class='col-sm-12'><span><b>Monthly Rent:</b></span></div>" +
+                    "<div class='col-sm-12'><span><b>Square feet:</b></span></div>" +
+                    "<div class='col-sm-12'><span><b>Bedrooms:</b></span></div>" +
+                    "<div class='col-sm-12'><span ><b>Bathrooms:</b></span></div>" +
+                    "<div class='col-sm-12'><span><b>Available:</b></span></div>" +
+                    "<div class='col-sm-12'><span><b>Occupancy:</b></span></div>" +
                     "</div>";
                 $.each(response.model, function (elementType, value) {
                     for (var j = 0; j < addModelArray.length; j++) {
@@ -3810,6 +3810,8 @@ var getCompareModelList = function () {
     });
 }
 var getPropertyUnitList = function (modelname, filldata) {
+
+    $('#hndBuilding').val(modelname);
     $('#divPriceTable').addClass('hidden');
     $('#divSelectUnit').removeClass('hidden');
     $("#hndIsModelSelected").val(1);
@@ -3817,7 +3819,7 @@ var getPropertyUnitList = function (modelname, filldata) {
     $("#imgFloorPlan2").attr("src", "/content/assets/img/plan/" + modelname + "Det.jpg");
     $("#imgFloorPlanNew").attr("src", "/content/assets/img/plan/" + modelname + ".jpg");
 
-    $("#ModelCompare").modal("hide");
+    $("#popModelCompare").modal("hide");
     $("#lblUnitNo").text("");
 
     $("#lblUnitNo").text("Model: #" + modelname);
@@ -3855,6 +3857,7 @@ var getPropertyUnitList = function (modelname, filldata) {
             if (response != null) {
                 $("#listUnit>tbody").empty();
                 $("#listUnitNew>tbody").empty();
+                $("#popUnitPlan").empty();
                 $.each(response.model, function (elementType, value) {
                     var html = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td style='text-align: center;width=100px'>$" + formatMoney(value.Current_Rent) + "</td><td style='text-align: center; width:45%'>" + value.Premium + "</td><td style='text-align: center;width=100px'>" + value.AvailableDateText + "</td></tr>";
                     var htmlNew = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td class='unit'><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td class='price'>$" + formatMoney(value.Current_Rent) + "</td><td class='available'>" + value.AvailableDateText + "</td><td class='charges'><a href ='javascript:void(0);' class='genric-btn success' onclick='showPriceTable(" + value.UID + ")'> Apply</a><a href='javascript:void(0);' class='genric-btn success' onclick='showMonthlyCharges(" + value.UID + ")'>Monthly Charges</a></td ></tr>";
@@ -9908,7 +9911,7 @@ var btnApplyNowLeaseCurrent = function () {
         success: function (response) {
 
             $("#hndShowPropertyDetails").val(1);
-            $("#ModelCompare").modal("hide");
+            $("#popModelCompare").modal("hide");
             $("#popUnitDet").addClass("hidden");
             $("#popFloorCoordinate").addClass("hidden");
             $("#lblUnitNo").text("#" + response.model.UnitNo);
@@ -10077,7 +10080,7 @@ var btnApplyNowLeaseBest = function () {
         success: function (response) {
 
             $("#hndShowPropertyDetails").val(1);
-            $("#ModelCompare").modal("hide");
+            $("#popModelCompare").modal("hide");
             $("#popUnitDet").addClass("hidden");
             $("#popFloorCoordinate").addClass("hidden");
             $("#lblUnitNo").text("#" + response.model.UnitNo);
@@ -10248,7 +10251,7 @@ var btnApplyNowLeaseGreat = function () {
         success: function (response) {
 
             $("#hndShowPropertyDetails").val(1);
-            $("#ModelCompare").modal("hide");
+            $("#popModelCompare").modal("hide");
             $("#popUnitDet").addClass("hidden");
             $("#popFloorCoordinate").addClass("hidden");
             $("#lblUnitNo").text("#" + response.model.UnitNo);
@@ -10553,9 +10556,9 @@ var getPropertyUnitDetails = function (uid) {
             $('#lblAvailableFloorPlanArea').text(response.model.Area);
             $('#lblAvailableFloorPlanStartingPrice').text(formatMoney(response.model.StartingPriceString));
             $('#lblAvailableFloorPlanAvailableDate').text(response.model.AvailableDateText);
-            var dts = new Date();
-            dts.setFullYear(new Date().getFullYear() - 100);
-            $("#txtAvailableFloorPlanMoveInDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: "+0d", maxViewMode: 2, autoclose: true });
+            var dtend100 = new Date();
+            dtend100.setFullYear(new Date().getFullYear() + 100);
+            $("#txtAvailableFloorPlanMoveInDate").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: "+1d", endDate: dtend100, maxViewMode: 2, autoclose: true });
             $("#txtAvailableFloorPlanMoveInDate").val($('#txtDate').val());
             //ddl
             $('#ddlAvailableFloorPlanLeaseTerm').empty();
@@ -10591,7 +10594,7 @@ var getPropertyUnitDetails = function (uid) {
             $('#popMonthlyChargesTotalMonthlyCharges').text("$" + formatMoney(popMonthlyChargesTotal));
 
             $("#hndShowPropertyDetails").val(1);
-            $("#ModelCompare").modal("hide");
+            $("#popModelCompare").modal("hide");
             $("#popUnitDet").addClass("hidden");
             $("#popFloorCoordinate").addClass("hidden");
             $("#lblUnitNo").text("#" + response.model.UnitNo);
@@ -10880,7 +10883,7 @@ var applyFromFloorPlanDetails = function () {
             $('#popMonthlyChargesTotalMonthlyCharges').text("$" + formatMoney(popMonthlyChargesTotal));
 
             $("#hndShowPropertyDetails").val(1);
-            $("#ModelCompare").modal("hide");
+            $("#popModelCompare").modal("hide");
             $("#popUnitDet").addClass("hidden");
             $("#popFloorCoordinate").addClass("hidden");
             $("#lblUnitNo").text("#" + response.model.UnitNo);
@@ -11100,3 +11103,25 @@ var printMonthlySummary = function () {
         }
     });
 };
+var saveToDiskPDF = function (filePath, fileName) {
+    var saveUrl = filePath;
+    saveUrl = webURL() + saveUrl;
+    var downloadFileName = fileName;
+    var hyperlink = document.createElement('a');
+    hyperlink.href = saveUrl;
+    hyperlink.target = '_blank';
+    hyperlink.download = downloadFileName;
+    (document.body || document.documentElement).appendChild(hyperlink);
+    hyperlink.onclick = function () {
+        (document.body || document.documentElement).removeChild(hyperlink);
+    };
+    var mouseEvent = new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+    });
+    hyperlink.dispatchEvent(mouseEvent);
+    if (!navigator.mozGetUserMedia) { 
+        window.URL.revokeObjectURL(hyperlink.href);
+    }
+}

@@ -343,10 +343,11 @@
     <!-- The social media icon bar -->
     <div class="web">
         <div class="icon-bar ">
+            
             <a href="https://www.facebook.com/pages/category/Property-Management-Company/Sanctuary-Doral-351001812054769/" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a>
             <a href="mailto:info@sanctuarydoral.com"  class="envelope"><i class="fa fa-envelope"></i></a>
             <a href="#" class="calender" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/sanctuarydoral/leasingtours'});return false;"><i class="fa fa-calendar"></i></a>
-            <a href="#" class="phone" id="phonelayout"><i class="fa fa-phone"></i></a>
+            <a href="tel:+1-786-437-8658" class="phone" id="phonelayoutweb"><i class="fa fa-phone"></i></a>
             <a  href="https://www.instagram.com/sanctuarydoral/" target="_blank" class="instagram"><i class="fa fa-instagram"></i></a>
         </div>
     </div>
@@ -355,7 +356,7 @@
             <a href="https://www.facebook.com/pages/category/Property-Management-Company/Sanctuary-Doral-351001812054769/" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a>
             <a href="mailto:info@sanctuarydoral.com" class="envelope"><i class="fa fa-envelope"></i></a>
             <a href="#" class="calender" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/sanctuarydoral/leasingtours'});return false;"><i class="fa fa-calendar"></i></a>
-            <a href="#" class="phone" id="phonelayout"><i class="fa fa-phone"></i></a>
+            <a href="tel:+1-786-437-8658" class="phone" id="phonelayoutmobile"><i class="fa fa-phone"></i></a>
             <a href="https://www.instagram.com/sanctuarydoral/" target="_blank" class="instagram"><i class="fa fa-instagram"></i></a>
         </div>
         </div>
@@ -532,10 +533,26 @@
     var sourceName = getParam('utm_source');
     document.addEventListener("DOMContentLoaded", function () {
         // Check the UTM code and assign the correct unique phone number per source
-        if (sourceName == 'google') document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.111.0000</a>';
-        else if (sourceName == 'facebook') document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.222.0000</a>';
-        else if (sourceName == 'zillow') document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-333-0000">415.333.0000</a>';
-        else document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-786-437-8658">786.437.8658</a>';
+        if (sourceName == 'google') {
+            document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.111.0000</a>';
+            $("#phonelayoutweb").attr("href", "tel:+1-786-437-8658");
+            $("#phonelayoutmobile").attr("href", "tel:+1-786-437-8658");
+        }
+        else if (sourceName == 'facebook') {
+            document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.222.0000</a>';
+            $("#phonelayoutweb").attr("href", "tel:+1-786-437-8658");
+            $("a").attr("href", "tel:+1-786-437-8658");
+        }
+        else if (sourceName == 'zillow') {
+            document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-333-0000">415.333.0000</a>';
+            $("#phonelayoutweb").attr("href", "tel:+1-786-437-8658");
+            $("#phonelayoutmobile").attr("href", "tel:+1-786-437-8658");
+        }
+        else {
+            document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-786-437-8658">786.437.8658</a>';
+            $("#phonelayoutweb").attr("href", "tel:+1-786-437-8658");
+            $("#phonelayoutmobile").attr("href", "tel:+1-786-437-8658");
+        }
     });
     var ForgetPasswordss = function () {
         var msg = "";

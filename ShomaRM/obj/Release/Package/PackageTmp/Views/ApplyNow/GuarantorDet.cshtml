@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Guarantor Details";
 }
+<link rel="stylesheet" href="@Url.Content("~/content/bootstrap.min.css")" />
+<script src="@Url.Content("~/Content/jAlert.min.js")"></script>
+<script src="@Url.Content("~/Content/jTimeout.min.js")"></script>
 <script src="~/Content/Pages/ApplyNow/GuarantorDet.js"></script>
 <script src="~/Content/assets/js/jquery.maphilight.js"></script>
 <script src="~/Content/Pages/ApplyNow/DocumentVerification.js"></script>
@@ -1594,8 +1597,8 @@
                                 <div class="pull-right text-center">
 
                                     <!--<button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>-->
-
-                                    <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageGur()">Go to summary</button> <button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnext" onclick="goToStep(9,9,0)"> Continue</button>
+                                    <button type="submit" class="btn-alltype elvetica-font @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnext" onclick="goToStep(9,9,0)"> Continue</button>
+                                    <button type="button" class="btn-alltype gotosummary hidden elvetica-font" id="" onclick="goToSummaryPageGur()">Go to summary</button>
                                 </div>
                             </div>
                         </div>
@@ -1918,10 +1921,11 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(7,7,0)"> Back</button>
+                                <button type="submit" class="btn-alltype elvetica-font" onclick="goToStep(7,7,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageGur()">Go to summary</button> <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(11,11,0)"> Continue</button>
+                                <button type="submit" class="btn-alltype elvetica-font" id="btnnext" onclick="goToStep(11,11,0)"> Continue</button>
+                                <button type="button" class="btn-alltype gotosummary hidden elvetica-font" id="" onclick="goToSummaryPageGur()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -2421,10 +2425,11 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(9,9,0)"> Back</button>
+                                <button type="submit" class="btn-alltype elvetica-font" onclick="goToStep(9,9,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="button" class="btn btn-primary gotosummary hidden" id="" onclick="goToSummaryPageGur()">Go to summary</button> <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(15,15,0)"> Continue</button>
+                                <button type="submit" class="btn-alltype elvetica-font" id="btnnext" onclick="goToStep(15,15,0)"> Continue</button>
+                                <button type="button" class="btn-alltype elvetica-font gotosummary hidden" id="" onclick="goToSummaryPageGur()">Go to summary</button>
                             </div>
                         </div>
                     </div>
@@ -3766,28 +3771,24 @@
 
                             </div>
                         </div>
-                        <div class="col-sm-12 ">
+                        <div class="col-sm-12">
                             <div class="col-sm-6 hidden">
-                                <div class="col-sm-1 form-group">
-                                    <input class="form-control" type="checkbox" id="chkAgreeSummarry" style="width: 60px !important;height: 20px !important;">
-                                </div>
-                                <div class="col-sm-11" style="text-align: left;">
-                                    <label>
-                                        ACCEPT AGREEMENTS
-                                    </label>
+                                <div class="">
+                                    <input class="form-control" type="checkbox" id="chkAgreeSummarry" /> <span class="agree-text">  ACCEPT AGREEMENTS</span>
                                 </div>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnPrintSummary" onclick="printSummary()"><i class="fa fa-print"></i> Print</button>
+                                <button type="submit" class="btn-alltype" id="btnPrintSummary" onclick="printSummary()"><i class="fa fa-print"></i> Print</button>
                             </div>
+                            <br />
                         </div>
                         <div class="col-sm-12">
 
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn btn-primary" onclick="goToStep(11,11,0)"> Back</button>
+                                <button type="submit" class="btn-alltype" onclick="goToStep(11,11,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStep(16,16,0)"> Continue</button>
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(16,16,0)"> Continue</button>
                             </div>
 
                         </div>
@@ -3978,10 +3979,10 @@
                             </div>
                             <div class="col-sm-12">
                                 <div class="pull-left text-center">
-                                    <button type="submit" class="btn btn-primary" onclick="goToStep(15,15,0)"> Back</button>
+                                    <button type="submit" class="btn-alltype elvetica-font" onclick="goToStep(15,15,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn btn-primary payNext" id="btnpaynext" onclick="goToStep(17,17,0)" disabled> Continue</button>
+                                    <button type="submit" class="btn-alltype elvetica-font payNext" id="btnpaynext" onclick="goToStep(17,17,0)" disabled> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -4357,14 +4358,15 @@
         </div>
     </div>
 </div>
-
-<div class="modal " id="popApplicant" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:1100px !important; height:700px;">
-        <div class="modal-content" style="width: 100% !important; height:557px!important;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
-            <div class="modal-header" style="width: 100%; padding:0px;">
-                <h5 class="modal-title">Add Applicant</h5>
+<div class="modal" id="popApplicant">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h3 class="modal-title">Add Applicant</h3>
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;margin-top:-30px"><i class="fa fa-times-circle"></i></button>
             </div>
+            <!-- Modal body -->
             <div class="modal-body">
                 <input type="hidden" id="hndApplicantID" value="0" />
                 <div class="col-sm-12">
@@ -4633,22 +4635,23 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer-custom">
-                <div class="col-sm-12 text-center">
-                    <button type="submit" class="btn btn-primary" id="btnsaveappl" onclick="saveupdateApplicant()">Save</button>
-                    <button type="submit" class="btn btn-primary hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
-                </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer" style="border-top:none">
+                <button type="submit" class="btn-alltype" id="btnsaveappl" onclick="saveupdateApplicant()">Save</button>
+                <button type="submit" class="btn-alltype hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
             </div>
+
         </div>
     </div>
 </div>
 @*Sachin M 15 May*@
-<div class="modal " id="popCCPay" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:1100px !important; height:700px;">
-        <div class="modal-content" style="width: 100% !important; height:375px!important;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
-            <div class="modal-header" style="width: 100%; padding:0px;">
-                <h5 class="modal-title"><span id="lblpopcctitle">Credit Check Fees</span>  $<span id="sppayFees2"></span></h5>
+<div class="modal" id="popCCPay">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><span id="lblpopcctitle">Credit Check Fees</span>  $<span id="sppayFees2"></span></h3>
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;margin-top:-30px"><i class="fa fa-times-circle"></i></button>
             </div>
             <div class="modal-body">
                 @*Sachin M 14 May*@
@@ -4744,9 +4747,9 @@
                 </div>
 
             </div>
-            <div class="modal-footer-custom">
+            <div class="modal-footer" style="border-top:none">
                 <div class="col-sm-12 text-center">
-                    <button type="submit" class="btn btn-primary" onclick="saveCoAppPaymentPopup()">Pay</button>
+                    <button type="submit" class="btn-alltype" onclick="saveCoAppPaymentPopup()">Pay</button>
                 </div>
             </div>
         </div>
@@ -5019,15 +5022,14 @@
         </div>
     </div>
 </div>
-
 <div class="modal" id="popApplicantHistory">
-    <div class="modal-dialog">
-        <div class="modal-content" style="width:850px; height:750px;">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
 
             <!-- Modal Header -->
-            <div class="modal-header" style="width: 100%; padding:0px;">
-                <h5 class="modal-title">Add Applicant History</h5>
-                <button type="button" class="close" data-dismiss="modal" style="margin-top: -24px; margin-right: 8px;color:black">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title">Add Applicant History</h3>
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;margin-top:-35px"><i class="fa fa-times-circle"></i></button>
             </div>
 
             <!-- Modal body -->
@@ -5171,45 +5173,36 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 text-center">
-                <button type="button" class="btn btn-primary" onclick="saveupdateApplicantHistory()"><i class="fa fa-save"></i> Save</button>
+
+            <!-- Modal footer -->
+            <div class="modal-footer" style="border-top:none">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn-alltype" onclick="saveupdateApplicantHistory()"><i class="fa fa-save"></i> Save</button>
+                </div>
             </div>
 
         </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer-custom">
-
-        </div>
-
     </div>
 </div>
 
-<div class="modal fade" id="popRentalQualification" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content-summary">
-
-            <div class="modal-body" style="padding: -15px;">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin-top: -44px; margin-right: -34px;">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<div class="modal" id="popRentalQualification">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
                 <table width="860" border="0" align="center" cellpadding="0" cellspacing="0" style="margin:auto;padding:0; vertical-align:top;min-height:1180px;">
                     <tr>
                         <td colspan="2" align="center" class="BG-White Pen-Black" style="padding-right:20px; line-height:26px;">
                             <span style="font-size:20px; font-weight:900"><u>RENTAL QUALIFICATION STANDARDS & COMMUNITY RULES & POLICIES</u></span><br />
-
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="2" class="BG-Orange" style="height:2px;font-size:1px;">&nbsp;</td>
-                    </tr>
-
-
                     <tr>
                         <td colspan="2">
 
                             <p style="font-size:small; color:#838383;">Before you proceed, we want to let you know that Sanctuary uses a third-party screening company which utilizes certain guidelines to qualify applicants for residency in our community.  Before you apply, we want to inform you of some of the criteria, so you can determine your options. </p>
-                            <p style="font-size:small; color:#838383;"><b>The rental application fee per applicant and co-applicant is $135 and is non-refundable.  If a Guarantor is provided, the Guarantor must also complete an application and pay a non-refundable fee of $150.</b> Because there are no exceptions, it is important that you review this document carefully before applying, making certain that to the best of your knowledge you meet the rental qualifications shown below. </p>
+                            <p style="font-size:small; color:#838383;"><b>The rental application fee per applicant and co-applicant is $@((Model.ApplicationFees ?? 0).ToString("0.00")) (Credit Check:$@((Model.AppCCCheckFees ?? 0).ToString("0.00")) + Background Check:$ @((Model.AppBGCheckFees ?? 0).ToString("0.00"))) and is non-refundable.  If a Guarantor is provided, the Guarantor must also complete an application and pay a non-refundable fee of @((Model.GuarantorFees ?? 0).ToString("0.00")).</b> Because there are no exceptions, it is important that you review this document carefully before applying, making certain that to the best of your knowledge you meet the rental qualifications shown below. </p>
                             <p style="font-size:small; color:#838383;">Additionally, we want to make sure you are happy with your decision to join our community, so we put together this list of Rules and Policies created to ensure a safe and enjoyable environment for all residents.  Before you proceed to apply, you will be kindly asked to accept the Rules and Policies  </p>
                             <p style="font-size:small; color:#838383;">Masmar Management, LLC, Sanctuary’s property management, does not discriminate against persons based on race, color, religion, national origin, familial status, or disability.  Although all residents are subjected to the screening process, nothing contained in these requirements shall constitute representation by Masmar that all residents and occupants currently residing in our community have met or currently meet these guidelines.</p>
 
@@ -5245,8 +5238,8 @@
                             </p>
 
 
-                            <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">ADMINISTRATION FEE :</span>  A $350 Administration fee will be required to reserve a unit once the application has been accepted.  Move in date must be within 30 days of acceptance of application. </p>
-                            <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">DEPOSIT FEES :</span> Standard deposit per unit is $500, subject to change depending on results of application.   </p>
+                            <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">ADMINISTRATION FEE :</span>  A $@((Model.AdminFees ?? 0).ToString("0.00")) Administration fee will be required to reserve a unit once the application has been accepted.  Move in date must be within 30 days of acceptance of application. </p>
+                            <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">DEPOSIT FEES :</span> Standard deposit per unit is $@((Model.Deposit ?? 0).ToString("0.00")), subject to change depending on results of application.   </p>
                             <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">LIABILITY/RENTERS INSURANCE :</span>  Residents are required to have Renters liability insurance policy of $100,000 or more for the duration of your residency.  Sanctuary at Doral, LLC and Masmar Management LLC must be listed as additional insureds.  Proof of liability insurance is required before move-in.  Additionally, we strongly recommend a Renter’s Property Insurance for the contents of your unit.  If you would like assistance in obtaining the required insurance, please visit ____________________________. </p>
                             <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">MOVE-IN CHARGES AND MONTHLY PAYMENTS :</span>  All move in charges and monthly payments must be done online.  Once you become a resident, you can easily set-up recurring payments using either your bank account or credit card.  No cash payments allowed. No payments will be accepted at the management office. </p>
                             <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">SMOKE FREE :</span> This is a smoke free community which means that smoking and any other smoke generating products, such as incense, are strictly forbidden on the premises.  Smoking is not allowed in the common areas and apartments except in designated areas or balconies.</p>
@@ -5259,7 +5252,7 @@
                             <p style="font-size:small; color:#838383;">
                                 <ul type="" style="color:#838383;">
                                     <li>A $500 non-refundable pet fee for one pet or $750 for two pets will be required to be paid prior to move in.   </li>
-                                    <li>A one-time DNA per pet fee of $29 is due at the time of move in. </li>
+                                    <li>A one-time DNA per pet fee of $@((Model.PetDNAAmt ?? 0).ToString("0.00")) is due at the time of move in. </li>
                                     <li>A monthly pet rent of $20.00 for 1 pet and $40 for 2 pets will be charged for the term of the lease while the pet(s) occupy the apartment. </li>
                                     <li>At the time of application (or later if acquired after move-in date), a photograph of your pet(s) must be uploaded together with a veterinarian certificate verifying the pet’s age, weight, and current vaccinations. </li>
                                     <li>Pets must be kept on a leash at all times and owners must clean up after their pets.  Pets must not be left unattended in a garage or on a patio/balcony at any time. </li>
@@ -5277,6 +5270,10 @@
 
 
                 </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer" style="border-top:none">
             </div>
 
         </div>
@@ -5520,12 +5517,13 @@
     </div>
 </div>
 <div class="modal" id="popHistoryEmpAndIncome">
-    <div class="modal-dialog">
-        <div class="modal-content" style="width:750px; height:700px;">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
             <!-- Modal Header -->
-            <div class="modal-header" style="width: 100%; padding:0px;">
-                <h5 class="modal-title">Employment History</h5>
-                <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px;color:black;">&times;</button>
+            <div class="modal-header">
+                <h3 class="modal-title">Employment History</h3>
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;margin-top:-35px"><i class="fa fa-times-circle"></i></button>
             </div>
 
             <!-- Modal body -->
@@ -5686,22 +5684,31 @@
             </div>
 
             <!-- Modal footer -->
-            <div class="modal-footer-custom">
+            <div class="modal-footer" style="border-top:none">
                 <div class="col-sm-12 text-center">
-                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary pull-right" onclick="saveEmployerHistory()" style="margin-right: 10px;">Save</button>
+
+                    <button type="submit" class="btn-alltype" onclick="saveEmployerHistory()" style="margin-right: 10px;">Save</button>
+                    <button type="button" class="btn-alltype" data-dismiss="modal">Close</button>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
-<div id="modalApplicationSummary" class="modal" style="width:100% !important">
-    <div class="modal-header">
-        <span class="close" id="closeAppSummary" data-dismiss="modal" style="margin-top: -10px !important;margin-right: -200px !important;">&times;</span>
-    </div>
-    <div class="modal-content" style="width:66% !important">
-        <div class="text-center">
-            <div><iframe id="ifrmAppSummary" width="100%" height="625" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+<div class="modal" id="modalApplicationSummary">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header" style="border-top:none">
+                <button type="button" id="closeAppSummary" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div><iframe id="ifrmAppSummary" width="100%" height="625" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top:none">
+            </div>
         </div>
     </div>
 </div>
@@ -5743,44 +5750,74 @@
         </div>
     </div>
 </div>
-<div class="modal " id="modalTermsCondition" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:1100px">
-        <div class="modal-content" style="width: 100% !important;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
-            <div class="modal-body text-center">
-                <div><iframe src="~/Content/assets/img/Document/TermAndCondition.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+<div class="modal" id="modalTermsCondition">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header" style="border-top:none">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
             </div>
-        </div>
-    </div>
-</div>
-<div class="modal " id="modalRentalQualificationPolicy" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:1100px">
-        <div class="modal-content" style="width: 100% !important;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
-            <div class="modal-body text-center">
-                <div><iframe id="iframeRental" src="~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div><iframe src="~/Content/assets/img/Document/TermAndCondition.pdf" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                </div>
             </div>
-            <div class="modal-footer-custom">
-                <button id="policyRentalPrint" class="btn btn-primary" onclick="printiframe('iframeRental')"> Print</button>
+            <div class="modal-footer" style="border-top:none">
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal " id="modalRulesAndPolicy" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:1100px">
-        <div class="modal-content" style="width: 100% !important;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
-            <div class="modal-body text-center">
-                <div><iframe id="iframeRules" src="~/Content/assets/img/Policy/Rules_Policies_fragmented.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+<div class="modal" id="modalRentalQualificationPolicy">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header" style="border-top:none">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
             </div>
-            <div class="modal-footer-custom">
-                <button id="policyRulesPrint" class="btn btn-primary" onclick="printiframe('iframeRules')"> Print</button>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div><iframe id="iframeRental" src="~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top:none">
+                <button id="policyRentalPrint" class="btn-alltype" onclick="printiframe('iframeRental')"> Print</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalRulesAndPolicy">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header" style="border-top:none">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div><iframe id="iframeRules" src="~/Content/assets/img/Policy/Rules_Policies_fragmented.pdf" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top:none">
+                <button id="policyRulesPrint" class="btn-alltype" onclick="printiframe('iframeRules')"> Print</button>
             </div>
         </div>
     </div>
 </div>
 <style>
+    @@media (min-width: 768px) {
+        .modal-dialog {
+            width: 600px;
+            margin: 30px auto;
+        }
+    }
+
+    @@media (min-width: 1200px) {
+        .modal-xl {
+            width: 1140px;
+        }
+    }
 
     .whiteText {
         font-size: 20px;
@@ -5818,20 +5855,6 @@
     }
 
     /* Modal Content for summary */
-    .modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        /*z-index: 1;*/ /* Sit on top */
-        padding-top: 0px !important; /* Location of the box */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
-
     .modal-content-summary {
         background-color: #fefefe;
         margin: auto;
@@ -5842,9 +5865,9 @@
     }
 
     /*#btncompCancel, #btncompare {
-        padding: 5px;
-        margin-left: -40px;
-    }*/
+            padding: 5px;
+            margin-left: -40px;
+        }*/
 
     .modal-content-compare {
         background-color: #fefefe;
@@ -5873,7 +5896,7 @@
         margin-right: 2px;
         line-height: 1.42857143;
         /*border: 0px;
-        border-style: none !important;*/
+            border-style: none !important;*/
         /*border: 1px solid #4d738a !important;*/
         border-radius: 0;
         color: #fff;
@@ -5882,7 +5905,7 @@
     .nav-tabs.wizard {
         background-color: transparent;
         padding: 0;
-        width: 120%;
+        width: 100.2%;
         margin: 1em auto;
         border-radius: .25em;
         clear: both;

@@ -4395,18 +4395,18 @@ var saveupdateApplicantCoApplicant = function () {
         checkEmail = 1;
         var dob = $("#txtADateOfBirth").val();
         if ($("#hndNewCoApp").val() == "0") {
-            if (!applicantSSNNumber) {
-                msg += "Enter SSN Number</br>";
-            }
-            if (!applicantIDNumber) {
-                msg += "Enter ID Number</br>";
-            }
-            if (applicantIDType <= 0) {
-                msg += "Select ID Type</br>";
-            }
-            if (applicantStateDoc <= 0) {
-                msg += "Select State of issuence</br>";
-            }
+            //if (!applicantSSNNumber) {
+            //    msg += "Enter SSN Number</br>";
+            //}
+            //if (!applicantIDNumber) {
+            //    msg += "Enter ID Number</br>";
+            //}
+            //if (applicantIDType <= 0) {
+            //    msg += "Select ID Type</br>";
+            //}
+            //if (applicantStateDoc <= 0) {
+            //    msg += "Select State of issuence</br>";
+            //}
             if (!addressLine1) {
                 msg += "Enter Address Line 1</br>";
             } if (!applicantState) {
