@@ -3774,12 +3774,12 @@ var getCompareModelList = function () {
                     "<span ></span>" +
                     "</div>" +
                     "<div class='col-sm-12'><span><br /> </span></div>" +
-                    "<div class='col-sm-12'><span> </span></div> <div class='col-sm-12'><span>Monthly Rent: </span></div>" +
-                    "<div class='col-sm-12'><span>Square feet: </span></div>" +
-                    "<div class='col-sm-12'><span id=''>Bedrooms: </span></div>" +
-                    "<div class='col-sm-12'><span id=''>Bathrooms: </span></div>" +
-                    "<div class='col-sm-12'><span>Available: </span></div>" +
-                    "<div class='col-sm-12'><span id=''>Occupancy: </span></div>" +
+                    "<div class='col-sm-12'><span> </span></div> <div class='col-sm-12'><span><b>Monthly Rent:</b></span></div>" +
+                    "<div class='col-sm-12'><span><b>Square feet:</b></span></div>" +
+                    "<div class='col-sm-12'><span><b>Bedrooms:</b></span></div>" +
+                    "<div class='col-sm-12'><span ><b>Bathrooms:</b></span></div>" +
+                    "<div class='col-sm-12'><span><b>Available:</b></span></div>" +
+                    "<div class='col-sm-12'><span><b>Occupancy:</b></span></div>" +
                     "</div>";
                 $.each(response.model, function (elementType, value) {
                     for (var j = 0; j < addModelArray.length; j++) {
@@ -3817,7 +3817,7 @@ var getPropertyUnitList = function (modelname, filldata) {
     $("#imgFloorPlan2").attr("src", "/content/assets/img/plan/" + modelname + "Det.jpg");
     $("#imgFloorPlanNew").attr("src", "/content/assets/img/plan/" + modelname + ".jpg");
 
-    $("#ModelCompare").modal("hide");
+    $("#popModelCompare").modal("hide");
     $("#lblUnitNo").text("");
 
     $("#lblUnitNo").text("Model: #" + modelname);
@@ -9908,7 +9908,7 @@ var btnApplyNowLeaseCurrent = function () {
         success: function (response) {
 
             $("#hndShowPropertyDetails").val(1);
-            $("#ModelCompare").modal("hide");
+            $("#popModelCompare").modal("hide");
             $("#popUnitDet").addClass("hidden");
             $("#popFloorCoordinate").addClass("hidden");
             $("#lblUnitNo").text("#" + response.model.UnitNo);
@@ -10077,7 +10077,7 @@ var btnApplyNowLeaseBest = function () {
         success: function (response) {
 
             $("#hndShowPropertyDetails").val(1);
-            $("#ModelCompare").modal("hide");
+            $("#popModelCompare").modal("hide");
             $("#popUnitDet").addClass("hidden");
             $("#popFloorCoordinate").addClass("hidden");
             $("#lblUnitNo").text("#" + response.model.UnitNo);
@@ -10248,7 +10248,7 @@ var btnApplyNowLeaseGreat = function () {
         success: function (response) {
 
             $("#hndShowPropertyDetails").val(1);
-            $("#ModelCompare").modal("hide");
+            $("#popModelCompare").modal("hide");
             $("#popUnitDet").addClass("hidden");
             $("#popFloorCoordinate").addClass("hidden");
             $("#lblUnitNo").text("#" + response.model.UnitNo);
@@ -10591,7 +10591,7 @@ var getPropertyUnitDetails = function (uid) {
             $('#popMonthlyChargesTotalMonthlyCharges').text("$" + formatMoney(popMonthlyChargesTotal));
 
             $("#hndShowPropertyDetails").val(1);
-            $("#ModelCompare").modal("hide");
+            $("#popModelCompare").modal("hide");
             $("#popUnitDet").addClass("hidden");
             $("#popFloorCoordinate").addClass("hidden");
             $("#lblUnitNo").text("#" + response.model.UnitNo);
@@ -10880,7 +10880,7 @@ var applyFromFloorPlanDetails = function () {
             $('#popMonthlyChargesTotalMonthlyCharges').text("$" + formatMoney(popMonthlyChargesTotal));
 
             $("#hndShowPropertyDetails").val(1);
-            $("#ModelCompare").modal("hide");
+            $("#popModelCompare").modal("hide");
             $("#popUnitDet").addClass("hidden");
             $("#popFloorCoordinate").addClass("hidden");
             $("#lblUnitNo").text("#" + response.model.UnitNo);
