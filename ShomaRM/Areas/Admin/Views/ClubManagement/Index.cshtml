@@ -8,7 +8,86 @@
 }
 
 <script src="~/Areas/Admin/Content/Pages/Club/ClubManagementList.js"></script>
-<div class="register-area" style="background-color: rgb(249, 249, 249);">
+<div class="container-fluid" style="background-color: rgb(249, 249, 249);margin-top: 40px"">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xl-12">
+            <div class="breadcrumb">
+                <h4 class="">Club Management List</h4>
+            </div>
+            <div class="row">
+                <div class="form-group clearfix panel">
+                    <div class="panel-heading">
+                        <div class="col-sm-2">
+                            <h3 class="panel-title input-group">From Date</h3>
+                            <div class="input-group">
+                                <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                                <span class="input-group-btn">
+                                    <button id="iconFDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <h3 class="panel-title input-group">To Date</h3>
+                            <div id="divToDate" class="input-group">
+                                <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
+                                <span id="spTodate" class="input-group-btn">
+                                    <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        @*<div class="col-sm-2">
+                <div class="form-group">
+                    <h3 class="panel-title">From Date</h3>
+                    <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                    <span class="input-group-btn" style="width:0% !important">
+                        <button class="btn btn-primary search" type="button" id="iconFDate" style="margin-top: -60px;margin-left: 158px;"><i class="fa-calendar fa"></i></button>
+                    </span>
+
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <h3 class="panel-title">To Date</h3>
+                    <input id="txtToDate" type="text" class="form-control" value="@endDate.ToString("MM/dd/yyyy")">
+                    <span class="input-group-btn" style="width:0% !important">
+                        <button class="btn btn-primary search" type="button" id="iconTDate" style="margin-top: -60px;margin-left: 158px;"><i class="fa-calendar fa"></i></button>
+                    </span>
+                </div>
+            </div>*@
+                        <div class="col-sm-3">
+                            <div class="form-group  padding-top-25">
+                                <button class='btn btn-next btn-primary' name='Search' value='Search' style="height: 34px;margin-top: -28px;" onclick="getGuestRegistrationList()"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+               </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group clearfix table-responsive">
+                        <table id="tblClubManagement" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableClubManagement('ClubTitle')">Club Title <i id="sortClubTitleIcon" class=""></i></th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableClubManagement('Venue')">Venue <i id="sortVenueIcon" class=""></i></th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableClubManagement('Phone')">Phone <i id="sortPhoneIcon" class=""></i></th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableClubManagement('Email')">Email <i id="sortEmailIcon" class=""></i></th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableClubManagement('Date')">Date <i id="sortDateIcon" class=""></i></th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableClubManagement('Time')">Time <i id="sortTimeIcon" class=""></i></th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableClubManagement('Active')">Active <i id="sortActiveIcon" class=""></i></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100% !important">
         <div class="breadcrumb">
             <h4 class="">Club Management List</h4>
@@ -34,7 +113,7 @@
                             </span>
                         </div>
                     </div>
-                    @*<div class="col-sm-2">
+                    <div class="col-sm-2">
                         <div class="form-group">
                             <h3 class="panel-title">From Date</h3>
                             <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
@@ -52,7 +131,7 @@
                                 <button class="btn btn-primary search" type="button" id="iconTDate" style="margin-top: -60px;margin-left: 158px;"><i class="fa-calendar fa"></i></button>
                             </span>
                         </div>
-                    </div>*@
+                    </div>
                     <div class="col-sm-3">
                         <div class="form-group  padding-top-25">
                             <button class='btn btn-next btn-primary' name='Search' value='Search' style="height: 34px;margin-top: -28px;" onclick="getGuestRegistrationList()"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
@@ -78,7 +157,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <script>
     $(function () {
         $("#iconFromDate").click(function () {
