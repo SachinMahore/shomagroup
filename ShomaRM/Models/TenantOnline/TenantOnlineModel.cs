@@ -187,7 +187,11 @@ namespace ShomaRM.Models
         public Nullable<int> EmpStatus { get; set; }
         public string EmpNotes { get; set; }
         public string UserID { get; set; }
-
+        public string FloorPlanImageUnit { get; set; }
+        public string FloorPlanBedUnit { get; set; }
+        public string FloorPlanBathUnit { get; set; }
+        public string FloorPlanAreaUnit { get; set; }
+        public string FloorPlanStartPriceUnit { get; set; }
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
@@ -531,6 +535,21 @@ namespace ShomaRM.Models
 
                     var stepCompleted = Convert.ToInt32(dr["StepCompleted"].ToString());
                     lstpr.StepCompleted = stepCompleted;
+
+                    var getApplyNowData = db.tbl_ApplyNow.Where(co => co.ID == id).FirstOrDefault();
+                    if (getApplyNowData != null)
+                    {
+                        var getPropertyUnitData = db.tbl_PropertyUnits.Where(co => co.UID == getApplyNowData.PropertyId).FirstOrDefault();
+                        lstpr.FloorPlanImageUnit = getPropertyUnitData.Building;
+                        lstpr.FloorPlanBedUnit = !string.IsNullOrWhiteSpace(Convert.ToString(getPropertyUnitData.Bedroom)) ? Convert.ToString(getPropertyUnitData.Bedroom) : "";
+                        lstpr.FloorPlanBathUnit = !string.IsNullOrWhiteSpace(Convert.ToString(getPropertyUnitData.Bathroom)) ? Convert.ToString(getPropertyUnitData.Bathroom) : "";
+                        lstpr.FloorPlanAreaUnit = getPropertyUnitData.Area;
+                        var getUnitLesePriceData = db.tbl_UnitLeasePrice.Where(co => co.UnitID == getPropertyUnitData.UID).FirstOrDefault();
+                        if (getUnitLesePriceData != null)
+                        {
+                            lstpr.FloorPlanStartPriceUnit = getUnitLesePriceData.Price.Value.ToString("0.00");
+                        }
+                    }
                 }
                 db.Dispose();
                 return lstpr;
