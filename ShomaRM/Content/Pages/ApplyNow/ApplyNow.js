@@ -796,6 +796,8 @@ var goToStep = function (stepid, id, calldataupdate) {
         $("#subMenu").addClass("hidden");
     }
     if (stepid == "2") {
+        
+        getPropertyUnitDetails($("#hndUID").val());
         if (parseInt($("#hndIsModelSelected").val()) == 0) {
             var msg = "Please select floor plan to choose your new apartment";
             $.alert({
@@ -851,6 +853,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step15").addClass("hidden");
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
+           
         }
     }
     if (stepid == "3") {
@@ -2253,6 +2256,7 @@ var showCurrentStep = function (stepid, id) {
         $("#subMenu").addClass("hidden");
     }
     if (stepid == "2") {
+        
         $("#subMenu").addClass("hidden");
         $("#as2").removeAttr("onclick");
         $("#as2").attr("onclick", "goToStep(2,2,1)");
@@ -3871,6 +3875,7 @@ var getPropertyUnitList = function (modelname, filldata) {
                     $("#lblBath33").text(value.Bathroom);
                     $("#lblRent33").text((value.Current_Rent).toFixed(2));
                     $("#lblOccupancy22").text((parseInt(value.Bedroom) * 2).toString());
+                    $("#lblfloorPlan").text(modelname);
                 });
             }
             goToStep(2, 2,0);
@@ -6613,6 +6618,13 @@ var getTenantOnlineList = function (id) {
                 stepcompleted = modelstep;
             }
             showCurrentStep(stepcompleted, stepcompleted);
+            //for floor plan
+            $("#imgFloorPlanNew").attr("src", "/content/assets/img/plan/" + response.model.FloorPlanImageUnit + ".jpg");
+            $("#lblfloorPlan").text(response.model.FloorPlanImageUnit);
+            $("#lblBed33").text(response.model.FloorPlanBedUnit);
+            $("#lblBath33").text(response.model.FloorPlanBathUnit);
+            $("#lblArea33").text(response.model.FloorPlanAreaUnit);
+            $("#lblRent33").text(response.model.FloorPlanStartPriceUnit);
         }
     });
 };
@@ -10629,6 +10641,12 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblBed22").text(response.model.Bedroom);
             $("#lblUnitModel").text("Model: #" + response.model.Building);
             $("#lblBath22").text(response.model.Bathroom);
+
+            //sachin 02 june
+            $("#lblArea33").text(response.model.Area);
+            $("#lblBed33").text(response.model.Bedroom);
+            $("#lblBath33").text(response.model.Bathroom);
+            $("#lblRent33").text((response.model.Current_Rent).toFixed(2));
 
             $("#lblOccupancy22").text((parseInt(response.model.Bedroom) * 2).toString());
             $("#lblOccupancy").text((parseInt(response.model.Bedroom) * 2).toString());

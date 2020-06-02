@@ -53,7 +53,7 @@ namespace ShomaRM.Models
             }
             return transStatus+"|"+usaepay.AuthCode;
         }
-        public string RefundCharge(long TransID)
+        public string RefundCharge(string TransID,decimal Credit_Amount)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string transStatus = "";
@@ -61,9 +61,9 @@ namespace ShomaRM.Models
             usaepay.SourceKey = "_y8h5x1TGONQjE491cj9mb8bRdA57u32";
              
             usaepay.UseSandbox = true;
-            var getTransData = db.tbl_Transaction.Where(p => p.TransID == TransID).FirstOrDefault();
-            usaepay.Amount =Convert.ToDecimal(getTransData.Credit_Amount);
-            string RefNo = getTransData.TransID.ToString();
+           
+            usaepay.Amount =Credit_Amount;
+            string RefNo = TransID;
             try
             {
                 usaepay.Refund(RefNo);
