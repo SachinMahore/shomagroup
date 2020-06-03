@@ -858,7 +858,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step15").addClass("hidden");
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
-
+            $("#hndStepGotosummary").val("6");
         }
     }
     if (stepid == "7") {
@@ -916,6 +916,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#li15").removeClass("active");
                 $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
+                $("#hndStepGotosummary").val("7");
             }
         }
     }
@@ -953,7 +954,7 @@ var goToStep = function (stepid, id, calldataupdate) {
 
             $("#li9").addClass("active");
             $("#li8").removeClass("active");
-            $("#li7").removeClass("active");
+            $("#li7").addClass("active");
             $("#li10").removeClass("active");
             $("#li11").removeClass("active");
             $("#li12").removeClass("active");
@@ -962,6 +963,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#li15").removeClass("active");
             $("#li16").removeClass("active");
             $("#li17").removeClass("active");
+            $("#hndStepGotosummary").val("9");
         }
     }
     if (stepid == "11") {
@@ -1141,8 +1143,8 @@ var goToStep = function (stepid, id, calldataupdate) {
 
                 $("#li11").addClass("active");
                 $("#li8").removeClass("active");
-                $("#li9").removeClass("active");
-                $("#li7").removeClass("active");
+                $("#li9").addClass("active");
+                $("#li7").addClass("active");
                 $("#li10").removeClass("active");
                 $("#li12").removeClass("active");
                 $("#li13").removeClass("active");
@@ -1150,11 +1152,12 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#li15").removeClass("active");
                 $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
+                $("#hndStepGotosummary").val("11");
             }
         }
     }
     if (stepid == "15") {
-        $(".gotosummary").removeClass('hidden');
+        
         if (parseInt($("#hdnStepCompleted").val()) < 11) {
             var msg = getStepCompletedMsgGuarantor(parseInt($("#hdnStepCompleted").val()) + 4, 15);
             $.alert({
@@ -1292,6 +1295,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 });
                 return;
             } else {
+                
                 var todaysDate = new Date();
                 var twoDigitMonth = ((todaysDate.getMonth().length + 1) === 1) ? (todaysDate.getMonth() + 1) : '0' + (todaysDate.getMonth() + 1);
                 var twoDigitDay = ((todaysDate.getDate().length) === 1) ? (todaysDate.getDate()) : '0' + (todaysDate.getDate());
@@ -1315,7 +1319,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         if ($("#hdnEmployerHistory").val() < 36) {
                             alert("Please provide at least 3 years of employment history");
                         } else {
-
+                            $(".gotosummary").removeClass('hidden');
                             saveupdateTenantOnlineGuarantor(15);
                             getTenantPetPlaceData();
                             $("#subMenu").removeClass("hidden");
@@ -1345,15 +1349,16 @@ var goToStep = function (stepid, id, calldataupdate) {
 
                             $("#li15").addClass("active");
                             $("#li8").removeClass("active");
-                            $("#li9").removeClass("active");
-                            $("#li7").removeClass("active");
-                            $("#li11").removeClass("active");
+                            $("#li9").addClass("active");
+                            $("#li7").addClass("active");
+                            $("#li11").addClass("active");
                             $("#li12").removeClass("active");
                             $("#li13").removeClass("active");
                             $("#li14").removeClass("active");
                             $("#li10").removeClass("active");
                             $("#li16").removeClass("active");
                             $("#li17").removeClass("active");
+                            $("#hndStepGotosummary").val("15");
                         }
                     }
                 });
@@ -1396,16 +1401,16 @@ var goToStep = function (stepid, id, calldataupdate) {
 
             $("#li16").addClass("active");
             $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li11").removeClass("active");
+            $("#li9").addClass("active");
+            $("#li7").addClass("active");
+            $("#li11").addClass("active");
             $("#li12").removeClass("active");
             $("#li13").removeClass("active");
             $("#li14").removeClass("active");
-            $("#li15").removeClass("active");
+            $("#li15").addClass("active");
             $("#li10").removeClass("active");
             $("#li17").removeClass("active");
-
+            $("#hndStepGotosummary").val("16");
         }
     }
     if (stepid == "17") {
@@ -1441,6 +1446,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#li15").removeClass("active");
             $("#li16").removeClass("active");
             $("#li10").removeClass("active");
+            $("#hndStepGotosummary").val("17");
         }
 
     }
@@ -1554,7 +1560,7 @@ var showCurrentStep = function (stepid, id) {
 
         $("#li9").addClass("active");
         $("#li8").removeClass("active");
-        $("#li7").removeClass("active");
+        $("#li7").addClass("active");
         $("#li10").removeClass("active");
         $("#li11").removeClass("active");
         $("#li12").removeClass("active");
@@ -1588,8 +1594,8 @@ var showCurrentStep = function (stepid, id) {
 
         $("#li11").addClass("active");
         $("#li8").removeClass("active");
-        $("#li9").removeClass("active");
-        $("#li7").removeClass("active");
+        $("#li9").addClass("active");
+        $("#li7").addClass("active");
         $("#li10").removeClass("active");
         $("#li12").removeClass("active");
         $("#li13").removeClass("active");
@@ -1623,9 +1629,9 @@ var showCurrentStep = function (stepid, id) {
 
         $("#li15").addClass("active");
         $("#li8").removeClass("active");
-        $("#li9").removeClass("active");
-        $("#li7").removeClass("active");
-        $("#li11").removeClass("active");
+        $("#li9").addClass("active");
+        $("#li7").addClass("active");
+        $("#li11").addClass("active");
         $("#li12").removeClass("active");
         $("#li13").removeClass("active");
         $("#li14").removeClass("active");
@@ -1657,13 +1663,13 @@ var showCurrentStep = function (stepid, id) {
 
         $("#li16").addClass("active");
         $("#li8").removeClass("active");
-        $("#li9").removeClass("active");
-        $("#li7").removeClass("active");
-        $("#li11").removeClass("active");
+        $("#li9").addClass("active");
+        $("#li7").addClass("active");
+        $("#li11").addClass("active");
         $("#li12").removeClass("active");
         $("#li13").removeClass("active");
         $("#li14").removeClass("active");
-        $("#li15").removeClass("active");
+        $("#li15").addClass("active");
         $("#li10").removeClass("active");
         $("#li17").removeClass("active");
     }
@@ -5282,15 +5288,25 @@ var saveupdateTenantOnlineGuarantor = function (stepcompleted) {
     $formData.append('TaxReturn8', fileUpload8);
     $formData.append('UploadOriginalFileName8', originalFileUpload8);
 
-    if ($("#rbtnPaystub").on('ifChanged', function () {
-        rbtnClick = "Paystub";
-    }));
-    if ($("#rbtnBankStatement").on('ifChanged', function () {
-        rbtnClick = "BankStatement";
-    }));
-    if ($("#rbtnFedralTax").on('ifChanged', function () {
-        rbtnClick = "FedralTax";
-    }));
+    //if ($("#rbtnPaystub").on('ifChanged', function () {
+    //    rbtnClick = "Paystub";
+    //}));
+    //if ($("#rbtnBankStatement").on('ifChanged', function () {
+    //    rbtnClick = "BankStatement";
+    //}));
+    //if ($("#rbtnFedralTax").on('ifChanged', function () {
+    //    rbtnClick = "FedralTax";
+    //}));
+
+    if ($("#rbtnPaystub").is(":checked")) {
+        $formData.append('IsPaystub', 1);
+    }
+    if ($("#rbtnFedralTax").is(":checked")) {
+        $formData.append('IsFedralTax', 1);
+    }
+    if ($("#rbtnBankStatement").is(":checked")) {
+        $formData.append('IsBankState', 1);
+    }
 
     $.ajax({
         url: '/ApplyNow/SaveCoGuTenantOnline',
@@ -5715,6 +5731,37 @@ var getTenantOnlineListGuarantor = function (id) {
             } else {
                 $("#hndHasTaxReturnFile5").val("0");
             }
+            //bank statement
+            if (response.model.TaxReturn6 != "") {
+                if (response.model.TaxReturn6 == "0") {
+                    $("#hndHasBankStateFile1").val("0");
+                }
+                else {
+                    $("#hndHasBankStateFile1").val("1");
+                }
+            } else {
+                $("#hndHasBankStateFile1").val("0");
+            }
+            if (response.model.TaxReturn7 != "") {
+                if (response.model.TaxReturn7 == "0") {
+                    $("#hndHasBankStateFile2").val("0");
+                }
+                else {
+                    $("#hndHasBankStateFile2").val("1");
+                }
+            } else {
+                $("#hndHasBankStateFile2").val("0");
+            }
+            if (response.model.TaxReturn8 != "") {
+                if (response.model.TaxReturn8 == "0") {
+                    $("#hndHasBankStateFile3").val("0");
+                }
+                else {
+                    $("#hndHasBankStateFile3").val("1");
+                }
+            } else {
+                $("#hndHasBankStateFile3").val("0");
+            }
 
             //alert(response.model.HaveVehicle + "  " + response.model.HavePet);
             if (response.model.HaveVehicle == true) {
@@ -5778,20 +5825,8 @@ var getTenantOnlineListGuarantor = function (id) {
                     $("#fileUploadTaxReturn3Show").text(response.model.UploadOriginalFileName3);
                 }
             }
-            //alert(response.model.IsPaystub);
 
-            if (response.model.IsPaystub == 1) {
-                $("#rbtnPaystub").iCheck('check');
-                $('#divUpload3').removeClass('hidden');
-            }
-            if (response.model.IsFedralTax == 1) {
-                $("#rbtnFedralTax").iCheck('check');
-            }
-            if (response.model.IsBankState == 1) {
-                $("#rbtnBankStatement").iCheck('check');
-                $('#divBankUpload').removeClass('hidden');
-            }
-
+            //sachin m 11 may
             if (response.model.UploadOriginalFileName4 != '') {
                 if (response.model.UploadOriginalFileName4 != '0') {
                     $("#fileUploadTaxReturn4Show").text(response.model.UploadOriginalFileName4);
@@ -5818,6 +5853,21 @@ var getTenantOnlineListGuarantor = function (id) {
                     $("#fileBankState3Show").text(response.model.UploadOriginalFileName8);
                 }
             }
+
+            //alert(response.model.IsPaystub);
+
+            if (response.model.IsPaystub == 1) {
+                $("#rbtnPaystub").iCheck('check');
+                $('#divUpload3').removeClass('hidden');
+            }
+            if (response.model.IsFedralTax == 1) {
+                $("#rbtnFedralTax").iCheck('check');
+            }
+            if (response.model.IsBankState == 1) {
+                $("#rbtnBankStatement").iCheck('check');
+                $('#divBankUpload').removeClass('hidden');
+            }
+            
 
             $("#divLoaderFullData").hide();
             var modelstep = $("#hdnStepCompleted").val();
@@ -8888,5 +8938,26 @@ function saveCoAppPaymentPopup() {
     });
 }
 var goToSummaryPageGur = function () {
+    var value = $("#hndStepGotosummary").val();
+    if (value == "6") {
+        //SaveCheckPolicy(7);
+        SaveCheckPolicy(7);
+    }
+    else if (value == "7") {
+        //SaveUpdateStep(9);
+        SaveUpdateStep(9);
+    }
+    else if (value == "9") {
+        //saveupdateTenantOnlineGuarantor(11);
+        saveupdateTenantOnlineGuarantor(11);
+    }
+    else if (value == "11") {
+        saveupdateTenantOnlineGuarantor(15);
+        getTenantPetPlaceData();
+        tenantOnlineID = $("#hdnOPId").val();
+        getFillSummaryGuar(tenantOnlineID);
+        getPreviousAddressInfoGuar(tenantOnlineID);
+        getPreviousEmployementInfoGuar(tenantOnlineID);
+    }
     goToStep(15, 15, 0);
 };

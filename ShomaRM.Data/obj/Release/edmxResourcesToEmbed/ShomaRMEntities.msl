@@ -1259,27 +1259,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_MoveInChecklist">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_MoveInChecklist">
-        <MappingFragment StoreEntitySet="tbl_MoveInChecklist">
-          <ScalarProperty Name="Movers" ColumnName="Movers" />
-          <ScalarProperty Name="PreMoveInTime" ColumnName="PreMoveInTime" />
-          <ScalarProperty Name="PreMoveInDate" ColumnName="PreMoveInDate" />
-          <ScalarProperty Name="IsCheckSD" ColumnName="IsCheckSD" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="IsCheckWater" ColumnName="IsCheckWater" />
-          <ScalarProperty Name="IsCheckATT" ColumnName="IsCheckATT" />
-          <ScalarProperty Name="IsCheckPO" ColumnName="IsCheckPO" />
-          <ScalarProperty Name="ElectricityDoc" ColumnName="ElectricityDoc" />
-          <ScalarProperty Name="InsuranceDoc" ColumnName="InsuranceDoc" />
-          <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
-          <ScalarProperty Name="MoveInTime" ColumnName="MoveInTime" />
-          <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
-          <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
-          <ScalarProperty Name="MIID" ColumnName="MIID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_TenantInfo">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantInfo">
         <MappingFragment StoreEntitySet="tbl_TenantInfo">
@@ -1690,6 +1669,28 @@
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_MoveInChecklist">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_MoveInChecklist">
+        <MappingFragment StoreEntitySet="tbl_MoveInChecklist">
+          <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
+          <ScalarProperty Name="Movers" ColumnName="Movers" />
+          <ScalarProperty Name="PreMoveInTime" ColumnName="PreMoveInTime" />
+          <ScalarProperty Name="PreMoveInDate" ColumnName="PreMoveInDate" />
+          <ScalarProperty Name="IsCheckSD" ColumnName="IsCheckSD" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="IsCheckWater" ColumnName="IsCheckWater" />
+          <ScalarProperty Name="IsCheckATT" ColumnName="IsCheckATT" />
+          <ScalarProperty Name="IsCheckPO" ColumnName="IsCheckPO" />
+          <ScalarProperty Name="ElectricityDoc" ColumnName="ElectricityDoc" />
+          <ScalarProperty Name="InsuranceDoc" ColumnName="InsuranceDoc" />
+          <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
+          <ScalarProperty Name="MoveInTime" ColumnName="MoveInTime" />
+          <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+          <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+          <ScalarProperty Name="MIID" ColumnName="MIID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

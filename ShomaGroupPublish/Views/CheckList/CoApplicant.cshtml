@@ -11,8 +11,6 @@
 <input type="hidden" id="hndPaymentDone" value="0" />
 <input type="hidden" id="hndProcessingFees" value="@ViewBag.ProcessingFees" />
 <input type="hidden" id="hndMoveInDate" value="0" />
-<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -38,7 +36,7 @@
         <div class="wizard-container">
             <div class="wizard-card ct-wizard-orange" id="wizardProperty">
                 <div>
-                    
+
                     <div class="tab-content">
                         <div class="" id="step1">
                             <div class="row p-b-15">
@@ -85,9 +83,9 @@
                                     <div class="col-sm-11">
                                         <div class="form-group">
                                             <div class="">
-                                             
-                                                <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()"   disabled="disabled">Process Online Leasing Application</a>
-                                                <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()"  disabled="disabled">Download Leasing Application</a>
+
+                                                <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()" disabled="disabled">Process Online Leasing Application</a>
+                                                <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
                                             </div>
                                         </div>
                                     </div>
@@ -185,7 +183,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="pull-left col-sm-12">
+                                        <div class="pull-left col-sm-12 hidden">
                                             <h5 style="color:#4d738a;">Pay your <b><span id="lblPaymentPer"></span>%</b> Move-in charges: </h5>
                                             <div class="checkbox">
                                                 <label>
@@ -201,7 +199,7 @@
                                                 <input id="btnPayNowCheckLink" type="button" class="btn-success" data-toggle="modal" data-target="#popPayNow" style="width:90px;height: 34px;" value="Pay Now" />
                                             </div>
                                         </div>
-                                        <div class="pull-left col-sm-12" style="margin-bottom:30px">
+                                        <div class="pull-left col-sm-12 hidden" style="margin-bottom:30px">
                                             <h5 style="color:#4d738a;">Schedule your Pre-move-in date appointment: </h5>
                                             <div class="checkbox">
                                                 <label>
@@ -211,7 +209,7 @@
                                             </div>
                                             <div class="input-group" style="margin-left: 70px;">
 
-                                                <input id="txtPreMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/shoma-resident-team/pre-move-in'});return false;"/>
+                                                <input id="txtPreMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text" />
                                                 <span class="input-group-btn pull-left">
                                                     <button class="btn btn-primary search" type="button" id="iconPreMoveInDateChecklist"><i class="fa-calendar fa"></i></button>
                                                 </span>
@@ -231,7 +229,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="pull-left col-sm-12" style="margin-bottom:30px">
+                                        <div class="pull-left col-sm-12 hidden" style="margin-bottom:30px">
                                             <h5 style="color:#4d738a;">Schedule your Move-in date: </h5>
                                             <div class="checkbox">
                                                 <label>
@@ -241,7 +239,7 @@
                                             </div>
                                             <div class="input-group" style="margin-left: 70px;">
 
-                                                <input id="txtMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text"  onclick="Calendly.initPopupWidget({url: 'https://calendly.com/shoma-resident-team/move-in'});return false;"/>
+                                                <input id="txtMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text" />
                                                 <span class="input-group-btn pull-left">
                                                     <button class="btn btn-primary search" type="button" id="iconMoveInDateChecklist"><i class="fa-calendar fa"></i></button>
                                                 </span>
@@ -476,7 +474,6 @@
         margin-bottom: 10px;
     }
 </style>
-
 <style>
     /* The Modal (background) */
     .modal {
@@ -532,18 +529,18 @@
             var premoveInDateHidden = $('#hndPreMoveInDate').val();
             var preMoveInBefThree = new Date(premoveInDateHidden);
             preMoveInBefThree.setDate(preMoveInBefThree.getDate() - 3);
-            //$("#txtPreMoveInDateCL").datepicker({ startDate: '+1d' }).on('change', function (ev) {
-            //    var premoveindate = $(this).val();
-            //    if (premoveindate) {
-            //        $("#chkPreMoveinCL").attr("checked", true);
-            //        $("#chkPreMoveinCL").prop("disabled", "disabled");
-            //        $("#chkPreMoveinCL").parent().addClass("checked");
-            //    } else {
-            //        $("#chkPreMoveinCL").prop("checked", false);
-            //        $("#chkPreMoveinCL").removeProp("disabled");
-            //        $("#chkPreMoveinCL").parent().removeClass("checked");
-            //    }
-            //});
+            $("#txtPreMoveInDateCL").datepicker({ startDate: '+1d' }).on('change', function (ev) {
+                var premoveindate = $(this).val();
+                if (premoveindate) {
+                    $("#chkPreMoveinCL").attr("checked", true);
+                    $("#chkPreMoveinCL").prop("disabled", "disabled");
+                    $("#chkPreMoveinCL").parent().addClass("checked");
+                } else {
+                    $("#chkPreMoveinCL").prop("checked", false);
+                    $("#chkPreMoveinCL").removeProp("disabled");
+                    $("#chkPreMoveinCL").parent().removeClass("checked");
+                }
+            });
             $("#iconPreMoveInDateChecklist").click(function () {
                 $("#txtPreMoveInDateCL").focus();
             });
@@ -591,26 +588,6 @@
                 $("#chkMoveinCL").attr("checked", true);
                 $("#chkMoveinCL").prop("disabled", "disabled");
                 $("#chkMoveinCL").parent().addClass("checked");
-            }
-        });
-
-        //sachin 02 june
-        $("#chkPreMoveinCL").on('ifChanged', function (event) {
-
-            if ($(this).is(":checked")) {
-                Calendly.initPopupWidget({ url: 'https://calendly.com/shoma-resident-team/pre-move-in' });
-                return false;
-            }
-            else {
-            }
-        });
-        $("#chkMoveinCL").on('ifChanged', function (event) {
-
-            if ($(this).is(":checked")) {
-                Calendly.initPopupWidget({ url: 'https://calendly.com/shoma-resident-team/move-in' });
-                return false;
-            }
-            else {
             }
         });
 
@@ -668,7 +645,7 @@
             $("#divLoader").show();
             var model = { UID: uid }
             $.ajax({
-                url: '/CheckList/GetProspectMoveInData/',
+                url: '/CheckList/GetCoAppMoveInData/',
                 type: "post",
                 contentType: "application/json utf-8",
                 data: JSON.stringify(model),
@@ -1138,21 +1115,7 @@
         var IsCheckSD = $("#chkSDP").is(":checked") ? "1" : "0";
         var Movers = $("#chkMovers").is(":checked") ? "1" : "0";
 
-        if (paymentDone==0) {
-            msg += "Please pay the Move In Charges</br>";
-        }
-        if (!PreMoveInDate) {
-            msg += "Please fill the Pre Move In Date</br>";
-        }
-        if (!PreMoveInTime) {
-            msg += "Please select the Pre Move In Time</br>";
-        }
-        //if (!MoveInDate) {
-        //    msg += "Please fill the Move In Date</br>";
-        //}
-        if (!MoveInTime) {
-            msg += "Please select the Move In Time</br>";
-        }
+        
 
         if (InsuranceDoc == "Upload Proof of Insurance…")
         {

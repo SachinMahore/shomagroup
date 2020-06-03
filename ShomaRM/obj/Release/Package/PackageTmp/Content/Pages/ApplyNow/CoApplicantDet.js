@@ -802,6 +802,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step15").addClass("hidden");
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
+            $("#hndGotoSummary").val(6);
 
         }
     }
@@ -851,6 +852,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#li15").removeClass("active");
                 $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
+                $("#hndGotoSummary").val(7);
             }
         }
     }
@@ -892,6 +894,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#li15").removeClass("active");
             $("#li16").removeClass("active");
             $("#li17").removeClass("active");
+            $("#hndGotoSummary").val(8);
         }
     }
     if (stepid == "9") {
@@ -938,6 +941,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#li15").removeClass("active");
                 $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
+                $("#hndGotoSummary").val(9);
             }
 
             if (msg != "") {
@@ -1135,6 +1139,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#li15").removeClass("active");
                 $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
+                $("#hndGotoSummary").val(10);
             }
         }
     }
@@ -1238,6 +1243,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                             $("#li15").removeClass("active");
                             $("#li16").removeClass("active");
                             $("#li17").removeClass("active");
+                            $("#hndGotoSummary").val(11);
                         }
                     }
                 });
@@ -1433,6 +1439,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                             $("#li15").removeClass("active");
                             $("#li16").removeClass("active");
                             $("#li17").removeClass("active");
+                            $("#hndGotoSummary").val(12);
                         }
                     }
                 });
@@ -1624,6 +1631,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                             $("#li15").removeClass("active");
                             $("#li16").removeClass("active");
                             $("#li17").removeClass("active");
+                            $("#hndGotoSummary").val(13);
                         }
                     }
                 });
@@ -1663,6 +1671,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#li15").removeClass("active");
             $("#li16").removeClass("active");
             $("#li17").removeClass("active");
+            $("#hndGotoSummary").val(14);
 
         }
     }
@@ -9801,5 +9810,35 @@ function saveCoAppPaymentPopup() {
     });
 }
 var goToSummaryPageCoapp = function () {
+    var id = $("#hndGotoSummary").val();
+    if (id == 6) {
+        getApplicantListsCoApplicant();
+    }
+    else if (id == 7) {
+        SaveCheckPolicy(7);
+    }
+    else if (id == 9) {
+        saveupdatePaymentResponsibility(9);
+        getApplicantHistoryList();
+        saveupdateTenantOnlineCoapplicant(10);
+    }
+    else if (id == 10) {
+        getApplicantHistoryList();
+        saveupdateTenantOnlineCoapplicant(10);
+
+    } else if (id == 11) {
+        saveupdateTenantOnlineCoapplicant(11);
+    } else if (id == 12) {
+        saveupdateTenantOnlineCoapplicant(12);
+        getTenantPetPlaceDataCoapp();
+
+    } else if (id == 13) {
+        saveupdateTenantOnlineCoapplicant(15);
+        getTenantPetPlaceDataCoapp();
+        tenantOnlineIDCoApplicant = $("#hdnOPId").val();
+        getFillSummary(tenantOnlineIDCoApplicant);
+        getPreviousAddressInfoCoApplicant(tenantOnlineIDCoApplicant);
+        getPreviousEmployementInfoCoApplicant(tenantOnlineIDCoApplicant);
+    }
     goToStep(15, 15, 0);
 };

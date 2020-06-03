@@ -697,6 +697,7 @@
     <Property Name="PreMoveInDate" Type="datetime" />
     <Property Name="PreMoveInTime" Type="nvarchar" MaxLength="50" />
     <Property Name="Movers" Type="int" />
+    <Property Name="ParentTOID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_MoveInPayment">
     <Key>
