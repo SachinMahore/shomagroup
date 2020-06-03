@@ -839,8 +839,9 @@ namespace ShomaRM.Areas.Tenant.Models
             ShomaRMEntities db = new ShomaRMEntities();
             int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             var transDetails = db.tbl_Transaction.Where(p => p.TransID == TransID).FirstOrDefault();
-
-            string transStatus = new UsaePayModel().RefundCharge(TransID);
+            if (transDetails != null)
+            {
+            string transStatus = new UsaePayModel().RefundCharge(TransID.ToString(),Convert.ToDecimal(transDetails.Charge_Amount));
             String[] spearator = { "|" };
             String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
             if (strlist[1] != "000000")
@@ -865,6 +866,48 @@ namespace ShomaRM.Areas.Tenant.Models
                 };
                 db.tbl_Transaction.Add(saveTransaction);
                 db.SaveChanges();
+            }
+
+            }
+           
+            db.Dispose();
+            return msg;
+        }
+        public string VoidRRCharges(long TransID)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var transDetails = db.tbl_Transaction.Where(p => p.TransID == TransID).FirstOrDefault();
+            if (transDetails != null)
+            {
+                string transStatus = new UsaePayModel().VoidCharge(TransID.ToString(), Convert.ToDecimal(transDetails.Charge_Amount));
+                String[] spearator = { "|" };
+                String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+                if (strlist[1] != "000000")
+                {
+                    var saveTransaction = new tbl_Transaction()
+                    {
+                        TenantID = transDetails.TenantID,
+
+                        PAID = transDetails.PAID,
+                        Transaction_Date = DateTime.Now,
+
+                        CreatedDate = DateTime.Now,
+                        Credit_Amount = transDetails.Charge_Amount,
+                        Description = transDetails.Description + " | TransID: " + strlist[1],
+                        Charge_Date = transDetails.Charge_Date,
+                        Charge_Type = 10,
+                        Authcode = strlist[1],
+                        Charge_Amount = Convert.ToDecimal(transDetails.Charge_Amount),
+                        Miscellaneous_Amount = transDetails.Miscellaneous_Amount,
+                        Accounting_Date = DateTime.Now,
+                        CreatedBy = userid,
+                    };
+                    db.tbl_Transaction.Add(saveTransaction);
+                    db.SaveChanges();
+                }
+
             }
 
             db.Dispose();

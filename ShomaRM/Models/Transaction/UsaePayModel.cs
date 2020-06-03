@@ -53,7 +53,7 @@ namespace ShomaRM.Models
             }
             return transStatus+"|"+usaepay.AuthCode;
         }
-        public string RefundCharge(long TransID)
+        public string RefundCharge(string TransID,decimal Credit_Amount)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string transStatus = "";
@@ -61,12 +61,55 @@ namespace ShomaRM.Models
             usaepay.SourceKey = "_y8h5x1TGONQjE491cj9mb8bRdA57u32";
              
             usaepay.UseSandbox = true;
-            var getTransData = db.tbl_Transaction.Where(p => p.TransID == TransID).FirstOrDefault();
-            usaepay.Amount =Convert.ToDecimal(getTransData.Credit_Amount);
-            string RefNo = getTransData.TransID.ToString();
+           
+            usaepay.Amount =Credit_Amount;
+            string RefNo = TransID;
             try
             {
                 usaepay.Refund(RefNo);
+                if (usaepay.ResultCode == "A")
+                {
+                    transStatus = "Transaction approved\n" +
+                        "Auth Code: " + usaepay.AuthCode + "\n" +
+                        "Ref Num: " + usaepay.ResultRefNum + "\n" +
+                        "AVS: " + usaepay.AvsResult + "\n" +
+                        "CVV: " + usaepay.Cvv2Result;
+                }
+                else if (usaepay.ResultCode == "D")
+                {
+                    transStatus = "Transaction Declined\n" +
+                        "Ref Num: " + usaepay.ResultRefNum;
+                }
+                else
+                {
+                    transStatus = "Transaction Error\n" +
+                        "Ref Num: " + usaepay.ResultRefNum + "\n" +
+                        "Error: " + usaepay.ErrorMesg + "\n" +
+                        "Error Code: " + usaepay.ErrorCode;
+                }
+
+
+            }
+            catch (Exception x)
+            {
+                transStatus = "ERROR: " + x.Message;
+            }
+            return transStatus + "|" + usaepay.AuthCode;
+        }
+        public string VoidCharge(string TransID, decimal Credit_Amount)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string transStatus = "";
+            USAePayAPI.USAePay usaepay = new USAePayAPI.USAePay();
+            usaepay.SourceKey = "_y8h5x1TGONQjE491cj9mb8bRdA57u32";
+
+            usaepay.UseSandbox = true;
+
+            usaepay.Amount = Credit_Amount;
+            string RefNo = TransID;
+            try
+            {
+                usaepay.Void(RefNo);
                 if (usaepay.ResultCode == "A")
                 {
                     transStatus = "Transaction approved\n" +
