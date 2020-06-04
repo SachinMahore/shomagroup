@@ -44,6 +44,12 @@ namespace ShomaRM.Areas.Admin.Models
                     var getAppInfo = db.tbl_TenantOnline.Where(co => co.ParentTOID == item.ParentTOID).FirstOrDefault();
                     var getPropdet = db.tbl_ApplyNow.Where(co => co.ID == item.ProspectID).FirstOrDefault();
                     var getUnitNo = db.tbl_PropertyUnits.Where(co => co.UID == getPropdet.PropertyId).FirstOrDefault();
+                    var getSDdata = db.tbl_SureDeposit.Where(p => p.ProspectID == item.ProspectID).FirstOrDefault();
+                    string sdnum = "";
+                    if (getSDdata != null)
+                    {
+                        sdnum = getSDdata.SDNumber;
+                    }
                     listSDApplicant.Add(new SureDepositManagementModel()
                     {
                         ApplyNowID = getPropdet.ID,
@@ -55,6 +61,7 @@ namespace ShomaRM.Areas.Admin.Models
                         Building=getUnitNo.Building,
                         UnitNo = getUnitNo.UnitNo,
                        TenantID=getAppInfo.ParentTOID,
+                       SDNumber=sdnum,
                     });
                 }
             }
@@ -146,5 +153,26 @@ namespace ShomaRM.Areas.Admin.Models
             db.Dispose();
             return msg;
         }
+        public SureDepositManagementModel GetTenantSDDetails(int id, long TenantID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            SureDepositManagementModel sddet = new SureDepositManagementModel();
+            var getSDdata = db.tbl_SureDeposit.Where(p => p.ProspectID == id).FirstOrDefault();
+            var getAppInfo = db.tbl_TenantOnline.Where(co => co.ParentTOID ==TenantID).FirstOrDefault();
+
+            if(getAppInfo!=null)
+            {
+                sddet.FirstName = getAppInfo.FirstName;
+                sddet.LastName = getAppInfo.LastName;
+                sddet.Email = getAppInfo.Email;
+                sddet.PhoneNo = getAppInfo.Mobile;
+              if(getSDdata!=null)
+                {
+                    sddet.SDNumber = getSDdata.SDNumber;
+                }
+            }
+            return sddet;
+        }
+
     }
 }

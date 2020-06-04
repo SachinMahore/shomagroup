@@ -27,6 +27,7 @@
                                     <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">Last Name</th>
                                     <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">Unit No.</th>
                                     <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">Model</th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">Sure Deposit Number</th>
                                     <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;">Action</th>
                                 </tr>
                             </thead>
@@ -38,6 +39,7 @@
                                             <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.LastName) ? item.LastName : "")</td>
                                             <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.UnitNo) ? item.UnitNo : "")</td>
                                             <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.Building) ? item.Building : "")</td>
+                                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.Building) ? item.SDNumber : "")</td>
                                             <td style="text-align:center;"><i class="fa fa-edit fa-lg" style="cursor:pointer"  onclick="goToAddEditSureDeposit(@(item.ApplyNowID),@(item.TenantID))"></i></td>
                                         </tr>
                                     }
@@ -52,7 +54,7 @@
 <div class="modal " id="popSD" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
     <div class="modal-dialog" style="width:600px !important; height:300px;">
         <div class="modal-content" style="width: 100% !important; height:557px!important;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -8px; color:black;">&times;</button>
+            <button type="button" class="close" data-dismiss="modal" style="margin: 6px; color:black;">&times;</button>
             <div class="modal-header" style="width: 100%;">
                 <h5 class="modal-title">Add Sure Deposit</h5>
             </div>
@@ -120,7 +122,7 @@
                  id: id, TenantID:tid
              };
              $.ajax({
-                 url: '/ApplyNow/GetTenantOnlineListProspectVerification',
+                 url: '/SureDepositManagement/GetTenantSDDetails',
                  type: "post",
                  contentType: "application/json utf-8",
                  data: JSON.stringify(model),
@@ -129,8 +131,9 @@
                      
                      $("#txtApplicantFirstName").val(response.model.FirstName);
                      $("#txtApplicantLastName").val(response.model.LastName);
-                     $("#txtApplicantPhone").val(response.model.Mobile);
+                     $("#txtApplicantPhone").val(response.model.PhoneNo);
                      $("#txtApplicantEmail").val(response.model.Email);
+                     $("#txtSDNumber").val(response.model.SDNumber);
                  }
                  });
              $("#hdnProspectId").val(id);
@@ -201,7 +204,10 @@
          var aid = $("#hndApplicantID").val();
          var prospectID = $("#hdnProspectId").val();
          var sdnumber = $("#txtSDNumber").val();
-       
+         if (!$("#txtSDNumber").val())
+         {
+             msg = "Enter SD Number";
+         }
          if (msg != "") {
              $.alert({
                  title: "",
@@ -230,7 +236,8 @@
                      content: "Progress Saved.",
                      type: 'blue',
                  });
-
+               
+                 window.location.href = "/Admin/SureDepositManagement/";
  
                  $("#popSD").modal("hide");
              }

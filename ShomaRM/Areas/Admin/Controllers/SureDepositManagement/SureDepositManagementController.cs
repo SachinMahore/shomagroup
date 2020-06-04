@@ -47,5 +47,18 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        public ActionResult GetTenantSDDetails(int id, long TenantID)
+        {
+            try
+            {
+                return Json(new { model = new SureDepositManagementModel().GetTenantSDDetails(id, TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
     }
 }
