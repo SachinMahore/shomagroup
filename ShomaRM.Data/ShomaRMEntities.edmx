@@ -1113,6 +1113,17 @@
           <Property Name="Type" Type="int" />
           <Property Name="Status" Type="int" />
         </EntityType>
+        <EntityType Name="tbl_SureDeposit">
+          <Key>
+            <PropertyRef Name="SDID" />
+          </Key>
+          <Property Name="SDID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SDNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDUploadName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProspectID" Type="bigint" />
+          <Property Name="ParentTOID" Type="bigint" />
+          <Property Name="UploadDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="tbl_Tenant">
           <Key>
             <PropertyRef Name="ID" />
@@ -2603,6 +2614,7 @@
           <EntitySet Name="tbl_SMSMessages" EntityType="Self.tbl_SMSMessages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_State" EntityType="Self.tbl_State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Storage" EntityType="Self.tbl_Storage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SureDeposit" EntityType="Self.tbl_SureDeposit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Tenant" EntityType="Self.tbl_Tenant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantEventJoin" EntityType="Self.tbl_TenantEventJoin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantEventJoinApprove" EntityType="Self.tbl_TenantEventJoinApprove" Schema="dbo" store:Type="Tables" />
@@ -3332,6 +3344,7 @@
             <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
           </AssociationSet>
           <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" />
+          <EntitySet Name="tbl_SureDeposit" EntityType="ShomaRMEntitiesModel.tbl_SureDeposit" />
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -6017,6 +6030,17 @@
           <Property Name="Movers" Type="Int32" />
           <Property Name="ParentTOID" Type="Int64" />
         </EntityType>
+        <EntityType Name="tbl_SureDeposit">
+          <Key>
+            <PropertyRef Name="SDID" />
+          </Key>
+          <Property Name="SDID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDUploadName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProspectID" Type="Int64" />
+          <Property Name="ParentTOID" Type="Int64" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7713,6 +7737,18 @@
                 <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
                 <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
                 <ScalarProperty Name="MIID" ColumnName="MIID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SureDeposit">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SureDeposit">
+              <MappingFragment StoreEntitySet="tbl_SureDeposit">
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
+                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+                <ScalarProperty Name="SDUploadName" ColumnName="SDUploadName" />
+                <ScalarProperty Name="SDNumber" ColumnName="SDNumber" />
+                <ScalarProperty Name="SDID" ColumnName="SDID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

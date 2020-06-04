@@ -1,0 +1,37 @@
+
+var addToCompare = function (modelname) {
+    if ($("#btnCompare" + modelname).is(':checked') == true) {
+
+        if (noofcomapre < 3) {
+            $("#chkCompareid" + modelname).removeClass("hidden");
+            $("#chkCompareid" + modelname).prop("checked", true);
+            $("#divCompare").removeClass("hidden");
+            $("#divMainSearch").addClass("hidden");
+            $("#btncompRemove" + modelname).removeClass("hidden");
+            // $("#btnCompare" + modelname).addClass("hidden");
+
+            // $("#chkComp" + modelname).addClass("hidden");
+            addModelArray.push(modelname);
+
+            noofcomapre = addModelArray.length;
+            $("#btncompare").text("Compare(" + noofcomapre + ")");
+            getCompareModelList();
+        } else {
+            $.alert({
+                title: "",
+                content: "Please Select up to three to compare ",
+                type: 'red'
+            })
+            $("#btnCompare" + modelname).removeAttr('checked');
+        }
+    } else {
+        addModelArray = jQuery.grep(addModelArray, function (value) {
+            return value != modelname;
+
+        });
+        console.log(addModelArray)
+        noofcomapre = addModelArray.length;
+        $("#btncompare").text("Compare(" + noofcomapre + ")");
+        getCompareModelList();
+    }
+}
