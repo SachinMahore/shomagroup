@@ -1332,13 +1332,19 @@ namespace ShomaRM.Models
             }
             return result;
         }
-        public TenantOnlineModel GetTenantOnlineListGenerateQuotation(int id, long UserId)
+        public TenantOnlineModel GetTenantOnlineListGenerateQuotation(int id)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             TenantOnlineModel lstpr = new TenantOnlineModel();
+            var ApplyNowUserId = db.tbl_ApplyNow.Where(co => co.ID == id).FirstOrDefault();
+            long? UserId = 0;
+            if (ApplyNowUserId != null)
+            {
+                UserId = ApplyNowUserId.UserId;
+            }
             try
             {
-                long toid = UserId;
+                long? toid = UserId;
                 DataTable dtTable = new DataTable();
                 using (var cmd = db.Database.Connection.CreateCommand())
                 {
@@ -1525,6 +1531,21 @@ namespace ShomaRM.Models
 
                     var stepCompleted = Convert.ToInt32(dr["StepCompleted"].ToString());
                     lstpr.StepCompleted = stepCompleted;
+
+                    var getApplyNowData = db.tbl_ApplyNow.Where(co => co.ID == id).FirstOrDefault();
+                    if (getApplyNowData != null)
+                    {
+                        var getPropertyUnitData = db.tbl_PropertyUnits.Where(co => co.UID == getApplyNowData.PropertyId).FirstOrDefault();
+                        lstpr.FloorPlanImageUnit = getPropertyUnitData.Building;
+                        lstpr.FloorPlanBedUnit = !string.IsNullOrWhiteSpace(Convert.ToString(getPropertyUnitData.Bedroom)) ? Convert.ToString(getPropertyUnitData.Bedroom) : "";
+                        lstpr.FloorPlanBathUnit = !string.IsNullOrWhiteSpace(Convert.ToString(getPropertyUnitData.Bathroom)) ? Convert.ToString(getPropertyUnitData.Bathroom) : "";
+                        lstpr.FloorPlanAreaUnit = getPropertyUnitData.Area;
+                        var getUnitLesePriceData = db.tbl_UnitLeasePrice.Where(co => co.UnitID == getPropertyUnitData.UID).FirstOrDefault();
+                        if (getUnitLesePriceData != null)
+                        {
+                            lstpr.FloorPlanStartPriceUnit = getUnitLesePriceData.Price.Value.ToString("0.00");
+                        }
+                    }
                 }
                 db.Dispose();
                 return lstpr;

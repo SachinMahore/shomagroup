@@ -1,0 +1,60 @@
+
+Date - 03 Jun 2020 16:29:28
+Level - INFO
+UserAgent - 
+Message - 
+Method Index -Charge Trans ID : 3109978341
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Controllers\HomeController.cs
+
+Method Name: Index
+
+Line Number: 40
+
+Logger: HomeController.cs
+
+
+
+Date - 03 Jun 2020 16:32:15
+Level - INFO
+UserAgent - 
+Message - 
+Method Index -Void Trans ID : 3109978341
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Controllers\HomeController.cs
+
+Method Name: Index
+
+Line Number: 51
+
+Logger: HomeController.cs
+
+
+
+Date - 03 Jun 2020 18:12:08
+Level - INFO
+UserAgent - 
+Message - 
+Method Index -Void Trans ID : 2550608091
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Controllers\HomeController.cs
+
+Method Name: Index
+
+Line Number: 62
+
+Logger: HomeController.cs
+
+

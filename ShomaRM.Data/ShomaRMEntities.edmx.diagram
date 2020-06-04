@@ -147,7 +147,6 @@
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Vehicle_tbl_ApplyNow" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_PropertyUnits" Width="1.5" PointX="10.25" PointY="67.5" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_PropertyUnits_tbl_Properties" />
-        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Transaction" Width="1.5" PointX="19.375" PointY="0.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Login" Width="1.5" PointX="0.75" PointY="81.875" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_ChargeType_tbl_Login" />
@@ -170,6 +169,7 @@
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Login3" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Vendor_tbl_Login" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" Width="1.5" PointX="19.375" PointY="5.75" />
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Transaction" Width="1.5" PointX="11.375" PointY="20.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -159,13 +159,12 @@ namespace ShomaRM.Models
                     }
                     var saveTransaction = new tbl_Transaction()
                     {
-
                         TenantID = userid,                       
                         PAID = opid.ToString(),
                         Transaction_Date = DateTime.Now,                                              
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.Charge_Amount,
-                        Description = model.Description + "| TransID: " + strlist[1],
+                        Description = model.Description + "| TransID: " + strlist[2],
                         Charge_Date = DateTime.Now,
                         Charge_Type = 5,
                         Authcode = strlist[1],
@@ -175,6 +174,7 @@ namespace ShomaRM.Models
                         Batch = "1",                    
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
                         UserID=userid,
+                        RefNum= strlist[2],
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -257,12 +257,10 @@ namespace ShomaRM.Models
                 model.ProcessingFees = processingFees;
                 if (model.PaymentMethod == 2)
                 {
-
                     transStatus = new UsaePayModel().ChargeCard(model);
                 }
                 else if (model.PaymentMethod == 1)
                 {
-
                     transStatus = new UsaePayModel().ChargeACH(model);
                 }
 
@@ -294,26 +292,22 @@ namespace ShomaRM.Models
                     
                     var saveTransaction = new tbl_Transaction()
                     {
-
                         TenantID = userid,
                          PAID=opid,
                         Transaction_Date = DateTime.Now,
-                   
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.Charge_Amount,
-                        Description = model.Description + "| TransID: " + strlist[1],
+                        Description = model.Description + "| TransID: " + strlist[2],
                         Charge_Date = DateTime.Now,
                         Charge_Type = 1,
-
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
                         Miscellaneous_Amount = processingFees,
                         Accounting_Date = DateTime.Now,
-
                         Batch = "1",
-                     
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
                         UserID = userid,
+                        RefNum = strlist[2],
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -467,27 +461,22 @@ namespace ShomaRM.Models
                     }
                     var saveTransaction = new tbl_Transaction()
                     {
-
                         TenantID = Convert.ToInt64(GetProspectData.UserId),
-                       
                         PAID = paid.ToString(),
                         Transaction_Date = DateTime.Now,
-                        
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.Charge_Amount,
-                        Description = model.Description + "| TransID: " + strlist[1],
+                        Description = model.Description + "| TransID: " + strlist[2],
                         Charge_Date = DateTime.Now,
                         Charge_Type =Convert.ToInt32(bat),
-
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
                         Miscellaneous_Amount = processingFees,
                         Accounting_Date = DateTime.Now,
-
                         Batch = bat,
-                      
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
                         UserID = GetCoappDet.UserID,
+                        RefNum= strlist[2],
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -495,7 +484,6 @@ namespace ShomaRM.Models
                     var TransId = saveTransaction.TransID;
                     MyTransactionModel mm = new MyTransactionModel();
                     mm.CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);
-
 
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");

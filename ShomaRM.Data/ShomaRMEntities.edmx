@@ -1498,6 +1498,7 @@
           <Property Name="Charge_Type" Type="int" />
           <Property Name="Authcode" Type="nvarchar" MaxLength="20" />
           <Property Name="UserID" Type="bigint" />
+          <Property Name="RefNum" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tbl_UnitLeasePrice">
           <Key>
@@ -3249,7 +3250,6 @@
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_PropertyUnits" EntitySet="tbl_PropertyUnits" />
           </AssociationSet>
-          <EntitySet Name="tbl_Transaction" EntityType="ShomaRMEntitiesModel.tbl_Transaction" />
           <EntitySet Name="tbl_Login" EntityType="ShomaRMEntitiesModel.tbl_Login" />
           <AssociationSet Name="FK_tbl_CashReceipts_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login">
             <End Role="tbl_Login" EntitySet="tbl_Login" />
@@ -3332,6 +3332,7 @@
             <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
           </AssociationSet>
           <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" />
+          <EntitySet Name="tbl_Transaction" EntityType="ShomaRMEntitiesModel.tbl_Transaction" />
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -5694,27 +5695,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tbl_Transaction">
-          <Key>
-            <PropertyRef Name="TransID" />
-          </Key>
-          <Property Name="TransID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenantID" Type="Int64" Nullable="false" />
-          <Property Name="Transaction_Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PAID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Charge_Date" Type="DateTime" Precision="3" />
-          <Property Name="Charge_Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Credit_Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Miscellaneous_Amount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Accounting_Date" Type="DateTime" Precision="3" />
-          <Property Name="Batch" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="Charge_Type" Type="Int32" />
-          <Property Name="Authcode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="UserID" Type="Int64" />
-        </EntityType>
         <EntityType Name="tbl_Login">
           <Key>
             <PropertyRef Name="UserID" />
@@ -6016,6 +5996,28 @@
           <Property Name="PreMoveInTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Movers" Type="Int32" />
           <Property Name="ParentTOID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="tbl_Transaction">
+          <Key>
+            <PropertyRef Name="TransID" />
+          </Key>
+          <Property Name="TransID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantID" Type="Int64" Nullable="false" />
+          <Property Name="Transaction_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PAID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Charge_Date" Type="DateTime" Precision="3" />
+          <Property Name="Charge_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Credit_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Miscellaneous_Amount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Accounting_Date" Type="DateTime" Precision="3" />
+          <Property Name="Batch" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Charge_Type" Type="Int32" />
+          <Property Name="Authcode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="RefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -7650,28 +7652,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_Transaction">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Transaction">
-              <MappingFragment StoreEntitySet="tbl_Transaction">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Authcode" ColumnName="Authcode" />
-                <ScalarProperty Name="Charge_Type" ColumnName="Charge_Type" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Batch" ColumnName="Batch" />
-                <ScalarProperty Name="Accounting_Date" ColumnName="Accounting_Date" />
-                <ScalarProperty Name="Miscellaneous_Amount" ColumnName="Miscellaneous_Amount" />
-                <ScalarProperty Name="Credit_Amount" ColumnName="Credit_Amount" />
-                <ScalarProperty Name="Charge_Amount" ColumnName="Charge_Amount" />
-                <ScalarProperty Name="Charge_Date" ColumnName="Charge_Date" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="PAID" ColumnName="PAID" />
-                <ScalarProperty Name="Transaction_Date" ColumnName="Transaction_Date" />
-                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-                <ScalarProperty Name="TransID" ColumnName="TransID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Login">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Login">
               <MappingFragment StoreEntitySet="tbl_Login">
@@ -7713,6 +7693,29 @@
                 <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
                 <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
                 <ScalarProperty Name="MIID" ColumnName="MIID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Transaction">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Transaction">
+              <MappingFragment StoreEntitySet="tbl_Transaction">
+                <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Authcode" ColumnName="Authcode" />
+                <ScalarProperty Name="Charge_Type" ColumnName="Charge_Type" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+                <ScalarProperty Name="Accounting_Date" ColumnName="Accounting_Date" />
+                <ScalarProperty Name="Miscellaneous_Amount" ColumnName="Miscellaneous_Amount" />
+                <ScalarProperty Name="Credit_Amount" ColumnName="Credit_Amount" />
+                <ScalarProperty Name="Charge_Amount" ColumnName="Charge_Amount" />
+                <ScalarProperty Name="Charge_Date" ColumnName="Charge_Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PAID" ColumnName="PAID" />
+                <ScalarProperty Name="Transaction_Date" ColumnName="Transaction_Date" />
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="TransID" ColumnName="TransID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
