@@ -97,6 +97,17 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
+                            <label for="txtExpDate" class="star">Sure Deposit Expiration Date</label>
+                            <div class="input-group">
+                                <input id="txtExpDate" class="form-control form-control-small" value="@(DateTime.Now.ToString("MM/dd/yyyy"))" />
+                                <span class="input-group-btn">
+                                    <button id="iconExpDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
                             <label class="star">Upload Deposit Bond</label>
                             <input type="file" name="uploadSD" id="uploadSD" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
                             <label for="uploadSD"><i class="fa fa-upload fa-2x"></i> <span id="uploadSDShow">Choose a file&hellip;</span></label>
@@ -116,6 +127,15 @@
     </div>
 </div>
 <script>
+    $(function () {
+        var dtend100 = new Date();
+        dtend100.setFullYear(new Date().getFullYear() + 100);
+        $('#txtExpDate').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: "+0d", endDate: dtend100, maxViewMode: 2, autoclose: true });
+        $("#iconEventDate").click(function () {
+            $("#txtExpDate").focus();
+        });
+
+    });
      var goToAddEditSureDeposit = function (id,tid) {
          if (id !== null) {
              var model = {
@@ -129,6 +149,7 @@
                  dataType: "JSON",
                  success: function (response) {
                      
+                     $("#txtExpDate").val(response.model.ExpirationDateString);
                      $("#txtApplicantFirstName").val(response.model.FirstName);
                      $("#txtApplicantLastName").val(response.model.LastName);
                      $("#txtApplicantPhone").val(response.model.PhoneNo);
@@ -141,7 +162,7 @@
             $("#popSD").modal("show");
         }
     };
-
+  
      document.getElementById('uploadSD').onchange = function () {
          var fileUploadPOIBool = restrictFileUpload($(this).val());
          if (fileUploadPOIBool == true) {
@@ -180,12 +201,12 @@
              success: function (response) {
                  $("#divLoader").hide();
                  var spMsg = response.model;
-               
+
                  var msg = [];
                  if (spMsg) {
                      msg = spMsg.split('|');
                      $('#uploadSDShow').text(msg[1]);
-                   
+
                  }
                  else {
                      msg = spMsg.split('|');
@@ -204,9 +225,13 @@
          var aid = $("#hndApplicantID").val();
          var prospectID = $("#hdnProspectId").val();
          var sdnumber = $("#txtSDNumber").val();
+         var expdt = $("#txtExpDate").val();
          if (!$("#txtSDNumber").val())
          {
-             msg = "Enter SD Number";
+             msg += "Enter Sure Deposit Number";
+         }
+         if (!$("#txtExpDate").val()) {
+             msg += "Enter Sure Deposit Expiration Date";
          }
          if (msg != "") {
              $.alert({
@@ -221,7 +246,7 @@
              TenantID: aid,
              ApplyNowID: prospectID,
              SDNumber: sdnumber,
-             
+             ExpirationDate: expdt,
          };
 
          $.ajax({
@@ -236,9 +261,9 @@
                      content: "Progress Saved.",
                      type: 'blue',
                  });
-               
+
                  window.location.href = "/Admin/SureDepositManagement/";
- 
+
                  $("#popSD").modal("hide");
              }
 

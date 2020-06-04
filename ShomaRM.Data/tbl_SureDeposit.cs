@@ -20,5 +20,6 @@ namespace ShomaRM.Data
         public Nullable<long> ProspectID { get; set; }
         public Nullable<long> ParentTOID { get; set; }
         public Nullable<System.DateTime> UploadDate { get; set; }
+        public Nullable<System.DateTime> ExpirationDate { get; set; }
     }
 }

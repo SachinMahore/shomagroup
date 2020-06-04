@@ -1123,6 +1123,7 @@
           <Property Name="ProspectID" Type="bigint" />
           <Property Name="ParentTOID" Type="bigint" />
           <Property Name="UploadDate" Type="datetime" />
+          <Property Name="ExpirationDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_Tenant">
           <Key>
@@ -6040,6 +6041,7 @@
           <Property Name="ProspectID" Type="Int64" />
           <Property Name="ParentTOID" Type="Int64" />
           <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -7743,6 +7745,7 @@
           <EntitySetMapping Name="tbl_SureDeposit">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SureDeposit">
               <MappingFragment StoreEntitySet="tbl_SureDeposit">
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
                 <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
                 <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
                 <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />

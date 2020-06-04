@@ -24,6 +24,8 @@ namespace ShomaRM.Areas.Admin.Models
         public long? TenantID { get; set; }
         public long SDID { get; set; }
         public string SDNumber { get; set; }
+        public DateTime ExpirationDate { get; set; }
+        public string ExpirationDateString { get; set; }
         public List<SureDepositManagementModel> SureDepoAppList { get; set; }
 
         public SureDepositManagementModel GetDetails()
@@ -134,6 +136,7 @@ namespace ShomaRM.Areas.Admin.Models
                         ProspectID=model.ApplyNowID,
                         ParentTOID=model.TenantID,
                         UploadDate=DateTime.Now,
+                        ExpirationDate=model.ExpirationDate,
                     };
                     db.tbl_SureDeposit.Add(saveSD);
                     db.SaveChanges();
@@ -146,6 +149,7 @@ namespace ShomaRM.Areas.Admin.Models
                 getSDdata.ParentTOID = model.TenantID;
                 getSDdata.SDNumber = model.SDNumber;
                 getSDdata.UploadDate = DateTime.Now;
+                getSDdata.ExpirationDate = model.ExpirationDate;
                 db.SaveChanges();
                 msg = "Sure Deposit Saved Successfully";
             }
@@ -169,6 +173,7 @@ namespace ShomaRM.Areas.Admin.Models
               if(getSDdata!=null)
                 {
                     sddet.SDNumber = getSDdata.SDNumber;
+                    sddet.ExpirationDateString = getSDdata.ExpirationDate.HasValue ? getSDdata.ExpirationDate.Value.ToString("MM/dd/yyyy") : "";
                 }
             }
             return sddet;
