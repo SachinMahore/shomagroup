@@ -110,10 +110,8 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Vehicle> tbl_Vehicle { get; set; }
         public virtual DbSet<tbl_Login> tbl_Login { get; set; }
         public virtual DbSet<tbl_MoveInChecklist> tbl_MoveInChecklist { get; set; }
-
         public virtual DbSet<tbl_Transaction> tbl_Transaction { get; set; }
         public virtual DbSet<tbl_PropertyUnits> tbl_PropertyUnits { get; set; }
-
         public virtual DbSet<tbl_SureDeposit> tbl_SureDeposit { get; set; }
     }
 }
