@@ -33,6 +33,7 @@ namespace ShomaRM.Areas.Admin.Models
         public string State { get; set; }
         public string City { get; set; }
         public string Zip { get; set; }
+        public string Bond { get; set; }
         public List<SureDepositManagementModel> SureDepoAppList { get; set; }
 
         public SureDepositManagementModel GetDetails()
@@ -56,10 +57,12 @@ namespace ShomaRM.Areas.Admin.Models
                     var getSDdata = db.tbl_SureDeposit.Where(p => p.ProspectID == item.ProspectID).FirstOrDefault();
                     string sdnum = "";
                     string stat = "Not Uploaded";
+                    string bond = "";
                     if (getSDdata != null)
                     {
                         sdnum = getSDdata.SDNumber;
                         stat = getSDdata.Status==1? "Not Uploaded" : getSDdata.Status==2? "Uploaded" : "Expired";
+                        bond = getSDdata.SDUploadName;
                     }
                     listSDApplicant.Add(new SureDepositManagementModel()
                     {
@@ -74,6 +77,7 @@ namespace ShomaRM.Areas.Admin.Models
                        TenantID=getAppInfo.ParentTOID,
                        SDNumber=sdnum,
                        StatusString=stat,
+                       Bond=bond,
                     });
                 }
             }

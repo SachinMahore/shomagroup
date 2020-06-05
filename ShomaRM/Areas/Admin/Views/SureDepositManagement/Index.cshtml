@@ -27,6 +27,7 @@
                                     <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">Model</th>
                                     <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">Sure Deposit Number</th>
                                     <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">Status</th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">Download Bond</th>
                                     <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;">Action</th>
                                 </tr>
                             </thead>
@@ -40,6 +41,8 @@
                                             <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.Building) ? item.Building : "")</td>
                                             <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.Building) ? item.SDNumber : "")</td>
                                             <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.StatusString) ? item.StatusString : "")</td>
+                                            <td style="text-align:center;"><a href='../../Content/assets/img/SureDeposit/@(!string.IsNullOrWhiteSpace(item.Bond) ? item.Bond : "")' download="@(!string.IsNullOrWhiteSpace(item.Bond) ? item.Bond : "")" target='_blank'><span class='fa fa-download'></span></a></td>
+                                            
                                             <td style="text-align:center;"><i class="fa fa-edit fa-lg" style="cursor:pointer"  onclick="goToAddEditSureDeposit(@(item.ApplyNowID),@(item.TenantID))"></i></td>
                                         </tr>
                                     }
