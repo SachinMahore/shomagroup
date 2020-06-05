@@ -775,7 +775,7 @@ namespace ShomaRM.Models
             db.Dispose();
             return IsEmailExist;
         }
-        public string  SaveUpdateStep(long ID, int StepCompleted)
+        public string SaveUpdateStep(long ID, int StepCompleted)
         {
             ShomaRMEntities db = new ShomaRMEntities();
 
@@ -799,16 +799,17 @@ namespace ShomaRM.Models
                     db.SaveChanges();
                 }
             }
-            
+
             if (tenantData != null)
             {
                 tenantData.StepCompleted = stepcomp;
                 db.SaveChanges();
             }
-            if(StepCompleted==18)
+            if (StepCompleted == 18)
             {
-                if(applicantData.Type!= "Primary Applicant ")
+                if (applicantData.Type != "Primary Applicant ")
                 {
+                    var filePathSummaryPrint = HttpContext.Current.Server.MapPath(PrintApplicationForm(ID));
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
@@ -818,17 +819,20 @@ namespace ShomaRM.Models
                     string phonenumber = onlineProspectData.Phone;
                     if (tenantData != null)
                     {
-                        reportHTML = reportHTML.Replace("[%EmailHeader%]", applicantData.Type+ " "+ applicantData.FirstName + " " + applicantData.LastName + " has Finished the application");
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; "+ applicantData.Type +" "+ applicantData.FirstName + " " + applicantData.LastName + " has finished the application on " + DateTime.Now + "</p>");
+                        reportHTML = reportHTML.Replace("[%EmailHeader%]", applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has Finished the application");
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; " + applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has finished the application on " + DateTime.Now + "</p>");
 
                         reportHTML = reportHTML.Replace("[%TenantName%]", onlineProspectData.FirstName + " " + onlineProspectData.LastName);
 
                         reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
 
-                        message =applicantData.Type+ " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application";
+                        message = applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application";
                     }
                     string body = reportHTML;
-                    new EmailSendModel().SendEmail(onlineProspectData.Email, applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application", body);
+                    List<string> filePaths = new List<string>();
+                    filePaths.Add(filePathSummaryPrint);
+
+                    new EmailSendModel().SendEmailWithAttachment(onlineProspectData.Email, applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application", body, filePaths);
                     if (SendMessage == "yes")
                     {
                         if (!string.IsNullOrWhiteSpace(phonenumber))
@@ -840,6 +844,7 @@ namespace ShomaRM.Models
             }
             return "1";
         }
+
         public string CheckUnitAvailable(long UnitID, long ProspectID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
