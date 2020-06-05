@@ -1125,6 +1125,7 @@
           <Property Name="ParentTOID" Type="bigint" />
           <Property Name="UploadDate" Type="datetime" />
           <Property Name="ExpirationDate" Type="datetime" />
+          <Property Name="Status" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Tenant">
           <Key>
@@ -3342,8 +3343,6 @@
           </AssociationSet>
           <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" />
 
-          <EntitySet Name="tbl_SureDeposit" EntityType="ShomaRMEntitiesModel.tbl_SureDeposit" />
-
           <EntitySet Name="tbl_Transaction" EntityType="ShomaRMEntitiesModel.tbl_Transaction" />
           <EntitySet Name="tbl_PropertyUnits" EntityType="ShomaRMEntitiesModel.tbl_PropertyUnits" />
 
@@ -3351,6 +3350,7 @@
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_PropertyUnits" EntitySet="tbl_PropertyUnits" />
           </AssociationSet>
+          <EntitySet Name="tbl_SureDeposit" EntityType="ShomaRMEntitiesModel.tbl_SureDeposit" />
 
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
@@ -6029,19 +6029,6 @@
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_PropertyUnits_tbl_Properties" FromRole="tbl_PropertyUnits" ToRole="tbl_Properties" />
         </EntityType>
 
-        <EntityType Name="tbl_SureDeposit">
-          <Key>
-            <PropertyRef Name="SDID" />
-          </Key>
-          <Property Name="SDID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SDUploadName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ProspectID" Type="Int64" />
-          <Property Name="ParentTOID" Type="Int64" />
-          <Property Name="UploadDate" Type="DateTime" Precision="3" />
-          <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
-        </EntityType>
-
         <Association Name="FK_tbl_PropertyUnits_tbl_Properties">
           <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="0..1" />
           <End Type="ShomaRMEntitiesModel.tbl_PropertyUnits" Role="tbl_PropertyUnits" Multiplicity="*" />
@@ -6054,6 +6041,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_SureDeposit">
+          <Key>
+            <PropertyRef Name="SDID" />
+          </Key>
+          <Property Name="SDID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDUploadName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProspectID" Type="Int64" />
+          <Property Name="ParentTOID" Type="Int64" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+        </EntityType>
 
         </Schema>
     </edmx:ConceptualModels>
@@ -7759,6 +7759,7 @@
           <EntitySetMapping Name="tbl_SureDeposit">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SureDeposit">
               <MappingFragment StoreEntitySet="tbl_SureDeposit">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
                 <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
                 <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
@@ -7769,20 +7770,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_SureDeposit">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SureDeposit">
-              <MappingFragment StoreEntitySet="tbl_SureDeposit">
-                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
-                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
-                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
-                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
-                <ScalarProperty Name="SDUploadName" ColumnName="SDUploadName" />
-                <ScalarProperty Name="SDNumber" ColumnName="SDNumber" />
-                <ScalarProperty Name="SDID" ColumnName="SDID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

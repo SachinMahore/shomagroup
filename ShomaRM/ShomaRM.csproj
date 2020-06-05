@@ -2947,6 +2947,7 @@
     <Content Include="Content\SMResponsive\fonts\themify.woff" />
     <Content Include="Content\assets\img\plan\SanctuaryLevel26.zip" />
     <Content Include="Areas\Admin\Views\SureDepositManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\SureDepositManagement\AddEdit.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
