@@ -116,9 +116,9 @@ namespace ShomaRM.Data
         public virtual ICollection<tbl_Tenant> tbl_Tenant1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_WorkOrder> tbl_WorkOrder { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_PropertyUnits> tbl_PropertyUnits { get; set; }
         public virtual tbl_Login tbl_Login { get; set; }
         public virtual tbl_Login tbl_Login1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_PropertyUnits> tbl_PropertyUnits { get; set; }
     }
 }

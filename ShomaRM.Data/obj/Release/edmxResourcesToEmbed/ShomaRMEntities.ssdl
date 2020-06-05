@@ -1493,6 +1493,7 @@
     <Property Name="Charge_Type" Type="int" />
     <Property Name="Authcode" Type="nvarchar" MaxLength="20" />
     <Property Name="UserID" Type="bigint" />
+    <Property Name="RefNum" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="tbl_UnitLeasePrice">
     <Key>

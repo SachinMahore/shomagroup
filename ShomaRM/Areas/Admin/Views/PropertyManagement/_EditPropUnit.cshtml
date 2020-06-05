@@ -301,11 +301,11 @@
                                 <option value="6" data-search="W-5">W-5</option>
                             </select>
                             @*<select id="ddlLocation" class="form-control form-control-small">
-                        @foreach (var item in Model.LocationList)
-                        {
-                            <option value="@item.ParkingID" data-list="@item.Description" data-pid= "@item.PropertyID" data-uid="@Model.UID" @(item.PropertyID == Model.UID ? "selected" : "")>@item.Description</option>
-                        }
-                    </select>*@
+                    @foreach (var item in Model.LocationList)
+                    {
+                        <option value="@item.ParkingID" data-list="@item.Description" data-pid= "@item.PropertyID" data-uid="@Model.UID" @(item.PropertyID == Model.UID ? "selected" : "")>@item.Description</option>
+                    }
+                </select>*@
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -320,7 +320,12 @@
                             <input id="txtLeased" type="text" class="form-control" placeholder="13 Month" value="@Model.Leased">
                         </div>
                     </div>
-
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Is Available?</label>
+                            <input id="checkUnitIsAvailable" type="checkbox" class="form-control" style="width:20px;height:20px;"  @(@Model.IsAvailable == 1 ?"checked" : "")/>
+                        </div>
+                    </div>
                     <div class="col-sm-6 hidden">
                         <div class="form-group">
                             <label class="star">PetDetails</label>
@@ -328,17 +333,12 @@
                         </div>
                     </div>
 
+
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label>Notes</label>
                             <textarea id="txtUnitNotes" type="text" class="form-control">@Model.Notes</textarea>
                         </div>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label>Notes</label>
-                        <textarea id="txtUnitNotes" type="text" class="form-control">@Model.Notes</textarea>
                     </div>
                 </div>
             </div>

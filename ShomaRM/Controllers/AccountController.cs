@@ -33,9 +33,15 @@ namespace ShomaRM.Controllers
         {
             try
             {
-                if (returnUrl.ToString().ToLower().Contains("logoff"))
+                if (!string.IsNullOrWhiteSpace(returnUrl))
+                {
+                    if (returnUrl.ToString().ToLower().Contains("logoff"))
+                        returnUrl = null;
+                }
+                else
+                {
                     returnUrl = null;
-
+                }
             }
             catch
             {

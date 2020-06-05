@@ -5795,302 +5795,79 @@ var clearVehicle = function () {
     $("#hndVehicleRegistation").val("0");
     $("#hndOriginalVehicleRegistation").val("0");
 }
-var saveupdateTenantOnlineCoapplicant = function (stepcompleted) {
-    var msg = "";
-    var ProspectID = $("#hdnOPId").val();
-    var isInternational = $("#ddlIsInter").val();
-    var FirstName = $("#txtFirstNamePersonal").val();
-    var MiddleInitial = $("#txtMiddleInitial").val();
-    var LastName = $("#txtLastNamePersonal").val();
-    var DateOfBirth = $("#txtDateOfBirth").val();
-    var Gender = $("#ddlGender").val();
-    var Email = $("#txtEmailNew").val();
-    var Mobile = unformatTextCoApplicant($("#txtMobileNumber").val());
-    //var PassportNumber = $("#txtPassportNum").val();
-    var CountryIssuance = $("#txtCOI").val();
-    var DateIssuance = $("#txtDateOfIssuance").val();
-    var DateExpire = $("#txtDateOfExpiration").val();
-    var IDType = $("#ddlDocumentTypePersonal").val();
-    var State = $("#ddlStatePersonal").val();
-    //var IDNumber = $("#txtIDNumber").data("value");
-    //var SSNNumber = $("#txtSSNNumber").data("value");
-    var Country = $("#txtCountry").val();
-    var HomeAddress1 = $("#txtAddress1").val();
-    var HomeAddress2 = $("#txtAddress2").val();
-    var StateHome = $("#ddlStateHome").val();
-    var CityHome = $("#ddlCityHome").val();
-    var ZipHome = $("#txtZip").val();
-    var RentOwn = $("#ddlRentOwn").val();
-    var MoveInDateFrom = $("#txtMoveInDateFrom").val();
-    //var MoveInDateTo = $("#txtMoveInDateTo").val();
-    var MonthlyPayment = unformatTextCoApplicant($("#txtMonthlyPayment").val());
-    var Reason = $("#txtReasonforleaving").val();
+mergencyCityHome', EmergencyCityHome);
 
-    var Country2 = $("#txtCountry2").val();
-    var HomeAddress12 = $("#txtAddress12").val();
-    var HomeAddress22 = $("#txtAddress22").val();
-    var StateHome2 = $("#ddlStateHome2").val();
-    var CityHome2 = $("#ddlCityHome2").val();
-    var ZipHome2 = $("#txtZip2").val();
-    var RentOwn2 = $("#ddlRentOwn2").val();
-    var MoveInDateFrom2 = $("#txtMoveInDateFrom2").val();
-    var MoveInDateTo2 = $("#txtMoveInDateTo2").val();
-    var MonthlyPayment2 = unformatTextCoApplicant($("#txtMonthlyPayment2").val());
-    var Reason2 = $("#txtReasonforleaving2").val();
+$formData.append('EmergencyZipHome', "");
+$formData.append('IsInternational', isInternational);
+$formData.append('IsAdditionalRHistory', isAdditionalRHistory);
+$formData.append('OtherGender', OtherGender);
+// $formData.append('SSN', SSNNumber);
 
-    var isAdditionalRHistory = $("#ddladdHistory").val();
+$formData.append('TaxReturn', fileUpload1);
+$formData.append('UploadOriginalFileName1', originalFileUpload1);
+$formData.append('TaxReturn2', fileUpload2);
+$formData.append('UploadOriginalFileName2', originalFileUpload2);
+$formData.append('TaxReturn3', fileUpload3);
+$formData.append('UploadOriginalFileName3', originalFileUpload3);
 
-    var EmployerName = $("#txtEmployerName").val();
-    var JobTitle = $("#txtJobTitle").val();
-    var JobType = $("#ddlJobType").val();
-    var StartDate = $("#txtStartDate").val();
-    var Income = unformatTextCoApplicant($("#txtAnnualIncome").val());
-    var AdditionalIncome = unformatTextCoApplicant($("#txtAddAnnualIncome").val());
-    var SupervisorName = $("#txtSupervisiorName").val();
-    var SupervisorPhone = unformatTextCoApplicant($("#txtSupervisiorPhone").val());
-    var SupervisorEmail = $("#txtSupervisiorEmail").val();
-    var OfficeCountry = $("#txtCountryOffice").val();
-    var OfficeAddress1 = $("#txtofficeAddress1").val();
-    var OfficeAddress2 = $("#txtofficeAddress2").val();
-    var OfficeState = $("#ddlStateEmployee").val();
-    var OfficeCity = $("#ddlCityEmployee").val();
-    var OfficeZip = $("#txtZipOffice").val();
-    var Relationship = $("#txtRelationship").val();
-    var EmergencyFirstName = $("#txtEmergencyFirstName").val();
-    var EmergencyLastName = $("#txtEmergencyLastName").val();
-    var EmergencyMobile = unformatTextCoApplicant($("#txtEmergencyMobile").val());
-    var EmergencyHomePhone = unformatTextCoApplicant($("#txtEmergencyHomePhone").val());
-    var EmergencyWorkPhone = unformatTextCoApplicant($("#txtEmergencyWorkPhone").val());
-    var EmergencyEmail = $("#txtEmergencyEmail").val();
-    var EmergencyCountry = $("#txtEmergencyCountry").val();
-    var EmergencyAddress1 = $("#txtEmergencyAddress1").val();
-    var EmergencyAddress2 = $("#txtEmergencyAddress2").val();
-    var EmergencyStateHome = $("#ddlStateContact").val();
-    var EmergencyCityHome = $("#ddlCityContact").val();
-    var EmergencyZipHome = $("#txtEmergencyZip").val();
-    var OtherGender = $("#txtOtherGender").val();
+$formData.append('PassportDocument', filePassport);
+$formData.append('UploadOriginalPassportName', originalFilePassport);
+$formData.append('IdentityDocument', fileIdentity);
+$formData.append('UploadOriginalIdentityName', originalFileIdentity);
+$formData.append('StepCompleted', stepcompleted);
 
-    var fileUpload1 = $("#hndFileUploadName1").val();
-    var originalFileUpload1 = $("#hndOriginalFileUploadName1").val();
-    var fileUpload2 = $("#hndFileUploadName2").val();
-    var originalFileUpload2 = $("#hndOriginalFileUploadName2").val();
-    var fileUpload3 = $("#hndFileUploadName3").val();
-    var originalFileUpload3 = $("#hndOriginalFileUploadName3").val();
-    var filePassport = $("#hndPassportUploadName").val();
-    var originalFilePassport = $("#hndOriginalPassportUploadName").val();
-    var fileIdentity = $("#hndIdentityUploadName").val();
-    var originalFileIdentity = $("#hndOriginalIdentityUploadName").val();
+$formData.append('CountryOfOrigin', countryOfOrigin);
+$formData.append('Evicted', everBeenEvicted);
+$formData.append('ConvictedFelony', everBeenConvicted);
+$formData.append('CriminalChargPen', anyCriminalCharges);
+$formData.append('EvictedDetails', everBeenEvictedDetails);
+$formData.append('ConvictedFelonyDetails', everBeenConvictedDetails);
+$formData.append('CriminalChargPenDetails', anyCriminalChargesDetails);
+$formData.append('DoYouSmoke', doYouSmoke);
+$formData.append('ReferredResident', referredByAnotherResident);
+$formData.append('ReferredBrokerMerchant', brokerOrMerchantReff);
+$formData.append('ReferredResidentName', referredByAnotherResidentName);
+$formData.append('ApartmentCommunity', apartmentCommunity);
+$formData.append('ManagementCompany', managementCompany);
+$formData.append('ManagementCompanyPhone', managementCompanyPhone);
+$formData.append('IsProprNoticeLeaseAgreement', properNoticeLeaseAgreement);
 
-    var countryOfOrigin = $("#ddlCountryOfOrigin").val();
-    var everBeenEvicted = $("#ddlEverBeenEvicted").val();
-    var everBeenConvicted = $("#ddlEverBeenConvicted").val();
-    var anyCriminalCharges = $("#ddlAnyCriminalCharges").val();
-    var everBeenEvictedDetails = $("#txtEverBeenEvictedDetails").val();
-    var everBeenConvictedDetails = $("#txtEverBeenConvictedDetails").val();
-    var anyCriminalChargesDetails = $("#txtAnyCriminalChargesDetails").val();
-    var doYouSmoke = $("#ddlDoYouSmoke").val();
-    var referredByAnotherResident = $("#ddlReferredByAnotherResident").val();
-    var brokerOrMerchantReff = $("#ddlBrokerOrMerchantReff").val();
-    var referredByAnotherResidentName = $("#txtReferredByAnotherResidentName").val();
-    var apartmentCommunity = $("#txtApartmentCommunity").val();
-    var managementCompany = $("#txtManagementCompany").val();
-    var managementCompanyPhone = unformatTextCoApplicant($("#txtManagementCompanyPhone").val());
-    var properNoticeLeaseAgreement = $("#ddlProperNoticeLeaseAgreement").val();
+$formData.append('TaxReturn4', fileUpload4);
+$formData.append('UploadOriginalFileName4', originalFileUpload4);
+$formData.append('TaxReturn5', fileUpload5);
+$formData.append('UploadOriginalFileName5', originalFileUpload5);
+$formData.append('TaxReturn6', fileUpload6);
+$formData.append('UploadOriginalFileName6', originalFileUpload6);
+$formData.append('TaxReturn7', fileUpload7);
+$formData.append('UploadOriginalFileName7', originalFileUpload7);
+$formData.append('TaxReturn8', fileUpload8);
+$formData.append('UploadOriginalFileName8', originalFileUpload8);
 
-    var fileUpload4 = $("#hndFileUploadName4").val();
-    var originalFileUpload4 = $("#hndOriginalFileUploadName4").val();
-    var fileUpload5 = $("#hndFileUploadName5").val();
-    var originalFileUpload5 = $("#hndOriginalFileUploadName5").val();
-    var fileUpload6 = $("#hndFileUploadNameBankState1").val();
-    var originalFileUpload6 = $("#hndOriginalFileUploadNameBankState1").val();
-    var fileUpload7 = $("#hndFileUploadNameBankState2").val();
-    var originalFileUpload7 = $("#hndOriginalFileUploadNameBankState2").val();
-    var fileUpload8 = $("#hndFileUploadNameBankState3").val();
-    var originalFileUpload8 = $("#hndOriginalFileUploadNameBankState3").val();
+if ($("#rbtnPaystub").is(":checked")) {
+    $formData.append('IsPaystub', 1);
+}
+else if ($("#rbtnFedralTax").is(":checked")) {
+    $formData.append('IsPaystub', 0);
+} else if ($("#rbtnBankStatement").is(":checked")) {
+    $formData.append('IsPaystub', 2);
+}
 
-    if (!OtherGender) {
-        OtherGender = $("#txtOtherGender").val(" ");
-    }
-    //if (SupervisorPhone) {
-    //    if (SupervisorPhone.length < 10) {
-    //        msg += "Please enter 10 digit supervisor phone number </br>";
-    //    }
-    //}
-    if (EmergencyMobile) {
-        if (EmergencyMobile.length < 10) {
-            msg += "Please enter 10 digit emergency mobile number </br>";
+$.ajax({
+    url: '/ApplyNow/SaveCoGuTenantOnline',
+    type: 'post',
+    data: $formData,
+    contentType: 'application/json; charset=utf-8',
+    contentType: false,
+    processData: false,
+    dataType: 'json',
+    success: function (response) {
+        //getApplyNowListCoApplicant(idmsg[0]);
+        var stepcomp = parseInt($("#hdnStepCompleted").val());
+        if (stepcomp < stepcompleted) {
+            $("#hdnStepCompleted").val(stepcompleted);
         }
     }
-    if (EmergencyHomePhone) {
-        if (EmergencyHomePhone.length < 10) {
-            msg += "Please enter 10 digit emergency home phone number </br>";
-        }
-    }
-    if (EmergencyWorkPhone) {
-        if (EmergencyWorkPhone.length < 10) {
-            msg += "Please enter 10 digit emergency work phone number </br>";
-        }
-    }
-    if (managementCompanyPhone) {
-        if (managementCompanyPhone.length < 10) {
-            msg += "Please enter 10 digit management company phone number </br>";
-        }
-    }
-    if (stepcompleted == 12) {
-        if (nofup < 2) {
-            msg += "Please Select any  two of the three options (tax return, paystubs, and bank statements)";
-        }
-    }
-    if (msg != "") {
-        $.alert({
-            title: "",
-            content: msg,
-            type: 'red'
-        })
-        $("#divLoader").hide();
-        showCurrentStep(stepcompleted - 1);
-        return;
-    }
-
-
-    $formData = new FormData();
-    $formData.append('ProspectID', ProspectID);
-    $formData.append('FirstName', FirstName);
-    $formData.append('MiddleInitial', MiddleInitial);
-    $formData.append('LastName', LastName);
-    $formData.append('DateOfBirth', DateOfBirth);
-    $formData.append('Gender', Gender);
-    $formData.append('Email', Email);
-    $formData.append('Mobile', Mobile);
-    //$formData.append('PassportNumber', PassportNumber);
-    $formData.append('CountryIssuance', CountryIssuance);
-    $formData.append('DateIssuance', DateIssuance);
-    $formData.append('DateExpire', DateExpire);
-    $formData.append('IDType', IDType);
-    $formData.append('State', State);
-    //$formData.append('IDNumber', IDNumber);
-    $formData.append('Country', Country);
-    $formData.append('HomeAddress1', HomeAddress1);
-    $formData.append('HomeAddress2', HomeAddress2);
-    $formData.append('StateHome', StateHome);
-    $formData.append('CityHome', CityHome);
-    $formData.append('ZipHome', ZipHome);
-    $formData.append('RentOwn', RentOwn);
-    $formData.append('MoveInDateFrom', MoveInDateFrom);
-    //$formData.append('MoveInDateTo', MoveInDateTo);
-    $formData.append('MonthlyPayment', MonthlyPayment);
-    $formData.append('Reason', Reason);
-    $formData.append('Country2', Country2);
-    $formData.append('HomeAddress12', HomeAddress12);
-    $formData.append('HomeAddress22', HomeAddress22);
-    $formData.append('StateHome2', StateHome2);
-    $formData.append('CityHome2', CityHome2);
-    $formData.append('ZipHome2', ZipHome2);
-
-    $formData.append('RentOwn2', RentOwn2);
-    $formData.append('MoveInDateFrom2', MoveInDateFrom2);
-    $formData.append('MoveInDateTo2', MoveInDateTo2);
-    $formData.append('MonthlyPayment2', MonthlyPayment2);
-    $formData.append('Reason2', Reason2);
-    $formData.append('EmployerName', EmployerName);
-    $formData.append('JobTitle', JobTitle);
-    $formData.append('JobType', JobType);
-    $formData.append('StartDate', StartDate);
-    $formData.append('Income', Income);
-    $formData.append('AdditionalIncome', AdditionalIncome);
-    $formData.append('SupervisorName', SupervisorName);
-    $formData.append('SupervisorPhone', SupervisorPhone);
-    $formData.append('SupervisorEmail', SupervisorEmail);
-    $formData.append('OfficeCountry', OfficeCountry);
-    $formData.append('OfficeAddress1', OfficeAddress1);
-    $formData.append('OfficeAddress2', OfficeAddress2);
-    $formData.append('OfficeState', OfficeState);
-    $formData.append('OfficeCity', OfficeCity);
-    $formData.append('OfficeZip', OfficeZip);
-    $formData.append('Relationship', Relationship);
-    $formData.append('EmergencyFirstName', EmergencyFirstName);
-    $formData.append('EmergencyLastName', EmergencyLastName);
-    $formData.append('EmergencyMobile', EmergencyMobile);
-    $formData.append('EmergencyHomePhone', EmergencyHomePhone);
-    $formData.append('EmergencyWorkPhone', EmergencyWorkPhone);
-    $formData.append('EmergencyEmail', EmergencyEmail);
-    $formData.append('EmergencyCountry', EmergencyCountry);
-    $formData.append('EmergencyAddress1', EmergencyAddress1);
-    $formData.append('EmergencyAddress2', EmergencyAddress2);
-    $formData.append('EmergencyStateHome', EmergencyStateHome);
-    $formData.append('EmergencyCityHome', EmergencyCityHome);
-
-    $formData.append('EmergencyZipHome', EmergencyZipHome);
-    $formData.append('IsInternational', isInternational);
-    $formData.append('IsAdditionalRHistory', isAdditionalRHistory);
-    $formData.append('OtherGender', OtherGender);
-    // $formData.append('SSN', SSNNumber);
-
-    $formData.append('TaxReturn', fileUpload1);
-    $formData.append('UploadOriginalFileName1', originalFileUpload1);
-    $formData.append('TaxReturn2', fileUpload2);
-    $formData.append('UploadOriginalFileName2', originalFileUpload2);
-    $formData.append('TaxReturn3', fileUpload3);
-    $formData.append('UploadOriginalFileName3', originalFileUpload3);
-
-    $formData.append('PassportDocument', filePassport);
-    $formData.append('UploadOriginalPassportName', originalFilePassport);
-    $formData.append('IdentityDocument', fileIdentity);
-    $formData.append('UploadOriginalIdentityName', originalFileIdentity);
-    $formData.append('StepCompleted', stepcompleted);
-
-    $formData.append('CountryOfOrigin', countryOfOrigin);
-    $formData.append('Evicted', everBeenEvicted);
-    $formData.append('ConvictedFelony', everBeenConvicted);
-    $formData.append('CriminalChargPen', anyCriminalCharges);
-    $formData.append('EvictedDetails', everBeenEvictedDetails);
-    $formData.append('ConvictedFelonyDetails', everBeenConvictedDetails);
-    $formData.append('CriminalChargPenDetails', anyCriminalChargesDetails);
-    $formData.append('DoYouSmoke', doYouSmoke);
-    $formData.append('ReferredResident', referredByAnotherResident);
-    $formData.append('ReferredBrokerMerchant', brokerOrMerchantReff);
-    $formData.append('ReferredResidentName', referredByAnotherResidentName);
-    $formData.append('ApartmentCommunity', apartmentCommunity);
-    $formData.append('ManagementCompany', managementCompany);
-    $formData.append('ManagementCompanyPhone', managementCompanyPhone);
-    $formData.append('IsProprNoticeLeaseAgreement', properNoticeLeaseAgreement);
-
-    $formData.append('TaxReturn4', fileUpload4);
-    $formData.append('UploadOriginalFileName4', originalFileUpload4);
-    $formData.append('TaxReturn5', fileUpload5);
-    $formData.append('UploadOriginalFileName5', originalFileUpload5);
-    $formData.append('TaxReturn6', fileUpload6);
-    $formData.append('UploadOriginalFileName6', originalFileUpload6);
-    $formData.append('TaxReturn7', fileUpload7);
-    $formData.append('UploadOriginalFileName7', originalFileUpload7);
-    $formData.append('TaxReturn8', fileUpload8);
-    $formData.append('UploadOriginalFileName8', originalFileUpload8);
-
-    if ($("#rbtnPaystub").is(":checked")) {
-        $formData.append('IsPaystub', 1);
-    }
-    else if ($("#rbtnFedralTax").is(":checked")) {
-        $formData.append('IsPaystub', 0);
-    } else if ($("#rbtnBankStatement").is(":checked")) {
-        $formData.append('IsPaystub', 2);
-    }
-
-    $.ajax({
-        url: '/ApplyNow/SaveCoGuTenantOnline',
-        type: 'post',
-        data: $formData,
-        contentType: 'application/json; charset=utf-8',
-        contentType: false,
-        processData: false,
-        dataType: 'json',
-        success: function (response) {
-            //getApplyNowListCoApplicant(idmsg[0]);
-            var stepcomp = parseInt($("#hdnStepCompleted").val());
-            if (stepcomp < stepcompleted) {
-                $("#hdnStepCompleted").val(stepcompleted);
-            }
-        }
-    });
+});
 };
 var getFillSummary = function (id) {
     $("#divLoaderFullData").show();

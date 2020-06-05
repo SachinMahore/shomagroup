@@ -285,7 +285,7 @@ namespace ShomaRM.Models
                 lstpr.StateHome = 0;
                 lstpr.RentOwn = 0;
 
-                lstpr.Country2 = "0";
+                lstpr.Country2 = "1";
                 lstpr.StateHome2 = 0;
                 lstpr.RentOwn2 = 0;
 
@@ -473,10 +473,16 @@ namespace ShomaRM.Models
                     lstpr.ManagementCompanyPhone = dr["ManagementCompanyPhone"].ToString();
                     lstpr.IsProprNoticeLeaseAgreement = Convert.ToInt32(dr["IsProprNoticeLeaseAgreement"].ToString());
 
-                    int countryOrigintemp = lstpr.CountryOfOrigin.HasValue ? Convert.ToInt32(lstpr.CountryOfOrigin) : 0;
-                    var countryOriginVar = db.tbl_Country.Where(co => co.ID == countryOrigintemp).FirstOrDefault();
-                    lstpr.CountryOfOriginString = countryOriginVar != null ? countryOriginVar.CountryName : "";
-
+                    long countryOrigintemp = lstpr.CountryOfOrigin ?? 1;
+                    try
+                    {
+                        var countryOriginVar = db.tbl_Country.Where(co => co.ID == countryOrigintemp).FirstOrDefault();
+                        lstpr.CountryOfOriginString = countryOriginVar != null ? countryOriginVar.CountryName : "";
+                    }
+                    catch
+                    {
+                        lstpr.CountryOfOriginString = "";
+                    }
                     //var PersonalStateVar = db.tbl_State.Where(co => co.ID == lstpr.State).FirstOrDefault();
                     //lstpr.StatePersonalString = PersonalStateVar != null ? PersonalStateVar.StateName : "";
                     //var StateHomeVar = db.tbl_State.Where(co => co.ID == lstpr.StateHome).FirstOrDefault();
@@ -495,7 +501,9 @@ namespace ShomaRM.Models
                     //lstpr.EmergencyStateHomeString = EmergencyStateHomeVar != null ? EmergencyStateHomeVar.StateName : "";
 
                     var PersonalStateVar = db.tbl_State.Where(co => co.ID == lstpr.State).FirstOrDefault();
+
                     lstpr.StatePersonalString = PersonalStateVar != null ? PersonalStateVar.StateName : "";
+
                     var StateHomeVar = db.tbl_State.Where(co => co.ID == lstpr.StateHome).FirstOrDefault();
                     lstpr.StateHomeString = StateHomeVar != null ? StateHomeVar.StateName : "";
                     int contryTemp = lstpr.Country != "" ? Convert.ToInt32(lstpr.Country) : 0;
@@ -1332,13 +1340,19 @@ namespace ShomaRM.Models
             }
             return result;
         }
-        public TenantOnlineModel GetTenantOnlineListGenerateQuotation(int id, long UserId)
+        public TenantOnlineModel GetTenantOnlineListGenerateQuotation(int id)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             TenantOnlineModel lstpr = new TenantOnlineModel();
+            var ApplyNowUserId = db.tbl_ApplyNow.Where(co => co.ID == id).FirstOrDefault();
+            long? UserId = 0;
+            if (ApplyNowUserId != null)
+            {
+                UserId = ApplyNowUserId.UserId;
+            }
             try
             {
-                long toid = UserId;
+                long? toid = UserId;
                 DataTable dtTable = new DataTable();
                 using (var cmd = db.Database.Connection.CreateCommand())
                 {
@@ -1525,6 +1539,21 @@ namespace ShomaRM.Models
 
                     var stepCompleted = Convert.ToInt32(dr["StepCompleted"].ToString());
                     lstpr.StepCompleted = stepCompleted;
+
+                    var getApplyNowData = db.tbl_ApplyNow.Where(co => co.ID == id).FirstOrDefault();
+                    if (getApplyNowData != null)
+                    {
+                        var getPropertyUnitData = db.tbl_PropertyUnits.Where(co => co.UID == getApplyNowData.PropertyId).FirstOrDefault();
+                        lstpr.FloorPlanImageUnit = getPropertyUnitData.Building;
+                        lstpr.FloorPlanBedUnit = !string.IsNullOrWhiteSpace(Convert.ToString(getPropertyUnitData.Bedroom)) ? Convert.ToString(getPropertyUnitData.Bedroom) : "";
+                        lstpr.FloorPlanBathUnit = !string.IsNullOrWhiteSpace(Convert.ToString(getPropertyUnitData.Bathroom)) ? Convert.ToString(getPropertyUnitData.Bathroom) : "";
+                        lstpr.FloorPlanAreaUnit = getPropertyUnitData.Area;
+                        var getUnitLesePriceData = db.tbl_UnitLeasePrice.Where(co => co.UnitID == getPropertyUnitData.UID).FirstOrDefault();
+                        if (getUnitLesePriceData != null)
+                        {
+                            lstpr.FloorPlanStartPriceUnit = getUnitLesePriceData.Price.Value.ToString("0.00");
+                        }
+                    }
                 }
                 db.Dispose();
                 return lstpr;
