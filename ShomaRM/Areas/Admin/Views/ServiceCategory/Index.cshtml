@@ -26,35 +26,45 @@
                                 <input type="text" id="txtCriteriaServiceCategory" name="Criteria" class="form-control form-control-small" />
                             </div>
                             <div class="form-group col-md-2 padding-5">
-                                <button id="btnSearch" class='btn btn-next btn-primary' name='Search' style="margin-left:-10px; height:34px" onclick="buildPaganationScategoryList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                                <button id="btnSearch" class='btn btn-next btn-primary' name='Search' style="height:34px" onclick="buildPaganationScategoryList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
                                 <button id="btnGoUtility" class="btn btn-success pull-right hidden" style="margin-right:15px;" onclick="goToUtility()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-arrow-right"></i> GO TO</button>
                             </div>
                         </div>
                         <div class="col-sm-12 form-group" id="divPagination_ServiceCategory">
-                            <div id="divPgn" class="col-sm-7 pagination">
-                                <ul id="ulPagination_ServiceCategory"></ul>
-                            </div>
-                            <div class="col-sm-4 padding-0 pull-right" style="margin-top: 22px;">
-                                <div class="col-sm-5">
-                                    <label id="lblRPP_ServiceCategory" class="control-label" style="margin-left:6px">Row/Page</label>
+                            <div class="row">
+                                <div id="divPgn" class="col-sm-7 pagination" style="margin-top: 22px;">
+                                    <ul id="ulPagination_ServiceCategory"></ul>
                                 </div>
-                                <div class="col-sm-7">
-                                    <select id="ddlRPP_ServiceCategory" class="form-control form-control-small"></select>
+                                <div class="col-sm-4 padding-0 pull-right" style="margin-top: 22px;">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <label id="lblRPP_ServiceCategory" class="control-label" style="margin-left:6px">Row/Page</label>
+                                        </div>
+                                        <div class="col-sm-7">
+                                            <select id="ddlRPP_ServiceCategory" class="form-control form-control-small"></select>
+                                        </div>
+
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group clearfix table-responsive">
+                                    <table id="tblServiceCategory" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:75%;" onclick="sortTable('ServiceIssue')">Service Category <i id="SortIcon"></i> </th>
+                                                <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:25%;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
 
-                        <div class="form-group clearfix">
-                            <table id="tblServiceCategory" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:75%;" onclick="sortTable('ServiceIssue')">Service Category <i id="SortIcon"></i> </th>
-                                        <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;width:25%;">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-5">
