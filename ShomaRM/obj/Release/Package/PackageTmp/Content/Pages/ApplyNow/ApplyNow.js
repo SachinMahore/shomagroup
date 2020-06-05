@@ -1180,6 +1180,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             return;
         }
         if (id == "7") {
+            $("#popApplicantContinue").modal("hide");
             $("#subMenu").removeClass("hidden");
             SaveCheckPolicy(7);
             $("#as6").removeAttr("onclick");
@@ -1231,7 +1232,6 @@ var goToStep = function (stepid, id, calldataupdate) {
             });
             return;
         }
-        $("#popApplicantContinue").modal("hide");
         if (id == "8") {
             SaveUpdateStep(8);
             $('#lblRFPAdditionalParking').text($('#lblMonthly_AditionalParking').text());
@@ -3818,11 +3818,12 @@ var getCompareModelList = function () {
     });
 }
 var getPropertyUnitList = function (modelname, filldata) {
-
+    
     $('#hndBuilding').val(modelname);
     $('#divPriceTable').addClass('hidden');
     $('#divSelectUnit').removeClass('hidden');
     $("#hndIsModelSelected").val(1);
+   
     $("#imgFloorPlan").attr("src", "/content/assets/img/plan/" + modelname + ".jpg");
     $("#imgFloorPlan2").attr("src", "/content/assets/img/plan/" + modelname + "Det.jpg");
     $("#imgFloorPlanNew").attr("src", "/content/assets/img/plan/" + modelname + ".jpg");
@@ -6623,12 +6624,14 @@ var getTenantOnlineList = function (id) {
             }
             showCurrentStep(stepcompleted, stepcompleted);
             //for floor plan
-            $("#imgFloorPlanNew").attr("src", "/content/assets/img/plan/" + response.model.FloorPlanImageUnit + ".jpg");
-            $("#lblfloorPlan").text(response.model.FloorPlanImageUnit);
-            $("#lblBed33").text(response.model.FloorPlanBedUnit);
-            $("#lblBath33").text(response.model.FloorPlanBathUnit);
-            $("#lblArea33").text(response.model.FloorPlanAreaUnit);
-            $("#lblRent33").text(response.model.FloorPlanStartPriceUnit);
+            if (parseInt(id) != 0) {
+                $("#imgFloorPlanNew").attr("src", "/content/assets/img/plan/" + response.model.FloorPlanImageUnit + ".jpg");
+                $("#lblfloorPlan").text(response.model.FloorPlanImageUnit);
+                $("#lblBed33").text(response.model.FloorPlanBedUnit);
+                $("#lblBath33").text(response.model.FloorPlanBathUnit);
+                $("#lblArea33").text(response.model.FloorPlanAreaUnit);
+                $("#lblRent33").text(response.model.FloorPlanStartPriceUnit);
+            }
         }
     });
 };

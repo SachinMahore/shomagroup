@@ -58,10 +58,10 @@ namespace ShomaRM.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model, string returnUrl)
         {
-            //string dec = new EncryptDecrypt().DecryptText("NCM2B4dAzCFueiZKQytVtg");
-            string encryptedPassword = new EncryptDecrypt().EncryptText(model.Password);
             if (ModelState.IsValid)
             {
+                //string dec = new EncryptDecrypt().DecryptText("NCM2B4dAzCFueiZKQytVtg");
+                string encryptedPassword = new EncryptDecrypt().EncryptText(model.Password);
                 var user = db.tbl_Login.Where(p => p.Username == model.UserName && p.Password == encryptedPassword && p.IsActive == 1).FirstOrDefault();
                 if (user != null)
                 {

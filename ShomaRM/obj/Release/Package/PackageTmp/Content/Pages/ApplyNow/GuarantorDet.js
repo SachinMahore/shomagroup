@@ -882,7 +882,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 });
             }
             else {
-
+                $("#popApplicantContinue").modal("hide");
                 $("#subMenu").removeClass("hidden");
                 SaveCheckPolicy(7);
                 $("#as6").removeAttr("onclick");

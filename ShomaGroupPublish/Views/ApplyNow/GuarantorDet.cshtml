@@ -1510,7 +1510,8 @@
                                     <div class="col-sm-12 clear">
                                         <div class="col-sm-4"></div>
                                         <div class="col-sm-4">
-                                            <button class="nav-button wow bounceInRight login animated" id="policyStart" onclick="goToStep(7,7,0)"> Start</button>
+                                            @*<button class="nav-button wow bounceInRight login animated" id="policyStart" onclick="goToStep(7,7,0)"> Start</button>*@
+                                            <button class="nav-button wow bounceInRight login animated" id="policyStart" data-toggle="modal" data-target="#popApplicantContinue"> Start</button>
                                         </div>
                                         <div class="col-sm-4"></div>
                                     </div>
@@ -5802,6 +5803,49 @@
             </div>
             <div class="modal-footer" style="border-top:none">
                 <button id="policyRulesPrint" class="btn-alltype" onclick="printiframe('iframeRules')"> Print</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="popApplicantContinue">
+    <div class="modal-dialog">
+        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
+
+            <!-- Modal Header -->
+            <div class="modal-header" style="border-bottom:none">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-15">
+                        <div class="col-sm-12">
+                            <div class="form-group text-center">
+                                <span style="font-size:45px;color:#fff; margin-bottom:25px">Start Application</span><br />
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group text-center">
+                                <span style="font-size:30px;color:#fff; margin-bottom:25px">
+                                    THIS STAGE SHOULD<br />
+                                    TAKE LESS THAN
+                                </span><br />
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group text-center">
+                                <span style="font-size:55px;color:#fff; margin-bottom:25px">5 MIN</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group text-center">
+                                <button class="popContinueBtn" id="popContinueResponseBtn" onclick="goToStep(7,7,0)"> Continue</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

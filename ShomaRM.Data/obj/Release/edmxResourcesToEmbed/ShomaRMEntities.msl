@@ -1569,65 +1569,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_PropertyUnits">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_PropertyUnits">
-        <MappingFragment StoreEntitySet="tbl_PropertyUnits">
-          <ScalarProperty Name="IsFurnished" ColumnName="IsFurnished" />
-          <ScalarProperty Name="Notes" ColumnName="Notes" />
-          <ScalarProperty Name="InteriorArea" ColumnName="InteriorArea" />
-          <ScalarProperty Name="BalconyArea" ColumnName="BalconyArea" />
-          <ScalarProperty Name="Premium" ColumnName="Premium" />
-          <ScalarProperty Name="Coordinates" ColumnName="Coordinates" />
-          <ScalarProperty Name="OccupancyDate" ColumnName="OccupancyDate" />
-          <ScalarProperty Name="VacancyLoss_Date" ColumnName="VacancyLoss_Date" />
-          <ScalarProperty Name="ActualMoveOutDate" ColumnName="ActualMoveOutDate" />
-          <ScalarProperty Name="IntendMoveOutDate" ColumnName="IntendMoveOutDate" />
-          <ScalarProperty Name="PendingMoveOut" ColumnName="PendingMoveOut" />
-          <ScalarProperty Name="ActualMoveInDate" ColumnName="ActualMoveInDate" />
-          <ScalarProperty Name="IntendedMoveIn_Date" ColumnName="IntendedMoveIn_Date" />
-          <ScalarProperty Name="PendingMoveIn" ColumnName="PendingMoveIn" />
-          <ScalarProperty Name="AvailableDate" ColumnName="AvailableDate" />
-          <ScalarProperty Name="FloorPlan" ColumnName="FloorPlan" />
-          <ScalarProperty Name="Area" ColumnName="Area" />
-          <ScalarProperty Name="PetDetails" ColumnName="PetDetails" />
-          <ScalarProperty Name="Disposal" ColumnName="Disposal" />
-          <ScalarProperty Name="Dishwasher" ColumnName="Dishwasher" />
-          <ScalarProperty Name="Refrigerator" ColumnName="Refrigerator" />
-          <ScalarProperty Name="Dryer" ColumnName="Dryer" />
-          <ScalarProperty Name="Washer" ColumnName="Washer" />
-          <ScalarProperty Name="Elec_Dryer_Hookup" ColumnName="Elec_Dryer_Hookup" />
-          <ScalarProperty Name="Gas_Dryer_Hookup" ColumnName="Gas_Dryer_Hookup" />
-          <ScalarProperty Name="Dryer_Hookup" ColumnName="Dryer_Hookup" />
-          <ScalarProperty Name="Washer_Hookup" ColumnName="Washer_Hookup" />
-          <ScalarProperty Name="Elec_Range" ColumnName="Elec_Range" />
-          <ScalarProperty Name="Gas_Range" ColumnName="Gas_Range" />
-          <ScalarProperty Name="Range" ColumnName="Range" />
-          <ScalarProperty Name="Air_Conditioning" ColumnName="Air_Conditioning" />
-          <ScalarProperty Name="Drapes" ColumnName="Drapes" />
-          <ScalarProperty Name="Wall_Paint_Color" ColumnName="Wall_Paint_Color" />
-          <ScalarProperty Name="Carpet_Color" ColumnName="Carpet_Color" />
-          <ScalarProperty Name="Carpet" ColumnName="Carpet" />
-          <ScalarProperty Name="Fireplace" ColumnName="Fireplace" />
-          <ScalarProperty Name="Furnished" ColumnName="Furnished" />
-          <ScalarProperty Name="Den" ColumnName="Den" />
-          <ScalarProperty Name="Hall" ColumnName="Hall" />
-          <ScalarProperty Name="Bathroom" ColumnName="Bathroom" />
-          <ScalarProperty Name="Bedroom" ColumnName="Bedroom" />
-          <ScalarProperty Name="Rooms" ColumnName="Rooms" />
-          <ScalarProperty Name="Leased" ColumnName="Leased" />
-          <ScalarProperty Name="Deposit" ColumnName="Deposit" />
-          <ScalarProperty Name="Market_Rent" ColumnName="Market_Rent" />
-          <ScalarProperty Name="Previous_Rent" ColumnName="Previous_Rent" />
-          <ScalarProperty Name="Current_Rent" ColumnName="Current_Rent" />
-          <ScalarProperty Name="FloorNo" ColumnName="FloorNo" />
-          <ScalarProperty Name="Building" ColumnName="Building" />
-          <ScalarProperty Name="Wing" ColumnName="Wing" />
-          <ScalarProperty Name="UnitNo" ColumnName="UnitNo" />
-          <ScalarProperty Name="PID" ColumnName="PID" />
-          <ScalarProperty Name="UID" ColumnName="UID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_Login">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Login">
         <MappingFragment StoreEntitySet="tbl_Login">
@@ -1692,6 +1633,92 @@
           <ScalarProperty Name="Transaction_Date" ColumnName="Transaction_Date" />
           <ScalarProperty Name="TenantID" ColumnName="TenantID" />
           <ScalarProperty Name="TransID" ColumnName="TransID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_PropertyUnits">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_PropertyUnits">
+        <MappingFragment StoreEntitySet="tbl_PropertyUnits">
+          <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+          <ScalarProperty Name="IsFurnished" ColumnName="IsFurnished" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="InteriorArea" ColumnName="InteriorArea" />
+          <ScalarProperty Name="BalconyArea" ColumnName="BalconyArea" />
+          <ScalarProperty Name="Premium" ColumnName="Premium" />
+          <ScalarProperty Name="Coordinates" ColumnName="Coordinates" />
+          <ScalarProperty Name="OccupancyDate" ColumnName="OccupancyDate" />
+          <ScalarProperty Name="VacancyLoss_Date" ColumnName="VacancyLoss_Date" />
+          <ScalarProperty Name="ActualMoveOutDate" ColumnName="ActualMoveOutDate" />
+          <ScalarProperty Name="IntendMoveOutDate" ColumnName="IntendMoveOutDate" />
+          <ScalarProperty Name="PendingMoveOut" ColumnName="PendingMoveOut" />
+          <ScalarProperty Name="ActualMoveInDate" ColumnName="ActualMoveInDate" />
+          <ScalarProperty Name="IntendedMoveIn_Date" ColumnName="IntendedMoveIn_Date" />
+          <ScalarProperty Name="PendingMoveIn" ColumnName="PendingMoveIn" />
+          <ScalarProperty Name="AvailableDate" ColumnName="AvailableDate" />
+          <ScalarProperty Name="FloorPlan" ColumnName="FloorPlan" />
+          <ScalarProperty Name="Area" ColumnName="Area" />
+          <ScalarProperty Name="PetDetails" ColumnName="PetDetails" />
+          <ScalarProperty Name="Disposal" ColumnName="Disposal" />
+          <ScalarProperty Name="Dishwasher" ColumnName="Dishwasher" />
+          <ScalarProperty Name="Refrigerator" ColumnName="Refrigerator" />
+          <ScalarProperty Name="Dryer" ColumnName="Dryer" />
+          <ScalarProperty Name="Washer" ColumnName="Washer" />
+          <ScalarProperty Name="Elec_Dryer_Hookup" ColumnName="Elec_Dryer_Hookup" />
+          <ScalarProperty Name="Gas_Dryer_Hookup" ColumnName="Gas_Dryer_Hookup" />
+          <ScalarProperty Name="Dryer_Hookup" ColumnName="Dryer_Hookup" />
+          <ScalarProperty Name="Washer_Hookup" ColumnName="Washer_Hookup" />
+          <ScalarProperty Name="Elec_Range" ColumnName="Elec_Range" />
+          <ScalarProperty Name="Gas_Range" ColumnName="Gas_Range" />
+          <ScalarProperty Name="Range" ColumnName="Range" />
+          <ScalarProperty Name="Air_Conditioning" ColumnName="Air_Conditioning" />
+          <ScalarProperty Name="Drapes" ColumnName="Drapes" />
+          <ScalarProperty Name="Wall_Paint_Color" ColumnName="Wall_Paint_Color" />
+          <ScalarProperty Name="Carpet_Color" ColumnName="Carpet_Color" />
+          <ScalarProperty Name="Carpet" ColumnName="Carpet" />
+          <ScalarProperty Name="Fireplace" ColumnName="Fireplace" />
+          <ScalarProperty Name="Furnished" ColumnName="Furnished" />
+          <ScalarProperty Name="Den" ColumnName="Den" />
+          <ScalarProperty Name="Hall" ColumnName="Hall" />
+          <ScalarProperty Name="Bathroom" ColumnName="Bathroom" />
+          <ScalarProperty Name="Bedroom" ColumnName="Bedroom" />
+          <ScalarProperty Name="Rooms" ColumnName="Rooms" />
+          <ScalarProperty Name="Leased" ColumnName="Leased" />
+          <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+          <ScalarProperty Name="Market_Rent" ColumnName="Market_Rent" />
+          <ScalarProperty Name="Previous_Rent" ColumnName="Previous_Rent" />
+          <ScalarProperty Name="Current_Rent" ColumnName="Current_Rent" />
+          <ScalarProperty Name="FloorNo" ColumnName="FloorNo" />
+          <ScalarProperty Name="Building" ColumnName="Building" />
+          <ScalarProperty Name="Wing" ColumnName="Wing" />
+          <ScalarProperty Name="UnitNo" ColumnName="UnitNo" />
+          <ScalarProperty Name="PID" ColumnName="PID" />
+          <ScalarProperty Name="UID" ColumnName="UID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_SureDeposit">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SureDeposit">
+        <MappingFragment StoreEntitySet="tbl_SureDeposit">
+          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+          <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+          <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
+          <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+          <ScalarProperty Name="SDUploadName" ColumnName="SDUploadName" />
+          <ScalarProperty Name="SDNumber" ColumnName="SDNumber" />
+          <ScalarProperty Name="SDID" ColumnName="SDID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_SureDeposit">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SureDeposit">
+        <MappingFragment StoreEntitySet="tbl_SureDeposit">
+          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+          <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+          <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
+          <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+          <ScalarProperty Name="SDUploadName" ColumnName="SDUploadName" />
+          <ScalarProperty Name="SDNumber" ColumnName="SDNumber" />
+          <ScalarProperty Name="SDID" ColumnName="SDID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
