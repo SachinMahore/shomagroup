@@ -60,5 +60,12 @@ namespace ShomaRM.Areas.Admin.Controllers
 
 
         }
+        public ActionResult AddEdit(int id, long TenantID)
+        {
+            ViewBag.ProspectID = id;
+            ViewBag.TenantID = TenantID;
+            var model = new SureDepositManagementModel().GetTenantSDDetails(id, TenantID);
+            return View(model);
+        }
     }
 }

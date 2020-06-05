@@ -21,5 +21,6 @@ namespace ShomaRM.Data
         public Nullable<long> ParentTOID { get; set; }
         public Nullable<System.DateTime> UploadDate { get; set; }
         public Nullable<System.DateTime> ExpirationDate { get; set; }
+        public Nullable<int> Status { get; set; }
     }
 }

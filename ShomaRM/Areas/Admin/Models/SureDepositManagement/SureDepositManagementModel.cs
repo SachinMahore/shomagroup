@@ -26,6 +26,13 @@ namespace ShomaRM.Areas.Admin.Models
         public string SDNumber { get; set; }
         public DateTime ExpirationDate { get; set; }
         public string ExpirationDateString { get; set; }
+        public string StatusString { get; set; }
+        public int Status { get; set; }
+        public string Address1 { get; set; }
+        public string Address2 { get; set; }
+        public string State { get; set; }
+        public string City { get; set; }
+        public string Zip { get; set; }
         public List<SureDepositManagementModel> SureDepoAppList { get; set; }
 
         public SureDepositManagementModel GetDetails()
@@ -48,9 +55,11 @@ namespace ShomaRM.Areas.Admin.Models
                     var getUnitNo = db.tbl_PropertyUnits.Where(co => co.UID == getPropdet.PropertyId).FirstOrDefault();
                     var getSDdata = db.tbl_SureDeposit.Where(p => p.ProspectID == item.ProspectID).FirstOrDefault();
                     string sdnum = "";
+                    string stat = "Not Uploaded";
                     if (getSDdata != null)
                     {
                         sdnum = getSDdata.SDNumber;
+                        stat = getSDdata.Status==1? "Not Uploaded" : getSDdata.Status==2? "Uploaded" : "Expired";
                     }
                     listSDApplicant.Add(new SureDepositManagementModel()
                     {
@@ -64,6 +73,7 @@ namespace ShomaRM.Areas.Admin.Models
                         UnitNo = getUnitNo.UnitNo,
                        TenantID=getAppInfo.ParentTOID,
                        SDNumber=sdnum,
+                       StatusString=stat,
                     });
                 }
             }
@@ -130,13 +140,14 @@ namespace ShomaRM.Areas.Admin.Models
 
             if (getSDdata == null)
                 {
-                    var saveSD = new tbl_SureDeposit()
-                    {
-                        SDNumber = model.SDNumber,  
-                        ProspectID=model.ApplyNowID,
-                        ParentTOID=model.TenantID,
-                        UploadDate=DateTime.Now,
-                        ExpirationDate=model.ExpirationDate,
+                var saveSD = new tbl_SureDeposit()
+                {
+                    SDNumber = model.SDNumber,
+                    ProspectID = model.ApplyNowID,
+                    ParentTOID = model.TenantID,
+                    UploadDate = DateTime.Now,
+                    ExpirationDate = model.ExpirationDate,
+                    Status = model.Status,
                     };
                     db.tbl_SureDeposit.Add(saveSD);
                     db.SaveChanges();
@@ -150,6 +161,7 @@ namespace ShomaRM.Areas.Admin.Models
                 getSDdata.SDNumber = model.SDNumber;
                 getSDdata.UploadDate = DateTime.Now;
                 getSDdata.ExpirationDate = model.ExpirationDate;
+                getSDdata.Status = model.Status;
                 db.SaveChanges();
                 msg = "Sure Deposit Saved Successfully";
             }
@@ -170,10 +182,17 @@ namespace ShomaRM.Areas.Admin.Models
                 sddet.LastName = getAppInfo.LastName;
                 sddet.Email = getAppInfo.Email;
                 sddet.PhoneNo = getAppInfo.Mobile;
+                var getstatename = db.tbl_State.Where(f => f.ID == getAppInfo.State).FirstOrDefault();
+                sddet.State = getstatename.StateName;
+                sddet.City = getAppInfo.CityHome;
+                sddet.Address1 = getAppInfo.HomeAddress1;
+                sddet.Address2 = getAppInfo.HomeAddress2;
+                sddet.Zip = getAppInfo.ZipHome;
               if(getSDdata!=null)
                 {
                     sddet.SDNumber = getSDdata.SDNumber;
                     sddet.ExpirationDateString = getSDdata.ExpirationDate.HasValue ? getSDdata.ExpirationDate.Value.ToString("MM/dd/yyyy") : "";
+                    sddet.Status =Convert.ToInt32(getSDdata.Status);
                 }
             }
             return sddet;
