@@ -1180,6 +1180,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             return;
         }
         if (id == "7") {
+            $("#popApplicantContinue").modal("hide");
             $("#subMenu").removeClass("hidden");
             SaveCheckPolicy(7);
             $("#as6").removeAttr("onclick");
@@ -1231,7 +1232,6 @@ var goToStep = function (stepid, id, calldataupdate) {
             });
             return;
         }
-        $("#popApplicantContinue").modal("hide");
         if (id == "8") {
             SaveUpdateStep(8);
             $('#lblRFPAdditionalParking').text($('#lblMonthly_AditionalParking').text());
@@ -8969,28 +8969,65 @@ var editEmployerHistory = function (id) {
         }
     });
 }
-var SaveUpdateStep = function (stepcompleted) {
-    $("#divLoader").show();
-    var ProspectId = $("#hdnOPId").val();
-    var model = {
-        ID: ProspectId,
-        StepCompleted: stepcompleted
-    };
+public string  SaveUpdateStep(long ID, int StepCompleted)
+{
+    ShomaRMEntities db = new ShomaRMEntities();
 
-    $.ajax({
-        url: '/ApplyNow/SaveUpdateStep',
-        type: 'post',
-        data: JSON.stringify(model),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        success: function (response) {
-            $("#divLoader").hide();
-            var stepcomp = parseInt($("#hdnStepCompleted").val());
-            if (stepcomp < stepcompleted) {
-                $("#hdnStepCompleted").val(stepcompleted);
+    var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == ID).FirstOrDefault();
+    var tenentUID = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+    var tenantData = db.tbl_TenantOnline.Where(p => p.ParentTOID == tenentUID).FirstOrDefault();
+    var applicantData = db.tbl_Applicant.Where(p => p.UserID == tenentUID).FirstOrDefault();
+
+    int stepcomp = 0;
+    stepcomp = onlineProspectData.StepCompleted ?? 0;
+    if (stepcomp < StepCompleted) {
+        stepcomp = StepCompleted;
+    }
+
+    if (onlineProspectData != null) {
+        if (applicantData.Type == "Primary Applicant ") {
+            onlineProspectData.StepCompleted = stepcomp;
+            db.SaveChanges();
+        }
+    }
+
+    if (tenantData != null) {
+        tenantData.StepCompleted = stepcomp;
+        db.SaveChanges();
+    }
+    if (StepCompleted == 18) {
+        if (applicantData.Type != "Primary Applicant ") {
+            var filePathSummaryPrint = HttpContext.Current.Server.MapPath(PrintApplicationForm(ID));
+            string reportHTML = "";
+            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+
+            reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+
+            string phonenumber = onlineProspectData.Phone;
+            if (tenantData != null) {
+                reportHTML = reportHTML.Replace("[%EmailHeader%]", applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has Finished the application");
+                reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; " + applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has finished the application on " + DateTime.Now + "</p>");
+
+                reportHTML = reportHTML.Replace("[%TenantName%]", onlineProspectData.FirstName + " " + onlineProspectData.LastName);
+
+                reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+
+                message = applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application";
+            }
+            string body = reportHTML;
+            List < string > filePaths = new List<string>();
+            filePaths.Add(filePathSummaryPrint);
+
+            new EmailSendModel().SendEmailWithAttachment(onlineProspectData.Email, applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application", body, filePaths);
+            if (SendMessage == "yes") {
+                if (!string.IsNullOrWhiteSpace(phonenumber)) {
+                    new TwilioService().SMS(phonenumber, message);
+                }
             }
         }
-    });
+    }
+    return "1";
 }
 var checkHasUnitID = function () {
     if ($("#hndShowPropertyDetails").val() != "0") {

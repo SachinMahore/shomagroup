@@ -358,5 +358,19 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult UpdateUnitAvailability(PropertyUnits model)
+        {
+            try
+            {
+                return Json(new { model = new PropertyUnits().UpdateUnitAvailability(model) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
     }
 }

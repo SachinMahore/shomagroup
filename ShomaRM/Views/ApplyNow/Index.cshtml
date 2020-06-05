@@ -1521,7 +1521,8 @@
                                     <div class="col-sm-12 clear">
                                         <div class="col-sm-4"></div>
                                         <div class="col-sm-4">
-                                            <button class="nav-button wow bounceInRight login animated" id="policyStart" onclick="goToStep(7,7,0)"> Start</button>
+                                            @*<button class="nav-button wow bounceInRight login animated" id="policyStart" onclick="goToStep(7,7,0)"> Start</button>*@
+                                            <button class="nav-button wow bounceInRight login animated" id="policyStart" data-toggle="modal" data-target="#popApplicantContinue"> Start</button>
                                         </div>
                                         <div class="col-sm-4"></div>
                                     </div>
@@ -1614,9 +1615,8 @@
                                     <button type="submit" class="btn-alltype wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <!--<button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>-->
-
-                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>
+                                    @*<button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>*@
+                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -6122,6 +6122,7 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group text-center">
+                                @*<button class="popContinueBtn" id="popContinueResponseBtn" onclick="goToStep(8,8,0)"> Continue</button>*@
                                 <button class="popContinueBtn" id="popContinueResponseBtn" onclick="goToStep(8,8,0)"> Continue</button>
                             </div>
                         </div>
