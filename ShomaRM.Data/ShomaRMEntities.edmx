@@ -931,6 +931,7 @@
           <Property Name="InteriorArea" Type="varchar" MaxLength="100" />
           <Property Name="Notes" Type="varchar" MaxLength="1000" />
           <Property Name="IsFurnished" Type="int" />
+          <Property Name="IsAvailable" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Prospect">
           <Key>
@@ -1112,6 +1113,18 @@
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
           <Property Name="Type" Type="int" />
           <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_SureDeposit">
+          <Key>
+            <PropertyRef Name="SDID" />
+          </Key>
+          <Property Name="SDID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SDNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="SDUploadName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProspectID" Type="bigint" />
+          <Property Name="ParentTOID" Type="bigint" />
+          <Property Name="UploadDate" Type="datetime" />
+          <Property Name="ExpirationDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_Tenant">
           <Key>
@@ -2604,6 +2617,7 @@
           <EntitySet Name="tbl_SMSMessages" EntityType="Self.tbl_SMSMessages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_State" EntityType="Self.tbl_State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Storage" EntityType="Self.tbl_Storage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SureDeposit" EntityType="Self.tbl_SureDeposit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_Tenant" EntityType="Self.tbl_Tenant" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantEventJoin" EntityType="Self.tbl_TenantEventJoin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_TenantEventJoinApprove" EntityType="Self.tbl_TenantEventJoinApprove" Schema="dbo" store:Type="Tables" />
@@ -3245,11 +3259,6 @@
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_Vehicle" EntitySet="tbl_Vehicle" />
           </AssociationSet>
-          <EntitySet Name="tbl_PropertyUnits" EntityType="ShomaRMEntitiesModel.tbl_PropertyUnits" />
-          <AssociationSet Name="FK_tbl_PropertyUnits_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_PropertyUnits_tbl_Properties">
-            <End Role="tbl_Properties" EntitySet="tbl_Properties" />
-            <End Role="tbl_PropertyUnits" EntitySet="tbl_PropertyUnits" />
-          </AssociationSet>
           <EntitySet Name="tbl_Login" EntityType="ShomaRMEntitiesModel.tbl_Login" />
           <AssociationSet Name="FK_tbl_CashReceipts_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login">
             <End Role="tbl_Login" EntitySet="tbl_Login" />
@@ -3333,6 +3342,12 @@
           </AssociationSet>
           <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" />
           <EntitySet Name="tbl_Transaction" EntityType="ShomaRMEntitiesModel.tbl_Transaction" />
+          <EntitySet Name="tbl_PropertyUnits" EntityType="ShomaRMEntitiesModel.tbl_PropertyUnits" />
+          <EntitySet Name="tbl_SureDeposit" EntityType="ShomaRMEntitiesModel.tbl_SureDeposit" />
+          <AssociationSet Name="FK_tbl_PropertyUnits_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_PropertyUnits_tbl_Properties">
+            <End Role="tbl_Properties" EntitySet="tbl_Properties" />
+            <End Role="tbl_PropertyUnits" EntitySet="tbl_PropertyUnits" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -4944,9 +4959,9 @@
           <NavigationProperty Name="tbl_Tenant" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_Tenant" />
           <NavigationProperty Name="tbl_Tenant1" Relationship="ShomaRMEntitiesModel.FK_tbl_Tenant_tbl_Properties1" FromRole="tbl_Properties" ToRole="tbl_Tenant" />
           <NavigationProperty Name="tbl_WorkOrder" Relationship="ShomaRMEntitiesModel.FK_tbl_WorkOrder_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_WorkOrder" />
-          <NavigationProperty Name="tbl_PropertyUnits" Relationship="ShomaRMEntitiesModel.FK_tbl_PropertyUnits_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_PropertyUnits" />
           <NavigationProperty Name="tbl_Login" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login" FromRole="tbl_Properties" ToRole="tbl_Login" />
           <NavigationProperty Name="tbl_Login1" Relationship="ShomaRMEntitiesModel.FK_tbl_Properties_tbl_Login1" FromRole="tbl_Properties" ToRole="tbl_Login" />
+          <NavigationProperty Name="tbl_PropertyUnits" Relationship="ShomaRMEntitiesModel.FK_tbl_PropertyUnits_tbl_Properties" FromRole="tbl_Properties" ToRole="tbl_PropertyUnits" />
         </EntityType>
         <Association Name="FK_tbl_CashReceipts_tbl_Properties">
           <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="0..1" />
@@ -5624,77 +5639,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="tbl_PropertyUnits">
-          <Key>
-            <PropertyRef Name="UID" />
-          </Key>
-          <Property Name="UID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PID" Type="Int64" />
-          <Property Name="UnitNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="Wing" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Building" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="FloorNo" Type="Int32" />
-          <Property Name="Current_Rent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Previous_Rent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Market_Rent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Deposit" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="Leased" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Rooms" Type="Int32" Nullable="false" />
-          <Property Name="Bedroom" Type="Int32" />
-          <Property Name="Bathroom" Type="Int32" />
-          <Property Name="Hall" Type="Int32" />
-          <Property Name="Den" Type="Int32" Nullable="false" />
-          <Property Name="Furnished" Type="Int32" Nullable="false" />
-          <Property Name="Fireplace" Type="Int32" Nullable="false" />
-          <Property Name="Carpet" Type="Int32" Nullable="false" />
-          <Property Name="Carpet_Color" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Wall_Paint_Color" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Drapes" Type="Int32" Nullable="false" />
-          <Property Name="Air_Conditioning" Type="Int32" Nullable="false" />
-          <Property Name="Range" Type="Int32" Nullable="false" />
-          <Property Name="Gas_Range" Type="Int32" Nullable="false" />
-          <Property Name="Elec_Range" Type="Int32" Nullable="false" />
-          <Property Name="Washer_Hookup" Type="Int32" Nullable="false" />
-          <Property Name="Dryer_Hookup" Type="Int32" Nullable="false" />
-          <Property Name="Gas_Dryer_Hookup" Type="Int32" Nullable="false" />
-          <Property Name="Elec_Dryer_Hookup" Type="Int32" Nullable="false" />
-          <Property Name="Washer" Type="Int32" Nullable="false" />
-          <Property Name="Dryer" Type="Int32" Nullable="false" />
-          <Property Name="Refrigerator" Type="Int32" Nullable="false" />
-          <Property Name="Dishwasher" Type="Int32" Nullable="false" />
-          <Property Name="Disposal" Type="Int32" Nullable="false" />
-          <Property Name="PetDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FloorPlan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AvailableDate" Type="DateTime" Precision="3" />
-          <Property Name="PendingMoveIn" Type="Int32" Nullable="false" />
-          <Property Name="IntendedMoveIn_Date" Type="DateTime" Precision="3" />
-          <Property Name="ActualMoveInDate" Type="DateTime" Precision="3" />
-          <Property Name="PendingMoveOut" Type="Int32" Nullable="false" />
-          <Property Name="IntendMoveOutDate" Type="DateTime" Precision="3" />
-          <Property Name="ActualMoveOutDate" Type="DateTime" Precision="3" />
-          <Property Name="VacancyLoss_Date" Type="DateTime" Precision="3" />
-          <Property Name="OccupancyDate" Type="DateTime" Precision="3" />
-          <Property Name="Coordinates" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Premium" Type="Int32" />
-          <Property Name="BalconyArea" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="InteriorArea" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Notes" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="IsFurnished" Type="Int32" />
-          <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_PropertyUnits_tbl_Properties" FromRole="tbl_PropertyUnits" ToRole="tbl_Properties" />
-        </EntityType>
-        <Association Name="FK_tbl_PropertyUnits_tbl_Properties">
-          <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="0..1" />
-          <End Type="ShomaRMEntitiesModel.tbl_PropertyUnits" Role="tbl_PropertyUnits" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Properties">
-              <PropertyRef Name="PID" />
-            </Principal>
-            <Dependent Role="tbl_PropertyUnits">
-              <PropertyRef Name="PID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tbl_Login">
           <Key>
             <PropertyRef Name="UserID" />
@@ -6019,6 +5963,90 @@
           <Property Name="UserID" Type="Int64" />
           <Property Name="RefNum" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="tbl_PropertyUnits">
+          <Key>
+            <PropertyRef Name="UID" />
+          </Key>
+          <Property Name="UID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PID" Type="Int64" />
+          <Property Name="UnitNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Wing" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Building" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FloorNo" Type="Int32" />
+          <Property Name="Current_Rent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Previous_Rent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Market_Rent" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Deposit" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Leased" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Rooms" Type="Int32" Nullable="false" />
+          <Property Name="Bedroom" Type="Int32" />
+          <Property Name="Bathroom" Type="Int32" />
+          <Property Name="Hall" Type="Int32" />
+          <Property Name="Den" Type="Int32" Nullable="false" />
+          <Property Name="Furnished" Type="Int32" Nullable="false" />
+          <Property Name="Fireplace" Type="Int32" Nullable="false" />
+          <Property Name="Carpet" Type="Int32" Nullable="false" />
+          <Property Name="Carpet_Color" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Wall_Paint_Color" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Drapes" Type="Int32" Nullable="false" />
+          <Property Name="Air_Conditioning" Type="Int32" Nullable="false" />
+          <Property Name="Range" Type="Int32" Nullable="false" />
+          <Property Name="Gas_Range" Type="Int32" Nullable="false" />
+          <Property Name="Elec_Range" Type="Int32" Nullable="false" />
+          <Property Name="Washer_Hookup" Type="Int32" Nullable="false" />
+          <Property Name="Dryer_Hookup" Type="Int32" Nullable="false" />
+          <Property Name="Gas_Dryer_Hookup" Type="Int32" Nullable="false" />
+          <Property Name="Elec_Dryer_Hookup" Type="Int32" Nullable="false" />
+          <Property Name="Washer" Type="Int32" Nullable="false" />
+          <Property Name="Dryer" Type="Int32" Nullable="false" />
+          <Property Name="Refrigerator" Type="Int32" Nullable="false" />
+          <Property Name="Dishwasher" Type="Int32" Nullable="false" />
+          <Property Name="Disposal" Type="Int32" Nullable="false" />
+          <Property Name="PetDetails" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FloorPlan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AvailableDate" Type="DateTime" Precision="3" />
+          <Property Name="PendingMoveIn" Type="Int32" Nullable="false" />
+          <Property Name="IntendedMoveIn_Date" Type="DateTime" Precision="3" />
+          <Property Name="ActualMoveInDate" Type="DateTime" Precision="3" />
+          <Property Name="PendingMoveOut" Type="Int32" Nullable="false" />
+          <Property Name="IntendMoveOutDate" Type="DateTime" Precision="3" />
+          <Property Name="ActualMoveOutDate" Type="DateTime" Precision="3" />
+          <Property Name="VacancyLoss_Date" Type="DateTime" Precision="3" />
+          <Property Name="OccupancyDate" Type="DateTime" Precision="3" />
+          <Property Name="Coordinates" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Premium" Type="Int32" />
+          <Property Name="BalconyArea" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="InteriorArea" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="IsFurnished" Type="Int32" />
+          <Property Name="IsAvailable" Type="Int32" />
+          <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_PropertyUnits_tbl_Properties" FromRole="tbl_PropertyUnits" ToRole="tbl_Properties" />
+        </EntityType>
+        <EntityType Name="tbl_SureDeposit">
+          <Key>
+            <PropertyRef Name="SDID" />
+          </Key>
+          <Property Name="SDID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDUploadName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProspectID" Type="Int64" />
+          <Property Name="ParentTOID" Type="Int64" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_tbl_PropertyUnits_tbl_Properties">
+          <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="0..1" />
+          <End Type="ShomaRMEntitiesModel.tbl_PropertyUnits" Role="tbl_PropertyUnits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Properties">
+              <PropertyRef Name="PID" />
+            </Principal>
+            <Dependent Role="tbl_PropertyUnits">
+              <PropertyRef Name="PID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7593,65 +7621,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_PropertyUnits">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_PropertyUnits">
-              <MappingFragment StoreEntitySet="tbl_PropertyUnits">
-                <ScalarProperty Name="IsFurnished" ColumnName="IsFurnished" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="InteriorArea" ColumnName="InteriorArea" />
-                <ScalarProperty Name="BalconyArea" ColumnName="BalconyArea" />
-                <ScalarProperty Name="Premium" ColumnName="Premium" />
-                <ScalarProperty Name="Coordinates" ColumnName="Coordinates" />
-                <ScalarProperty Name="OccupancyDate" ColumnName="OccupancyDate" />
-                <ScalarProperty Name="VacancyLoss_Date" ColumnName="VacancyLoss_Date" />
-                <ScalarProperty Name="ActualMoveOutDate" ColumnName="ActualMoveOutDate" />
-                <ScalarProperty Name="IntendMoveOutDate" ColumnName="IntendMoveOutDate" />
-                <ScalarProperty Name="PendingMoveOut" ColumnName="PendingMoveOut" />
-                <ScalarProperty Name="ActualMoveInDate" ColumnName="ActualMoveInDate" />
-                <ScalarProperty Name="IntendedMoveIn_Date" ColumnName="IntendedMoveIn_Date" />
-                <ScalarProperty Name="PendingMoveIn" ColumnName="PendingMoveIn" />
-                <ScalarProperty Name="AvailableDate" ColumnName="AvailableDate" />
-                <ScalarProperty Name="FloorPlan" ColumnName="FloorPlan" />
-                <ScalarProperty Name="Area" ColumnName="Area" />
-                <ScalarProperty Name="PetDetails" ColumnName="PetDetails" />
-                <ScalarProperty Name="Disposal" ColumnName="Disposal" />
-                <ScalarProperty Name="Dishwasher" ColumnName="Dishwasher" />
-                <ScalarProperty Name="Refrigerator" ColumnName="Refrigerator" />
-                <ScalarProperty Name="Dryer" ColumnName="Dryer" />
-                <ScalarProperty Name="Washer" ColumnName="Washer" />
-                <ScalarProperty Name="Elec_Dryer_Hookup" ColumnName="Elec_Dryer_Hookup" />
-                <ScalarProperty Name="Gas_Dryer_Hookup" ColumnName="Gas_Dryer_Hookup" />
-                <ScalarProperty Name="Dryer_Hookup" ColumnName="Dryer_Hookup" />
-                <ScalarProperty Name="Washer_Hookup" ColumnName="Washer_Hookup" />
-                <ScalarProperty Name="Elec_Range" ColumnName="Elec_Range" />
-                <ScalarProperty Name="Gas_Range" ColumnName="Gas_Range" />
-                <ScalarProperty Name="Range" ColumnName="Range" />
-                <ScalarProperty Name="Air_Conditioning" ColumnName="Air_Conditioning" />
-                <ScalarProperty Name="Drapes" ColumnName="Drapes" />
-                <ScalarProperty Name="Wall_Paint_Color" ColumnName="Wall_Paint_Color" />
-                <ScalarProperty Name="Carpet_Color" ColumnName="Carpet_Color" />
-                <ScalarProperty Name="Carpet" ColumnName="Carpet" />
-                <ScalarProperty Name="Fireplace" ColumnName="Fireplace" />
-                <ScalarProperty Name="Furnished" ColumnName="Furnished" />
-                <ScalarProperty Name="Den" ColumnName="Den" />
-                <ScalarProperty Name="Hall" ColumnName="Hall" />
-                <ScalarProperty Name="Bathroom" ColumnName="Bathroom" />
-                <ScalarProperty Name="Bedroom" ColumnName="Bedroom" />
-                <ScalarProperty Name="Rooms" ColumnName="Rooms" />
-                <ScalarProperty Name="Leased" ColumnName="Leased" />
-                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
-                <ScalarProperty Name="Market_Rent" ColumnName="Market_Rent" />
-                <ScalarProperty Name="Previous_Rent" ColumnName="Previous_Rent" />
-                <ScalarProperty Name="Current_Rent" ColumnName="Current_Rent" />
-                <ScalarProperty Name="FloorNo" ColumnName="FloorNo" />
-                <ScalarProperty Name="Building" ColumnName="Building" />
-                <ScalarProperty Name="Wing" ColumnName="Wing" />
-                <ScalarProperty Name="UnitNo" ColumnName="UnitNo" />
-                <ScalarProperty Name="PID" ColumnName="PID" />
-                <ScalarProperty Name="UID" ColumnName="UID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Login">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Login">
               <MappingFragment StoreEntitySet="tbl_Login">
@@ -7716,6 +7685,79 @@
                 <ScalarProperty Name="Transaction_Date" ColumnName="Transaction_Date" />
                 <ScalarProperty Name="TenantID" ColumnName="TenantID" />
                 <ScalarProperty Name="TransID" ColumnName="TransID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PropertyUnits">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_PropertyUnits">
+              <MappingFragment StoreEntitySet="tbl_PropertyUnits">
+                <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+                <ScalarProperty Name="IsFurnished" ColumnName="IsFurnished" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="InteriorArea" ColumnName="InteriorArea" />
+                <ScalarProperty Name="BalconyArea" ColumnName="BalconyArea" />
+                <ScalarProperty Name="Premium" ColumnName="Premium" />
+                <ScalarProperty Name="Coordinates" ColumnName="Coordinates" />
+                <ScalarProperty Name="OccupancyDate" ColumnName="OccupancyDate" />
+                <ScalarProperty Name="VacancyLoss_Date" ColumnName="VacancyLoss_Date" />
+                <ScalarProperty Name="ActualMoveOutDate" ColumnName="ActualMoveOutDate" />
+                <ScalarProperty Name="IntendMoveOutDate" ColumnName="IntendMoveOutDate" />
+                <ScalarProperty Name="PendingMoveOut" ColumnName="PendingMoveOut" />
+                <ScalarProperty Name="ActualMoveInDate" ColumnName="ActualMoveInDate" />
+                <ScalarProperty Name="IntendedMoveIn_Date" ColumnName="IntendedMoveIn_Date" />
+                <ScalarProperty Name="PendingMoveIn" ColumnName="PendingMoveIn" />
+                <ScalarProperty Name="AvailableDate" ColumnName="AvailableDate" />
+                <ScalarProperty Name="FloorPlan" ColumnName="FloorPlan" />
+                <ScalarProperty Name="Area" ColumnName="Area" />
+                <ScalarProperty Name="PetDetails" ColumnName="PetDetails" />
+                <ScalarProperty Name="Disposal" ColumnName="Disposal" />
+                <ScalarProperty Name="Dishwasher" ColumnName="Dishwasher" />
+                <ScalarProperty Name="Refrigerator" ColumnName="Refrigerator" />
+                <ScalarProperty Name="Dryer" ColumnName="Dryer" />
+                <ScalarProperty Name="Washer" ColumnName="Washer" />
+                <ScalarProperty Name="Elec_Dryer_Hookup" ColumnName="Elec_Dryer_Hookup" />
+                <ScalarProperty Name="Gas_Dryer_Hookup" ColumnName="Gas_Dryer_Hookup" />
+                <ScalarProperty Name="Dryer_Hookup" ColumnName="Dryer_Hookup" />
+                <ScalarProperty Name="Washer_Hookup" ColumnName="Washer_Hookup" />
+                <ScalarProperty Name="Elec_Range" ColumnName="Elec_Range" />
+                <ScalarProperty Name="Gas_Range" ColumnName="Gas_Range" />
+                <ScalarProperty Name="Range" ColumnName="Range" />
+                <ScalarProperty Name="Air_Conditioning" ColumnName="Air_Conditioning" />
+                <ScalarProperty Name="Drapes" ColumnName="Drapes" />
+                <ScalarProperty Name="Wall_Paint_Color" ColumnName="Wall_Paint_Color" />
+                <ScalarProperty Name="Carpet_Color" ColumnName="Carpet_Color" />
+                <ScalarProperty Name="Carpet" ColumnName="Carpet" />
+                <ScalarProperty Name="Fireplace" ColumnName="Fireplace" />
+                <ScalarProperty Name="Furnished" ColumnName="Furnished" />
+                <ScalarProperty Name="Den" ColumnName="Den" />
+                <ScalarProperty Name="Hall" ColumnName="Hall" />
+                <ScalarProperty Name="Bathroom" ColumnName="Bathroom" />
+                <ScalarProperty Name="Bedroom" ColumnName="Bedroom" />
+                <ScalarProperty Name="Rooms" ColumnName="Rooms" />
+                <ScalarProperty Name="Leased" ColumnName="Leased" />
+                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+                <ScalarProperty Name="Market_Rent" ColumnName="Market_Rent" />
+                <ScalarProperty Name="Previous_Rent" ColumnName="Previous_Rent" />
+                <ScalarProperty Name="Current_Rent" ColumnName="Current_Rent" />
+                <ScalarProperty Name="FloorNo" ColumnName="FloorNo" />
+                <ScalarProperty Name="Building" ColumnName="Building" />
+                <ScalarProperty Name="Wing" ColumnName="Wing" />
+                <ScalarProperty Name="UnitNo" ColumnName="UnitNo" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="UID" ColumnName="UID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SureDeposit">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SureDeposit">
+              <MappingFragment StoreEntitySet="tbl_SureDeposit">
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
+                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+                <ScalarProperty Name="SDUploadName" ColumnName="SDUploadName" />
+                <ScalarProperty Name="SDNumber" ColumnName="SDNumber" />
+                <ScalarProperty Name="SDID" ColumnName="SDID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
