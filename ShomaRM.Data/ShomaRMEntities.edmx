@@ -3341,6 +3341,9 @@
             <End Role="tbl_Vendor" EntitySet="tbl_Vendor" />
           </AssociationSet>
           <EntitySet Name="tbl_MoveInChecklist" EntityType="ShomaRMEntitiesModel.tbl_MoveInChecklist" />
+
+          <EntitySet Name="tbl_SureDeposit" EntityType="ShomaRMEntitiesModel.tbl_SureDeposit" />
+
           <EntitySet Name="tbl_Transaction" EntityType="ShomaRMEntitiesModel.tbl_Transaction" />
           <EntitySet Name="tbl_PropertyUnits" EntityType="ShomaRMEntitiesModel.tbl_PropertyUnits" />
           <EntitySet Name="tbl_SureDeposit" EntityType="ShomaRMEntitiesModel.tbl_SureDeposit" />
@@ -3348,6 +3351,7 @@
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_PropertyUnits" EntitySet="tbl_PropertyUnits" />
           </AssociationSet>
+
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -5941,6 +5945,7 @@
           <Property Name="Movers" Type="Int32" />
           <Property Name="ParentTOID" Type="Int64" />
         </EntityType>
+
         <EntityType Name="tbl_Transaction">
           <Key>
             <PropertyRef Name="TransID" />
@@ -6023,6 +6028,7 @@
           <Property Name="IsAvailable" Type="Int32" />
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_PropertyUnits_tbl_Properties" FromRole="tbl_PropertyUnits" ToRole="tbl_Properties" />
         </EntityType>
+
         <EntityType Name="tbl_SureDeposit">
           <Key>
             <PropertyRef Name="SDID" />
@@ -6035,6 +6041,7 @@
           <Property Name="UploadDate" Type="DateTime" Precision="3" />
           <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
         </EntityType>
+
         <Association Name="FK_tbl_PropertyUnits_tbl_Properties">
           <End Type="ShomaRMEntitiesModel.tbl_Properties" Role="tbl_Properties" Multiplicity="0..1" />
           <End Type="ShomaRMEntitiesModel.tbl_PropertyUnits" Role="tbl_PropertyUnits" Multiplicity="*" />
@@ -6047,6 +6054,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7745,6 +7753,19 @@
                 <ScalarProperty Name="UnitNo" ColumnName="UnitNo" />
                 <ScalarProperty Name="PID" ColumnName="PID" />
                 <ScalarProperty Name="UID" ColumnName="UID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SureDeposit">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SureDeposit">
+              <MappingFragment StoreEntitySet="tbl_SureDeposit">
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
+                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+                <ScalarProperty Name="SDUploadName" ColumnName="SDUploadName" />
+                <ScalarProperty Name="SDNumber" ColumnName="SDNumber" />
+                <ScalarProperty Name="SDID" ColumnName="SDID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

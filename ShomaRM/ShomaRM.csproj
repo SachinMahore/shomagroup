@@ -304,6 +304,7 @@
     <Compile Include="Areas\Admin\Controllers\ServicesManagement\ServicesManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\State\StateController.cs" />
     <Compile Include="Areas\Admin\Controllers\Storage\StorageController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SureDepositManagement\SureDepositManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\TenantEventJoinApprove\TenantEventJoinApproveController.cs" />
     <Compile Include="Areas\Admin\Controllers\TenantPetManagement\TenantPetManagementController.cs" />
     <Compile Include="Areas\Admin\Controllers\Tenant\TenantController.cs" />
@@ -352,6 +353,7 @@
     <Compile Include="Areas\Admin\Models\ServicesManagement\ServicesManagementModel.cs" />
     <Compile Include="Areas\Admin\Models\State\StateModel.cs" />
     <Compile Include="Areas\Admin\Models\Storage\StorageModel.cs" />
+    <Compile Include="Areas\Admin\Models\SureDepositManagement\SureDepositManagementModel.cs" />
     <Compile Include="Areas\Admin\Models\TenantEventJoinApprove\TenantEventJoinApproveModel.cs" />
     <Compile Include="Areas\Admin\Models\TenantPetManagement\TenantPetManagementModel.cs" />
     <Compile Include="Areas\Admin\Models\Tenant\TenantModel.cs" />
@@ -2942,6 +2944,7 @@
     <Content Include="Content\SMResponsive\fonts\themify.ttf" />
     <Content Include="Content\SMResponsive\fonts\themify.woff" />
     <Content Include="Content\assets\img\plan\SanctuaryLevel26.zip" />
+    <Content Include="Areas\Admin\Views\SureDepositManagement\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
