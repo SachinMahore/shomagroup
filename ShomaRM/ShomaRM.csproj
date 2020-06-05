@@ -2293,6 +2293,7 @@
     <Content Include="Content\assets\img\footer-logo-2.png" />
     <Content Include="Content\assets\img\footer-logo.png" />
     <Content Include="Content\assets\img\footer-logo1.png" />
+    <Content Include="Content\assets\img\Icon-facebook.png" />
     <Content Include="Content\assets\img\icon-shearch.png" />
     <Content Include="Content\assets\img\Icons-email.png" />
     <Content Include="Content\assets\img\Icons-livechat.png" />
@@ -2314,6 +2315,7 @@
     <Content Include="Content\assets\img\icon\sale-orange.png" />
     <Content Include="Content\assets\img\icon\shawer-orange.png" />
     <Content Include="Content\assets\img\icon\shawer.png" />
+    <Content Include="Content\assets\img\Icon_instagram.png" />
     <Content Include="Content\assets\img\livechat75.png" />
     <Content Include="Content\assets\img\loader.gif" />
     <Content Include="Content\assets\img\location75.png" />

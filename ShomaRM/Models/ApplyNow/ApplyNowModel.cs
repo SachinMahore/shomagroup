@@ -1970,5 +1970,21 @@ namespace ShomaRM.Models
             db.Dispose();
             return IsAllCorrect;
         }
+        public bool CheckModelExist(string ModelName)
+        {
+            bool ismodelexists = false;
+            ShomaRMEntities db = new ShomaRMEntities();
+            var modelInfo = db.tbl_Models.Where(m => m.ModelName== ModelName).FirstOrDefault();
+            if (modelInfo != null)
+            {
+                ismodelexists = true;
+            }
+            else
+            {
+                ismodelexists = false;
+            }
+            db.Dispose();
+            return ismodelexists;
+        }
     }
 }

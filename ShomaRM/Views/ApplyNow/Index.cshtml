@@ -1428,7 +1428,7 @@
                         <p>
                             <i>
                                 *The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved.
-                                <br />**TThe Security Deposit may be bonded using the SureDeposit Program. Please contact by hone (866) 312-3090 or email <a href="mailto:SelectDeposit@Assurant.com">SelectDeposit@Assurant.com</a>. The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.
+                                <br />**The Security Deposit may be bonded using the SureDeposit Program. Please contact by phone (866) 312-3090 or email <a href="mailto:SelectDeposit@Assurant.com">SelectDeposit@Assurant.com</a>. The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.
                             </i>
                         </p>
                         <p>
@@ -6091,7 +6091,7 @@
 </div>
 <div class="modal" id="popApplicantContinue">
     <div class="modal-dialog">
-        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: center;">
+        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
 
             <!-- Modal Header -->
             <div class="modal-header" style="border-bottom:none">
@@ -6135,7 +6135,7 @@
 </div>
 <div class="modal" id="popResponsibilityContinue">
     <div class="modal-dialog">
-        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: center;">
+        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
 
             <!-- Modal Header -->
             <div class="modal-header" style="border-bottom:none">
@@ -6881,19 +6881,16 @@
         }
 
 
-        if (@Model.SUID > 0) {
-            getPropertyUnitDetails(@Model.SUID);
-            goToStep(1, 1, 0);
+        if ('@Model.Building' != "" && @Model.FromHome== 3) {
+            $("#ddlRoom").val(@Model.Bedroom);
+            $("#txtDate").val('@Model.MoveInDate.ToString("MM/dd/yyyy")');
+            $("#txtMaxRent").val(@Model.MaxRent);
+            $("#hndLeaseTermID").val(@Model.LeaseTermID);
+            getPropertyUnitList("@Model.Building");
         }
 
-
         $('#ddlApplicantGender').on('change', function () {
-            //if ($(this).val() == 2) {
-            //    $("#lbl_txtApplicantMiddleName").addClass("star");
-            //}
-            //else {
-            //    $("#lbl_txtApplicantMiddleName").removeClass("star");
-            //}
+
             if ($(this).val() == '3') {
                 $('#txtApplicantOtherGender').removeAttr('disabled', 'disabled');
             }

@@ -819,6 +819,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                 return;
             }
             else {
+                $("#popApplicantContinue").modal("hide");
                 $("#subMenu").removeClass("hidden");
                 SaveCheckPolicy(7);
                 $("#as6").removeAttr("onclick");
@@ -857,7 +858,7 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "8") {
-        $("#popApplicantContinue").modal("hide");
+        
         if (id == "8") {
             // SaveUpdateStepCoApplicant(8);
             $('#lblRFPAdditionalParking').text($('#lblMonthly_AditionalParking').text());
