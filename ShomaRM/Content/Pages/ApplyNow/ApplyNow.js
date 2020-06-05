@@ -681,6 +681,18 @@ $(document).ready(function () {
             $("#fa_" + floorfromplan).removeClass('active_area', 'active_mouse').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
         }
     });
+
+    $("#txtApplicantSSNNumber").focusout(function () {
+        var ssnLength = $("#txtApplicantSSNNumber").val().length;
+        console.log(ssnLength);
+        if (ssnLength < 8) {
+            $("#divchkCCPay").add("hidden");
+            $("#chkCCPay").prop("disabled", true);
+        }
+        else if (ssnLength > 8) {
+            $("#chkCCPay").prop("disabled", false);
+        }
+    });
 });
 
 var cancel = function () {
@@ -4905,11 +4917,17 @@ var getApplicantLists = function () {
                         "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>";
 
                     if (parseInt(elementValue.CreditPaid) == 0 && parseInt(elementValue.HasSSN) == 1) {
+                        $("#editApplicantFees").text("Credit Check Fees");
+                        $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
                         html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a></label>";
                     } else if (parseInt(elementValue.CreditPaid) == 1 && parseInt(elementValue.BackGroundPaid) == 0) {
+                        $("#editApplicantFees").text("Background Check Fees");
+                        $("#editApplicantFeesVal").text($("#hndAppBackgroundFees").val());
                         html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a></label>";
                     }
                     html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
+                    $("#divchkCCPay").addClass("hidden");
+                    $("#divCreditCheckPayment").addClass("hidden");
                 }
                 else {
                     html += "<div class='col-sm-4 box-two proerty-item'>" +
@@ -4919,12 +4937,19 @@ var getApplicantLists = function () {
 
                         "<label>Primary Applicant</label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label><br/>";
-                    if (parseInt(elementValue.CreditPaid) == 0 && parseInt(elementValue.HasSSN) == 1 ) {
+                    if (parseInt(elementValue.CreditPaid) == 0 && parseInt(elementValue.HasSSN) == 1) {
+                        $("#editApplicantFees").text("Credit Check Fees");
+                        $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
                         html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a></label>";
                     } else if (parseInt(elementValue.CreditPaid) == 1 && parseInt(elementValue.BackGroundPaid) == 0) {
+                        $("#editApplicantFees").text("Background Check Fees");
+                        $("#editApplicantFeesVal").text($("#hndAppBackgroundFees").val());
+
                         html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a></label>";
                     }
                     html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
+                    $("#divchkCCPay").addClass("hidden");
+                    $("#divCreditCheckPayment").addClass("hidden");
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
                     prhtml += "<div class='row respo' data-id='" + elementValue.ApplicantID + "'><div class='col-sm-12  col-lg-2 box-padding'><div class='col-lg-12'></div>" +
@@ -4995,7 +5020,7 @@ var getApplicantLists = function () {
                     }
 
                     $("#divFinalcoappemail").removeClass('hidden');
-                } 
+                }
 
                 if (elementValue.Type == "Minor") {
                     $("#tblApplicantMinor").append(html);
@@ -5295,7 +5320,7 @@ var goToEditApplicant = function (aid) {
                     $("#txtApplicantCity").val(response.model.CityHome);
                     $("#txtApplicantZip2").val(response.model.ZipHome);
                     var ssnnumber = $.trim($("#txtApplicantSSNNumber").val());
-                    if (parseInt( $("#hndCreditPaid").val()) == 0) {
+                    if (parseInt($("#hndCreditPaid").val()) == 0) {
                         $("#sppayFees").text($("#hndAppCreditFees").val());
                         if (!ssnnumber) {
                             $("#divchkCCPay").addClass("hidden");
@@ -5305,6 +5330,15 @@ var goToEditApplicant = function (aid) {
                             $("#divchkCCPay").removeClass("hidden");
                             //modal.find('.modal-content').css("height", "530px");
                         }
+                    }
+
+                    var ssnLength = $("#txtApplicantSSNNumber").val().length;
+                    if (ssnLength <= 8) {
+                        $("#divchkCCPay").add("hidden");
+                        $("#chkCCPay").prop("disabled", true);
+                    }
+                    else if (ssnLength > 8) {
+                        $("#chkCCPay").prop("disabled", false);
                     }
                 }
                 else if (response.model.Type == "Co-Applicant") {
@@ -8237,12 +8271,12 @@ var onFocusApplyNow = function () {
     });
 
     $("#txtApplicantSSNNumber").focusin(function () {
-        getEncDecValue(this, 1);
+        getEncDecValueCoApplicant(this, 1);
     }).focusout(function () {
         var ssn = $(this).val();
         if (ssn.length < 9) {
             alert("SSN must be 9 digit");
-            $("#divchkCCPay").addClass("hidden");
+            // $("#divchkCCPay").addClass("hidden");
             return;
         } else {
             if ($("#hndCreditPaid").val() != "1") {
@@ -8252,8 +8286,14 @@ var onFocusApplyNow = function () {
             //modal.find('.modal-content').css("height", "560px");
         }
         if (ssn.length > 4) {
-            getEncDecValue(this, 2);
+            getEncDecValueCoApplicant(this, 2);
             $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+        }
+
+        if (ssn.length < 9) {
+            $("#chkCCPay").prop("disabled", true);
+        } else if (ssn.length > 8) {
+            $("#chkCCPay").prop("disabled", false);
         }
     });
 

@@ -4540,7 +4540,7 @@
                             <label class="form-control form-control-small" id="ddlApplicantType"></label>
                         </div>
                     </div>
-                    <div class="col-sm-4 hidden" style="margin-bottom:20px" id="divchkCCPay">
+                    <div class="col-sm-4 @(Model.CreditPaid == 1 ? "hidden" : "")" style="margin-bottom:20px" id="divchkCCPay">
                         <input type="checkbox" id="chkCCPay">
                         <span class="chektext">
                             Pay Credit Check Fees Now

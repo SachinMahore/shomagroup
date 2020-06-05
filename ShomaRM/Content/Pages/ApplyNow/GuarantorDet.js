@@ -28,17 +28,15 @@ $(document).ready(function () {
     });
 
     $("#txtApplicantSSNNumber").focusout(function () {
-        var ssn = $(this).val();
-        if (ssn.length < 9) {
-            alert("SSN must be 9 digit");
-            $("#divchkCCPay").addClass("hidden");
-            return;
-        } else {
-            if ($("#hndCreditPaid").val() != "1") {
-                $("#divchkCCPay").removeClass("hidden");
-            }
+        var ssnLength = $("#txtApplicantSSNNumber").val().length;
+        console.log(ssnLength);
+        if (ssnLength < 8) {
+            $("#divchkCCPay").add("hidden");
+            $("#chkCCPay").prop("disabled", true);
         }
-       
+        else if (ssnLength > 8) {
+            $("#chkCCPay").prop("disabled", false);
+        }
     });
     //sachin m 15 may
     $("#chkCCPay").on('ifChanged', function (event) {
@@ -4212,6 +4210,28 @@ var goToEditApplicantGuarantor = function (aid) {
                 else if (response.model.Type == "Guarantor") {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
                     //modal.find('.modal-content').css("height", "530px");
+
+                    var ssnnumber = $.trim($("#txtApplicantSSNNumber").val());
+                    if (parseInt($("#hndCreditPaid").val()) == 0) {
+                        $("#sppayFees").text($("#hndAppCreditFees").val());
+                        if (!ssnnumber) {
+                            $("#divchkCCPay").addClass("hidden");
+                            //modal.find('.modal-content').css("height", "560px");
+                        }
+                        else {
+                            $("#divchkCCPay").removeClass("hidden");
+                            //modal.find('.modal-content').css("height", "530px");
+                        }
+                    }
+
+                    var ssnLength = $("#txtApplicantSSNNumber").val().length;
+                    if (ssnLength <= 8) {
+                        $("#divchkCCPay").add("hidden");
+                        $("#chkCCPay").prop("disabled", true);
+                    }
+                    else if (ssnLength > 8) {
+                        $("#chkCCPay").prop("disabled", false);
+                    }
                     modal.find('.modal-title').text('Edit Guarantor');
                     $("#popApplicant").modal("show");
                     $("#ddlApplicantType").text("Guarantor");
@@ -4373,15 +4393,19 @@ var getApplicantListsGuarantor = function () {
                     if (elementValue.Type == "Guarantor") {
                         html += "<label><a href='javascript:void(0)' onclick='goToEditApplicantGuarantor(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
                         if (parseInt(elementValue.CreditPaid) == 0 && parseInt(elementValue.HasSSN) == 1) {
+                            $("#editApplicantFees").text("Credit Check Fees");
+                            $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
                             html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
                         } else if (parseInt(elementValue.CreditPaid) == 1 && parseInt(elementValue.BackGroundPaid) == 0) {
+                            $("#editApplicantFees").text("Background Check Fees");
+                            $("#editApplicantFeesVal").text($("#hndAppBackgroundFees").val());
                             html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a>";
                         }
                         html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                     }
                     else {
-                        html += "<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;"+
-                        "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
+                        html += "<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>&nbsp;&nbsp;&nbsp;&nbsp;" +
+                            "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                     }
                 }
                 else {
@@ -4430,12 +4454,12 @@ var getApplicantListsGuarantor = function () {
                     }
                     if (elementValue.BackGroundPaid == "1") {
                         totpaid += parseFloat(elementValue.GuarBackGroundFees);
-                       pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>Background Check Fees </td><td style='width:20%; padding:6px;'> </td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.GuarBackGroundFees).toFixed(2) + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
+                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>Background Check Fees </td><td style='width:20%; padding:6px;'> </td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.GuarBackGroundFees).toFixed(2) + "</td><td style='width:14%; padding:6px;text-align: center;'>Paid</td><td></td></tr>";
                     } else if (elementValue.BackGroundPaid == "0") {
-                       totalFinalFees += parseFloat(elementValue.GuarBackGroundFees);
-                       totnotpaid += parseFloat(elementValue.GuarBackGroundFees);
-                       addApplicntArrayGuarantor.push({ ApplicantID: elementValue.ApplicantID, Type: 5 });
-                       pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>Background Check Fees </td><td style='width:20%; padding:6px;'> </td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.GuarBackGroundFees).toFixed(2) + "</td><td style='width:14%; padding:6px;'></td><td></td></tr>";
+                        totalFinalFees += parseFloat(elementValue.GuarBackGroundFees);
+                        totnotpaid += parseFloat(elementValue.GuarBackGroundFees);
+                        addApplicntArrayGuarantor.push({ ApplicantID: elementValue.ApplicantID, Type: 5 });
+                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>Background Check Fees </td><td style='width:20%; padding:6px;'> </td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.GuarBackGroundFees).toFixed(2) + "</td><td style='width:14%; padding:6px;'></td><td></td></tr>";
                     }
                 }
                 if (elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
@@ -7486,7 +7510,7 @@ var onFocusApplyNow = function () {
         var ssn = $(this).val();
         if (ssn.length < 9) {
             alert("SSN must be 9 digit");
-            $("#divchkCCPay").addClass("hidden");
+            //$("#divchkCCPay").addClass("hidden");
             return;
         } else {
             if ($("#hndCreditPaid").val() != "1") {
@@ -7498,6 +7522,11 @@ var onFocusApplyNow = function () {
         if (ssn.length > 4) {
             getEncDecValue(this, 2);
             $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+        }
+        if (ssn.length < 9) {
+            $("#chkCCPay").prop("disabled", true);
+        } else if (ssn.length == 9) {
+            $("#chkCCPay").prop("disabled", false);
         }
     });
 
@@ -8917,6 +8946,7 @@ function saveCoAppPaymentPopup() {
                         dataType: "JSON",
                         success: function (response) {
                             if (response.Msg != "") {
+                                $('#popCCPay').modal('hide');
                                 if (response.Msg == "1") {
                                     $("#ResponseMsg1").html("Payment successfull");
                                     getApplicantListsGuarantor();

@@ -426,8 +426,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Areas/Admin/Views/Storage/Index.cshtml">
       <publishTime>05/23/2020 20:20:10</publishTime>
     </File>
+    <File Include="Areas/Admin/Views/SureDepositManagement/AddEdit.cshtml">
+      <publishTime>06/05/2020 18:21:31</publishTime>
+    </File>
     <File Include="Areas/Admin/Views/SureDepositManagement/Index.cshtml">
-      <publishTime>06/05/2020 11:43:55</publishTime>
+      <publishTime>06/05/2020 18:21:31</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Tenant/AddEdit.cshtml">
       <publishTime>03/26/2020 15:35:36</publishTime>
@@ -850,19 +853,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/30/2020 11:53:22</publishTime>
     </File>
     <File Include="bin/ShomaRM.Data.dll">
-      <publishTime>06/05/2020 17:02:47</publishTime>
+      <publishTime>06/05/2020 19:11:55</publishTime>
     </File>
     <File Include="bin/ShomaRM.Data.dll.config">
-      <publishTime>06/05/2020 12:08:41</publishTime>
+      <publishTime>06/05/2020 18:21:30</publishTime>
     </File>
     <File Include="bin/ShomaRM.Data.pdb">
-      <publishTime>06/05/2020 17:02:47</publishTime>
+      <publishTime>06/05/2020 19:11:55</publishTime>
     </File>
     <File Include="bin/ShomaRM.dll">
-      <publishTime>06/05/2020 17:23:29</publishTime>
+      <publishTime>06/05/2020 19:11:59</publishTime>
     </File>
     <File Include="bin/ShomaRM.pdb">
-      <publishTime>06/05/2020 17:23:29</publishTime>
+      <publishTime>06/05/2020 19:11:59</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
       <publishTime>04/18/2020 15:13:46</publishTime>
@@ -7309,16 +7312,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2019 17:16:58</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/ApplyNow.js">
-      <publishTime>06/05/2020 16:58:16</publishTime>
+      <publishTime>06/05/2020 19:01:27</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/CoApplicantDet.js">
-      <publishTime>06/05/2020 15:32:18</publishTime>
+      <publishTime>06/05/2020 19:08:39</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/DocumentVerification.js">
       <publishTime>01/30/2020 13:11:54</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/GuarantorDet.js">
-      <publishTime>06/05/2020 15:32:22</publishTime>
+      <publishTime>06/05/2020 18:51:44</publishTime>
     </File>
     <File Include="Content/Pages/common.js">
       <publishTime>05/12/2020 21:30:06</publishTime>
@@ -7957,13 +7960,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/31/2020 18:07:55</publishTime>
     </File>
     <File Include="Views/ApplyNow/CoApplicantDet.cshtml">
-      <publishTime>06/05/2020 15:30:20</publishTime>
+      <publishTime>06/05/2020 19:02:20</publishTime>
     </File>
     <File Include="Views/ApplyNow/GuarantorDet.cshtml">
-      <publishTime>06/05/2020 15:27:38</publishTime>
+      <publishTime>06/05/2020 18:44:33</publishTime>
     </File>
     <File Include="Views/ApplyNow/Index.cshtml">
-      <publishTime>06/05/2020 16:57:55</publishTime>
+      <publishTime>06/05/2020 18:53:40</publishTime>
     </File>
     <File Include="Views/ApplyNow/PrintSummary.cshtml">
       <publishTime>01/30/2020 13:11:58</publishTime>
@@ -7975,7 +7978,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2020 21:13:30</publishTime>
     </File>
     <File Include="Views/CheckList/Index.cshtml">
-      <publishTime>06/03/2020 11:33:27</publishTime>
+      <publishTime>06/05/2020 18:21:31</publishTime>
     </File>
     <File Include="Views/CheckList/SignLease.cshtml">
       <publishTime>05/23/2020 20:20:20</publishTime>
@@ -8035,7 +8038,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/30/2020 13:11:58</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>06/05/2020 15:21:45</publishTime>
+      <publishTime>06/05/2020 18:41:14</publishTime>
     </File>
     <File Include="Views/Verification/Index.cshtml">
       <publishTime>03/23/2020 10:18:33</publishTime>
@@ -8047,7 +8050,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/30/2020 13:11:58</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/05/2020 17:02:56</publishTime>
+      <publishTime>06/05/2020 19:12:04</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -1120,6 +1120,7 @@
     <Property Name="ParentTOID" Type="bigint" />
     <Property Name="UploadDate" Type="datetime" />
     <Property Name="ExpirationDate" Type="datetime" />
+    <Property Name="Status" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Tenant">
     <Key>

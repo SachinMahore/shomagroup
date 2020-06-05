@@ -124,8 +124,8 @@ namespace ShomaRM.Models
         public string MiddleInitial { get; set; }
 
         public int CreditPaid { get; set; }
+        public int BackGroundPaid { get; set; }
 
-        
 
         public string SaveOnlineProspect(OnlineProspectModule model)
         {
@@ -1160,7 +1160,8 @@ namespace ShomaRM.Models
                 if (applicantData!=null)
                 {
                     model.CreditPaid = applicantData.CreditPaid ?? 0;
-                    if(applicantData.Type!= "Primary Applicant")
+                    model.BackGroundPaid = applicantData.BackGroundPaid ?? 0;
+                    if (applicantData.Type!= "Primary Applicant")
                     {
                         if (tenantOnlineData != null)
                         {

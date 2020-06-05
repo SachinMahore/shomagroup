@@ -4495,18 +4495,22 @@
                             <label class="form-control form-control-small" id="ddlApplicantType"></label>
                         </div>
                     </div>
-                    <div class="col-sm-4 hidden" style="margin-bottom:20px" id="divchkCCPay">
+                    <div class="col-sm-4 @(Model.CreditPaid == 1 ? "hidden" : "")" style="margin-bottom:20px" id="divchkCCPay">
                         <input type="checkbox" id="chkCCPay">
                         <span class="chektext">
-                            Pay Credit Check Fees Now
+                            Pay Credit Check Fees Now (Fill SSN# to pay fees)
                         </span>
                     </div>
                 </div>
-                <div class="col-sm-12 hidden" id="divCreditCheckPayment">
+                <div class="col-sm-12  hidden" id="divCreditCheckPayment">
                     <input type="hidden" id="hndTransMethod1" value="2" />
                     <input type="hidden" id="hndFromAcc" value="4" />
                     <span class="hidden" id="sppayFees"></span>
                     <div class="col-sm-12">
+                        <div class="dot-hr"></div>
+                        <div class="form-group">
+                            <span id="editApplicantFees"></span> : $<span id="editApplicantFeesVal"></span>
+                        </div>
                         <div class="dot-hr"></div>
                     </div>
                     <div class="col-sm-3">
