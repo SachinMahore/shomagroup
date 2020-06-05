@@ -3346,7 +3346,7 @@
 
           <EntitySet Name="tbl_Transaction" EntityType="ShomaRMEntitiesModel.tbl_Transaction" />
           <EntitySet Name="tbl_PropertyUnits" EntityType="ShomaRMEntitiesModel.tbl_PropertyUnits" />
-          <EntitySet Name="tbl_SureDeposit" EntityType="ShomaRMEntitiesModel.tbl_SureDeposit" />
+
           <AssociationSet Name="FK_tbl_PropertyUnits_tbl_Properties" Association="ShomaRMEntitiesModel.FK_tbl_PropertyUnits_tbl_Properties">
             <End Role="tbl_Properties" EntitySet="tbl_Properties" />
             <End Role="tbl_PropertyUnits" EntitySet="tbl_PropertyUnits" />
