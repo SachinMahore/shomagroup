@@ -33,24 +33,30 @@
                     <input type="text" id="txtCriteria_UL" name="Criteria" class="form-control form-control-small pull-left" />
                 </div>
                 <div class="col-md-6">
-                    <button id="btnSearch" class="btn btn-next btn-primary" onclick="buildPaganationUserList(1)" style="margin-left: -30px;height: 34px;"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
-                    <button id="btnNewSearchUser" class="btn btn-primary pull-right" style="margin-right:15px;" onclick="addNewUser()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> NEW</button>
+                    <button id="btnSearch" class="btn btn-next btn-primary" onclick="buildPaganationUserList(1)" style="height: 34px;"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                    <button id="btnNewSearchUser" class="btn btn-primary pull-right" style="" onclick="addNewUser()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> NEW</button>
                     @*<button id="btnGoUser" class="btn btn-primary pull-right" style="margin-right:15px;" onclick="goToEditUser()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-arrow-right"></i> GO TO</button>*@
 
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-12 form-group" id="divPagination_UserList">
-                    <div id="divPgn" class="col-sm-8 pagination">
-                        <ul id="ulPagination_UserList"></ul>
-                    </div>
-                    <div class="col-sm-3 padding-0 pull-right" style="margin-top:22px">
-                        <div class="col-sm-6">
-                            <label class="control-label" style="margin-left:67px;">Row/Page</label>
+                    <div class="row">
+                        <div id="divPgn" class="col-sm-8 pagination" style="margin-top:22px">
+                            <ul id="ulPagination_UserList"></ul>
                         </div>
-                        <div class="col-sm-6">
-                            <select id="ddlRPP_UserList" class="form-control form-control-small"></select>
+                        <div class="col-sm-3 padding-0 pull-right" style="margin-top:22px">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="control-label" style="margin-left:67px;">Row/Page</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <select id="ddlRPP_UserList" class="form-control form-control-small"></select>
+                                </div>
+                            </div>
+
                         </div>
+
                     </div>
                 </div>
 
