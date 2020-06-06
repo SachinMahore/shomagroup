@@ -1,0 +1,171 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model  SureDepositManagementModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    DateTime now = DateTime.Now;
+    var startDate = new DateTime(now.Year, now.Month, 1);
+    var endDate = startDate.AddMonths(1).AddDays(-1);
+}
+<input id="hdnProspectId" type="hidden" value="0" />
+<input id="hndApplicantID" type="hidden" value="0" />
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container" style="width:100% !important">
+        <div class="breadcrumb">
+            <h4 class="">Sure Deposit Management</h4>
+        </div>
+        <div class="col-md-12  pr0  properties-page">
+            <div class="panel panel-default sidebar-menu wow fadeInRight animated">               
+                <div class="panel-body search-widget">
+                    <div class="col-md-12 clear">
+                        <table id="tbl_SDManagement" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">First Name</th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">Last Name</th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">Unit No.</th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">Model</th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">Sure Deposit Number</th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">Status</th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort">Download Bond</th>
+                                    <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.SureDepoAppList)
+                                    {
+                                        <tr data-value="@(item.ApplyNowID !=null ? item.ApplyNowID : 0)">
+                                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.FirstName) ? item.FirstName : "")</td>
+                                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.LastName) ? item.LastName : "")</td>
+                                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.UnitNo) ? item.UnitNo : "")</td>
+                                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.Building) ? item.Building : "")</td>
+                                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.Building) ? item.SDNumber : "")</td>
+                                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.StatusString) ? item.StatusString : "")</td>
+                                            <td style="text-align:center;"><a href='../../Content/assets/img/SureDeposit/@(!string.IsNullOrWhiteSpace(item.Bond) ? item.Bond : "")' download="@(!string.IsNullOrWhiteSpace(item.Bond) ? item.Bond : "")" target='_blank'><span class='fa fa-download'></span></a></td>
+                                            
+                                            <td style="text-align:center;"><i class="fa fa-edit fa-lg" style="cursor:pointer"  onclick="goToAddEditSureDeposit(@(item.ApplyNowID),@(item.TenantID))"></i></td>
+                                        </tr>
+                                    }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal " id="popSD" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
+    <div class="modal-dialog" style="width:600px !important; height:300px;">
+        <div class="modal-content" style="width: 100% !important; height:557px!important;">
+            <button type="button" class="close" data-dismiss="modal" style="margin: 6px; color:black;">&times;</button>
+            <div class="modal-header" style="width: 100%;">
+                <h5 class="modal-title">Add Sure Deposit</h5>
+            </div>
+            <div class="modal-body">
+             
+                <div class="col-sm-12">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="star"> First Name</label>
+                            <input id="txtApplicantFirstName" type="text" class="form-control" maxlength="100" placeholder="First Name" value="">
+                        </div>
+                    </div>
+                
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="star"> Last Name</label>
+                            <input id="txtApplicantLastName" type="text" class="form-control" maxlength="100" placeholder="Last Name" value="">
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="col-sm-12">
+                    <div class="col-sm-6" id="appphone">
+                        <div class="form-group">
+                            <label>Phone No.</label>
+                            <input id="txtApplicantPhone" type="text" class="form-control" maxlength="10" placeholder="Phone" value="" onkeypress="return isOnlyNumber(event)">
+                        </div>
+                    </div>
+                    <div class="col-sm-6" id="appemail">
+                        <div class="form-group">
+                            <label class="star">Email</label>
+                            <input id="txtApplicantEmail" type="text" class="form-control" maxlength="200" placeholder="Email" value="">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="star">Sure Deposit Number</label>
+                            <input class="form-control form-control-small" id="txtSDNumber" value="" onkeypress="return isOnlyNumber(event)" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="txtExpDate" class="star">Sure Deposit Expiration Date</label>
+                            <div class="input-group">
+                                <input id="txtExpDate" class="form-control form-control-small" value="@(DateTime.Now.ToString("MM/dd/yyyy"))" />
+                                <span class="input-group-btn">
+                                    <button id="iconExpDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label class="star">Upload Deposit Bond</label>
+                            <input type="file" name="uploadSD" id="uploadSD" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                            <label for="uploadSD"><i class="fa fa-upload fa-2x"></i> <span id="uploadSDShow">Choose a file&hellip;</span></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn-alltype" id="btnsaveSD" onclick="saveupdateSureDeposit()">Save</button>
+
+                </div>
+                <div class="modal-footer-custom">
+                  
+                </div>
+            </div>
+         
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var dtend100 = new Date();
+        dtend100.setFullYear(new Date().getFullYear() + 100);
+        $('#txtExpDate').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: "+0d", endDate: dtend100, maxViewMode: 2, autoclose: true });
+        $("#iconEventDate").click(function () {
+            $("#txtExpDate").focus();
+        });
+
+    });
+     var goToAddEditSureDeposit = function (id,tid) {
+         if (id !== null) {
+             window.location.href = "/Admin/SureDepositManagement/AddEdit?id="+id+"&TenantID="+tid;
+             //var model = {
+             //    id: id, TenantID:tid
+             //};
+             //$.ajax({
+             //    url: '/SureDepositManagement/GetTenantSDDetails',
+             //    type: "post",
+             //    contentType: "application/json utf-8",
+             //    data: JSON.stringify(model),
+             //    dataType: "JSON",
+             //    success: function (response) {
+                     
+             //        $("#txtExpDate").val(response.model.ExpirationDateString);
+             //        $("#txtApplicantFirstName").val(response.model.FirstName);
+             //        $("#txtApplicantLastName").val(response.model.LastName);
+             //        $("#txtApplicantPhone").val(response.model.PhoneNo);
+             //        $("#txtApplicantEmail").val(response.model.Email);
+             //        $("#txtSDNumber").val(response.model.SDNumber);
+             //    }
+             //    });
+             $("#hdnProspectId").val(id);
+             $("#hndApplicantID").val(tid);
+           
+        }
+    };
+  
+    
+</script>

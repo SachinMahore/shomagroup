@@ -926,6 +926,7 @@
     <Property Name="InteriorArea" Type="varchar" MaxLength="100" />
     <Property Name="Notes" Type="varchar" MaxLength="1000" />
     <Property Name="IsFurnished" Type="int" />
+    <Property Name="IsAvailable" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Prospect">
     <Key>
@@ -1106,6 +1107,19 @@
     <Property Name="Charges" Type="money" />
     <Property Name="Description" Type="nvarchar" MaxLength="500" />
     <Property Name="Type" Type="int" />
+    <Property Name="Status" Type="int" />
+  </EntityType>
+  <EntityType Name="tbl_SureDeposit">
+    <Key>
+      <PropertyRef Name="SDID" />
+    </Key>
+    <Property Name="SDID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SDNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="SDUploadName" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProspectID" Type="bigint" />
+    <Property Name="ParentTOID" Type="bigint" />
+    <Property Name="UploadDate" Type="datetime" />
+    <Property Name="ExpirationDate" Type="datetime" />
     <Property Name="Status" Type="int" />
   </EntityType>
   <EntityType Name="tbl_Tenant">
@@ -1493,6 +1507,7 @@
     <Property Name="Charge_Type" Type="int" />
     <Property Name="Authcode" Type="nvarchar" MaxLength="20" />
     <Property Name="UserID" Type="bigint" />
+    <Property Name="RefNum" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="tbl_UnitLeasePrice">
     <Key>
@@ -2598,6 +2613,7 @@
     <EntitySet Name="tbl_SMSMessages" EntityType="Self.tbl_SMSMessages" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_State" EntityType="Self.tbl_State" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Storage" EntityType="Self.tbl_Storage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_SureDeposit" EntityType="Self.tbl_SureDeposit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Tenant" EntityType="Self.tbl_Tenant" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_TenantEventJoin" EntityType="Self.tbl_TenantEventJoin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_TenantEventJoinApprove" EntityType="Self.tbl_TenantEventJoinApprove" Schema="dbo" store:Type="Tables" />

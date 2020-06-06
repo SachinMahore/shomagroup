@@ -1189,7 +1189,8 @@
                                     <div class="col-sm-12 clear">
                                         <div class="col-sm-4"></div>
                                         <div class="col-sm-4">
-                                            <button class="nav-button wow bounceInRight login animated" id="policyStart" onclick="goToStep(7,7,0)"> Start</button>
+                                            @*<button class="nav-button wow bounceInRight login animated" id="policyStart" onclick="goToStep(7,7,0)"> Start</button>*@
+                                            <button class="nav-button wow bounceInRight login animated" id="policyStart" data-toggle="modal" data-target="#popApplicantContinue"> Start</button>
                                         </div>
                                         <div class="col-sm-4"></div>
                                     </div>
@@ -1280,9 +1281,8 @@
                                     <button type="submit" class="btn-alltype wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <!--<button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>-->
-
-                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>
+                                    @*<button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>*@
+                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -4495,18 +4495,22 @@
                             <label class="form-control form-control-small" id="ddlApplicantType"></label>
                         </div>
                     </div>
-                    <div class="col-sm-4 hidden" style="margin-bottom:20px" id="divchkCCPay">
+                    <div class="col-sm-4 @(Model.CreditPaid == 1 ? "hidden" : "")" style="margin-bottom:20px" id="divchkCCPay">
                         <input type="checkbox" id="chkCCPay">
                         <span class="chektext">
-                            Pay Credit Check Fees Now
+                            Pay Credit Check Fees Now (Fill SSN# to pay fees)
                         </span>
                     </div>
                 </div>
-                <div class="col-sm-12 hidden" id="divCreditCheckPayment">
+                <div class="col-sm-12  hidden" id="divCreditCheckPayment">
                     <input type="hidden" id="hndTransMethod1" value="2" />
                     <input type="hidden" id="hndFromAcc" value="4" />
                     <span class="hidden" id="sppayFees"></span>
                     <div class="col-sm-12">
+                        <div class="dot-hr"></div>
+                        <div class="form-group">
+                            <span id="editApplicantFees"></span> : $<span id="editApplicantFeesVal"></span>
+                        </div>
                         <div class="dot-hr"></div>
                     </div>
                     <div class="col-sm-3">
@@ -5583,7 +5587,7 @@
 
 <div class="modal" id="popApplicantContinue">
     <div class="modal-dialog">
-        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: center;">
+        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
 
             <!-- Modal Header -->
             <div class="modal-header" style="border-bottom:none">
@@ -5614,7 +5618,7 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group text-center">
-                                <button class="popContinueBtn" id="popContinueResponseBtn" onclick="goToStep(8,8,0)"> Continue</button>
+                                <button class="popContinueBtn" id="popContinueResponseBtn" onclick="goToStep(7,7,0)"> Continue</button>
                             </div>
                         </div>
 
@@ -5626,7 +5630,7 @@
 </div>
 <div class="modal" id="popResponsibilityContinue">
     <div class="modal-dialog">
-        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: center;">
+        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
 
             <!-- Modal Header -->
             <div class="modal-header" style="border-bottom:none">

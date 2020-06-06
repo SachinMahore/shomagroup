@@ -558,28 +558,22 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
                     var saveTransaction = new tbl_Transaction()
                     {
-
                         TenantID = model.TenantID,
-                       
-                        PAID = "3",
+                        PAID = model.PAID.ToString(),
                         Transaction_Date = Convert.ToDateTime(model.Charge_Date),
-                     
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.Charge_Amount,
-                        Description = model.Description + " | TransID: " + strlist[1],
+                        Description = model.Description + " | TransID: " + strlist[2],
                         Charge_Date = model.Charge_Date,
                         Charge_Type = Convert.ToInt32(model.Charge_Type),
                         Authcode = strlist[1],
-                        Charge_Amount =0,
+                        Charge_Amount = 0,
                         Miscellaneous_Amount = model.Miscellaneous_Amount,
                         Accounting_Date = DateTime.Now,
-                     
                         Batch = "0",
-                       
                         CreatedBy = userid,
-                       UserID=userid,
-                       
-
+                        UserID = userid,
+                        RefNum= strlist[2]
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -841,47 +835,7 @@ namespace ShomaRM.Areas.Tenant.Models
             var transDetails = db.tbl_Transaction.Where(p => p.TransID == TransID).FirstOrDefault();
             if (transDetails != null)
             {
-            string transStatus = new UsaePayModel().RefundCharge(TransID.ToString(),Convert.ToDecimal(transDetails.Charge_Amount));
-            String[] spearator = { "|" };
-            String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
-            if (strlist[1] != "000000")
-            {
-                var saveTransaction = new tbl_Transaction()
-                {
-                    TenantID = transDetails.TenantID,
-                   
-                    PAID = transDetails.PAID,
-                    Transaction_Date = DateTime.Now,
-                    
-                    CreatedDate = DateTime.Now,
-                    Credit_Amount = transDetails.Charge_Amount,
-                    Description = transDetails.Description + " | TransID: " + strlist[1],
-                    Charge_Date = transDetails.Charge_Date,
-                    Charge_Type = 10,
-                    Authcode = strlist[1],
-                    Charge_Amount = Convert.ToDecimal(transDetails.Charge_Amount),
-                    Miscellaneous_Amount = transDetails.Miscellaneous_Amount,
-                    Accounting_Date = DateTime.Now,
-                    CreatedBy = userid,
-                };
-                db.tbl_Transaction.Add(saveTransaction);
-                db.SaveChanges();
-            }
-
-            }
-           
-            db.Dispose();
-            return msg;
-        }
-        public string VoidRRCharges(long TransID)
-        {
-            string msg = "";
-            ShomaRMEntities db = new ShomaRMEntities();
-            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
-            var transDetails = db.tbl_Transaction.Where(p => p.TransID == TransID).FirstOrDefault();
-            if (transDetails != null)
-            {
-                string transStatus = new UsaePayModel().VoidCharge(TransID.ToString(), Convert.ToDecimal(transDetails.Charge_Amount));
+                string transStatus = new UsaePayModel().RefundCharge(transDetails.RefNum, Convert.ToDecimal(transDetails.Charge_Amount));
                 String[] spearator = { "|" };
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
@@ -895,7 +849,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
                         CreatedDate = DateTime.Now,
                         Credit_Amount = transDetails.Charge_Amount,
-                        Description = transDetails.Description + " | TransID: " + strlist[1],
+                        Description = transDetails.Description + " | TransID: " + strlist[2],
                         Charge_Date = transDetails.Charge_Date,
                         Charge_Type = 10,
                         Authcode = strlist[1],
@@ -903,6 +857,45 @@ namespace ShomaRM.Areas.Tenant.Models
                         Miscellaneous_Amount = transDetails.Miscellaneous_Amount,
                         Accounting_Date = DateTime.Now,
                         CreatedBy = userid,
+                        RefNum= strlist[2],
+                    };
+                    db.tbl_Transaction.Add(saveTransaction);
+                    db.SaveChanges();
+                }
+            }
+
+            db.Dispose();
+            return msg;
+        }
+        public string VoidRRCharges(long TransID)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var transDetails = db.tbl_Transaction.Where(p => p.TransID == TransID).FirstOrDefault();
+            if (transDetails != null)
+            {
+                string transStatus = new UsaePayModel().VoidCharge(transDetails.RefNum, Convert.ToDecimal(transDetails.Charge_Amount));
+                String[] spearator = { "|" };
+                String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+                if (strlist[1] != "000000")
+                {
+                    var saveTransaction = new tbl_Transaction()
+                    {
+                        TenantID = transDetails.TenantID,
+                        PAID = transDetails.PAID,
+                        Transaction_Date = DateTime.Now,
+                        CreatedDate = DateTime.Now,
+                        Credit_Amount = transDetails.Charge_Amount,
+                        Description = transDetails.Description + " | TransID: " + strlist[2],
+                        Charge_Date = transDetails.Charge_Date,
+                        Charge_Type = 10,
+                        Authcode = strlist[1],
+                        Charge_Amount = Convert.ToDecimal(transDetails.Charge_Amount),
+                        Miscellaneous_Amount = transDetails.Miscellaneous_Amount,
+                        Accounting_Date = DateTime.Now,
+                        CreatedBy = userid,
+                        RefNum= strlist[2],
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -984,10 +977,10 @@ namespace ShomaRM.Areas.Tenant.Models
                         {
                             transData.Transaction_Date = DateTime.Now;
                             transData.Credit_Amount = transData.Charge_Amount;
-                            transData.Description = transData.Description + " | TransID: " + strlist[1];
+                            transData.Description = transData.Description + " | TransID: " + strlist[2];
                             transData.Authcode = strlist[1];
                             transData.Accounting_Date = DateTime.Now;
-                            
+                            transData.RefNum= strlist[2];
                             db.SaveChanges();
                             msg = transStatus.ToString();
                         }
@@ -997,22 +990,19 @@ namespace ShomaRM.Areas.Tenant.Models
                             var saveTransaction = new tbl_Transaction()
                             {
                                 TenantID = TenantID,
-                            
                                 PAID = PAID.ToString(),
                                 Transaction_Date = DateTime.Now,
-                                
                                 CreatedDate = DateTime.Now,
                                 Credit_Amount = 0,
                                 Description = transData.Description,
                                 Charge_Date = DateTime.Now,
                                 Charge_Type = 11,
-                               
                                 Authcode = "",
                                 Charge_Amount = transData.Charge_Amount,
                                 Accounting_Date = DateTime.Now,
                                 Batch = TransId.ToString(),                               
                                 CreatedBy = 1,
-                                
+                                RefNum=""
                             };
                             db.tbl_Transaction.Add(saveTransaction);
                             db.SaveChanges();
@@ -1277,34 +1267,28 @@ namespace ShomaRM.Areas.Tenant.Models
                     transStatus = new UsaePayModel().ChargeACH(mm);
                 }
             }
-
-
+            
             String[] spearator = { "|" };
             String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
             if (strlist[1] != "000000")
             {
                 var saveTransaction = new tbl_Transaction()
                 {
-
                     TenantID = model.TenantID,
-                 
                     PAID = model.Transaction_Type,
                     Transaction_Date = DateTime.Now,
-                   
                     CreatedDate = DateTime.Now,
                     Credit_Amount = model.Charge_Amount,
-                    Description = model.Description + " | TransID: " + strlist[1],
+                    Description = model.Description + " | TransID: " + strlist[2],
                     Charge_Date = DateTime.Now,
                     Charge_Type = 4,
                     Authcode = strlist[1],
                     Charge_Amount = model.Charge_Amount,
-
                     Accounting_Date = DateTime.Now,
-
                     Batch = model.Batch,
-                   
                     CreatedBy = Convert.ToInt32(model.UserId),
                     UserID = Convert.ToInt32(model.UserId),
+                    RefNum= strlist[2],
                 };
                 db.tbl_Transaction.Add(saveTransaction);
                 db.SaveChanges();
@@ -1457,34 +1441,28 @@ namespace ShomaRM.Areas.Tenant.Models
                     transStatus = new UsaePayModel().ChargeACH(mm);
                 }
             }
-
-
+            
             String[] spearator = { "|" };
             String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
             if (strlist[1] != "000000")
             {
                 var saveTransaction = new tbl_Transaction()
                 {
-
                     TenantID = model.TenantID,
-                 
                     PAID = model.Transaction_Type,
                     Transaction_Date = DateTime.Now,
-                  
                     CreatedDate = DateTime.Now,
                     Credit_Amount = model.Charge_Amount,
-                    Description = model.Description + " | TransID: " + strlist[1],
+                    Description = model.Description + " | TransID: " + strlist[2],
                     Charge_Date = DateTime.Now,
                     Charge_Type = 4,
                     Authcode = strlist[1],
                     Charge_Amount = model.Charge_Amount,
-
                     Accounting_Date = DateTime.Now,
-
                     Batch = model.Batch,
-                   
                     CreatedBy = Convert.ToInt32(model.UserId),
                     UserID = Convert.ToInt32(model.UserId),
+                    RefNum = strlist[2],
                 };
                 db.tbl_Transaction.Add(saveTransaction);
                 db.SaveChanges();

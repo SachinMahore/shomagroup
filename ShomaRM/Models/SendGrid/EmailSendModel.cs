@@ -68,11 +68,11 @@ namespace ShomaRM.Models
                 try
                 {
                     SendAsync(myMessage, s_username, s_password);
-                    LoggingHelper.LogMessage("Success", System.Diagnostics.TraceLevel.Info);
+                    //LoggingHelper.LogMessage("Success", System.Diagnostics.TraceLevel.Info);
                 }
                 catch (Exception ex)
                 {
-                    LoggingHelper.LogMessage(ex, System.Diagnostics.TraceLevel.Error);
+                    //LoggingHelper.LogMessage(ex, System.Diagnostics.TraceLevel.Error);
                     throw ex;
 
                 }

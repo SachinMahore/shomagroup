@@ -57,12 +57,32 @@ namespace ShomaRM.Controllers
                 model.LeaseTermID = Convert.ToInt32(Session["LeaseTerm"].ToString());
                 var leaseDet = new Areas.Admin.Models.LeaseTermsModel().GetLeaseTermsDetails(model.LeaseTermID);
                 model.LeaseTerm =Convert.ToInt32(leaseDet.LeaseTerms);
-                
                 model.FromHome = 1;
                 Session.Remove("Bedroom");
                 Session.Remove("MoveInDate");
                 Session.Remove("MaxRent");
                 Session.Remove("LeaseTerm");
+            } else if (Session["Model"] != null)
+            {
+                model.Bedroom = 0;
+                model.MoveInDate = Convert.ToDateTime(DateTime.Now.ToString("MM/dd/yyyy"));
+                model.MaxRent = 1000000;
+                ShomaRMEntities db = new ShomaRMEntities();
+                var leaseDet = db.tbl_LeaseTerms.Where(p => p.LeaseTerms == 12).FirstOrDefault();
+                if (leaseDet != null)
+                {
+                    model.LeaseTermID = leaseDet.LTID;
+                }
+                else
+                {
+                    model.LeaseTermID = 0;
+                }
+                model.LeaseTermID = leaseDet.LTID;
+                model.LeaseTerm = Convert.ToInt32(leaseDet.LeaseTerms);
+                model.Building = Session["Model"].ToString();
+                model.FromHome = 3;
+                model.StepCompleted = 2;
+                Session.Remove("Model");
             }
             else
             {
@@ -1326,6 +1346,17 @@ namespace ShomaRM.Controllers
             {
                 return Json(new { filename = "" }, JsonRequestBehavior.AllowGet);
             }
+        }
+        public ActionResult Model(string id)
+        {
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                if (new ApplyNowModel().CheckModelExist(id.ToUpper()))
+                {
+                    Session["Model"] = id.ToUpper();
+                }
+            }
+            return Redirect("/ApplyNow/Index/0");
         }
     }
 }

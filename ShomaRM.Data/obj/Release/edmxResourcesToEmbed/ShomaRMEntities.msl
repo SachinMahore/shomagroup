@@ -1569,9 +1569,77 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Login">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Login">
+        <MappingFragment StoreEntitySet="tbl_Login">
+          <ScalarProperty Name="IsTempPass" ColumnName="IsTempPass" />
+          <ScalarProperty Name="ParentUserID" ColumnName="ParentUserID" />
+          <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+          <ScalarProperty Name="IsChangePass" ColumnName="IsChangePass" />
+          <ScalarProperty Name="ParentTenantID" ColumnName="ParentTenantID" />
+          <ScalarProperty Name="UserType" ColumnName="UserType" />
+          <ScalarProperty Name="IsSuperUser" ColumnName="IsSuperUser" />
+          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_MoveInChecklist">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_MoveInChecklist">
+        <MappingFragment StoreEntitySet="tbl_MoveInChecklist">
+          <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
+          <ScalarProperty Name="Movers" ColumnName="Movers" />
+          <ScalarProperty Name="PreMoveInTime" ColumnName="PreMoveInTime" />
+          <ScalarProperty Name="PreMoveInDate" ColumnName="PreMoveInDate" />
+          <ScalarProperty Name="IsCheckSD" ColumnName="IsCheckSD" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="IsCheckWater" ColumnName="IsCheckWater" />
+          <ScalarProperty Name="IsCheckATT" ColumnName="IsCheckATT" />
+          <ScalarProperty Name="IsCheckPO" ColumnName="IsCheckPO" />
+          <ScalarProperty Name="ElectricityDoc" ColumnName="ElectricityDoc" />
+          <ScalarProperty Name="InsuranceDoc" ColumnName="InsuranceDoc" />
+          <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
+          <ScalarProperty Name="MoveInTime" ColumnName="MoveInTime" />
+          <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+          <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+          <ScalarProperty Name="MIID" ColumnName="MIID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Transaction">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Transaction">
+        <MappingFragment StoreEntitySet="tbl_Transaction">
+          <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Authcode" ColumnName="Authcode" />
+          <ScalarProperty Name="Charge_Type" ColumnName="Charge_Type" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Batch" ColumnName="Batch" />
+          <ScalarProperty Name="Accounting_Date" ColumnName="Accounting_Date" />
+          <ScalarProperty Name="Miscellaneous_Amount" ColumnName="Miscellaneous_Amount" />
+          <ScalarProperty Name="Credit_Amount" ColumnName="Credit_Amount" />
+          <ScalarProperty Name="Charge_Amount" ColumnName="Charge_Amount" />
+          <ScalarProperty Name="Charge_Date" ColumnName="Charge_Date" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PAID" ColumnName="PAID" />
+          <ScalarProperty Name="Transaction_Date" ColumnName="Transaction_Date" />
+          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+          <ScalarProperty Name="TransID" ColumnName="TransID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="tbl_PropertyUnits">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_PropertyUnits">
         <MappingFragment StoreEntitySet="tbl_PropertyUnits">
+          <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
           <ScalarProperty Name="IsFurnished" ColumnName="IsFurnished" />
           <ScalarProperty Name="Notes" ColumnName="Notes" />
           <ScalarProperty Name="InteriorArea" ColumnName="InteriorArea" />
@@ -1628,69 +1696,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_Transaction">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Transaction">
-        <MappingFragment StoreEntitySet="tbl_Transaction">
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="Authcode" ColumnName="Authcode" />
-          <ScalarProperty Name="Charge_Type" ColumnName="Charge_Type" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="Batch" ColumnName="Batch" />
-          <ScalarProperty Name="Accounting_Date" ColumnName="Accounting_Date" />
-          <ScalarProperty Name="Miscellaneous_Amount" ColumnName="Miscellaneous_Amount" />
-          <ScalarProperty Name="Credit_Amount" ColumnName="Credit_Amount" />
-          <ScalarProperty Name="Charge_Amount" ColumnName="Charge_Amount" />
-          <ScalarProperty Name="Charge_Date" ColumnName="Charge_Date" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="PAID" ColumnName="PAID" />
-          <ScalarProperty Name="Transaction_Date" ColumnName="Transaction_Date" />
-          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-          <ScalarProperty Name="TransID" ColumnName="TransID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbl_Login">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Login">
-        <MappingFragment StoreEntitySet="tbl_Login">
-          <ScalarProperty Name="IsTempPass" ColumnName="IsTempPass" />
-          <ScalarProperty Name="ParentUserID" ColumnName="ParentUserID" />
-          <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
-          <ScalarProperty Name="IsChangePass" ColumnName="IsChangePass" />
-          <ScalarProperty Name="ParentTenantID" ColumnName="ParentTenantID" />
-          <ScalarProperty Name="UserType" ColumnName="UserType" />
-          <ScalarProperty Name="IsSuperUser" ColumnName="IsSuperUser" />
-          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-          <ScalarProperty Name="CellPhone" ColumnName="CellPhone" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbl_MoveInChecklist">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_MoveInChecklist">
-        <MappingFragment StoreEntitySet="tbl_MoveInChecklist">
+    <EntitySetMapping Name="tbl_SureDeposit">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SureDeposit">
+        <MappingFragment StoreEntitySet="tbl_SureDeposit">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+          <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
           <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
-          <ScalarProperty Name="Movers" ColumnName="Movers" />
-          <ScalarProperty Name="PreMoveInTime" ColumnName="PreMoveInTime" />
-          <ScalarProperty Name="PreMoveInDate" ColumnName="PreMoveInDate" />
-          <ScalarProperty Name="IsCheckSD" ColumnName="IsCheckSD" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="IsCheckWater" ColumnName="IsCheckWater" />
-          <ScalarProperty Name="IsCheckATT" ColumnName="IsCheckATT" />
-          <ScalarProperty Name="IsCheckPO" ColumnName="IsCheckPO" />
-          <ScalarProperty Name="ElectricityDoc" ColumnName="ElectricityDoc" />
-          <ScalarProperty Name="InsuranceDoc" ColumnName="InsuranceDoc" />
-          <ScalarProperty Name="MoveInCharges" ColumnName="MoveInCharges" />
-          <ScalarProperty Name="MoveInTime" ColumnName="MoveInTime" />
-          <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
           <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
-          <ScalarProperty Name="MIID" ColumnName="MIID" />
+          <ScalarProperty Name="SDUploadName" ColumnName="SDUploadName" />
+          <ScalarProperty Name="SDNumber" ColumnName="SDNumber" />
+          <ScalarProperty Name="SDID" ColumnName="SDID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
