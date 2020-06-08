@@ -23,7 +23,31 @@ namespace ShomaRM.Controllers
         
         public ActionResult Index()
         {
-            
+
+            aptlyHelper aptlyHelper = new aptlyHelper();
+            aptlyModel aptlyModel = new aptlyModel();
+            aptlyModel.FirstName = "Lalit bokde";
+            aptlyModel.LastName = "bokde";
+
+            aptlyModel.name = "Sanctuary Doral -hemlata";
+            aptlyModel.Email = "Lalit bokde";
+            aptlyModel.FirstName = "hemlatathinker@gmail.com";
+            aptlyModel.Building = "Sanctuary Doral";
+            aptlyModel.Unit = "104";
+
+            aptlyModel.Phone = "+14152344159";
+            aptlyModel.Stage = "Registration";
+            aptlyModel.LeaseTerm = "12";
+            aptlyModel.MoveInDate = "2020-05-25";
+            aptlyModel.DateSigned = "2020-05-02";
+            aptlyModel.CreditPaid = "true";
+            aptlyModel.BackgroundCheckPaid = "true";
+            aptlyModel.QuoteCreated = "2020-05-0";
+
+
+
+
+          //  var test= aptlyHelper.PostAptlyAsync(aptlyModel);
             if (Session["DelDatAll"] != null)
             {
                 if (Session["DelDatAll"].ToString() == "Del")
