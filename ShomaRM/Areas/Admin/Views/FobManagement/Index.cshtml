@@ -9,7 +9,97 @@
 }
 <input id="hndPageNo" type="hidden" value="0" />
 <input id="hdnCurrentPage_FL" type="hidden" value="0" />
-<div class="register-area" style="background-color: rgb(249, 249, 249);">
+<div class="container-fluid" style="background-color: rgb(249, 249, 249); margin-top:40px">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xl-12">
+            <div class="breadcrumb">
+                <h4 class="">Pre Move In Management</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                        <div class="panel-heading hidden">
+                            <div class="col-sm-3">
+                                <h3 class="panel-title input-group">From Date</h3>
+                                <div class="input-group">
+                                    <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                                    <span class="input-group-btn">
+                                        <button id="iconFromDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <h3 class="panel-title input-group">To Date</h3>
+                                <div id="divToDate" class="input-group">
+                                    <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
+                                    <span id="spTodate" class="input-group-btn">
+                                        <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group  padding-top-25">
+                                    <button class='btn btn-next btn-primary' name='Search' value='Search' style="margin-left: 40px;height: 34px;margin-top: 2px;" onclick="buildPaganationPreMoving(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 form-group" id="divPagination_PreMoving">
+                            <div class="row">
+                                <div id="divPgn" class="col-sm-8 pagination">
+                                    <ul id="ulPagination_PreMoving"></ul>
+                                </div>
+                                <div class="col-sm-3 padding-0 pull-right" style="margin-top:22px">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="control-label" style="margin-left:52px;">Row/Page</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <select id="ddlRPP_PreMoving" class="form-control form-control-small"></select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12  table-responsive">
+                                <table id="tbl_FobManagement" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort" onclick="sortTablePreMoving('FirstName')">First Name<i id="sortFnamePreMovingIcon" class=""></i></th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort" onclick="sortTablePreMoving('LastName')">Last Name<i id="sortLnamePreMovingIcon" class=""></i></th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort" onclick="sortTablePreMoving('UnitNo')">Unit No.<i id="sortUnitPreMovingIcon" class=""></i></th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;cursor:pointer;" title="Sort" onclick="sortTablePreMoving('Model')">Model<i id="sortModelPreMovingIcon" class=""></i></th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939;text-align:center;">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @*@foreach (var item in Model.ApprovedApplicantList)
+                    {
+                        <tr data-value="@(item.ApplyNowID !=null ? item.ApplyNowID : 0)">
+                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.FirstName) ? item.FirstName : "")</td>
+                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.LastName) ? item.LastName : "")</td>
+                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.UnitNo) ? item.UnitNo : "")</td>
+                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.Building) ? item.Building : "")</td>
+                            <td style="text-align:center;"><i class="fa fa-edit fa-lg" style="cursor:pointer" onclick="goToAddEditFobManagement(@(item.ApplyNowID))"></i></td>
+                        </tr>
+                    }*@
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                      
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100% !important">
         <div class="breadcrumb">
             <h4 class="">Pre Move In Management</h4>
@@ -67,16 +157,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @*@foreach (var item in Model.ApprovedApplicantList)
-                                {
-                                    <tr data-value="@(item.ApplyNowID !=null ? item.ApplyNowID : 0)">
-                                        <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.FirstName) ? item.FirstName : "")</td>
-                                        <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.LastName) ? item.LastName : "")</td>
-                                        <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.UnitNo) ? item.UnitNo : "")</td>
-                                        <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.Building) ? item.Building : "")</td>
-                                        <td style="text-align:center;"><i class="fa fa-edit fa-lg" style="cursor:pointer" onclick="goToAddEditFobManagement(@(item.ApplyNowID))"></i></td>
-                                    </tr>
-                                }*@
+                                @foreach (var item in Model.ApprovedApplicantList)
+                                    {
+                                        <tr data-value="@(item.ApplyNowID !=null ? item.ApplyNowID : 0)">
+                                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.FirstName) ? item.FirstName : "")</td>
+                                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.LastName) ? item.LastName : "")</td>
+                                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.UnitNo) ? item.UnitNo : "")</td>
+                                            <td style="text-align:center;">@(!string.IsNullOrWhiteSpace(item.Building) ? item.Building : "")</td>
+                                            <td style="text-align:center;"><i class="fa fa-edit fa-lg" style="cursor:pointer" onclick="goToAddEditFobManagement(@(item.ApplyNowID))"></i></td>
+                                        </tr>
+                                    }
                             </tbody>
                         </table>
                     </div>
@@ -84,7 +174,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <script src="~/Areas/Admin/Content/Pages/FobManagement/FobManagementList.js"></script>
 <script>
     $("#iconFromDate").click(function () {

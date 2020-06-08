@@ -4042,3 +4042,8 @@ div#bellDiv {
         width:100% !important;
     }
 }
+@media screen and (max-width: 932px) and (min-width: 768px){
+    .responsiveText {
+        font-size: 10px !important;
+    }
+}
