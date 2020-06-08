@@ -1,0 +1,260 @@
+﻿@using ShomaRM.Areas.Admin.Models
+@model SureDepositManagementModel
+@{
+    ViewBag.Title = "Sure Deposit Management";
+}
+
+<input id="hdnProspectId" type="hidden" value="@ViewBag.ProspectID" />
+<input id="hndApplicantID" type="hidden" value="@ViewBag.TenantID" />
+<div class="register-area" style="background-color: rgb(249, 249, 249);">
+    <div class="container" style="width:100% !important">
+        <div class="breadcrumb">
+            <h4 class="">Sure Deposit Management</h4>
+        </div>
+        <div class="col-sm-12">
+           
+            <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="goToSDList()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-list"></i> <span id="spanSaveUpdate">Sure Deposit List</span></button>
+           
+        </div>
+        <div class="col-md-12  pr0  properties-page">
+            <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+
+
+                <div class="panel-body search-widget">
+                    <div class="col-md-12 clear">
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="star"> First Name</label>
+                                    <input id="txtApplicantFirstName" type="text" class="form-control" maxlength="100" placeholder="First Name" value="@Model.FirstName">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="star"> Last Name</label>
+                                    <input id="txtApplicantLastName" type="text" class="form-control" maxlength="100" placeholder="Last Name" value="@Model.LastName">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="col-sm-6" id="appphone">
+                                <div class="form-group">
+                                    <label>Phone No.</label>
+                                    <input id="txtApplicantPhone" type="text" class="form-control" maxlength="10" placeholder="Phone" value="@Model.PhoneNo" onkeypress="return isOnlyNumber(event)">
+                                </div>
+                            </div>
+                            <div class="col-sm-6" id="appemail">
+                                <div class="form-group">
+                                    <label class="star">Email</label>
+                                    <input id="txtApplicantEmail" type="text" class="form-control" maxlength="200" placeholder="Email" value="@Model.Email">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="txtAddress1" class="star">Address 1</label>
+                                    <input id="txtAddress1" type="text" class="form-control form-control-small" maxlength="300" value="@Model.Address1" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="txtAddress2">Address Line 2</label>
+                                    <input id="txtAddress2" type="text" class="form-control form-control-small" maxlength="300" value="@Model.Address2" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="star"> State :</label>
+                                    <input id="txtState" type="text" class="form-control form-control-small" maxlength="100" value="@Model.State" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="star"> City :</label>
+
+                                    <input id="txtCity" type="text" class="form-control form-control-small" maxlength="100" value="@Model.City" />
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="txtZip" class="star">Zip</label>
+                                    <input class="form-control form-control-small" id="txtZip" maxlength="7" value="@Model.Zip" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="star">Sure Deposit Number</label>
+                                    <input class="form-control form-control-small" id="txtSDNumber" value="@Model.SDNumber" onkeypress="return isOnlyNumber(event)" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="txtExpDate" class="star">Sure Deposit Expiration Date</label>
+                                    <div class="input-group">
+                                        <input id="txtExpDate" class="form-control form-control-small" value="@Model.ExpirationDateString" />
+                                        <span class="input-group-btn">
+                                            <button id="iconExpDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="ddlStatus" class="star">Type</label>
+                                    <select id="ddlStatus" class="form-control form-control-small">
+                                       
+                                        <option value="1">Not Uploaded</option>
+                                        <option value="2">Uploaded</option>
+                                        <option value="3">Expired</option>
+                                       
+                                    </select>
+                                      </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="star">Upload Deposit Bond</label>
+                                    <input type="file" name="uploadSD" id="uploadSD" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                    <label for="uploadSD" style="color:#fff;margin-top: 17px;"><i class="fa fa-upload fa-2x"></i> <span id="uploadSDShow">Choose a file&hellip;</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <button type="submit" class="btn-alltype" id="btnsaveSD" onclick="saveupdateSureDeposit()">Save</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(function () {
+        var dtend100 = new Date();
+        dtend100.setFullYear(new Date().getFullYear() + 100);
+        $('#txtExpDate').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: "+0d", endDate: dtend100, maxViewMode: 2, autoclose: true });
+        $("#iconEventDate").click(function () {
+            $("#txtExpDate").focus();
+        });
+           setTimeout(function () {
+               $("#ddlStatus").val('@Model.Status');
+               $("#ddlStatus").trigger('change');
+            }, 2000);
+    });
+    function goToSDList() {
+        window.location.href = "/Admin/SureDepositManagement/";
+    }
+    document.getElementById('uploadSD').onchange = function () {
+
+
+        var fileUploadPOIBool = restrictFileUpload($(this).val());
+        if (fileUploadPOIBool == true) {
+            uploadSD();
+        }
+        else {
+            document.getElementById('uploadSD').value = '';
+            $('#uploadSD').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                type: 'blue'
+            });
+        }
+    };
+    var uploadSD = function () {
+        $("#divLoader").show();
+        var prospectId = $('#hdnProspectId').val();
+        $formData = new FormData();
+
+        var uploadSD = document.getElementById('uploadSD');
+
+        for (var i = 0; i < uploadSD.files.length; i++) {
+            $formData.append('file-' + i, uploadSD.files[i]);
+        }
+        $formData.append('ProspectId', prospectId);
+
+        $.ajax({
+            url: '/SureDepositManagement/UploadSureDeposit',
+            type: 'post',
+            data: $formData,
+            contentType: 'application/json; charset=utf-8',
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function (response) {
+                $("#divLoader").hide();
+                var spMsg = response.model;
+
+                var msg = [];
+                if (spMsg) {
+                    msg = spMsg.split('|');
+                    $('#uploadSDShow').text(msg[1]);
+
+                }
+                else {
+                    msg = spMsg.split('|');
+                }
+                $.alert({
+                    title: "",
+                    content: msg[0],
+                    type: 'blue'
+                });
+            }
+        });
+    };
+    var saveupdateSureDeposit = function () {
+
+        var msg = "";
+        var aid = $("#hndApplicantID").val();
+        var prospectID = $("#hdnProspectId").val();
+        var sdnumber = $("#txtSDNumber").val();
+        var expdt = $("#txtExpDate").val();
+        var stat = $("#ddlStatus").val();
+        if (!$("#txtSDNumber").val()) {
+            msg += "Enter Sure Deposit Number";
+        }
+        if (!$("#txtExpDate").val()) {
+            msg += "Enter Sure Deposit Expiration Date";
+        }
+        if (msg != "") {
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+
+        var model = {
+            TenantID: aid,
+            ApplyNowID: prospectID,
+            SDNumber: sdnumber,
+            ExpirationDate: expdt,
+            Status:stat,
+        };
+
+        $.ajax({
+            url: "/SureDepositManagement/SaveUpdateSureDeposit/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $.alert({
+                    title: "",
+                    content: "Progress Saved.",
+                    type: 'blue',
+                });
+
+
+            }
+
+
+        });
+
+    }
+</script>

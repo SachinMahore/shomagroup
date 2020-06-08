@@ -3,25 +3,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using System.Web.Configuration;
 
 namespace ShomaRM.Models
 {
     public class UsaePayModel
     {
+        public string sourceKeySendBox = WebConfigurationManager.AppSettings["USEPaySourceKeySandBox"];
+        public string sourceKeyLive = WebConfigurationManager.AppSettings["USEPaySourceKeyLive"];
+        public bool useSandBox = Convert.ToBoolean(WebConfigurationManager.AppSettings["USEPayUseSandbox"]);
         public string ChargeCard(ApplyNowModel model)
         {
             string transStatus = "";
             USAePayAPI.USAePay usaepay = new USAePayAPI.USAePay();
-            usaepay.SourceKey = "_y8h5x1TGONQjE491cj9mb8bRdA57u32";
-            //usaepay.Pin = model.CCVNumber.ToString();
+            usaepay.SourceKey = (useSandBox == true ? sourceKeySendBox : sourceKeyLive);
             usaepay.Amount = Convert.ToDecimal(model.Charge_Amount ?? 0) + Convert.ToDecimal(model.ProcessingFees ?? 0);
             usaepay.Description = model.Description;
             usaepay.CardHolder = model.Name_On_Card;
             usaepay.CardNumber =model.CardNumber;
             usaepay.CardExp = model.CardMonth.ToString()+model.CardYear.ToString();
             usaepay.CustEmail = model.Email;
-            usaepay.UseSandbox = true;
+            usaepay.UseSandbox = useSandBox;
 
             try
             {
@@ -51,17 +53,16 @@ namespace ShomaRM.Models
             {
                 transStatus = "ERROR: " + x.Message;
             }
-            return transStatus+"|"+usaepay.AuthCode;
+            return transStatus+"|"+usaepay.AuthCode+"|"+usaepay.ResultRefNum;
         }
         public string RefundCharge(string TransID,decimal Credit_Amount)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string transStatus = "";
             USAePayAPI.USAePay usaepay = new USAePayAPI.USAePay();
-            usaepay.SourceKey = "_y8h5x1TGONQjE491cj9mb8bRdA57u32";
-             
-            usaepay.UseSandbox = true;
-           
+            usaepay.SourceKey = (useSandBox == true ? sourceKeySendBox : sourceKeyLive);
+            usaepay.UseSandbox = useSandBox;
+
             usaepay.Amount =Credit_Amount;
             string RefNo = TransID;
             try
@@ -87,23 +88,20 @@ namespace ShomaRM.Models
                         "Error: " + usaepay.ErrorMesg + "\n" +
                         "Error Code: " + usaepay.ErrorCode;
                 }
-
-
             }
             catch (Exception x)
             {
                 transStatus = "ERROR: " + x.Message;
             }
-            return transStatus + "|" + usaepay.AuthCode;
+            return transStatus + "|" + usaepay.AuthCode + "|" + usaepay.ResultRefNum;
         }
         public string VoidCharge(string TransID, decimal Credit_Amount)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string transStatus = "";
             USAePayAPI.USAePay usaepay = new USAePayAPI.USAePay();
-            usaepay.SourceKey = "_y8h5x1TGONQjE491cj9mb8bRdA57u32";
-
-            usaepay.UseSandbox = true;
+            usaepay.SourceKey = (useSandBox == true ? sourceKeySendBox : sourceKeyLive);
+            usaepay.UseSandbox = useSandBox;
 
             usaepay.Amount = Credit_Amount;
             string RefNo = TransID;
@@ -130,34 +128,29 @@ namespace ShomaRM.Models
                         "Error: " + usaepay.ErrorMesg + "\n" +
                         "Error Code: " + usaepay.ErrorCode;
                 }
-
-
             }
             catch (Exception x)
             {
                 transStatus = "ERROR: " + x.Message;
             }
-            return transStatus + "|" + usaepay.AuthCode;
+            return transStatus + "|" + usaepay.AuthCode + "|" + usaepay.ResultRefNum;
         }
         public string ChargeACH(ApplyNowModel model)
         {
             string transStatus = "";
             USAePayAPI.USAePay usaepay = new USAePayAPI.USAePay();
-            usaepay.SourceKey = "_y8h5x1TGONQjE491cj9mb8bRdA57u32";
+            usaepay.SourceKey = (useSandBox == true ? sourceKeySendBox : sourceKeyLive);
             usaepay.Pin = model.CCVNumber==null ? "" : model.CCVNumber.ToString();
             usaepay.Amount = Convert.ToDecimal(model.Charge_Amount ?? 0) + Convert.ToDecimal(model.ProcessingFees ?? 0);
             usaepay.Description = model.Description;
             usaepay.CardHolder = model.Name_On_Card;
-
             
             usaepay.CheckAccount = model.AccountNumber;
             usaepay.CheckRouting = model.RoutingNumber;
             usaepay.CustEmail = model.Email;
             usaepay.CustReceipt = true;
             usaepay.Command = "check";
-
-            usaepay.UseSandbox = true;
-
+            usaepay.UseSandbox = useSandBox;
 
             try
             {
@@ -182,14 +175,12 @@ namespace ShomaRM.Models
                         "Error: " + usaepay.ErrorMesg + "\n" +
                         "Error Code: " + usaepay.ErrorCode;
                 }
-
-
             }
             catch (Exception x)
             {
                 transStatus = "ERROR: " + x.Message;
             }
-            return transStatus + "|" + usaepay.AuthCode;
+            return transStatus + "|" + usaepay.AuthCode + "|" + usaepay.ResultRefNum;
         }
     }
 }

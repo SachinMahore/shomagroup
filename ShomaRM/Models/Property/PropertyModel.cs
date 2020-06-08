@@ -497,12 +497,22 @@ namespace ShomaRM.Models
                 {
                     model.Current_Rent = Convert.ToDecimal("0.00");
                 }
+
+                var getLeaseTerm = db.tbl_LeaseTerms.Where(p => p.LTID == LeaseTermID ).FirstOrDefault();
+                if (getLeaseTerm != null)
+                {
+                    model.Leased = (getLeaseTerm.LeaseTerms??12).ToString();
+                }
+                else
+                {
+                    model.Leased = "12";
+                }
                 // model.Current_Rent = unitDet.Current_Rent;
                 model.Previous_Rent = unitDet.Previous_Rent;
                 model.Market_Rent = unitDet.Market_Rent;
                 model.Wing = unitDet.Wing;
                 model.Building = unitDet.Building;
-                model.Leased = unitDet.Leased;
+                
                 model.PetDetails = unitDet.PetDetails;
                 model.FloorNo = unitDet.FloorNo;
                 model.Area = unitDet.Area;
@@ -551,13 +561,13 @@ namespace ShomaRM.Models
                     });
                 }
                 model.LeaseTerms = list;
-                //For Price Table
-                //For current Price Table
-                DataTable dtTable1 = new DataTable();
+                // For Price Table //
+                DataTable dtTablePriceTable = new DataTable();
+
                 using (var cmd = db.Database.Connection.CreateCommand())
                 {
                     db.Database.Connection.Open();
-                    cmd.CommandText = "usp_PriceTableCurrentValue";
+                    cmd.CommandText = "usp_GetCurrentGreatBestValue";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     DbParameter paramPID = cmd.CreateParameter();
@@ -572,79 +582,118 @@ namespace ShomaRM.Models
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
-                    da.Fill(dtTable1);
+                    da.Fill(dtTablePriceTable);
                     db.Database.Connection.Close();
                 }
-                foreach (DataRow dr in dtTable1.Rows)
+                if(dtTablePriceTable.Rows.Count>0)
                 {
-                    model.PriceTableRentCurrent = dr["Price"].ToString();
-                    model.PriceTableLeaseTermCurrent = dr["LeaseTerms"].ToString();
-                    model.PriceTableLeaseTermIDCurrent = dr["LTID"].ToString();
+                    model.PriceTableRentCurrent = dtTablePriceTable.Rows[0]["CurrentPrice"].ToString();
+                    model.PriceTableLeaseTermCurrent = dtTablePriceTable.Rows[0]["CurrentLT"].ToString();
+                    model.PriceTableLeaseTermIDCurrent = dtTablePriceTable.Rows[0]["CurrentLTID"].ToString();
+
+                    model.PriceTableRentBest = dtTablePriceTable.Rows[0]["BestPrice"].ToString();
+                    model.PriceTableLeaseTermBest = dtTablePriceTable.Rows[0]["BestLT"].ToString();
+                    model.PriceTableLeaseTermIDBest = dtTablePriceTable.Rows[0]["BestLTID"].ToString();
+
+                    model.PriceTableRentGreat = dtTablePriceTable.Rows[0]["GreatPrice"].ToString();
+                    model.PriceTableLeaseTermGreat = dtTablePriceTable.Rows[0]["GreatLT"].ToString();
+                    model.PriceTableLeaseTermIDGreat = dtTablePriceTable.Rows[0]["GreatLTID"].ToString();
                 }
 
-                //end current price
+                ////For Price Table
+                ////For current Price Table
+                //DataTable dtTable1 = new DataTable();
+                //using (var cmd = db.Database.Connection.CreateCommand())
+                //{
+                //    db.Database.Connection.Open();
+                //    cmd.CommandText = "usp_PriceTableCurrentValue";
+                //    cmd.CommandType = CommandType.StoredProcedure;
 
-                //For best Price Table
-                DataTable dtTable2 = new DataTable();
-                using (var cmd = db.Database.Connection.CreateCommand())
-                {
-                    db.Database.Connection.Open();
-                    cmd.CommandText = "usp_PriceTableBestValue";
-                    cmd.CommandType = CommandType.StoredProcedure;
+                //    DbParameter paramPID = cmd.CreateParameter();
+                //    paramPID.ParameterName = "UnitID";
+                //    paramPID.Value = UID;
+                //    cmd.Parameters.Add(paramPID);
 
-                    DbParameter paramPID = cmd.CreateParameter();
-                    paramPID.ParameterName = "UnitID";
-                    paramPID.Value = UID;
-                    cmd.Parameters.Add(paramPID);
+                //    DbParameter paramF = cmd.CreateParameter();
+                //    paramF.ParameterName = "LeaseTermID";
+                //    paramF.Value = LeaseTermID;
+                //    cmd.Parameters.Add(paramF);
 
-                    DbParameter paramF = cmd.CreateParameter();
-                    paramF.ParameterName = "LeaseTermID";
-                    paramF.Value = LeaseTermID;
-                    cmd.Parameters.Add(paramF);
+                //    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                //    da.SelectCommand = cmd;
+                //    da.Fill(dtTable1);
+                //    db.Database.Connection.Close();
+                //}
+                //foreach (DataRow dr in dtTable1.Rows)
+                //{
+                //    model.PriceTableRentCurrent = dr["Price"].ToString();
+                //    model.PriceTableLeaseTermCurrent = dr["LeaseTerms"].ToString();
+                //    model.PriceTableLeaseTermIDCurrent = dr["LTID"].ToString();
+                //}
 
-                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
-                    da.SelectCommand = cmd;
-                    da.Fill(dtTable2);
-                    db.Database.Connection.Close();
-                }
-                foreach (DataRow dr in dtTable2.Rows)
-                {
-                    model.PriceTableRentBest = dr["Price"].ToString();
-                    model.PriceTableLeaseTermBest = dr["LeaseTerms"].ToString();
-                    model.PriceTableLeaseTermIDBest = dr["LTID"].ToString();
-                }
+                ////end current price
 
-                //end best price table
+                ////For best Price Table
+                //DataTable dtTable2 = new DataTable();
+                //using (var cmd = db.Database.Connection.CreateCommand())
+                //{
+                //    db.Database.Connection.Open();
+                //    cmd.CommandText = "usp_PriceTableBestValue";
+                //    cmd.CommandType = CommandType.StoredProcedure;
 
-                //For great Price Table
-                DataTable dtTable3 = new DataTable();
-                using (var cmd = db.Database.Connection.CreateCommand())
-                {
-                    db.Database.Connection.Open();
-                    cmd.CommandText = "usp_PriceTableGreatValue";
-                    cmd.CommandType = CommandType.StoredProcedure;
+                //    DbParameter paramPID = cmd.CreateParameter();
+                //    paramPID.ParameterName = "UnitID";
+                //    paramPID.Value = UID;
+                //    cmd.Parameters.Add(paramPID);
 
-                    DbParameter paramPID = cmd.CreateParameter();
-                    paramPID.ParameterName = "UnitID";
-                    paramPID.Value = UID;
-                    cmd.Parameters.Add(paramPID);
+                //    DbParameter paramF = cmd.CreateParameter();
+                //    paramF.ParameterName = "LeaseTermID";
+                //    paramF.Value = LeaseTermID;
+                //    cmd.Parameters.Add(paramF);
 
-                    DbParameter paramF = cmd.CreateParameter();
-                    paramF.ParameterName = "LeaseTermID";
-                    paramF.Value = LeaseTermID;
-                    cmd.Parameters.Add(paramF);
+                //    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                //    da.SelectCommand = cmd;
+                //    da.Fill(dtTable2);
+                //    db.Database.Connection.Close();
+                //}
+                //foreach (DataRow dr in dtTable2.Rows)
+                //{
+                //    model.PriceTableRentBest = dr["Price"].ToString();
+                //    model.PriceTableLeaseTermBest = dr["LeaseTerms"].ToString();
+                //    model.PriceTableLeaseTermIDBest = dr["LTID"].ToString();
+                //}
 
-                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
-                    da.SelectCommand = cmd;
-                    da.Fill(dtTable3);
-                    db.Database.Connection.Close();
-                }
-                foreach (DataRow dr in dtTable3.Rows)
-                {
-                    model.PriceTableRentGreat = dr["Price"].ToString();
-                    model.PriceTableLeaseTermGreat = dr["LeaseTerms"].ToString();
-                    model.PriceTableLeaseTermIDGreat = dr["LTID"].ToString();
-                }
+                ////end best price table
+
+                ////For great Price Table
+                //DataTable dtTable3 = new DataTable();
+                //using (var cmd = db.Database.Connection.CreateCommand())
+                //{
+                //    db.Database.Connection.Open();
+                //    cmd.CommandText = "usp_PriceTableGreatValue";
+                //    cmd.CommandType = CommandType.StoredProcedure;
+
+                //    DbParameter paramPID = cmd.CreateParameter();
+                //    paramPID.ParameterName = "UnitID";
+                //    paramPID.Value = UID;
+                //    cmd.Parameters.Add(paramPID);
+
+                //    DbParameter paramF = cmd.CreateParameter();
+                //    paramF.ParameterName = "LeaseTermID";
+                //    paramF.Value = LeaseTermID;
+                //    cmd.Parameters.Add(paramF);
+
+                //    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                //    da.SelectCommand = cmd;
+                //    da.Fill(dtTable3);
+                //    db.Database.Connection.Close();
+                //}
+                //foreach (DataRow dr in dtTable3.Rows)
+                //{
+                //    model.PriceTableRentGreat = dr["Price"].ToString();
+                //    model.PriceTableLeaseTermGreat = dr["LeaseTerms"].ToString();
+                //    model.PriceTableLeaseTermIDGreat = dr["LTID"].ToString();
+                //}
                 model.PriceTableUID = Convert.ToString(UID);
 
                 var propDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
@@ -777,12 +826,23 @@ namespace ShomaRM.Models
                 {
                     model.Current_Rent = Convert.ToDecimal("0.00");
                 }
+
+                var getLease = db.tbl_LeaseTerms.Where(p => p.LTID == LeaseTermID ).FirstOrDefault();
+                if (getLease != null)
+                {
+                    model.Leased = (getLease.LeaseTerms ?? 12).ToString();
+                }
+                else
+                {
+                    model.Leased = "12";
+                }
+
                 // model.Current_Rent = unitDet.Current_Rent;
                 model.Previous_Rent = unitDet.Previous_Rent;
                 model.Market_Rent = unitDet.Market_Rent;
                 model.Wing = unitDet.Wing;
                 model.Building = unitDet.Building;
-                model.Leased = unitDet.Leased;
+                
                 model.PetDetails = unitDet.PetDetails;
                 model.FloorNo = unitDet.FloorNo;
                 model.Area = unitDet.Area;

@@ -89,11 +89,11 @@ namespace ShomaRM.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult GetTenantOnlineListGenerateQuotation(int id, long UserId)
+        public ActionResult GetTenantOnlineListGenerateQuotation(int id)
         {
             try
             {
-                return Json(new { model = new TenantOnlineModel().GetTenantOnlineListGenerateQuotation(id, UserId) }, JsonRequestBehavior.AllowGet);
+                return Json(new { model = new TenantOnlineModel().GetTenantOnlineListGenerateQuotation(id) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

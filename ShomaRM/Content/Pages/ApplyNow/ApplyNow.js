@@ -681,6 +681,18 @@ $(document).ready(function () {
             $("#fa_" + floorfromplan).removeClass('active_area', 'active_mouse').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
         }
     });
+
+    $("#txtApplicantSSNNumber").focusout(function () {
+        var ssnLength = $("#txtApplicantSSNNumber").val().length;
+        console.log(ssnLength);
+        if (ssnLength < 8) {
+            $("#divchkCCPay").add("hidden");
+            $("#chkCCPay").prop("disabled", true);
+        }
+        else if (ssnLength > 8) {
+            $("#chkCCPay").prop("disabled", false);
+        }
+    });
 });
 
 var cancel = function () {
@@ -1045,6 +1057,9 @@ var goToStep = function (stepid, id, calldataupdate) {
             }
             savepudateOnlineProspect();
             SaveUpdateStep(4);
+            tenantOnlineID = $("#hdnOPId").val();
+            getTenantOnlineList(tenantOnlineID);
+           
             $("#subMenu").addClass("hidden");
             $("#as4").removeAttr("onclick");
             $("#as4").attr("onclick", "goToStep(5,5,0)");
@@ -1177,6 +1192,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             return;
         }
         if (id == "7") {
+            $("#popApplicantContinue").modal("hide");
             $("#subMenu").removeClass("hidden");
             SaveCheckPolicy(7);
             $("#as6").removeAttr("onclick");
@@ -1199,12 +1215,12 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
 
-            $("#li1").removeClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").removeClass("active");
+            $("#li1").addClass("active");
+            $("#li2").addClass("active");
+            $("#li3").addClass("active");
+            $("#li4").addClass("active");
+            $("#li5").addClass("active");
+            $("#li6").addClass("active");
             $("#li7").addClass("active");
             $("#li8").removeClass("active");
             $("#li9").removeClass("active");
@@ -1228,7 +1244,6 @@ var goToStep = function (stepid, id, calldataupdate) {
             });
             return;
         }
-        $("#popApplicantContinue").modal("hide");
         if (id == "8") {
             SaveUpdateStep(8);
             $('#lblRFPAdditionalParking').text($('#lblMonthly_AditionalParking').text());
@@ -1254,12 +1269,12 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
 
-            $("#li1").removeClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").removeClass("active");
+            $("#li1").addClass("active");
+            $("#li2").addClass("active");
+            $("#li3").addClass("active");
+            $("#li4").addClass("active");
+            $("#li5").addClass("active");
+            $("#li6").addClass("active");
             $("#li7").removeClass("active");
             $("#li8").addClass("active");
             $("#li9").removeClass("active");
@@ -1324,12 +1339,12 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#step17").addClass("hidden");
 
 
-                $("#li1").removeClass("active");
-                $("#li2").removeClass("active");
-                $("#li3").removeClass("active");
-                $("#li4").removeClass("active");
-                $("#li5").removeClass("active");
-                $("#li6").removeClass("active");
+                $("#li1").addClass("active");
+                $("#li2").addClass("active");
+                $("#li3").addClass("active");
+                $("#li4").addClass("active");
+                $("#li5").addClass("active");
+                $("#li6").addClass("active");
                 $("#li7").removeClass("active");
                 $("#li8").removeClass("active");
                 $("#li9").addClass("active");
@@ -1521,12 +1536,12 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#step16").addClass("hidden");
                 $("#step17").addClass("hidden");
 
-                $("#li1").removeClass("active");
-                $("#li2").removeClass("active");
-                $("#li3").removeClass("active");
-                $("#li4").removeClass("active");
-                $("#li5").removeClass("active");
-                $("#li6").removeClass("active");
+                $("#li1").addClass("active");
+                $("#li2").addClass("active");
+                $("#li3").addClass("active");
+                $("#li4").addClass("active");
+                $("#li5").addClass("active");
+                $("#li6").addClass("active");
                 $("#li7").removeClass("active");
                 $("#li8").removeClass("active");
                 $("#li9").removeClass("active");
@@ -1632,12 +1647,12 @@ var goToStep = function (stepid, id, calldataupdate) {
                             $("#step16").addClass("hidden");
                             $("#step17").addClass("hidden");
 
-                            $("#li1").removeClass("active");
-                            $("#li2").removeClass("active");
-                            $("#li3").removeClass("active");
-                            $("#li4").removeClass("active");
-                            $("#li5").removeClass("active");
-                            $("#li6").removeClass("active");
+                            $("#li1").addClass("active");
+                            $("#li2").addClass("active");
+                            $("#li3").addClass("active");
+                            $("#li4").addClass("active");
+                            $("#li5").addClass("active");
+                            $("#li6").addClass("active");
                             $("#li7").removeClass("active");
                             $("#li8").removeClass("active");
                             $("#li9").removeClass("active");
@@ -1822,12 +1837,12 @@ var goToStep = function (stepid, id, calldataupdate) {
                             $("#step15").addClass("hidden");
                             $("#step16").addClass("hidden");
 
-                            $("#li1").removeClass("active");
-                            $("#li2").removeClass("active");
-                            $("#li3").removeClass("active");
-                            $("#li4").removeClass("active");
-                            $("#li5").removeClass("active");
-                            $("#li6").removeClass("active");
+                            $("#li1").addClass("active");
+                            $("#li2").addClass("active");
+                            $("#li3").addClass("active");
+                            $("#li4").addClass("active");
+                            $("#li5").addClass("active");
+                            $("#li6").addClass("active");
                             $("#li7").removeClass("active");
                             $("#li8").removeClass("active");
                             $("#li9").removeClass("active");
@@ -1930,12 +1945,12 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#step15").addClass("hidden");
                 $("#step16").addClass("hidden");
 
-                $("#li1").removeClass("active");
-                $("#li2").removeClass("active");
-                $("#li3").removeClass("active");
-                $("#li4").removeClass("active");
-                $("#li5").removeClass("active");
-                $("#li6").removeClass("active");
+                $("#li1").addClass("active");
+                $("#li2").addClass("active");
+                $("#li3").addClass("active");
+                $("#li4").addClass("active");
+                $("#li5").addClass("active");
+                $("#li6").addClass("active");
                 $("#li7").removeClass("active");
                 $("#li8").removeClass("active");
                 $("#li9").removeClass("active");
@@ -1983,12 +1998,12 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
 
-            $("#li1").removeClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").removeClass("active");
+            $("#li1").addClass("active");
+            $("#li2").addClass("active");
+            $("#li3").addClass("active");
+            $("#li4").addClass("active");
+            $("#li5").addClass("active");
+            $("#li6").addClass("active");
             $("#li7").removeClass("active");
             $("#li8").removeClass("active");
             $("#li9").removeClass("active");
@@ -2041,12 +2056,12 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
 
-            $("#li1").removeClass("active");
-            $("#li2").removeClass("active");
-            $("#li3").removeClass("active");
-            $("#li4").removeClass("active");
-            $("#li5").removeClass("active");
-            $("#li6").removeClass("active");
+            $("#li1").addClass("active");
+            $("#li2").addClass("active");
+            $("#li3").addClass("active");
+            $("#li4").addClass("active");
+            $("#li5").addClass("active");
+            $("#li6").addClass("active");
             $("#li7").removeClass("active");
             $("#li8").removeClass("active");
             $("#li9").removeClass("active");
@@ -2115,12 +2130,12 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#step16").removeClass("hidden");
                 $("#step17").addClass("hidden");
 
-                $("#li1").removeClass("active");
-                $("#li2").removeClass("active");
-                $("#li3").removeClass("active");
-                $("#li4").removeClass("active");
-                $("#li5").removeClass("active");
-                $("#li6").removeClass("active");
+                $("#li1").addClass("active");
+                $("#li2").addClass("active");
+                $("#li3").addClass("active");
+                $("#li4").addClass("active");
+                $("#li5").addClass("active");
+                $("#li6").addClass("active");
                 $("#li7").removeClass("active");
                 $("#li8").removeClass("active");
                 $("#li9").removeClass("active");
@@ -2182,12 +2197,12 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#step16").addClass("hidden");
                 $("#step17").removeClass("hidden");
 
-                $("#li1").removeClass("active");
-                $("#li2").removeClass("active");
-                $("#li3").removeClass("active");
-                $("#li4").removeClass("active");
-                $("#li5").removeClass("active");
-                $("#li6").removeClass("active");
+                $("#li1").addClass("active");
+                $("#li2").addClass("active");
+                $("#li3").addClass("active");
+                $("#li4").addClass("active");
+                $("#li5").addClass("active");
+                $("#li6").addClass("active");
                 $("#li7").removeClass("active");
                 $("#li8").removeClass("active");
                 $("#li9").removeClass("active");
@@ -2328,10 +2343,11 @@ var showCurrentStep = function (stepid, id) {
         $("#li1").addClass("active");
         $("#li2").addClass("active");
         $("#li3").addClass("active");
-        $("#li4").removeClass("active");
+        $("#li4").addClass("active");
         $("#li5").removeClass("active");
         $("#li6").removeClass("active");
         $("#li7").removeClass("active");
+
         $("#step2").addClass("hidden");
         $("#step1").addClass("hidden");
         $("#step4").removeClass("hidden");
@@ -2400,7 +2416,7 @@ var showCurrentStep = function (stepid, id) {
         $("#li4").addClass("active");
         $("#li5").addClass("active");
 
-        $("#li6").removeClass("active");
+        $("#li6").addClass("active");
         $("#li7").removeClass("active");
 
         $("#step2").addClass("hidden");
@@ -3814,11 +3830,12 @@ var getCompareModelList = function () {
     });
 }
 var getPropertyUnitList = function (modelname, filldata) {
-
+    
     $('#hndBuilding').val(modelname);
     $('#divPriceTable').addClass('hidden');
     $('#divSelectUnit').removeClass('hidden');
     $("#hndIsModelSelected").val(1);
+   
     $("#imgFloorPlan").attr("src", "/content/assets/img/plan/" + modelname + ".jpg");
     $("#imgFloorPlan2").attr("src", "/content/assets/img/plan/" + modelname + "Det.jpg");
     $("#imgFloorPlanNew").attr("src", "/content/assets/img/plan/" + modelname + ".jpg");
@@ -4900,11 +4917,17 @@ var getApplicantLists = function () {
                         "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>";
 
                     if (parseInt(elementValue.CreditPaid) == 0 && parseInt(elementValue.HasSSN) == 1) {
+                        $("#editApplicantFees").text("Credit Check Fees");
+                        $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
                         html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a></label>";
                     } else if (parseInt(elementValue.CreditPaid) == 1 && parseInt(elementValue.BackGroundPaid) == 0) {
+                        $("#editApplicantFees").text("Background Check Fees");
+                        $("#editApplicantFeesVal").text($("#hndAppBackgroundFees").val());
                         html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a></label>";
                     }
                     html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
+                    $("#divchkCCPay").addClass("hidden");
+                    $("#divCreditCheckPayment").addClass("hidden");
                 }
                 else {
                     html += "<div class='col-sm-4 box-two proerty-item'>" +
@@ -4914,12 +4937,19 @@ var getApplicantLists = function () {
 
                         "<label>Primary Applicant</label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label><br/>";
-                    if (parseInt(elementValue.CreditPaid) == 0 && parseInt(elementValue.HasSSN) == 1 ) {
+                    if (parseInt(elementValue.CreditPaid) == 0 && parseInt(elementValue.HasSSN) == 1) {
+                        $("#editApplicantFees").text("Credit Check Fees");
+                        $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
                         html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a></label>";
                     } else if (parseInt(elementValue.CreditPaid) == 1 && parseInt(elementValue.BackGroundPaid) == 0) {
+                        $("#editApplicantFees").text("Background Check Fees");
+                        $("#editApplicantFeesVal").text($("#hndAppBackgroundFees").val());
+
                         html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a></label>";
                     }
                     html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
+                    $("#divchkCCPay").addClass("hidden");
+                    $("#divCreditCheckPayment").addClass("hidden");
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
                     prhtml += "<div class='row respo' data-id='" + elementValue.ApplicantID + "'><div class='col-sm-12  col-lg-2 box-padding'><div class='col-lg-12'></div>" +
@@ -4990,7 +5020,7 @@ var getApplicantLists = function () {
                     }
 
                     $("#divFinalcoappemail").removeClass('hidden');
-                } 
+                }
 
                 if (elementValue.Type == "Minor") {
                     $("#tblApplicantMinor").append(html);
@@ -5290,7 +5320,7 @@ var goToEditApplicant = function (aid) {
                     $("#txtApplicantCity").val(response.model.CityHome);
                     $("#txtApplicantZip2").val(response.model.ZipHome);
                     var ssnnumber = $.trim($("#txtApplicantSSNNumber").val());
-                    if (parseInt( $("#hndCreditPaid").val()) == 0) {
+                    if (parseInt($("#hndCreditPaid").val()) == 0) {
                         $("#sppayFees").text($("#hndAppCreditFees").val());
                         if (!ssnnumber) {
                             $("#divchkCCPay").addClass("hidden");
@@ -5300,6 +5330,15 @@ var goToEditApplicant = function (aid) {
                             $("#divchkCCPay").removeClass("hidden");
                             //modal.find('.modal-content').css("height", "530px");
                         }
+                    }
+
+                    var ssnLength = $("#txtApplicantSSNNumber").val().length;
+                    if (ssnLength <= 8) {
+                        $("#divchkCCPay").add("hidden");
+                        $("#chkCCPay").prop("disabled", true);
+                    }
+                    else if (ssnLength > 8) {
+                        $("#chkCCPay").prop("disabled", false);
                     }
                 }
                 else if (response.model.Type == "Co-Applicant") {
@@ -6619,12 +6658,14 @@ var getTenantOnlineList = function (id) {
             }
             showCurrentStep(stepcompleted, stepcompleted);
             //for floor plan
-            $("#imgFloorPlanNew").attr("src", "/content/assets/img/plan/" + response.model.FloorPlanImageUnit + ".jpg");
-            $("#lblfloorPlan").text(response.model.FloorPlanImageUnit);
-            $("#lblBed33").text(response.model.FloorPlanBedUnit);
-            $("#lblBath33").text(response.model.FloorPlanBathUnit);
-            $("#lblArea33").text(response.model.FloorPlanAreaUnit);
-            $("#lblRent33").text(response.model.FloorPlanStartPriceUnit);
+            if (parseInt(id) != 0) {
+                $("#imgFloorPlanNew").attr("src", "/content/assets/img/plan/" + response.model.FloorPlanImageUnit + ".jpg");
+                $("#lblfloorPlan").text(response.model.FloorPlanImageUnit);
+                $("#lblBed33").text(response.model.FloorPlanBedUnit);
+                $("#lblBath33").text(response.model.FloorPlanBathUnit);
+                $("#lblArea33").text(response.model.FloorPlanAreaUnit);
+                $("#lblRent33").text(response.model.FloorPlanStartPriceUnit);
+            }
         }
     });
 };
@@ -8230,12 +8271,12 @@ var onFocusApplyNow = function () {
     });
 
     $("#txtApplicantSSNNumber").focusin(function () {
-        getEncDecValue(this, 1);
+        getEncDecValueCoApplicant(this, 1);
     }).focusout(function () {
         var ssn = $(this).val();
         if (ssn.length < 9) {
             alert("SSN must be 9 digit");
-            $("#divchkCCPay").addClass("hidden");
+            // $("#divchkCCPay").addClass("hidden");
             return;
         } else {
             if ($("#hndCreditPaid").val() != "1") {
@@ -8245,8 +8286,14 @@ var onFocusApplyNow = function () {
             //modal.find('.modal-content').css("height", "560px");
         }
         if (ssn.length > 4) {
-            getEncDecValue(this, 2);
+            getEncDecValueCoApplicant(this, 2);
             $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+        }
+
+        if (ssn.length < 9) {
+            $("#chkCCPay").prop("disabled", true);
+        } else if (ssn.length > 8) {
+            $("#chkCCPay").prop("disabled", false);
         }
     });
 
@@ -9930,18 +9977,17 @@ var btnApplyNowLeaseCurrent = function () {
             $("#lblUnitTitle").text("#" + response.model.UnitNo);
             $("#lblUnitTitle2").text("#" + response.model.UnitNo);
             $("#lblFNLPreparedFor").text("#" + response.model.UnitNo);
-            // $("#parkUnit").text("#" + response.model.UnitNo);
+            $("#parkUnit").text("#" + response.model.UnitNo);
             $("#storUnit").text("#" + response.model.UnitNo);
             $("#txtAvailableDate").val(response.model.AvailableDateText);
 
-            //$("#unitdiv_" + $("#hndUID").val()).removeClass("select-unit");
-            //$("#unitdiv_" + $("#hndpriceTableUID").val()).addClass("select-unit");
+            $("#unitdiv_" + $("#hndUID").val()).removeClass("select-unit");
+            $("#unitdiv_" + $("#hndpriceTableUID").val()).addClass("select-unit");
             $("#hndUID").val($("#hndpriceTableUID").val());
 
             fillUnitParkingList();
             if ($("#unitdiv_" + $("#hndpriceTableUID").val()).length) {
                 $("#unitdiv_" + $("#hndpriceTableUID").val())[0].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-
             }
 
             $("#lblRent").text(formatMoney(response.model.Current_Rent));
@@ -9950,8 +9996,8 @@ var btnApplyNowLeaseCurrent = function () {
             $("#lblBath").text(response.model.Bathroom);
             $("#lblHall").text(response.model.Hall);
             $("#lblDeposit").text(formatMoney(response.model.Deposit));
-            // $("#lblLease").text(response.model.Leased);
-
+            $("#lblLease").text(response.model.Leased);
+            $("#lblLease2").text(response.model.Leased);
             $("#lblRent22").text("$" + response.model.Current_Rent);
             $("#lblArea22").text(response.model.Area);
             $("#lblBed22").text(response.model.Bedroom);
@@ -9998,7 +10044,7 @@ var btnApplyNowLeaseCurrent = function () {
             $("#lblFNLUnit").text("#" + response.model.UnitNo);
             $("#lblFNLModel").text(response.model.Building);
             $("#lblFNLModel1").text(response.model.Building);
-            //$("#lblFNLTerm").text(response.model.Leased);
+            $("#lblFNLTerm").text(response.model.Leased);
             $("#lblMonthly_MonthlyCharge").text("$"+formatMoney(response.model.Current_Rent.toFixed(2)));
             $("#lblProrated_MonthlyCharge").text("$"+formatMoney(parseFloat(parseFloat(response.model.Current_Rent) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblMonthly_MonthlyCharge1").text(formatMoney(response.model.Current_Rent.toFixed(2)));
@@ -10043,8 +10089,8 @@ var btnApplyNowLeaseCurrent = function () {
             $("#lblBath1").text(response.model.Bathroom);
             $("#lblHall1").text(response.model.Hall);
             $("#lblDeposit1").text(formatMoney(response.model.Deposit));
-            //$("#lblLease3").text(response.model.Leased);
-            //$("#lblLease4").text(response.model.Leased);
+            $("#lblLease3").text(response.model.Leased);
+            $("#lblLease4").text(response.model.Leased);
             $("#imgFloorPlanSumm").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
             $("#lbldeposit2").text(parseFloat(response.model.Deposit).toFixed(2));
             $("#lblFMRent1").text(parseFloat(response.model.Current_Rent).toFixed(2));
@@ -10099,12 +10145,12 @@ var btnApplyNowLeaseBest = function () {
             $("#lblUnitTitle").text("#" + response.model.UnitNo);
             $("#lblUnitTitle2").text("#" + response.model.UnitNo);
             $("#lblFNLPreparedFor").text("#" + response.model.UnitNo);
-            // $("#parkUnit").text("#" + response.model.UnitNo);
+            $("#parkUnit").text("#" + response.model.UnitNo);
             $("#storUnit").text("#" + response.model.UnitNo);
             $("#txtAvailableDate").val(response.model.AvailableDateText);
 
-            //$("#unitdiv_" + $("#hndUID").val()).removeClass("select-unit");
-            //$("#unitdiv_" + $("#hndpriceTableUID").val()).addClass("select-unit");
+            $("#unitdiv_" + $("#hndUID").val()).removeClass("select-unit");
+            $("#unitdiv_" + $("#hndpriceTableUID").val()).addClass("select-unit");
             $("#hndUID").val($("#hndpriceTableUID").val());
 
             fillUnitParkingList();
@@ -10119,8 +10165,8 @@ var btnApplyNowLeaseBest = function () {
             $("#lblBath").text(response.model.Bathroom);
             $("#lblHall").text(response.model.Hall);
             $("#lblDeposit").text(formatMoney(response.model.Deposit));
-            // $("#lblLease").text(response.model.Leased);
-
+            $("#lblLease").text(response.model.Leased);
+            $("#lblLease2").text(response.model.Leased);
             $("#lblRent22").text("$" + response.model.Current_Rent);
             $("#lblArea22").text(response.model.Area);
             $("#lblBed22").text(response.model.Bedroom);
@@ -10167,7 +10213,7 @@ var btnApplyNowLeaseBest = function () {
             $("#lblFNLUnit").text("#" + response.model.UnitNo);
             $("#lblFNLModel").text(response.model.Building);
             $("#lblFNLModel1").text(response.model.Building);
-            //$("#lblFNLTerm").text(response.model.Leased);
+            $("#lblFNLTerm").text(response.model.Leased);
             $("#lblMonthly_MonthlyCharge").text("$"+formatMoney(response.model.Current_Rent.toFixed(2)));
             $("#lblProrated_MonthlyCharge").text("$"+formatMoney(parseFloat(parseFloat(response.model.Current_Rent) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblMonthly_MonthlyCharge1").text(formatMoney(response.model.Current_Rent.toFixed(2)));
@@ -10212,8 +10258,8 @@ var btnApplyNowLeaseBest = function () {
             $("#lblBath1").text(response.model.Bathroom);
             $("#lblHall1").text(response.model.Hall);
             $("#lblDeposit1").text(formatMoney(response.model.Deposit));
-            //$("#lblLease3").text(response.model.Leased);
-            //$("#lblLease4").text(response.model.Leased);
+            $("#lblLease3").text(response.model.Leased);
+            $("#lblLease4").text(response.model.Leased);
             $("#imgFloorPlanSumm").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
             $("#lbldeposit2").text(parseFloat(response.model.Deposit).toFixed(2));
             $("#lblFMRent1").text(parseFloat(response.model.Current_Rent).toFixed(2));
@@ -10270,12 +10316,12 @@ var btnApplyNowLeaseGreat = function () {
             $("#lblUnitTitle").text("#" + response.model.UnitNo);
             $("#lblUnitTitle2").text("#" + response.model.UnitNo);
             $("#lblFNLPreparedFor").text("#" + response.model.UnitNo);
-            // $("#parkUnit").text("#" + response.model.UnitNo);
+            $("#parkUnit").text("#" + response.model.UnitNo);
             $("#storUnit").text("#" + response.model.UnitNo);
             $("#txtAvailableDate").val(response.model.AvailableDateText);
 
-            //$("#unitdiv_" + $("#hndUID").val()).removeClass("select-unit");
-            //$("#unitdiv_" + $("#hndpriceTableUID").val()).addClass("select-unit");
+            $("#unitdiv_" + $("#hndUID").val()).removeClass("select-unit");
+            $("#unitdiv_" + $("#hndpriceTableUID").val()).addClass("select-unit");
             $("#hndUID").val($("#hndpriceTableUID").val());
 
             fillUnitParkingList();
@@ -10290,8 +10336,8 @@ var btnApplyNowLeaseGreat = function () {
             $("#lblBath").text(response.model.Bathroom);
             $("#lblHall").text(response.model.Hall);
             $("#lblDeposit").text(formatMoney(response.model.Deposit));
-            // $("#lblLease").text(response.model.Leased);
-
+            $("#lblLease").text(response.model.Leased);
+            $("#lblLease2").text(response.model.Leased);
             $("#lblRent22").text("$" + response.model.Current_Rent);
             $("#lblArea22").text(response.model.Area);
             $("#lblBed22").text(response.model.Bedroom);
@@ -10338,7 +10384,7 @@ var btnApplyNowLeaseGreat = function () {
             $("#lblFNLUnit").text("#" + response.model.UnitNo);
             $("#lblFNLModel").text(response.model.Building);
             $("#lblFNLModel1").text(response.model.Building);
-            //$("#lblFNLTerm").text(response.model.Leased);
+            $("#lblFNLTerm").text(response.model.Leased);
             $("#lblMonthly_MonthlyCharge").text("$"+formatMoney(response.model.Current_Rent.toFixed(2)));
             $("#lblProrated_MonthlyCharge").text("$"+formatMoney(parseFloat(parseFloat(response.model.Current_Rent) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
             $("#lblMonthly_MonthlyCharge1").text(formatMoney(response.model.Current_Rent.toFixed(2)));
@@ -10383,8 +10429,8 @@ var btnApplyNowLeaseGreat = function () {
             $("#lblBath1").text(response.model.Bathroom);
             $("#lblHall1").text(response.model.Hall);
             $("#lblDeposit1").text(formatMoney(response.model.Deposit));
-            //$("#lblLease3").text(response.model.Leased);
-            //$("#lblLease4").text(response.model.Leased);
+            $("#lblLease3").text(response.model.Leased);
+            $("#lblLease4").text(response.model.Leased);
             $("#imgFloorPlanSumm").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
             $("#lbldeposit2").text(parseFloat(response.model.Deposit).toFixed(2));
             $("#lblFMRent1").text(parseFloat(response.model.Current_Rent).toFixed(2));
@@ -10613,11 +10659,9 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblUnitTitle").text("#" + response.model.UnitNo);
             $("#lblUnitTitle2").text("#" + response.model.UnitNo);
             $("#lblFNLPreparedFor").text("#" + response.model.UnitNo);
-            // $("#parkUnit").text("#" + response.model.UnitNo);
+            $("#parkUnit").text("#" + response.model.UnitNo);
             $("#storUnit").text("#" + response.model.UnitNo);
             $("#txtAvailableDate").val(response.model.AvailableDateText);
-
-            
            
             $("#unitdiv_" + uid).addClass("select-unit");
             $("#hndUID").val(uid);
@@ -10634,8 +10678,8 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblBath").text(response.model.Bathroom);
             $("#lblHall").text(response.model.Hall);
             $("#lblDeposit").text(formatMoney(response.model.Deposit));
-            // $("#lblLease").text(response.model.Leased);
-
+            $("#lblLease").text(response.model.Leased);
+            $("#lblLease2").text(response.model.Leased);
             $("#lblRent22").text("$" + response.model.Current_Rent);
             $("#lblArea22").text(response.model.Area);
             $("#lblBed22").text(response.model.Bedroom);
@@ -10652,10 +10696,9 @@ var getPropertyUnitDetails = function (uid) {
             $("#lblOccupancy").text((parseInt(response.model.Bedroom) * 2).toString());
 
             $("#lblDeposit22").text("$" + response.model.Deposit);
-            //$("#lblLease22").text(response.model.Leased);
-
-            //$("#lblLease2").text(response.model.Leased);
-            // $("#lblDeposit").text(response.model.Rent);
+            $("#lblLease22").text(response.model.Leased);
+            $("#lblLease2").text(response.model.Leased);
+            $("#lblDeposit").text(response.model.Rent);
             $("#imgFloorPlan").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
             $("#imgFloorPlan1").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
             $("#imgFloorPlan2").attr("src", "/content/assets/img/plan/" + response.model.Building + "Det.jpg");
@@ -10816,8 +10859,6 @@ var getPropertyUnitDetails = function (uid) {
 
             showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
 
-
-
             $("#divLoader").hide();
         }
     });
@@ -10929,8 +10970,8 @@ var applyFromFloorPlanDetails = function () {
             $("#lblBath").text(response.model.Bathroom);
             $("#lblHall").text(response.model.Hall);
             $("#lblDeposit").text(formatMoney(response.model.Deposit));
-            // $("#lblLease").text(response.model.Leased);
-
+            $("#lblLease").text(response.model.Leased);
+            $("#lblLease2").text(response.model.Leased);
             $("#lblRent22").text("$" + response.model.Current_Rent);
             $("#lblArea22").text(response.model.Area);
             $("#lblBed22").text(response.model.Bedroom);
@@ -10941,10 +10982,11 @@ var applyFromFloorPlanDetails = function () {
             $("#lblOccupancy").text((parseInt(response.model.Bedroom) * 2).toString());
 
             $("#lblDeposit22").text("$" + response.model.Deposit);
-            //$("#lblLease22").text(response.model.Leased);
-
-            //$("#lblLease2").text(response.model.Leased);
-            // $("#lblDeposit").text(response.model.Rent);
+            $("#lblLease22").text(response.model.Leased);
+            
+            $("#lblLease2").text(response.model.Leased);
+            
+            //$("#lblDeposit").text(response.model.Rent);
             $("#imgFloorPlan").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
             $("#imgFloorPlan1").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
             $("#imgFloorPlan2").attr("src", "/content/assets/img/plan/" + response.model.Building + "Det.jpg");

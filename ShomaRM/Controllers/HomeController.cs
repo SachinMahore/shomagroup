@@ -1,4 +1,5 @@
-﻿using ShomaRM.Models;
+﻿using LoggerEngine;
+using ShomaRM.Models;
 using ShomaRM.Models.Bluemoon;
 using ShomaRM.Models.TwilioApi;
 using System;
@@ -22,6 +23,7 @@ namespace ShomaRM.Controllers
         
         public ActionResult Index()
         {
+            
             if (Session["DelDatAll"] != null)
             {
                 if (Session["DelDatAll"].ToString() == "Del")
