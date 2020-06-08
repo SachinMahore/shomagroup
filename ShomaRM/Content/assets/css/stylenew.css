@@ -4006,6 +4006,43 @@ div#bellDiv {
     height: 42px;
     font-size: 14px;
 }
+@media screen and (max-width: 881px) and (min-width: 320px)
+{
+    .responsive_propertyNav {
+        width: 100% !important
+    }
+}
+
+
+.floorpageResponsive .btn-success {
+    margin-bottom: 0px !important;
+    padding: 6px 12px;
+}
+.floorpageResponsive{
+    margin-bottom:5px;
+}
+.customMargindown{
+    margin-bottom:10px;
+}
+@media screen and (max-width: 991px) and (min-width: 320px){
+    .ct-wizard-orange ul li {
+        width:100% !important;
+    }
+}
+@media screen and (max-width: 767px) and (min-width: 320px) {
+    .responsiveScreenStatusBtn{
+        width:100%;
+    }
+}
+
+@media screen and (max-width: 991px) and (min-width: 320px) {
+    #divMainSearch span {
+        display:none
+    }
+    .reponsiveWidth{
+        width:100% !important;
+    }
+}
 
 .custom-btn-primary {
     width: 100% !important;
@@ -4054,3 +4091,4 @@ div#bellDiv {
         padding: 0 .25em;
         background: #fff;
     }
+
