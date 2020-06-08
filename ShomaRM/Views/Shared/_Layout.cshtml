@@ -524,22 +524,22 @@
     document.addEventListener("DOMContentLoaded", function () {
         // Check the UTM code and assign the correct unique phone number per source
         if (sourceName == 'google') {
-            document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.111.0000</a>';
+            // document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.111.0000</a>';
             $("#phonelayoutweb").attr("href", "tel:+1-786-437-8658");
             $("#phonelayoutmobile").attr("href", "tel:+1-786-437-8658");
         }
         else if (sourceName == 'facebook') {
-            document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.222.0000</a>';
+            // document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-111-0000">415.222.0000</a>';
             $("#phonelayoutweb").attr("href", "tel:+1-786-437-8658");
             $("a").attr("href", "tel:+1-786-437-8658");
         }
         else if (sourceName == 'zillow') {
-            document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-333-0000">415.333.0000</a>';
+            // document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-415-333-0000">415.333.0000</a>';
             $("#phonelayoutweb").attr("href", "tel:+1-786-437-8658");
             $("#phonelayoutmobile").attr("href", "tel:+1-786-437-8658");
         }
         else {
-            document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-786-437-8658">786.437.8658</a>';
+            // document.getElementById('phonelayout').innerHTML = '<a href="tel:+1-786-437-8658">786.437.8658</a>';
             $("#phonelayoutweb").attr("href", "tel:+1-786-437-8658");
             $("#phonelayoutmobile").attr("href", "tel:+1-786-437-8658");
         }
