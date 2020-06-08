@@ -7,83 +7,97 @@
 <!-- register-area -->
 <input type="hidden" id="hdnCurrentPage_UL" value="0" />
 <input type="hidden" id="hndPageNo" value="0" />
-<div class="register-area" style="background-color: rgb(249, 249, 249);">
-    <div class="container" style="width:100%!important">
-        <div class="breadcrumb">
-            <h4 class="">Users List </h4>
-        </div>
-        <div class="form-group clearfix panel padding-0">
-            <div class="form-inline clearfix panel">
-                <div class="form-group col-md-1">
+<div class="container-fluid" style="background-color: rgb(249, 249, 249);margin-top:40px" ;>
+    <div class="row">
+        <div class="col-md-12 col-xl-12 col-lg-12">
+            <div class="breadcrumb">
+                <h4 class="">Users List </h4>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-1">
                     <label class="control-label" style="padding-right:5px; padding-left:15px;">
-                       Filter
+                        Filter
                     </label>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="col-md-2">
                     <select id="ddlFilter_UL" class="form-control" style="width:100%!important">
                         <option value="FirstName">First Name</option>
                         <option value="LastName">Last Name</option>
                         <option value="Username">Username</option>
                     </select>
                 </div>
-                <div class="form-group col-md-1">
+                <div class="col-md-1">
                     <label class="control-label" style="padding:0px 0px;">Criteria</label>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="col-md-2">
                     <input type="text" id="txtCriteria_UL" name="Criteria" class="form-control form-control-small pull-left" />
                 </div>
-                <div class="form-group col-md-6">
-                    <button id="btnSearch" class="btn btn-next btn-primary" onclick="buildPaganationUserList(1)" style="margin-left: -30px;height: 34px;"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
-                    <button id="btnNewSearchUser" class="btn btn-primary pull-right" style="margin-right:15px;" onclick="addNewUser()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> NEW</button>
+                <div class="col-md-6">
+                    <button id="btnSearch" class="btn btn-next btn-primary" onclick="buildPaganationUserList(1)" style="height: 34px;"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                    <button id="btnNewSearchUser" class="btn btn-primary pull-right" style="" onclick="addNewUser()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> NEW</button>
                     @*<button id="btnGoUser" class="btn btn-primary pull-right" style="margin-right:15px;" onclick="goToEditUser()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-arrow-right"></i> GO TO</button>*@
+
                 </div>
             </div>
-            <div class="col-sm-12 form-group" id="divPagination_UserList">
-                <div id="divPgn" class="col-sm-8 pagination">
-                    <ul id="ulPagination_UserList"></ul>
-                </div>
-                <div class="col-sm-3 padding-0 pull-right" style="margin-top:22px">
-                    <div class="col-sm-6">
-                        <label class="control-label" style="margin-left:67px;">Row/Page</label>
+            <div class="row">
+                <div class="col-sm-12 form-group" id="divPagination_UserList">
+                    <div class="row">
+                        <div id="divPgn" class="col-sm-8 pagination" style="margin-top:22px">
+                            <ul id="ulPagination_UserList"></ul>
+                        </div>
+                        <div class="col-sm-3 padding-0 pull-right" style="margin-top:22px">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="control-label" style="margin-left:67px;">Row/Page</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <select id="ddlRPP_UserList" class="form-control form-control-small"></select>
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
-                    <div class="col-sm-6">
-                        <select id="ddlRPP_UserList" class="form-control form-control-small"></select>
-                    </div>
                 </div>
+
             </div>
-            <div class="form-group clearfix">
-                <table id="tblUser" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th class="pds-firstname" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('FirstName')">First Name <i id="sortFirstNameIcon" class=""></i></th>
-                            <th class="pds-lastname" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('LastName')">Last Name <i id="sortLastNameIcon" class=""></i></th>
-                            <th class="pds-username" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('Username')">Username <i id="sortUsernameIcon" class=""></i></th>
-                            <th class="pds-usertype" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('UserType')">User Type <i id="sortUserTypeIcon" class=""></i></th>
-                            <th class="pds-userstatus" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('Status')">Status <i id="sortStatusIcon" class=""></i></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="form-group clearfix table-responsive">
+                        <table id="tblUser" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th class="pds-firstname" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('FirstName')">First Name <i id="sortFirstNameIcon" class=""></i></th>
+                                    <th class="pds-lastname" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('LastName')">Last Name <i id="sortLastNameIcon" class=""></i></th>
+                                    <th class="pds-username" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('Username')">Username <i id="sortUsernameIcon" class=""></i></th>
+                                    <th class="pds-usertype" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('UserType')">User Type <i id="sortUserTypeIcon" class=""></i></th>
+                                    <th class="pds-userstatus" style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableUsers('Status')">Status <i id="sortStatusIcon" class=""></i></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
 @*<style>
-    .k-button {
-        line-height: 1.5em !important;
-    }
+        .k-button {
+            line-height: 1.5em !important;
+        }
 
-    .gridbtn {
-        background-color: #e0e0e0;
-        font-size: 12px;
-        padding: 3px 4px !important;
-    }
+        .gridbtn {
+            background-color: #e0e0e0;
+            font-size: 12px;
+            padding: 3px 4px !important;
+        }
 
-    .btn {
-        border-radius: 3px;
-        padding: 3px 12px;
-        font-size: 12px;
-    }
-</style>*@
+        .btn {
+            border-radius: 3px;
+            padding: 3px 12px;
+            font-size: 12px;
+        }
+    </style>*@

@@ -6,23 +6,24 @@
 }
 <div class="page-head">
     <div class="container">
-        <div class="row">
-            <div class="page-head-content">
-                <h1 class="page-title">Sign in </h1>
+        <div class="row hidden">
+            <div class="center-block">
+                <h4 class="">Sign in </h4>
             </div>
         </div>
     </div>
 </div>
 <!-- End page header -->
 <!-- register-area -->
-<div class="register-area" style="background-color: rgb(249, 249, 249);">
+<div class="register-area">
     <div class="container">
         <input type="hidden" id="hndIsTempPass" value="0" />
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
-            <div class="box-for overflow">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="overflow bg-transparent">
                 <div class="col-md-12 col-xs-12 login-blocks">
-                    <h2>Sign In : </h2>
+                    <h5 class="center" style="font-size:18px;font-weight:700;"></h5>
+                    <p class="center"></p>
                     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "m-t", role = "form", id = "Loginform" }))
                     {
                         @Html.AntiForgeryToken()
@@ -33,32 +34,89 @@
                         }
 
                             <form action="" method="post">
-                                <div class="form-group">
-                                    <label for="email" class="username">Email ID</label>
-                                    <input type="text" class="form-control" id="UserName" name="UserName">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password" class="username">Password</label>
-                                    <input type="password" class="form-control" id="password" name="Password">
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="controls pull-left">
-                                        <button type="submit" class="btn btn-primary username"> Sign in</button>
+                                <div class="" id="divSignInForm">
+                                    <div class="form-group">
+                                        <h5 class="center" style="font-size:18px;font-weight:700;margin-top: 20px;">Sign In</h5>
+                                        <p class="center">Please sign in with your username and password.</p>
                                     </div>
-                                    <div class="controls pull-right">
-                                        <a href="javascript:void(0);" onclick="ForgetPassword()" class="pull-right username">Forgot Password?</a> <span class="username"><input type="checkbox" id="chkRemeber" /> Remember Me?</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="UserName" name="UserName" placeholder="Username *">
                                     </div>
-                                </div>
-                                <div class="clearfix">
-                                    <h5 style="margin:10px;text-align:center;">OR :</h5>
-                                </div>
-                                
-                                <div class="form-group text-center">
-                                    <button type="button" id="btnShowQuotationSignIn" class="btn btn-primary" onclick="showPopUpOnQuotationNo()">Sign In Using Quotation Number</button>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" id="password" name="Password" placeholder="Password *">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn custom-btn-primary-signin" style="width:100%;">Sign In</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="center">Forgot <a href="javascript:void(0);" onclick="ForgetPassword()" style="font-weight:unset;color:#223852;">Password?</a></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <h5 class="center hr-double"></h5>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" id="btnShowQuotationSignIn" class="btn custom-btn-primary" onclick="showHaveQuotationNo()">Have a Quote?</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="small center">Shoma Management <a href="javascript:void(0)" style="text-decoration:underline;font-weight:unset;color:#223852;" onclick="showPrivacyPolicy()">Privacy Policy</a> and <a href="javascript:void(0)" style="text-decoration:underline;font-weight:unset;color:#223852;" onclick="showTermsOfUse()">Terms of Use</a></p>
+                                    </div>
+                                    <div class="form-group hidden">
+                                        <div class="controls pull-right">
+                                            <span class="username"><input type="checkbox" id="chkRemeber" /> Remember Me?</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                     }
+                    
+                    <div class="center hidden" id="divForgotPassword">
+                        <div class="form-group">
+                            <h5 class="center" style="font-size:18px;font-weight:700;margin-top: 20px;">Forgot Password</h5>
+                        </div>
+                        <div class="form-group">
+                            <p class="center">Please enter the username associated with the account. A verification email will be sent to reset your password.</p>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="txtEmailForgetPassword" name="UserName" placeholder="Username *">
+                        </div>
+                        <div id="Signinbtn" class="form-group">
+                            <button type="button" class="btn custom-btn-primary pull-left" onclick="goToSignInPage();" style="width:40%!important;">Cancel</button>
+                            <button type="button" class="btn custom-btn-primary-signin pull-right" onclick="RetrieveForgetPasswordss()" style="width:40%!important;"> Send Me a Link</button>
+                        </div>
+                        <div class="form-group">
+                            <br /><br />
+                            <p class="small">Shoma Management <a href="javascript:void(0)" style="text-decoration:underline;font-weight:unset;color:#223852;" onclick="showPrivacyPolicy()">Privacy Policy</a> and <a href="javascript:void(0)" style="text-decoration:underline;font-weight:unset;color:#223852;" onclick="showTermsOfUse()">Terms of Use</a></p>
+                        </div>
+                    </div>
+
+                    <div class="center hidden" id="divUsingQuotationNo">
+                        <div class="form-group">
+                            <h5 class="center" style="font-size:18px;font-weight:700;margin-top: 20px;">Do You Have A Quote?</h5>
+                        </div>
+                        <div class="form-group">
+                            <p class="center">Please enter the Quote Number</p>
+                        </div>
+                        <div class="form-group" id="divQuotationQuotationNo">
+                            <input type="text" class="form-control" id="txtQuotationNo" name="QuotationNo" placeholder="QuotationNo *">
+                        </div>
+                        <div class="form-group hidden" id="divQuotationUserName">
+                            <input type="text" class="form-control" id="txtQuotationUserName" name="UserName" disabled>
+                        </div>
+                        <div class="form-group hidden" id="divQuotationPassword">
+                            <input type="password" class="form-control" id="txtQuotationPassword" name="Password" placeholder="Enter New Password *">
+                        </div>
+                        <div class="form-group hidden" id="divQuotationConfirmPassword">
+                            <input type="password" class="form-control" id="txtQuotationConfirmPassword" name="ConfirmPassword" placeholder="Enter New Confirm Password *">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn custom-btn-primary-signin" onclick="verifyQuotationNo()" style="width:50%;" id="btnVerifyQuotation"> Find</button>
+                            <button type="button" class="btn custom-btn-primary-signin" onclick="signInUsingQuotationNo()" style="width:50%;" id="btnQuotationSignIn"> Login</button>
+                            <button type="button" class="btn custom-btn-primary" onclick="goToSignInPage();" style="width:50%;border-color:#fff!important;">Sign In</button>
+                        </div>
+                        <div class="form-group">
+                            <p class="small center">Shoma Management <a href="javascript:void(0)" style="text-decoration:underline;font-weight:unset;color:#223852;" onclick="showPrivacyPolicy()">Privacy Policy</a> and <a href="javascript:void(0)" style="text-decoration:underline;font-weight:unset;color:#223852;" onclick="showTermsOfUse()">Terms of Use</a></p>
+                        </div>
+                    </div>
                     <br>
                 </div>
             </div>
@@ -66,75 +124,148 @@
         <div class="col-md-3 username"></div>
     </div>
 </div>
-<div id="popQuotationSignIn" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close pull-right" data-dismiss="modal" style="color:black;margin-right:-160px;">&times;</button>
-        </div>
-        <div class="modal-body">
-            <div class="text-justify" id="divQuotationQuotationNo">
-                <div class="form-group">
-                    <label for="txtQuotationNo">Quotation #</label>
-                    <input type="text" class="form-control" id="txtQuotationNo" name="QuotationNo">
+
+<div class="modal" id="popQuotationSignIn">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:none;">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12">
+                    <div class="text-justify" id="divQuotationQuotationNo">
+                        <div class="form-group">
+                            <label for="txtQuotationNo">Quotation #</label>
+                            <input type="text" class="form-control" id="txtQuotationNo" name="QuotationNo">
+                        </div>
+                    </div>
+                    <div class="text-justify hidden" id="divQuotationUserName">
+                        <div class="form-group">
+                            <label for="txtUserName">User Name</label>
+                            <input type="text" class="form-control" id="txtQuotationUserName" name="UserName" disabled>
+                        </div>
+                    </div>
+                    <div class="text-justify hidden" id="divQuotationPassword">
+                        <div class="form-group">
+                            <label for="txtQuotationPassword" id="lblQuotationPassword">Enter New Password</label>
+                            <input type="password" class="form-control" id="txtQuotationPassword" name="Password">
+                        </div>
+                    </div>
+                    <div class="text-justify hidden" id="divQuotationConfirmPassword">
+                        <div class="form-group">
+                            <label for="txtQuotationConfirmPassword">Enter New Confirm Password</label>
+                            <input type="password" class="form-control" id="txtQuotationConfirmPassword" name="ConfirmPassword">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="text-justify hidden" id="divQuotationUserName">
-                <div class="form-group">
-                    <label for="txtUserName">User Name</label>
-                    <input type="text" class="form-control" id="txtQuotationUserName" name="UserName" disabled>
+            <div class="modal-footer" style="border-top:none">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" style="margin-right:6px;"> Close</button>
+                    <button type="button" class="btn btn-primary pull-right" style="margin-right:6px;" id="btnVerifyQuotation" onclick="verifyQuotationNo()"> Next</button>
+                    <button type="button" class="btn btn-primary pull-right" style="margin-right:6px;" id="btnQuotationSignIn" onclick="signInUsingQuotationNo()"> Sign In</button>
                 </div>
-            </div>
-            <div class="text-justify hidden" id="divQuotationPassword">
-                <div class="form-group">
-                    <label for="txtQuotationPassword" id="lblQuotationPassword">Enter New Password</label>
-                    <input type="password" class="form-control" id="txtQuotationPassword" name="Password">
-                </div>
-            </div>
-            <div class="text-justify hidden" id="divQuotationConfirmPassword">
-                <div class="form-group">
-                    <label for="txtQuotationConfirmPassword">Enter New Confirm Password</label>
-                    <input type="password" class="form-control" id="txtQuotationConfirmPassword" name="ConfirmPassword">
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <div class="pull-right">
-                <button type="button" class="btn btn-primary pull-right" data-dismiss="modal" style="margin-right:6px;"> Close</button>
-                <button type="button" class="btn btn-primary pull-right" style="margin-right:6px;" id="btnVerifyQuotation" onclick="verifyQuotationNo()"> Next</button>
-                <button type="submit" class="btn btn-primary pull-right" style="margin-right:6px;" id="btnQuotationSignIn" onclick="signInUsingQuotationNo()"> Sign In</button>
             </div>
         </div>
     </div>
 </div>
-<div id="popForgetIn" class="modal">
-    <div class="modal-header">
-        <span class="close" data-dismiss="modal">&times;</span>
-    </div>
-    <!-- Modal content -->
-    <div class="modal-content">
-        <div id="forgtPassHead" class="text-center hide">
-            <h5 class="username">Retrive Password</h5>
-        </div>
-        <div class="text-justify">
-            <div class="form-group">
-                <label for="email">Email ID</label>
-                <input type="text" class="form-control" id="txtEmailForgetPassword" name="UserName">
+<div class="modal" id="popForgetIn">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:none;">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12">
+                        <div id="forgtPassHead" class="text-center hide">
+                            <h5 class="username">Retrive Password</h5>
+                        </div>
+                        <div class="text-justify">
+                            <div class="form-group">
+                                <label for="email">Email ID</label>
+                                <input type="text" class="form-control" id="txtEmailForgetPassword" name="UserName">
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top:none">
+                <div id="Signinbtn" class="text-center">
+                    <button type="submit" class="btn btn-primary" onclick="RetrieveForgetPasswordss()"> Verify</button>
+                    <button type="submit" class="btn btn-primary" onclick="SignInPass();">Go Back</button>
+                </div>
             </div>
         </div>
-        <div id="Signinbtn" class="text-center">
-            <button type="submit" class="btn btn-primary" onclick="RetrieveForgetPasswordss()"> Verify</button>
-            <a href="javascript:void(0);" onclick="SignInPass();" class="pull-right" style="padding-top:2%">Go Back</a>
+    </div>
+</div>
+<div class="modal" id="modalPrivatePolicy">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header" style="border-top:none">
+                <button type="button" id="closePetP" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div><iframe src="~/Content/assets/img/Document/Privacy_Policy.pdf" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top:none">
+            </div>
         </div>
     </div>
-
 </div>
+<div class="modal" id="modalTermsOfUse">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header" style="border-top:none">
+                <button type="button" id="closePetP" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div><iframe src="~/Content/assets/img/Document/Terms_Of_Use.pdf" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top:none">
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    @@media (min-width: 768px) {
+        .modal-dialog {
+            width: 600px;
+            margin: 30px auto;
+        }
+    }
 
+    @@media (min-width: 1200px) {
+        .modal-xl {
+            width: 1140px;
+        }
+    }
+
+    @@media(min-width:992px) {
+        .nav-tabs.wizard li {
+            position: relative;
+            padding: 0;
+            margin: 4px 4px 4px 0;
+            width: 16.3%;
+            float: left;
+            text-align: center;
+        }
+    }
+            
+</style>
 <script>
     function ForgetPassword() {
-        $("#popForgetIn").modal({
-            backdrop: 'static',
-            keyboard: false
-        });
+        //$("#popForgetIn").modal({
+        //    backdrop: 'static',
+        //    keyboard: false
+        //});
+        $('#txtEmailForgetPassword').val("");
+        $('#divSignInForm').addClass('hidden');
+        $('#divForgotPassword').removeClass('hidden');
     };
     function SignInPass() {
         $("#popForgetIn").modal('hide');
@@ -182,6 +313,7 @@
                         content: "Password send to your registered email",
                         type: 'red'
                     });
+                    goToSignInPage();
                 }
             }
 
@@ -305,10 +437,12 @@
                     if (result[1] == 1) {
                         $('#divQuotationConfirmPassword').removeClass('hidden');
                         $('#lblQuotationPassword').text("Enter New Password");
+                        $('#txtQuotationPassword').attr("placeholder", "Enter New Password");
                     }
                     else {
                         $('#lblQuotationPassword').text("Enter Password");
                         $('#divQuotationConfirmPassword').add('hidden');
+                        $('#txtQuotationPassword').attr("placeholder", "Enter Password");
                     }
                     $('#divQuotationPassword').removeClass('hidden');
                    
@@ -317,6 +451,38 @@
                 }
             }
         });
+    }
+
+    var showPrivacyPolicy = function () {
+        $('#modalPrivatePolicy').modal('show');
+    };
+
+    var showTermsOfUse = function () {
+        $('#modalTermsOfUse').modal('show');
+    };
+    var goToSignInPage = function () {
+        $('#txtEmailForgetPassword').val("");
+        $('#divSignInForm').removeClass('hidden');
+        $('#divForgotPassword').addClass('hidden');
+        $('#divUsingQuotationNo').addClass('hidden');
+    };
+
+    var showHaveQuotationNo = function () {
+        $('#txtQuotationNo').attr('disabled', false);
+        $('#txtQuotationNo').val('');
+        $('#txtQuotationUserName').val('');
+        $('#txtQuotationPassword').val('');
+        $('#txtQuotationConfirmPassword').val('');
+        $('#divQuotationQuotationNo').removeClass('hidden');
+        $('#divQuotationUserName').addClass('hidden');
+        $('#divQuotationPassword').addClass('hidden');
+        $('#divQuotationConfirmPassword').addClass('hidden');
+        $('#btnVerifyQuotation').removeClass('hidden');
+        $('#btnQuotationSignIn').addClass('hidden');
+        $('#lblQuotationPassword').text("Enter New Password");
+        $('#divSignInForm').addClass('hidden');
+        $('#divForgotPassword').addClass('hidden');
+        $('#divUsingQuotationNo').removeClass('hidden');
     }
 </script>
 

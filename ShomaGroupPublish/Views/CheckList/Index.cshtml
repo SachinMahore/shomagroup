@@ -11,6 +11,8 @@
 <input type="hidden" id="hndPaymentDone" value="0" />
 <input type="hidden" id="hndProcessingFees" value="@ViewBag.ProcessingFees" />
 <input type="hidden" id="hndMoveInDate" value="0" />
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -209,7 +211,7 @@
                                             </div>
                                             <div class="input-group" style="margin-left: 70px;">
 
-                                                <input id="txtPreMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text" />
+                                                <input id="txtPreMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/shoma-resident-team/pre-move-in'});return false;"/>
                                                 <span class="input-group-btn pull-left">
                                                     <button class="btn btn-primary search" type="button" id="iconPreMoveInDateChecklist"><i class="fa-calendar fa"></i></button>
                                                 </span>
@@ -239,7 +241,7 @@
                                             </div>
                                             <div class="input-group" style="margin-left: 70px;">
 
-                                                <input id="txtMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text" />
+                                                <input id="txtMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text"  onclick="Calendly.initPopupWidget({url: 'https://calendly.com/shoma-resident-team/move-in'});return false;"/>
                                                 <span class="input-group-btn pull-left">
                                                     <button class="btn btn-primary search" type="button" id="iconMoveInDateChecklist"><i class="fa-calendar fa"></i></button>
                                                 </span>
@@ -474,6 +476,7 @@
         margin-bottom: 10px;
     }
 </style>
+
 <style>
     /* The Modal (background) */
     .modal {
@@ -529,18 +532,18 @@
             var premoveInDateHidden = $('#hndPreMoveInDate').val();
             var preMoveInBefThree = new Date(premoveInDateHidden);
             preMoveInBefThree.setDate(preMoveInBefThree.getDate() - 3);
-            $("#txtPreMoveInDateCL").datepicker({ startDate: '+1d' }).on('change', function (ev) {
-                var premoveindate = $(this).val();
-                if (premoveindate) {
-                    $("#chkPreMoveinCL").attr("checked", true);
-                    $("#chkPreMoveinCL").prop("disabled", "disabled");
-                    $("#chkPreMoveinCL").parent().addClass("checked");
-                } else {
-                    $("#chkPreMoveinCL").prop("checked", false);
-                    $("#chkPreMoveinCL").removeProp("disabled");
-                    $("#chkPreMoveinCL").parent().removeClass("checked");
-                }
-            });
+            //$("#txtPreMoveInDateCL").datepicker({ startDate: '+1d' }).on('change', function (ev) {
+            //    var premoveindate = $(this).val();
+            //    if (premoveindate) {
+            //        $("#chkPreMoveinCL").attr("checked", true);
+            //        $("#chkPreMoveinCL").prop("disabled", "disabled");
+            //        $("#chkPreMoveinCL").parent().addClass("checked");
+            //    } else {
+            //        $("#chkPreMoveinCL").prop("checked", false);
+            //        $("#chkPreMoveinCL").removeProp("disabled");
+            //        $("#chkPreMoveinCL").parent().removeClass("checked");
+            //    }
+            //});
             $("#iconPreMoveInDateChecklist").click(function () {
                 $("#txtPreMoveInDateCL").focus();
             });
@@ -588,6 +591,26 @@
                 $("#chkMoveinCL").attr("checked", true);
                 $("#chkMoveinCL").prop("disabled", "disabled");
                 $("#chkMoveinCL").parent().addClass("checked");
+            }
+        });
+
+        //sachin 02 june
+        $("#chkPreMoveinCL").on('ifChanged', function (event) {
+
+            if ($(this).is(":checked")) {
+                Calendly.initPopupWidget({ url: 'https://calendly.com/shoma-resident-team/pre-move-in' });
+                return false;
+            }
+            else {
+            }
+        });
+        $("#chkMoveinCL").on('ifChanged', function (event) {
+
+            if ($(this).is(":checked")) {
+                Calendly.initPopupWidget({ url: 'https://calendly.com/shoma-resident-team/move-in' });
+                return false;
+            }
+            else {
             }
         });
 
@@ -1118,15 +1141,13 @@
         if (paymentDone==0) {
             msg += "Please pay the Move In Charges</br>";
         }
-        if (!PreMoveInDate) {
-            msg += "Please fill the Pre Move In Date</br>";
-        }
+       
         if (!PreMoveInTime) {
             msg += "Please select the Pre Move In Time</br>";
         }
-        if (!MoveInDate) {
-            msg += "Please fill the Move In Date</br>";
-        }
+        //if (!MoveInDate) {
+        //    msg += "Please fill the Move In Date</br>";
+        //}
         if (!MoveInTime) {
             msg += "Please select the Move In Time</br>";
         }

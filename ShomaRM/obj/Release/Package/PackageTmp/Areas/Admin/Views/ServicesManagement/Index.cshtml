@@ -8,8 +8,120 @@
 }
 <script src="@Url.Content("~/Areas/Admin/Content/Pages/ServiceManagement/ServiceRequestList.js")"></script>
 <input type="hidden" id="hdnCurrentPage_PVL" value="1" />
+<div class="container-fluid" style="background-color: rgb(249, 249, 249); margin-top:40px">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xl-12">
+            <div class="breadcrumb" style="margin-bottom:0px">
+                <h4 class="">Service Requested List</h4>
+            </div>
+            <div class="row">
+                <div class="container">
+                <div class="pr0  properties-page">
+                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                        <div class="panel-heading">
+                            <div class="col-sm-2">
+                                <h3 class="panel-title input-group">From Date</h3>
+                                <div class="input-group">
+                                    <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                                    <span class="input-group-btn">
+                                        <button id="iconFromDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-2">
+                                <h3 class="panel-title input-group">To Date</h3>
+                                <div id="divToDate" class="input-group">
+                                    <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
+                                    <span id="spTodate" class="input-group-btn">
+                                        <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <h3 class="panel-title">Status</h3>
+                                    <select id="ddlStatus" class="form-control">
+                                        <option value='1'>UnAssign</option>
+                                        <option value='2'>Resolved</option>
+                                        <option value='3'>Cancel</option>
+                                        <option value='4'>Active</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <h3 class="panel-title">Criteria</h3>
+                                    <select id="ddlCriteria" class="form-control">
+                                        <option value='1' data-value="Tenant">Tenant Name</option>
+                                        <option value='2' data-value="Unit">Unit No</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <h3 class="panel-title">Enter Criteria</h3>
+                                    <input id="txtCriteria" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group padding-top-25">
+                                    <button type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="buildPaganationUserList(1)"><i class="fa fa-search"></i> SEARCH</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group" id="divPagination_UserList">
+                    <div id="divPgn" class="col-sm-8 pagination">
+                        <ul id="ulPagination_UserList"></ul>
+                    </div>
+                    <div class="col-sm-3 padding-0 pull-right" style="margin-top: 23px;">
+                        <div class="col-sm-6">
+                            <label class="control-label">Row/Page</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select id="ddlRPP_UserList" class="form-control form-control-small"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel-body search-widget">
+                        <div class="col-md-12 clear table-responsive">
+                            <table id="tblServiceRequest" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="pds-name" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('TenantName')">Tennant Name <i id="SortTname"></i></th>
+                                        <th class="pds-name" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('UnitNo')">Unit No <i id="SortUnNo"></i></th>
+                                        <th class="pds-Category" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('ProblemCategory')">Problem Category <i id="SortPrCat"></i></th>
+                                        <th class="pds-Caussing" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('ItemCaussing')">Problem Caussing <i id="SortPrCau"></i></th>
+                                        <th class="pds-Issue" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('ItemIssue')">Problem Issue <i id="SortProIssue"></i></th>
+                                        <th class="pds-Status" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('Location')">Location <i id="SortLoc"></i></th>
+                                        <th class="pds-date" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('Priority')">Piority <i id="SortPrio"></i></th>
+                                        <th class="pds-Picture" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('Status')">Status <i id="SortStatu"></i></th>
+                                        @*<th class="pds-Picture" style="background-color: #c7cdd566;color:#3d3939">Action</th>*@
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- property area -->
-<div class="register-area" style="background-color: rgb(249, 249, 249);">
+@*<div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100%!important">
         <div class="row">
             <div class="breadcrumb" style="margin-bottom:0px">
@@ -37,7 +149,7 @@
                                 </span>
                             </div>
                         </div>
-                        @*<div class="col-sm-2">
+                        <div class="col-sm-2">
                             <div class="form-group">
                                 <h3 class="panel-title">From Date</h3>
                                 <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
@@ -54,7 +166,7 @@
                                     <button class="btn btn-primary search" type="button" id="iconToDate" style="margin-top: -60px;margin-left: 164px;"><i class="fa-calendar fa"></i></button>
                                 </span>
                             </div>
-                        </div>*@
+                        </div>
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <h3 class="panel-title">Status</h3>
@@ -114,7 +226,7 @@
                                         <th class="pds-Status" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('Location')">Location <i id="SortLoc"></i></th>
                                         <th class="pds-date" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('Priority')">Piority <i id="SortPrio"></i></th>
                                         <th class="pds-Picture" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableSerReqA('Status')">Status <i id="SortStatu"></i></th>
-                                        @*<th class="pds-Picture" style="background-color: #c7cdd566;color:#3d3939">Action</th>*@
+                                        <th class="pds-Picture" style="background-color: #c7cdd566;color:#3d3939">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -126,7 +238,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 <div class="modal" id="popSDetails">
     <div class="modal-dialog">

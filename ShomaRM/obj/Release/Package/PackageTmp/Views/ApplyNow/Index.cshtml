@@ -151,7 +151,7 @@
                                 <div class="col-md-2">
                                 </div>
                                 <h5 class="col-md-4">Compare floor plans : Select up to three to compare</h5>
-                                <div class="col-md-4"><a href="javascript:void(0);" data-toggle="modal" data-target="#ModelCompare" style="padding: 5px;" class="btn-success btn" id="btncompare"></a>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-cancle btn" style="margin-top: 0px;" id="btncompCancel" onclick="getPropertyModelUnitList()"> Cancel</button></div>
+                                <div class="col-md-4"><a href="javascript:void(0);" data-toggle="modal" data-target="#popModelCompare" style="padding: 5px;" class="btn-success btn" id="btncompare"></a>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-cancle btn" style="margin-top: 0px;" id="btncompCancel" onclick="getPropertyModelUnitList()"> Cancel</button></div>
                                 <div class="col-md-2">
                                 </div>
                             </div>
@@ -192,7 +192,7 @@
                                 </div>
                                 <div class="col-xl-6 col-md-6 float-left">
                                     <div class="unit-txt1">
-                                        <h2>Floor Plan</h2>
+                                        <h2>Floor Plan <span id="lblfloorPlan"></span></h2>
                                         <span>
                                             <span id="lblBed33"></span> Bed | <span id="lblBath33"></span> Bath<br />
                                             <span id="lblArea33"></span> Sq Ft<br />
@@ -1428,7 +1428,7 @@
                         <p>
                             <i>
                                 *The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved.
-                                <br />**TThe Security Deposit may be bonded using the SureDeposit Program. Please contact by hone (866) 312-3090 or email <a href="mailto:SelectDeposit@Assurant.com">SelectDeposit@Assurant.com</a>. The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.
+                                <br />**The Security Deposit may be bonded using the SureDeposit Program. Please contact by phone (866) 312-3090 or email <a href="mailto:SelectDeposit@Assurant.com">SelectDeposit@Assurant.com</a>. The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.
                             </i>
                         </p>
                         <p>
@@ -1495,13 +1495,13 @@
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rental qualifications</span></td>
                                                         <td><button>Sign</button></td>
-                                                        <td><a href="~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf" target="_blank">Download</a></td>
+                                                        <td><a href="javascript:void(0)" onclick="saveToDiskPDF('/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf','RentalQualifications.pdf')" >Download</a></td>
                                                         <td><a data-toggle="modal" data-target="#modalRentalQualificationPolicy" href="javascript:void(0);" id="printRentalQualificationPolicy">Print</a></td>
                                                     </tr>
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rules and Policies</span></td>
                                                         <td><button>Sign</button></td>
-                                                        <td><a href="~/Content/assets/img/Policy/Rules&Policies_fragmented.pdf" target="_blank">Download</a></td>
+                                                        <td><a href="javascript:void(0)" onclick="saveToDiskPDF('/Content/assets/img/Policy/Rules_Policies_fragmented.pdf','RulesPolicies.pdf')" >Download</a></td>
                                                         <td><a data-toggle="modal" data-target="#modalRulesAndPolicy" href="javascript:void(0);" id="print">Print</a></td>
                                                     </tr>
                                                 </table>
@@ -1521,7 +1521,8 @@
                                     <div class="col-sm-12 clear">
                                         <div class="col-sm-4"></div>
                                         <div class="col-sm-4">
-                                            <button class="nav-button wow bounceInRight login animated" id="policyStart" onclick="goToStep(7,7,0)"> Start</button>
+                                            @*<button class="nav-button wow bounceInRight login animated" id="policyStart" onclick="goToStep(7,7,0)"> Start</button>*@
+                                            <button class="nav-button wow bounceInRight login animated" id="policyStart" data-toggle="modal" data-target="#popApplicantContinue"> Start</button>
                                         </div>
                                         <div class="col-sm-4"></div>
                                     </div>
@@ -1614,9 +1615,8 @@
                                     <button type="submit" class="btn-alltype wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <!--<button type="submit" class="btn btn-primary @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>-->
-
-                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>
+                                    @*<button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>*@
+                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2457,21 +2457,21 @@
                             <p>Upload last 3 paystubs or if self-employed last 2 year's Fedral Tax Returns or  3 consecutive bank statements. You must select two of the following three options.</p>
                         </div>
                         <div class="col-sm-12">
-                          
-                                <div class="form-group">
-                                    <div class="col-sm-2">
-                                        <input id="rbtnPaystub" class="form-control form-control-small empup" type="checkbox" name="tax" />
-                                        <label for="rbtnPaystub">Paystub</label>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <input id="rbtnFedralTax" class="form-control form-control-small empup" type="checkbox" name="tax" checked="checked" />
-                                        <label for="rbtnFedralTax">Fedral Tax Return</label>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <input id="rbtnBankStatement" class="form-control form-control-small empup" type="checkbox" name="tax" />
-                                        <label for="rbtnBankStatement">Bank Statements</label>
-                                    </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-2">
+                                    <input id="rbtnPaystub" class="form-control form-control-small empup" type="checkbox" name="tax" />
+                                    <label for="rbtnPaystub">Paystub</label>
                                 </div>
+                                <div class="col-sm-2">
+                                    <input id="rbtnFedralTax" class="form-control form-control-small empup" type="checkbox" name="tax" checked="checked" />
+                                    <label for="rbtnFedralTax">Fedral Tax Return</label>
+                                </div>
+                                <div class="col-sm-2">
+                                    <input id="rbtnBankStatement" class="form-control form-control-small empup" type="checkbox" name="tax" />
+                                    <label for="rbtnBankStatement">Bank Statements</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-sm-12">
                             <div id="divFederalTax">
@@ -4940,18 +4940,22 @@
                             <label class="form-control form-control-small" id="ddlApplicantType"></label>
                         </div>
                     </div>
-                    <div class="col-sm-4 hidden" style="margin-bottom:20px" id="divchkCCPay">
+                    <div class="col-sm-4 @(Model.CreditPaid == 1 ? "hidden" : "")" style="margin-bottom:20px" id="divchkCCPay">
                         <input type="checkbox" id="chkCCPay">
                         <span class="chektext">
-                            Pay Credit Check Fees Now
+                            Pay Credit Check Fees Now (Fill SSN# to pay fees)
                         </span>
                     </div>
                 </div>
-                <div class="col-sm-12 hidden" id="divCreditCheckPayment">
+                <div class="col-sm-12  hidden" id="divCreditCheckPayment">
                     <input type="hidden" id="hndTransMethod1" value="2" />
                     <input type="hidden" id="hndFromAcc" value="4" />
                     <span class="hidden" id="sppayFees"></span>
                     <div class="col-sm-12">
+                        <div class="dot-hr"></div>
+                        <div class="form-group">
+                            <span id="editApplicantFees"></span> : $<span id="editApplicantFeesVal"></span>
+                        </div>
                         <div class="dot-hr"></div>
                     </div>
                     <div class="col-sm-3">
@@ -5368,31 +5372,46 @@
         </div>
     </div>
 </div>
-<div class="modal" id="ModelCompare">
+@*<div class="modal" id="popModelCompare">
     <div class="modal-dialog" style="padding-right: 900px;">
         <div class="modal-content" style="width:900px;height:500px">
-            <!-- Modal Header -->
+             Modal Header 
             <div class="modal-header" style="width: 100%; padding:0px;">
                 <h5 class="modal-title"></h5>
                 <button type="button" class="close" data-dismiss="modal" style="color:black;"><i class="fa fa-times-circle"></i></button>
             </div>
-
-            <!-- Modal body -->
             <div class="modal-body">
-
                 <div class="row-full">
                     <div class="col-md-12">
                         <div class="row p-b-15  ">
                             <div class="col-sm-12"><b>Compare Floor Plans </b></div>
                             <div class="col-sm-12" id="listModelCompare"></div>
                         </div>
-                        <div class="col-sm-12"><span>*Price subject to change</span></div>
+                        
                     </div>
                 </div>
-
-
-                <!-- Modal footer -->
-
+            </div>
+        </div>
+    </div>
+</div>*@
+<div class="modal" id="popModelCompare">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:none;">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-12"><h3>Compare Floor Plans </h3></div>
+                        <div class="col-sm-12" id="listModelCompare"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12"><span>*Price subject to change</span></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top:none">
             </div>
         </div>
     </div>
@@ -5653,7 +5672,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" id="PopSummary" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" style="width:45%;">
         <div class="modal-content-summary">
@@ -5914,7 +5932,7 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header" style="border-top:none">
-                <button type="button" class="close" data-dismiss="modal" style="color:#000000;" ><i class="fa fa-times-circle"></i></button>
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
             </div>
 
             <!-- Modal body -->
@@ -5958,7 +5976,7 @@
         <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header" style="border-top:none">
-                <button type="button" id="closeAppSummary" class="close" data-dismiss="modal" style="color:#000000;" ><i class="fa fa-times-circle"></i></button>
+                <button type="button" id="closeAppSummary" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
             </div>
             <div class="modal-body">
                 <div class="text-center">
@@ -5987,65 +6005,64 @@
         </div>
     </div>
 </div>
-
-<div class="modal " id="modalTermsCondition" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
-    <div class="modal-dialog" style="width:1100px">
-        <div class="modal-content" style="width: 100% !important;">
-            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
-            <div class="modal-body text-center">
-                <div><iframe src="~/Content/assets/img/Document/TermAndCondition.pdf" width="100" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+<div class="modal" id="modalTermsCondition">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header" style="border-top:none">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div><iframe src="~/Content/assets/img/Document/TermAndCondition.pdf" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top:none">
             </div>
         </div>
     </div>
 </div>
 <div class="modal" id="popMonthlyCharges">
-    <div class="modal-dialog" style="width:1100px">
-        <div class="modal-content" style="width:100%;">
-            <!-- Modal Header -->
-            <div class="modal-header" style="width: 100%; padding:0px;">
-                <h5 class="modal-title"></h5>
-                <button type="button" class="close" data-dismiss="modal" style="color:black;"><i class="fa fa-times-circle"></i></button>
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:none;">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
             </div>
-            <!-- Modal body -->
             <div class="modal-body">
-                <div class="container" style="width: 100%;">
-                    <div class="row-full">
-                        <div class="col-xs-12 monthly-charges">
-                            <div class="col-xl-6 col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="property_thumb text-center">
-                                            <img id="popMonthlyChargesFloorPlan" src="" alt="" style="width:50%" class="center-block">
-                                        </div>
-                                    </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <img id="popMonthlyChargesFloorPlan" src="" alt="" style="width:50%" class="center-block">
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h3>
+                                        <strong>
+                                            Model <span id="popMonthlyChargesModel"></span><br />
+                                            <span id="popMonthlyChargesUnit"></span> #<br />
+                                            <span id="popMonthlyChargesLeaseTerm"></span> Month Lease Term<br>
+                                            Desired Move-In: <span id="popMonthlyChargesDesMoveIn"></span>
+                                        </strong>
+                                    </h3>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <h3>
-                                            <strong>
-                                                Model <span id="popMonthlyChargesModel"></span><br />
-                                                <span id="popMonthlyChargesUnit"></span> #<br />
-                                                <span id="popMonthlyChargesLeaseTerm"></span> Month Lease Term<br>
-                                                Desired Move-In: <span id="popMonthlyChargesDesMoveIn"></span>
-                                            </strong>
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="box margin-top1">
-                                            <p>Bedrooms <span class="pull-right" id="popMonthlyChargesBedrooms"></span></p>
-                                            <p>Bathrooms <span class="pull-right" id="popMonthlyChargesBathrooms"></span></p>
-                                            <p>Sq.Ft.<span class="pull-right" id="popMonthlyChargesArea"></span></p>
-                                            <p>Occupancy<span class="pull-right" id="popMonthlyChargesOccupancy"></span></p>
-                                            <p>Deposit<span class="pull-right" id="popMonthlyChargesDeposit"></span></p>
-                                        </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="box margin-top1">
+                                        <p>Bedrooms <span class="pull-right" id="popMonthlyChargesBedrooms"></span></p>
+                                        <p>Bathrooms <span class="pull-right" id="popMonthlyChargesBathrooms"></span></p>
+                                        <p>Sq.Ft.<span class="pull-right" id="popMonthlyChargesArea"></span></p>
+                                        <p>Occupancy<span class="pull-right" id="popMonthlyChargesOccupancy"></span></p>
+                                        <p>Deposit<span class="pull-right" id="popMonthlyChargesDeposit"></span></p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-md-6">
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
                                 <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="col-sm-12">
                                         <h3 class="text-center"><strong>Summary of Monthly Charges</strong></h3>
                                         <div class="box">
                                             <p>Base Rent<span class="pull-right" id="popMonthlyChargesBaseRent"></span></p>
@@ -6065,104 +6082,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class=""></div>
-                            <div class="clearfix"></div>
-                           
-                            <div class="text-center"><a href="#" class="genric-btn success" onclick="printMonthlySummary()">Print</a></div>
-                            <iframe id="ifrmMonthlySummary" class="hidden" width="100%" height="625" frameborder="0" style="border:0" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
-
-                <!-- Modal footer -->
-
+            </div>
+            <div class="modal-footer" style="border-top:none">
+                <div class="text-center"><a href="#" class="genric-btn success" onclick="printMonthlySummary()">Print</a></div>
+                <iframe id="ifrmMonthlySummary" class="hidden" width="100%" height="625" frameborder="0" style="border:0" allowfullscreen></iframe>
             </div>
         </div>
     </div>
 </div>
-
-@*<div class="modal" id="popMonthlyCharges">
-    <div class="modal-dialogmodal-xl">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h1 class="modal-title">&nbsp;</h1>
-                <button type="button" class="close" data-dismiss="modal" style="color:#000000;margin-top:-35px"><i class="fa fa-times-circle"></i></button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="">
-                    <div class="row-full">
-                        <div class="col-xs-12 monthly-charges">
-                            <div class="col-xl-6 col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="property_thumb text-center">
-                                            <img id="popMonthlyChargesFloorPlan" src="" alt="" style="width:50%" class="center-block">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <h3>
-                                            <strong>
-                                                Model <span id="popMonthlyChargesModel"></span><br />
-                                                <span id="popMonthlyChargesUnit"></span> #<br />
-                                                <span id="popMonthlyChargesLeaseTerm"></span> Month Lease Term<br>
-                                                Desired Move-In: <span id="popMonthlyChargesDesMoveIn"></span>
-                                            </strong>
-                                        </h3>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="box margin-top1">
-                                            <p>Bedrooms <span class="pull-right" id="popMonthlyChargesBedrooms"></span></p>
-                                            <p>Bathrooms <span class="pull-right" id="popMonthlyChargesBathrooms"></span></p>
-                                            <p>Sq.Ft.<span class="pull-right" id="popMonthlyChargesArea"></span></p>
-                                            <p>Occupancy<span class="pull-right" id="popMonthlyChargesOccupancy"></span></p>
-                                            <p>Deposit<span class="pull-right" id="popMonthlyChargesDeposit"></span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <h3 class="text-center"><strong>Summary of Monthly Charges</strong></h3>
-                                        <div class="box">
-                                            <p>Base Rent<span class="pull-right" id="popMonthlyChargesBaseRent"></span></p>
-                                            <p>Premium<span class="pull-right" id="popMonthlyChargesPremium"></span></p>
-                                            <p>Promotion<span class="pull-right" id="popMonthlyChargesPropmotion"></span></p>
-                                            <p>Subtotal<span class="pull-right" id="popMonthlyChargesSubtotal1"></span></p>
-                                            <p><strong>Additional Services</strong></p>
-                                            <p>Pest Control<span class="pull-right" id="popMonthlyChargesPestControl"></span></p>
-                                            <p>Trash/Recycle<span class="pull-right" id="popMonthlyChargesTrashRecycle"></span></p>
-                                            <p>Convergent Billing Fee***<span class="pull-right" id="popMonthlyChargesConvergentBilling"></span></p>
-                                            <p>Subtotal<span class="pull-right" id="popMonthlyChargesSubtotal2"></span></p>
-                                            <p>TOTAL MONTHLY CHARGES*<span class="pull-right" id="popMonthlyChargesTotalMonthlyCharges"><strong></strong></span></p>
-                                        </div>
-                                        <small>*Does not include water & sewer charges based on acual monthly consumption</small><br />
-                                        <small>**If you would like to participate in the Flexdeposit Program which may assist you in bonding your Security Deposit for a Non-Refundable fee of as low as $50 (depending on credit), please contact our leasing agents.</small><br />
-                                        <small>***Fee to unify the charges in one billing</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=""></div>
-                            <div class="clearfix"></div>
-                            <div class="text-center"><a href="#" class="genric-btn success" onclick="printMonthlySummary()">Print</a></div>
-                            <iframe id="ifrmMonthlySummary" class="hidden" width="100%" height="625" frameborder="0" style="border:0" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@
 <div class="modal" id="popApplicantContinue">
     <div class="modal-dialog">
-        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: center;" >
+        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
 
             <!-- Modal Header -->
             <div class="modal-header" style="border-bottom:none">
@@ -6170,7 +6103,7 @@
             </div>
 
             <!-- Modal body -->
-            <div class="modal-body" >
+            <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-15">
                         <div class="col-sm-12">
@@ -6193,7 +6126,8 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group text-center">
-                                <button class="popContinueBtn" id="popContinueResponseBtn" onclick="goToStep(8,8,0)"> Continue</button>
+                                @*<button class="popContinueBtn" id="popContinueResponseBtn" onclick="goToStep(8,8,0)"> Continue</button>*@
+                                <button class="popContinueBtn" id="popContinueResponseBtn" onclick="goToStep(7,7,0)"> Continue</button>
                             </div>
                         </div>
 
@@ -6205,7 +6139,7 @@
 </div>
 <div class="modal" id="popResponsibilityContinue">
     <div class="modal-dialog">
-        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: center;">
+        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
 
             <!-- Modal Header -->
             <div class="modal-header" style="border-bottom:none">
@@ -6257,124 +6191,94 @@
         </div>
     </div>
 </div>
-
-@*<div id="popAvailableFloorPlanDetailss" class="modal fade" role="dialog">
+<div class="modal" id="popAvailableFloorPlanDetailss">
     <div class="modal-dialog">
-
-         Modal content
-        <div class="modal-content" style="width:650px; height:438px;">
-            <div class="modal-header" style="width:100%;margin-top:-40px;margin-bottom:-31px;">
-                <button type="button" class="close" data-dismiss="modal" style="color:red;">&times;</button>
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:none;">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
             </div>
             <div class="modal-body">
-                <div class="container" style="width: 100%;">
-                    <div class="row-full">
-                        <div class="col-xs-12 monthly-charges">
-                            <div class="col-xl-6 col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="property_thumb text-center">
-                                            <img id="imgAvailableFloorPlanImage" src="" alt="" style="margin-top:79px;" class="center-block modelimg">
-                                        </div>
-                                    </div>
-                                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <img id="imgAvailableFloorPlanImage" src="" alt="" class="center-block">
                             </div>
-                            <div class="col-xl-6 col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="contain-text">
-                                            <h3><span id="lblAvailableFloorPlanUnit"></span> #</h3>
-                                            <span id="lblAvailableFloorPlanBedroom"></span> Bedroom | <span id="lblAvailableFloorPlanBathroom"></span> Bathroom
-                                            <br />
-                                            <span id="lblAvailableFloorPlanArea"></span> Sq Ft
-                                            <br />
-                                            Starting at $<span id="lblAvailableFloorPlanStartingPrice"></span> / month
-                                            <br />
-                                            <strong>Available <span id="lblAvailableFloorPlanAvailableDate"></span></strong>
-                                            <br />
-                                            <hr />
-                                            <br />
-                                            <div class="col-sm-12" style="margin-left: -15px;">
-                                                <div class="form-group">
-                                                    <label for="txtAvailableFloorPlanMoveInDate">Move-In Date</label>
-                                                    <input type="text" class="form-control" id="txtAvailableFloorPlanMoveInDate" value="" placeholder="mm/dd/yyyy">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12" style="margin-left: -16px;">
-                                                <div class="form-group">
-                                                    <label> Select Lease Term</label>
-                                                    <select id="ddlAvailableFloorPlanLeaseTerm" class="form-control" style="margin-left: 1px;"></select>
-                                                </div>
-                                            </div>
-                                            <a href="#" class="genric-btn available" onclick="applyFromFloorPlanDetails()">Apply Now</a>
-                                            <input type="hidden" id="hndAvailableFloorPlanUID" />
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <h3><span id="lblAvailableFloorPlanUnit"></span> #</h3>
+                                <span id="lblAvailableFloorPlanBedroom"></span> Bedroom | <span id="lblAvailableFloorPlanBathroom"></span> Bathroom
+                                <br />
+                                <span id="lblAvailableFloorPlanArea"></span> Sq Ft
+                                <br />
+                                Starting at $<span id="lblAvailableFloorPlanStartingPrice"></span> / month
+                                <br />
+                                <strong>Available <span id="lblAvailableFloorPlanAvailableDate"></span></strong>
+                                <br />
+                                <hr />
+                                <br />
+                                <div class="col-sm-12" style="margin-left: -15px;">
+                                    <div class="form-group">
+                                        <label for="txtAvailableFloorPlanMoveInDate">Move-In Date</label>
+                                        <div class="col-sm-11 custom-date" style="margin-left: -16px;">
+                                            <input type="text" class="form-control" id="txtAvailableFloorPlanMoveInDate" value="" placeholder="mm/dd/yyyy">
+                                        </div>
+                                        <div class="col-sm-1 custom-date-icon">
+                                            <i class="fa fa-calendar large-fa"></i>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-sm-12" style="margin-left: -16px;">
+                                    <div class="form-group">
+                                        <label> Select Lease Term</label>
+                                        <select id="ddlAvailableFloorPlanLeaseTerm" class="form-control" style="margin-left: 1px;"></select>
+                                    </div>
+                                </div>
+                                <a href="#" class="genric-btn available" onclick="applyFromFloorPlanDetails()">Apply Now</a>
+                                <input type="hidden" id="hndAvailableFloorPlanUID" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="modal-footer" style="border-top:none">
+            </div>
         </div>
     </div>
-</div>*@
-<div class="modal" id="popAvailableFloorPlanDetailss">
-    <div class="modal-dialog">
+</div>
+<div class="modal" id="modalRentalQualificationPolicy">
+    <div class="modal-dialog  modal-xl">
         <div class="modal-content">
-
             <!-- Modal Header -->
-            <div class="modal-header">
-                <h1 class="modal-title"></h1>
-                <button type="button" class="close" data-dismiss="modal" style="color:#000000;margin-top:-35px"><i class="fa fa-times-circle"></i></button>
+            <div class="modal-header" style="border-top:none">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
             </div>
             <div class="modal-body">
-                    <div class="row-full">
-                        <div class="col-xs-12 monthly-charges">
-                            <div class="col-xl-6 col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="property_thumb text-center">
-                                            <img id="imgAvailableFloorPlanImage" src="" alt="" style="margin-top:79px;" class="center-block modelimg">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <div class="contain-text">
-                                            <h3><span id="lblAvailableFloorPlanUnit"></span> #</h3>
-                                            <span id="lblAvailableFloorPlanBedroom"></span> Bedroom | <span id="lblAvailableFloorPlanBathroom"></span> Bathroom
-                                            <br />
-                                            <span id="lblAvailableFloorPlanArea"></span> Sq Ft
-                                            <br />
-                                            Starting at $<span id="lblAvailableFloorPlanStartingPrice"></span> / month
-                                            <br />
-                                            <strong>Available <span id="lblAvailableFloorPlanAvailableDate"></span></strong>
-                                            <br />
-                                            <hr />
-                                            <br />
-                                            <div class="col-sm-12" style="margin-left: -15px;">
-                                                <div class="form-group">
-                                                    <label for="txtAvailableFloorPlanMoveInDate">Move-In Date</label>
-                                                    <input type="text" class="form-control" id="txtAvailableFloorPlanMoveInDate" value="" placeholder="mm/dd/yyyy">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12" style="margin-left: -16px;">
-                                                <div class="form-group">
-                                                    <label> Select Lease Term</label>
-                                                    <select id="ddlAvailableFloorPlanLeaseTerm" class="form-control" style="margin-left: 1px;"></select>
-                                                </div>
-                                            </div>
-                                            <a href="#" class="genric-btn available" onclick="applyFromFloorPlanDetails()">Apply Now</a>
-                                            <input type="hidden" id="hndAvailableFloorPlanUID" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="text-center">
+                    <div><iframe id="iframeRental" src="~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top:none">
+                <button id="policyRentalPrint" class="btn btn-primary" onclick="printiframe('iframeRental')"> Print</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="modalRulesAndPolicy">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header" style="border-top:none">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div><iframe id="iframeRules" src="~/Content/assets/img/Policy/Rules_Policies_fragmented.pdf" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                </div>
+            </div>
+            <div class="modal-footer" style="border-top:none">
+                <button id="policyRulesPrint" class="btn btn-primary" onclick="printiframe('iframeRules')"> Print</button>
             </div>
         </div>
     </div>
@@ -6386,11 +6290,13 @@
             margin: 30px auto;
         }
     }
+
     @@media (min-width: 1200px) {
         .modal-xl {
             width: 1140px;
         }
     }
+
     .whiteText {
         font-size: 20px;
         color: white;
@@ -6768,7 +6674,7 @@
             $('#priceTableMoveInDate2').text($('#priceTableDate').val());
             $('#priceTableMoveInDate3').text($('#priceTableDate').val());
         });
-        
+
         //$("#icontxtDate").click(function () {
         //    $("#txtDate").focus();
         //});
@@ -6846,7 +6752,7 @@
             $("#divMoveInDateTo2").append(html);
             $("#txtMoveInDateTo2").datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dtstartMID, endDate: "+0d", maxViewMode: 2, autoclose: true });
         });
-        
+
 
         $('#txtDOB').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: dt, maxViewMode: 2, autoclose: true });
         $('#txtHDateOfBirth').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: dts, endDate: dt, maxViewMode: 2, autoclose: true });
@@ -6979,19 +6885,16 @@
         }
 
 
-        if (@Model.SUID > 0) {
-            getPropertyUnitDetails(@Model.SUID);
-            goToStep(1, 1, 0);
+        if ('@Model.Building' != "" && @Model.FromHome== 3) {
+            $("#ddlRoom").val(@Model.Bedroom);
+            $("#txtDate").val('@Model.MoveInDate.ToString("MM/dd/yyyy")');
+            $("#txtMaxRent").val(@Model.MaxRent);
+            $("#hndLeaseTermID").val(@Model.LeaseTermID);
+            getPropertyUnitList("@Model.Building");
         }
 
-
         $('#ddlApplicantGender').on('change', function () {
-            //if ($(this).val() == 2) {
-            //    $("#lbl_txtApplicantMiddleName").addClass("star");
-            //}
-            //else {
-            //    $("#lbl_txtApplicantMiddleName").removeClass("star");
-            //}
+
             if ($(this).val() == '3') {
                 $('#txtApplicantOtherGender').removeAttr('disabled', 'disabled');
             }
@@ -7132,6 +7035,9 @@
             type: 'red'
         });
     }
+    var printiframe = function (divName) {
+        $("#" + divName).get(0).contentWindow.print();
+    };
 </script>
 @*Sachin 20 May*@
 <link rel="stylesheet" href="~/Content/SMResponsive/css/style.css">

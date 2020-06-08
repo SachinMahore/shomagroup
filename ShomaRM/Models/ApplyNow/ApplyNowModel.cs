@@ -159,13 +159,12 @@ namespace ShomaRM.Models
                     }
                     var saveTransaction = new tbl_Transaction()
                     {
-
                         TenantID = userid,                       
                         PAID = opid.ToString(),
                         Transaction_Date = DateTime.Now,                                              
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.Charge_Amount,
-                        Description = model.Description + "| TransID: " + strlist[1],
+                        Description = model.Description + "| TransID: " + strlist[2],
                         Charge_Date = DateTime.Now,
                         Charge_Type = 5,
                         Authcode = strlist[1],
@@ -175,6 +174,7 @@ namespace ShomaRM.Models
                         Batch = "1",                    
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
                         UserID=userid,
+                        RefNum= strlist[2],
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -257,12 +257,10 @@ namespace ShomaRM.Models
                 model.ProcessingFees = processingFees;
                 if (model.PaymentMethod == 2)
                 {
-
                     transStatus = new UsaePayModel().ChargeCard(model);
                 }
                 else if (model.PaymentMethod == 1)
                 {
-
                     transStatus = new UsaePayModel().ChargeACH(model);
                 }
 
@@ -294,26 +292,22 @@ namespace ShomaRM.Models
                     
                     var saveTransaction = new tbl_Transaction()
                     {
-
                         TenantID = userid,
                          PAID=opid,
                         Transaction_Date = DateTime.Now,
-                   
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.Charge_Amount,
-                        Description = model.Description + "| TransID: " + strlist[1],
+                        Description = model.Description + "| TransID: " + strlist[2],
                         Charge_Date = DateTime.Now,
                         Charge_Type = 1,
-
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
                         Miscellaneous_Amount = processingFees,
                         Accounting_Date = DateTime.Now,
-
                         Batch = "1",
-                     
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
                         UserID = userid,
+                        RefNum = strlist[2],
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -467,27 +461,22 @@ namespace ShomaRM.Models
                     }
                     var saveTransaction = new tbl_Transaction()
                     {
-
                         TenantID = Convert.ToInt64(GetProspectData.UserId),
-                       
                         PAID = paid.ToString(),
                         Transaction_Date = DateTime.Now,
-                        
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.Charge_Amount,
-                        Description = model.Description + "| TransID: " + strlist[1],
+                        Description = model.Description + "| TransID: " + strlist[2],
                         Charge_Date = DateTime.Now,
                         Charge_Type =Convert.ToInt32(bat),
-
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
                         Miscellaneous_Amount = processingFees,
                         Accounting_Date = DateTime.Now,
-
                         Batch = bat,
-                      
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
                         UserID = GetCoappDet.UserID,
+                        RefNum= strlist[2],
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -495,7 +484,6 @@ namespace ShomaRM.Models
                     var TransId = saveTransaction.TransID;
                     MyTransactionModel mm = new MyTransactionModel();
                     mm.CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);
-
 
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
@@ -787,7 +775,7 @@ namespace ShomaRM.Models
             db.Dispose();
             return IsEmailExist;
         }
-        public string  SaveUpdateStep(long ID, int StepCompleted)
+        public string SaveUpdateStep(long ID, int StepCompleted)
         {
             ShomaRMEntities db = new ShomaRMEntities();
 
@@ -811,16 +799,17 @@ namespace ShomaRM.Models
                     db.SaveChanges();
                 }
             }
-            
+
             if (tenantData != null)
             {
                 tenantData.StepCompleted = stepcomp;
                 db.SaveChanges();
             }
-            if(StepCompleted==18)
+            if (StepCompleted == 18)
             {
-                if(applicantData.Type!= "Primary Applicant ")
+                if (applicantData.Type != "Primary Applicant ")
                 {
+                    var filePathSummaryPrint = HttpContext.Current.Server.MapPath(PrintApplicationForm(ID));
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
@@ -830,17 +819,20 @@ namespace ShomaRM.Models
                     string phonenumber = onlineProspectData.Phone;
                     if (tenantData != null)
                     {
-                        reportHTML = reportHTML.Replace("[%EmailHeader%]", applicantData.Type+ " "+ applicantData.FirstName + " " + applicantData.LastName + " has Finished the application");
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; "+ applicantData.Type +" "+ applicantData.FirstName + " " + applicantData.LastName + " has finished the application on " + DateTime.Now + "</p>");
+                        reportHTML = reportHTML.Replace("[%EmailHeader%]", applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has Finished the application");
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; " + applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has finished the application on " + DateTime.Now + "</p>");
 
                         reportHTML = reportHTML.Replace("[%TenantName%]", onlineProspectData.FirstName + " " + onlineProspectData.LastName);
 
                         reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
 
-                        message =applicantData.Type+ " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application";
+                        message = applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application";
                     }
                     string body = reportHTML;
-                    new EmailSendModel().SendEmail(onlineProspectData.Email, applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application", body);
+                    List<string> filePaths = new List<string>();
+                    filePaths.Add(filePathSummaryPrint);
+
+                    new EmailSendModel().SendEmailWithAttachment(onlineProspectData.Email, applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application", body, filePaths);
                     if (SendMessage == "yes")
                     {
                         if (!string.IsNullOrWhiteSpace(phonenumber))
@@ -852,6 +844,7 @@ namespace ShomaRM.Models
             }
             return "1";
         }
+
         public string CheckUnitAvailable(long UnitID, long ProspectID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -1976,6 +1969,22 @@ namespace ShomaRM.Models
             }
             db.Dispose();
             return IsAllCorrect;
+        }
+        public bool CheckModelExist(string ModelName)
+        {
+            bool ismodelexists = false;
+            ShomaRMEntities db = new ShomaRMEntities();
+            var modelInfo = db.tbl_Models.Where(m => m.ModelName== ModelName).FirstOrDefault();
+            if (modelInfo != null)
+            {
+                ismodelexists = true;
+            }
+            else
+            {
+                ismodelexists = false;
+            }
+            db.Dispose();
+            return ismodelexists;
         }
     }
 }

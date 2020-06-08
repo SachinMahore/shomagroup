@@ -1,0 +1,1393 @@
+﻿
+@{
+
+}
+
+<script src="~/Content/printThis.js"></script>
+<input type="hidden" id="hndUID" value="@ViewBag.UID" />
+<input type="hidden" id="hndProspectID" value="0" />
+<input type="hidden" id="hndPID" value="0" />
+<input type="hidden" id="hndTransMethod" value="2" />
+<input type="hidden" id="hndPaymentDone" value="0" />
+<input type="hidden" id="hndProcessingFees" value="@ViewBag.ProcessingFees" />
+<input type="hidden" id="hndMoveInDate" value="0" />
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="~/Home/Index"><img src="~/content/assets/img/logo.png" width="300" alt=""></a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse yamm" id="navigation">
+            <div class="button navbar-right">
+                @*@ShomaRM.Models.ShomaGroupWebSession.CurrentUser.Username*@
+                <span id="txtname"></span>  <button class="navbar-btn nav-button wow bounceInRight login" id="btnLogoff" onclick="gotoLogOffCheck()" data-wow-delay="0.4s">Logout</button>
+
+            </div>
+
+        </div><!-- /.navbar-collapse -->
+
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="content-area submit-property" style="background-color: #FCFCFC;">
+    <br /><br /><br />
+    <div class="container">
+        <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+                <div>
+
+                    <div class="tab-content">
+                        <div class="" id="step1">
+                            <div class="row p-b-15">
+                                <div class="col-sm-4">
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="col-sm-12">
+                                        <div class="dot-hr"></div>
+                                        <br />
+                                    </div>
+
+                                    <div class="text-justify">
+                                        <div class="form-group">
+                                            <label for="email">Email ID</label>
+                                            <input type="text" class="form-control" id="UserName" name="UserName">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" class="form-control" id="password" name="Password">
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary" onclick="SignInFromEmailCheckList()"> Sign In</button>
+                                    </div>
+
+                                </div>
+                                <div class="col-sm-4">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden" id="step2">
+
+                            <div class="row p-b-15">
+                                <div class="col-md-12 clear">
+                                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title">Sign Agreements</h3>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="backVer">
+                                    <div class="col-sm-11">
+                                        <div class="form-group">
+                                            <div class="">
+
+                                                <a class="btn btn-primary pull-right" width="400" style="width: 400px;" id="btnDownloadLeaseDocument" onclick="createLeaseDocument()" disabled="disabled">Process Online Leasing Application</a>
+                                                <a class="btn btn-primary pull-left" width="300" style="width: 300px;" id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1 hidden">
+                                        <div class="form-group">
+                                            <div class="">
+                                                <h4 class="info-text pull-left" style="color:#4d738a">Upload Signed Lease Agreement</h4>
+                                                <a href="javascript:void(0)" id="btnUploadLeaseDocument"> <input type="file" id="upleasedoc" value="" class="btn btn-primary"></a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsgFinal"></b></p></div>
+                                <div class="col-sm-12">
+                                    <div class="pull-left text-center">
+                                        <button type="submit" class="btn btn-primary" onclick="goToStepCL(1,1)"> Back</button>
+                                    </div>
+                                    <div class="pull-right text-center">
+                                        <button type="submit" class="btn btn-primary" id="btnnext" onclick="goToStepCL(3,3)"> Continue</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden" id="step3">
+                            <div class="row divChecklist" style="border: 2px solid black;" id="divChecklist">
+
+                                <div class="col-sm-12">
+                                    <div class="col-md-12 clear">
+                                        <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                                            <div class="panel-heading text-center">
+                                                <h4 style="color:#4d738a;">Move In Check List</h4>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkInsCL" />
+                                                    <span style="margin-left: 25px;"> <b>Bind your insurance liability coverage</b> in the amount of $300,000. If you do not have an agent to assist you in this matter, visit Assurant (American Bankers Ins. Co. of Fl) at <a href="www.quoterenters.com" target="_blank" style="text-decoration:underline">www.quoterenters.com</a> or call them at 855-846-9278 (M-F: 8AM–10PM and Sat 10AM- 5PM). Assurant’s approximate cost for $300,000 liability coverage is $166/year or $13.84/month. For your convenience  ? nd some information herein: <a href="www.AssurantResidentSolutions.com" target="_blank" style="text-decoration:underline">www.AssurantResidentSolutions.com.</a> <span style="text-decoration:underline">Make sure to upload your insurance binder before your Pre-Move in appointment</span></span>
+                                                </label>
+                                            </div>
+                                            <input type="file" name="fileUploadPOI" id="fileUploadPOI" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                            <label for="fileUploadPOI" style="margin-left: 75px;"><i class="fa fa-upload fa-lg"></i> <span id="fileUploadPOIShow">Upload Proof of Insurance&hellip;</span></label>
+                                            <input type="hidden" id="hndHasPOI" value="0" />
+                                            <input type="hidden" id="hndPOI" value="0" />
+                                            <input type="hidden" id="hndOriginalPOI" value="0" />
+                                        </div>
+                                        <h5 style="color:#4d738a;">Set up Utilities:</h5>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkEleCL">
+                                                    <span style="margin-left: 25px;">Electricity- log in to <a href="https://fpl.com" style="text-decoration:underline" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545 . <span style="text-decoration:underline"> Make sure you upload proof of new account before your Pre-Move in appointment.</span> </span>
+                                                </label>
+                                            </div>
+
+                                            <input type="file" name="fileUploadPOE" id="fileUploadPOE" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
+                                            <label for="fileUploadPOE" style="margin-left: 75px;"><i class="fa fa-upload fa-lg"></i> <span id="fileUploadPOEShow">Upload Proof of Electricity&hellip;</span></label>
+                                            <input type="hidden" id="hndHasPOE" value="0" />
+                                            <input type="hidden" id="hndPOE" value="0" />
+                                            <input type="hidden" id="hndOriginalPOE" value="0" />
+                                        </div>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkAtCL" />
+                                                    <span style="margin-left: 25px;"> AT&T- Call to establish your internet service and/or enhance your cable plan at <a href="www.att.com/residents" style="text-decoration:underline" target="_blank">www.att.com/residents</a> or by calling (877) 910-0501. </span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                        <div class="pull-left col-sm-12" style="margin-bottom:30px">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkWaterCL" />
+                                                    <span style="margin-left: 25px;">If needed, contact Miami Dade W&S Department to stop service at your previous address. Log into <a href="www.miamidade.gov/global/water/home.page" style="text-decoration:underline" target="_blank">www.miamidade.gov/global/water/home.page</a> or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month. </span>
+                                                </label>
+                                            </div>
+                                            <br />
+                                        </div>
+                                        <div class="pull-left col-sm-12">
+                                            <h5 style="color:#4d738a;">Deposit Alternative: </h5>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkSDP" />
+                                                    <span style="margin-left: 25px;">
+                                                        If you would like to participate in the Flex Deposit Program which may assist you in bonding your Security Deposit for a Non-Refundable fee, depending on credit, of as low as $50, please contact our leasing agents. Our leasing sta?  will begin processing your bond enrollment process with Assurant by starting an online application. Once our sta?  sets up the bond application, Assurant will automatically send you an email with a secure link to access the remaining portion of the bond application. Our property management team will be noti? ed once your Security Deposit requirement has been satis? ed. We will adjust your Security Deposit amount and your Move-in charges accordingly, so you can process your payment correctly. If you would like more information about the Flex Deposit Program please visit <a href="www.?exdeposit.com" style="text-decoration:underline" target="_blank">www.?exdeposit.com</a>  or contact them by phone, 1-877-277-4811. For your convenience ?nd some information herein: <a href="https://?exdeposit.com/public/guide-resident.htm" style="text-decoration:underline" target="_blank">https://?exdeposit.com/public/guide-resident.htm</a>
+                                                    </span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                        <div class="pull-left col-sm-12 hidden">
+                                            <h5 style="color:#4d738a;">Pay your <b><span id="lblPaymentPer"></span>%</b> Move-in charges: </h5>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkPayCL" />
+                                                    <span style="margin-left: 25px;"> Your move-in charges must be paid prior to your Pre-Move-in appointment. </span>
+                                                </label>
+                                            </div>
+                                            <div class="input-group" style="margin-left: 70px; margin-bottom:30px">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                </span>
+                                                <input id="txtPaymentCL" class="form-control form-control-small" readonly="readonly" style="width: 140px;color:#000" type="text" onkeypress="return isNumber(event)" />
+                                                <input id="btnPayNowCheckLink" type="button" class="btn-success" data-toggle="modal" data-target="#popPayNow" style="width:90px;height: 34px;" value="Pay Now" />
+                                            </div>
+                                        </div>
+                                        <div class="pull-left col-sm-12 hidden" style="margin-bottom:30px">
+                                            <h5 style="color:#4d738a;">Schedule your Pre-move-in date appointment: </h5>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkPreMoveinCL" />
+                                                    <span style="margin-left: 25px;"> It is important that at least three days before your desired move-in date, you schedule an appointment to establish your biometrics authentication, obtain your vehicle decals, and complete your pet(s) DNA testing. If you have not already uploaded your insurance and FPL account information, please make sure you do so before your appointment. Please note we are unable to schedule your move-in date without proof of insurance and electric account set-up</span>
+                                                </label>
+                                            </div>
+                                            <div class="input-group" style="margin-left: 70px;">
+
+                                                <input id="txtPreMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text" />
+                                                <span class="input-group-btn pull-left">
+                                                    <button class="btn btn-primary search" type="button" id="iconPreMoveInDateChecklist"><i class="fa-calendar fa"></i></button>
+                                                </span>
+                                                @* <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;" type="text" />*@
+                                                <select id="ddlPreMoveInTimeCL" class="form-control" style="width: 140px;margin-left: 54px;">
+                                                    <option value="">Select a time</option>
+                                                    <option value="9:00-10:00">9:00-10:00</option>
+                                                    <option value="10:00-11:00">10:00-11:00</option>
+                                                    <option value="11:00-12:00">11:00-12:00</option>
+                                                    <option value="12:00-13:00">12:00-13:00</option>
+                                                    <option value="13:00-14:00">13:00-14:00</option>
+                                                    <option value="14:00-15:00">14:00-15:00</option>
+                                                    <option value="15:00-16:00">15:00-16:00</option>
+                                                    <option value="16:00-17:00">16:00-17:00</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="pull-left col-sm-12 hidden" style="margin-bottom:30px">
+                                            <h5 style="color:#4d738a;">Schedule your Move-in date: </h5>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkMoveinCL" />
+                                                    <span style="margin-left: 25px;"> During your pre-move-in appointment, your agent will assist you in scheduling your move-in date and time. </span>
+                                                </label>
+                                            </div>
+                                            <div class="input-group" style="margin-left: 70px;">
+
+                                                <input id="txtMoveInDateCL" class="form-control form-control-small" style="width: 140px;" type="text" />
+                                                <span class="input-group-btn pull-left">
+                                                    <button class="btn btn-primary search" type="button" id="iconMoveInDateChecklist"><i class="fa-calendar fa"></i></button>
+                                                </span>
+                                                @* <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;" type="text" />*@
+                                                <select id="ddlMoveInTimeCL" class="form-control" style="width: 140px;margin-left: 54px;">
+                                                    <option value="">Select a time</option>
+                                                    <option value="9:00-10:00">9:00-10:00</option>
+                                                    <option value="10:00-11:00">10:00-11:00</option>
+                                                    <option value="11:00-12:00">11:00-12:00</option>
+                                                    <option value="12:00-13:00">12:00-13:00</option>
+                                                    <option value="13:00-14:00">13:00-14:00</option>
+                                                    <option value="14:00-15:00">14:00-15:00</option>
+                                                    <option value="15:00-16:00">15:00-16:00</option>
+                                                    <option value="16:00-17:00">16:00-17:00</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="pull-left col-sm-12">
+                                            <h5 style="color:#4d738a;">Schedule your Movers: </h5>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkMovers" />
+                                                    <span style="margin-left: 25px;">
+                                                        If you do not have your own moving company, please contact our preferred movers, Johnny Moving at 786-346-0924.  We have negotiated a ?x fee of $480 for 1-bedroom and $550 for 2- or 3-bedrooms for all moves within Miami-Dade County. You can also email <a href="mailto:Johnnymoving1968@gmail.com" style="text-decoration:underline" target="_blank">Johnnymoving1968@gmail.com</a>
+                                                    </span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                        <div class="pull-left col-sm-12">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" id="chkPoCL" />
+                                                    <span style="margin-left: 25px;"><b>Complete the Post Office change of address</b> by logging into <a href="https://movingonlineservice.com" style="text-decoration:underline" target="_blank">https://movingonlineservice.com</a></span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="text-center">
+
+                                            <button type="submit" class="btn btn-primary" id="btnSaveCheckList" onclick="saveMoveInCheckList()"> Save</button>
+                                            <button type="submit" class="btn btn-primary" id="btnnext" onclick="printCheckList('divChecklist')"> Print</button>
+                                            <br />
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="popPayNow" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -15px;">&times;</button>
+            <div class="modal-header" style="width: 100%; padding:0px;">
+                <h5 class="modal-title">Pay your Move In Charges : $<span id="lblmoveincharge"></span></h5>
+
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12">
+                    <br />
+                    <div class="col-sm-3">
+                        <input type="button" class='btn  btn-info' id="chkBank" onclick="clearBank()" value="Bank Account" />
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="button" class='btn btn-info active' id="chkACH" onclick="clearCard()" value="Credit Card" />
+                    </div>
+
+                    <div class="col-sm-12">
+                        <br />
+                        <div class="dot-hr"></div>
+                    </div>
+                    <div class="col-sm-12">
+                        <label id="lblPaymentDetCL">Enter Credit Card Details.</label>
+
+                    </div>
+                    <div class="col-sm-12 hidden" id="divBank">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="star">Bank Name</label>
+                                <input id="txtBankNameCL" type="text" class="form-control" placeholder="Bank Name" value="">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label id="lblAccCardnameCL" class="star">Account Name</label>
+                                <input id="txtAccountNameCL" type="text" class="form-control" placeholder="Account Name" value="">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label id="lblAccCardnumCL" class="star">Account Number</label>
+                                <input id="txtAccountNumberCL" type="text" class="form-control" placeholder="Account Number" onkeypress="return isOnlyNumber(event)" maxlength="29" value="">
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Routing Number</label>
+                                <input id="txtRoutingNumberCL" type="text" class="form-control" placeholder="Routing Number" maxlength="9" onkeypress="return isNumber(event)" value="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" id="divCard">
+                        <div class="form-group col-sm-3">
+                            <label for="name">Name on Card</label>
+                            <input type="text" class="form-control" id="txtNameonCardCL" placeholder="Name on Card" value="">
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="cardnumber" class="star">Card Number</label>
+                            <input type="text" class="form-control" id="txtCardNumberCL" placeholder="Card Number" onkeypress="return isOnlyNumber(event)" maxlength="16" value="">
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <label for="cardmonth">Card Month</label>
+                            <select id="ddlcardmonthCL" class="form-control form-control-small">
+                                <option value='01'>01</option>
+                                <option value='02'>02</option>
+                                <option value='03'>03</option>
+                                <option value='04'>04</option>
+                                <option value='05'>05</option>
+                                <option value='06'>06</option>
+                                <option value='07'>07</option>
+                                <option value='08'>08</option>
+                                <option value='09'>09</option>
+                                <option value='10'>10</option>
+                                <option value='11'>11</option>
+                                <option value='12'>12</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <label for="cardyear">Card Year</label>
+                            <select id="ddlcardyearCL" class="form-control form-control-small">
+                                @for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(5).Year; i++)
+                                {
+                                    <option value="@(i.ToString().Substring(2,2))">@i</option>
+
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <label for="txtCCVNumberCL" class="star">CVV Number</label>
+                            <input type="password" class="form-control" id="txtCCVNumberCL" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom:20px">
+                        <input type="checkbox" id="chkTermsAndCondition">
+                        <span class="chektext">
+                            I agree to the
+                            <span class="span1"><a id="ShowTermsAndCondition" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a></span>
+                        </span>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-primary" onclick="savePaymentCheckList()">Pay Now</button>
+                    </div>
+                    <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsg"></b></p></div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-default">Print</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="popSetDate" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -25px; margin-right: -15px;">&times;</button>
+            <div class="modal-header" style="width: 100%; padding:0px;">
+                <h5 class="modal-title">Set Schedule Move In Date </h5>
+
+            </div>
+            <div class="modal-body">
+
+
+                <div class="col-sm-12">
+
+                    <div class="col-sm-12">
+                        <br />
+                        <div class="form-group">
+
+                            <input type="text" class="form-control" style="width: 26%;" id="txtScheduleMoveIn" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-primary" onclick="setMoveInDate()">Save</button>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" class="btn btn-default">Print</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12" id="divPrintCheckList" style="margin-top:10px !important;height:100% !important;width:100% !important">
+    <div id="divPrintData"></div>
+</div>
+<div class="modal " id="modalTermsCondition" tabindex="-1" role="dialog" aria-labelledby="ModalLongTitle" aria-hidden="true" style="z-index:9999 !important;">
+    <div class="modal-dialog" style="width:1100px">
+        <div class="modal-content" style="width: 100% !important;">
+            <button type="button" class="close" data-dismiss="modal" style="margin-top: -44px; margin-right: -36px;">&times;</button>
+            <div class="modal-body text-center">
+                <div><iframe src="~/Content/assets/img/Document/TermAndCondition.pdf" width="950" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .tab-content ul li {
+        margin-right: 14px;
+        overflow: hidden;
+        width: 100% !important;
+        padding: 10px;
+        text-align: left !important;
+        margin-bottom: 10px;
+    }
+</style>
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        /*z-index: 1;*/ /* Sit on top */
+        padding-top: 5px !important; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    .modal-header {
+        margin: auto;
+        padding: 20px;
+        width: 100%;
+    }
+
+    /* Modal Content */
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 100% !important;
+        text-align: justify;
+    }
+
+    /* The Close Button */
+    .close {
+        color: #000 !important;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        opacity: 1;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            opacity: 1;
+        }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        setTimeout(function () {
+            var premoveInDateHidden = $('#hndPreMoveInDate').val();
+            var preMoveInBefThree = new Date(premoveInDateHidden);
+            preMoveInBefThree.setDate(preMoveInBefThree.getDate() - 3);
+            $("#txtPreMoveInDateCL").datepicker({ startDate: '+1d' }).on('change', function (ev) {
+                var premoveindate = $(this).val();
+                if (premoveindate) {
+                    $("#chkPreMoveinCL").attr("checked", true);
+                    $("#chkPreMoveinCL").prop("disabled", "disabled");
+                    $("#chkPreMoveinCL").parent().addClass("checked");
+                } else {
+                    $("#chkPreMoveinCL").prop("checked", false);
+                    $("#chkPreMoveinCL").removeProp("disabled");
+                    $("#chkPreMoveinCL").parent().removeClass("checked");
+                }
+            });
+            $("#iconPreMoveInDateChecklist").click(function () {
+                $("#txtPreMoveInDateCL").focus();
+            });
+        }, 1500);
+        setTimeout(function () {
+            var moveInDateHidden = $('#hndMoveInDate').val();
+            var MoveInBefThree = new Date(moveInDateHidden);
+            MoveInBefThree.setDate(MoveInBefThree.getDate() - 3);
+            $("#txtMoveInDateCL").datepicker({ startDate: '+1d', endDate: MoveInBefThree }).on('change', function (ev) {
+                var moveindate = $(this).val();
+                if (moveindate) {
+                    $("#chkMoveinCL").attr("checked", true);
+                    $("#chkMoveinCL").prop("disabled", "disabled");
+                    $("#chkMoveinCL").parent().addClass("checked");
+                } else {
+                    $("#chkMoveinCL").prop("checked", false);
+                    $("#chkMoveinCL").removeProp("disabled");
+                    $("#chkMoveinCL").parent().removeClass("checked");
+                }
+            });
+            $("#iconMoveInDateChecklist").click(function () {
+                $("#txtMoveInDateCL").focus();
+            });
+        }, 1500);
+        $('#ddlPreMoveInTimeCL').on('change', function () {
+            if (!$(this).val()) {
+                $("#chkPreMoveinCL").prop("checked", false);
+                $("#chkPreMoveinCL").removeProp("disabled");
+                $("#chkPreMoveinCL").parent().removeClass("checked");
+            }
+            else {
+                $("#chkPreMoveinCL").attr("checked", true);
+                $("#chkPreMoveinCL").prop("disabled", "disabled");
+                $("#chkPreMoveinCL").parent().addClass("checked");
+            }
+        });
+
+        $('#ddlMoveInTimeCL').on('change', function () {
+            if (!$(this).val()) {
+                $("#chkMoveinCL").prop("checked", false);
+                $("#chkMoveinCL").removeProp("disabled");
+                $("#chkMoveinCL").parent().removeClass("checked");
+            }
+            else {
+                $("#chkMoveinCL").attr("checked", true);
+                $("#chkMoveinCL").prop("disabled", "disabled");
+                $("#chkMoveinCL").parent().addClass("checked");
+            }
+        });
+
+        $("#iconPreMoveInDateChecklist").click(function () {
+            $("#txtPreMoveInDateCL").focus();
+        });
+        $("#iconMoveInDateChecklist").click(function () {
+            $("#txtMoveInDateCL").focus();
+        });
+
+        getTenantInfoCL(@ViewBag.UID);
+        $("#txtScheduleMoveIn").datepicker();
+        if ($("#hndUID").val() != "0") {
+            goToStepCL(3, 3);
+        }
+        else {
+
+        }
+
+        document.getElementById('fileUploadPOI').onchange = function () {
+            var fileUploadPOIBool = restrictFileUpload($(this).val());
+            if (fileUploadPOIBool == true) {
+                uploadInsurenceDoc();
+            }
+            else {
+                document.getElementById('fileUploadPOI').value = '';
+                $.alert({
+                    title: "",
+                    content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                    type: 'blue'
+                });
+            }
+        };
+        document.getElementById('fileUploadPOE').onchange = function () {
+            var fileUploadPOEBool = restrictFileUpload($(this).val());
+            if (fileUploadPOEBool == true) {
+                uploadProofOfElectricityDoc();
+            }
+            else {
+                document.getElementById('fileUploadPOE').value = '';
+                $.alert({
+                    title: "",
+                    content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                    type: 'blue'
+                });
+            }
+        };
+    });
+    function gotoLogOffCheck() {
+        $("#hndUID").val("0");
+        window.location = "/Account/LogOff";
+    }
+    var getTenantInfoCL = function (uid) {
+        if (uid > 0) {
+            $("#divLoader").show();
+            var model = { UID: uid }
+            $.ajax({
+                url: '/CheckList/GetCoAppMoveInData/',
+                type: "post",
+                contentType: "application/json utf-8",
+                data: JSON.stringify(model),
+                dataType: "JSON",
+                success: function (response) {
+
+                    $("#divLoader").hide();
+                    $("#hndPreMoveInDate").val(response.model.PreMoveInDateTxt);
+                    $("#hndMoveInDate").val(response.model.MoveInDateTxt);
+                    $("#hndProspectID").val(response.model.ProspectId);
+                    if (!response.model.FirstName) {
+                        $("#txtname").text("");
+                    } else {
+                        $("#txtname").text(response.model.FirstName + " " + response.model.LastName);
+                    }
+
+                    $("#lblmoveincharge").text(parseFloat(response.model.PartialMoveInCharges).toFixed(2));
+                    $("#txtPaymentCL").val(parseFloat(response.model.PartialMoveInCharges).toFixed(2));
+                    $("#lblPaymentPer").text(response.model.MoveInPercentage);
+                    $("#hndPID").val(response.model.PropertyId);
+                    $("#lblLeaseNo").text(response.model.EnvelopeID);
+                    if (response.model.EnvelopeID != "") {
+                        $("#btnleaseDownl").removeAttr("disabled");
+                    }
+                    if (response.model.EsignatureID == "") {
+                        $("#btnDownloadLeaseDocument").removeAttr("disabled");
+                    }
+                    if (response.moveindata.IsCheckPay == 1) {
+                        $("#chkPayCL").prop("checked", true);
+                        $("#chkPayCL").prop("disabled", "disabled");
+                        $("#chkPayCL").parent().addClass("checked");
+                        $("#btnPayNowCheckLink").addClass("hidden");
+                        $("#hndPaymentDone").val(1);
+
+                    } else {
+                        $("#chkPayCL").prop("checked", false);
+                        $("#chkPayCL").prop("disabled", "disabled");
+                        $("#chkPayCL").parent().removeClass("checked");
+                        $("#btnPayNowCheckLink").removeClass("hidden");
+                        $("#hndPaymentDone").val(0);
+                    }
+                    if (response.moveindata.IsCheckSch == 1) {
+                        $("#chkMoveinCL").attr("checked", true);
+                        $("#chkMoveinCL").prop("disabled", "disabled");
+                        $("#chkMoveinCL").parent().addClass("checked");
+                        $("#txtMoveInDateCL").val(response.moveindata.MoveInDateTxt);
+                        $("#ddlMoveInTimeCL").val(response.moveindata.MoveInTime);
+                    } else {
+                        $("#chkMoveinCL").prop("checked", false);
+                        $("#chkInsCL").prop("disabled", "disabled");
+                        $("#chkMoveinCL").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.IsCheckPreSch == 1) {
+                        $("#chkPreMoveinCL").attr("checked", true);
+                        $("#chkPreMoveinCL").prop("disabled", "disabled");
+                        $("#chkPreMoveinCL").parent().addClass("checked");
+                        $("#txtPreMoveInDateCL").val(response.moveindata.PreMoveInDateTxt);
+                        $("#ddlPreMoveInTimeCL").val(response.moveindata.PreMoveInTime);
+                    } else {
+                        $("#chkPreMoveinCL").prop("checked", false);
+                        $("#chkInsCL").prop("disabled", "disabled");
+                        $("#chkPreMoveinCL").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.IsCheckIns == 1) {
+                        $("#chkInsCL").prop("checked", true);
+                        $("#chkInsCL").prop("disabled", "disabled");
+                        $("#chkInsCL").parent().addClass("checked");
+                        $('#fileUploadPOIShow').text(response.moveindata.InsuranceDoc);
+                    } else {
+                        $("#chkInsCL").prop("checked", false);
+                        $("#chkInsCL").removeProp("disabled");
+                        $("#chkInsCL").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.IsCheckPO == 1) {
+                        $("#chkPoCL").prop("checked", true);
+                        $("#chkPoCL").prop("disabled", "disabled");
+                        $("#chkPoCL").parent().addClass("checked");
+                    } else {
+                        $("#chkPoCL").prop("checked", false);
+                        $("#chkPoCL").removeProp("disabled");
+                        $("#chkPoCL").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.IsCheckElc == 1) {
+                        $("#chkEleCL").prop("checked", true);
+                        $("#chkEleCL").prop("disabled", "disabled");
+                        $("#chkEleCL").parent().addClass("checked");
+                        $('#fileUploadPOEShow').text(response.moveindata.ElectricityDoc);
+                    } else {
+                        $("#chkEleCL").prop("checked", false);
+                        $("#chkEleCL").prop("disabled", "disabled");
+                        $("#chkEleCL").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.IsCheckATT == 1) {
+                        $("#chkAtCL").prop("checked", true);
+                        $("#chkAtCL").prop("disabled", "disabled");
+                        $("#chkAtCL").parent().addClass("checked");
+                    } else {
+                        $("#chkAtCL").prop("checked", false);
+                        $("#chkAtCL").removeProp("disabled");
+                        $("#chkAtCL").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.IsCheckWater == 1) {
+                        $("#chkWaterCL").prop("checked", true);
+                        $("#chkWaterCL").prop("disabled", "disabled");
+                        $("#chkWaterCL").parent().addClass("checked");
+                    } else {
+                        $("#chkWaterCL").prop("checked", false);
+                        $("#chkWaterCL").removeProp("disabled");
+                        $("#chkWaterCL").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.IsCheckSD == 1) {
+                        $("#chkSDP").prop("checked", true);
+                        $("#chkSDP").prop("disabled", "disabled");
+                        $("#chkSDP").parent().addClass("checked");
+                    } else {
+                        $("#chkSDP").prop("checked", false);
+                        $("#chkSDP").removeProp("disabled");
+                        $("#chkSDP").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.Movers == 1) {
+                        $("#chkMovers").prop("checked", true);
+                        $("#chkMovers").prop("disabled", "disabled");
+                        $("#chkMovers").parent().addClass("checked");
+                    } else {
+                        $("#chkMovers").prop("checked", false);
+                        $("#chkMovers").removeProp("disabled");
+                        $("#chkMovers").parent().removeClass("checked");
+                    }
+                    if (response.moveindata.IsAllChecked == 1) {
+                        $("#btnSaveCheckList").addClass("hidden");
+                    } else {
+                        $("#btnSaveCheckList").removeClass("hidden");
+                    }
+                }
+            });
+        }
+    };
+    var SignInFromEmailCheckList = function () {
+        var msg = "";
+        var email = $("#UserName").val();
+        var pass = $("#password").val();
+
+        if (email == "") {
+            msg += "Enter Registerd Email ID</br>";
+        }
+        if (pass == "") {
+            msg += "Enter Password</br>";
+        }
+
+        if (msg != "") {
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+
+        var model = {
+            UserName: email,
+            Password: pass,
+
+        };
+
+        $.ajax({
+            url: "/ApplyNow/SignIn/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                //if (response != "0") {
+                //    $("#hndUID").val(response);
+                //    getTenantInfoCL(response);
+                //    goToStepCL(2, 2);
+                //} else {
+                //    alert("Invalid Email ID / password.")
+                //}
+                var result = response.UserData.split("|");
+                if (result[0] == -1) {
+                    window.location = "/Home/";
+                }
+                else if (result[0] != 0) {
+                    if (result[1] == "ad") {
+                        window.location = "/Admin/AdminHome";
+                    }
+                    else if (result[1] == "te") {
+                        $("#hndUID").val(result[0]);
+                        getTenantInfo(result[0]);
+                        goToStep(2, 2);
+                        $("#btnLogout").removeClass("hidden");
+                    }
+                    else if (result[1] == "cl") {
+                        $("#hndUID").val(result[0]);
+                        getTenantInfoCL(result[0]);
+                        goToStepCL(2, 2);
+                        $("#btnLogoff").removeClass("hidden");
+                    }
+                    else if (result[1] == "as") {
+                        window.location = "/ApplicationStatus/Index/" + result[2];
+                    }
+                    else if (result[1] == "an") {
+                        window.location = "/ApplyNow/Index/" + result[0];
+                    }
+                    else {
+                        window.location = "/Home/";
+                    }
+                    $("#popSignIn").PopupWindow("close");
+                } else {
+                    alert("Invalid Email ID / Password.")
+                }
+            }
+        });
+    }
+
+    var goToStepCL = function (stepid, id) {
+        if (stepid == "1") {
+            $("#step1").removeClass("hidden");
+            $("#step2").addClass("hidden");
+            $("#step3").addClass("hidden");
+        }
+        if (stepid == "2") {
+            if (id == "2") {
+                $("#step1").addClass("hidden");
+                $("#step3").addClass("hidden");
+                $("#step2").removeClass("hidden");
+            }
+        }
+        if (stepid == "3") {
+            if (id == "3") {
+                $("#step2").addClass("hidden");
+                $("#step1").addClass("hidden");
+                $("#step3").removeClass("hidden");
+            }
+        }
+    }
+
+    function savePaymentCheckList() {
+        if ($("#chkTermsAndCondition").is(':unchecked')) {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: "Please accept Terms & Condition </br>",
+                type: 'red'
+            });
+            return;
+        }
+        $("#divLoader").show();
+        var msg = "";
+        if ($("#hndTransMethod").val() == "0") {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: "Please Select Payment Method</br>",
+                type: 'red'
+            });
+            return;
+
+        }
+        if ($("#hndTransMethod").val() == "2") {
+            var paymentMethod = 2;
+            var propertyId = $("#hndPID").val();
+            var nameonCard = $("#txtNameonCardCL").val();
+            var cardNumber = $("#txtCardNumberCL").val();
+            var cardMonth = $("#ddlcardmonthCL").val();
+            var cardYear = $("#ddlcardyearCL").val();
+            var ccvNumber = $("#txtCCVNumberCL").val();
+            var prospectID = $("#hndProspectID").val();
+            var moveinamt = $("#txtPaymentCL").val();
+            var amounttoPay = $("#lblmoveincharge").text();
+            var description = "Move In Charges";
+
+            var routingNumber = $("#txtRoutingNumberCL").val();
+            var bankName = $("#txtBankNameCL").val();
+
+            if (!nameonCard) {
+                msg += "Please Enter Name on Card</br>";
+            }
+            if (cardNumber == "" || cardNumber.length != 16) {
+                msg += "Please enter your 16 digit Card Number</br>";
+            }
+            if (cardMonth == "0") {
+                msg += "Please enter Card Month</br>";
+            }
+            if (cardYear == "0") {
+                msg += "Please enter Card Year</br>";
+            }
+
+            var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
+            var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+
+            GivenDate = new Date(GivenDate);
+            CurrentDate = new Date(CurrentDate);
+
+            if (GivenDate <= CurrentDate) {
+                msg += "Your Credit Card Expired..</br>";
+            }
+
+            if (msg != "") {
+                $("#divLoader").hide();
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+                return;
+            }
+        } else {
+            var paymentMethod = 1;
+            var nameonCard = $("#txtAccountNameCL").val();
+            var cardNumber = $("#txtAccountNumberCL").val();
+            var cardMonth = 0;
+            var cardYear = 0;
+            var ccvNumber = $("#txtRoutingNumberCL").val();
+            var routingNumber = $("#txtRoutingNumberCL").val();
+            var bankName = $("#txtBankNameCL").val();
+            var moveinamt = $("#txtPaymentCL").val();
+            var amounttoPay = $("#lblmoveincharge").text();
+            var description = "Move In Charges";
+            var prospectID = $("#hndProspectID").val();
+            var propertyId = $("#hndPID").val();
+            if (nameonCard == "") {
+                msg += "Please Enter Account Name</br>";
+            }
+            if (cardNumber == "") {
+                msg += "Please Enter Account Number</br>";
+            }
+
+            if (msg != "") {
+                $("#divLoader").hide();
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+                return;
+            }
+        }
+
+
+        var model = {
+            PID: propertyId,
+            Name_On_Card: nameonCard,
+            CardNumber: cardNumber,
+            CardMonth: cardMonth,
+            CardYear: cardYear,
+            CCVNumber: ccvNumber,
+            Charge_Amount: moveinamt,
+            Credit_Amount: amounttoPay,
+            ProspectID: prospectID,
+            Description: description,
+            RoutingNumber: routingNumber,
+            BankName: bankName,
+            PaymentMethod: paymentMethod,
+            MoveInPercentage:$("#lblPaymentPer").text(),
+        };
+
+        $.alert({
+            title: "",
+            content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesCL()).toFixed(2)  + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesCL())).toFixed(2) + ". Do you want to Pay Now?",
+            type: 'blue',
+            buttons: {
+                yes: {
+                    text: 'Yes',
+                    action: function (yes) {
+        $.ajax({
+            url: "/CheckList/SaveMoveInPayment/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $("#divLoader").hide();
+                if (response.Msg != "") {
+                    $("#hndPaymentDone").val(response.PaymentDone);
+                    $("#ResponseMsg").html(response.Msg);
+                    $("#chkPayCL").prop("checked", true);
+                    $("#chkPayCL").prop("disabled", "disabled");
+                    $("#chkPayCL").parent().addClass("checked");
+                    if (response.PaymentDone == "1") {
+                        $("#btnPayNowCheckLink").addClass("hidden");
+                    }
+                    else {
+                        $("#btnPayNowCheckLink").removeClass("hidden");
+                    }
+                    $("#divLoader").hide();
+                    $.alert({
+                        title: "",
+                        content: response.Msg,
+                        type: 'red'
+                    });
+                    $("#popPayNow").modal("hide");
+                }
+
+            }
+        });
+                    }
+                },
+                no: {
+                    text: 'No',
+                    action: function (no) {
+                        $("#divLoader").hide();
+                    }
+                }
+            }
+        });
+    }
+    function setMoveInDate() {
+        $("#divLoader").show();
+        var msg = "";
+        if (!$("#txtScheduleMoveIn").val())
+        {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: "Please Select Move In Date ",
+                type: 'red'
+            });
+            return;
+        }
+
+
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Move in Date Saved",
+            type: 'red'
+        });
+        $("#popSetDate").modal("hide")
+
+    }
+    var clearBank = function () {
+        $("#hndTransMethod").val("1");
+        $("#chkBank").addClass("active");
+        $("#chkACH").removeClass("active");
+        $("#divCard").addClass("hidden");
+        $("#divBank").removeClass("hidden");
+
+        $("#lblPaymentDetCL").text("Enter Bank Account Details.");
+    }
+    var clearCard = function () {
+        $("#hndTransMethod").val("2");
+        $("#chkACH").addClass("active");
+        $("#chkBank").removeClass("active");
+        $("#divCard").removeClass("hidden");
+        $("#divBank").addClass("hidden");
+
+        $("#lblPaymentDetCL").text("Enter Credit Card Details.");
+    }
+
+    var saveMoveInCheckList = function () {
+        var msg = "";
+
+        var paymentDone = $("#hndPaymentDone").val();
+
+        var ProspectID = $("#hndProspectID").val();
+        var PreMoveInDate = $("#txtPreMoveInDateCL").val();
+        var PreMoveInTime = $("#ddlPreMoveInTimeCL").val();
+        var MoveInDate = $("#txtMoveInDateCL").val();
+        var MoveInTime = $("#ddlMoveInTimeCL").val();
+        var MoveInCharges = $("#txtPaymentCL").val();
+        var InsuranceDoc = $("#fileUploadPOIShow").text();
+        var ElectricityDoc = $("#fileUploadPOEShow").text();
+        var IsCheckPO = $("#chkPoCL").is(":checked") ? "1" : "0";
+        var IsCheckATT = $("#chkAtCL").is(":checked") ? "1" : "0";
+        var IsCheckWater = $("#chkWaterCL").is(":checked") ? "1" : "0";
+        var IsCheckSD = $("#chkSDP").is(":checked") ? "1" : "0";
+        var Movers = $("#chkMovers").is(":checked") ? "1" : "0";
+
+        
+
+        if (InsuranceDoc == "Upload Proof of Insurance…")
+        {
+            InsuranceDoc = "";
+        }
+
+        if (ElectricityDoc == "Upload Proof of Electricity…") {
+            ElectricityDoc = "";
+        }
+
+        if (msg != "") {
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            })
+            $("#divLoader").hide();
+            return;
+        }
+
+        var model = {
+            ProspectID: ProspectID,
+            PreMoveInDate: PreMoveInDate,
+            PreMoveInTime: PreMoveInTime,
+            MoveInDate: MoveInDate,
+            MoveInTime: MoveInTime,
+            MoveInCharges: MoveInCharges,
+            IsCheckPO: IsCheckPO,
+            IsCheckATT: IsCheckATT,
+            IsCheckWater: IsCheckWater,
+            IsCheckSD: IsCheckSD,
+            InsuranceDoc: InsuranceDoc,
+            ElectricityDoc: ElectricityDoc,
+            Movers: Movers
+        }
+
+
+        $.ajax({
+            url: '/CheckList/SaveMoveInCheckList',
+            type: 'post',
+            data: JSON.stringify(model),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (response) {
+                $.alert({
+                    title: "",
+                    content: response.msg,
+                    type: 'red'
+                })
+                setTimeout(function () {
+                    window.location.href = "/Home/Index";
+                }, 1500);
+
+            }
+        });
+    };
+
+    function printCheckListOld(divName) {
+        let printContents, popupWin;
+        printContents = document.getElementById(divName).innerHTML;
+        popupWin = window.open('', '', 'width=950,height=800,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes');
+        popupWin.document.open();
+        popupWin.document.write(`
+          <html >
+            <head>
+            <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.css" >
+            <link rel="stylesheet" href="/Content/bootstrap/css/bootstrap.min.css">
+            <link rel="stylesheet" href="/Content/assets/css/wizard.css" >
+            <link rel="stylesheet" href="/Content/assets/css/style.css">
+            <link rel="stylesheet" href="/Content/assets/css/PrintGuest.css">
+            </head>
+            <style>
+    hr {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+        border: 0;
+        border-top: 1px solid #bebdbd;
+    }
+ input[type=file],input[type=button] , button{
+   visibility:hidden;
+}
+
+     .divChecklist {
+      border: 2px solid black;
+        }
+
+    body { font-size: 12px;line-height: 20px; margin: 0px 10px 0px 0px; }
+    h3, .h3 { font-size: 18px;margin: 10px 0 5px; }
+    span { font-size: 12px; line-height: 1.20em;}
+
+            </style>
+        <body onload="window.print();window.close()">${printContents}</body>
+          </html>`
+        );
+        popupWin.document.close();
+    }
+    var printCheckList = function (divName) {
+        let printContents, popupWin, pintRes;
+        printContents = document.all.item(divName).innerHTML;
+        $("#divPrintData").append(printContents);
+        $('#divPrintData input[type="checkbox"]').each(function () {
+            var img = "";
+            if ($(this).parent().hasClass("checked")) {
+
+                img = '<img src="/Content/assets/img/skin/squareC.png" width="30px" height="30px" />';
+            }
+            else {
+                img = '<img src="/Content/assets/img/skin/squareB.png" width="30px" height="30px" />';
+            }
+            $(this).parent().parent().prepend(img);
+        });
+
+        $('#divPrintData .icheckbox_square-yellow').remove();
+        $("#divPrintCheckList").removeClass("hidden").printThis();
+        $('#divPrintData input[id="fileUploadPOI"]').remove();
+        $('#divPrintData input[id="fileUploadPOE"]').remove();
+        $('#divPrintData input[id="txtPaymentCL"]').attr("value", $("#txtPaymentCL").val());
+        $('#divPrintData input[id="txtMoveInDateCL"]').attr("value", $("#txtMoveInDateCL").val());
+        $('#divPrintData input[id="ddlMoveInTimeCL"]').attr("value", $("#ddlMoveInTimeCL").val());
+        $('#divPrintData input[id="txtPreMoveInDateCL"]').attr("value", $("#txtPreMoveInDateCL").val());
+        $('#divPrintData input[id="ddlPreMoveInTimeCL"]').attr("value", $("#ddlPreMoveInTimeCL").val());
+
+
+        setTimeout(function () {
+            $("#divPrintCheckList").addClass("hidden");
+            $("#divPrintData").empty();
+        }, 3000);
+    };
+
+    var uploadInsurenceDoc = function () {
+        $formData = new FormData();
+
+        var insurenceDocumnet = document.getElementById('fileUploadPOI');
+        var ProspectID = $("#hndProspectID").val();
+        for (var i = 0; i < insurenceDocumnet.files.length; i++) {
+            $formData.append('file-' + i, insurenceDocumnet.files[i]);
+        }
+        $formData.append('ProspectID', ProspectID);
+
+        $.ajax({
+            url: '/CheckList/UploadInsurenceDoc',
+            type: 'post',
+            data: $formData,
+            contentType: 'application/json; charset=utf-8',
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function (response) {
+                $('#hndPOI').val(response.model.InsuranceDoc);
+                $('#fileUploadPOIShow').text(response.model.InsuranceDoc);
+                $("#chkInsCL").prop("checked", true);
+                $("#chkInsCL").prop("disabled", "disabled");
+                $("#chkInsCL").parent().addClass("checked");
+                $.alert({
+                    title: "",
+                    content: "File uploaded Successfully.",
+                    type: 'blue'
+                });
+            }
+        });
+    };
+
+    var uploadProofOfElectricityDoc = function () {
+        $formData = new FormData();
+
+        var proofOfElectricityDocumnet = document.getElementById('fileUploadPOE');
+        var ProspectID = $("#hndProspectID").val();
+
+        for (var i = 0; i < proofOfElectricityDocumnet.files.length; i++) {
+            $formData.append('file-' + i, proofOfElectricityDocumnet.files[i]);
+        }
+        $formData.append('ProspectID', ProspectID);
+
+        $.ajax({
+            url: '/CheckList/UploadProofOfElectricityDoc',
+            type: 'post',
+            data: $formData,
+            contentType: 'application/json; charset=utf-8',
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function (response) {
+                $('#hndPOE').val(response.model.ElectricityDoc);
+                $('#fileUploadPOEShow').text(response.model.ElectricityDoc);
+                $("#chkEleCL").prop("checked", true);
+                $("#chkEleCL").prop("disabled", "disabled");
+                $("#chkEleCL").parent().addClass("checked");
+                $.alert({
+                    title: "",
+                    content: "File uploaded Successfully.",
+                    type: 'blue'
+                });
+            }
+        });
+    };
+
+    var getDocuDoc = function () {
+
+        $("#divLoader").show();
+        var param = { UserID: $("#hndUID").val()};
+        $.ajax({
+            url: "/EmbeddedSigning/GetDocuDocLease",
+            method: "post",
+            data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8", // content type sent to server
+            dataType: "json", //Expected data format from server
+            success: function (response) {
+                $("#divLoader").hide();
+                window.open("/Content/assets/img/Document/" + response.result, "popupWindow", "width=900,height=600,scrollbars=yes");
+            }
+        });
+    }
+
+    var createLeaseDocument = function () {
+
+        if ($("#btnDownloadLeaseDocument").attr("disabled")) {
+            return;
+        }
+
+        $("#divLoader").show();
+        var param = { UserID: $("#hndUID").val() };
+        $.ajax({
+            url: "/CheckList/LeaseBlumoon",
+            method: "post",
+            data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8", // content type sent to server
+            dataType: "json", //Expected data format from server
+            success: function (response) {
+                $("#divLoader").hide();
+                $("#btnleaseDownl").removeAttr("disabled");
+                $("#btnDownloadLeaseDocument").attr("disabled","disabled");
+
+                //$("#btnleaseDownl").attr('href', '/Content/assets/img/Document/' + response.LeaseId + '.pdf');
+                //$("#btnleaseDownl").attr('download', 'LeaseDocument_' + response.LeaseId + '.pdf');
+                //$("#btnleaseDownl").attr('target', '_parent');
+            }
+        });
+    }
+    var downloadLeaseDocument = function () {
+        $("#divLoader").show();
+        var param = { UserID: $("#hndUID").val() };
+        $.ajax({
+            url: "/CheckList/GetLeaseDocBlumoon",
+            method: "post",
+            data: JSON.stringify(param),
+            contentType: "application/json; charset=utf-8", // content type sent to server
+            dataType: "json", //Expected data format from server
+            success: function (response) {
+                $("#divLoader").hide();
+                var hyperlink = document.createElement('a');
+                hyperlink.href = "/Content/assets/img/Document/LeaseDocument_" + response.LeaseId + ".pdf";
+                hyperlink.target = '_blank';
+                hyperlink.download = "LeaseDocument_" + response.LeaseId + ".pdf";
+
+                (document.body || document.documentElement).appendChild(hyperlink);
+                hyperlink.onclick = function () {
+                    (document.body || document.documentElement).removeChild(hyperlink);
+                };
+                var mouseEvent = new MouseEvent('click', {
+                    view: window,
+                    bubbles: true,
+                    cancelable: true
+                });
+                hyperlink.dispatchEvent(mouseEvent);
+                if (!navigator.mozGetUserMedia) {
+                    window.URL.revokeObjectURL(hyperlink.href);
+                }
+
+            }
+        });
+    }
+    var getProcessingFeesCL = function () {
+        return $("#hndProcessingFees").val();
+    };
+</script>

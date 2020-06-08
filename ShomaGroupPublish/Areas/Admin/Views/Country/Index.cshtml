@@ -7,7 +7,7 @@
 <input type="hidden" id="hdnSearchType" value="1" />
 <input type="hidden" id="hdnCurrentPage" value="1" />
 <input type="hidden" id="hndPageNoCountry" value="0" />
-<div class="register-area" style="background-color: rgb(249, 249, 249);">
+@*<div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100% !important">
         <div class="breadcrumb">
             <h4 class="">Add / Edit Country  </h4>
@@ -66,6 +66,74 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+<div class="container-fluid" style="background-color: rgb(249, 249, 249);margin-top:40px">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xl-12">
+            <div class="breadcrumb">
+                <h4 class="">Add / Edit Country  </h4>
+            </div>
+            <div class="row">
+                <div class="form-group clearfix panel">
+                    <div class="col-md-7">
+                        <div class="form-inline clearfix panel">
+                            <div class="form-group col-md-2 padding-5">
+                                <label class="control-label" style="padding:0px 5px;">Enter Criteria</label>
+                            </div>
+                            <div class="form-group col-md-4 padding-5">
+                                <input type="text" id="txtCriteriaCountry" name="Criteria" class="form-control form-control-small" />
+                            </div>
+                            <div class="form-group col-md-2 padding-5">
+                                <button id="btnSearchCountry" class="btn btn-primary" style="margin-left:-10px; height:34px" onclick="buildPaganationCountryList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                                <button id="btnGoToCountry" class="btn btn-success pull-right hidden" style="margin-right:15px;" onclick="goToCountry()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-arrow-circle-o-right"></i> Go to</button>
+                            </div>
+                            <div class="form-group col-md-2 padding-5 text-right">
+                                <label id="lblRPP_Country" class="control-label">Row/Page</label>
+                            </div>
+                            <div class="form-group col-md-2 padding-5">
+                                <select id="ddlRPP_Country" class="form-control form-control-small"></select>
+                            </div>
+                        </div>
+                        <div class="form-inline clearfix panel" id="divPagination_Country" style="cursor:pointer;">
+                            <div id="divPgn" class="col-sm-12 pagination">
+                                <ul id="ulPagination_Country"></ul>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <table id="tblCountry" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="pds-countryname" style="background-color: #c7cdd566;color:#3d3939;width:45%;cursor:pointer;" onclick="sortTableCountry('countryName')">Country Name <i id="sortCountryIcon" class=""></i></th>
+                                        <th class="pds-countryname" style="background-color: #c7cdd566;color:#3d3939;width:30%">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="col-md-12 padding-5">
+                            <div class="form-group pull-right clearfix">
+                                <button type="button" class="btn btn-primary" id="btnNewCity" onclick="clearCountryData()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> NEW</button>
+                                <button type="button" class="btn btn-primary" id="btnSaveUpdateCity" onclick="saveUpdateCountry()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">SAVE</span></button>
+                            </div>
+                        </div>
+                        <div class="form-group clearfix padding-5">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="txtCountryName" class="star">Country Name</label>
+                                        <input class="form-control form-control-small" id="txtCountryName" maxlength="100" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

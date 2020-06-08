@@ -272,11 +272,16 @@ namespace ShomaRM.Areas.Admin.Models
                 rowCount = 1;
             }
             decimal width = 80 / rowCount;
+           
 
             List<UnitLeasePriceHeader> ulph = new List<UnitLeasePriceHeader>();
+
+           
             ulph.Add(new UnitLeasePriceHeader() { HeaderName = "Unit No", SortName = "UnitNo", Width = (rowCount == 1 ? "50" : "5"), DefaultSort = "1", HasSorting="1" });
             ulph.Add(new UnitLeasePriceHeader() { HeaderName = "Model", SortName = "Building", Width = (rowCount == 1 ? "50" : "5"), DefaultSort = "0", HasSorting = "1" });
-            foreach(var lt in leaseTerms)
+            ulph.Add(new UnitLeasePriceHeader() { HeaderName = "Is Available", SortName = "IsAvailable", Width = (rowCount == 1 ? "50" : "5"), DefaultSort = "1", HasSorting = "1" });
+            
+            foreach (var lt in leaseTerms)
             {
                 ulph.Add(new UnitLeasePriceHeader() { HeaderName = (lt.LeaseTerms ?? 0).ToString() + " Months", SortName = (lt.LeaseTerms ?? 0).ToString() + "Months", Width = width.ToString("0.00"), DefaultSort = "0" , HasSorting="0"});
             }
@@ -727,6 +732,7 @@ namespace ShomaRM.Areas.Admin.Models
                     searchmodel.ULPID = Convert.ToInt64(dr["ULPID"].ToString());
                     searchmodel.LeaseID = Convert.ToInt32(dr["LeaseID"].ToString());
                     searchmodel.Price = Convert.ToDecimal(dr["Price"].ToString());
+                    searchmodel.IsAvailable = dr["IsAvailable"].ToString() == "" ? 0 : Convert.ToInt32(dr["IsAvailable"].ToString());
                     lstUnitLeasePrice.Add(searchmodel);
                 }
                 db.Dispose();
@@ -889,6 +895,7 @@ namespace ShomaRM.Areas.Admin.Models
         public List<ParkingModel> LocationList { get; set; }
         public int Type { get; set; }
         public int? IsFurnished { get; set; }
+        public int? IsAvailable { get; set; }
 
         public PropertyUnits GetPropertyUnitDetails(long UID)
         {
@@ -986,6 +993,7 @@ namespace ShomaRM.Areas.Admin.Models
                 model.BalconyArea = unitDet.BalconyArea == null ? "0" : unitDet.BalconyArea;
                 model.Notes = unitDet.Notes;
                 model.IsFurnished = unitDet.IsFurnished;
+                model.IsAvailable = unitDet.IsAvailable;
                 var ParkingInfo = db.tbl_Parking.Where(p => p.PropertyID == unitDet.UID).FirstOrDefault();
                 if (ParkingInfo != null)
                 {
@@ -1125,7 +1133,8 @@ namespace ShomaRM.Areas.Admin.Models
                     BalconyArea=model.BalconyArea,
                     InteriorArea=model.InteriorArea,
                     Notes=model.Notes,
-                    IsFurnished = model.IsFurnished
+                    IsFurnished = model.IsFurnished,
+                    IsAvailable = model.IsAvailable
                 };
                 db.tbl_PropertyUnits.Add(saveProp);
                 db.SaveChanges();
@@ -1189,6 +1198,7 @@ namespace ShomaRM.Areas.Admin.Models
                     propUnitUpdate.InteriorArea = model.InteriorArea;
                     propUnitUpdate.Notes = model.Notes;
                     propUnitUpdate.IsFurnished = model.IsFurnished;
+                    propUnitUpdate.IsAvailable = model.IsAvailable;
                 }
                 db.SaveChanges();
                 msg = "Property Unit Details Updated Successfully";
@@ -1510,6 +1520,23 @@ namespace ShomaRM.Areas.Admin.Models
             
             db.Dispose();
             return ULPID;
+        }
+
+        public long UpdateUnitAvailability(PropertyUnits model)
+        {
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+            if (model.UID != 0)
+            {
+                var propUnitUpdate = db.tbl_PropertyUnits.Where(p => p.UID == model.UID).FirstOrDefault();
+                if (propUnitUpdate != null)
+                {
+                    propUnitUpdate.IsAvailable = model.IsAvailable;
+                }
+                db.SaveChanges();
+                msg = "Property Unit Details Updated Successfully";
+            }
+            return model.UID;
         }
     }
     public partial class PropertyFloor
@@ -1914,6 +1941,7 @@ namespace ShomaRM.Areas.Admin.Models
         public long ULPID { get; set; }
         public long LeaseID { get; set; }
         public decimal Price { get; set; }
+        public int IsAvailable { get; set; }
     } 
 
     public class UnitLeasePriceHeader

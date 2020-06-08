@@ -30,5 +30,6 @@ namespace ShomaRM.Data
         public Nullable<int> Charge_Type { get; set; }
         public string Authcode { get; set; }
         public Nullable<long> UserID { get; set; }
+        public string RefNum { get; set; }
     }
 }

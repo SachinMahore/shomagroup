@@ -2294,7 +2294,7 @@ var getTransationLists = function (userid) {
                 html += "<td>" + elementValue.Description + "</td>";
                 //html += "<td>" + elementValue.CreatedDateString + "</td>";
                 html += "</tr>";
-                if (elementValue.Transaction_Type == "Administrative Fee") {
+                if (elementValue.Transaction_Type == "Administrative Fee" || elementValue.Transaction_Type =="Application Fees") {
                     adminFeesPaid = 1;
                     var adhtml = "<tr data-value=" + elementValue.TransID + ">";
                     adhtml += "<td>" + $("#hndPriAppFullName").val() + "</td>";

@@ -9,7 +9,101 @@
 <script src="~/Areas/Admin/Content/Pages/Event/EventList.js"></script>
 <input type="hidden" id="hdnSearchType_EL" value="1" />
 <input type="hidden" id="hdnCurrentPage_EL" value="1" />
-<div class="register-area" style="background-color: rgb(249, 249, 249);">
+<div class="container-fluid" style="margin-top:40px; background-color: rgb(249, 249, 249);">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xl-12">
+            <div class="breadcrumb">
+                <h4 class="">Event List</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-12  pr0  properties-page">
+                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                        <div class="panel-heading">
+                            <div class="col-sm-3">
+                                <h3 class="panel-title input-group">From Date</h3>
+                                <div class="input-group">
+                                    <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                                    <span class="input-group-btn">
+                                        <button id="iconFromDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <h3 class="panel-title input-group">To Date</h3>
+                                <div id="divToDate" class="input-group">
+                                    <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
+                                    <span id="spTodate" class="input-group-btn">
+                                        <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            @*<div class="col-sm-3">
+                        <div class="form-group">
+                            <h3 class="panel-title">From Date</h3>
+                            <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                            <span class="input-group-btn" style="width:0% !important">
+                                <button class="btn btn-primary search" type="button" id="iconFromDate" style="margin-top: -60px;margin-left: 219px;"><i class="fa-calendar fa"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <h3 class="panel-title">To Date</h3>
+                            <input id="txtToDate" type="text" class="form-control" value="@endDate.ToString("MM/dd/yyyy")">
+                            <span class="input-group-btn" style="width:0% !important">
+                                <button class="btn btn-primary search" type="button" id="iconToDate" style="margin-top: -60px;margin-left: 220px;"><i class="fa-calendar fa"></i></button>
+                            </span>
+                        </div>
+                    </div>*@
+                            <div class="col-sm-3">
+                                <div class="form-group  padding-top-25">
+                                    <button class='btn btn-next btn-primary' name='Search' value='Search' style="height: 34px;margin-top: 2px;" onclick="buildPaganationEventList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group  padding-top-25">
+                                    <button type="button" class="btn btn-success pull-right" id="btnSaveUpdate" onclick="addNewEvent()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 form-group" id="divPagination_EventList">
+                            <div id="divPgn" class="col-sm-8 pagination">
+                                <ul id="ulPagination_EventList"></ul>
+                            </div>
+                            <div class="col-sm-3 padding-0 pull-right" style="margin-top:22px">
+                                <div class="col-sm-6">
+                                    <label class="control-label" style="margin-left:52px;">Row/Page</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <select id="ddlRPP_EventList" class="form-control form-control-small"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body search-widget">
+                            <div class="col-md-12 clear">
+                                <table id="tblEvent" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableEvent('EventName')">Event Name <i id="sortEventIcon" class=""></i></th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableEvent('PropertyName')">Property <i id="sortPropertyIcon" class=""></i></th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableEvent('EventDateName')">Event Date <i id="sortEventDateIcon" class=""></i></th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableEvent('TypeName')">Type <i id="sortTypeIcon" class=""></i></th>
+                                            <th style="background-color: #c7cdd566;color:#3d3939">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100%">
         <div class="row">
             <div class="breadcrumb">
@@ -37,7 +131,7 @@
                                 </span>
                             </div>
                         </div>
-                        @*<div class="col-sm-3">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <h3 class="panel-title">From Date</h3>
                                 <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
@@ -54,7 +148,7 @@
                                     <button class="btn btn-primary search" type="button" id="iconToDate" style="margin-top: -60px;margin-left: 220px;"><i class="fa-calendar fa"></i></button>
                                 </span>
                             </div>
-                        </div>*@
+                        </div>
                         <div class="col-sm-3">
                             <div class="form-group  padding-top-25">
                                 <button class='btn btn-next btn-primary' name='Search' value='Search' style="margin-left: 40px;height: 34px;margin-top: 2px;" onclick="buildPaganationEventList(1)"><i class="glyphicon glyphicon-search"></i> SEARCH</button>
@@ -100,7 +194,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <script>
     $(function () {
         $("#iconFromDate").click(function () {
