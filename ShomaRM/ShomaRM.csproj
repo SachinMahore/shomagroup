@@ -593,6 +593,7 @@
     <Content Include="Content\assets\css\jAlert.css" />
     <Content Include="Content\assets\css\jquery.slitslider.css" />
     <Content Include="Content\assets\css\lightslider.min.css" />
+    <Content Include="Content\assets\css\newResponsiveStyle.css" />
     <Content Include="Content\assets\css\normalize.css" />
     <Content Include="Content\assets\css\owl.carousel.css" />
     <Content Include="Content\assets\css\owl.theme.css" />
