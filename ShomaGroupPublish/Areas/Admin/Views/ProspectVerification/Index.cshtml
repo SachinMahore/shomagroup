@@ -11,7 +11,141 @@
 <script src="~/Areas/Admin/Content/Pages/ProspectVerification/ProspectVerificationList.js"></script>
 <!-- property area -->
 <input type="hidden" id="hndPageNo" value="0" />
-<div class="register-area" style="background-color: rgb(249, 249, 249);">
+<div class="container-fluid" style="margin-top:40px;background-color: rgb(249, 249, 249); ">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xl-12">
+            <div class="breadcrumb" style="margin-bottom:0px">
+                <h4 class="">Online Application List</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                        <div class="panel-heading">
+                            <div class="col-sm-3">
+                                <h3 class="panel-title input-group">From Date</h3>
+                                <div class="input-group">
+                                    <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                                    <span class="input-group-btn">
+                                        <button id="iconFromDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <h3 class="panel-title input-group">To Date</h3>
+                                <div id="divToDate" class="input-group">
+                                    <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
+                                    <span id="spTodate" class="input-group-btn">
+                                        <button id="iconToDate" class="btn btn-primary search" type="button" style="height: 34px !important "><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <h3 class="panel-title">Criteria</h3>
+                                    <select id="ddlCriteria" class="form-control">
+                                        <option value='1' data-value="Status">Status</option>
+                                        <option value='2' data-value="Unit">Unit No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2" id="serchStat">
+                                <div class="form-group">
+                                    <h3 class="panel-title">Status</h3>
+                                    <select id="ddlSearchStatus" class="form-control">
+                                        <option value="">Select</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Denied">Denied</option>
+                                        <option value="Conditional">Conditional</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2 hidden" id="EnterC">
+                                <div class="form-group">
+                                    <h3 class="panel-title"> Unit No</h3>
+                                    <input id="txtUnitNo" type="text" onkeypress="return isOnlyNumber(event)" class="form-control">
+                                </div>
+                            </div>
+                            @*<div class="col-sm-3">
+                    <div class="form-group">
+                        <h3 class="panel-title">From Date</h3>
+                        <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                        <span class="input-group-btn" style="width:0% !important">
+                            <button class="btn btn-primary search" type="button" id="iconFromDate" style="margin-top: -60px;margin-left: 290px;"><i class="fa-calendar fa"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <h3 class="panel-title">To Date</h3>
+                        <input id="txtToDate" type="text" class="form-control" value="@endDate.ToString("MM/dd/yyyy")">
+                        <span class="input-group-btn" style="width:0% !important">
+                            <button class="btn btn-primary search" type="button" id="iconToDate" style="margin-top: -60px;margin-left: 290px;"><i class="fa-calendar fa"></i></button>
+                        </span>
+                    </div>
+                </div>*@
+                            <div class="col-sm-2">
+                                <div class="form-group padding-top-25">
+                                    <button type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="buildPaganationProspectVerifyList(1)"><i class="fa fa-search"></i> SEARCH</button>
+                                </div>
+                            </div>
+                            @*<div class="col-sm-3">
+                    <div class="form-group  padding-top-25">
+                    </div>
+                </div>*@
+                        </div>
+                        
+                            <div class="col-sm-12 form-group" id="divPagination_ProspectVerifyList">
+                                <div class="row">
+                                    <div id="divPgn" class="col-sm-8 pagination" style="margin-top: 24px;">
+                                        <ul id="ulPagination_ProspectVerifyList"></ul>
+                                    </div>
+                                    <div class="col-sm-3 padding-0 pull-right" style="margin-top: 24px;">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class="control-label">Row/Page</label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select id="ddlRPP_ProspectVerifyList" class="form-control form-control-small"></select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                           
+
+                        </div>
+                        
+                           
+                                <div class="col-md-12 table-responsive">
+                                    <table id="tblProspectVerify" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('FirstName')">First Name <i id="sortFirstNameIcon" class=""></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('LastName')">Last Name <i id="sortLastNameIcon" class=""></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('PhoneNo')">Phone No <i id="sortPhoneNoIcon" class=""></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('EmailAddress')">Email Address <i id="sortEmailAddressIcon" class=""></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('ApplyDate')">Apply Date <i id="sortApplyDateIcon" class=""></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort" onclick="sortTableProspectVerification('UnitNo')">Unit No <i id="sortUnitNoIcon" class=""></i></th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer;" title="Sort">Status</th>
+                                                <th style="background-color: #c7cdd5;color:#3d3939;padding:10px;">Background Screening</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+@*<div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100%!important">
         <div class="row">
             <div class="breadcrumb" style="margin-bottom:0px">
@@ -35,7 +169,7 @@
                             <div id="divToDate" class="input-group">
                                 <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
                                 <span id="spTodate" class="input-group-btn">
-                                    <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    <button id="iconToDate" class="btn btn-primary search" type="button" style="height: 34px !important "><i class="fa-calendar fa"></i></button>
                                 </span>
                             </div>
                         </div>
@@ -66,7 +200,7 @@
                                 <input id="txtUnitNo" type="text" onkeypress="return isOnlyNumber(event)" class="form-control">
                             </div>
                         </div>
-                        @*<div class="col-sm-3">
+                        <div class="col-sm-3">
                                 <div class="form-group">
                                     <h3 class="panel-title">From Date</h3>
                                     <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
@@ -83,16 +217,16 @@
                                         <button class="btn btn-primary search" type="button" id="iconToDate" style="margin-top: -60px;margin-left: 290px;"><i class="fa-calendar fa"></i></button>
                                     </span>
                                 </div>
-                            </div>*@
+                            </div>
                         <div class="col-sm-2">
                             <div class="form-group padding-top-25">
                                 <button type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="buildPaganationProspectVerifyList(1)"><i class="fa fa-search"></i> SEARCH</button>
                             </div>
                         </div>
-                        @*<div class="col-sm-3">
+                        <div class="col-sm-3">
                                 <div class="form-group  padding-top-25">
                                 </div>
-                            </div>*@
+                            </div>
                     </div>
                     <div class="col-sm-12 form-group" id="divPagination_ProspectVerifyList">
                         <div id="divPgn" class="col-sm-8 pagination">
@@ -131,7 +265,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <div class="modal" id="popBackgroundScreening" style="background-color: rgb(249, 249, 249);">
     <div class="modal-dialog">
         <div class="modal-content" style="width:507px; height:450px;">
