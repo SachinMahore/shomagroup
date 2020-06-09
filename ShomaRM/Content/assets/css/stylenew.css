@@ -1543,7 +1543,7 @@ textarea {
 page-header
 ======================================================*/
 .page-head {
-    background: #494C53 url("../../assets/img/page-header.jpg") no-repeat scroll center top / cover;
+    background: #494C53 url("../../assets/img/page-header.jpg") no-repeat scroll center bottom / cover;
     color: #FFF;
     position: relative;
     min-height: 140px;
