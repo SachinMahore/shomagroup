@@ -9661,7 +9661,7 @@ function saveCoAppPayment() {
         var cardYear = $("#ddlcardyear1").val();
         var ccvNumber = $("#txtCCVNumber1").val();
         var prospectID = $("#hdnOPId").val();
-        var amounttoPay = $("#sppayFees").text();
+        var amounttoPay = unformatText( $("#sppayFees").text());
         var description = $("#lblpopcctitle").text();
 
         var routingNumber = $("#txtRoutingNumber1").val();
@@ -9698,7 +9698,7 @@ function saveCoAppPayment() {
         var ccvNumber = 0;
         var routingNumber = $("#txtRoutingNumber1").val();
         var bankName = $("#txtBankName1").val();
-        var amounttoPay = $("#sppayFees").text(); 
+        var amounttoPay = unformatText( $("#sppayFees").text()); 
         var description = $("#lblpopcctitle").text();
         var prospectID = $("#hdnOPId").val();
         var propertyId = $("#hndUID").val();
@@ -9822,7 +9822,7 @@ function saveCoAppPaymentPopup() {
         cardYear = $("#ddlcardyear2").val();
         ccvNumber = $("#txtCCVNumber2").val();
         prospectID = $("#hdnOPId").val();
-        amounttoPay = $("#sppayFees2").text();
+        amounttoPay = unformatText( $("#sppayFees2").text());
         description = $("#lblpopcctitle").text();
 
         routingNumber = $("#txtRoutingNumber2").val();
@@ -9869,7 +9869,7 @@ function saveCoAppPaymentPopup() {
         ccvNumber = 0;
         routingNumber = $("#txtRoutingNumber2").val();
         bankName = $("#txtBankName2").val();
-        amounttoPay = $("#sppayFees2").text();
+        amounttoPay = unformatText( $("#sppayFees2").text());
         description = $("#lblpopcctitle").text();
          prospectID = $("#hdnOPId").val();
         propertyId = $("#hndUID").val();
