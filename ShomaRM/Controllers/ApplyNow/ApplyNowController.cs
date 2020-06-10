@@ -207,6 +207,20 @@ namespace ShomaRM.Controllers
                 return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        //Sachin M 09 June 2020
+        public async System.Threading.Tasks.Task<ActionResult> saveListPayment(ApplyNowModel model)
+        {
+            try
+            {
+                string msg = await (new ApplyNowModel().saveListPayment(model));
+                return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult GetApplyNowList(int id)
         {
             try
@@ -1357,6 +1371,22 @@ namespace ShomaRM.Controllers
                 }
             }
             return Redirect("/ApplyNow/Index/0");
+        }
+
+
+        //Sachin Mahore 08 June 2020
+        public ActionResult GetBankCCList(long ApplicantID)
+        {
+            try
+            {
+                return Json(new { model = new BankCCModel().GetBankCCList(ApplicantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
         }
     }
 }

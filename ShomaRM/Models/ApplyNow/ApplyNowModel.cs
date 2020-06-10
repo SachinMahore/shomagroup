@@ -59,6 +59,8 @@ namespace ShomaRM.Models
         public Nullable<decimal> ProcessingFees { get; set; }
         public int AcceptSummary { get; set; }
         public int FromAcc { get; set; }
+        public int PAID { get; set; }
+        public int IsSaveAcc { get; set; }
         // Sachin M added 28 Apr
         public List<ApplicantModel> lstApp { get; set; }
         string message = "";
@@ -435,29 +437,33 @@ namespace ShomaRM.Models
                         bat = "5";
                     }
                     long paid = 0;
-                    var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ApplicantID == model.AID && P.CardNumber == encrytpedCardNumber && P.CardMonth == encrytpedCardMonth && P.CardYear == encrytpedCardYear).FirstOrDefault();
 
-                    if (GetPayDetails == null)
+                    if (IsSaveAcc == 1)
                     {
-                        var savePaymentDetails = new tbl_OnlinePayment()
+                        var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ApplicantID == model.AID && P.CardNumber == encrytpedCardNumber && P.CardMonth == encrytpedCardMonth && P.CardYear == encrytpedCardYear).FirstOrDefault();
+
+                        if (GetPayDetails == null)
                         {
-                            PID = model.PID,
-                            Name_On_Card = model.Name_On_Card,
-                            CardNumber = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "",
-                            CardMonth = !string.IsNullOrWhiteSpace(model.CardMonth) ? new EncryptDecrypt().EncryptText(model.CardMonth) : "",
-                            CardYear = !string.IsNullOrWhiteSpace(model.CardYear) ? new EncryptDecrypt().EncryptText(model.CardYear) : "",
-                            CCVNumber = !string.IsNullOrWhiteSpace(model.RoutingNumber) ? new EncryptDecrypt().EncryptText(model.RoutingNumber) : "",
-                            ProspectId = model.ProspectId,
-                            PaymentMethod = model.PaymentMethod,
-                            ApplicantID = model.AID,
-                        };
-                        db.tbl_OnlinePayment.Add(savePaymentDetails);
-                        db.SaveChanges();
-                        paid = savePaymentDetails.ID;
-                    }
-                    else
-                    {
-                        paid = GetPayDetails.ID;
+                            var savePaymentDetails = new tbl_OnlinePayment()
+                            {
+                                PID = model.PID,
+                                Name_On_Card = model.Name_On_Card,
+                                CardNumber = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "",
+                                CardMonth = !string.IsNullOrWhiteSpace(model.CardMonth) ? new EncryptDecrypt().EncryptText(model.CardMonth) : "",
+                                CardYear = !string.IsNullOrWhiteSpace(model.CardYear) ? new EncryptDecrypt().EncryptText(model.CardYear) : "",
+                                CCVNumber = !string.IsNullOrWhiteSpace(model.RoutingNumber) ? new EncryptDecrypt().EncryptText(model.RoutingNumber) : "",
+                                ProspectId = model.ProspectId,
+                                PaymentMethod = model.PaymentMethod,
+                                ApplicantID = model.AID,
+                            };
+                            db.tbl_OnlinePayment.Add(savePaymentDetails);
+                            db.SaveChanges();
+                            paid = savePaymentDetails.ID;
+                        }
+                        else
+                        {
+                            paid = GetPayDetails.ID;
+                        }
                     }
                     var saveTransaction = new tbl_Transaction()
                     {
@@ -650,6 +656,272 @@ namespace ShomaRM.Models
             return msg;
         }
 
+        // Sachin M 09 june 2020
+        public async Task<string> saveListPayment(ApplyNowModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string msg = "";
+
+            if (model.ProspectId != 0)
+            {
+                var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
+                var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
+                var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                var UserData = db.tbl_Login.Where(p => p.UserID == GetCoappDet.UserID).FirstOrDefault();
+
+                var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ID == model.PAID).FirstOrDefault();
+
+                string decrytpedCardNumber = new EncryptDecrypt().DecryptText(GetPayDetails.CardNumber);
+                string decrytpedCardMonth = new EncryptDecrypt().DecryptText(GetPayDetails.CardMonth);
+                string decrytpedCardYear = new EncryptDecrypt().DecryptText(GetPayDetails.CardYear);
+                string decryptedPayemntCardNumber = new EncryptDecrypt().DecryptText(GetPayDetails.CardNumber);
+
+                decimal processingFees = 0;
+
+                if (GePropertyData != null)
+                {
+                    processingFees = GePropertyData.ProcessingFees ?? 0;
+                }
+
+                string transStatus = "";
+                model.Email = GetCoappDet.Email;
+                model.ProcessingFees = processingFees;
+                model.Name_On_Card = GetPayDetails.Name_On_Card;
+                if (GetPayDetails.PaymentMethod == 2)
+                {
+                    model.CardNumber = decryptedPayemntCardNumber;
+                    model.CardMonth = decrytpedCardMonth;
+                    model.CardYear = decrytpedCardYear;
+
+                    transStatus = new UsaePayModel().ChargeCard(model);
+                }
+                else if (GetPayDetails.PaymentMethod == 1)
+                {
+                    model.AccountNumber = decrytpedCardNumber;
+                    model.RoutingNumber = model.CCVNumber;
+                    transStatus = new UsaePayModel().ChargeACH(model);
+                }
+
+                String[] spearator = { "|" };
+                String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+                string bat = "";
+
+                if (strlist[1] != "000000")
+                {
+                    if (model.FromAcc == 1)
+                    {
+                        bat = model.AID.ToString();
+                        //Added by Sachin M 28 Apr 8:28PM
+                        var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == model.AID).FirstOrDefault();
+                        if (coappliList != null)
+                        {
+                            coappliList.Paid = 1;
+                            db.SaveChanges();
+                        }
+                    }
+                    else
+                    {
+                        bat = "1";
+                    }
+                    if (model.FromAcc == 4)
+                    {
+                        bat = "4";
+                    }
+                    if (model.FromAcc == 5)
+                    {
+                        bat = "5";
+                    }
+                    
+                    var saveTransaction = new tbl_Transaction()
+                    {
+                        TenantID = Convert.ToInt64(GetProspectData.UserId),
+                        PAID = model.PAID.ToString(),
+                        Transaction_Date = DateTime.Now,
+                        CreatedDate = DateTime.Now,
+                        Credit_Amount = model.Charge_Amount,
+                        Description = model.Description + "| TransID: " + strlist[2],
+                        Charge_Date = DateTime.Now,
+                        Charge_Type = Convert.ToInt32(bat),
+                        Authcode = strlist[1],
+                        Charge_Amount = model.Charge_Amount,
+                        Miscellaneous_Amount = processingFees,
+                        Accounting_Date = DateTime.Now,
+                        Batch = bat,
+                        CreatedBy = Convert.ToInt32(GetProspectData.UserId),
+                        UserID = GetCoappDet.UserID,
+                        RefNum = strlist[2],
+                    };
+                    db.tbl_Transaction.Add(saveTransaction);
+                    db.SaveChanges();
+
+                    var TransId = saveTransaction.TransID;
+                    MyTransactionModel mm = new MyTransactionModel();
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);
+
+                    string reportHTML = "";
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    string message = "";
+                    string phonenumber = GetCoappDet.Phone;
+                    string sub = "";
+                    if (model != null)
+                    {
+                        if (model.FromAcc == 1 || model.FromAcc == 2)
+                        {
+                            GetProspectData.IsApplyNow = 2;
+                            db.SaveChanges();
+
+                            sub = "Online Application Fees Payment Received";
+                            reportHTML = reportHTML.Replace("[%EmailHeader%]", "Online Application Fees Payment Received");
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
+
+                            reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
+
+                            reportHTML = reportHTML.Replace("[%TenantEmail%]", GetCoappDet.Email);
+                            //sachin m 01 may 2020
+                            string body = reportHTML;
+                            new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
+                            message = "Online Application Completed and Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
+                            if (SendMessage == "yes")
+                            {
+                                if (!string.IsNullOrWhiteSpace(phonenumber))
+                                {
+                                    new TwilioService().SMS(phonenumber, message);
+                                }
+                            }
+                        }
+                        else if (model.FromAcc == 4)
+                        {
+                            //sachin m 01 may 2020
+                            sub = "Credit Check Fees Payment Received";
+                            reportHTML = reportHTML.Replace("[%EmailHeader%]", "Credit Check Fees Payment Received");
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your Credit Check fees payment.  Please save this email for your personal records.  Your application is being processed for background check, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
+                            reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
+                            reportHTML = reportHTML.Replace("[%TenantEmail%]", GetCoappDet.Email);
+                            string body = reportHTML;
+                            new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
+                            message = "Credit Check Fees Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
+                            if (SendMessage == "yes")
+                            {
+                                if (!string.IsNullOrWhiteSpace(phonenumber))
+                                {
+                                    new TwilioService().SMS(phonenumber, message);
+                                }
+                            }
+                            string pass = "";
+                            pass = new EncryptDecrypt().DecryptText(UserData.Password);
+
+                            // Call Credit Check Function //
+                            var acutraqrequest = new AcutraqRequest();
+                            TenantOnlineModel modelTD = new TenantOnlineModel().GetTenantOnlineList((int)GetProspectData.ID, GetCoappDet.UserID ?? 0);
+                            //modelTD.Country = "US";
+                            //modelTD.SSN = "111-22-3333";
+                            string result = await acutraqrequest.PostAqutraqTenant(modelTD);
+
+                            // Call Credit Check Function //
+
+                            //if (result == "1")
+                            //{
+                            //var gerResultData = db.tbl_BackgroundScreening.Where(p => p.TenantId == model.ProspectId && p.Type == "TENTCREDIT").FirstOrDefault();
+
+                            GetCoappDet.CreditPaid = 1;
+                            db.SaveChanges();
+
+                            string reportHTMLbc = "";
+                            reportHTMLbc = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect5.html");
+                            reportHTMLbc = reportHTMLbc.Replace("[%ServerURL%]", serverURL);
+                            sub = "Credit Check Approved and Complete Online Application";
+                            reportHTMLbc = reportHTMLbc.Replace("[%EmailHeader%]", "Credit Check Approved and Complete Online Application");
+                            reportHTMLbc = reportHTMLbc.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Congratulation! Your application for credit check is approved. Please complete your Online Application by clicking below link</p>");
+                            reportHTMLbc = reportHTMLbc.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
+                            reportHTMLbc = reportHTMLbc.Replace("[%TenantEmail%]", GetCoappDet.Email);
+                            reportHTMLbc = reportHTMLbc.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                            string bodybc = reportHTMLbc;
+                            new EmailSendModel().SendEmail(GetCoappDet.Email, "Credit Check Approved", bodybc);
+                            message = "Credit Check Approved. Please check the email for detail.";
+                            if (SendMessage == "yes")
+                            {
+                                if (!string.IsNullOrWhiteSpace(phonenumber))
+                                {
+                                    new TwilioService().SMS(phonenumber, message);
+                                }
+                            }
+                            //}
+                        }
+                        else if (model.FromAcc == 5)
+                        {
+                            GetCoappDet.BackGroundPaid = 1;
+                            GetCoappDet.Paid = 1;
+                            db.SaveChanges();
+
+                            filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+                            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                            reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                            message = "";
+                            phonenumber = GetCoappDet.Phone;
+                            if (model != null)
+                            {
+                                reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Background Check Payment Received");
+                                reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
+
+                                reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
+
+                                reportHTML = reportHTML.Replace("[%TenantEmail%]", GetCoappDet.Email);
+
+                            }
+                            string body = reportHTML;
+
+                            new EmailSendModel().SendEmail(GetCoappDet.Email, "Application Completed and Background Check Payment Received", body);
+                            message = "Online Application Completed and Background Check Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
+                            if (SendMessage == "yes")
+                            {
+                                if (!string.IsNullOrWhiteSpace(phonenumber))
+                                {
+                                    new TwilioService().SMS(phonenumber, message);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            GetProspectData.IsApplyNow = 2;
+                            db.SaveChanges();
+
+                            sub = "Administration Fees Payment Received";
+                            reportHTML = reportHTML.Replace("[%EmailHeader%]", "Administration Fees Payment Received");
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p>");
+                            reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
+                            reportHTML = reportHTML.Replace("[%TenantEmail%]", GetCoappDet.Email);
+                            //sachin m 01 may 2020
+                            string body = reportHTML;
+                            new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
+                            message = "Administration Fees Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
+                            if (SendMessage == "yes")
+                            {
+                                if (!string.IsNullOrWhiteSpace(phonenumber))
+                                {
+                                    new TwilioService().SMS(phonenumber, message);
+                                }
+                            }
+                            var currentUser = new CurrentUser();
+                            currentUser.UserID = Convert.ToInt32(GetProspectData.UserId);
+
+                            (new ShomaGroupWebSession()).SetWebSession(currentUser);
+                        }
+                    }
+
+                    msg = "1";
+                }
+                else
+                {
+                    msg = "0";
+                }
+
+            }
+
+            db.Dispose();
+            return msg;
+        }
         public ApplyNowModel ForgetPassword(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -1985,6 +2257,51 @@ namespace ShomaRM.Models
             }
             db.Dispose();
             return ismodelexists;
+        }
+    }
+    public class BankCCModel
+    {
+        public int ID { get; set; }
+        public Nullable<long> PID { get; set; }
+        public string Name_On_Card { get; set; }
+        public string CardNumber { get; set; }
+        public string CardMonth { get; set; }
+        public string CardYear { get; set; }
+        public string CCVNumber { get; set; }
+        public Nullable<long> ProspectId { get; set; }
+        public Nullable<int> PaymentMethod { get; set; }
+        public Nullable<long> ApplicantID { get; set; }
+        public string PaymentMethodString { get; set; }
+        
+        //Sachin Mahore 08 June 2020
+        public List<BankCCModel> GetBankCCList(long ApplicantID)
+        {
+            List<BankCCModel> listBankCC = new List<BankCCModel>();
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            var getBankCCList = db.tbl_OnlinePayment.Where(p => p.ApplicantID == ApplicantID).ToList();
+            if (getBankCCList != null)
+            {
+                foreach (var bc in getBankCCList)
+                {
+                    BankCCModel model = new BankCCModel();
+                    model.PaymentMethod = bc.PaymentMethod;
+                    model.PaymentMethodString = bc.PaymentMethod == 1 ? "Bank Account" : "Credit Card";
+                    model.Name_On_Card = bc.Name_On_Card;
+                    string decryptedBankCC = new EncryptDecrypt().DecryptText(bc.CardNumber);
+                    string decryptedMM = new EncryptDecrypt().DecryptText(bc.CardMonth);
+                    string decryptedYY= new EncryptDecrypt().DecryptText(bc.CardYear);
+                    model.CardNumber = decryptedBankCC;
+                    model.CardMonth =decryptedMM;
+                    model.CardYear = decryptedYY;
+                    model.ID = bc.ID;
+                    listBankCC.Add(model);
+                }
+
+
+            }
+
+            return listBankCC;
         }
     }
 }

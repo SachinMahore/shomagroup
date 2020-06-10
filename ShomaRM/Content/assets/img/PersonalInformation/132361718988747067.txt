@@ -1,0 +1,310 @@
+            <div class="col-md-12 hidden justify-content-center" id="divMainSearch">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <b>Desired Move-In</b>
+                                    <div class="">
+                                        <input type="text" id="txtDate" data-date-format="mm/dd/yyyy" class="form-control" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" />
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <b>Bedrooms</b>
+                                    <select id="ddlRoom" class="form-control">
+                                        <option value='0'>All</option>
+                                        <option value='1'>1 Bedroom</option>
+                                        <option value='2'>2 Bedrooms</option>
+                                        <option value='3'>3 Bedrooms</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" id="hndbuilding" value="1" />
+                            <input type="hidden" id="txtMaxRent" class="form-control" value="@Model.MaxRent" placeholder="Max Rent" />
+
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <b>Sort</b>
+                                    <select id="ddlSortOrder" class="form-control">
+                                        <option value='0'>Low To High</option>
+                                        <option value='1'>High To Low</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <b>Furnished</b>
+                                    <select id="ddlFurnishedUnit" class="form-control">
+                                        <option value='0' selected="selected">All</option>
+                                        <option value='1'>Furnished Unit</option>
+                                        <option value='2'>Unfurnished Unit</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn-success btn" style="padding: 7px 7px;margin-top:19px;" id="btnSearch" onclick="getPropertyModelUnitList()" data-wow-delay="0.5s">Search</button>
+                            </div>
+                        </div>
+
+
+------------
+ <div id="divSelectUnit">
+                        @*<div class="row">
+                            <div class="col-xl-12 col-md-12 padding-top1">
+                                <a href="javascript:void(0)" onclick="goToPriceTable()" class="genric-btn available">Back</a>
+                            </div>
+                        </div>*@
+                        <div class="row justify-content-center">
+                            <div class="col-md-2"></div>
+                            <div class="col-xl-8 col-md-8">
+                                <div class="col-xl-6 col-md-6 text-center float-left">
+                                    <div class="">
+                                        @*<img src="~/Content/SMResponsive/img/floor-plan-big.png" />*@
+                                        <img src="" id="imgFloorPlanNew">
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-md-6 float-left">
+                                    <div class="unit-txt1">
+                                        <h2>Floor Plan</h2>
+                                        <span>
+                                            <span id="lblBed33"></span> Bed | <span id="lblBath33"></span> Bath<br />
+                                            <span id="lblArea33"></span> Sq Ft<br />
+                                            Starting at $<span id="lblRent33"></span> / month
+                                        </span>
+                                        @*<p><a href="#" class="genric-btn success">Success</a></p>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="contain-text">
+                                    <h3>Select Floor Plan</h3>
+                                    <p>View available floor plans, Selcet more than one to compare or select just one to choose your new apartment.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-xl-10">
+                                <table class="" style="width:100%;" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:20%;font-size:18px;font-weight:bold;" class="unit">Unit</th>
+                                            <th style="width:18%;font-size:18px;font-weight:bold;" class="price">Price</th>
+                                            <th class="available" style="font-size:18px;font-weight:bold;">Available</th>
+                                            <th class="charges"></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+
+                                <div style="height:322px; overflow-y:scroll;overflow-x:auto;width:99.5%">
+                                    <table id="listUnitNew" border="0" cellpadding="5" cellspacing="5">
+                                        <tbody>
+                                            @if (Model.lstPropertyUnit != null)
+                                            {
+                                                foreach (var ul in Model.lstPropertyUnit)
+                                                {
+                                                    <tr class="@(Model.PropertyId==ul.UID?"":"")" id="unitdiv_@ul.UID" data-floorid="@ul.FloorNoText">
+                                                        <td class="unit"><a href="javascript:void(0);" onclick="getPropertyUnitDetails(@ul.UID)"><h5 style="width: 80px;">#@ul.UnitNo </h5></a> </td>
+                                                        <td style="text-align: center;width=100px">$@ul.Current_Rent.ToString("0.00")</td>
+                                                        <td style="text-align: center;width:100px">@ul.AvailableDateText</td>
+                                                        <td class="charges">
+                                                            <a href="javascript:void(0)" class="genric-btn success" onclick="showPriceTable(@ul.UID)">Apply</a>
+                                                            <a href="javascript:void(0)" class="genric-btn success" onclick="showMonthlyCharges(@ul.UID)">Monthly Charges</a>
+                                                            <a href="javascript:void(0)"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                    @*<table border="0" cellpadding="5" cellspacing="5">
+                                        <tr>
+                                            <th class="unit">Unit</th>
+                                            <th class="price">Price</th>
+                                            <th class="available">Available</th>
+                                            <th class="charges"></th>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="unit">Unit#</td>
+                                            <td class="price">$1,800</td>
+                                            <td class="available">5/10/20</td>
+                                            <td class="charges">
+                                                <a href="price-table.html" class="genric-btn success">Apply</a>
+                                                <!-- <a href="#" class="genric-btn success">Monthly Charges</a> -->
+
+                                                <script>$("#fade").modal({ fadeDuration: 100 });</script>
+                                                <div id="ex1" class="modal">
+
+
+                                                    <div class="container">
+                                                        <div class="row-full">
+                                                            <div class="col-xs-12 monthly-charges">
+
+                                                                <div class="col-xl-6 col-md-6 float-left">
+                                                                    <div class="property_thumb text-center">
+                                                                        <img src="img/floor-plan.jpg" alt="">
+                                                                    </div>
+                                                                    <h3>
+                                                                        <strong>
+                                                                            Model A1<br />
+                                                                            Unit #<br />
+                                                                            12 Month Lease Term<br>
+                                                                            Desired Move-In:5/10/20
+                                                                        </strong>
+                                                                    </h3>
+
+                                                                    <div class="box margin-top1">
+                                                                        <p>Bedrooms <span class="float-right">1</span></p>
+                                                                        <p>Bathrooms <span class="float-right">1</span></p>
+                                                                        <p>Sq.Ft.<span class="float-right">835</span></p>
+                                                                        <p>Occupancy<span class="float-right">2</span></p>
+                                                                        <p>Deposit<span class="float-right">$500.00</span></p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-xl-6 col-md-6 float-left">
+                                                                    <h3 class="text-center"><strong>Summary of Monthly Charges</strong></h3>
+                                                                    <div class="box">
+                                                                        <p>Base Rent<span class="float-right">$1.875.00</span></p>
+                                                                        <p>Premium<span class="float-right">$0.00</span></p>
+                                                                        <p>Promotion<span class="float-right">$0.00</span></p>
+                                                                        <p>Subtotal<span class="float-right">$0.00</span></p>
+                                                                        <p><strong>Additional Services</strong></p>
+                                                                        <p>Pest Control<span class="float-right">$5.00</span></p>
+                                                                        <p>Trash/Recycle<span class="float-right">$15.00</span></p>
+                                                                        <p>Convergent Billing Fee<span class="float-right">$6.50</span></p>
+                                                                        <p>Subtotal<span class="float-right">$1901.50</span></p>
+                                                                        <p>TOTAL MONTHLY CHARGES*<span class="float-right"><strong>$1901.50</strong></span></p>
+                                                                    </div>
+                                                                    <small>*Does not include water & sewer charges based on acual monthly consumption</small>
+                                                                </div>
+                                                                <div class="clearfix"></div>
+                                                                <div class="text-center padding-top1"><a href="#" class="genric-btn available">Print</a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Link to open the modal -->
+                                                <a href="#ex1" rel="modal:open" class="genric-btn success">Monthly Charges</a>
+
+                                                <!--TPAYMENT POPUP END-->
+
+                                                <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i></a>
+
+                                            </td>
+                                        </tr>
+                                    </table>*@
+                                </div>
+
+                            </div>
+                        </div><!--unit,price section end-->
+                        <div class="row padding-top2">
+                            <div class="col-xl-12 ">
+
+                                <div class="col-xl-7 col-md-7 float-left">
+                                    <div id="divFloor">
+                                        <img src="/content/assets/img/demo/@Model.Picture" usemap="#apartment_2" id="apartimg_2">
+                                        @*<img src="~/Content/SMResponsive/img/@Model.Picture" usemap="#apartment_2" id="apartimg_2" />*@
+                                        <map name="apartment_2" id="floorImgdiv">
+                                            @foreach (var lstcord in Model.lstPropertyFloor)
+                                            {
+                                                <area id="fa_@lstcord.FloorID" data-aval="@lstcord.IsAvail" data-floorid="@lstcord.FloorID" shape="poly" class="tooltip buildplan" @*data-title="Floor -@lstcord.FloorID"*@ href="javascript:void(0);" coords="@lstcord.Coordinates" onclick="getPropertyUnitListByFloor(@lstcord.FloorID)">
+                                                @*<span style="display: none">@lstcord.FloorID</span>*@
+                                                <div id="dfa_@lstcord.FloorID" class="hidden divtooltip">
+                                                    <span>Floor - @lstcord.FloorID</span>
+                                                </div>
+                                            }
+                                        </map>
+                                        <input type="hidden" id="hndSelectedFloor" value="" />
+                                        <input type="hidden" id="hndSelectedAval" value="0" />
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-5 col-md-5 float-left">
+                                    <div class="unit_thumb map">
+                                        <ul>
+                                            <li>Available</li>
+                                            <li class="op">Other Options</li>
+                                            <li class="un">Unavailable</li>
+                                        </ul>
+                                    </div>
+                                    <div class="panel panel-default sidebar-menu wow fadeInRight animated" id="popUnitPlan" style="background:#fff;color:#4d738a; padding:5px;"></div>
+                                </div>
+
+                            </div>
+                        </div><!--unit,price section end-->
+                        <!---->
+                    </div>
+
+
+------------
+  @*Old*@
+                                <div class="col-xs-12 col-sm-6 col-lg-8" id="tblResponsibilityPay">
+                                 
+                                </div>
+
+
+
+
+-------------- tblResponsibilityPay
+ prhtml += "<div class='row respo' data-id='" + elementValue.ApplicantID + "'><div class='col-sm-12  col-lg-2 box-padding'><div class='col-lg-12'></div>" +
+                        "<div class='col-lg-12'>" + elementValue.Type + "</div><div class='col-lg-12'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></div></div>" +
+                        "<div class='col-sm-12  col-lg-5'><div class='col-lg-12'></div><div class='col-lg-12 box-padding'><b>Move In Charges</b></div><div class='row'><div class='col-lg-6'>" +
+                        "<input class='input-box payper' type='text' id='txtpayper" + elementValue.ApplicantID + "' value='" + elementValue.MoveInPercentage + "'/><span class='input-box-span'><b>%</b></span></div><div class='col-lg-6'>" +
+                        "<span class='input-box-span'><b>$</b></span><input class='input-box' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "' type='text'  id='txtpayamt" + elementValue.ApplicantID + "'/></div></div></div>" +
+                        "<div class='col-sm-12  col-lg-5'><div class='col-lg-12'></div><div class='col-lg-12 box-padding'><b>Monthly Payment</b></div><div class='row'><div class='col-lg-6'>" +
+                        "<input class='input-box payperMo' value='" + elementValue.MonthlyPercentage + "' type='text'  id='txtpayperMo" + elementValue.ApplicantID + "' /><span class='input-box-span'><b>%</b></span></div><div class='col-lg-6'><span class='input-box-span'><b>$</b></span><input class='input-box' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "' type='text' id='txtpayamtMo" + elementValue.ApplicantID + "'/></div></div> </div>" +
+                        "</div>";
+
+
+function saveupdatePaymentResponsibility(stepcompleted) {
+    $("#divLoader").show();
+    var model = new Array();
+    $(".respo").each(function () {
+        var row = $(this);
+        var customer = {};
+        
+        customer.applicantID = row.attr("data-id");
+  
+        customer.moveInPercentage = $("#txtpayper" + customer.applicantID).val();
+        customer.moveInCharge = $("#txtpayamt" + customer.applicantID).val();
+        customer.monthlyPercentage = $("#txtpayperMo" + customer.applicantID).val();
+        customer.monthlyPayment = $("#txtpayamtMo" + customer.applicantID).val();
+
+        var applicantID = customer.applicantID;
+        var moveInPercentage = unformatText(customer.moveInPercentage);
+        var moveInCharge = unformatText(customer.moveInCharge);
+        var monthlyPercentage = unformatText(customer.monthlyPercentage);
+        var monthlyPayment = unformatText(customer.monthlyPayment);
+        var prospectId = $("#hdnOPId").val();
+        model.push({
+            ApplicantID: applicantID,
+            MoveInPercentage: moveInPercentage,
+            MoveInCharge: moveInCharge,
+            MonthlyPercentage: monthlyPercentage,
+            MonthlyPayment: monthlyPayment,
+            ProspectID: prospectId,
+            StepCompleted: stepcompleted
+        });
+    });
+    // console.log(JSON.stringify(model));
+    $.ajax({
+        url: "/Tenant/Applicant/SaveUpdatePaymentResponsibility/",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            getApplicantLists();
+            $("#popApplicant").modal("hide");
+            var stepcomp = parseInt($("#hdnStepCompleted").val());
+            if (stepcomp < stepcompleted) {
+                $("#hdnStepCompleted").val(stepcompleted);
+            }
+        }
+    });
+};
