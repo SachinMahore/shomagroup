@@ -15,9 +15,10 @@ namespace ShomaRM.Models
     public class RequestProvider
     {
         private readonly JsonSerializerSettings _serializerSettings;
-
+        CommonModel _CommonModel;
         public RequestProvider()
         {
+            _CommonModel = new CommonModel();
             _serializerSettings = new JsonSerializerSettings
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
@@ -46,7 +47,7 @@ namespace ShomaRM.Models
 
         }
 
-        public async Task<string> PostAsync<TResult>(string uri, TResult data, string header = "")
+        public async Task<string> PostAsync<TResult>(string uri, TResult data, string header = "", bool aptly = false)
         {
             HttpClient httpClient = CreateHttpClient(string.Empty);
 
@@ -55,17 +56,34 @@ namespace ShomaRM.Models
                 AddHeaderParameter(httpClient, header);
             }
             var jsonPost = JsonConvert.SerializeObject(data);
-
+            if (aptly)
+            {
+                jsonPost= aptlyserialise(jsonPost);
+                _CommonModel.Log(jsonPost);
+            }
             var content = new StringContent(jsonPost);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = await httpClient.PostAsync( uri, content);
 
             await HandleResponse(response);
             string serialized = await response.Content.ReadAsStringAsync();
-
-          
-
+            _CommonModel.Log(serialized);
             return serialized;
+        }
+
+        private string aptlyserialise(string jsonPost)
+        { 
+            jsonPost= jsonPost.Replace("FirstName", "First Name");
+            jsonPost = jsonPost.Replace("LastName", "Last Name");
+            jsonPost = jsonPost.Replace("LeaseTerm", "Lease Term");
+            jsonPost = jsonPost.Replace("MoveInDate", "Move In Date");
+            jsonPost = jsonPost.Replace("DateSigned", "Date Signed");
+            jsonPost = jsonPost.Replace("QuoteCreated", "Quote Created");
+            jsonPost = jsonPost.Replace("CreditPaid", "Credit Paid");
+            jsonPost = jsonPost.Replace("BackgroundCheckPaid", "Background Check Paid");
+            return jsonPost;
+
+
         }
 
         public async Task<string> PostAsync<TResult>(string uri, string data, string clientId, string clientSecret)
@@ -152,6 +170,8 @@ namespace ShomaRM.Models
 
         private async Task HandleResponse(HttpResponseMessage response)
         {
+           
+            _CommonModel.Log(response.IsSuccessStatusCode.ToString());
             if (!response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();

@@ -16,10 +16,13 @@ namespace ShomaRM.Models
         }
         public async Task<string> PostAptlyAsync(aptlyModel model)
         {
-            var result = requestProvider.PostAsync("https://app.getaptly.com/api/aptlet/2CvnMa2gDcpP8hPDP?x-token=7BQKWWux4dpASxq7w", model);
-               aptlyResponse response = await Task.Run(() =>
-                    JsonConvert.DeserializeObject<aptlyResponse>(result.ToString()));
-            return response.response;
+           var result =await requestProvider.PostAsync("https://app.getaptly.com/api/aptlet/2CvnMa2gDcpP8hPDP?x-token=7BQKWWux4dpASxq7w", model,"",true);
+           
+                aptlyResponse response = await Task.Run(() =>
+                     JsonConvert.DeserializeObject<aptlyResponse>(result.ToString()));
+                return response.response;
+            
+         
         }
     }
     public class aptlyResponse

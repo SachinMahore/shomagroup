@@ -26,12 +26,12 @@ namespace ShomaRM.Controllers
 
             aptlyHelper aptlyHelper = new aptlyHelper();
             aptlyModel aptlyModel = new aptlyModel();
-            aptlyModel.FirstName = "Lalit bokde";
+            aptlyModel.FirstName = "ganesh bokde";
             aptlyModel.LastName = "bokde";
 
-            aptlyModel.name = "Sanctuary Doral -hemlata";
-            aptlyModel.Email = "Lalit bokde";
-            aptlyModel.FirstName = "hemlatathinker@gmail.com";
+            aptlyModel.name = "Sanctuary Doral -ganesh";
+            aptlyModel.Email = "ganesh@gmail.com";
+            aptlyModel.FirstName = "ganesh bokde";
             aptlyModel.Building = "Sanctuary Doral";
             aptlyModel.Unit = "104";
 
@@ -47,7 +47,7 @@ namespace ShomaRM.Controllers
 
 
 
-          //  var test= aptlyHelper.PostAptlyAsync(aptlyModel);
+            var test= aptlyHelper.PostAptlyAsync(aptlyModel);
             if (Session["DelDatAll"] != null)
             {
                 if (Session["DelDatAll"].ToString() == "Del")
