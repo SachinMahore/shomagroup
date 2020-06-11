@@ -99,7 +99,7 @@
     </Reference>
     <Reference Include="LoggerEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Desktop\LoggerEngine.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\LoggerEngine.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Graph, Version=1.21.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -441,6 +441,7 @@
     <Compile Include="Models\ApplyNow\OnlineProspectModule.cs" />
     <Compile Include="Models\ApplyNow\PrintMonthlySummary.cs" />
     <Compile Include="Models\ApplyNow\PrintQuotationModel.cs" />
+    <Compile Include="Models\Aptly\aptlyHelper.cs" />
     <Compile Include="Models\AquatraqHelper.cs" />
     <Compile Include="Models\BackgroundScreeningModel.cs" />
     <Compile Include="Models\Bluemoon\BluemoonService.cs" />
@@ -453,6 +454,7 @@
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\Property\PropertyModel.cs" />
     <Compile Include="Models\Prospect\ProspectModel.cs" />
+    <Compile Include="Models\RequestProvider.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\SendGrid\EmailSendModel.cs" />
     <Compile Include="Models\SendGrid\InvalidApiRequestException.cs" />
