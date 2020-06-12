@@ -5619,10 +5619,7 @@ var payFeePop = function (aid, ct) {
 
         $("#sppayFees2").text($("#hndAppBackgroundFees").val());
     } else if (ct == 4) {
-
-        $("#sppayFees2").text("$" + $("#hndAppBackgroundFees").val());
-    } else {
-
+        
         $("#lblpopcctitle").text("Pay Credit Check Fees");
         $("#sppayFees2").text($("#hndAppCreditFees").val());        
     } else {
@@ -11468,6 +11465,7 @@ function saveListPayment() {
                                         $("#hndCreditPaid").val(1);
                                     }
                                     getApplicantLists();
+                                    getTransationLists($("#hdnUserId").val());
                                     $("#popCCPay").modal("hide");
                                 } else {
                                     $("#ResponseMsg2").html("Payment failed");

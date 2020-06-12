@@ -10034,6 +10034,7 @@ function saveListPayment() {
                                         $("#btnnextAppinfo").removeClass("hidden");
                                         $("#hndCreditPaid").val(1);
                                     }
+                                    getTransationLists($("#hdnUserId").val());
                                     getApplicantListsCoApplicant();
                                     $("#popCCPay").modal("hide");
                                 } else {

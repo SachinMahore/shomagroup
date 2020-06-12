@@ -9141,7 +9141,8 @@ function saveListPayment() {
                                         $("#btnnextAppinfo").removeClass("hidden");
                                         $("#hndCreditPaid").val(1);
                                     }
-                                    getApplicantLists();
+                                    getTransationLists($("#hdnUserId").val());
+                                    getApplicantListsGuarantor();
                                     $("#popCCPay").modal("hide");
                                 } else {
                                     $("#ResponseMsg2").html("Payment failed");
