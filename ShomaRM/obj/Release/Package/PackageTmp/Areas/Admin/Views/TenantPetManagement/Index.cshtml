@@ -10,7 +10,132 @@
 <input type="hidden" id="hdnSearchType" value="1" />
 <input type="hidden" id="hdnCurrentPage" value="1" />
 <input type="hidden" id="hndPageNo" value="0" />
-<div class="register-area" style="background-color: rgb(249, 249, 249);">
+<div class="container-fluid" style="background-color: rgb(249, 249, 249); margin-top:40px;">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xl-12">
+            <div class="breadcrumb" style="margin-bottom:0px">
+                <h4 class="">Tenant Pet List</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h3 class="panel-title input-group responsiveText">Expiry From Date</h3>
+                                    <div class="input-group">
+                                        <input id="txtFromDate" placeholder="MM/DD/YYYY" class="form-control form-control-small " type="text" value="@startDate.ToString("MM/dd/yyyy")" />
+                                        <span class="input-group-btn">
+                                            <button id="iconFromDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <h3 class="panel-title input-group responsiveText">Expiry To Date</h3>
+                                    <div id="divToDate" class="input-group">
+                                        <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small responsiveText" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
+                                         <span id="spTodate" class="input-group-btn">
+                                            <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 ">
+                                    <div class="form-group">
+                                        <h3 class="panel-title responsiveText">Criteria</h3>
+                                        <select id="ddlCriteria" class="form-control ">
+                                            <option value='0' data-value="All" selected>All</option>
+                                            <option value='1' data-value="TenantName">Tenant Name</option>
+                                            <option value='2' data-value="UnitNo">Unit No</option>
+                                            <option value='3' data-value="UniqID">UniqID</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3" id="div_txtCriteria">
+                                    <div class="form-group">
+                                        <h3 class="panel-title responsiveText">Status</h3>
+                                        <input id="txtCriteria" class="form-control form-control-small " type="text" value="" />
+                                    </div>
+                                </div>
+
+                            </div>
+                            @*<div class="col-sm-2" id="serchStat">
+                    <div class="form-group">
+                        <h3 class="panel-title">Status</h3>
+                        <select id="ddlSearchStatus" class="form-control">
+                            <option value="">Select</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Denied">Denied</option>
+                            <option value="Conditional">Conditional</option>
+                        </select>
+                    </div>
+                </div>*@
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group padding-top-25">
+                                        <button type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="buildPaganationPetPlaceList(1)"><i class="fa fa-search"></i> SEARCH</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            @*<div class="col-sm-3">
+                    <div class="form-group  padding-top-25">
+                    </div>
+                </div>*@
+                        </div>
+                        <div class="col-sm-12 form-group" id="divPagination_PetPlaceList">
+                            <div class="row">
+                                <div id="divPgn" class="col-sm-8 pagination">
+                                    <ul id="ulPagination_PetPlaceList"></ul>
+                                </div>
+                                <div class="col-sm-3 padding-0 pull-right" style="margin-top: 24px;">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="control-label">Row/Page</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <select id="ddlRPP_PetPlaceList" class="form-control form-control-small"></select>
+                                            <div class="pull-right" style="margin-top:10px ">
+                                                <input type="hidden" id="hndLockUnlock" value="1" />
+                                                <button id="btnLockUnLock" class="btn btn-primary pull-right" onclick="setlockunlock()"><span id="spanLockUnLock"><i class="fa fa-lock"></i> Unlock</span></button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12 padding-5">
+
+                        </div>
+                    
+                            <div class="col-md-12 clear table-responsive">
+                                <table id="tblPetPlace" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:20% !important;" title="Sort" onclick="sortTablePetPlace('TenantName')">Tenant Name <i id="sortTenantNameIcon" class=""></i></th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:10% !important;" title="Sort" onclick="sortTablePetPlace('UnitNo')">Unit No <i id="sortUnitNoIcon" class=""></i></th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:15% !important;" title="Sort" onclick="sortTablePetPlace('PetName')">Pet Name <i id="sortPetNameIcon" class=""></i></th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:10% !important;" title="Sort" onclick="sortTablePetPlace('Weight')">Weight(lbs) <i id="sortWeightIcon" class=""></i></th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:15% !important;" title="Sort" onclick="sortTablePetPlace('UniqID')">Unique ID <i id="sortUniqIDIcon" class=""></i></th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:15% !important;" title="Sort" onclick="sortTablePetPlace('ExpiryDate')">Expiry Date <i id="sortExpiryDateIcon" class=""></i></th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:15% !important;" title="Sort">View Certificate </th>
+                                            <th style="background-color: #c7cdd5;color:#3d3939;cursor:pointer; width:10% !important;" title="Sort">Send Remainder </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                          
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@*<div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100%!important">
         <div class="row">
             <div class="breadcrumb" style="margin-bottom:0px">
@@ -49,7 +174,7 @@
                                 </select>
                             </div>
                         </div>
-                        @*<div class="col-sm-2" id="serchStat">
+                        <div class="col-sm-2" id="serchStat">
                                 <div class="form-group">
                                     <h3 class="panel-title">Status</h3>
                                     <select id="ddlSearchStatus" class="form-control">
@@ -59,7 +184,7 @@
                                         <option value="Conditional">Conditional</option>
                                     </select>
                                 </div>
-                            </div>*@
+                            </div>
                         <div class="col-sm-2" id="div_txtCriteria">
                             <div class="form-group">
                                 <h3 class="panel-title">Status</h3>
@@ -73,10 +198,10 @@
                                 <button type='button' class='btn btn-next btn-primary' name='Search' value='Search' onclick="buildPaganationPetPlaceList(1)"><i class="fa fa-search"></i> SEARCH</button>
                             </div>
                         </div>
-                        @*<div class="col-sm-3">
+                        <div class="col-sm-3">
                                 <div class="form-group  padding-top-25">
                                 </div>
-                            </div>*@
+                            </div>
                     </div>
                     <div class="col-sm-12 form-group" id="divPagination_PetPlaceList">
                         <div id="divPgn" class="col-sm-8 pagination">
@@ -122,7 +247,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <div id="modalPetVaccination" class="modal">
     <div class="modal-dialog" style="width:80%">
         <div class="modal-content text-center" style="width: 100% !important">

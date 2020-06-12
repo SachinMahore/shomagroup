@@ -2533,7 +2533,7 @@
                                         <option value="Approved" @(Model.Status == "Approved" ? "selected='selected'" : "")> Approved</option>
                                         <option value="Denied" @(Model.Status == "Denied" ? "selected='selected'" : "")>Denied</option>
                                         <option value="Conditional" @(Model.Status == "Conditional" ? "selected='selected'" : "")>Conditional</option>
-                                     
+
                                     </select>
                                 </div>
                             </div>
@@ -2560,25 +2560,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 table-responsive">
                             <table class="table-bordered" width="100%" id="tblResidenceStatus">
                                 <thead>
                                     <tr>
                                         <th style="width:20%;">Applicant Name</th>
                                         <th>Residency From</th>
                                         <th>Monthly Rent</th>
-                                      
+
                                         <th>Mgmnt Company / Landlord</th>
                                         <th>Company Phone</th>
                                         <th>Address</th>
-                                       
+
                                         <th style="width:8%;">Status</th>
                                         <th style="width:20%;">Notes</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
                             </table>
-                          
+
                         </div>
                         <div class="col-sm-12">
                             <div class="">
@@ -2589,21 +2589,28 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12">
+
+                        <div class="col-sm-12 table-responsive">
                             <table class="table-bordered" width="100%" id="tblEmpStatus">
                                 <thead>
-                                <tr>
-                                    <th style="width:20%;">Applicant Name</th>
-                                    <th>Employed Since</th><th>Employer</th><th>Emp Phone</th><th>Supervisor Name</th><th>Address</th><th>Job Title</th>
-                                    <th>Income</th><th>Addnl Income</th>
-                                    <th style="width:8%;">Status</th>
-                                    <th style="width:20%;">Notes</th>
-                                </tr>
+                                    <tr>
+                                        <th style="width:20%;">Applicant Name</th>
+                                        <th>Employed Since</th>
+                                        <th>Employer</th>
+                                        <th>Emp Phone</th>
+                                        <th>Supervisor Name</th>
+                                        <th>Address</th>
+                                        <th>Job Title</th>
+                                        <th>Income</th>
+                                        <th>Addnl Income</th>
+                                        <th style="width:8%;">Status</th>
+                                        <th style="width:20%;">Notes</th>
+                                    </tr>
                                 </thead>
                                 <tbody></tbody>
                             </table>
-                          
-                        </div>  
+
+                        </div>
                         <div class="col-md-12">
 
 
@@ -2615,7 +2622,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 ">
+                            <div class="col-sm-12 table-responsive">
                                 <table id="tblAdminFee" class="table-bordered" width="100%">
                                     <thead>
                                         <tr>
@@ -2637,7 +2644,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-12 ">
+                            <div class="col-sm-12 table-responsive">
                                 <table id="tblLeasedSign" class="table-bordered" width="100%">
                                     <thead>
                                         <tr>
@@ -2653,30 +2660,37 @@
                             <div class="col-sm-12 clear">
                                 &nbsp;
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-12 form-inline">
-                                <div class="col-sm-3 form-inline">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-primary" id="btnSendRemSign" onclick="SendReminderEmail(2,0)" disabled="disabled">Send Reminder to Sign Lease Document (All)</button>
+                                <div class="row">
+                                    <div class="col-sm-3  col-xs-12 form-inline">
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-primary responsiveScreenStatusBtn" id="btnSendRemSign" onclick="SendReminderEmail(2,0)" disabled="disabled">Send Reminder to Sign Lease Document (All)</button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-3 form-inline">
-                                    <div class="text-center">
-                                        <a class="btn btn-primary" id="btnExecuteLease" data-toggle="modal" data-target="#popExecuteLease" onclick="cleaseExecuteLease()" disabled="disabled">Execute Lease</a>
+                                    <div class="col-sm-3 col-xs-12 form-inline">
+                                        <div class="text-center">
+                                            <a class="btn btn-primary responsiveScreenStatusBtn" id="btnExecuteLease" data-toggle="modal" data-target="#popExecuteLease" onclick="cleaseExecuteLease()" disabled="disabled">Execute Lease</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-3 form-inline">
+                                    <div class="col-sm-3 col-xs-12 form-inline">
 
-                                    <div class="text-center">
-                                        <a class="btn btn-primary " id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
+                                        <div class="text-center">
+                                            <a class="btn btn-primary responsiveScreenStatusBtn" id="btnleaseDownl" onclick="downloadLeaseDocument()" disabled="disabled">Download Leasing Application</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-3 form-inline">
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-primary" id="btnupSignSts" onclick="SaveSignedStatus()" disabled="disabled">Send Move In Check List & Pay Link</button>
+                                    <div class="col-sm-3 col-xs-12 form-inline">
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-primary responsiveScreenStatusBtn" id="btnupSignSts" onclick="SaveSignedStatus()" disabled="disabled">Send Move In Check List & Pay Link</button>
+                                        </div>
                                     </div>
+
                                 </div>
+
                             </div>
                         </div>
+
                         <div class="col-sm-12">
                             <div style="margin-top:30px"></div>
                             <div class="pull-left text-center">

@@ -1543,7 +1543,7 @@ textarea {
 page-header
 ======================================================*/
 .page-head {
-    background: #494C53 url("../../assets/img/page-header.jpg") no-repeat scroll center top / cover;
+    background: #494C53 url("../../assets/img/page-header.jpg") no-repeat scroll center bottom / cover;
     color: #FFF;
     position: relative;
     min-height: 140px;
@@ -4044,6 +4044,7 @@ div#bellDiv {
     }
 }
 
+
 .custom-btn-primary {
     width: 100% !important;
     color: #223852 !important;
@@ -4091,4 +4092,5 @@ div#bellDiv {
         padding: 0 .25em;
         background: #fff;
     }
+
 

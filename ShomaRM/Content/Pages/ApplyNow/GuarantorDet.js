@@ -4424,7 +4424,7 @@ var getApplicantListsGuarantor = function () {
                     html += "<label> " + elementValue.Type + " </label><br/>";
                     if (elementValue.Type == "Guarantor") {
                         html += "<label><a href='javascript:void(0)' onclick='goToEditApplicantGuarantor(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
-                        if (parseInt(elementValue.CreditPaid) == 0 && parseInt(elementValue.HasSSN) == 1) {
+                        if (parseInt(elementValue.CreditPaid) == 0 ) {
                             $("#editApplicantFees").text("Credit Check Fees");
                             $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
                             html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
@@ -4481,7 +4481,7 @@ var getApplicantListsGuarantor = function () {
                     } else if (elementValue.CreditPaid == "0") {
                         totalFinalFees += parseFloat(elementValue.GuarCreditFees);
                         addApplicntArrayGuarantor.push({ ApplicantID: elementValue.ApplicantID, Type: 4 });
-                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>Credit Check Fees</td><td style='width:20%; padding:6px;'> </td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.GuarCreditFees).toFixed(2) + "</td><td style='width:14%; padding:6px;'></td><td></td></tr>";
+                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>Credit Check Fees</td><td style='width:20%; padding:6px;'> </td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.GuarCreditFees).toFixed(2) + "</td><td style='width:14%; padding:6px;color:red;text-align:center;'>(Unpaid)</td><td></td></tr>";
                         totnotpaid += parseFloat(elementValue.GuarCreditFees);
                     }
                     if (elementValue.BackGroundPaid == "1") {
@@ -4491,7 +4491,7 @@ var getApplicantListsGuarantor = function () {
                         totalFinalFees += parseFloat(elementValue.GuarBackGroundFees);
                         totnotpaid += parseFloat(elementValue.GuarBackGroundFees);
                         addApplicntArrayGuarantor.push({ ApplicantID: elementValue.ApplicantID, Type: 5 });
-                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>Background Check Fees </td><td style='width:20%; padding:6px;'> </td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.GuarBackGroundFees).toFixed(2) + "</td><td style='width:14%; padding:6px;'></td><td></td></tr>";
+                        pprhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>Background Check Fees </td><td style='width:20%; padding:6px;'> </td><td style='width:14%; padding:6px;'>$" + parseFloat(elementValue.GuarBackGroundFees).toFixed(2) + "</td><td style='width:14%; padding:6px;color:red;text-align:center;'>(Unpaid)</td><td></td></tr>";
                     }
                 }
                 if (elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
@@ -8728,7 +8728,7 @@ function saveCoAppPayment() {
         var cardYear = $("#ddlcardyear1").val();
         var ccvNumber = $("#txtCCVNumber1").val();
         var prospectID = $("#hdnOPId").val();
-        var amounttoPay = $("#sppayFees").text();
+        var amounttoPay = unformatText($("#sppayFees").text());
         var description = $("#lblpopcctitle").text();
 
         var routingNumber = $("#txtRoutingNumber1").val();
@@ -8765,7 +8765,7 @@ function saveCoAppPayment() {
         var ccvNumber = 0;
         var routingNumber = $("#txtRoutingNumber1").val();
         var bankName = $("#txtBankName1").val();
-        var amounttoPay = $("#sppayFees").text();
+        var amounttoPay = unformatText($("#sppayFees").text());
         var description = $("#lblpopcctitle").text();
         var prospectID = $("#hdnOPId").val();
         var propertyId = $("#hndUID").val();
@@ -8878,7 +8878,9 @@ function saveCoAppPaymentPopup() {
         var cardYear = $("#ddlcardyear2").val();
         var ccvNumber = $("#txtCCVNumber2").val();
         var prospectID = $("#hdnOPId").val();
-        var amounttoPay = $("#sppayFees2").text();
+
+        var amounttoPay = unformatText($("#sppayFees2").text());
+
         var description = $("#lblpopcctitle").text();
 
         var routingNumber = $("#txtRoutingNumber2").val();
@@ -8925,7 +8927,7 @@ function saveCoAppPaymentPopup() {
         var ccvNumber = 0;
         var routingNumber = $("#txtRoutingNumber2").val();
         var bankName = $("#txtBankName2").val();
-        var amounttoPay = $("#sppayFees2").text();
+        var amounttoPay = unformatText($("#sppayFees2").text());
         var description = $("#lblpopcctitle").text();
         var prospectID = $("#hdnOPId").val();
         var propertyId = $("#hndUID").val();

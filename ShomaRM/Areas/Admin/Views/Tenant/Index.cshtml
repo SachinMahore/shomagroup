@@ -10,7 +10,106 @@
 <!-- register-area -->
 <input type="hidden" id="hdnSearchType" value="1" />
 <input type="hidden" id="hdnCurrentPage" value="1" />
-<div class="register-area" style="background-color: rgb(249, 249, 249);">
+<div class="container-fluid" style="background-color: rgb(249, 249, 249); margin-top:40px">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xl-12">
+            <div class="breadcrumb">
+                <h4 class="">Tenant List </h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                    <div class="panel-heading">
+                        <div class="">
+                            <div class="col-sm-3">
+                                <h3 class="panel-title input-group">From Date</h3>
+                                <div class="input-group">
+                                    <input id="txtFromDate" type="text" class="form-control" value="@startDate.ToString("MM/dd/yyyy")">
+                                    <span class="input-group-btn">
+                                        <button id="iconFromDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <h3 class="panel-title input-group">To Date</h3>
+                                <div id="divToDate" class="input-group">
+                                    <input id="txtToDate" placeholder="MM/DD/YYYY" class="form-control form-control-small" type="text" value="@endDate.ToString("MM/dd/yyyy")" />
+                                    <span id="spTodate" class="input-group-btn">
+                                        <button id="iconToDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <h3 class="panel-title input-group">Filter</h3>
+                                <div class="form-group">
+                                    <select id="ddlTenantListFilter" class="form-control form-control-small" onchange="ddlTenantListFilterSelectFunction()">
+                                        <option value="0" selected="selected">Select Filter</option>
+                                        <option value="1">First Name</option>
+                                        <option value="2">Last Name</option>
+                                        <option value="3">Unit No</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <h3 class="panel-title input-group">Criteria</h3>
+                                <div class="form-group">
+                                    <input id="txtTenantListCriteria" class="form-control form-control-small" disabled="disabled" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group padding-top-25 col-sm-4">
+                                    <button class='btn btn-next btn-primary' name='Search' value='Search' style="text-transform:uppercase;" onclick="btnSeachClick()"><i class="glyphicon glyphicon-search"></i> Search</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        @*<div class="col-sm-1">
+                    <div class="form-group padding-top-25">
+                        <button type="button" class="btn btn-primary pull-right" id="btnSaveUpdate" style="text-transform:uppercase;" onclick="addNewTenant()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
+                    </div>
+                </div>*@
+                    </div>
+                    <div id="divPaginationControl_TenantList" class="col-sm-12 form-group">
+                        <div id="divPgn" class="col-sm-8 pagination" style="margin-top:1px;">
+                            <ul id="ulPagination_TenantList"></ul>
+                        </div>
+                        <div class="col-sm-3 padding-0 pull-right">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="control-label">Row/Page</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <select id="ddlRPP_TenantList" class="form-control form-control-small"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body search-widget">
+                        <div class="col-md-12 clear">
+                            <table id="tblTenant" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="pds-firstname" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableTenant('FirstName')">First Name<i id="SortIconTFN"></i></th>
+                                        <th class="pds-lastname" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableTenant('LastName')">Last Name<i id="SortIconTLN"></i></th>
+                                        <th class="pds-Tenantname" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableTenant('Property')">Property <i id="SortIconTP"></i></th>
+                                        <th class="pds-Tenanttype" style="background-color: #c7cdd566;color:#3d3939;cursor:pointer" onclick="sortTableTenant('UnitNo')">Units <i id="SortIconTunits"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="register-area" style="background-color: rgb(249, 249, 249);">
     <div class="container" style="width:100%!important">
         <div class="breadcrumb">
             <h4 class="">Tenant List </h4>
@@ -58,11 +157,11 @@
                             <button class='btn btn-next btn-primary' name='Search' value='Search' style="text-transform:uppercase;" onclick="btnSeachClick()"><i class="glyphicon glyphicon-search"></i> Search</button>
                         </div>
                     </div>
-                    @*<div class="col-sm-1">
+                    <div class="col-sm-1">
                         <div class="form-group padding-top-25">
                             <button type="button" class="btn btn-primary pull-right" id="btnSaveUpdate" style="text-transform:uppercase;" onclick="addNewTenant()"><i class="fa fa-spinner fa-spin hidden"></i><i class="glyphicon glyphicon glyphicon-plus"></i> <span id="spanSaveUpdate">NEW</span></button>
                         </div>
-                    </div>*@
+                    </div>
                 </div>
                 <div id="divPaginationControl_TenantList" class="col-sm-12 form-group">
                     <div id="divPgn" class="col-sm-8 pagination" style="margin-top:1px;">
@@ -95,7 +194,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 <div class="modal fade" id="divAdvanceSearch_TL" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width:800px">
         <div class="modal-content">
