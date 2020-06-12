@@ -2606,6 +2606,16 @@
     <Content Include="Content\SMResponsive\js\waypoints.min.js" />
     <Content Include="Content\SMResponsive\js\wow.min.js" />
     <Content Include="Content\store.min.js" />
+    <Content Include="Content\Templates\images\Icon-facebook.png" />
+    <Content Include="Content\Templates\images\Icon-location.png" />
+    <Content Include="Content\Templates\images\icon-phone.png" />
+    <Content Include="Content\Templates\images\Icon_instagram.png" />
+    <Content Include="Content\Templates\images\SanctuaryEntrance.jpg" />
+    <Content Include="Content\Templates\images\Sanctuary_footer_1.png" />
+    <Content Include="Content\Templates\images\Sanctuary_footer_2.png" />
+    <Content Include="Content\Templates\images\Sanctuary_footer_3.png" />
+    <Content Include="Content\Templates\images\Sanctuary_footer_4.png" />
+    <Content Include="Content\Templates\images\sanctuary_logo_blue.png" />
     <Content Include="Content\Templates\MonthlySummary.html" />
     <Content Include="Content\Templates\ApplicationPrintTemplate.html" />
     <Content Include="Content\Templates\AppSummary.html" />
@@ -2951,6 +2961,8 @@
     <Content Include="Content\assets\img\plan\SanctuaryLevel26.zip" />
     <Content Include="Areas\Admin\Views\SureDepositManagement\Index.cshtml" />
     <Content Include="Areas\Admin\Views\SureDepositManagement\AddEdit.cshtml" />
+    <Content Include="Content\assets\img\Policy\Rental_qualifications_fragmented.pdf" />
+    <Content Include="Content\assets\img\Policy\Rules_Policies_fragmented.pdf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

@@ -334,26 +334,34 @@ namespace ShomaRM.Models
                         //reportHTML = reportHTML.Replace("[%QuoteNo%]", model.ID.ToString());
                         //reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
 
-                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  Thank you for registering on our fast and easy Leasing Portal!  Your account has been successfully created as follows:</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Username : [%TenantEmail%]</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;We are excited you are considering us as your place to live.  If you need any assistance in completing your online application or have any questions about our community, </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Please feel free to contact us at your convenience.  Our contact information with some highlights about our property is shown below. We look forward to serving you.</p>");
-                        reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
-                        reportHTML = reportHTML.Replace("[%TenantAddress%]", model.Address);
-                        reportHTML = reportHTML.Replace("[%LeaseStartDate%]", DateTime.Now.ToString());
-                        reportHTML = reportHTML.Replace("[%LeaseEndDate%]", DateTime.Now.AddMonths(13).ToString());
-                        reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
-                        reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
-                        reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
-                        reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
-                        reportHTML = reportHTML.Replace("[%TenantEmail%]", model.Email);
-                        reportHTML = reportHTML.Replace("[%TenantPassword%]", model.Password);
-                        reportHTML = reportHTML.Replace("[%QuoteNo%]", model.ID.ToString());
-                        reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+                        //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Submission");
+                        //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;  Thank you for registering on our fast and easy Leasing Portal!  Your account has been successfully created as follows:</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;Username : [%TenantEmail%]</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;We are excited you are considering us as your place to live.  If you need any assistance in completing your online application or have any questions about our community, </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Please feel free to contact us at your convenience.  Our contact information with some highlights about our property is shown below. We look forward to serving you.</p>");
+                        //reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
+                        //reportHTML = reportHTML.Replace("[%TenantAddress%]", model.Address);
+                        //reportHTML = reportHTML.Replace("[%LeaseStartDate%]", DateTime.Now.ToString());
+                        //reportHTML = reportHTML.Replace("[%LeaseEndDate%]", DateTime.Now.AddMonths(13).ToString());
+                        //reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+                        //reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
+                        //reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
+                        //reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
+                        //reportHTML = reportHTML.Replace("[%TenantEmail%]", model.Email);
+                        //reportHTML = reportHTML.Replace("[%TenantPassword%]", model.Password);
+                        //reportHTML = reportHTML.Replace("[%QuoteNo%]", model.ID.ToString());
+                        //reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
 
+                        reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+                        string emailBody = "";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">HELLO "+ model.FirstName + " " + model.LastName + "! You’re doing it! You’ve taken those first steps toward your new life at Sanctuary Doral! We noticed you started the process, and we just wanted to let you know we are here to help you with any questions about completing your application. Call, email us, or send us a text we are here to help. Here’s the thing. You only have 3 days to complete the application or you will lose the progress you’ve made, and pricing and availability is subject to change. </p>";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">We look forward to welcoming you home to your new community!</p>";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">Username : <span style=\"text-decoration:underline;color:blue;\">"+ model.Email + "</span> </p>";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login</p>";
+                        emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\""+serverURL+"/Account/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
                         //message = "Your account has been successfully created. Please pay your fees $" + propertDet.BGCheckFees.Value.ToString("0.00") + " for Credit check. Please check the email for detail.";
-                        message = "Your account has been successfully created. Please check the email for detail.";
+                        message = "User Registration Confirmation. Please check the email for detail.";
                     }
                     string body = reportHTML;
-                    new EmailSendModel().SendEmail(model.Email, "Application Submission", body);
+                    new EmailSendModel().SendEmail(model.Email, "USER REGISTRATION CONFIRMATION", body);
                     if (SendMessage == "yes")
                     {
                         if (!string.IsNullOrWhiteSpace(phonenumber))
