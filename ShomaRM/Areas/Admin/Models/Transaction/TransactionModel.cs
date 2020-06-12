@@ -748,6 +748,7 @@ namespace ShomaRM.Areas.Admin.Models
             return listAccountHistory;
         }
 
+       
         public class TransactionSearchModel
         {
             public long TransID { get; set; }
@@ -770,5 +771,8 @@ namespace ShomaRM.Areas.Admin.Models
             public int PageNumber { get; set; }
             public int NumberOfRows { get; set; }
         }
+
+       
     }
+    
 }

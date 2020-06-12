@@ -17,7 +17,6 @@ namespace ShomaRM.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_ApplyNow()
         {
-            this.tbl_Applicant = new HashSet<tbl_Applicant>();
             this.tbl_TenantInfo = new HashSet<tbl_TenantInfo>();
             this.tbl_TenantOnline = new HashSet<tbl_TenantOnline>();
             this.tbl_TenantParking = new HashSet<tbl_TenantParking>();
@@ -25,6 +24,7 @@ namespace ShomaRM.Data
             this.tbl_TenantPetPlace = new HashSet<tbl_TenantPetPlace>();
             this.tbl_TenantStorage = new HashSet<tbl_TenantStorage>();
             this.tbl_Vehicle = new HashSet<tbl_Vehicle>();
+            this.tbl_Applicant = new HashSet<tbl_Applicant>();
         }
     
         public long ID { get; set; }
@@ -73,8 +73,6 @@ namespace ShomaRM.Data
         public string Notes { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tbl_Applicant> tbl_Applicant { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_TenantInfo> tbl_TenantInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_TenantOnline> tbl_TenantOnline { get; set; }
@@ -88,5 +86,7 @@ namespace ShomaRM.Data
         public virtual ICollection<tbl_TenantStorage> tbl_TenantStorage { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_Vehicle> tbl_Vehicle { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbl_Applicant> tbl_Applicant { get; set; }
     }
 }

@@ -108,7 +108,6 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" Width="1.5" PointX="9.375" PointY="20.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Parking" Width="1.5" PointX="15.375" PointY="0.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_TenantPet" Width="1.5" PointX="23" PointY="38.875" />
-        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Applicant" Width="1.5" PointX="23" PointY="21.875" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Properties" Width="1.5" PointX="8" PointY="64.75" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Properties" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_PropertyUnits" />
@@ -136,7 +135,6 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_TenantOnline" Width="1.5" PointX="23" PointY="64.25" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" Width="1.5" PointX="20.75" PointY="40.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_BackgroundScreening" Width="1.5" PointX="19.375" PointY="20.75" />
-        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantParking_tbl_ApplyNow" />
@@ -171,6 +169,8 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Transaction" Width="1.5" PointX="22.25" PointY="25.5" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_PropertyUnits" Width="1.5" PointX="10.25" PointY="68.375" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_PropertyUnits_tbl_Properties" />
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Applicant" Width="1.5" PointX="23" PointY="18.5" />
+        <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_SureDeposit" Width="1.5" PointX="17.375" PointY="0.75" />
 
         </Diagram>
