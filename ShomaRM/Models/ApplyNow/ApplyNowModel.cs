@@ -438,7 +438,7 @@ namespace ShomaRM.Models
                     }
                     long paid = 0;
 
-                    if (IsSaveAcc == 1)
+                    if (model.IsSaveAcc == 1)
                     {
                         var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ApplicantID == model.AID && P.CardNumber == encrytpedCardNumber && P.CardMonth == encrytpedCardMonth && P.CardYear == encrytpedCardYear).FirstOrDefault();
 

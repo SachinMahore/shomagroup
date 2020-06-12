@@ -125,6 +125,7 @@ namespace ShomaRM.Models
 
         public int CreditPaid { get; set; }
         public int BackGroundPaid { get; set; }
+        public long ApplicantID { get; set; }
 
 
         public string SaveOnlineProspect(OnlineProspectModule model)
@@ -1149,7 +1150,9 @@ namespace ShomaRM.Models
                     {
                         model.PartialMoveInCharges = ((model.MoveInCharges * getApplicantDet.MoveInPercentage) / 100);
                         model.MoveInPercentage = getApplicantDet.MoveInPercentage;
+                        
                     }
+                    
                     model.HasPropertyList = 1;
                     model.lstPropertyUnit = new PropertyModel().GetPropertyModelUnitList((unitData!=null? unitData.Building:""), Convert.ToDateTime(dtMoveInDate), 10000, 0, model.LeaseTermID, GetProspectData.ID);
                 }
@@ -1159,6 +1162,7 @@ namespace ShomaRM.Models
                 var tenantOnlineData = db.tbl_TenantOnline.Where(p => p.ParentTOID == userid).FirstOrDefault();
                 if (applicantData!=null)
                 {
+                    model.ApplicantID = applicantData.ApplicantID;
                     model.CreditPaid = applicantData.CreditPaid ?? 0;
                     model.BackGroundPaid = applicantData.BackGroundPaid ?? 0;
                     if (applicantData.Type!= "Primary Applicant")

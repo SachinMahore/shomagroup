@@ -4257,7 +4257,7 @@
                                                         <th></th>
                                                         <th><b>Total Payble Amount</b></th>
                                                         <th><b><label id="totalFinalFees" style="font-weight: bold;"></label></b></th>
-                                                        <th><input type="button" class='btn-alltype' onclick="payFeePop(1,1)" value="Pay Now"></th>
+                                                        <th><input type="button" class='btn-alltype' onclick="payFeePop(@Model.ApplicantID,1)" value="Pay Now"></th>
                                                         <th></th>
                                                     </tr>
                                                 </tfoot>
@@ -5034,6 +5034,12 @@
 
                     </div>
                     <div class="col-sm-12">
+                        <input type="checkbox" id="chkSaveAcc0">
+                        <span class="chektext">
+                            Save Account Information
+                        </span>
+                    </div>
+                    <div class="col-sm-12">
                         <input type="checkbox" id="chkTermsAndCondition1">
                         <span class="chektext">
                             I agree to the
@@ -5085,7 +5091,7 @@
                                         <th style="background-color: #c7cdd5;color:#3d3939">Payment Method</th>
                                         <th style="background-color: #c7cdd5;color:#3d3939">Account Name</th>
                                         <th style="background-color: #c7cdd5;color:#3d3939">Account/Card Number</th>
-                                        <th style="background-color: #c7cdd5;color:#3d3939">Month/Year</th>                                       
+                                                              
                                         <th style="background-color: #c7cdd5;color:#3d3939">Select</th>
                                     </tr>
                                 </thead>
@@ -5181,7 +5187,12 @@
                         </div>
 
                     </div>
-                   
+                    <div  class="col-sm-12" id="divChkSaveAcc">
+                        <input type="checkbox" id="chkSaveAcc">
+                        <span class="chektext">
+                            Save Account Information
+                        </span>
+                    </div>
                 </div>
 
                 <div class="col-sm-12" style="margin-bottom:20px">
@@ -5197,12 +5208,7 @@
             <div class="modal-footer" style="border-top:none">
           
                 <div class="col-sm-12 text-center">
-                    <div id="divChkSaveAcc">
-                        <input type="checkbox" id="chkSaveAcc">
-                        <span class="chektext">
-                            Save Account Information
-                        </span>
-                    </div>
+                  
                    <button type="submit" class="btn-alltype" onclick="savePayNewEx()">Pay</button>
                 </div>
             </div>

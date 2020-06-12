@@ -68,6 +68,9 @@ namespace ShomaRM.Areas.Tenant.Models
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
 
+        public Nullable<decimal> AdminFee { get; set; }
+        public Nullable<decimal> AdminFeePercentage { get; set; }
+
         public string SaveUpdateApplicant(ApplicantModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -614,6 +617,9 @@ namespace ShomaRM.Areas.Tenant.Models
                     MoveInCharge = ap.MoveInCharge != null ? ap.MoveInCharge : 0,
                     MonthlyPercentage = ap.MonthlyPercentage != null ? ap.MonthlyPercentage : 0,
                     MonthlyPayment = ap.MonthlyPayment != null ? ap.MonthlyPayment : 0,
+                    AdminFeePercentage = ap.AdminFeePercentage != null ? ap.AdminFeePercentage : 0,
+                    AdminFee = ap.AdminFee != null ? ap.AdminFee : 0,
+
                     ComplStatus = compl,
                     OtherGender = ap.OtherGender != null ? OtherGender : "",
 
@@ -715,6 +721,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     MoveInCharge = ap.MoveInCharge != null ? ap.MoveInCharge : 0,
                     MonthlyPercentage = ap.MonthlyPercentage != null ? ap.MonthlyPercentage : 0,
                     MonthlyPayment = ap.MonthlyPayment != null ? ap.MonthlyPayment : 0,
+                    AdminFee = ap.AdminFee != null ? ap.AdminFee : 0,
+                    AdminFeePercentage = ap.AdminFeePercentage != null ? ap.AdminFeePercentage :0,
                     ComplStatus = compl,
                     OtherGender = ap.OtherGender != null ? OtherGender : "",
 
@@ -809,6 +817,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.MoveInCharge = getApplicantDet.MoveInCharge;
                 model.MonthlyPercentage = getApplicantDet.MonthlyPercentage;
                 model.MonthlyPayment = getApplicantDet.MonthlyPayment;
+                model.AdminFee = getApplicantDet.AdminFee;
+                model.AdminFeePercentage = getApplicantDet.AdminFeePercentage;
                 model.OtherGender = getApplicantDet.OtherGender;
                 model.TenantID = getApplicantDet.TenantID;
                 model.ApplicantAddedBy = getApplicantDet.AddedBy;
@@ -912,6 +922,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.MoveInCharge = getApplicantDet.MoveInCharge;
                 model.MonthlyPercentage = getApplicantDet.MonthlyPercentage;
                 model.MonthlyPayment = getApplicantDet.MonthlyPayment;
+                model.AdminFee = getApplicantDet.AdminFee;
+                model.AdminFeePercentage = getApplicantDet.AdminFeePercentage;
                 model.OtherGender = getApplicantDet.OtherGender;
                 model.TenantID = getApplicantDet.TenantID;
                 model.ApplicantAddedBy = getApplicantDet.AddedBy;
@@ -1016,6 +1028,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.MoveInCharge = getApplicantDet.MoveInCharge;
                 model.MonthlyPercentage = getApplicantDet.MonthlyPercentage;
                 model.MonthlyPayment = getApplicantDet.MonthlyPayment;
+                model.AdminFee = getApplicantDet.AdminFee;
+                model.AdminFeePercentage = getApplicantDet.AdminFeePercentage;
                 model.OtherGender = getApplicantDet.OtherGender;
                 model.TenantID = getApplicantDet.TenantID;
                 model.ApplicantAddedBy = getApplicantDet.AddedBy;
@@ -1188,7 +1202,9 @@ namespace ShomaRM.Areas.Tenant.Models
                         MoveInPercentage = item.MoveInPercentage,
                         MoveInCharge = item.MoveInCharge,
                         MonthlyPercentage = item.MonthlyPercentage,
-                        MonthlyPayment = item.MonthlyPayment
+                        MonthlyPayment = item.MonthlyPayment,
+                        AdminFee = item.AdminFee,
+                        AdminFeePercentage = item.AdminFeePercentage
                     };
                     db.tbl_Applicant.Add(saveResponsibility);
                     db.SaveChanges();
@@ -1205,6 +1221,8 @@ namespace ShomaRM.Areas.Tenant.Models
                         getAppldata.MoveInCharge = item.MoveInCharge;
                         getAppldata.MonthlyPercentage = item.MonthlyPercentage;
                         getAppldata.MonthlyPayment = item.MonthlyPayment;
+                        getAppldata.AdminFee = item.AdminFee;
+                        getAppldata.AdminFeePercentage = item.AdminFeePercentage;
 
                     }
                     db.SaveChanges();
@@ -1254,6 +1272,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.MoveInCharge = getGuarantorData.MoveInCharge != null ? getGuarantorData.MoveInCharge : 0;
                 model.MonthlyPercentage = getGuarantorData.MonthlyPercentage != null ? getGuarantorData.MonthlyPercentage : 0;
                 model.MonthlyPayment = getGuarantorData.MonthlyPayment != null ? getGuarantorData.MonthlyPayment : 0;
+                model.AdminFeePercentage = getGuarantorData.AdminFeePercentage != null ? getGuarantorData.AdminFeePercentage : 0;
+                model.AdminFee = getGuarantorData.AdminFee != null ? getGuarantorData.AdminFee : 0;
                 model.OtherGender = getGuarantorData.OtherGender != null ? OtherGender : "";
 
                 model.RelationshipString = getGuarantorData.Relationship == null ? "" : getGuarantorData.Relationship == "1" ? "Family Member" : getGuarantorData.Relationship == "2" ? "Friend" : "";
@@ -1779,6 +1799,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     model.MoveInCharge = getApplicantDet.MoveInCharge;
                     model.MonthlyPercentage = getApplicantDet.MonthlyPercentage;
                     model.MonthlyPayment = getApplicantDet.MonthlyPayment;
+                    model.AdminFee = getApplicantDet.AdminFee;
+                    model.AdminFeePercentage = getApplicantDet.AdminFeePercentage;
                     model.OtherGender = getApplicantDet.OtherGender;
                     model.TenantID = getApplicantDet.TenantID;
                     model.ApplicantAddedBy = getApplicantDet.AddedBy;
@@ -1882,6 +1904,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     model.MoveInCharge = getApplicantDet.MoveInCharge;
                     model.MonthlyPercentage = getApplicantDet.MonthlyPercentage;
                     model.MonthlyPayment = getApplicantDet.MonthlyPayment;
+                    model.AdminFee = getApplicantDet.AdminFee;
+                    model.AdminFeePercentage = getApplicantDet.AdminFeePercentage;
                     model.OtherGender = getApplicantDet.OtherGender;
                     model.TenantID = getApplicantDet.TenantID;
                     model.ApplicantAddedBy = getApplicantDet.AddedBy;
@@ -1986,6 +2010,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     model.MoveInCharge = getApplicantDet.MoveInCharge;
                     model.MonthlyPercentage = getApplicantDet.MonthlyPercentage;
                     model.MonthlyPayment = getApplicantDet.MonthlyPayment;
+                    model.AdminFee = getApplicantDet.AdminFee;
+                    model.AdminFeePercentage = getApplicantDet.AdminFeePercentage;
                     model.OtherGender = getApplicantDet.OtherGender;
                     model.TenantID = getApplicantDet.TenantID;
                     model.ApplicantAddedBy = getApplicantDet.AddedBy;

@@ -11,6 +11,7 @@
 <input type="hidden" id="hndPaymentDone" value="0" />
 <input type="hidden" id="hndProcessingFees" value="@ViewBag.ProcessingFees" />
 <input type="hidden" id="hndMoveInDate" value="0" />
+<input type="hidden" id="hndAID" value="0" />
 <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
 <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -313,7 +314,46 @@
 
             </div>
             <div class="modal-body">
-                <div class="col-sm-12">
+                <input type="hidden" id="hndNeEx" value="1" />
+                <input type="hidden" id="hndPAID" value="0" />
+                <div class="col-md-4">
+                    <input type="checkbox" id="chkExeAcc">
+                    <span class="chektext">
+                        Pay from Existing Account
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <input type="checkbox" id="chkNewAcc" checked>
+                    <span class="chektext">
+                        Pay from New Account
+                    </span>
+                </div>
+                <div class="col-md-12 hidden clear" id="divExeAcc">
+                    <div class="col-sm-12">
+                        <div class="dot-hr"></div>
+                    </div>
+                    <div style="width:100%">
+                        <table id="tblBankCC" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th style="background-color: #c7cdd5;color:#3d3939">Payment Method</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939">Account Name</th>
+                                    <th style="background-color: #c7cdd5;color:#3d3939">Account/Card Number</th>
+
+                                    <th style="background-color: #c7cdd5;color:#3d3939">Select</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label for="txtCVVList" class="star">Enter CVV / Routing Number</label>
+                        <input type="password" class="form-control" id="txtCVVList" placeholder="CVV / Routing Number" onkeypress="return isOnlyNumber(event)" value="">
+                    </div>
+
+                </div>
+
+                <div class="col-sm-12" id="divNewAcc">
                     <br />
                     <div class="col-sm-3">
                         <input type="button" class='btn  btn-info' id="chkBank" onclick="clearBank()" value="Bank Account" />
@@ -396,21 +436,26 @@
                             <label for="txtCCVNumberCL" class="star">CVV Number</label>
                             <input type="password" class="form-control" id="txtCCVNumberCL" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
                         </div>
-
+                        <div class="col-sm-12" id="divChkSaveAcc">
+                            <input type="checkbox" id="chkSaveAcc">
+                            <span class="chektext">
+                                Save Account Information
+                            </span>
+                        </div>
                     </div>
-                    <div class="col-sm-12" style="margin-bottom:20px">
-                        <input type="checkbox" id="chkTermsAndCondition">
-                        <span class="chektext">
-                            I agree to the
-                            <span class="span1"><a id="ShowTermsAndCondition" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a></span>
-                        </span>
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="submit" class="btn btn-primary" onclick="savePaymentCheckList()">Pay Now</button>
-                    </div>
-                    <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsg"></b></p></div>
-
+               
                 </div>
+                <div class="col-sm-12" style="margin-bottom:20px">
+                    <input type="checkbox" id="chkTermsAndCondition">
+                    <span class="chektext">
+                        I agree to the
+                        <span class="span1"><a id="ShowTermsAndCondition" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a></span>
+                    </span>
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" class="btn btn-primary" onclick="savePayNewEx()">Pay Now</button>
+                </div>
+                <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsg"></b></p></div>
 
             </div>
             <div class="modal-footer">
@@ -528,6 +573,41 @@
 </style>
 <script type="text/javascript">
     $(document).ready(function () {
+    
+        $("#chkNewAcc").on('ifChanged', function (event) {
+
+            if ($(this).is(":checked")) {
+                $('#divNewAcc').removeClass('hidden');
+                $('#divExeAcc').addClass('hidden');
+
+                $("#chkExeAcc").iCheck('uncheck');
+                $("#hndNeEx").val(1);
+
+            }
+            else {
+                $('#divNewAcc').addClass('hidden');
+                $('#divExeAcc').removeClass('hidden');
+                $("#hndNeEx").val(0);
+            }
+        });
+
+        //Sachin M 11 June
+        $("#chkExeAcc").on('ifChanged', function (event) {
+            getBankCCLists();
+            if ($(this).is(":checked")) {
+                $('#divExeAcc').removeClass('hidden');
+                $('#divNewAcc').addClass('hidden');
+
+                $("#chkNewAcc").iCheck('uncheck');
+                $("#hndNeEx").val(2);
+            }
+            else {
+                $('#divNewAcc').removeClass('hidden');
+                $('#divExeAcc').addClass('hidden');
+                $("#hndNeEx").val(1);
+            }
+        });
+
         setTimeout(function () {
             var premoveInDateHidden = $('#hndPreMoveInDate').val();
             var preMoveInBefThree = new Date(premoveInDateHidden);
@@ -629,6 +709,10 @@
         else {
 
         }
+        
+        setTimeout(function () {
+            getBankCCLists();
+        }, 1500);
 
         document.getElementById('fileUploadPOI').onchange = function () {
             var fileUploadPOIBool = restrictFileUpload($(this).val());
@@ -676,6 +760,8 @@
                 success: function (response) {
 
                     $("#divLoader").hide();
+                   
+                    $("#hndAID").val(response.model.ApplicantID);
                     $("#hndPreMoveInDate").val(response.model.PreMoveInDateTxt);
                     $("#hndMoveInDate").val(response.model.MoveInDateTxt);
                     $("#hndProspectID").val(response.model.ProspectId);
@@ -1023,7 +1109,8 @@
             RoutingNumber: routingNumber,
             BankName: bankName,
             PaymentMethod: paymentMethod,
-            MoveInPercentage:$("#lblPaymentPer").text(),
+            MoveInPercentage: $("#lblPaymentPer").text(),
+            IsSaveAcc: $("#chkSaveAcc").is(":checked") ? "1" : "0",
         };
 
         $.alert({
@@ -1425,4 +1512,163 @@
     var getProcessingFeesCL = function () {
         return $("#hndProcessingFees").val();
     };
+
+    //Sachin Mahore 11 June 2020
+    var getBankCCLists = function () {
+        $("#divLoader").show();
+        var model = {
+            ApplicantID: $("#hndAID").val(),
+        }
+        $.ajax({
+            url: "/ApplyNow/GetBankCCList",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $("#tblBankCC>tbody").empty();
+                $.each(response.model, function (elementType, elementValue) {
+                    var html = "<tr id='tr_" + elementValue.ID + "' data-value='" + elementValue.ID + "'>";
+                    html += "<td>" + elementValue.PaymentMethodString + "</td>";
+                    html += "<td>" + elementValue.Name_On_Card + "</td>";
+                    html += "<td>" + MaskCardNumber(elementValue.CardNumber) + "</td>";
+
+                    html += "<td><input style='background: transparent; margin-right:10px' type='radio' onclick='selectPay(" + elementValue.ID + ")'></a>";
+                    html += "</tr>";
+                    $("#tblBankCC>tbody").append(html);
+
+                });
+            }
+        });
+    }
+
+    function savePayNewEx() {
+        if ($("#hndNeEx").val() == 1) {
+            savePaymentCheckList();
+        } else if ($("#hndNeEx").val() == 2) {
+            saveListPayment();
+        }
+    }
+    function selectPay(paid) {
+        $("#hndPAID").val(paid);
+    }
+    function saveListPayment() {
+        if ($("#chkTermsAndCondition2").is(':unchecked')) {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: "Please accept Terms & Condition </br>",
+                type: 'red'
+            });
+            return;
+        }
+        $("#divLoader").show();
+        var msg = "";
+        if ($("#hndPAID").val() == 0) {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: "Please Select Payment Account</br>",
+                type: 'red'
+            });
+            return;
+        }
+        if ($("#txtCVVList").val() == "") {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: "Please Enter CVV / Routing Number</br>",
+                type: 'red'
+            });
+            return;
+        }
+
+
+        var propertyId = $("#hndUID").val();
+        var description = $("#lblDes").text();
+        var prospectID = $("#hndProspectID").val();
+        var amounttoPay = $("#lblmoveincharge").text();
+
+        var cvvroutingNumber = $("#txtCVVList").val();
+
+        var model = {
+            PID: propertyId,
+            CCVNumber: cvvroutingNumber,
+            Charge_Amount: amounttoPay,
+            ProspectID: prospectID,
+            Description: description,
+            AID: $("#hndAID").val(),
+            FromAcc: $("#hndFromAcc").val(),
+            PAID: $("#hndPAID").val(),
+        };
+
+        $.alert({
+            title: "",
+            content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesCL()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesCL())).toFixed(2) + ". Do you want to Pay Now?",
+            type: 'blue',
+            buttons: {
+                yes: {
+                    text: 'Yes',
+                    action: function (yes) {
+                        $.ajax({
+                            url: "/ApplyNow/saveListPayment/",
+                            type: "post",
+                            contentType: "application/json utf-8",
+                            data: JSON.stringify(model),
+                            dataType: "JSON",
+                            success: function (response) {
+                                if (response.Msg != "") {
+                                    if (response.Msg == "1") {
+                                        $("#ResponseMsg").html("Payment successfull");
+                                        $("#hndPaymentDone").val(response.PaymentDone);
+
+
+                                        $("#chkPayCL").prop("checked", true);
+                                        $("#chkPayCL").prop("disabled", "disabled");
+                                        $("#chkPayCL").parent().addClass("checked");
+                                        if (response.PaymentDone == "1") {
+                                            $("#btnPayNowCheckLink").addClass("hidden");
+                                        }
+                                        else {
+                                            $("#btnPayNowCheckLink").removeClass("hidden");
+                                        }
+                                        $("#divLoader").hide();
+                                        $.alert({
+                                            title: "",
+                                            content: response.Msg,
+                                            type: 'red'
+                                        });
+                                        $("#popPayNow").modal("hide");
+                                    } else {
+                                        $("#ResponseMsg").html("Payment failed");
+                                    }
+                                }
+                            }
+                        });
+                    }
+                },
+                no: {
+                    text: 'No',
+                    action: function (no) {
+                        $("#divLoader").hide();
+                    }
+                }
+            }
+        });
+    }
+    function MaskCardNumber(number) {
+        var cNumber = '';
+        if (number.length > 4) {
+            cNumber = "*".repeat(number.length - 4) + number.substr(number.length - 4, 4);
+        }
+        return cNumber;
+    };
+
+    function savePayNewEx() {
+        if ($("#hndNeEx").val() == 1) {
+            saveCoAppPayment();
+        } else if ($("#hndNeEx").val() == 2) {
+            saveListPayment();
+        }
+    }
 </script>
