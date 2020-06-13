@@ -23,26 +23,31 @@ namespace ShomaRM.Controllers
         
         public ActionResult Index()
         {
-            //aptlyHelper aptlyHelper = new aptlyHelper();
-            //aptlyModel aptlyModel = new aptlyModel();
-            //aptlyModel.FirstName = "ganesh bokde";
-            //aptlyModel.LastName = "bokde";
+            aptlyHelper aptlyHelper = new aptlyHelper();
+            aptlyModel aptlyModel = new aptlyModel();
+           
 
-            //aptlyModel.name = "Sanctuary Doral -ganesh";
-            //aptlyModel.Email = "ganesh@gmail.com";
-            //aptlyModel.FirstName = "ganesh bokde";
-            //aptlyModel.Building = "Sanctuary Doral";
-            //aptlyModel.Unit = "104";
-
-            //aptlyModel.Phone = "+14152344159";
-            //aptlyModel.Stage = "Registration";
-            //aptlyModel.LeaseTerm = "12";
-            //aptlyModel.MoveInDate = "2020-05-25";
-            //aptlyModel.DateSigned = "2020-05-02";
-            //aptlyModel.CreditPaid = "true";
-            //aptlyModel.BackgroundCheckPaid = "true";
-            //aptlyModel.QuoteCreated = "2020-05-0";
-            //var test= aptlyHelper.PostAptlyAsync(aptlyModel);
+            aptlyModel.name = "Sanctuary Doral -ganesh";
+            aptlyModel.Email = "ganesh@gmail.com";
+            aptlyModel.FirstName = "ganesh bokde";
+            aptlyModel.LastName = "bokde";
+            aptlyModel.Phone = "+14152344159";
+            aptlyModel.Building = "Sanctuary Doral";
+            aptlyModel.Unit = "104";
+            aptlyModel.UnitNumber = "104";
+            aptlyModel.FloorPlan = "A1";
+            aptlyModel.Stage = "Applicants";
+            aptlyModel.SubStage = "Applicants";
+            aptlyModel.LeaseTerm = "12";
+            aptlyModel.MoveInDate = "2020-05-25";
+            aptlyModel.QuoteExpires = "2020-05-01 24:00:00";
+            aptlyModel.Pets = "Dog(s)";
+            aptlyModel.Pets = "Dog(s)";
+            aptlyModel.PortalURL = "http://52.4.251.162:8086/Admin/ProspectVerification/EditProspect/1727";
+            aptlyModel.CreditPaid = "False";
+            aptlyModel.BackgroundCheckPaid = "true";
+            
+            var test= aptlyHelper.PostAptlyAsync(aptlyModel);
 
             if (Session["DelDatAll"] != null)
             {
