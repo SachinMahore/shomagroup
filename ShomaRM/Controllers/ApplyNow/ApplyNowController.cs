@@ -1388,5 +1388,17 @@ namespace ShomaRM.Controllers
 
 
         }
+
+        public JsonResult GetStaticApplicantValues(long id, long UID)
+        {
+            try
+            {
+                return Json(new { model = new StaticApplicantValues().GetStaticApplicantValues(id, UID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

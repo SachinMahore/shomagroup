@@ -75,11 +75,17 @@ namespace ShomaRM.Models
         { 
             jsonPost= jsonPost.Replace("FirstName", "First Name");
             jsonPost = jsonPost.Replace("LastName", "Last Name");
+            jsonPost = jsonPost.Replace("UnitNumber", "Unit Number");
+            jsonPost = jsonPost.Replace("SubStage", "Sub-Stage");
+
             jsonPost = jsonPost.Replace("LeaseTerm", "Lease Term");
             jsonPost = jsonPost.Replace("MoveInDate", "Move In Date");
+            jsonPost = jsonPost.Replace("QuoteExpires", "Quote Expires");
+            
             jsonPost = jsonPost.Replace("DateSigned", "Date Signed");
             jsonPost = jsonPost.Replace("QuoteCreated", "Quote Created");
             jsonPost = jsonPost.Replace("CreditPaid", "Credit Paid");
+            jsonPost = jsonPost.Replace("PortalURL", "Portal URL");
             jsonPost = jsonPost.Replace("BackgroundCheckPaid", "Background Check Paid");
             return jsonPost;
 

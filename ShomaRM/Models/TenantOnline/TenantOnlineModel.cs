@@ -2548,5 +2548,127 @@ namespace ShomaRM.Models
             model.TenantID = Id;
             return model;
         }
+
+    }
+
+    public class StaticApplicantValues
+    {
+        public long ID { get; set; }
+        public Nullable<long> PropertyId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public string Status { get; set; }
+        public string Address { get; set; }
+        public string Password { get; set; }
+        public Nullable<int> IsApplyNow { get; set; }
+        public Nullable<long> CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> DateofBirth { get; set; }
+        public string AnnualIncome { get; set; }
+        public string AddiAnnualIncome { get; set; }
+        public Nullable<long> UserId { get; set; }
+        public Nullable<int> Marketsource { get; set; }
+        public Nullable<System.DateTime> MoveInDate { get; set; }
+        public Nullable<decimal> ParkingAmt { get; set; }
+        public Nullable<decimal> StorageAmt { get; set; }
+        public Nullable<decimal> PetPlaceAmt { get; set; }
+        public Nullable<decimal> Deposit { get; set; }
+        public Nullable<decimal> Rent { get; set; }
+        public Nullable<decimal> PetDeposit { get; set; }
+        public Nullable<decimal> TrashAmt { get; set; }
+        public Nullable<decimal> PestAmt { get; set; }
+        public Nullable<decimal> ConvergentAmt { get; set; }
+        public Nullable<decimal> MoveInCharges { get; set; }
+        public Nullable<decimal> FOBAmt { get; set; }
+        public Nullable<int> IsRentalPolicy { get; set; }
+        public Nullable<int> IsRentalQualification { get; set; }
+        public string EnvelopeID { get; set; }
+        public Nullable<decimal> Prorated_Rent { get; set; }
+        public Nullable<decimal> VehicleRegistration { get; set; }
+        public Nullable<decimal> AdministrationFee { get; set; }
+        public Nullable<int> LeaseTerm { get; set; }
+        public Nullable<decimal> MonthlyCharges { get; set; }
+        public string EsignatureID { get; set; }
+        public Nullable<decimal> PetDNAAmt { get; set; }
+        public Nullable<int> StepCompleted { get; set; }
+        public Nullable<int> AcceptSummary { get; set; }
+        public Nullable<int> AdditionalParking { get; set; }
+        public string Notes { get; set; }
+        public string UnitName { get; set; }
+        public string LeaseMonths { get; set; }
+        public int Bedroom { get; set; }
+        public int Bathroom { get; set; }
+        public int AreaSqft { get; set; }
+        public decimal? AdditionalParkingAmt { get; set; }
+        public string QuoteStartDate { get; set; }
+        public string QuoteEndDate { get; set; }
+        public string ResidentName { get; set; }
+        public string MoveInDateString { get; set; }
+        public string Building { get; set; }
+
+        public StaticApplicantValues GetStaticApplicantValues(long Id, long UID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            StaticApplicantValues model = new StaticApplicantValues();
+            if (Id != 0)
+            {
+                var GetStaticApplicantData = db.tbl_ApplyNow.Where(p => p.UserId == Id).FirstOrDefault();
+                if (GetStaticApplicantData != null)
+                {
+                    var unitDet = db.tbl_PropertyUnits.Where(p => p.UID == UID).FirstOrDefault();
+                    if (unitDet != null)
+                    {
+                        model.UnitName = unitDet.UnitNo;
+                        model.Building = unitDet.Building;
+                        model.Bedroom = Convert.ToInt32(unitDet.Bedroom);
+                        model.Bathroom = Convert.ToInt32(unitDet.Bathroom);
+                        model.AreaSqft = Convert.ToInt32(unitDet.Area);
+                        var leaseDet = db.tbl_LeaseTerms.Where(p => p.LTID == GetStaticApplicantData.LeaseTerm).FirstOrDefault();
+                        if (leaseDet != null)
+                        {
+                            model.LeaseMonths = Convert.ToInt32(leaseDet.LeaseTerms).ToString();
+                        }
+                    }
+
+                    model.Deposit = GetStaticApplicantData.Deposit == null ? 0 : GetStaticApplicantData.Deposit;
+                    model.Rent = GetStaticApplicantData.Rent == null ? 0 : GetStaticApplicantData.Rent;
+                    model.PetDeposit = GetStaticApplicantData.PetDeposit == null ? 0 : GetStaticApplicantData.PetDeposit;
+                    model.PetDNAAmt = GetStaticApplicantData.PetDNAAmt == null ? 0 : GetStaticApplicantData.PetDNAAmt;
+                    model.MonthlyCharges = GetStaticApplicantData.MonthlyCharges == null ? 0 : GetStaticApplicantData.MonthlyCharges;
+                    model.StorageAmt = GetStaticApplicantData.StorageAmt == null ? 0 : GetStaticApplicantData.StorageAmt;
+                    model.AdditionalParkingAmt = GetStaticApplicantData.AdditionalParkingAmt == null ? 0 : GetStaticApplicantData.AdditionalParkingAmt;
+                    model.PetPlaceAmt = GetStaticApplicantData.PetPlaceAmt == null ? 0 : GetStaticApplicantData.PetPlaceAmt;
+                    model.TrashAmt = GetStaticApplicantData.TrashAmt == null ? 0 : GetStaticApplicantData.TrashAmt;
+                    model.PestAmt = GetStaticApplicantData.PestAmt == null ? 0 : GetStaticApplicantData.PestAmt;
+                    model.ConvergentAmt = GetStaticApplicantData.ConvergentAmt == null ? 0 : GetStaticApplicantData.ConvergentAmt;
+                    /*Quatation*/
+                    DateTime? sdt = GetStaticApplicantData.CreatedDate;
+                    string sdtt = sdt.Value.ToString("MM/dd/yyyy");
+                    model.QuoteStartDate = sdtt;
+
+                    DateTime? edt = GetStaticApplicantData.CreatedDate;
+                    edt.Value.AddHours(72);
+                    string edtt = edt.Value.AddHours(72).ToString("MM/dd/yyyy 23:59:59");
+                    model.QuoteEndDate = edtt;
+
+                    DateTime? MIdt = GetStaticApplicantData.MoveInDate;
+                    string MIdtt = MIdt.Value.ToString("MM/dd/yyyy");
+                    model.MoveInDateString = MIdtt;
+
+                    model.ResidentName = GetStaticApplicantData.FirstName + " " + GetStaticApplicantData.LastName;
+                    model.Phone = GetStaticApplicantData.Phone == null ? "" : GetStaticApplicantData.Phone;
+                    model.Email = GetStaticApplicantData.Email == null ? "" : GetStaticApplicantData.Email;
+                    model.VehicleRegistration = GetStaticApplicantData.VehicleRegistration == null ? 0 : GetStaticApplicantData.VehicleRegistration;
+                    model.Prorated_Rent = GetStaticApplicantData.Prorated_Rent == null ? 0 : GetStaticApplicantData.Prorated_Rent;
+                    model.MoveInCharges = GetStaticApplicantData.MoveInCharges == null ? 0 : GetStaticApplicantData.MoveInCharges;
+                }
+                model.ID = Id;
+            }
+
+            return model;
+        }
     }
 }

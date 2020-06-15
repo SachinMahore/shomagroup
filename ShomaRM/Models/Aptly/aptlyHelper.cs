@@ -31,24 +31,24 @@ namespace ShomaRM.Models
     }
    public class aptlyModel
     {
-  public string name { get; set; }
+        public string name { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public string Building { get; set; }
-
+        public string Building { get; set; }       
         public string Unit { get; set; }
+        public string UnitNumber { get; set; }
+        public string FloorPlan { get; set; }
         public string Stage { get; set; }
+        public string SubStage { get; set; }
         public string LeaseTerm { get; set; }
         public string MoveInDate { get; set; }
-        public string DateSigned { get; set; }
-    
-    public string QuoteCreated { get; set; }
-public string CreditPaid { get; set; }
-     public string BackgroundCheckPaid { get; set; }
-
-
+        public string QuoteExpires { get; set; }
+        public string Pets { get; set; }
+        public string PortalURL { get; set; }        
+        public string CreditPaid { get; set; }
+        public string BackgroundCheckPaid { get; set; }
   
-}
+    }
 }

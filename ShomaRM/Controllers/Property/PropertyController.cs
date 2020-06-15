@@ -235,5 +235,17 @@ namespace ShomaRM.Controllers
                 return Json(new { msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult GetFloorListRebind(int PID, DateTime AvailableDate, int Bedroom, decimal MaxRent, string ModelName, long ProspectId, int LeaseTermId)
+        {
+            try
+            {
+                return Json((new PropertyFloor()).GetFloorList(PID, AvailableDate, Bedroom, MaxRent, ModelName, ProspectId, LeaseTermId), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
