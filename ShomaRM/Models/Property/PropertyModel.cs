@@ -382,6 +382,12 @@ namespace ShomaRM.Models
                     paramANID.Value = ProspectId;
                     cmd.Parameters.Add(paramANID);
 
+                    DbParameter paramLTID = cmd.CreateParameter();
+                    paramLTID.ParameterName = "LeaseTermId";
+                    paramLTID.Value = LeaseTermID;
+                    cmd.Parameters.Add(paramLTID);
+
+
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
                     da.Fill(dtTable);
@@ -976,6 +982,84 @@ namespace ShomaRM.Models
         public string FloorPlan { get; set; }
         public int IsAvail { get; set; }
         public List<PropertyUnits> lstUnitFloor { get; set; }
+        public List<PropertyFloor> GetFloorList(int PID, DateTime AvailableDate, int Bedroom, decimal MaxRent, string ModelName = "", long ProspectId = 0, int LeaseTermId = 0)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            List<PropertyFloor> model = new List<PropertyFloor>();
+            try
+            {
+                DataTable dtTable = new DataTable();
+                using (var cmd = db.Database.Connection.CreateCommand())
+                {
+                    db.Database.Connection.Open();
+                    cmd.CommandText = "usp_GetPropertyFloorCord";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    DbParameter paramPID = cmd.CreateParameter();
+                    paramPID.ParameterName = "PID";
+                    paramPID.Value = PID;
+                    cmd.Parameters.Add(paramPID);
+
+
+                    DbParameter paramF = cmd.CreateParameter();
+                    paramF.ParameterName = "AvailableDate";
+                    //paramF.Value = "07/12/2020";
+                    paramF.Value = AvailableDate;
+                    cmd.Parameters.Add(paramF);
+
+                    DbParameter paramB = cmd.CreateParameter();
+                    paramB.ParameterName = "Bedroom";
+                    paramB.Value = Bedroom;
+                    cmd.Parameters.Add(paramB);
+
+                    DbParameter paramC = cmd.CreateParameter();
+                    paramC.ParameterName = "MaxRent";
+                    paramC.Value = MaxRent;
+                    cmd.Parameters.Add(paramC);
+
+                    DbParameter paramModName = cmd.CreateParameter();
+                    paramModName.ParameterName = "ModelName";
+                    paramModName.Value = ModelName;
+                    cmd.Parameters.Add(paramModName);
+
+                    DbParameter paramProsId = cmd.CreateParameter();
+                    paramProsId.ParameterName = "ProspectId";
+                    paramProsId.Value = ProspectId;
+                    cmd.Parameters.Add(paramProsId);
+
+                    DbParameter paramLtId = cmd.CreateParameter();
+                    paramLtId.ParameterName = "LeaseTermId";
+                    paramLtId.Value = LeaseTermId;
+                    cmd.Parameters.Add(paramLtId);
+
+                    DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(dtTable);
+                    db.Database.Connection.Close();
+                }
+                foreach (DataRow dr in dtTable.Rows)
+                {
+                    PropertyFloor pr = new PropertyFloor();
+
+                    pr.FloorID = Convert.ToInt32(dr["FloorID"].ToString());
+                    pr.FloorNo = dr["FloorID"].ToString();
+                    pr.Coordinates = dr["Coordinates"].ToString();
+
+                    pr.IsAvail = Convert.ToInt32(dr["IsAvail"].ToString());
+
+                    model.Add(pr);
+                }
+                db.Dispose();
+                //return lstUnitProp.ToList();
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+
+            return model.ToList();
+        }
         public List<PropertyFloor> GetFloorList(int PID, DateTime AvailableDate, int Bedroom, decimal MaxRent)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -1097,6 +1181,11 @@ namespace ShomaRM.Models
                     paramANID.ParameterName = "ProspectId";
                     paramANID.Value = ProspectId;
                     cmd.Parameters.Add(paramANID);
+
+                    DbParameter paramLTID = cmd.CreateParameter();
+                    paramLTID.ParameterName = "LeaseTermId";
+                    paramLTID.Value = LeaseTermID;
+                    cmd.Parameters.Add(paramLTID);
 
                     DbDataAdapter da = DbProviderFactories.GetFactory("System.Data.SqlClient").CreateDataAdapter();
                     da.SelectCommand = cmd;
