@@ -241,12 +241,19 @@ namespace ShomaRM.Areas.Tenant.Models
                         reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
 
                         reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
-                        reportHTML = reportHTML.Replace("[%TenantName%]", model.TenantName);
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We thank you for your request and  We are pleased to confirm your guest reservation on " + model.VisitStartDateString + " to " + model.VisitEndDateString + "  for guest " + model.GuestName + "and your Tag Information is " + model.Tag + " </p>");
-                        reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+                        reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                        string emailBody = "";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + model.TenantName + "</p>";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">We thank you for your request and  We are pleased to confirm your guest reservation on " + model.VisitStartDateString + " to " + model.VisitEndDateString + "  for guest " + model.GuestName + "and your Tag Information is " + model.Tag + " </p>";
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                        //reportHTML = reportHTML.Replace("[%TenantName%]", model.TenantName);
+                        //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We thank you for your request and  We are pleased to confirm your guest reservation on " + model.VisitStartDateString + " to " + model.VisitEndDateString + "  for guest " + model.GuestName + "and your Tag Information is " + model.Tag + " </p>");
+                        //reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
 
                         string body = reportHTML;
-                        new EmailSendModel().SendEmail(tenantInfo.Email, "Your Reuest for Guest Registration  is Confirmed ", body);
+                        new EmailSendModel().SendEmail(tenantInfo.Email, "Your Request for Guest Registration  is Confirmed ", body);
                         message = "Thank you for your guest reservation request. We will inform you on email. Please check the email for detail.";
                         if (SendMessage == "yes")
                         {
@@ -263,12 +270,19 @@ namespace ShomaRM.Areas.Tenant.Models
                         reportHTMLTag = System.IO.File.ReadAllText(filePathTag + "EmailTemplateAmenity.html");
 
                         reportHTMLTag = reportHTMLTag.Replace("[%ServerURL%]", ServerURL);
-                        reportHTMLTag = reportHTMLTag.Replace("[%TenantName%]", model.TenantName);
-                        reportHTMLTag = reportHTMLTag.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We thank you for your request and  We are pleased to confirm your guest reservation on " + model.VisitStartDateString + " to " + model.VisitEndDateString + " for guest " + model.GuestName + ".  </p>");
-                        reportHTMLTag = reportHTMLTag.Replace("[%LeaseNowButton%]", "");
+                        reportHTMLTag = reportHTMLTag.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                        string emailBody = "";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + model.TenantName + "</p>";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">We thank you for your request and  We are pleased to confirm your guest reservation on " + model.VisitStartDateString + " to " + model.VisitEndDateString + " for guest " + model.GuestName + ".</p>";
+                        reportHTMLTag = reportHTMLTag.Replace("[%EmailBody%]", emailBody);
+
+                        //reportHTMLTag = reportHTMLTag.Replace("[%TenantName%]", model.TenantName);
+                        //reportHTMLTag = reportHTMLTag.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We thank you for your request and  We are pleased to confirm your guest reservation on " + model.VisitStartDateString + " to " + model.VisitEndDateString + " for guest " + model.GuestName + ".  </p>");
+                        //reportHTMLTag = reportHTMLTag.Replace("[%LeaseNowButton%]", "");
 
                         string bodyTAg = reportHTMLTag;
-                        new EmailSendModel().SendEmail(tenantInfo.Email, "Your Reuest for Guest Registration  is Confirmed. ", bodyTAg);
+                        new EmailSendModel().SendEmail(tenantInfo.Email, "Your Request for Guest Registration  is Confirmed. ", bodyTAg);
                         message = "Thank you for your guest reservation request. We will inform you on email. Please check the email for detail.";
                         if (SendMessage == "yes")
                         {
@@ -286,12 +300,19 @@ namespace ShomaRM.Areas.Tenant.Models
                     reportHTMLTag = System.IO.File.ReadAllText(filePathTag + "EmailTemplateAmenity.html");
 
                     reportHTMLTag = reportHTMLTag.Replace("[%ServerURL%]", ServerURL);
-                    reportHTMLTag = reportHTMLTag.Replace("[%TenantName%]", model.TenantName);
-                    reportHTMLTag = reportHTMLTag.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; I would like to inform you that Your Request is Decline For Guest " + model.GuestName + " due to some reason please contact the Administrator. </p>");
-                    reportHTMLTag = reportHTMLTag.Replace("[%LeaseNowButton%]", "");
+                    reportHTMLTag = reportHTMLTag.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + model.TenantName + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">I would like to inform you that Your Request is Decline For Guest " + model.GuestName + " due to some reason please contact the Administrator.</p>";
+                    reportHTMLTag = reportHTMLTag.Replace("[%EmailBody%]", emailBody);
+
+                    //reportHTMLTag = reportHTMLTag.Replace("[%TenantName%]", model.TenantName);
+                    //reportHTMLTag = reportHTMLTag.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; I would like to inform you that Your Request is Decline For Guest " + model.GuestName + " due to some reason please contact the Administrator. </p>");
+                    //reportHTMLTag = reportHTMLTag.Replace("[%LeaseNowButton%]", "");
 
                     string bodyTAg = reportHTMLTag;
-                    new EmailSendModel().SendEmail(tenantInfo.Email, "Your Reuest for Guest Registration  is Decline. ", bodyTAg);
+                    new EmailSendModel().SendEmail(tenantInfo.Email, "Your Request for Guest Registration  is Decline. ", bodyTAg);
                     message = "Your status regarding guest reservation is sent on email. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {

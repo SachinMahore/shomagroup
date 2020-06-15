@@ -315,6 +315,7 @@ namespace ShomaRM.Models
                 //reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateRegBG.html");
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
                 string phonenumber = model.Phone;
                 try
                 {
@@ -350,7 +351,7 @@ namespace ShomaRM.Models
                         //reportHTML = reportHTML.Replace("[%QuoteNo%]", model.ID.ToString());
                         //reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
 
-                        reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+                        
                         string emailBody = "";
                         emailBody += "<p style=\"margin-bottom: 0px;\">HELLO "+ model.FirstName + " " + model.LastName + "! You’re doing it! You’ve taken those first steps toward your new life at Sanctuary Doral! We noticed you started the process, and we just wanted to let you know we are here to help you with any questions about completing your application. Call, email us, or send us a text we are here to help. Here’s the thing. You only have 3 days to complete the application or you will lose the progress you’ve made, and pricing and availability is subject to change. </p>";
                         emailBody += "<p style=\"margin-bottom: 0px;\">We look forward to welcoming you home to your new community!</p>";
@@ -789,16 +790,23 @@ namespace ShomaRM.Models
                         reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
 
                         reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                        reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
                         string phonenumber = onlineProspectData.Phone;
                         if (model != null)
                         {
-                            reportHTML = reportHTML.Replace("[%EmailHeader%]", "Open Application");
-                            reportHTML = reportHTML.Replace("[%EmailBody%]", "  <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We noticed you begun your application process.  Please note for your convenience, the application remains active until three days after you initially started the application; however, if the application is not completed and submitted before midnight of the third day, you will need to start over.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;   If you have any questions or need assistance in completing the application, please do not hesitate to call us.  We are here to assist you!  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;We know you will love your new home and are excited to have you reside here. </p>");
+                            string emailBody = "";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">HELLO " + model.FirstName + " " + model.LastName + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">We noticed you begun your application process. Please note for your convenience, the application remains active until three days after you initially started the application; however, if the application is not completed and submitted before midnight of the third day, you will need to start over.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">If you have any questions or need assistance in completing the application, please do not hesitate to call us. We are here to assist you!  </p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">We know you will love your new home and are excited to have you reside here.</p>";
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
-                            reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
-
-                            reportHTML = reportHTML.Replace("[%TenantEmail%]", model.Email);
-
+                            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Open Application");
+                            //reportHTML = reportHTML.Replace("[%EmailBody%]", "  <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We noticed you begun your application process. Please note for your convenience, the application remains active until three days after you initially started the application; however, if the application is not completed and submitted before midnight of the third day, you will need to start over.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;   If you have any questions or need assistance in completing the application, please do not hesitate to call us.  We are here to assist you!  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;We know you will love your new home and are excited to have you reside here. </p>");
+                            //reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
+                            //reportHTML = reportHTML.Replace("[%TenantEmail%]", model.Email);
+                            
                             message = "We noticed you begun your application process. Please note for your convenience, the application remains active until three days after you initially started the application; Please check the email for detail.";
 
                         }
@@ -822,18 +830,20 @@ namespace ShomaRM.Models
                         reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
 
                         reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                        reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
                         string phonenumber = onlineProspectData.Phone;
                         if (model != null)
                         {
-                            reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Started By " + applicantData.Type);
-                            reportHTML = reportHTML.Replace("[%EmailBody%]", "  <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Online Application is started by " + applicantData.FirstName + " " + applicantData.LastName + "(" + applicantData.Type + ")</p>");
+                            string emailBody = "";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Online Application is started by " + applicantData.FirstName + " " + applicantData.LastName + "(" + applicantData.Type + ")</p>";
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
-                            reportHTML = reportHTML.Replace("[%TenantName%]", onlineProspectData.FirstName + " " + onlineProspectData.LastName);
-
-                            reportHTML = reportHTML.Replace("[%TenantEmail%]", onlineProspectData.Email);
-
+                            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Started By " + applicantData.Type);
+                            //reportHTML = reportHTML.Replace("[%EmailBody%]", "  <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Online Application is started by " + applicantData.FirstName + " " + applicantData.LastName + "(" + applicantData.Type + ")</p>");
+                            //reportHTML = reportHTML.Replace("[%TenantName%]", onlineProspectData.FirstName + " " + onlineProspectData.LastName);
+                            //reportHTML = reportHTML.Replace("[%TenantEmail%]", onlineProspectData.Email);
                             message = "Online Application Started by " + applicantData.FirstName + " " + applicantData.LastName + "(" + applicantData.Type + "). ; Please check the email for detail.";
-
                         }
                         string body = reportHTML;
                         new EmailSendModel().SendEmail(model.Email, "Online Application Started", body);
@@ -1321,26 +1331,37 @@ namespace ShomaRM.Models
             var phonenumber = "";
             if (GetTenantDet != null)
             {
-
                 foreach (var cd in GetTenantDet)
                 {
                     phonenumber = cd.Phone;
                     body = "";
                     reportHTML = "";
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
-
                     reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                    reportHTML = reportHTML.Replace("[%TenantName%]", cd.FirstName + " " + cd.LastName);
-                    reportHTML = reportHTML.Replace("[%TenantEmail%]", cd.Email);
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Hey "+cd.FirstName + " " + cd.LastName+"! You haven’t yet completed the application and all the progress you’ve made will be lost in a matter of hours! It won’t take long to complete, and we’re here to answer any questions. This is important! This is the opportunity of a lifetime to live the lifestyle you’ve always wanted in a place you’ve always dreamed of.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Username : <span style=\"text-decoration:underline;color:blue;\">" + cd.Email + "</span> </p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login</p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
-                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Final Notification to complete your Application");
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;                                           This is your final notification that your application has not been completed.  Unless the application is submitted today, it will be deleted and you will be kindly asked to reenter the information.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We know you will love your new home in our project, so don’t delay and send us your application now.  We are eager to welcome you into our community.</p>");
+                    string appSummary = new ApplyNowModel().PrintApplicationForm(cd.ID);
+
+                    List<string> filePaths = new List<string>();
+                    filePaths.Add(appSummary);
+
+                    //reportHTML = reportHTML.Replace("[%TenantName%]", cd.FirstName + " " + cd.LastName);
+                    //reportHTML = reportHTML.Replace("[%TenantEmail%]", cd.Email);
+                    //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Final Notification to complete your Application");
+                    //reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;                                           This is your final notification that your application has not been completed.  Unless the application is submitted today, it will be deleted and you will be kindly asked to reenter the information.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We know you will love your new home in our project, so don’t delay and send us your application now.  We are eager to welcome you into our community.</p>");
+
                     body = reportHTML;
 
-                    new EmailSendModel().SendEmail(cd.Email, "Final Notification to complete your Application", body);
+                    new EmailSendModel().SendEmailWithAttachment(cd.Email, "COMPLETE YOUR SANCTUARY APPLICATION", body, filePaths);
 
-                    message = "This is final Notification to complete your Application. Finishing is fast and easy, so log in and get started. Please check the email for detail.";
+                    message = "Complete Your Sanctuary Application. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
                         if (!string.IsNullOrWhiteSpace(phonenumber))
@@ -1348,7 +1369,6 @@ namespace ShomaRM.Models
                             new TwilioService().SMS(phonenumber, message);
                         }
                     }
-
                 }
             }
 
@@ -1358,7 +1378,6 @@ namespace ShomaRM.Models
 
             if (GetTenantDetn != null)
             {
-
                 foreach (var cd in GetTenantDetn)
                 {
                     phonenumber = cd.Phone;
@@ -1366,15 +1385,30 @@ namespace ShomaRM.Models
                     reportHTML = "";
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
                     reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
-                    reportHTML = reportHTML.Replace("[%TenantName%]", cd.FirstName + " " + cd.LastName);
-                    reportHTML = reportHTML.Replace("[%TenantEmail%]", cd.Email);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Reminder to complete your Application");
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We are sending you a kindly reminder that your application has not been completed.  Finishing is fast and easy, so log in and get started.  You are just a few steps away from submitting your application.  We are here to help, so if you need any assistance, please do not hesitate to contact us.”</p>");
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Hey " + cd.FirstName + " " + cd.LastName + "! You haven’t yet completed the application and all the progress you’ve made will be lost in a matter of hours! It won’t take long to complete, and we’re here to answer any questions. This is important! This is the opportunity of a lifetime to live the lifestyle you’ve always wanted in a place you’ve always dreamed of.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Username : <span style=\"text-decoration:underline;color:blue;\">" + cd.Email + "</span> </p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login</p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                    string appSummary = new ApplyNowModel().PrintApplicationForm(cd.ID);
+
+                    List<string> filePaths = new List<string>();
+                    filePaths.Add(appSummary);
+
+                    //reportHTML = reportHTML.Replace("[%TenantName%]", cd.FirstName + " " + cd.LastName);
+                    //reportHTML = reportHTML.Replace("[%TenantEmail%]", cd.Email);
+                    //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Reminder to complete your Application");
+                    //reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We are sending you a kindly reminder that your application has not been completed.  Finishing is fast and easy, so log in and get started.  You are just a few steps away from submitting your application.  We are here to help, so if you need any assistance, please do not hesitate to contact us.”</p>");
 
                     body = reportHTML;
-                    new EmailSendModel().SendEmail(cd.Email, "Reminder to complete your Application", body);
-                    message = "This is kindly reminder that your application has not been completed. Finishing is fast and easy, so log in and get started. Please check the email for detail.";
+
+                    new EmailSendModel().SendEmailWithAttachment(cd.Email, "FRIENDLY REMINDER TO FINISH APPLICATION", body, filePaths);
+
+                    message = "Friendly Reminder To Finish Application. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
                         if (!string.IsNullOrWhiteSpace(phonenumber))

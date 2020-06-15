@@ -244,41 +244,51 @@
             </div>
         </div>
     </div>
-
-
-
-    <div id="popSignIn" class="modal">
-        <div class="modal-header">
-            <span class="closeSign">&times;</span>
-        </div>
-        <!-- Modal content -->
-        <div class="modal-content">
-            <div id="signInHead" class="text-center">
-                <h5 style="">Sign In</h5>
-            </div>
-            <div id="forgtPassHead" class="text-center hidden">
-                <h5 style="">Retrieve Password</h5>
-            </div>
-            <div class="text-justify">
-                <div class="form-group">
-                    <label for="email">Email ID</label>
-                    <input id="UserEmail" type="text" class="form-control" name="UserEmail">
+    <div class="modal" id="popSignIn">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="border-bottom:none;">
+                    <button type="button" id="closeSign" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+                    <div id="signInHead" class="text-center">
+                        <h3 class="modal-title">Sign In</h3>
+                    </div>
+                    <div id="forgtPassHead" class="text-center hidden">
+                        <h3 class="modal-title">Retrieve Password</h3>
+                    </div>
                 </div>
-                <div id="DivPass" class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="UserPassword" name="Password" onkeydown="submitSignIn(event)">
+                <div class="modal-body">
+                    <div class="col-sm-12">
+                        <div class="row">
+
+                            <div class="text-justify">
+                                <div class="form-group">
+                                    <label for="email">Email ID</label>
+                                    <input id="UserEmail" type="text" class="form-control" name="UserEmail">
+                                </div>
+                                <div id="DivPass" class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="UserPassword" name="Password" onkeydown="submitSignIn(event)">
+                                </div>
+                            </div>
+                            <div id="Signinbtn" class="text-center">
+                                <button type="submit" class="btn btn-primary" onclick="SignIn()" style="margin-left:100px !important"> Sign In</button>
+                                <a href="javascript:void(0);" onclick="goToForgetPassword();" class="pull-right" style="padding-top:2%">Forgot Password?</a>
+                            </div>
+                            <div id="Forgtbtn" class="text-center hidden">
+                                <button type="button" class="btn btn-primary" onclick="ForgetPasswordss();">Verify</button>
+                                <a href="javascript:void(0);" onclick="goToSignIn();" class="pull-right" style="padding-top:2%">Go Back</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div id="Signinbtn" class="text-center">
-                <button type="submit" class="btn btn-primary" onclick="SignIn()" style="margin-left:100px !important"> Sign In</button>
-                <a href="javascript:void(0);" onclick="goToForgetPassword();" class="pull-right" style="padding-top:2%">Forgot Password?</a>
-            </div>
-            <div id="Forgtbtn" class="text-center hidden">
-                <button type="button" class="btn btn-primary" onclick="ForgetPasswordss();">Verify</button>
-                <a href="javascript:void(0);" onclick="goToSignIn();" class="pull-right" style="padding-top:2%">Go Back</a>
+                <div class="modal-footer" style="border-top:none">
+                </div>
             </div>
         </div>
     </div>
+
+
+   
     <!-- Floating Social Media bar Starts -->
     @*<div class="float-sm desktop">
             <div class="fl-fl float-fb  ">
@@ -338,7 +348,7 @@
     <div class="web">
         <div class="icon-bar ">
             <a href="tel:+1-786-437-8658" class="phone" id="phonelayoutweb"><img src="~/Content/assets/img/Icons-phone.png" width="60" height="60" /></a>
-            <a  href="https://www.waze.com/livemap/directions?latlng=25.8114644%2C-80.3505895&utm_campaign=waze_website&utm_source=waze_website" target="_blank"><img src="~/Content/assets/img/Icons-location.png" width="60" height="60" /></a>
+            <a href="https://www.waze.com/livemap/directions?latlng=25.8114644%2C-80.3505895&utm_campaign=waze_website&utm_source=waze_website" target="_blank"><img src="~/Content/assets/img/Icons-location.png" width="60" height="60" /></a>
             <a href="#" class="calender" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/sanctuarydoral/leasingtours'});return false;"><img src="~/Content/assets/img/Icons-tour.png" width="60" height="60" /></a>
             <a href="mailto:info@sanctuarydoral.com" class="envelope"><img src="~/Content/assets/img/Icons-email.png" width="60" height="60" /></a>
         </div>
@@ -719,7 +729,7 @@
     // Get the button that opens the modal
     ////var btn = document.getElementById("btnsignIn");
 
-    var span = document.getElementsByClassName("closeSign")[0];
+    var span = document.getElementById("closeSign");
 
 
     ////btn.onclick = function () {
@@ -989,6 +999,17 @@
         $('#MtDate').click(function () {
             $("#txtMoveDate").focus();
         });
+
+        var modelSignIn = document.getElementById("modalPetPolicy");
+        var btnPetPolicy = document.getElementById("btnShowPetPolicy");
+        var spanPetPolicy = document.getElementById("closePetP");
+        btnPetPolicy.onclick = function () {
+            modalPetPolicy.style.display = "block";
+        }
+        spanPetPolicy.onclick = function () {
+            modalPetPolicy.style.display = "none";
+        }
+
         onFocusMainLayout();
     });
 

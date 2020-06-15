@@ -6307,8 +6307,7 @@ var printSummary = function () {
     });
 }
 
-
-printQuotationPrint = function () {
+var printQuotationPrintGenerateQuotation = function () {
     $("#divLoader").show();
     var numofveh = 0;
     var noofbed = $("#lblBed").text();
