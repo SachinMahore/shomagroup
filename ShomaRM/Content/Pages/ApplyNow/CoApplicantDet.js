@@ -1767,8 +1767,20 @@ var goToStep = function (stepid, id, calldataupdate) {
 
         if (id == "16") {
             var msgmm = '';
-
-
+            
+            var isSummarychecked = $("#chkAgreeSummarry").is(":checked") ? "1" : "0";
+            if (isSummarychecked != "1") {
+                msgmm = 'Please ACCEPT AGREEMENTS </br>';
+            }
+            if (msgmm != "") {
+                $.alert({
+                    title: "",
+                    content: msgmm,
+                    type: 'red'
+                });
+                goToStep(15, 15, 0);
+                return;
+            }
             // SaveUpdateStepCoApplicant(16);
             $("#subMenu").removeClass("hidden");
             $("#step2").addClass("hidden");
