@@ -1533,7 +1533,7 @@
                     html += "<td>" + elementValue.Name_On_Card + "</td>";
                     html += "<td>" + MaskCardNumber(elementValue.CardNumber) + "</td>";
 
-                    html += "<td><input style='background: transparent; margin-right:10px' type='radio' onclick='selectPay(" + elementValue.ID + ")'></a>";
+                    html += "<td><input style='background: transparent; margin-right:10px' type='radio' name='rdpay' onclick='selectPay(" + elementValue.ID + ")'></a>";
                     html += "</tr>";
                     $("#tblBankCC>tbody").append(html);
 
@@ -1620,18 +1620,13 @@
                                 if (response.Msg != "") {
                                     if (response.Msg == "1") {
                                         $("#ResponseMsg").html("Payment successfull");
-                                        $("#hndPaymentDone").val(response.PaymentDone);
-
+                                        $("#hndPaymentDone").val(1);
+                                        $("#btnPayNowCheckLink").addClass("hidden");
 
                                         $("#chkPayCL").prop("checked", true);
                                         $("#chkPayCL").prop("disabled", "disabled");
                                         $("#chkPayCL").parent().addClass("checked");
-                                        if (response.PaymentDone == "1") {
-                                            $("#btnPayNowCheckLink").addClass("hidden");
-                                        }
-                                        else {
-                                            $("#btnPayNowCheckLink").removeClass("hidden");
-                                        }
+                                       
                                         $("#divLoader").hide();
                                         $.alert({
                                             title: "",
