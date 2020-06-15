@@ -34,6 +34,8 @@ namespace ShomaRM.Areas.Admin.Models
         public string City { get; set; }
         public string Zip { get; set; }
         public string Bond { get; set; }
+        public decimal BondAmount { get; set; }
+
         public List<SureDepositManagementModel> SureDepoAppList { get; set; }
 
         public SureDepositManagementModel GetDetails()
@@ -58,11 +60,13 @@ namespace ShomaRM.Areas.Admin.Models
                     string sdnum = "";
                     string stat = "Not Uploaded";
                     string bond = "";
+                    decimal bondamt = 0;
                     if (getSDdata != null)
                     {
                         sdnum = getSDdata.SDNumber;
                         stat = getSDdata.Status==1? "Not Uploaded" : getSDdata.Status==2? "Uploaded" : "Expired";
                         bond = getSDdata.SDUploadName;
+                        bondamt = getSDdata.BondAmount!=null?Convert.ToDecimal(getSDdata.BondAmount):0;
                     }
                     listSDApplicant.Add(new SureDepositManagementModel()
                     {
@@ -78,6 +82,7 @@ namespace ShomaRM.Areas.Admin.Models
                        SDNumber=sdnum,
                        StatusString=stat,
                        Bond=bond,
+                       BondAmount= bondamt,
                     });
                 }
             }
@@ -152,6 +157,7 @@ namespace ShomaRM.Areas.Admin.Models
                     UploadDate = DateTime.Now,
                     ExpirationDate = model.ExpirationDate,
                     Status = model.Status,
+                    BondAmount=model.BondAmount,
                     };
                     db.tbl_SureDeposit.Add(saveSD);
                     db.SaveChanges();
@@ -166,6 +172,7 @@ namespace ShomaRM.Areas.Admin.Models
                 getSDdata.UploadDate = DateTime.Now;
                 getSDdata.ExpirationDate = model.ExpirationDate;
                 getSDdata.Status = model.Status;
+                getSDdata.BondAmount = model.BondAmount;
                 db.SaveChanges();
                 msg = "Sure Deposit Saved Successfully";
             }
@@ -197,6 +204,7 @@ namespace ShomaRM.Areas.Admin.Models
                     sddet.SDNumber = getSDdata.SDNumber;
                     sddet.ExpirationDateString = getSDdata.ExpirationDate.HasValue ? getSDdata.ExpirationDate.Value.ToString("MM/dd/yyyy") : "";
                     sddet.Status =Convert.ToInt32(getSDdata.Status);
+                    sddet.BondAmount = getSDdata.BondAmount != null ? Convert.ToDecimal(getSDdata.BondAmount) : 0;
                 }
             }
             return sddet;

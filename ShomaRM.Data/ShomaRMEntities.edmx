@@ -1128,6 +1128,7 @@
           <Property Name="UploadDate" Type="datetime" />
           <Property Name="ExpirationDate" Type="datetime" />
           <Property Name="Status" Type="int" />
+          <Property Name="BondAmount" Type="money" />
         </EntityType>
         <EntityType Name="tbl_Tenant">
           <Key>
@@ -6057,6 +6058,7 @@
           <Property Name="UploadDate" Type="DateTime" Precision="3" />
           <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Int32" />
+          <Property Name="BondAmount" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
 
         </Schema>
@@ -7765,6 +7767,7 @@
           <EntitySetMapping Name="tbl_SureDeposit">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SureDeposit">
               <MappingFragment StoreEntitySet="tbl_SureDeposit">
+                <ScalarProperty Name="BondAmount" ColumnName="BondAmount" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
                 <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
