@@ -1,0 +1,346 @@
+﻿</!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Sanctuary</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .body {
+            font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+            overflow-x: hidden !important;
+        }
+
+        .block {
+            background-color: #fff;
+            width: 600px;
+            margin: 0% auto;
+            border: 1px solid #e2eace;
+        }
+
+            .block h5 {
+                text-align: left;
+                margin: 10px 0px;
+                font-size: 14px;
+                font-weight: normal;
+                color: #49708a;
+            }
+
+        .wrapper {
+            background-image: url("[%ServerURL%]/Content/Templates/images/SanctuaryEntrance.jpg");
+            background-size: 100% 100%;
+            height: 45%;
+        }
+
+        .banner {
+            background-image: url("[%ServerURL%]/Content/Templates/images/Header_quote_background.png");
+            text-align: center;
+            padding: 15px 0px;
+            background-size: 100% 100%;
+        }
+
+            .banner img {
+                width: 32%;
+            }
+
+        .section {
+            font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+            text-align: left;
+            padding: 20px 20px;
+            font-size: 14px;
+            background: #fbfbfb;
+        }
+
+        .table {
+            width: 88%;
+            margin: 0px auto;
+            padding: 20px 0px;
+        }
+
+            .table tr {
+                font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+                margin: 0 auto;
+            }
+
+                .table tr td {
+                    color: #fff;
+                    font-size: 14px;
+                    text-align: center;
+                    border-top: none;
+                }
+
+        .footer_text {
+            padding: 0px 10px;
+            text-align: center;
+        }
+
+        .img_logo {
+            width: 70%;
+            padding: 20px 60px 20px 40px;
+        }
+
+        td.table_data {
+            width: 40%;
+        }
+
+        .footer_text p {
+            font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+            margin-bottom: 0;
+            color: #49708a;
+        }
+
+        .section p a {
+            color: #000000;
+        }
+
+        .footer_text p a {
+            font-size: 12px;
+            text-decoration: none;
+            color: #49708a;
+        }
+
+        .footer_text ul {
+            list-style-type: none;
+            padding: 0px;
+            display: flex;
+            margin: 0;
+            color: #49708a;
+            float: right;
+        }
+
+            .footer_text ul li p {
+                text-align: left;
+                font-size: 12px;
+                padding-right: 15px;
+                margin: 0;
+            }
+
+        .ficon {
+            vertical-align: super;
+            color: #49708a;
+        }
+
+        .footer_bottom {
+            text-align: center;
+        }
+
+        .copyright {
+            background: #74bd2f;
+            padding: 15px 0px;
+            color: #ffffff;
+        }
+
+            .copyright p {
+                font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+                margin: 0;
+                font-size: 13px;
+            }
+
+        .unsubscribe {
+            font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+            margin: 15px 0px;
+            font-size: 13px;
+        }
+
+        .link-button {
+            -webkit-text-size-adjust: none;
+            text-decoration: none;
+            display: inline-block;
+            color: #ffffff !important;
+            background-color: #7fbc42;
+            border-radius: 4px;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border: 1px solid #7fbc42;
+            padding: 10px;
+            font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+            text-align: center;
+            mso-border-alt: none;
+            word-break: keep-all;
+        }
+
+        .img_facebook {
+            width: 10px;
+            height: 14px;
+        }
+
+        .img_instagram {
+            width: 14px;
+            height: 14px;
+        }
+
+        .img_phone {
+            width: 12px;
+            height: 12px;
+        }
+
+        .img_location {
+            width: 12px;
+            height: 14px;
+        }
+
+        .img-header {
+            width: 100%;
+            height: 90%;
+        }
+
+        @media screen and (max-width: 767px) {
+            .wrapper {
+                height: 25%;
+            }
+
+            .block {
+                width: 100%;
+            }
+
+            .table tr {
+                display: grid;
+            }
+
+            td.table_data {
+                width: 100%;
+                text-align: center;
+            }
+
+            .table_footer tr {
+                display: grid;
+            }
+
+            .img_logo {
+                width: 90%;
+                padding: 5%;
+            }
+
+            .footer_text p {
+                text-align: center;
+                margin-bottom: 0;
+                color: #49708a;
+            }
+
+            .footer_text ul {
+                list-style-type: none;
+                padding: 0px;
+                display: block;
+                margin: 0;
+                color: #49708a;
+                float: none;
+                text-align: center;
+            }
+
+                .footer_text ul li p {
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+        }
+
+        @media screen and (max-width: 767px) and (orientation: landscape) {
+            .img_logo {
+                margin-top: 10px;
+                width: 50%;
+            }
+        }
+
+        @media screen and (min-width: 768px) and (max-width: 991px) {
+            .wrapper {
+                height: 40%;
+            }
+
+            .block {
+                width: 82%;
+            }
+
+            .footer_text p a {
+                font-size: 11px;
+            }
+        }
+
+        @media screen and (min-width: 992px) and (max-width: 1199px) {
+            .wrapper {
+                height: 30%;
+            }
+
+            .block {
+                width: 62%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="container" style="padding: 20px;">
+            <div class="block">
+                <h5 style="font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; padding-left: 20px">[%TodayDate%]</h5>
+                <div class="">
+                    <div class="banner">
+                        <img src="[%ServerURL%]/Content/Templates/images/sanctuary_logo_white.png">
+                    </div>
+                    <div>
+                        <img src="[%ServerURL%]/Content/Templates/images/SanctuaryEntrance.jpg" class="img-header">
+                    </div>
+                </div>
+                <div class="section" style="">
+                    [%EmailBody%]
+                </div>
+                <div class="section" style="">
+                    <p style="margin: 0px;">Sanctuary Doral</p>
+                    <p style="margin: 0px;"><a style="text-decoration:none;" href="tel:+1-786-684-7634">(786) 648-7634</a></p>
+                    <p style="margin: 0px;">9400 NW 41<sup>st</sup></p>
+                    <p style="margin: 0px;">Doral FL 33178</p>
+                    <p style="margin: 0px;"><a style="text-decoration:none;" href="mailto:info@sanctuarydoral.com">info@sanctuarydoral.com</a></p>
+                </div>
+                <div class="bg_section" style="background: #49708a;">
+                    <h6 style="font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; color: #fff; font-size: 12px; padding: 20px 0px; margin: 0; text-align: center;">IN THE HEART OF DORAL, A SANCTUARY ARISES</h6>
+                    <hr style="border-top: 1px solid #fff;margin: 0;">
+                    <div class="container">
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <img src="[%ServerURL%]/Content/Templates/images/img1.png" style="margin-bottom: 10px;"><br>
+                                    <p>Exclusive<br>Apartments</p>
+                                </td>
+                                <td>
+                                    <img src="[%ServerURL%]/Content/Templates/images/img2.png" style="margin-bottom: 10px;"><br>
+                                    <p>Exceptional<br>Service</p>
+                                </td>
+                                <td>
+                                    <img src="[%ServerURL%]/Content/Templates/images/img3.png" style="margin-bottom: 10px;"><br>
+                                    <p>One-Of-a-Kind<br>Amenities</p>
+                                </td>
+                                <td>
+                                    <img src="[%ServerURL%]/Content/Templates/images/img4.png" style="margin-bottom: 10px;"><br>
+                                    <p>Pet<br>Friendly</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="footer">
+
+                    <table class="table_footer">
+                        <tr>
+                            <td class="table_data">
+                                <img src="[%ServerURL%]/Content/Templates/images/sanctuary_logo_blue.png" class="img_logo">
+                            </td>
+                            <td class="footer_text">
+                                <p><a href="tel:+1-786-648-7634"><img src="[%ServerURL%]/Content/Templates/images/Icon-phone.png" class="img_phone">&nbsp;(786) 648-7634</a> &nbsp;<a href="https://www.waze.com/livemap/directions?latlng=25.8114644%2C-80.3505895&utm_campaign=waze_website&utm_source=waze_website" target="_blank"><img src="[%ServerURL%]/Content/Templates/images/Icon-location.png" class="img_location">&nbsp;9400 NW 41<sup>st</sup>, DORAL, FL 33178</a></p>
+                                <hr style="border-top: 3px double #789cb3;margin: 5px 0px;">
+                                <p style="margin-top: -2px;"><a href="https://sanctuarydoral.com/" target="_blank">WWW.SANCTUARYDORAL.COM</a> &nbsp;<a href="https://www.facebook.com/pages/category/Property-Management-Company/Sanctuary-Doral-351001812054769/" target="_blank"><img src="[%ServerURL%]/Content/Templates/images/Icon-facebook.png" class="img_facebook"></a>&nbsp;&nbsp;<a href="https://www.instagram.com/sanctuarydoral/" target="_blank"><img src="[%ServerURL%]/Content/Templates/images/Icon_instagram.png" class="img_instagram"></a></p>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="footer_bottom">
+                        <div class="copyright">
+                            <p>Copyright 2019 Shoma Mgmt Communities, L.L.C.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
