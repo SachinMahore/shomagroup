@@ -156,6 +156,7 @@
     <Property Name="AcceptSummary" Type="int" />
     <Property Name="AdditionalParking" Type="int" />
     <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="AdditionalParkingAmt" Type="money" />
   </EntityType>
   <EntityType Name="tbl_AuditHistory">
     <Key>
@@ -1123,6 +1124,7 @@
     <Property Name="UploadDate" Type="datetime" />
     <Property Name="ExpirationDate" Type="datetime" />
     <Property Name="Status" Type="int" />
+    <Property Name="BondAmount" Type="money" />
   </EntityType>
   <EntityType Name="tbl_Tenant">
     <Key>

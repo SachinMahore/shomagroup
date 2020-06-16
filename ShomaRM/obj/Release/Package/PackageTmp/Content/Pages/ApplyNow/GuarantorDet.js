@@ -9050,7 +9050,7 @@ var getBankCCLists = function () {
                 html += "<td>" + elementValue.Name_On_Card + "</td>";
                 html += "<td>" + MaskCardNumber(elementValue.CardNumber) + "</td>";
 
-                html += "<td><input style='background: transparent; margin-right:10px' type='radio' onclick='selectPay(" + elementValue.ID + ")'></a>";
+                html += "<td><input style='background: transparent; margin-right:10px' type='radio' name='rdpay' onclick='selectPay(" + elementValue.ID + ")'></a>";
                 html += "</tr>";
                 $("#tblBankCC>tbody").append(html);
 

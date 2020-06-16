@@ -82,13 +82,13 @@
                                     <input class="form-control form-control-small" id="txtZip" maxlength="7" value="@Model.Zip" />
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label class="star">Sure Deposit Number</label>
                                     <input class="form-control form-control-small" id="txtSDNumber" value="@Model.SDNumber" onkeypress="return isOnlyNumber(event)" />
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label for="txtExpDate" class="star">Sure Deposit Expiration Date</label>
                                     <div class="input-group">
@@ -97,6 +97,15 @@
                                             <button id="iconExpDate" class="btn btn-primary search" type="button" style="height:34px !important"><i class="fa-calendar fa"></i></button>
                                         </span>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="txtBondAmt" class="star">Bond Amount</label>
+                                    <input id="txtBondAmt" class="form-control form-control-small" value="@Model.BondAmount" style="padding-left:39px" />
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary search" type="button" style="margin-top:-59px;"><i class="fa-dollar fa"></i></button>
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -214,6 +223,7 @@
         var sdnumber = $("#txtSDNumber").val();
         var expdt = $("#txtExpDate").val();
         var stat = $("#ddlStatus").val();
+        var bondamt = $("#txtBondAmt").val();
         if (!$("#txtSDNumber").val()) {
             msg += "Enter Sure Deposit Number";
         }
@@ -234,7 +244,8 @@
             ApplyNowID: prospectID,
             SDNumber: sdnumber,
             ExpirationDate: expdt,
-            Status:stat,
+            Status: stat,
+            BondAmount: bondamt,
         };
 
         $.ajax({
