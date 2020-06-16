@@ -2548,11 +2548,15 @@ namespace ShomaRM.Models
             var leaseterm = db.tbl_LeaseTerms.Where(p => p.LTID == applydata.LeaseTerm).FirstOrDefault();
             aptlyModel.LeaseTerm = leaseterm.LeaseTerms.ToString();
             aptlyModel.MoveInDate = applydata.MoveInDate.Value.ToString("MM/dd/yyyy");
-            //aptlyModel.QuoteExpires = tenantinfo.DateExpire.Value.ToString("MM/dd/yyyy") + "24:00:00";
+            aptlyModel.QuoteExpires =Convert.ToDateTime(tenantinfo.CreatedDate).AddDays(3).ToString("MM/dd/yyyy") + "24:00:00";
+            var petInfo = db.tbl_TenantPet.Where(p=>p.AddedBy == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
+            if(petInfo!=null)
+            {
+                aptlyModel.Pets = petInfo.Breed;
 
-            aptlyModel.Pets = "Dog(s)";
-            aptlyModel.Pets = "Dog(s)";
-
+            }
+           
+          
             aptlyModel.PortalURL = "http://52.4.251.162:8086/Admin/ProspectVerification/EditProspect/" + tenantinfo.ProspectID;
             aptlyModel.CreditPaid = applicantdata.CreditPaid==1?"True": "False";
             aptlyModel.BackgroundCheckPaid = applicantdata.BackGroundPaid == 1 ? "True" : "False";
