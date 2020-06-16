@@ -714,6 +714,7 @@ namespace ShomaRM.Models
                     onlineProspectData.PetDNAAmt = model.PetDNAAmt;
                     onlineProspectData.StepCompleted = stepcomp;
                     onlineProspectData.AdditionalParking = model.AdditionalParking;
+                    onlineProspectData.AdditionalParkingAmt = model.ParkingAmt;
                     db.SaveChanges();
 
                     var tenentUID = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;

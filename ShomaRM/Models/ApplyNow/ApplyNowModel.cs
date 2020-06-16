@@ -1339,7 +1339,8 @@ namespace ShomaRM.Models
             {
                 stepcomp = StepCompleted;
             }
-
+            TenantOnlineModel mm = new TenantOnlineModel();
+            mm.CallAptly();
             if (onlineProspectData != null)
             {
                 if (applicantData.Type == "Primary Applicant ")

@@ -1385,10 +1385,10 @@
                                                 <span style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                             <div class="col-md-3 col-sm-3 col-xs-3">
-                                                <span id="lblMonthly_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
+                                                $<span id="lblMonthly_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                             <div class="col-md-3 col-sm-3 col-xs-3">
-                                                <span id="lblProrated_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
+                                                $<span id="lblProrated_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
 
@@ -1713,7 +1713,7 @@
                                                         <span id="">Total Due at Move In</span>
                                                     </div>
                                                     <div class="col-mr-25 col-sm-6 col-lg-4 text-green">
-                                                        <span id="lbtotdueatmov6"></span>
+                                                        $<span id="lbtotdueatmov6"></span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1737,7 +1737,7 @@
                                                         <span id="">Additional Parking : </span>
                                                     </div>
                                                     <div class="col-mr-25 col-sm-6 col-lg-4">
-                                                        <span id="lblRFPAdditionalParking">$@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
+                                                        $<span id="lblRFPAdditionalParking">$@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1748,7 +1748,7 @@
                                                         <span id="">Storage Unit# : </span>
                                                     </div>
                                                     <div class="col-mr-25 col-sm-6 col-lg-4">
-                                                        <span id="lblRFPStorageUnit">$@((Model.StorageAmt ?? 0).ToString("0.00"))</span>
+                                                        $<span id="lblRFPStorageUnit">$@((Model.StorageAmt ?? 0).ToString("0.00"))</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1762,7 +1762,7 @@
                                                         <span id="">Pet Rent : </span>
                                                     </div>
                                                     <div class="col-mr-25 col-sm-6 col-lg-4">
-                                                        <span id="lblRFPPetRent">$@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
+                                                        $<span id="lblRFPPetRent">$@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1805,7 +1805,7 @@
                                                         <span id="">Total Monthly Payment</span>
                                                     </div>
                                                     <div class="col-mr-25 col-sm-6 col-lg-4 text-green">
-                                                        <span id="lblRFPTotalMonthlyPayment">$2,031.15</span>
+                                                        $<span id="lblRFPTotalMonthlyPayment">$2,031.15</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -4184,16 +4184,6 @@
                                     <input class="form-control" type="checkbox" id="chkAgreeSummarry" /> <span class="agree-text">  ACCEPT AGREEMENTS</span>
                                 </div>
                             </div>
-                            @*<div class="col-sm-6">
-                                    <div class="col-sm-1 form-group">
-                                        <input class="form-control" type="checkbox" id="chkAgreeSummarry" style="width: 60px !important;height: 20px !important;">
-                                    </div>
-                                    <div class="col-sm-11" style="text-align: left;">
-                                        <label>
-                                            ACCEPT AGREEMENTS
-                                        </label>
-                                    </div>
-                                </div>*@
                             <div class="pull-right text-center">
                                 <button type="submit" class="btn-alltype" id="btnPrintSummary" onclick="printSummary()"><i class="fa fa-print"></i> Print</button>
                             </div>
@@ -5197,14 +5187,15 @@
                         </div>
 
                     </div>
+
                     <div class="col-sm-12" id="divChkSaveAcc">
                         <input type="checkbox" id="chkSaveAcc">
                         <span class="chektext">
                             Save Account Information
                         </span>
                     </div>
-                </div>
 
+                </div>
                 <div class="col-sm-12" style="margin-bottom:20px">
                     <input type="checkbox" id="chkTermsAndCondition2">
                     <span class="chektext">

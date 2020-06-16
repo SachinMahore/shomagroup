@@ -182,5 +182,65 @@ namespace ShomaRM.Models
             }
             return transStatus + "|" + usaepay.AuthCode + "|" + usaepay.ResultRefNum;
         }
+
+        //public string SaveAccountInfo(string RefNo, decimal Credit_Amount)
+        //{
+        //    ShomaRMEntities db = new ShomaRMEntities();
+        //    string transStatus = "";
+        //    USAePayAPI.USAePay usaepay = new USAePayAPI.USAePay();
+        //    usaepay.SourceKey = (useSandBox == true ? sourceKeySendBox : sourceKeyLive);
+        //    usaepay.UseSandbox = useSandBox;
+
+        //    usaepay.usaepayService client = new usaepayService();
+
+        //    usaepay.Amount = Credit_Amount;
+           
+        //    try
+        //    {
+                
+        //        usaepay.FieldValue[] update = new usaepay.FieldValue[2];
+        //        for (int i = 0; i < 2; i++)
+        //        {
+
+        //            update[i] = new usaepay.FieldValue();
+
+        //        }
+
+        //        update[0].Field = "Schedule"; update[0].Value = "weekly";
+        //        update[1].Field = "NumLeft"; update[1].Value = "7";
+
+        //        string response;
+
+        //        try
+        //        {
+        //            response = client.convertTranToCust(token, refnum, update);
+
+        //            MessageBox.Show(string.Concat("Customer Number: ",
+        //                        response));
+
+        //        }
+
+
+        //        catch (Exception err)
+        //        {
+        //            MessageBox.Show(err.Message);
+        //        }
+        //    }
+        //    catch (Exception x)
+        //    {
+        //        transStatus = "ERROR: " + x.Message;
+        //    }
+        //    return transStatus + "|" + usaepay.AuthCode + "|" + usaepay.ResultRefNum;
+        //}
+        //private static usaepay.usaepayService getClient()
+        //{
+        //    USAePayAPI.USAePay usaepay = new USAePayAPI.USAePay();
+        //    usaepay.SourceKey = (useSandBox == true ? sourceKeySendBox : sourceKeyLive);
+        //    usaepay.UseSandbox = useSandBox;
+        //    usaepay. client = new usaepay.usaepayService();
+
+        //    return client;
+
+        //}
     }
 }
