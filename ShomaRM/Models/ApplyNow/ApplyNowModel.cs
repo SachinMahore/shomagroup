@@ -742,8 +742,8 @@ namespace ShomaRM.Models
                             }
                             string body = reportHTML;
 
-                            string rulepolicy = HttpContext.Current.Server.MapPath("~/Content/assets/img/Policy/Rules_Policies_fragmented.pdf"); ;
-                            string rentalqualification = HttpContext.Current.Server.MapPath("~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf"); ;
+                            string rulepolicy = HttpContext.Current.Server.MapPath("~/Content/assets/img/Policy/Rules_Policies_fragmented.pdf");
+                            string rentalqualification = HttpContext.Current.Server.MapPath("~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf");
                             string appSummary = new ApplyNowModel().PrintApplicationForm(GetProspectData.ID);
 
                             List<string> filePaths = new List<string>();

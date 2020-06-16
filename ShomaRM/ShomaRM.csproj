@@ -2606,6 +2606,7 @@
     <Content Include="Content\SMResponsive\js\waypoints.min.js" />
     <Content Include="Content\SMResponsive\js\wow.min.js" />
     <Content Include="Content\store.min.js" />
+    <Content Include="Content\Templates\EmailTemplate1.html" />
     <Content Include="Content\Templates\images\Icon-facebook.png" />
     <Content Include="Content\Templates\images\Icon-location.png" />
     <Content Include="Content\Templates\images\icon-phone.png" />
