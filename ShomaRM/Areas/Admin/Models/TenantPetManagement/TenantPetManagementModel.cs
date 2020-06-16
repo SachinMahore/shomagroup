@@ -8,6 +8,7 @@ using ShomaRM.Data;
 using ShomaRM.Areas.Tenant.Models;
 using System.IO;
 using System.Web.Configuration;
+using ShomaRM.Models.TwilioApi;
 
 namespace ShomaRM.Areas.Admin.Models
 {
@@ -238,8 +239,10 @@ namespace ShomaRM.Areas.Admin.Models
         public long PropertyID { get; set; }
         public string ExpiryDateString { get; set; }
         public string Email { get; set; }
+        public string PhoneNumber { get; set; }
 
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
+        string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         public String SaveUpdateTenantPet(TenantPetListModel model)
         {
             string msg = "";
@@ -289,25 +292,37 @@ namespace ShomaRM.Areas.Admin.Models
                     {
                         TenantName = TenantInfo.FirstName + ' ' + TenantInfo.LastName;
                         Email = TenantInfo.Email;
+                        PhoneNumber = TenantInfo.Mobile;
                     }
-
 
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
                     reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
                     if (model != null)
                     {
-                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Pet Vaccination Certificate Expiry Remainder");
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Dear " + TenantName + " your pet " + PetName + " vaccination is Expired / Expiring . Please submit new vaccination Certificate</p>");
+                        string emailBody = "";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + TenantName + " your pet " + PetName + " vaccination is Expired / Expiring . Please submit new vaccination Certificate</p>";
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
-                        reportHTML = reportHTML.Replace("[%TenantName%]", TenantName);
-
-                        reportHTML = reportHTML.Replace("[%TenantEmail%]", Email);
-
+                        //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Pet Vaccination Certificate Expiry Remainder");
+                        //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Dear " + TenantName + " your pet " + PetName + " vaccination is Expired / Expiring . Please submit new vaccination Certificate</p>");
+                        //reportHTML = reportHTML.Replace("[%TenantName%]", TenantName);
+                        //reportHTML = reportHTML.Replace("[%TenantEmail%]", Email);
                     }
                     string body = reportHTML;
                     new EmailSendModel().SendEmail(Email, "Pet Vaccination Certificate Expiry Remainder", body);
+                    string message = "Pet Vaccination Certificate Expiry Remainder. Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        if (!string.IsNullOrWhiteSpace(PhoneNumber))
+                        {
+                            new TwilioService().SMS(PhoneNumber, message);
+                        }
+                    }
+
                 }
                 msg = "Vaccination Expiry Remainder Send Successfully";
             }

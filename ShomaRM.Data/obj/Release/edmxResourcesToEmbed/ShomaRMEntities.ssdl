@@ -82,6 +82,8 @@
     <Property Name="UserID" Type="int" />
     <Property Name="CreditPaid" Type="int" />
     <Property Name="BackGroundPaid" Type="int" />
+    <Property Name="AdminFee" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="AdminFeePercentage" Type="decimal" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="tbl_ApplicantHistory">
     <Key>
@@ -154,6 +156,7 @@
     <Property Name="AcceptSummary" Type="int" />
     <Property Name="AdditionalParking" Type="int" />
     <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="AdditionalParkingAmt" Type="money" />
   </EntityType>
   <EntityType Name="tbl_AuditHistory">
     <Key>
@@ -1121,6 +1124,7 @@
     <Property Name="UploadDate" Type="datetime" />
     <Property Name="ExpirationDate" Type="datetime" />
     <Property Name="Status" Type="int" />
+    <Property Name="BondAmount" Type="money" />
   </EntityType>
   <EntityType Name="tbl_Tenant">
     <Key>

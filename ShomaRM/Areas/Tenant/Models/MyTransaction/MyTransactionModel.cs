@@ -937,6 +937,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     var propertyDet = db.tbl_Properties.Where(co => co.PID == 8).FirstOrDefault();
                     ApplyNowModel mm = new ApplyNowModel();
                     string transStatus = "";
+                    string cardaccnum = "";
 
                     string decryptedCardNumber = string.IsNullOrWhiteSpace(accountDet.CardNumber) ? "" : new EncryptDecrypt().DecryptText(accountDet.CardNumber);
                     string decryptedAccountNumber = string.IsNullOrWhiteSpace(accountDet.AccountNumber) ? "" : new EncryptDecrypt().DecryptText(accountDet.AccountNumber);
@@ -963,11 +964,13 @@ namespace ShomaRM.Areas.Tenant.Models
                         if (!string.IsNullOrWhiteSpace( mm.CardNumber))
                         {
                             mm.Name_On_Card = accountDet.NameOnCard;
+                            cardaccnum = mm.CardNumber.Substring(mm.CardNumber.Length - 4);
                             transStatus = new UsaePayModel().ChargeCard(mm);
                         }
                         else if (!string.IsNullOrWhiteSpace(mm.RoutingNumber))
                         {
                             mm.Name_On_Card = accountDet.AccountName;
+                            cardaccnum = mm.AccountNumber.Substring(mm.AccountNumber.Length - 4);
                             transStatus = new UsaePayModel().ChargeACH(mm);
                         }
 
@@ -1019,26 +1022,60 @@ namespace ShomaRM.Areas.Tenant.Models
 
                         if (isFailed == 0)
                         {
-                            subject = "Monthly charges received -" + DateTime.Now.ToString("MM/dd/yyyy");
-                            reportHTML = reportHTML.Replace("[%EmailHeader%]", "Monthly charges received -" + DateTime.Now.ToString("MM/dd/yyyy"));
-                            reportHTML = reportHTML.Replace("[%TenantName%]", tenantData.FirstName + " " + tenantData.LastName);
-                            reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your monthly charges received $" + transData.Charge_Amount.Value.ToString("0.00") + " on " + DateTime.Now + ". Transaction ID : " + strlist[1] + ".” </p>");
-                            reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+                            subject = "Sanctuary Payment Confirmation";
+                            string emailBody = "";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + tenantData.FirstName + " " + tenantData.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment date:" + DateTime.Now.ToString("MM/dd/yyyy hh:mm tt") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment amount:$" + (mm.Charge_Amount ?? 0).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Service fee:$" + (mm.ProcessingFees??0).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Total payment:$" + ((mm.Charge_Amount ?? 0) + (mm.ProcessingFees??0)).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">*The service fee is collected by the payment agent not the property management company and will not display your ledger. Service fee is non Refundable.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">In meantime, if you have any questions about the application process please contact us</p>";
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+                           
+                            message = "Sanctuary Payment Confirmation. Please check the email for detail.";
+                            
+                            //sachin m 01 may 2020
+
+                            //message = "Sanctuary Payment Confirmation. Please check the email for detail.";
+                            //subject = "Monthly charges received -" + DateTime.Now.ToString("MM/dd/yyyy");
+                            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Monthly charges received -" + DateTime.Now.ToString("MM/dd/yyyy"));
+                            //reportHTML = reportHTML.Replace("[%TenantName%]", tenantData.FirstName + " " + tenantData.LastName);
+                            //reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your monthly charges received $" + transData.Charge_Amount.Value.ToString("0.00") + " on " + DateTime.Now + ". Transaction ID : " + strlist[2] + ".” </p>");
+                            //reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
                         }
                         else
                         {
-                            subject = "Monthly charges payment failed -" + DateTime.Now.ToString("MM/dd/yyyy");
-                            reportHTML = reportHTML.Replace("[%EmailHeader%]", "Monthly charges payment failed -" + DateTime.Now.ToString("MM/dd/yyyy"));
-                            reportHTML = reportHTML.Replace("[%TenantName%]", tenantData.FirstName + " " + tenantData.LastName);
-                            reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your monthly charges failed $" + transData.Charge_Amount.Value.ToString("0.00") + " on " + DateTime.Now + ". Transaction Details : " + strlist[0] + ".” </p>");
-                            reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+                            subject = "Sanctuary Payment Failed";
+
+                            string emailBody = "";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + tenantData.FirstName + " " + tenantData.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal and transaction is falied. Please review the payment information below and keep this email for your personal records</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment failed# " + strlist[2] + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment date:" + DateTime.Now.ToString("MM/dd/yyyy hh:mm tt") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment amount:$" + (mm.Charge_Amount ?? 0).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Service fee:$" + (mm.ProcessingFees ?? 0).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Total payment:$" + ((mm.Charge_Amount ?? 0) + (mm.ProcessingFees ?? 0)).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">In meantime, if you have any questions about the application process please contact us</p>";
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                            message = "Sanctuary Payment Failed. Please check the email for detail.";
+
+                            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Monthly charges payment failed -" + DateTime.Now.ToString("MM/dd/yyyy"));
+                            //reportHTML = reportHTML.Replace("[%TenantName%]", tenantData.FirstName + " " + tenantData.LastName);
+                            //reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your monthly charges failed $" + transData.Charge_Amount.Value.ToString("0.00") + " on " + DateTime.Now + ". Transaction Details : " + strlist[0] + ".” </p>");
+                            //reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
                         }
 
                         body = reportHTML;
 
                         new EmailSendModel().SendEmail(tenantData.Email, subject, body);
 
-                        message = subject + ". Please check the email for detail.";
+                        //message = subject + ". Please check the email for detail.";
                         if (SendMessage == "yes")
                         {
                             if (!string.IsNullOrWhiteSpace(phonenumber))
@@ -1304,6 +1341,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
 
                 reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
+                reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
                 string message = "";
                 string phonenumber = GetTenantData.Mobile;
@@ -1369,7 +1407,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     db.SaveChanges();
                     reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Deposit Paid");
                     reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Deposit payment in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " from " + ameDet.DesiredTimeFrom + " to "+ameDet.DesiredTimeTo+"  has been received. Your Reservation is now completed. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Deposit payment in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " from " + ameDet.DesiredTimeFrom + " to "+ameDet.DesiredTimeTo+ "  has been received. of $(Reservation Fee Amount) and your Deposit Fee in the Amount of $(Deposit Fee Amount) for your reservation of the (Reservation) on (Reservation Date) from (Reservation Time From) to (Reservation Time To) has been received. Your Reservation is now confirmed. Please print the attached “Clubhouse/Licensed Space Agreement” for your records. Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your refund will be processed within 7-10 days. After the 3-day deadline, your reservation fee will not be refunded.” . Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
                     reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
                     body = reportHTML;
 

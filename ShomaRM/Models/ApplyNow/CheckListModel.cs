@@ -1,5 +1,6 @@
 ﻿using ShomaRM.Areas.Tenant.Models;
 using ShomaRM.Data;
+using ShomaRM.Models.TwilioApi;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -44,7 +45,7 @@ namespace ShomaRM.Models
         public Nullable<System.DateTime> CreatedDate { get; set; }
 
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
-
+        string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         public CheckListModel GetMoveInData(long Id, long UID)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -260,15 +261,19 @@ namespace ShomaRM.Models
                 }
 
                 string transStatus = "";
+                string cardaccnum = "";
+                string phonenumber = "";
                 model.Email = GetProspectData.Email;
                 model.ProcessingFees = processingFees;
                 if (model.PaymentMethod == 2)
                 {
+                    cardaccnum = model.CardNumber.Substring(model.CardNumber.Length - 4);
                     transStatus = new UsaePayModel().ChargeCard(model);
                 }
                 else if (model.PaymentMethod == 1)
                 {
                     model.AccountNumber = model.CardNumber;
+                    cardaccnum = model.AccountNumber.Substring(model.AccountNumber.Length - 4);
                     transStatus = new UsaePayModel().ChargeACH(model);
                 }
                 String[] spearator = { "|" };
@@ -349,18 +354,40 @@ namespace ShomaRM.Models
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
 
                     reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+                    phonenumber = GetProspectData.Phone;
                     if (model != null)
                     {
-                        reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Move In Charges Received");
-                        reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Application Completed and Move In Charges Received.  This email confirms that we have received your Move In Charges payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
+                        string emailBody = "";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetProspectData.FirstName + " " + GetProspectData.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">Payment date:" + DateTime.Now.ToString("MM/dd/yyyy hh:mm tt") + "</p>";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">Payment amount:$" + (model.Charge_Amount ?? 0).ToString("0.00") + "</p>";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">Service fee:$" + processingFees.ToString("0.00") + "</p>";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">Total payment:$" + ((model.Charge_Amount ?? 0) + processingFees).ToString("0.00") + "</p>";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">*The service fee is collected by the payment agent not the property management company and will not display your ledger. Service fee is non Refundable.</p>";
+                        emailBody += "<p style=\"margin-bottom: 0px;\">In meantime, if you have any questions about the application process please contact us</p>";
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
-                        reportHTML = reportHTML.Replace("[%TenantName%]", GetProspectData.FirstName + " " + GetProspectData.LastName);
-
-                        reportHTML = reportHTML.Replace("[%TenantEmail%]", GetProspectData.Email);
-
+                        //sachin m 01 may 2020
+                        
+                        //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Move In Charges Received");
+                        //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Application Completed and Move In Charges Received.  This email confirms that we have received your Move In Charges payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
+                        //reportHTML = reportHTML.Replace("[%TenantName%]", GetProspectData.FirstName + " " + GetProspectData.LastName);
+                        //reportHTML = reportHTML.Replace("[%TenantEmail%]", GetProspectData.Email);
                     }
                     string body = reportHTML;
-                    new EmailSendModel().SendEmail(GetProspectData.Email, "Application Completed and Move In Charges Received", body);
+                    new EmailSendModel().SendEmail(GetProspectData.Email, "Sanctuary Payment Confirmation", body);
+                    string message = "Sanctuary Payment Confirmation. Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
+                    }
                 }
 
                 msg = transStatus.ToString();
