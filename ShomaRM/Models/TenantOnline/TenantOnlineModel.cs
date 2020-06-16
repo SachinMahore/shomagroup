@@ -732,6 +732,7 @@ namespace ShomaRM.Models
                         {
                             tenantData.StepCompleted = stepcomp;
                             db.SaveChanges();
+                            CallAptly();
                         }
                     }
                 }
@@ -762,7 +763,7 @@ namespace ShomaRM.Models
             int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.ProspectID != 0)
             {
-
+                CallAptly();
                 var applyNow = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
                 var getAppldata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == userid).FirstOrDefault();
                 if (getAppldata != null)
@@ -887,7 +888,7 @@ namespace ShomaRM.Models
                     db.SaveChanges();
 
                 }
-
+               
                 msg = "Applicant Updated Successfully";
             }
 
@@ -2516,6 +2517,48 @@ namespace ShomaRM.Models
                 db.Database.Connection.Close();
                 throw ex;
             }
+        }
+
+        //Sachin Mahore 16 June 2020
+        public string CallAptly()
+        {
+            aptlyHelper aptlyHelper = new aptlyHelper();
+            aptlyModel aptlyModel = new aptlyModel();
+            ShomaRMEntities db = new ShomaRMEntities();
+          
+            var tenantinfo = db.tbl_TenantOnline.Where(p => p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
+            var applicantdata = db.tbl_Applicant.Where(p => p.UserID ==ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
+            var applydata = db.tbl_ApplyNow.Where(p => p.ID == tenantinfo.ProspectID).FirstOrDefault();
+            var propDet = db.tbl_PropertyUnits.Where(c => c.UID == applydata.PropertyId).FirstOrDefault();
+
+            aptlyModel.name = tenantinfo.FirstName + " " + tenantinfo.LastName+" - "+ applydata.MoveInDate.Value.ToString("MM/dd/yyyy")+" - "+ propDet.UnitNo;
+            aptlyModel.Email = tenantinfo.Email;
+            aptlyModel.FirstName = tenantinfo.FirstName;
+            aptlyModel.LastName = tenantinfo.LastName;
+            aptlyModel.Phone = tenantinfo.Mobile;
+
+         
+            aptlyModel.Building = "Sanctuary Doral";
+            aptlyModel.Unit = (propDet.UnitNo).Replace("Unit ","");
+            aptlyModel.UnitNumber=(propDet.UnitNo).Replace("Unit ", "");
+            aptlyModel.FloorPlan = propDet.Building;
+            aptlyModel.Stage = "Applicants";
+            aptlyModel.SubStage = tenantinfo.StepCompleted == 7 ? "Applicants" : tenantinfo.StepCompleted == 8 ? "Responsibility" : tenantinfo.StepCompleted == 9 ? "Personal Info" : tenantinfo.StepCompleted == 10 ? "Residence History" : tenantinfo.StepCompleted == 11 ? "Employment & Income" : tenantinfo.StepCompleted == 12 ? "Emergency Contact" : tenantinfo.StepCompleted == 13 ? "Vehicle Info" : tenantinfo.StepCompleted == 14 ? "Pet Info" : tenantinfo.StepCompleted == 15 ? "Payment" : tenantinfo.StepCompleted == 16 ? "Waiting Approval":"";
+
+            var leaseterm = db.tbl_LeaseTerms.Where(p => p.LTID == applydata.LeaseTerm).FirstOrDefault();
+            aptlyModel.LeaseTerm = leaseterm.LeaseTerms.ToString();
+            aptlyModel.MoveInDate = applydata.MoveInDate.Value.ToString("MM/dd/yyyy");
+            //aptlyModel.QuoteExpires = tenantinfo.DateExpire.Value.ToString("MM/dd/yyyy") + "24:00:00";
+
+            aptlyModel.Pets = "Dog(s)";
+            aptlyModel.Pets = "Dog(s)";
+
+            aptlyModel.PortalURL = "http://52.4.251.162:8086/Admin/ProspectVerification/EditProspect/" + tenantinfo.ProspectID;
+            aptlyModel.CreditPaid = applicantdata.CreditPaid==1?"True": "False";
+            aptlyModel.BackgroundCheckPaid = applicantdata.BackGroundPaid == 1 ? "True" : "False";
+
+            var test = aptlyHelper.PostAptlyAsync(aptlyModel);
+            return "";
         }
     }
 
