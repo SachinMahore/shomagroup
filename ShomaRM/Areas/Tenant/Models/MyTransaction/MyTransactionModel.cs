@@ -1017,6 +1017,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                         reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
                         reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
+                        reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
                         string message = "";
                         string phonenumber = tenantData.Mobile;
 
@@ -1338,7 +1339,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 string body = "";
 
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
-                reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+                //reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+                reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
 
                 reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
                 reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
@@ -1353,10 +1355,16 @@ namespace ShomaRM.Areas.Tenant.Models
                     ameDet.Status = 4;
                     db.SaveChanges();
 
-                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Fees & Deposit Paid");
-                    reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + "and your Deposit Fee in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " from " + ameDet.DesiredTimeFrom + " to " + ameDet.DesiredTimeTo + " has been received. Your Reservation is now confirmed. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
-                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Amenity Reservation Fees & Deposit Paid</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetTenantData.FirstName + " " + GetTenantData.LastName + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + "and your Deposit Fee in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " from " + ameDet.DesiredTimeFrom + " to " + ameDet.DesiredTimeTo + " has been received. Your Reservation is now confirmed. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded. </p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                    //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Fees & Deposit Paid");
+                    //reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
+                    //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + "and your Deposit Fee in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " from " + ameDet.DesiredTimeFrom + " to " + ameDet.DesiredTimeTo + " has been received. Your Reservation is now confirmed. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
+                    //reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
                     body = reportHTML;
 
                     new EmailSendModel().SendEmail(GetTenantData.Email, "Amenity Reservation Fees & Deposit Paid", body);
@@ -1383,11 +1391,17 @@ namespace ShomaRM.Areas.Tenant.Models
                     }
 
                     db.SaveChanges();
-                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Fees Paid");
-                    reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " from " + ameDet.DesiredTimeFrom + " to " + ameDet.DesiredTimeTo + " has been received. Your Reservation is now confirmed subject to the payment of the Security Deposit at least 3 business days prior to the scheduled event. If we do 	not receive the Security Deposit fee prior to the deadline, management reserves the right to cancel the event and the Reservation fee will not be refunded. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
 
-                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Amenity Reservation Fees & Deposit Paid</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetTenantData.FirstName + " " + GetTenantData.LastName + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " from " + ameDet.DesiredTimeFrom + " to " + ameDet.DesiredTimeTo + " has been received. Your Reservation is now confirmed subject to the payment of the Security Deposit at least 3 business days prior to the scheduled event. If we do 	not receive the Security Deposit fee prior to the deadline, management reserves the right to cancel the event and the Reservation fee will not be refunded. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.</p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                    //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Fees Paid");
+                    //reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
+                    //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Fee payment in the Amount of $" + ameDet.ReservationFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " from " + ameDet.DesiredTimeFrom + " to " + ameDet.DesiredTimeTo + " has been received. Your Reservation is now confirmed subject to the payment of the Security Deposit at least 3 business days prior to the scheduled event. If we do 	not receive the Security Deposit fee prior to the deadline, management reserves the right to cancel the event and the Reservation fee will not be refunded. Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
+                    //reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
                     body = reportHTML;
 
                     new EmailSendModel().SendEmail(GetTenantData.Email, "Amenity Reservation Fees Paid", body);
@@ -1405,10 +1419,17 @@ namespace ShomaRM.Areas.Tenant.Models
                     CreateTransBill(TransId, Convert.ToDecimal(ameDet.DepositFee), model.Description + " Deposit");
                     ameDet.Status = 3;
                     db.SaveChanges();
-                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Deposit Paid");
-                    reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Deposit payment in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " from " + ameDet.DesiredTimeFrom + " to "+ameDet.DesiredTimeTo+ "  has been received. of $(Reservation Fee Amount) and your Deposit Fee in the Amount of $(Deposit Fee Amount) for your reservation of the (Reservation) on (Reservation Date) from (Reservation Time From) to (Reservation Time To) has been received. Your Reservation is now confirmed. Please print the attached “Clubhouse/Licensed Space Agreement” for your records. Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your refund will be processed within 7-10 days. After the 3-day deadline, your reservation fee will not be refunded.” . Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
-                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Amenity Reservation Fees & Deposit Paid</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetTenantData.FirstName + " " + GetTenantData.LastName + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Your Reservation Deposit payment in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " from " + ameDet.DesiredTimeFrom + " to " + ameDet.DesiredTimeTo + "  has been received. of $(Reservation Fee Amount) and your Deposit Fee in the Amount of $(Deposit Fee Amount) for your reservation of the (Reservation) on (Reservation Date) from (Reservation Time From) to (Reservation Time To) has been received. Your Reservation is now confirmed. Please print the attached “Clubhouse/Licensed Space Agreement” for your records. Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your refund will be processed within 7-10 days. After the 3-day deadline, your reservation fee will not be refunded.” . Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.</p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                    //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Amenity Reservation Deposit Paid");
+                    //reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
+                    //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Reservation Deposit payment in the Amount of $" + ameDet.DepositFee + " for your reservation of the " + model.Description + " on " + ameDet.DesiredDate.Value.ToString("MM/dd/yyyy") + " from " + ameDet.DesiredTimeFrom + " to "+ameDet.DesiredTimeTo+ "  has been received. of $(Reservation Fee Amount) and your Deposit Fee in the Amount of $(Deposit Fee Amount) for your reservation of the (Reservation) on (Reservation Date) from (Reservation Time From) to (Reservation Time To) has been received. Your Reservation is now confirmed. Please print the attached “Clubhouse/Licensed Space Agreement” for your records. Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your refund will be processed within 7-10 days. After the 3-day deadline, your reservation fee will not be refunded.” . Please print the attached 	“Clubhouse/Licensed Space Agreement” for your records.   Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your 	refund will be processed within 7-10 days.  After the 3-day deadline, your reservation fee will not be refunded.” </p>");
+                    //reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
                     body = reportHTML;
 
                     new EmailSendModel().SendEmail(GetTenantData.Email, "Amenity Reservation Deposit Paid", body);
@@ -1513,9 +1534,11 @@ namespace ShomaRM.Areas.Tenant.Models
                 string body = "";
 
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/Template/");
-                reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+                //reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+                reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
 
                 reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
+                reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
                 string message = "";
                 string phonenumber = GetTenantData.Mobile;
@@ -1526,10 +1549,17 @@ namespace ShomaRM.Areas.Tenant.Models
                 serEstDet.Status = "4";
                 db.SaveChanges();
 
-                reportHTML = reportHTML.Replace("[%EmailHeader%]", "Service Repair Charges Paid");
-                reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
-                reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Service Repair charges in the Amount of $" + serEstDet.Amount + " for your service of the " + serEstDet.Description + " on " + serEstDet.CreatedDate.Value.ToString("MM/dd/yyyy") + " has been received. Your Service Repair is now confirmed.” </p>");
-                reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+                string emailBody = "";
+                emailBody += "<p style=\"margin-bottom: 0px;\">Service Repair Charges Paid</p>";
+                emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetTenantData.FirstName + " " + GetTenantData.LastName + "</p>";
+                emailBody += "<p style=\"margin-bottom: 0px;\">Your Service Repair charges in the Amount of $" + serEstDet.Amount + " for your service of the " + serEstDet.Description + " on " + serEstDet.CreatedDate.Value.ToString("MM/dd/yyyy") + " has been received. Your Service Repair is now confirmed.</p>";
+                reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+
+                //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Service Repair Charges Paid");
+                //reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantData.FirstName + " " + GetTenantData.LastName);
+                //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Your Service Repair charges in the Amount of $" + serEstDet.Amount + " for your service of the " + serEstDet.Description + " on " + serEstDet.CreatedDate.Value.ToString("MM/dd/yyyy") + " has been received. Your Service Repair is now confirmed.” </p>");
+                //reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
                 body = reportHTML;
 
                 new EmailSendModel().SendEmail(GetTenantData.Email, "Service Repair Charges Paid", body);
