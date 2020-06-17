@@ -1,0 +1,31 @@
+content/template/coapplicantprinttemplate
+----------------------------------------------------
+go to line no 443
+now comment from 443 to 474
+-----------------------------------------------------
+
+view/applynow/coapplicantdet.js
+-----------------------------------------
+search for ===========>>>>>>>>>>> chkAgreeSummarry
+and remove hidden from 3737 line
+---------------------------------------------------------
+content/pages/applynow/coapplicantdet.js
+-----------------------------------------------------
+search for go to step
+in step 16
+add following code after var msgmm = '';
+-------------------------------------------------
+
+var isSummarychecked = $("#chkAgreeSummarry").is(":checked") ? "1" : "0";
+            if (isSummarychecked != "1") {
+                msgmm = 'Please ACCEPT AGREEMENTS </br>';
+            }
+            if (msgmm != "") {
+                $.alert({
+                    title: "",
+                    content: msgmm,
+                    type: 'red'
+                });
+                goToStep(15, 15, 0);
+                return;
+            }

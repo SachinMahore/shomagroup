@@ -1222,6 +1222,7 @@ namespace ShomaRM.Models
                 reportHTML = System.IO.File.ReadAllText(filePath + "ForgetPassword.html");
 
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
                 //reportHTML = reportHTML.Replace("[%TenantName%]", model.FullName);
                 //reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/ApplyNow/ChangePassword/?uid=" + uidd + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/ApplyNow/ChangePassword/?uid=" + uidd + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Change Password</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
@@ -1376,6 +1377,7 @@ namespace ShomaRM.Models
                         //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'></br>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; " + applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has finished the application on " + DateTime.Now + "</p>");
                         //reportHTML = reportHTML.Replace("[%TenantName%]", onlineProspectData.FirstName + " " + onlineProspectData.LastName);
                         //reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+                        reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
                         message = applicantData.Type + " " + applicantData.FirstName + " " + applicantData.LastName + " has completed the application";
                     }
                     string body = reportHTML;
@@ -1460,6 +1462,7 @@ namespace ShomaRM.Models
                 reportHTML = System.IO.File.ReadAllText(filePath + "ApplicationPrintTemplate.html");
                 //--ServerURL--//
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
                 //-- ApartmentInfo --//
                 reportHTML = reportHTML.Replace("[%UnitNo%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["UnitNo"].ToString());
                 reportHTML = reportHTML.Replace("[%MoveInDate%]", DateString(dtTableSet.Tables["ApartmentInfo"].Rows[0]["MoveInDate"].ToString()));
@@ -1740,6 +1743,7 @@ namespace ShomaRM.Models
                 reportHTML = System.IO.File.ReadAllText(filePath + "GuarantorPrintTemplate.html");
                 //--ServerURL--//
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
                 // --ApartmentInfo--//
                 reportHTML = reportHTML.Replace("[%UnitNo%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["UnitNo"].ToString());
@@ -1909,6 +1913,7 @@ namespace ShomaRM.Models
                 reportHTML = System.IO.File.ReadAllText(filePath + "CoapplicantApplicationPrintTemplate.html");
                 //--ServerURL--//
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
                 //-- ApartmentInfo --//
                 reportHTML = reportHTML.Replace("[%UnitNo%]", dtTableSet.Tables["ApartmentInfo"].Rows[0]["UnitNo"].ToString());
                 reportHTML = reportHTML.Replace("[%MoveInDate%]", DateString(dtTableSet.Tables["ApartmentInfo"].Rows[0]["MoveInDate"].ToString()));
@@ -2126,7 +2131,8 @@ namespace ShomaRM.Models
                 reportHTML = System.IO.File.ReadAllText(filePath + "QuotationPrint.html");
                
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
-                
+                reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
                 reportHTML = reportHTML.Replace("[%QuoteDate%]", model.QuoteDate);
                 reportHTML = reportHTML.Replace("[%ApplicantName%]", model.ApplicantName);
                 reportHTML = reportHTML.Replace("[%QuoteExpires%]", model.QuoteExpires);
@@ -2209,6 +2215,7 @@ namespace ShomaRM.Models
                 reportHTML = System.IO.File.ReadAllText(filePath + "MonthlySummary.html");
 
                 reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
                 reportHTML = reportHTML.Replace("[%ModelImage%]", model.ModelImage);
                 reportHTML = reportHTML.Replace("[%ModelName%]", model.ModelName);

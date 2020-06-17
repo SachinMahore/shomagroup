@@ -502,7 +502,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     var GetTenantData = db.tbl_TenantInfo.Where(p => p.TenantID == GetARRData.TenantID).FirstOrDefault();
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/Template/");
-                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+                    //reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
                     string message = "";
                     string phonenumber = "";
                     string payid = "";
