@@ -3355,6 +3355,7 @@
             <End Role="tbl_Vehicle" EntitySet="tbl_Vehicle" />
           </AssociationSet>
           <EntitySet Name="tbl_SureDeposit" EntityType="ShomaRMEntitiesModel.tbl_SureDeposit" />
+
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -6061,6 +6062,7 @@
           <Property Name="Status" Type="Int32" />
           <Property Name="BondAmount" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
+
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

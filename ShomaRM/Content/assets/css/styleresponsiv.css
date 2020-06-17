@@ -551,13 +551,14 @@ span.agree-text {
     height: 40px;
 }
 .input-box-span {
-  width: 30%;
-  float: left;
-  background: #4D738A;
-  text-align: center;
-  padding: 10px 10px;
-  color: #fff;
-  height: 34px;
+    width: 22%;
+    float: left;
+    background: #4D738A;
+    text-align: center;
+    padding: 10px 10px;
+    color: #fff;
+    height: 34px;
+    padding: 8px !important;
 }
 
 .inputfile-1 + label {
@@ -1251,3 +1252,22 @@ li.nav-item-sub {
     background: #bb0000;
     color: white;
 }*/
+
+/*.respo > .input-box-spans {
+    width: 22% !important;
+    float: left !important;
+    background: #4D738A !important;
+    text-align: center !important;
+    padding: 7px 10px !important;
+    color: #fff !important;
+    height: 34px !important;
+    padding: 8px !important;
+}*/
+
+.custResponsibility{
+    height:10px!important;
+}
+
+.custPad {
+    padding: 4px !important;
+}

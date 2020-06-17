@@ -142,6 +142,16 @@ $(document).ready(function () {
         }
     });
 
+     //Sachin M 17 June
+    $("#chkNoSSN").on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            $("#txtApplicantSSNNumber").val("000000000");
+        }
+        else {
+            $("#txtApplicantSSNNumber").val("");
+        }
+    });
+
     //Sachin M 08 June
     $("#chkNewAcc").on('ifChanged', function (event) {
        
@@ -5078,7 +5088,7 @@ var saveupdateApplicant = function () {
     var applicantCountry = $("#txtApplicantCountry").val();
     var applicantCity = $("#txtApplicantCity").val();
     var applicantApplicantZip2 = $("#txtApplicantZip2").val();
-
+    var nossn = $("#chkNoSSN").is(":checked") ? "1" : "0";
 
     if (type == "Co-Applicant") {
         checkEmail = 1;
@@ -5184,7 +5194,8 @@ var saveupdateApplicant = function () {
         StateHome: applicantState,
         Country: applicantCountry,
         CityHome: applicantCity,
-        ZipHome: applicantApplicantZip2
+        ZipHome: applicantApplicantZip2,
+        IsInternational: nossn,
     };
     $.ajax({
         url: "/Tenant/Applicant/SaveUpdateApplicant/",
@@ -5316,10 +5327,12 @@ var getApplicantLists = function () {
                         "<div class='col-sm-12 box-padding'>" +
                         "<div class='col-lg-12'>" +
                         "<div class='col-lg-12'>" + elementValue.Type + ": <b>" + elementValue.FirstName + " " + elementValue.LastName + "</b>" +
+
                         "</div>" +
                         "</div>" +
                         "</div>" +
                         "</div>" +
+
                         "<div class='col-sm-12  col-lg-4'>" +
                         "<div class='col-sm-12 box-padding'>" +
                         "<div class='col-lg-12 text-center'><b>Move In Charges</b></div>" +
@@ -5327,7 +5340,9 @@ var getApplicantLists = function () {
                         "<input class='input-box payper' type='text' id='txtpayper" + elementValue.ApplicantID + "' value='" + elementValue.MoveInPercentage + "' />" +
                         "<span class='input-box-span'><b>%</b></span>" +
                         "</div>" +
-                        "<div class='col-sm-12'>&nbsp;</div>" +
+
+                        "<div class='col-sm-12 custResponsibility'>&nbsp;</div>" +
+
                         "<div class='col-lg-12'>" +
                         "<span class='input-box-span'><b>$</b></span>" +
                         "<input class='input-box' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "' type='text' id='txtpayamt" + elementValue.ApplicantID + "' />" +
@@ -5341,7 +5356,9 @@ var getApplicantLists = function () {
                         "<input class='input-box payperMo' value='" + elementValue.MonthlyPercentage + "' type='text' id='txtpayperMo" + elementValue.ApplicantID + "' />" +
                         "<span class='input-box-span'><b>%</b></span>" +
                         "</div>" +
-                        "<div class='col-sm-12'>&nbsp;</div>" +
+
+                        "<div class='col-sm-12 custResponsibility'>&nbsp;</div>" +
+
                         "<div class='col-lg-12'>" +
                         "<span class='input-box-span'><b>$</b></span>" +
                         "<input class='input-box' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "' type='text' id='txtpayamtMo" + elementValue.ApplicantID + "' />" +
@@ -5355,16 +5372,21 @@ var getApplicantLists = function () {
                         "<input class='input-box payperAF' value='" + elementValue.AdminFeePercentage + "' type='text' id='txtpayperAF" + elementValue.ApplicantID + "' />" +
                         "<span class='input-box-span'><b>%</b></span>" +
                         "</div>" +
-                        "<div class='col-sm-12'>&nbsp;</div>" +
+
+                        "<div class='col-sm-12 custResponsibility'>&nbsp;</div>" +
+
                         "<div class='col-lg-12'>" +
                         "<span class='input-box-span'><b>$</b></span>" +
                         "<input class='input-box' value='" + parseFloat(elementValue.AdminFee).toFixed(2) + "' type='text' id='txtpayamtAF" + elementValue.ApplicantID + "' />" +
                         "</div>" +
                         "</div>" +
                         "</div>" +
-                        "<div class='col-sm-12'>&nbsp;</div>" +
+
+                        "<div class='col-sm-12 custResponsibility'>&nbsp;</div>" +
+
                         "<div class='col-sm-12'><hr /></div>";
                 }
+
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
                     if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
                         if (parseInt(elementValue.CreditPaid) == 1) {
@@ -5732,6 +5754,13 @@ var goToEditApplicant = function (aid) {
                 $("#txtApplicantMiddleName").val(response.model.MiddleName);
                 $("#txtApplicantLastName").val(response.model.LastName);
 
+
+                if (response.model.IsInternational == 1) {
+                    $("#chkNoSSN").iCheck('check');
+                   
+                } else {
+                    $("#chkNoSSN").iCheck('uncheck');
+                }
                 if (response.model.Type == "Primary Applicant") {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
 

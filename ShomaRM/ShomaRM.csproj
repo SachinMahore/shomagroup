@@ -181,6 +181,7 @@
     <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net46\System.Security.Cryptography.X509Certificates.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -410,6 +411,11 @@
     <Compile Include="Areas\Tenant\Models\Vehicle\VehicleModel.cs" />
     <Compile Include="Areas\Tenant\Models\WorkOrder\WorkOrderModel.cs" />
     <Compile Include="Areas\Tenant\TenantAreaRegistration.cs" />
+    <Compile Include="Connected Services\usaepay\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddressMap\AddressMapController.cs" />
     <Compile Include="Controllers\ApplyNow\ApplicationStatusController.cs" />
@@ -539,6 +545,12 @@
     <Content Include="Areas\Tenant\Content\Pages\MyProfile\Myrofile.js" />
     <Content Include="Areas\Tenant\Content\Pages\UtilityBilling\UtilityBilling.js" />
     <Content Include="Areas\Tenant\Content\Pages\WorkOrder\WorkOrder.js" />
+    <None Include="Connected Services\usaepay\configuration91.svcinfo" />
+    <None Include="Connected Services\usaepay\configuration.svcinfo" />
+    <None Include="Connected Services\usaepay\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Content\assets\Assets\alarm-default.png" />
     <Content Include="Content\assets\Assets\alarm-sanctuary.png" />
     <Content Include="Content\assets\Assets\alarm.png" />
@@ -2965,6 +2977,73 @@
     <Content Include="Areas\Admin\Views\SureDepositManagement\AddEdit.cshtml" />
     <Content Include="Content\assets\img\Policy\Rental_qualifications_fragmented.pdf" />
     <Content Include="Content\assets\img\Policy\Rules_Policies_fragmented.pdf" />
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.AccountDetails.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.Bank.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.BatchSearchResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.BatchStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.BatchUploadStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.CheckTrace.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.CurrencyConversion.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.CurrencyObject.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.CustomerObject.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.CustomerSearchResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.FieldValue.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.PaymentMethod.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.Product.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.ProductCategory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.ProductInventory.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.ProductSearchResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.Receipt.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.SyncLog.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.SystemInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.TransactionObject.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.TransactionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Connected Services\usaepay\ShomaRM.usaepay.TransactionSearchResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Connected Services\usaepay\usaepay.wsdl" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -3055,6 +3134,12 @@
       <Project>{6fb7d52f-0d76-4463-bbb5-82b2482074a9}</Project>
       <Name>ShomaRM.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\usaepay\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
