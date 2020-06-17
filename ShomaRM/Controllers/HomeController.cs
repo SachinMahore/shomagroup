@@ -25,8 +25,6 @@ namespace ShomaRM.Controllers
         {
             //aptlyHelper aptlyHelper = new aptlyHelper();
             //aptlyModel aptlyModel = new aptlyModel();
-           
-
             //aptlyModel.name = "Sanctuary Doral -ganesh";
             //aptlyModel.Email = "ganesh@gmail.com";
             //aptlyModel.FirstName = "ganesh bokde";
