@@ -142,6 +142,16 @@ $(document).ready(function () {
         }
     });
 
+     //Sachin M 17 June
+    $("#chkNoSSN").on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            $("#txtApplicantSSNNumber").val("000000000");
+        }
+        else {
+            $("#txtApplicantSSNNumber").val("");
+        }
+    });
+
     //Sachin M 08 June
     $("#chkNewAcc").on('ifChanged', function (event) {
        
@@ -5077,7 +5087,7 @@ var saveupdateApplicant = function () {
     var applicantCountry = $("#txtApplicantCountry").val();
     var applicantCity = $("#txtApplicantCity").val();
     var applicantApplicantZip2 = $("#txtApplicantZip2").val();
-
+    var nossn = $("#chkNoSSN").is(":checked") ? "1" : "0";
 
     if (type == "Co-Applicant") {
         checkEmail = 1;
@@ -5183,7 +5193,8 @@ var saveupdateApplicant = function () {
         StateHome: applicantState,
         Country: applicantCountry,
         CityHome: applicantCity,
-        ZipHome: applicantApplicantZip2
+        ZipHome: applicantApplicantZip2,
+        IsInternational: nossn,
     };
     $.ajax({
         url: "/Tenant/Applicant/SaveUpdateApplicant/",
@@ -5732,6 +5743,13 @@ var goToEditApplicant = function (aid) {
                 $("#txtApplicantMiddleName").val(response.model.MiddleName);
                 $("#txtApplicantLastName").val(response.model.LastName);
 
+
+                if (response.model.IsInternational == 1) {
+                    $("#chkNoSSN").iCheck('check');
+                   
+                } else {
+                    $("#chkNoSSN").iCheck('uncheck');
+                }
                 if (response.model.Type == "Primary Applicant") {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
 

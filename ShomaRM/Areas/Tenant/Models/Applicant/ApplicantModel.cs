@@ -70,7 +70,7 @@ namespace ShomaRM.Areas.Tenant.Models
 
         public Nullable<decimal> AdminFee { get; set; }
         public Nullable<decimal> AdminFeePercentage { get; set; }
-
+        public int IsInternational { get; set; }
         public string SaveUpdateApplicant(ApplicantModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -232,7 +232,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     EmergencyCountry = "1",
                     EmergencyStateHome = 0,
                     CreatedDate = DateTime.Now,
-                    IsInternational = 0,
+                    IsInternational = model.IsInternational,
                     OtherGender = model.OtherGender,
                     Country2 = "1",
                     StateHome2 = 0,
@@ -442,6 +442,7 @@ namespace ShomaRM.Areas.Tenant.Models
                             updateTenantOnline.CityHome = model.CityHome;
                             updateTenantOnline.ZipHome = model.ZipHome;
                             updateTenantOnline.Country = model.Country;
+                            updateTenantOnline.IsInternational = model.IsInternational;
                             db.SaveChanges();
                         }
                     }
@@ -468,6 +469,7 @@ namespace ShomaRM.Areas.Tenant.Models
                         getTenantOnline.CityHome = model.CityHome;
                         getTenantOnline.ZipHome = model.ZipHome;
                         getTenantOnline.Country = model.Country;
+                        getTenantOnline.IsInternational = model.IsInternational;
                         db.SaveChanges();
                     }
                     //}
@@ -900,7 +902,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 model.ApplicantUserId = getApplicantDet.UserID;
                 //New
                 var getTenantOnline = db.tbl_TenantOnline.Where(p =>  p.ParentTOID==ptotid).FirstOrDefault();
-
+                model.IsInternational =Convert.ToInt32(getTenantOnline.IsInternational);
                 if (!string.IsNullOrWhiteSpace(getTenantOnline.IDNumber))
                 {
                     try
@@ -1530,7 +1532,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     EmergencyCountry = "1",
                     EmergencyStateHome = 0,
                     CreatedDate = DateTime.Now,
-                    IsInternational = 0,
+                    IsInternational = model.IsInternational,
                     OtherGender = model.OtherGender,
                     Country2 = "1",
                     StateHome2 = 0,
