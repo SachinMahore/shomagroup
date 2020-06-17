@@ -3321,7 +3321,6 @@
             <End Role="tbl_PropertyUnits" EntitySet="tbl_PropertyUnits" />
           </AssociationSet>
           <EntitySet Name="tbl_Applicant" EntityType="ShomaRMEntitiesModel.tbl_Applicant" />
-          <EntitySet Name="tbl_SureDeposit" EntityType="ShomaRMEntitiesModel.tbl_SureDeposit" />
           <EntitySet Name="tbl_ApplyNow" EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" />
           <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow">
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
@@ -3355,7 +3354,7 @@
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_Vehicle" EntitySet="tbl_Vehicle" />
           </AssociationSet>
-
+          <EntitySet Name="tbl_SureDeposit" EntityType="ShomaRMEntitiesModel.tbl_SureDeposit" />
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
           <Key>
@@ -5894,20 +5893,6 @@
           <Property Name="AdminFeePercentage" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
         </EntityType>
-        <EntityType Name="tbl_SureDeposit">
-          <Key>
-            <PropertyRef Name="SDID" />
-          </Key>
-          <Property Name="SDID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SDUploadName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ProspectID" Type="Int64" />
-          <Property Name="ParentTOID" Type="Int64" />
-          <Property Name="UploadDate" Type="DateTime" Precision="3" />
-          <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="Int32" />
-          <Property Name="BondAmount" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
         <EntityType Name="tbl_ApplyNow">
           <Key>
             <PropertyRef Name="ID" />
@@ -6062,7 +6047,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-
+        <EntityType Name="tbl_SureDeposit">
+          <Key>
+            <PropertyRef Name="SDID" />
+          </Key>
+          <Property Name="SDID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SDUploadName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProspectID" Type="Int64" />
+          <Property Name="ParentTOID" Type="Int64" />
+          <Property Name="UploadDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="BondAmount" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7716,21 +7714,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_SureDeposit">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SureDeposit">
-              <MappingFragment StoreEntitySet="tbl_SureDeposit">
-                <ScalarProperty Name="BondAmount" ColumnName="BondAmount" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
-                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
-                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
-                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
-                <ScalarProperty Name="SDUploadName" ColumnName="SDUploadName" />
-                <ScalarProperty Name="SDNumber" ColumnName="SDNumber" />
-                <ScalarProperty Name="SDID" ColumnName="SDID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_ApplyNow">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplyNow">
               <MappingFragment StoreEntitySet="tbl_ApplyNow">
@@ -7779,6 +7762,21 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SureDeposit">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SureDeposit">
+              <MappingFragment StoreEntitySet="tbl_SureDeposit">
+                <ScalarProperty Name="BondAmount" ColumnName="BondAmount" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
+                <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+                <ScalarProperty Name="SDUploadName" ColumnName="SDUploadName" />
+                <ScalarProperty Name="SDNumber" ColumnName="SDNumber" />
+                <ScalarProperty Name="SDID" ColumnName="SDID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

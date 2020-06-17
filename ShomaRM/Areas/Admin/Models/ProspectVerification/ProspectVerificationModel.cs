@@ -404,10 +404,14 @@ namespace ShomaRM.Areas.Admin.Models
             string reportHTML = "";
             string reportHTMLCoapp = "";
             string reportHTMLCoappCL = "";
+
             string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
-            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
-            reportHTMLCoapp = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
-            reportHTMLCoappCL = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
+            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+            reportHTMLCoapp = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+            reportHTMLCoappCL = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+            reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+            reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
             string message = "";
 
 
@@ -427,10 +431,17 @@ namespace ShomaRM.Areas.Admin.Models
                 var GetCoappList = db.tbl_Applicant.Where(c => c.TenantID == ProspectId && c.Type != "Primary Applicant" && c.Type != "Guarantor").ToList();
                 string phonenumber = GetTenantDet.Phone;
 
-                reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                string emailBody = "";
+                emailBody += "<p style=\"margin-bottom: 0px;\">Hello <b>" + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "</b>! Your Online application submitted successfully. Please click below to Pay Application fees.</p>";
+                // emailBody += "<p style=\"margin-bottom: 0px;\"><!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]--></p>";
+                emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login</p>";
+                emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
-                reportHTML = reportHTML.Replace("[%EmailHeader%]", "Online Application Status");
-                reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
+                //reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+
+                //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Online Application Status");
+                //reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
                // reportHTML = reportHTML.Replace("[%TenantName%]", GetTenantDet.FirstName + " " + GetTenantDet.LastName);
                 var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
                 string sub = "Online Application Status";
@@ -469,24 +480,31 @@ namespace ShomaRM.Areas.Admin.Models
                         {
                             string reportHTMLAdf = "";
 
-                            reportHTMLAdf = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
+                            reportHTMLAdf = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
                             string payid = new EncryptDecrypt().EncryptText(adfee.ApplicantID.ToString() + ",3," + ((adfee.AdminFee).Value.ToString("0.00")));
                             reportHTMLAdf = reportHTMLAdf.Replace("[%ServerURL%]", serverURL);
-                            reportHTMLAdf = reportHTMLAdf.Replace("[%EmailHeader%]", "Congratulations ! Your Application is Approved and Pay your Administration Fees");
-                            reportHTMLAdf = reportHTMLAdf.Replace("[%TenantName%]", adfee.FirstName + " " + adfee.LastName);
-                            reportHTMLAdf = reportHTMLAdf.Replace("[%Status%]", "Congratulations ! Your Application is Approved and Pay your Administration Fees");
-                            reportHTMLAdf = reportHTMLAdf.Replace("[%StatusDet%]", "Good news! You have been approved. We welcome you to our community.Your next step is to pay the Administration fee of $"+ (((propertDet.AdminFees * adfee.AdminFeePercentage) / 100).Value.ToString("0.00")) + " to ensure your unit is reserved until you move -in. Once you process your payment, you will be directed to prepare your lease.  ");
-                            // reportHTMLAdf = reportHTMLAdf.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\""+ serverURL+"/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\""+ serverURL+ "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Review & Sign Document</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
-                            reportHTMLAdf = reportHTMLAdf.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
-                            message = "Notification: Your Application is Approved and pay your Administration Fees. Please check the email for detail.";
-                            reportHTMLAdf = reportHTMLAdf.Replace("[%PropertyName%]", "Sanctury");
-                            reportHTMLAdf = reportHTMLAdf.Replace("[%UnitName%]", GetUnitDet.UnitNo);
-                            reportHTMLAdf = reportHTMLAdf.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
-                            reportHTMLAdf = reportHTMLAdf.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
-                            reportHTMLAdf = reportHTMLAdf.Replace("[%TenantEmail%]", adfee.Email);
+                            string emailBodyAdf = "";
+                            emailBodyAdf += "<p style=\"margin-bottom: 0px;\">Hello, "+ adfee.FirstName + " " + adfee.LastName + "! Congratulations ! Your Application is Approved and Pay your Administration Fees</p>";
+                            emailBodyAdf += "<p style=\"margin-bottom: 0px;\">Good news! You have been approved. We welcome you to our community.Your next step is to pay the Administration fee of $" + (((propertDet.AdminFees * adfee.AdminFeePercentage) / 100).Value.ToString("0.00")) + " to ensure your unit is reserved until you move -in. Once you process your payment, you will be directed to prepare your lease.</p>";
+                            emailBodyAdf += "<p style=\"margin-bottom: 0px;\">Please click here for Pay Now</p>";
+                            emailBodyAdf += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href =\"" + serverURL + "/PayLink/?pid=" + payid + "\" class=\"link-button\" target=\"_blank\">PAY NOW</a></p>";
+                            reportHTMLAdf = reportHTMLAdf.Replace("[%EmailBody%]", emailBodyAdf);
 
-                            reportHTMLAdf = reportHTMLAdf.Replace("[%QuoteNo%]", ID.ToString());
-                            reportHTMLAdf = reportHTMLAdf.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+                            //reportHTMLAdf = reportHTMLAdf.Replace("[%EmailHeader%]", "Congratulations ! Your Application is Approved and Pay your Administration Fees");
+                            //reportHTMLAdf = reportHTMLAdf.Replace("[%TenantName%]", adfee.FirstName + " " + adfee.LastName);
+                            //reportHTMLAdf = reportHTMLAdf.Replace("[%Status%]", "Congratulations ! Your Application is Approved and Pay your Administration Fees");
+                            //reportHTMLAdf = reportHTMLAdf.Replace("[%StatusDet%]", "Good news! You have been approved. We welcome you to our community.Your next step is to pay the Administration fee of $"+ (((propertDet.AdminFees * adfee.AdminFeePercentage) / 100).Value.ToString("0.00")) + " to ensure your unit is reserved until you move -in. Once you process your payment, you will be directed to prepare your lease.  ");
+                            //// reportHTMLAdf = reportHTMLAdf.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\""+ serverURL+"/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\""+ serverURL+ "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Review & Sign Document</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                            //reportHTMLAdf = reportHTMLAdf.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                            //reportHTMLAdf = reportHTMLAdf.Replace("[%PropertyName%]", "Sanctury");
+                            //reportHTMLAdf = reportHTMLAdf.Replace("[%UnitName%]", GetUnitDet.UnitNo);
+                            //reportHTMLAdf = reportHTMLAdf.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
+                            //reportHTMLAdf = reportHTMLAdf.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
+                            //reportHTMLAdf = reportHTMLAdf.Replace("[%TenantEmail%]", adfee.Email);
+                            //reportHTMLAdf = reportHTMLAdf.Replace("[%QuoteNo%]", ID.ToString());
+                            //reportHTMLAdf = reportHTMLAdf.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+
+                            message = "Notification: Your Application is Approved and pay your Administration Fees. Please check the email for detail.";
                             string body = reportHTMLAdf;
                             new EmailSendModel().SendEmail(adfee.Email, sub, body);
                             if (SendMessage == "yes")
@@ -503,9 +521,16 @@ namespace ShomaRM.Areas.Admin.Models
                 }
                 else if (Status == "Denied")
                 {
-                    reportHTML = reportHTML.Replace("[%Status%]", "Sorry ! Your Application is Denied");
-                    reportHTML = reportHTML.Replace("[%StatusDet%]", "We are sorry that your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community.");
-                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Sorry ! Your Application is Denied</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">We are sorry that your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community.</p>";
+                    //emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Pay Now</p>";
+                    //emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href =\"" + serverURL + "/PayLink/?pid=" + payid + "\" class=\"link-button\" target=\"_blank\">PAY NOW</a></p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                    //reportHTML = reportHTML.Replace("[%Status%]", "Sorry ! Your Application is Denied");
+                    //reportHTML = reportHTML.Replace("[%StatusDet%]", "We are sorry that your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community.");
+                    //reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
 
                     message = "Sorry ! Your Application is Denied. Please check the email for detail.";
 
@@ -513,14 +538,14 @@ namespace ShomaRM.Areas.Admin.Models
                     log.IsActive = 0;
                     db.SaveChanges();
 
-                    reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
-                    reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
-                    reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
-                    reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
-                    reportHTML = reportHTML.Replace("[%TenantEmail%]", Email);
+                    //reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+                    //reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
+                    //reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
+                    //reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
+                    //reportHTML = reportHTML.Replace("[%TenantEmail%]", Email);
 
-                    reportHTML = reportHTML.Replace("[%QuoteNo%]", ID.ToString());
-                    reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+                    //reportHTML = reportHTML.Replace("[%QuoteNo%]", ID.ToString());
+                    //reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
                     string body = reportHTML;
                     new EmailSendModel().SendEmail(Email, sub, body);
                     if (SendMessage == "yes")
@@ -535,9 +560,15 @@ namespace ShomaRM.Areas.Admin.Models
                 {
                     sub = "Lease has been finalized : Pay your Move In Charges & Accept Move In Checklist";
 
-                    reportHTML = reportHTML.Replace("[%Status%]", "Lease has been finalized : Pay your Move In Charges & Accept Move In Checklist");
-                    reportHTML = reportHTML.Replace("[%StatusDet%]", "Your Application is Signed by All Applicants and Pay your Move In Charges. Your next step is to pay the Move In Charges and Accept Move in Checklist");
-                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Accept Move In Checklist & Pay Charges</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Lease has been finalized : Pay your Move In Charges & Accept Move In Checklist</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Your Application is Signed by All Applicants and Pay your Move In Charges. Your next step is to pay the Move In Charges and Accept Move in Checklist.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Accept Move In Checklist & Pay Charges</p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Account/Login\" class=\"link-button\" target=\"_blank\">Accept & Pay Charges</a></p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                    //reportHTML = reportHTML.Replace("[%Status%]", "Lease has been finalized : Pay your Move In Charges & Accept Move In Checklist");
+                    //reportHTML = reportHTML.Replace("[%StatusDet%]", "Your Application is Signed by All Applicants and Pay your Move In Charges. Your next step is to pay the Move In Charges and Accept Move in Checklist");
+                    //reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Accept Move In Checklist & Pay Charges</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
 
                     message = "Notification: Pay your Move In Charges and Accept Move In Checklist.";
 
@@ -549,21 +580,38 @@ namespace ShomaRM.Areas.Admin.Models
                             {
                                 string mpayid = new EncryptDecrypt().EncryptText(app.ApplicantID.ToString() + ",2," + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")));
                                 reportHTMLCoapp = reportHTMLCoapp.Replace("[%ServerURL%]", serverURL);
-                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%Status%]", "Lease has been finalized : Pay your Move In Charges");
-                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%EmailHeader%]", app.MoveInPercentage + "% Move In charges Payment Link");
-                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%StatusDet%]", "Hi <b>" + app.FirstName + " " + app.LastName + "</b>,<br/>Your Online application is Approved. Please click below to pay " + app.MoveInPercentage + "% Move In Charges $" + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")) + ". <br/><br/><u><b>Payment Link :<a href=''></a> </b></u> ");
-                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + app.ApplicantID + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + mpayid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
-                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%TenantName%]", app.FirstName + " " + app.LastName);
+                                string emailBodyCoapp = "";
+                                emailBodyCoapp += "<p style=\"margin-bottom: 0px;\">Lease has been finalized : Pay your Move In Charges </p>";
+                                emailBodyCoapp += "<p style=\"margin-bottom: 0px;\">" + app.MoveInPercentage + " % Move In charges Payment Link</p>";
+                                emailBodyCoapp += "<p style=\"margin-bottom: 0px;\">Hello <b>" + app.FirstName + " " + app.LastName + "</b>! Your Online application is Approved. Please click below to pay " + app.MoveInPercentage + "% Move In Charges $" + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")) + ".</p>";
+                                emailBodyCoapp += "<p style=\"margin-bottom: 0px;\">Please click here for Pay Now</p>";
+                                emailBodyCoapp += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/PayLink/?pid=" + app.ApplicantID + "\" class=\"link-button\" target=\"_blank\">Pay Now</a></p>";
+                                reportHTMLCoapp = reportHTMLCoapp.Replace("[%EmailBody%]", emailBodyCoapp);
+
+                                //reportHTMLCoapp = reportHTMLCoapp.Replace("[%Status%]", "Lease has been finalized : Pay your Move In Charges");
+                                //reportHTMLCoapp = reportHTMLCoapp.Replace("[%EmailHeader%]", app.MoveInPercentage + "% Move In charges Payment Link");
+                                //reportHTMLCoapp = reportHTMLCoapp.Replace("[%StatusDet%]", "Hi <b>" + app.FirstName + " " + app.LastName + "</b>,<br/>Your Online application is Approved. Please click below to pay " + app.MoveInPercentage + "% Move In Charges $" + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")) + ". <br/><br/><u><b>Payment Link :<a href=''></a> </b></u> ");
+                                //reportHTMLCoapp = reportHTMLCoapp.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + app.ApplicantID + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + mpayid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                                //reportHTMLCoapp = reportHTMLCoapp.Replace("[%TenantName%]", app.FirstName + " " + app.LastName);
                                 string bodyCoapp = reportHTMLCoapp;
                                 new EmailSendModel().SendEmail(app.Email, "Lease has been finalized : Pay your Move In Charges", bodyCoapp);
 
-
                                 reportHTMLCoappCL = reportHTMLCoappCL.Replace("[%ServerURL%]", serverURL);
-                                reportHTMLCoappCL = reportHTMLCoappCL.Replace("[%Status%]", "Accept Move In Checklist");
-                                reportHTMLCoappCL = reportHTMLCoappCL.Replace("[%EmailHeader%]", "Accept Move In Checklist");
-                                reportHTMLCoappCL = reportHTMLCoappCL.Replace("[%StatusDet%]", "Hi <b>" + app.FirstName + " " + app.LastName + "</b>,<br/>Accept Move In Checklist. <br/><br/><u><b>Click here :<a href=''></a> </b></u> ");
-                                reportHTMLCoappCL = reportHTMLCoappCL.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Accept Move In Checklist</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
-                                reportHTMLCoappCL = reportHTMLCoappCL.Replace("[%TenantName%]", app.FirstName + " " + app.LastName);
+                                string emailBodyCoappCL = "";
+                                emailBodyCoappCL += "<p style=\"margin-bottom: 0px;\">Accept Move In Checklist </p>";
+                                emailBodyCoappCL += "<p style=\"margin-bottom: 0px;\">" + app.MoveInPercentage + " % Move In charges Payment Link</p>";
+                                emailBodyCoappCL += "<p style=\"margin-bottom: 0px;\">Hello <b>" + app.FirstName + " " + app.LastName + "</b>! Accept Move In Checklist.</p>";
+                                emailBodyCoappCL += "<p style=\"margin-bottom: 0px;\">Please click here for Accept Move In Checklist</p>";
+                                emailBodyCoappCL += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Account/Login\" class=\"link-button\" target=\"_blank\">Accept Move In Checklist</a></p>";
+                                reportHTMLCoappCL = reportHTMLCoappCL.Replace("[%EmailBody%]", emailBodyCoappCL);
+
+
+                                
+                                //reportHTMLCoappCL = reportHTMLCoappCL.Replace("[%Status%]", "Accept Move In Checklist");
+                                //reportHTMLCoappCL = reportHTMLCoappCL.Replace("[%EmailHeader%]", "Accept Move In Checklist");
+                                //reportHTMLCoappCL = reportHTMLCoappCL.Replace("[%StatusDet%]", "Hi <b>" + app.FirstName + " " + app.LastName + "</b>,<br/>Accept Move In Checklist. <br/><br/><u><b>Click here :<a href=''></a> </b></u> ");
+                                //reportHTMLCoappCL = reportHTMLCoappCL.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Accept Move In Checklist</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                                //reportHTMLCoappCL = reportHTMLCoappCL.Replace("[%TenantName%]", app.FirstName + " " + app.LastName);
                                 string bodyCoappCL = reportHTMLCoappCL;
                                 new EmailSendModel().SendEmail(app.Email, "Accept Move In Checklist", bodyCoappCL);
 
@@ -581,20 +629,27 @@ namespace ShomaRM.Areas.Admin.Models
                 }
                 else
                 {
-                    reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved with Condition");
-                    reportHTML = reportHTML.Replace("[%StatusDet%]", "Your application has been approved with conditions.  Kindly click here to call our office or schedule an appointment to discuss your options.  We look forward to assisting you in becoming a member of our community.");
-                    reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
+
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Congratulations ! Your Application is Approved with Condition</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Your application has been approved with conditions.  Kindly click here to call our office or schedule an appointment to discuss your options.  We look forward to assisting you in becoming a member of our community.</p>";
+                    //emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Accept Move In Checklist & Pay Charges</p>";
+                    //emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Account/Login\" class=\"link-button\" target=\"_blank\">Accept & Pay Charges</a></p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                    //reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved with Condition");
+                    //reportHTML = reportHTML.Replace("[%StatusDet%]", "Your application has been approved with conditions.  Kindly click here to call our office or schedule an appointment to discuss your options.  We look forward to assisting you in becoming a member of our community.");
+                    //reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "");
 
                     message = "Congratulations ! Your Application is Approved with Condition. Please check the email for detail.";
 
-                    reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
-                    reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
-                    reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
-                    reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
-                    reportHTML = reportHTML.Replace("[%TenantEmail%]", Email);
+                    //reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+                    //reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
+                    //reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString("0.00"));
+                    //reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
+                    //reportHTML = reportHTML.Replace("[%TenantEmail%]", Email);
 
-                    reportHTML = reportHTML.Replace("[%QuoteNo%]", ID.ToString());
-                    reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+                    //reportHTML = reportHTML.Replace("[%QuoteNo%]", ID.ToString());
+                    //reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
                     string body = reportHTML;
                     new EmailSendModel().SendEmail(Email, sub, body);
                     if (SendMessage == "yes")
@@ -1171,6 +1226,7 @@ namespace ShomaRM.Areas.Admin.Models
             string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
             reportHTML = System.IO.File.ReadAllText(filePath + "LeaseDoc.html");
             reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+            reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
             string Pets = "";
             string OtherResidents = "";
 
