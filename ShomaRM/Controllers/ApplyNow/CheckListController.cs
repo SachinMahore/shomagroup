@@ -427,7 +427,8 @@ namespace ShomaRM.Controllers
                             ApplicantID = apptdata.ApplicantID,
                             Key = keydata.Key,
                             EsignatureId = Convert.ToInt64(EsignatureResponse.EsignatureId),
-                            DateSigned = keydata.DateSigned
+                            DateSigned = keydata.DateSigned,
+                            DateDocumentCreated=DateTime.Now,
                         };
                         db.tbl_ESignatureKeys.Add(EsignatureData);
                         db.SaveChanges();
