@@ -111,7 +111,7 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_Transaction> tbl_Transaction { get; set; }
         public virtual DbSet<tbl_PropertyUnits> tbl_PropertyUnits { get; set; }
         public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
-        public virtual DbSet<tbl_SureDeposit> tbl_SureDeposit { get; set; }
         public virtual DbSet<tbl_ApplyNow> tbl_ApplyNow { get; set; }
+        public virtual DbSet<tbl_SureDeposit> tbl_SureDeposit { get; set; }
     }
 }
