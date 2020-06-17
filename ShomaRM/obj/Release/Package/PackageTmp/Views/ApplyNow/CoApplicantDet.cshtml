@@ -1162,13 +1162,13 @@
                                                 <table class="table" cellspacing="0" style="width:100%;overflow-x:scroll">
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rental qualifications</span></td>
-                                                        <td><button>Sign</button></td>
+                                                        <td><label style="color: #1F1F1F;font-weight: bold;cursor:default;">Sign</label></td>
                                                         <td><a href="~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf" target="_blank">Download</a></td>
                                                         <td><a data-toggle="modal" data-target="#modalRentalQualificationPolicy" href="javascript:void(0);" id="printRentalQualificationPolicy">Print</a></td>
                                                     </tr>
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rules and Policies</span></td>
-                                                        <td><button>Sign</button></td>
+                                                        <td><label style="color: #1F1F1F;font-weight: bold;cursor:default;">Sign</label></td>
                                                         <td><a href="~/Content/assets/img/Policy/Rules&Policies_fragmented.pdf" target="_blank">Download</a></td>
                                                         <td><a data-toggle="modal" data-target="#modalRulesAndPolicy" href="javascript:void(0);" id="print">Print</a></td>
                                                     </tr>
@@ -1404,7 +1404,7 @@
                                                         <span id="">Additional Parking : </span>
                                                     </div>
                                                     <div class="col-mr-25 col-sm-6 col-lg-4">
-                                                        <span id="lblRFPAdditionalParking">$@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
+                                                        $<span id="lblRFPAdditionalParking">$@((Model.ParkingAmt ?? 0).ToString("0.00"))</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1415,7 +1415,7 @@
                                                         <span id="">Storage Unit# : </span>
                                                     </div>
                                                     <div class="col-mr-25 col-sm-6 col-lg-4">
-                                                        <span id="lblRFPStorageUnit">$@((Model.StorageAmt ?? 0).ToString("0.00"))</span>
+                                                        $<span id="lblRFPStorageUnit">$@((Model.StorageAmt ?? 0).ToString("0.00"))</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1429,7 +1429,7 @@
                                                         <span id="">Pet Rent : </span>
                                                     </div>
                                                     <div class="col-mr-25 col-sm-6 col-lg-4">
-                                                        <span id="lblRFPPetRent">$@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
+                                                        $<span id="lblRFPPetRent">$@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1472,14 +1472,15 @@
                                                         <span id="">Total Monthly Payment</span>
                                                     </div>
                                                     <div class="col-mr-25 col-sm-6 col-lg-4 text-green">
-                                                        <span id="lblRFPTotalMonthlyPayment">$2,031.15</span>
+                                                        $<span id="lblRFPTotalMonthlyPayment">$2,031.15</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-6 col-lg-8" id="tblResponsibilityPay">
-
+                                            
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -3745,7 +3746,7 @@
                                 </div>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" class="btn btn-primary" id="btnPrintSummary" onclick="printSummaryCoApplicant()"><i class="fa fa-print"></i> Print</button>
+                                <button type="submit" class="btn btn-primary" id="btnPrintSummaryQuotation" onclick="printSummaryPrintCoApplicant()"><i class="fa fa-print"></i> Print</button>
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -4417,7 +4418,7 @@
                     </div>
                     <div class="col-sm-4" id="divPopSSN">
                         <div class="form-group">
-                            <label id="lblSSNNumber" class="star">SSN#</label>
+                            <label id="lblSSNNumber" class="star">SSN#   &nbsp;&nbsp;&nbsp;<input type="checkbox" id="chkNoSSN"> No SSN</label>
                             <input class="form-control form-control-small" id="txtApplicantSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
                         </div>
                     </div>
@@ -4753,14 +4754,13 @@
                         </div>
 
                     </div>
-                    <div class="col-sm-12" id="divChkSaveAcc">
-                        <input type="checkbox" id="chkSaveAcc">
-                        <span class="chektext">
-                            Save Account Information
-                        </span>
-                    </div>
                 </div>
-
+                <div class="col-sm-12" id="divChkSaveAcc">
+                    <input type="checkbox" id="chkSaveAcc">
+                    <span class="chektext">
+                        Save Account Information
+                    </span>
+                </div>
                 <div class="col-sm-12" style="margin-bottom:20px">
                     <input type="checkbox" id="chkTermsAndCondition2">
                     <span class="chektext">

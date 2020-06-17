@@ -3009,31 +3009,61 @@ var getApplicantLists = function () {
                         "</div>";
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
-                   
-                    //Amit's work 17-10
-                    //prhtml += "<tr data-id='" + elementValue.ApplicantID + "'><td style='width:18%; padding:6px;'>" + elementValue.Type + "<br /><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></td><td style='width:30%; padding:6px;'><input type='text' id='txtpayper" + elementValue.ApplicantID + "' style='width:40% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MoveInPercentage + "'/>(%)<input type='text' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 40% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MoveInCharge + "'/>($)</td><td style='width:30%; padding:6px;'><input type='text' id='txtpayperMo" + elementValue.ApplicantID + "' style='width: 40% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MonthlyPercentage + "'/>(%)<input type='text' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 40% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MonthlyPayment + "'/>($)</td></tr>";
-                    prhtml += "<tr data-id='" + elementValue.ApplicantID + "'>" +
-                        "<td style='width:18%; padding:6px;'>" + elementValue.Type + "<br /><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b></td>" +
-                        "<td style='width:30%;'>" +
-                        "<div class='input-group input-group-btn'>" +
-                        "<button class='btn btn-primary search ' type='button'><i class='fa fa-percent'></i></button>" +
-                        "<input type='text' class='form-control form-control-small payper' id='txtpayper" + elementValue.ApplicantID + "' style='width:60% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MoveInPercentage + "' disabled='disabled' />" +
-                        "</div >" +
-                        "<div class='input-group input-group-btn'>" +
-                        "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamt" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "' disabled='disabled'/>" +
-                        "</div ></td>" +
-                        "<td style='width:30%;'>" +
-                        "<div class='input-group input-group-btn'>" +
-                        "<button class='btn btn-primary search ' type='button'><i class='fa fa-percent'></i></button>" +
-                        "<input type='text' class='form-control form-control-small payperMo' id='txtpayperMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px;' value='" + elementValue.MonthlyPercentage + "' disabled='disabled'/>" +
-                        "</div >" +
-                        "<div class='input-group input-group-btn'>" +
-                        "<button class='btn btn-primary search pull-left' type='button'><i class='fa fa-dollar'></i></button>" +
-                        "<input type='text' class='form-control form-control-small' id='txtpayamtMo" + elementValue.ApplicantID + "' style='width: 60% !important; border: 1px solid; padding-left: 5px; text-align:right;' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "' disabled='disabled'/>" +
-                        "</div >" +
-                        "</td></tr>";
+                    prhtml += "<div class='row respo' data-id='" + elementValue.ApplicantID + "'>" +
+                        "<div class='col-sm-12>" +
+                        "<div class='col-sm-12 box-padding'>" +
+                        "<div class='col-lg-12'>" +
+                        "<div class='col-lg-12'>" + elementValue.Type + ": <b>" + elementValue.FirstName + " " + elementValue.LastName + "</b>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "<div class='col-sm-12  col-lg-4'>" +
+                        "<div class='col-sm-12 box-padding'>" +
+                        "<div class='col-lg-12 text-center'><b>Move In Charges</b></div>" +
+                        "<div class='col-lg-12'>" +
+                        "<input class='input-box payper' type='text' id='txtpayper" + elementValue.ApplicantID + "' value='" + elementValue.MoveInPercentage + "' />" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>%</b></span>" +
+                        "</div>" +
+                        "<div class='col-sm-12'>&nbsp;</div>" +
+                        "<div class='col-lg-12'>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>$</b></span>" +
+                        "<input class='input-box' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "' type='text' id='txtpayamt" + elementValue.ApplicantID + "' />" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "<div class='col-sm-12  col-lg-4'>" +
+                        "<div class='col-sm-12 box-padding '>" +
+                        "<div class='col-lg-12 box-padding text-center'><b>Monthly Payment</b></div>" +
+                        "<div class='col-lg-12'>" +
+                        "<input class='input-box payperMo' value='" + elementValue.MonthlyPercentage + "' type='text' id='txtpayperMo" + elementValue.ApplicantID + "' />" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>%</b></span>" +
+                        "</div>" +
+                        "<div class='col-sm-12'>&nbsp;</div>" +
+                        "<div class='col-lg-12'>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>$</b></span>" +
+                        "<input class='input-box' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "' type='text' id='txtpayamtMo" + elementValue.ApplicantID + "' />" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "<div class='col-sm-12  col-lg-4'>" +
+                        "<div class='col-sm-12 box-padding '>" +
+                        "<div class='col-lg-12 box-padding text-center'><b>Administation Fee</b></div>" +
+                        "<div class='col-lg-12'>" +
+                        "<input class='input-box payperAF' value='" + elementValue.AdminFeePercentage + "' type='text' id='txtpayperAF" + elementValue.ApplicantID + "' />" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>%</b></span>" +
+                        "</div>" +
+                        "<div class='col-sm-12'>&nbsp;</div>" +
+                        "<div class='col-lg-12'>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>$</b></span>" +
+                        "<input class='input-box' value='" + parseFloat(elementValue.AdminFee).toFixed(2) + "' type='text' id='txtpayamtAF" + elementValue.ApplicantID + "' />" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "<div class='col-sm-12'>&nbsp;</div>" +
+                        "<div class='col-sm-12'><hr /></div>";
                 }
+
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant" || elementValue.Type == "Guarantor") {
                     //Amit's work 17-10
                     //adminfess = $("#lblAdminFees").text();

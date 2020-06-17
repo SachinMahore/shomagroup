@@ -1481,13 +1481,13 @@
                                                 <table class="table" cellspacing="0" style="width:100%;overflow-x:scroll">
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rental qualifications</span></td>
-                                                        <td><button>Sign</button></td>
+                                                        <td><label style="color: #1F1F1F;font-weight: bold;cursor:default;">Sign</label></td>
                                                         <td><a href="~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf" target="_blank">Download</a></td>
                                                         <td><a data-toggle="modal" data-target="#modalRentalQualificationPolicy" href="javascript:void(0);" id="printRentalQualificationPolicy">Print</a></td>
                                                     </tr>
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rules and Policies</span></td>
-                                                        <td><button>Sign</button></td>
+                                                        <td><label style="color: #1F1F1F;font-weight: bold;cursor:default;">Sign</label></td>
                                                         <td><a href="~/Content/assets/img/Policy/Rules&Policies_fragmented.pdf" target="_blank">Download</a></td>
                                                         <td><a data-toggle="modal" data-target="#modalRulesAndPolicy" href="javascript:void(0);" id="print">Print</a></td>
                                                     </tr>
@@ -4461,7 +4461,7 @@
                     </div>
                     <div class="col-sm-4" id="divPopSSN">
                         <div class="form-group">
-                            <label id="lblSSNNumber" class="star">SSN#</label>
+                            <label id="lblSSNNumber" class="star">SSN#   &nbsp;&nbsp;&nbsp;<input type="checkbox" id="chkNoSSN"> No SSN</label>
                             <input class="form-control form-control-small" id="txtApplicantSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
                         </div>
                     </div>

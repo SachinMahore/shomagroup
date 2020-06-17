@@ -1648,21 +1648,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_SureDeposit">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SureDeposit">
-        <MappingFragment StoreEntitySet="tbl_SureDeposit">
-          <ScalarProperty Name="BondAmount" ColumnName="BondAmount" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
-          <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
-          <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
-          <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
-          <ScalarProperty Name="SDUploadName" ColumnName="SDUploadName" />
-          <ScalarProperty Name="SDNumber" ColumnName="SDNumber" />
-          <ScalarProperty Name="SDID" ColumnName="SDID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_ApplyNow">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplyNow">
         <MappingFragment StoreEntitySet="tbl_ApplyNow">
@@ -1711,6 +1696,21 @@
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="PropertyId" ColumnName="PropertyId" />
           <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_SureDeposit">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_SureDeposit">
+        <MappingFragment StoreEntitySet="tbl_SureDeposit">
+          <ScalarProperty Name="BondAmount" ColumnName="BondAmount" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+          <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+          <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
+          <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+          <ScalarProperty Name="SDUploadName" ColumnName="SDUploadName" />
+          <ScalarProperty Name="SDNumber" ColumnName="SDNumber" />
+          <ScalarProperty Name="SDID" ColumnName="SDID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
