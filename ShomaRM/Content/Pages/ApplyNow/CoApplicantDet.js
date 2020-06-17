@@ -3331,11 +3331,11 @@ var getApplicantListsCoApplicant = function () {
                         "<div class='col-lg-12 text-center'><b>Move In Charges</b></div>" +
                         "<div class='col-lg-12'>" +
                         "<input class='input-box payper' type='text' id='txtpayper" + elementValue.ApplicantID + "' value='" + elementValue.MoveInPercentage + "' />" +
-                        "<span class='input-box-span'><b>%</b></span>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>%</b></span>" +
                         "</div>" +
                         "<div class='col-sm-12'>&nbsp;</div>" +
                         "<div class='col-lg-12'>" +
-                        "<span class='input-box-span'><b>$</b></span>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>$</b></span>" +
                         "<input class='input-box' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "' type='text' id='txtpayamt" + elementValue.ApplicantID + "' />" +
                         "</div>" +
                         "</div>" +
@@ -3345,11 +3345,11 @@ var getApplicantListsCoApplicant = function () {
                         "<div class='col-lg-12 box-padding text-center'><b>Monthly Payment</b></div>" +
                         "<div class='col-lg-12'>" +
                         "<input class='input-box payperMo' value='" + elementValue.MonthlyPercentage + "' type='text' id='txtpayperMo" + elementValue.ApplicantID + "' />" +
-                        "<span class='input-box-span'><b>%</b></span>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>%</b></span>" +
                         "</div>" +
                         "<div class='col-sm-12'>&nbsp;</div>" +
                         "<div class='col-lg-12'>" +
-                        "<span class='input-box-span'><b>$</b></span>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>$</b></span>" +
                         "<input class='input-box' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "' type='text' id='txtpayamtMo" + elementValue.ApplicantID + "' />" +
                         "</div>" +
                         "</div>" +
@@ -3359,11 +3359,11 @@ var getApplicantListsCoApplicant = function () {
                         "<div class='col-lg-12 box-padding text-center'><b>Administation Fee</b></div>" +
                         "<div class='col-lg-12'>" +
                         "<input class='input-box payperAF' value='" + elementValue.AdminFeePercentage + "' type='text' id='txtpayperAF" + elementValue.ApplicantID + "' />" +
-                        "<span class='input-box-span'><b>%</b></span>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>%</b></span>" +
                         "</div>" +
                         "<div class='col-sm-12'>&nbsp;</div>" +
                         "<div class='col-lg-12'>" +
-                        "<span class='input-box-span'><b>$</b></span>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>$</b></span>" +
                         "<input class='input-box' value='" + parseFloat(elementValue.AdminFee).toFixed(2) + "' type='text' id='txtpayamtAF" + elementValue.ApplicantID + "' />" +
                         "</div>" +
                         "</div>" +
@@ -5692,11 +5692,11 @@ var getApplicantListsCoApplicant = function () {
                         "<div class='col-lg-12 text-center'><b>Move In Charges</b></div>" +
                         "<div class='col-lg-12'>" +
                         "<input class='input-box payper' type='text' id='txtpayper" + elementValue.ApplicantID + "' value='" + elementValue.MoveInPercentage + "' />" +
-                        "<span class='input-box-span'><b>%</b></span>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>%</b></span>" +
                         "</div>" +
                         "<div class='col-sm-12'>&nbsp;</div>" +
                         "<div class='col-lg-12'>" +
-                        "<span class='input-box-span'><b>$</b></span>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>$</b></span>" +
                         "<input class='input-box' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "' type='text' id='txtpayamt" + elementValue.ApplicantID + "' />" +
                         "</div>" +
                         "</div>" +
@@ -5706,11 +5706,11 @@ var getApplicantListsCoApplicant = function () {
                         "<div class='col-lg-12 box-padding text-center'><b>Monthly Payment</b></div>" +
                         "<div class='col-lg-12'>" +
                         "<input class='input-box payperMo' value='" + elementValue.MonthlyPercentage + "' type='text' id='txtpayperMo" + elementValue.ApplicantID + "' />" +
-                        "<span class='input-box-span'><b>%</b></span>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>%</b></span>" +
                         "</div>" +
                         "<div class='col-sm-12'>&nbsp;</div>" +
                         "<div class='col-lg-12'>" +
-                        "<span class='input-box-span'><b>$</b></span>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>$</b></span>" +
                         "<input class='input-box' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "' type='text' id='txtpayamtMo" + elementValue.ApplicantID + "' />" +
                         "</div>" +
                         "</div>" +
@@ -5720,11 +5720,11 @@ var getApplicantListsCoApplicant = function () {
                         "<div class='col-lg-12 box-padding text-center'><b>Administation Fee</b></div>" +
                         "<div class='col-lg-12'>" +
                         "<input class='input-box payperAF' value='" + elementValue.AdminFeePercentage + "' type='text' id='txtpayperAF" + elementValue.ApplicantID + "' />" +
-                        "<span class='input-box-span'><b>%</b></span>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>%</b></span>" +
                         "</div>" +
                         "<div class='col-sm-12'>&nbsp;</div>" +
                         "<div class='col-lg-12'>" +
-                        "<span class='input-box-span'><b>$</b></span>" +
+                        "<span class='input-box-span' style='padding: 4px !important;'><b>$</b></span>" +
                         "<input class='input-box' value='" + parseFloat(elementValue.AdminFee).toFixed(2) + "' type='text' id='txtpayamtAF" + elementValue.ApplicantID + "' />" +
                         "</div>" +
                         "</div>" +
