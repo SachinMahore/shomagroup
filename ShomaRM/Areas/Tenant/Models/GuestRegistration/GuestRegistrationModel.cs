@@ -238,7 +238,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
                         string reportHTML = "";
                         string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
-                        reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+                        //reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateAmenity.html");
+                        reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
 
                         reportHTML = reportHTML.Replace("[%ServerURL%]", ServerURL);
                         reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
@@ -267,7 +268,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     {
                         string reportHTMLTag = "";
                         string filePathTag = HttpContext.Current.Server.MapPath("~/Content/Templates/");
-                        reportHTMLTag = System.IO.File.ReadAllText(filePathTag + "EmailTemplateAmenity.html");
+                        //reportHTMLTag = System.IO.File.ReadAllText(filePathTag + "EmailTemplateAmenity.html");
+                        reportHTMLTag = System.IO.File.ReadAllText(filePathTag + "EmailTemplateProspect.html");
 
                         reportHTMLTag = reportHTMLTag.Replace("[%ServerURL%]", ServerURL);
                         reportHTMLTag = reportHTMLTag.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
@@ -297,7 +299,8 @@ namespace ShomaRM.Areas.Tenant.Models
                 {
                     string reportHTMLTag = "";
                     string filePathTag = HttpContext.Current.Server.MapPath("~/Content/Templates/");
-                    reportHTMLTag = System.IO.File.ReadAllText(filePathTag + "EmailTemplateAmenity.html");
+                    //reportHTMLTag = System.IO.File.ReadAllText(filePathTag + "EmailTemplateAmenity.html");
+                    reportHTMLTag = System.IO.File.ReadAllText(filePathTag + "EmailTemplateProspect.html");
 
                     reportHTMLTag = reportHTMLTag.Replace("[%ServerURL%]", ServerURL);
                     reportHTMLTag = reportHTMLTag.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
