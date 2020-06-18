@@ -3,12 +3,15 @@
 
 @{
     ViewBag.Title = "Login";
+    string loggOfAutomatically = Session["LogOffAutomatically"] != null ? Session["LogOffAutomatically"].ToString() : "";
+    Session["LogOffAutomatically"] = null;
 }
 <div>
     
        <img src="~/Content/assets/img/header-image.jpg" height="140" />
     
 </div>
+<input id="hndLogOffAuto" type="hidden" value="@loggOfAutomatically" />
 <!-- End page header -->
 <!-- register-area -->
 <div class="register-area">
@@ -227,10 +230,65 @@
         </div>
     </div>
 </div>
+<div class="modal" id="popLoggedOutAutomatically">
+    <div class="modal-dialog modalLoggedOff">
+        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
+
+            <!-- Modal Header -->
+            <div class="modal-header" style="border-top:none">
+                <button type="button" id="closePetP" class="close" data-dismiss="modal" style="color:#000000;"><i class="fa fa-times-circle"></i></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-15">
+                        <div class="col-sm-12">
+                            <div class="form-group text-center">
+                                <span style="font-size:50px;color:#fff; margin-bottom:25px">WE LOGGED YOU OUT</span><br /><br />
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group text-center">
+                                <span style="font-size:30px;color:#fff; margin-bottom:25px">
+                                    For your safety, we logged
+                                </span><br />
+                                <span style="font-size:35px;color:#fff; margin-bottom:25px">
+                                    you out automatically
+                                </span><br />
+                                <span style="font-size:35px;color:#fff; margin-bottom:25px">
+                                    after 5 min of inactivity.
+                                </span><br /><br />
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group text-center">
+                                <span style="font-size:40px;color:#fff; margin-bottom:25px">PLEASE LOG IN AGAIN</span><br /><br />
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group text-center">
+                                <button class="popContinueBtn" id="popLoginBtn" onclick="goToLoginFromAutoLogOffPop();">Log In</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <style>
     @@media (min-width: 768px) {
         .modal-dialog {
             width: 600px;
+            margin: 30px auto;
+        }
+    }
+
+    @@media (min-width: 768px) {
+        .modal-dialog.modalLoggedOff {
+            width: 800px;
             margin: 30px auto;
         }
     }
@@ -251,7 +309,17 @@
             text-align: center;
         }
     }
-            
+    .popContinueBtn {
+        border-radius: 45px;
+        border: 2px solid #fff;
+        background-color: #fff;
+        font-size: 30px;
+        color: #73AD21;
+        width: 220px;
+        height: 61px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
 </style>
 <script>
     function ForgetPassword() {
@@ -350,7 +418,7 @@
         }
 
         var model = {
-            QuotationNo: quotationNo, UserName: userName, Password: password, IsTempPass:isTempPass
+            QuotationNo: quotationNo, UserName: userName, Password: password, IsTempPass: isTempPass
         };
         $.ajax({
             url: "/Applynow/SignInUsingQuotationNo",
@@ -441,7 +509,7 @@
                         $('#txtQuotationPassword').attr("placeholder", "Enter Password");
                     }
                     $('#divQuotationPassword').removeClass('hidden');
-                   
+
                     $('#btnVerifyQuotation').addClass('hidden');
                     $('#btnQuotationSignIn').removeClass('hidden');
                 }
@@ -480,5 +548,13 @@
         $('#divForgotPassword').addClass('hidden');
         $('#divUsingQuotationNo').removeClass('hidden');
     }
+    var goToLoginFromAutoLogOffPop = function () {
+        $('#popLoggedOutAutomatically').modal('hide');
+    }
+    $(document).ready(function () {
+        if ($('#hndLogOffAuto').val() == 'true') {
+            $('#popLoggedOutAutomatically').modal('show');
+        }
+    });
 </script>
 
