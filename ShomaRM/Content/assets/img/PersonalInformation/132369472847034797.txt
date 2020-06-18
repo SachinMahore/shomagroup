@@ -1,0 +1,103 @@
+
+        public string SendeSignExpiryReminder()
+        {
+            string msg = "";
+            string reportHTML = "";
+            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+            string body = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            DateTime fourday1 = DateTime.Now.AddHours(100);
+            DateTime fourday2 = DateTime.Now.AddHours(-98);
+            var GetSignDet = db.tbl_ESignatureKeys.Where(p => p.DateDocumentCreated >= fourday1 && p.DateDocumentCreated <= fourday2).ToList();
+            var phonenumber = "";
+            if (GetSignDet != null)
+            {
+                foreach (var cd in GetSignDet)
+                {
+                    var GetTenantDet = db.tbl_TenantOnline.Where(p => p.ID == cd.TenantID).FirstOrDefault();
+                    phonenumber = GetTenantDet.Mobile;
+                    body = "";
+                    reportHTML = "";
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Hey " + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "! You haven’t yet signed the application and all the progress you’ve made will be lost in a matter of hours! It won’t take long to complete, and we’re here to answer any questions. This is important! This is the opportunity of a lifetime to live the lifestyle you’ve always wanted in a place you’ve always dreamed of.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Username : <span style=\"text-decoration:underline;color:blue;\">" + GetTenantDet.Email + "</span> </p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for eSignature</p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                    string appSummary = new ApplyNowModel().PrintApplicationForm(GetTenantDet.ID);
+
+                    List<string> filePaths = new List<string>();
+                    filePaths.Add(appSummary);
+
+                    body = reportHTML;
+
+                    new EmailSendModel().SendEmailWithAttachment(GetTenantDet.Email, "COMPLETE YOUR SANCTUARY APPLICATION", body, filePaths);
+
+                    message = "Complete Your Sanctuary Application. Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
+                    }
+                }
+            }
+
+            DateTime nnn = DateTime.Now.AddHours(-26);
+            DateTime ddd = DateTime.Now.AddHours(-24);
+            var GetTenantDetn = db.tbl_ApplyNow.Where(p => p.CreatedDate >= nnn && p.CreatedDate <= ddd).ToList();
+
+            if (GetTenantDetn != null)
+            {
+                foreach (var cd in GetTenantDetn)
+                {
+                    phonenumber = cd.Phone;
+                    body = "";
+                    reportHTML = "";
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Hey " + cd.FirstName + " " + cd.LastName + "! You haven’t yet completed the application and all the progress you’ve made will be lost in a matter of hours! It won’t take long to complete, and we’re here to answer any questions. This is important! This is the opportunity of a lifetime to live the lifestyle you’ve always wanted in a place you’ve always dreamed of.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Username : <span style=\"text-decoration:underline;color:blue;\">" + cd.Email + "</span> </p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login</p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                    string appSummary = new ApplyNowModel().PrintApplicationForm(cd.ID);
+
+                    List<string> filePaths = new List<string>();
+                    filePaths.Add(appSummary);
+
+                    //reportHTML = reportHTML.Replace("[%TenantName%]", cd.FirstName + " " + cd.LastName);
+                    //reportHTML = reportHTML.Replace("[%TenantEmail%]", cd.Email);
+                    //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Reminder to complete your Application");
+                    //reportHTML = reportHTML.Replace("[%EmailBody%]", "<p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; We are sending you a kindly reminder that your application has not been completed.  Finishing is fast and easy, so log in and get started.  You are just a few steps away from submitting your application.  We are here to help, so if you need any assistance, please do not hesitate to contact us.”</p>");
+
+                    body = reportHTML;
+
+                    new EmailSendModel().SendEmailWithAttachment(cd.Email, "FRIENDLY REMINDER TO FINISH APPLICATION", body, filePaths);
+
+                    message = "Friendly Reminder To Finish Application. Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
+                    }
+                }
+            }
+
+            msg = "Email Send Successfully";
+            return msg;
+
+        }
