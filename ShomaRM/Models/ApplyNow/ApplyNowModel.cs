@@ -507,6 +507,10 @@ namespace ShomaRM.Models
                     {
                         bat = "5";
                     }
+                    if (model.FromAcc == 3)
+                    {
+                        bat = "3";
+                    }
                     long paid = 0;
 
                     if (model.IsSaveAcc == 1)
@@ -610,6 +614,7 @@ namespace ShomaRM.Models
                                     new TwilioService().SMS(phonenumber, message);
                                 }
                             }
+                            msg = "1";
                         }
                         else if (model.FromAcc == 4)
                         {
@@ -701,6 +706,7 @@ namespace ShomaRM.Models
                             //    }
                             //}
                             ////}
+                            msg = "1";
                         }
                         else if (model.FromAcc == 5)
                         {
@@ -760,6 +766,7 @@ namespace ShomaRM.Models
                                     new TwilioService().SMS(phonenumber, message);
                                 }
                             }
+                            msg = "1";
                         }
                         else
                         {
@@ -808,10 +815,21 @@ namespace ShomaRM.Models
                             currentUser.UserID = Convert.ToInt32(GetProspectData.UserId);
 
                             (new ShomaGroupWebSession()).SetWebSession(currentUser);
+                            msg = "1";
+                            decimal admfee = 0;
+                            var chkAdminFeesPaid = db.tbl_Transaction.Where(k => k.TenantID == GetProspectData.UserId && k.Batch == "3").ToList();
+                            foreach(var ad in chkAdminFeesPaid)
+                            {
+                                admfee +=Convert.ToDecimal(ad.Credit_Amount);
+                            }
+                            if(GePropertyData.AdminFees==admfee)
+                            {
+                                msg = "3";
+                            }
                         }
                     }
 
-                    msg = "1";
+                   
                 }
                 else
                 {
@@ -901,7 +919,10 @@ namespace ShomaRM.Models
                     {
                         bat = "5";
                     }
-                    
+                    if (model.FromAcc == 3)
+                    {
+                        bat = "3";
+                    }
                     var saveTransaction = new tbl_Transaction()
                     {
                         TenantID = Convert.ToInt64(GetProspectData.UserId),
@@ -976,6 +997,7 @@ namespace ShomaRM.Models
                                     new TwilioService().SMS(phonenumber, message);
                                 }
                             }
+                            msg = "1";
                         }
                         else if (model.FromAcc == 4)
                         {
@@ -1067,6 +1089,7 @@ namespace ShomaRM.Models
                             //    }
                             //}
                             ////}
+                            msg = "1";
                         }
                         else if (model.FromAcc == 5)
                         {
@@ -1126,6 +1149,7 @@ namespace ShomaRM.Models
                                     new TwilioService().SMS(phonenumber, message);
                                 }
                             }
+                            msg = "1";
                         }
                         else
                         {
@@ -1174,9 +1198,20 @@ namespace ShomaRM.Models
                             currentUser.UserID = Convert.ToInt32(GetProspectData.UserId);
 
                             (new ShomaGroupWebSession()).SetWebSession(currentUser);
+                            msg = "1";
+                            decimal admfee = 0;
+                            var chkAdminFeesPaid = db.tbl_Transaction.Where(k => k.TenantID == GetProspectData.UserId && k.Batch == "3").ToList();
+                            foreach (var ad in chkAdminFeesPaid)
+                            {
+                                admfee += Convert.ToDecimal(ad.Credit_Amount);
+                            }
+                            if (GePropertyData.AdminFees == admfee)
+                            {
+                                msg = "3";
+                            }
                         }
                     }
-                    msg = "1";
+                    
                 }
                 else
                 {

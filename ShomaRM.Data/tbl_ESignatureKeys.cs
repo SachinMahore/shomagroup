@@ -21,5 +21,6 @@ namespace ShomaRM.Data
         public Nullable<long> EsignatureId { get; set; }
         public string DateSigned { get; set; }
         public Nullable<int> IsLeaseExecuted { get; set; }
+        public Nullable<System.DateTime> DateDocumentCreated { get; set; }
     }
 }

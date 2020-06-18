@@ -176,7 +176,6 @@
       <End Role="tbl_Prospect" EntitySet="tbl_Prospect" />
       <End Role="tbl_Visit" EntitySet="tbl_Visit" />
     </AssociationSet>
-    <EntitySet Name="tbl_ESignatureKeys" EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" />
     <EntitySet Name="tbl_ApplicantHistory" EntityType="ShomaRMEntitiesModel.tbl_ApplicantHistory" />
     <EntitySet Name="tbl_EmployerHistory" EntityType="ShomaRMEntitiesModel.tbl_EmployerHistory" />
     <EntitySet Name="tbl_Parking" EntityType="ShomaRMEntitiesModel.tbl_Parking" />
@@ -363,7 +362,6 @@
       <End Role="tbl_PropertyUnits" EntitySet="tbl_PropertyUnits" />
     </AssociationSet>
     <EntitySet Name="tbl_Applicant" EntityType="ShomaRMEntitiesModel.tbl_Applicant" />
-    <EntitySet Name="tbl_SureDeposit" EntityType="ShomaRMEntitiesModel.tbl_SureDeposit" />
     <EntitySet Name="tbl_ApplyNow" EntityType="ShomaRMEntitiesModel.tbl_ApplyNow" />
     <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow">
       <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
@@ -397,6 +395,8 @@
       <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
       <End Role="tbl_Vehicle" EntitySet="tbl_Vehicle" />
     </AssociationSet>
+    <EntitySet Name="tbl_SureDeposit" EntityType="ShomaRMEntitiesModel.tbl_SureDeposit" />
+    <EntitySet Name="tbl_ESignatureKeys" EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" />
   </EntityContainer>
   <EntityType Name="tbl_AcutraqScrenning">
     <Key>
@@ -1818,18 +1818,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="tbl_ESignatureKeys">
-    <Key>
-      <PropertyRef Name="ESID" />
-    </Key>
-    <Property Name="ESID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="TenantID" Type="Int64" />
-    <Property Name="ApplicantID" Type="Int64" />
-    <Property Name="Key" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="EsignatureId" Type="Int64" />
-    <Property Name="DateSigned" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="IsLeaseExecuted" Type="Int32" />
-  </EntityType>
   <EntityType Name="tbl_ApplicantHistory">
     <Key>
       <PropertyRef Name="AHID" />
@@ -2933,20 +2921,6 @@
     <Property Name="AdminFeePercentage" Type="Decimal" Precision="18" Scale="2" />
     <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
   </EntityType>
-  <EntityType Name="tbl_SureDeposit">
-    <Key>
-      <PropertyRef Name="SDID" />
-    </Key>
-    <Property Name="SDID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="SDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="SDUploadName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="ProspectID" Type="Int64" />
-    <Property Name="ParentTOID" Type="Int64" />
-    <Property Name="UploadDate" Type="DateTime" Precision="3" />
-    <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
-    <Property Name="Status" Type="Int32" />
-    <Property Name="BondAmount" Type="Decimal" Precision="19" Scale="4" />
-  </EntityType>
   <EntityType Name="tbl_ApplyNow">
     <Key>
       <PropertyRef Name="ID" />
@@ -3101,4 +3075,31 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="tbl_SureDeposit">
+    <Key>
+      <PropertyRef Name="SDID" />
+    </Key>
+    <Property Name="SDID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SDNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SDUploadName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProspectID" Type="Int64" />
+    <Property Name="ParentTOID" Type="Int64" />
+    <Property Name="UploadDate" Type="DateTime" Precision="3" />
+    <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="BondAmount" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="tbl_ESignatureKeys">
+    <Key>
+      <PropertyRef Name="ESID" />
+    </Key>
+    <Property Name="ESID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenantID" Type="Int64" />
+    <Property Name="ApplicantID" Type="Int64" />
+    <Property Name="Key" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="EsignatureId" Type="Int64" />
+    <Property Name="DateSigned" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IsLeaseExecuted" Type="Int32" />
+    <Property Name="DateDocumentCreated" Type="DateTime" Precision="3" />
+  </EntityType>
 </Schema>

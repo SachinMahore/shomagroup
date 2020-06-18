@@ -395,6 +395,7 @@
     <Property Name="EsignatureId" Type="bigint" />
     <Property Name="DateSigned" Type="varchar" MaxLength="100" />
     <Property Name="IsLeaseExecuted" Type="int" />
+    <Property Name="DateDocumentCreated" Type="datetime" />
   </EntityType>
   <EntityType Name="tbl_Estimate">
     <Key>

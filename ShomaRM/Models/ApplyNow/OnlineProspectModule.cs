@@ -1978,6 +1978,151 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
+
+        //Sachin Mahore 18 june 2020
+
+        public string SendeSignExpiryReminder()
+        {
+            string msg = "";
+            string reportHTML = "";
+            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+            string body = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            DateTime threeday1 = DateTime.Now.AddHours(72);
+            DateTime threeday2 = DateTime.Now.AddHours(70);
+            var GetSignDet = db.tbl_ESignatureKeys.Where(p => p.DateDocumentCreated >= threeday1 && p.DateDocumentCreated <= threeday2 && p.DateSigned == "").ToList();
+            var phonenumber = "";
+            if (GetSignDet != null)
+            {
+                foreach (var cd in GetSignDet)
+                {
+                    var GetTenantDet = db.tbl_TenantOnline.Where(p => p.ID == cd.TenantID).FirstOrDefault();
+                    phonenumber = GetTenantDet.Mobile;
+                    body = "";
+                    reportHTML = "";
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Hey " + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "! You haven’t yet signed the application Only 48 Hrs Left to expire link and all the progress you’ve made will be lost in a matter of hours! It won’t take long to complete, and we’re here to answer any questions. This is important! This is the opportunity of a lifetime to live the lifestyle you’ve always wanted in a place you’ve always dreamed of.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Username : <span style=\"text-decoration:underline;color:blue;\">" + GetTenantDet.Email + "</span> </p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for eSignature</p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                    string appSummary = new ApplyNowModel().PrintApplicationForm(GetTenantDet.ID);
+
+                    List<string> filePaths = new List<string>();
+                    filePaths.Add(appSummary);
+
+                    body = reportHTML;
+
+                    new EmailSendModel().SendEmailWithAttachment(GetTenantDet.Email, "COMPLETE YOUR eSignature Only 48 Hrs Left to expire link ", body, filePaths);
+
+                    message = "Complete Your Sanctuary eSignature Only 48 Hrs Left to expire link . Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
+                    }
+                }
+            }
+
+            DateTime fourday1 = DateTime.Now.AddHours(96);
+            DateTime fourday2 = DateTime.Now.AddHours(94);
+            var GetSignDet2 = db.tbl_ESignatureKeys.Where(p => p.DateDocumentCreated >= fourday1 && p.DateDocumentCreated <= fourday2 && p.DateSigned == "").ToList();
+          
+            if (GetSignDet2 != null)
+            {
+                foreach (var cd in GetSignDet2)
+                {
+                    var GetTenantDet = db.tbl_TenantOnline.Where(p => p.ID == cd.TenantID).FirstOrDefault();
+                    phonenumber = GetTenantDet.Mobile;
+                    body = "";
+                    reportHTML = "";
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Hey " + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "! You haven’t yet signed the application Only 24 Hrs Left to expire link  and all the progress you’ve made will be lost in a matter of hours! It won’t take long to complete, and we’re here to answer any questions. This is important! This is the opportunity of a lifetime to live the lifestyle you’ve always wanted in a place you’ve always dreamed of.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Username : <span style=\"text-decoration:underline;color:blue;\">" + GetTenantDet.Email + "</span> </p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for eSignature</p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                    string appSummary = new ApplyNowModel().PrintApplicationForm(GetTenantDet.ID);
+
+                    List<string> filePaths = new List<string>();
+                    filePaths.Add(appSummary);
+
+                    body = reportHTML;
+
+                    new EmailSendModel().SendEmailWithAttachment(GetTenantDet.Email, "COMPLETE YOUR eSignature Only 24 Hrs Left to expire link ", body, filePaths);
+
+                    message = "Complete Your Sanctuary eSignature Only 24 Hrs Left to expire link . Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
+                    }
+                }
+            }
+
+
+            DateTime twlvehr = DateTime.Now.AddHours(108);
+            DateTime twlvehr2 = DateTime.Now.AddHours(106);
+            var GetSignDet3 = db.tbl_ESignatureKeys.Where(p => p.DateDocumentCreated >= twlvehr && p.DateDocumentCreated <= twlvehr2 && p.DateSigned=="").ToList();
+
+            if (GetSignDet3 != null)
+            {
+                foreach (var cd in GetSignDet3)
+                {
+                    var GetTenantDet = db.tbl_TenantOnline.Where(p => p.ID == cd.TenantID).FirstOrDefault();
+                    phonenumber = GetTenantDet.Mobile;
+                    body = "";
+                    reportHTML = "";
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Hey " + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "! You haven’t yet signed the application Only 12 Hrs Left to expire link  and all the progress you’ve made will be lost in a matter of hours! It won’t take long to complete, and we’re here to answer any questions. This is important! This is the opportunity of a lifetime to live the lifestyle you’ve always wanted in a place you’ve always dreamed of.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Username : <span style=\"text-decoration:underline;color:blue;\">" + GetTenantDet.Email + "</span> </p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for eSignature</p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                    string appSummary = new ApplyNowModel().PrintApplicationForm(GetTenantDet.ID);
+
+                    List<string> filePaths = new List<string>();
+                    filePaths.Add(appSummary);
+
+                    body = reportHTML;
+
+                    new EmailSendModel().SendEmailWithAttachment(GetTenantDet.Email, "COMPLETE YOUR eSignature Only 12 Hrs Left to expire link ", body, filePaths);
+
+                    message = "Complete Your Sanctuary eSignature Only 12 Hrs Left to expire link . Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
+                    }
+                }
+            }
+
+            msg = "Email Send Successfully";
+            return msg;
+
+        }
     }
 
     public class DocumentVerificationModule

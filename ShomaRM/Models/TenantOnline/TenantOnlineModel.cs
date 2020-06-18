@@ -2081,7 +2081,11 @@ namespace ShomaRM.Models
                         if (approveCount == applist.Count)
                         {
 
-                            var emaildata = db.tbl_Applicant.Where(c => c.TenantID == getdata.ProspectID && c.Type == "Primary Applicant").FirstOrDefault();
+                           //Sachin Mahore 18 june 2020
+                            var adminFeeApplList = db.tbl_Applicant.Where(c => c.TenantID == getdata.ProspectID && c.Type != "Guarantor").ToList();
+                            foreach (var adfee in adminFeeApplList)
+                            {
+                                string reportHTMLAdf = "";
 
                             var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
 
@@ -2260,6 +2264,7 @@ namespace ShomaRM.Models
                                     new TwilioService().SMS(emaildata.Phone, message);
                                 }
                             }
+
                         }
                     }
                 }

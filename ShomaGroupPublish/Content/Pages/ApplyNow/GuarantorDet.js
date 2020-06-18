@@ -316,7 +316,15 @@ $(document).ready(function () {
         $("#btnAddVehicle").attr("disabled", false);
         $("#btnAddVehicle").removeAttr("style");
     }
-
+    //Sachin M 17 June
+    $("#chkNoSSN").on('ifChanged', function (event) {
+        if ($(this).is(":checked")) {
+            $("#txtApplicantSSNNumber").val("000000000");
+        }
+        else {
+            $("#txtApplicantSSNNumber").val("");
+        }
+    });
     $('input[type=checkbox]').on('ifChanged', function (event) {
         if ($("#chkDontHaveVehicle").is(":checked")) {
             $("#btnAddVehicle").attr("disabled", true);
@@ -3908,7 +3916,7 @@ var saveupdateApplicant = function () {
     var applicantCountry = $("#txtApplicantCountry").val();
     var applicantCity = $("#txtApplicantCity").val();
     var applicantApplicantZip2 = $("#txtApplicantZip2").val();
-
+    var nossn = $("#chkNoSSN").is(":checked") ? "1" : "0";
 
     if (type == "Co-Applicant") {
         checkEmail = 1;
@@ -4073,7 +4081,8 @@ var saveupdateApplicant = function () {
         StateHome: applicantState,
         Country: applicantCountry,
         CityHome: applicantCity,
-        ZipHome: applicantApplicantZip2
+        ZipHome: applicantApplicantZip2,
+        IsInternational: nossn,
     };
     // console.log(model);
     $.ajax({
@@ -4137,7 +4146,12 @@ var goToEditApplicantGuarantor = function (aid) {
                 $("#txtApplicantMiddleName").val(response.model.MiddleName);
                 $("#txtApplicantLastName").val(response.model.LastName);
                 localStorage.setItem("MonthlyRent", response.model.MonthlyRent);
+                if (response.model.IsInternational == 1) {
+                    $("#chkNoSSN").iCheck('check');
 
+                } else {
+                    $("#chkNoSSN").iCheck('uncheck');
+                }
                 if (response.model.Type == "Primary Applicant") {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
                     //modal.find('.modal-content').css("height", "530px");
