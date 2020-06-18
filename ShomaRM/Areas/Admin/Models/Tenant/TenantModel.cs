@@ -440,23 +440,42 @@ namespace ShomaRM.Areas.Admin.Models
             var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.UnitID).FirstOrDefault();
             string reportHTML = "";
             string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
-            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplate.html");
+           // reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplate.html");
+
+            reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+           // reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+            reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
             string message = "";
             string phonenumber = prospectDet.Phone;
 
             if (model != null)
             {
-                reportHTML = reportHTML.Replace("[%EmailHeader%]", "Tenant Registration");
-                reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + model.FirstName + " " + model.LastName + "</b>,<br/>Your Tenant Account created successfully. Please login to see status. <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.OfficeEmail + " </br>Password :" + loginDet.Password);
 
-                reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
-                reportHTML = reportHTML.Replace("[%TenantAddress%]", model.Address);
-                reportHTML = reportHTML.Replace("[%LeaseDate%]", DateTime.Now.ToString());
-                reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
-                reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
-                reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString());
-                reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString());
-                reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+                string emailBody = "";
+                emailBody += "<p style=\"margin-bottom: 0px;\">Hello <b>" + model.FirstName + " " + model.LastName + "</b>! Your Tenant Account created successfully. Please login to see status.</p>";
+                emailBody += "<p style=\"margin-bottom: 0px;\">User Credentials</p>";
+                emailBody += "<p style=\"margin-bottom: 0px;\">User ID :" + model.OfficeEmail + " </br>Password :" + loginDet.Password + "</p>";
+                emailBody += "<p style=\"margin-bottom: 0px;\">Tenant Name : " + model.FirstName + " " + model.LastName + "</p>";
+                emailBody += "<p style=\"margin-bottom: 0px;\">Tenant Address : " + model.Address + "</p>";
+                emailBody += "<p style=\"margin-bottom: 0px;\">Lease Date : " + DateTime.Now.ToString() + "</p>";
+                emailBody += "<p style=\"margin-bottom: 0px;\">Property Name : Sanctury</p>";
+                emailBody += "<p style=\"margin-bottom: 0px;\">Unit Name : " + GetUnitDet.UnitNo + "</p>";
+                emailBody += "<p style=\"margin-bottom: 0px;\">Deposit : " + GetUnitDet.Deposit.ToString() + "</p>";
+                emailBody += "<p style=\"margin-bottom: 0px;\">MonthlyRent : " + GetUnitDet.Current_Rent.ToString() + "</p>";
+                reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+
+                //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Tenant Registration");
+                //reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + model.FirstName + " " + model.LastName + "</b>,<br/>Your Tenant Account created successfully. Please login to see status. <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.OfficeEmail + " </br>Password :" + loginDet.Password);
+                //reportHTML = reportHTML.Replace("[%TenantName%]", model.FirstName + " " + model.LastName);
+                //reportHTML = reportHTML.Replace("[%TenantAddress%]", model.Address);
+                //reportHTML = reportHTML.Replace("[%LeaseDate%]", DateTime.Now.ToString());
+                //reportHTML = reportHTML.Replace("[%PropertyName%]", "Sanctury");
+                //reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
+                //reportHTML = reportHTML.Replace("[%Deposit%]", GetUnitDet.Deposit.ToString());
+                //reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString());
+                //reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
 
                 message = "Your Tenant Account created successfully. Please check the email for detail.";
             }
@@ -1231,15 +1250,25 @@ namespace ShomaRM.Areas.Admin.Models
                             string reportCoappHTML = "";
 
                             string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
-                            reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect5.html");
+                            //reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect5.html");
 
+                            reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect.html");
                             reportCoappHTML = reportCoappHTML.Replace("[%ServerURL%]", serverURL);
+                            reportCoappHTML = reportCoappHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                            reportCoappHTML = reportCoappHTML.Replace("[%CoAppType%]", tl.Type);
-                            reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Tenant Account Created Successfully");
-                            reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Tenant Account Created Successfully. Please login to see status. <br/>");
-                            reportCoappHTML = reportCoappHTML.Replace("[%TenantName%]", tl.FirstName + " " + tl.LastName);
-                            reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+                            string emailBody = "";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Hello <b>" + tl.FirstName + " " + tl.LastName + "</b>! Your Tenant Account created successfully. Please login to see status.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login</p>";
+                            emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Account/Login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                            reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", emailBody);
+
+
+
+                            //reportCoappHTML = reportCoappHTML.Replace("[%CoAppType%]", tl.Type);
+                            //reportCoappHTML = reportCoappHTML.Replace("[%EmailHeader%]", "Tenant Account Created Successfully");
+                            //reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", "Your Tenant Account Created Successfully. Please login to see status. <br/>");
+                            //reportCoappHTML = reportCoappHTML.Replace("[%TenantName%]", tl.FirstName + " " + tl.LastName);
+                            //reportCoappHTML = reportCoappHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
 
                             string coappbody = reportCoappHTML;
                             new EmailSendModel().SendEmail(tl.Email, "Tenant Account Created Successfully", coappbody);
@@ -1434,7 +1463,11 @@ namespace ShomaRM.Areas.Admin.Models
                 var GetUnitDet = db.tbl_PropertyUnits.Where(up => up.UID == model.UnitID).FirstOrDefault();
                 string reportHTML = "";
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
-                reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplate.html");
+                //reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplate.html");
+
+                reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
                 string message = "";
                 string phonenumber = prospectDet.Phone;
@@ -1464,38 +1497,74 @@ namespace ShomaRM.Areas.Admin.Models
                     {
                         reportHTML = reportHTML.Replace("[%OtherResidents%]", "");
                     }
-                    reportHTML = reportHTML.Replace("[%EmailHeader%]", "Tenant Registration");
-                    reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + model.FirstName + " " + model.LastName + "</b>,<br/>Your Tenant Account created successfully. Please login to see status. <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.Email + " </br>Password :" + loginDet.Password);
 
-                    reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
-                    reportHTML = reportHTML.Replace("[%LeaseDate%]", prospectDet.CreatedDate.Value.ToString("MM/dd/yyyy"));
-                    reportHTML = reportHTML.Replace("[%LeaseStart%]", prospectDet.MoveInDate.Value.ToString("MM/dd/yyyy"));
-                    reportHTML = reportHTML.Replace("[%LeaseEnd%]", prospectDet.MoveInDate.Value.AddMonths(Convert.ToInt32(prospectDet.LeaseTerm)).ToString("MM/dd/yyyy"));
-                    reportHTML = reportHTML.Replace("[%LeaseTerm%]", prospectDet.LeaseTerm.ToString());
 
-                    reportHTML = reportHTML.Replace("[%ApplicationFee%]", appFess.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%AdministrationFee%]", prospectDet.AdministrationFee.Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%SecurityDeposit%]", prospectDet.Deposit.Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%PetFee%]", prospectDet.PetDeposit.Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%ProratedRent%]", prospectDet.Prorated_Rent.Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%VehicleReg%]", prospectDet.VehicleRegistration.Value.ToString(("0.00")));
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Hello <b>" + model.FirstName + " " + model.LastName + "</b>! Your Tenant Account created successfully. Please login to see status.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">User Credentials</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">User ID :" + model.Email + " </br>Password :" + loginDet.Password + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Lease Date : " + prospectDet.CreatedDate.Value.ToString("MM/dd/yyyy") + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Lease Start : " + prospectDet.MoveInDate.Value.ToString("MM/dd/yyyy") + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Lease End : " + prospectDet.MoveInDate.Value.AddMonths(Convert.ToInt32(prospectDet.LeaseTerm)).ToString("MM/dd/yyyy") + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Lease Term : " + prospectDet.LeaseTerm.ToString() + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Application Fee : " + appFess.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Administration Fee : " + prospectDet.AdministrationFee.Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Security Deposit : " + prospectDet.Deposit.Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Pet Fee : " + prospectDet.PetDeposit.Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Prorated Rent : " + prospectDet.Prorated_Rent.Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Vehicle Registration : " + prospectDet.VehicleRegistration.Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Prorated Trash Charge : " + (((prospectDet.TrashAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Prorated Pest Charge : " + (((prospectDet.PestAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Prorated Convergent Charge : " + (((prospectDet.ConvergentAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Prorated Vehicle Rent : " + (((prospectDet.ParkingAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Concession Amount :  0.00</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Total Move-In Amount :  " + prospectDet.MoveInCharges.Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Rent Amount :  " + prospectDet.Rent.Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Trash Amount :  " + prospectDet.TrashAmt.Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Pest Control Amount :  " + prospectDet.PestAmt.Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Convergent Amount :  " + prospectDet.ConvergentAmt.Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Pet Rent Amount :  " + prospectDet.PetPlaceAmt.Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Parking Amount  :  " + prospectDet.ParkingAmt.Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Storage Amount  :  " + prospectDet.StorageAmt.Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Monthly Charges  :  " + prospectDet.MonthlyCharges.Value.ToString(("0.00")) + "</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login</p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
-                    reportHTML = reportHTML.Replace("[%ProratedTrash%]", (((prospectDet.TrashAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%ProratedPest%]", (((prospectDet.PestAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%ProratedConvergent%]", (((prospectDet.ConvergentAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%ProratedVehicleRent%]", (((prospectDet.ParkingAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%ProratedPetRent%]", (((prospectDet.PetPlaceAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%ConcessionAmount%]", "0.00");
-                    reportHTML = reportHTML.Replace("[%TotalMoveIn%]", prospectDet.MoveInCharges.Value.ToString(("0.00")));
 
-                    reportHTML = reportHTML.Replace("[%Rent%]", prospectDet.Rent.Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%Trash%]", prospectDet.TrashAmt.Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%PestControl%]", prospectDet.PestAmt.Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%ConvergentAmt%]", prospectDet.ConvergentAmt.Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%PetRent%]", prospectDet.PetPlaceAmt.Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%Vehicle%]", prospectDet.ParkingAmt.Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%Storage%]", prospectDet.StorageAmt.Value.ToString(("0.00")));
-                    reportHTML = reportHTML.Replace("[%TotalMonthly%]", prospectDet.MonthlyCharges.Value.ToString(("0.00")));
+
+                    //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Tenant Registration");
+                    //reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + model.FirstName + " " + model.LastName + "</b>,<br/>Your Tenant Account created successfully. Please login to see status. <br/><br/><u><b>User Credentials</br></b></u> </br> </br> User ID :" + model.Email + " </br>Password :" + loginDet.Password);
+
+                    //reportHTML = reportHTML.Replace("[%UnitName%]", GetUnitDet.UnitNo);
+                    //reportHTML = reportHTML.Replace("[%LeaseDate%]", prospectDet.CreatedDate.Value.ToString("MM/dd/yyyy"));
+                    //reportHTML = reportHTML.Replace("[%LeaseStart%]", prospectDet.MoveInDate.Value.ToString("MM/dd/yyyy"));
+                    //reportHTML = reportHTML.Replace("[%LeaseEnd%]", prospectDet.MoveInDate.Value.AddMonths(Convert.ToInt32(prospectDet.LeaseTerm)).ToString("MM/dd/yyyy"));
+                    //reportHTML = reportHTML.Replace("[%LeaseTerm%]", prospectDet.LeaseTerm.ToString());
+
+                    //reportHTML = reportHTML.Replace("[%ApplicationFee%]", appFess.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%AdministrationFee%]", prospectDet.AdministrationFee.Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%SecurityDeposit%]", prospectDet.Deposit.Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%PetFee%]", prospectDet.PetDeposit.Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%ProratedRent%]", prospectDet.Prorated_Rent.Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%VehicleReg%]", prospectDet.VehicleRegistration.Value.ToString(("0.00")));
+
+                    //reportHTML = reportHTML.Replace("[%ProratedTrash%]", (((prospectDet.TrashAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%ProratedPest%]", (((prospectDet.PestAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%ProratedConvergent%]", (((prospectDet.ConvergentAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%ProratedVehicleRent%]", (((prospectDet.ParkingAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%ProratedPetRent%]", (((prospectDet.PetPlaceAmt) / model.ProNumberOfDays) * model.ProRemainingday).Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%ConcessionAmount%]", "0.00");
+                    //reportHTML = reportHTML.Replace("[%TotalMoveIn%]", prospectDet.MoveInCharges.Value.ToString(("0.00")));
+
+                    //reportHTML = reportHTML.Replace("[%Rent%]", prospectDet.Rent.Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%Trash%]", prospectDet.TrashAmt.Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%PestControl%]", prospectDet.PestAmt.Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%ConvergentAmt%]", prospectDet.ConvergentAmt.Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%PetRent%]", prospectDet.PetPlaceAmt.Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%Vehicle%]", prospectDet.ParkingAmt.Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%Storage%]", prospectDet.StorageAmt.Value.ToString(("0.00")));
+                    //reportHTML = reportHTML.Replace("[%TotalMonthly%]", prospectDet.MonthlyCharges.Value.ToString(("0.00")));
                     message = "Your Tenant Account created successfully. Please check the email for detail.";
                 }
                 string body = reportHTML;

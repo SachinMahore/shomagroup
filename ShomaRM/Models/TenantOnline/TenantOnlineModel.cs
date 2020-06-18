@@ -2059,7 +2059,10 @@ namespace ShomaRM.Models
                 {
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
-                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
+                    //reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
                     string message = "";
                     var applist = db.tbl_TenantOnline.Where(p => p.ProspectID == getdata.ProspectID).ToList();
                     var prospdata = db.tbl_ApplyNow.Where(v => v.ID == getdata.ProspectID && (v.Status == "Approved" || v.Status == "Conditional")).FirstOrDefault();
@@ -2080,15 +2083,26 @@ namespace ShomaRM.Models
 
                             var emaildata = db.tbl_Applicant.Where(c => c.TenantID == getdata.ProspectID && c.Type == "Primary Applicant").FirstOrDefault();
 
-                            reportHTML = reportHTML.Replace("[%EmailHeader%]", "Your Application is Approved. Pay Administration Fees");
-                            reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + emaildata.FirstName + " " + emaildata.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
-                            reportHTML = reportHTML.Replace("[%TenantName%]", emaildata.FirstName + " " + emaildata.LastName);
                             var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
 
                             string payid = new EncryptDecrypt().EncryptText(emaildata.ApplicantID.ToString() + ",3," + propertDet.AdminFees.Value.ToString("0.00"));
-                            reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved and Pay your Administration Fees");
-                            reportHTML = reportHTML.Replace("[%StatusDet%]", "Good news! You have been approved.We welcome you to our community.Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move -in. Once you process your payment, you will be directed to prepare your lease.  ");
-                            reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+
+                            string emailBody = "";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Hello <b>" + emaildata.FirstName + " " + emaildata.LastName + "</b>! Your Online application submitted successfully. Please click below to Pay Application fees.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Congratulations ! Your Application is Approved and Pay your Administration Fees.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Good news!You have been approved.We welcome you to our community.Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move -in. Once you process your payment, you will be directed to prepare your lease.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Please click here to Pay</p>";
+                            emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" class=\"link-button\" target=\"_blank\">Pay Now</a></p>";
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Your Application is Approved. Pay Administration Fees");
+                            //reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + emaildata.FirstName + " " + emaildata.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
+                            //reportHTML = reportHTML.Replace("[%TenantName%]", emaildata.FirstName + " " + emaildata.LastName);
+                            //reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved and Pay your Administration Fees");
+                            //reportHTML = reportHTML.Replace("[%StatusDet%]", "Good news! You have been approved.We welcome you to our community.Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move -in. Once you process your payment, you will be directed to prepare your lease.  ");
+                            //reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+
+
                             message = "Notification: Your Application is Approved and pay your Administration Fees. Please check the email for detail.";
                             string body = reportHTML;
                             new EmailSendModel().SendEmail(emaildata.Email, " Notification: Your Application is Approved and pay your Administration Fees.", body);
@@ -2196,8 +2210,11 @@ namespace ShomaRM.Models
 
                 string reportHTML = "";
                 string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
-                reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
-                string message = "";
+                    //reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect3.html");
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+                    string message = "";
                 var applist = db.tbl_TenantOnline.Where(p => p.ProspectID == getdata.ProspectID).ToList();
                 var prospdata = db.tbl_ApplyNow.Where(v => v.ID == getdata.ProspectID && (v.Status == "Approved" || v.Status == "Conditional")).FirstOrDefault();
                 int approveCount = 0;
@@ -2215,16 +2232,24 @@ namespace ShomaRM.Models
                         if (approveCount == applist.Count)
                         {
                             var emaildata = db.tbl_Applicant.Where(c => c.TenantID == getdata.ProspectID && c.Type == "Primary Applicant").FirstOrDefault();
-
-                            reportHTML = reportHTML.Replace("[%EmailHeader%]", "Congratulations ! Your Application is Approved and Pay your Administration Fees");
-                            reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + emaildata.FirstName + " " + emaildata.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
-                            reportHTML = reportHTML.Replace("[%TenantName%]", emaildata.FirstName + " " + emaildata.LastName);
                             var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
-
                             string payid = new EncryptDecrypt().EncryptText(emaildata.ApplicantID.ToString() + ",3," + propertDet.AdminFees.Value.ToString("0.00"));
-                            reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved and Pay your Administration Fees");
-                            reportHTML = reportHTML.Replace("[%StatusDet%]", "Good news!You have been approved.We welcome you to our community.Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move -in. Once you process your payment, you will be directed to prepare your lease.  ");
-                            reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+
+                            string emailBody = "";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Hello <b>" + emaildata.FirstName + " " + emaildata.LastName + "</b>! Your Online application submitted successfully. Please click below to Pay Application fees.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Congratulations ! Your Application is Approved and Pay your Administration Fees.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Good news!You have been approved.We welcome you to our community.Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move -in. Once you process your payment, you will be directed to prepare your lease.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Please click here to Pay</p>";
+                            emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" class=\"link-button\" target=\"_blank\">Pay Now</a></p>";
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Congratulations ! Your Application is Approved and Pay your Administration Fees");
+                            //reportHTML = reportHTML.Replace("[%EmailBody%]", "Hi <b>" + emaildata.FirstName + " " + emaildata.LastName + "</b>,<br/>Your Online application submitted successfully. Please click below to Pay Application fees. <br/><br/><u><b>Payment Link :<a href=''></a> </br></b></u>  </br>");
+                            //reportHTML = reportHTML.Replace("[%TenantName%]", emaildata.FirstName + " " + emaildata.LastName);
+                            //reportHTML = reportHTML.Replace("[%Status%]", "Congratulations ! Your Application is Approved and Pay your Administration Fees");
+                            //reportHTML = reportHTML.Replace("[%StatusDet%]", "Good news!You have been approved.We welcome you to our community.Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move -in. Once you process your payment, you will be directed to prepare your lease.  ");
+                            //reportHTML = reportHTML.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
+
                             message = "Notification: Your Application is Approved and pay your Administration Fees. Please check the email for detail.";
                             string body = reportHTML;
                             new EmailSendModel().SendEmail(emaildata.Email, "Notification: Your Application is Approved and pay your Administration Fees.", body);
