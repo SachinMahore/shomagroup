@@ -1087,19 +1087,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_ESignatureKeys">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ESignatureKeys">
-        <MappingFragment StoreEntitySet="tbl_ESignatureKeys">
-          <ScalarProperty Name="IsLeaseExecuted" ColumnName="IsLeaseExecuted" />
-          <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
-          <ScalarProperty Name="EsignatureId" ColumnName="EsignatureId" />
-          <ScalarProperty Name="Key" ColumnName="Key" />
-          <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
-          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-          <ScalarProperty Name="ESID" ColumnName="ESID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_ApplicantHistory">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ApplicantHistory">
         <MappingFragment StoreEntitySet="tbl_ApplicantHistory">
@@ -1711,6 +1698,20 @@
           <ScalarProperty Name="SDUploadName" ColumnName="SDUploadName" />
           <ScalarProperty Name="SDNumber" ColumnName="SDNumber" />
           <ScalarProperty Name="SDID" ColumnName="SDID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ESignatureKeys">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ESignatureKeys">
+        <MappingFragment StoreEntitySet="tbl_ESignatureKeys">
+          <ScalarProperty Name="DateDocumentCreated" ColumnName="DateDocumentCreated" />
+          <ScalarProperty Name="IsLeaseExecuted" ColumnName="IsLeaseExecuted" />
+          <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
+          <ScalarProperty Name="EsignatureId" ColumnName="EsignatureId" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+          <ScalarProperty Name="ESID" ColumnName="ESID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
