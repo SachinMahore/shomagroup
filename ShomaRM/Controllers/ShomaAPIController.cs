@@ -87,5 +87,20 @@ namespace ShomaRM.Controllers
                 return Json(new { msg = "Fail" }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [AllowCrossJson]
+        public ActionResult SendeSignExpiryReminder()
+        {
+
+            try
+            {
+                string result = new OnlineProspectModule().SendeSignExpiryReminder();
+                return Json(new { msg = "Success" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { msg = "Fail" }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
