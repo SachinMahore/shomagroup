@@ -260,7 +260,7 @@ body.ja_blur > *:not(.ja_wrap)
 
 .ja_red {
     background: #1e88e5;
-    
+    width:800px;
 }
 
 .ja_dark_red
@@ -295,10 +295,9 @@ body.ja_blur > *:not(.ja_wrap)
 /*
     CONTENT WRAP
 */
-.ja_body
-{
-    background: white;
-    color: #616161;
+.ja_body {
+    /*background: white;*/
+    background-image: url('assets/img/Entrance01.jpg');
     padding: 20px;
     -moz-user-select: text;
     -khtml-user-select: text;
@@ -307,6 +306,7 @@ body.ja_blur > *:not(.ja_wrap)
     user-select: text;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+    text-align:center;
 }
 
 .ja_setheight .ja_body
@@ -434,18 +434,22 @@ body.ja_blur > *:not(.ja_wrap)
 .ja_btn_default, .ja_btn_default:link, .ja_btn_default:visited
 {
     color: #575757;
-    background: #f3f3f3;
+    /*background: #f3f3f3;*/
+    background-color:transparent;
+    font-size:30px;
 }
 
-.ja_btn_default:hover
-{
-    background: #FBFBFB;
-}
+    .ja_btn_default:hover {
+        /*background: #FBFBFB;*/
+        background-color: transparent;
+        font-size: 30px;
+    }
 
-.ja_btn_default:active
-{
-    background: #EEE;
-}
+    .ja_btn_default:active {
+        /*background: #EEE;*/
+        background-color: transparent;
+        font-size: 30px;
+    }
 
 .ja_btn_green, .ja_btn_green:link, .ja_btn_green:visited
 {
@@ -495,21 +499,48 @@ body.ja_blur > *:not(.ja_wrap)
     background: #444444;
 }
 
-.ja_btn_blue, .ja_btn_blue:link, .ja_btn_blue:visited
-{
-    background: #0877B9;
-    color: white;
+.ja_btn_blue, .ja_btn_blue:link, .ja_btn_blue:visited {
+    /*background: #0877B9;
+    color: white;*/
+    border-radius: 50px;
+    border: 2px solid #fff;
+    background-color: #fff;
+    font-size: 30px;
+    color: #73AD21;
+    width: 220px;
+    height: 61px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 7px;
 }
 
-.ja_btn_blue:hover
-{
-    background: #0896E9;
-}
+    .ja_btn_blue:hover {
+        /*background: #0896E9;*/
+        border-radius: 50px;
+        border: 2px solid #fff;
+        background-color: #fff;
+        font-size: 30px;
+        color: #73AD21;
+        width: 220px;
+        height: 61px;
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 7px;
+    }
 
-.ja_btn_blue:active
-{
-    background: #056FAD;
-}
+    .ja_btn_blue:active {
+        /*background: #056FAD;*/
+        border-radius: 50px;
+        border: 2px solid #fff;
+        background-color: #fff;
+        font-size: 30px;
+        color: #73AD21;
+        width: 220px;
+        height: 61px;
+        text-transform: uppercase;
+        font-weight: bold;
+        padding: 7px;
+    }
 
 /*
     LOADER
@@ -583,4 +614,17 @@ body.ja_blur > *:not(.ja_wrap)
 .ja_no_pad .ja_loader
 {
     margin: 40px 0px;
+}
+
+
+/*custome classes*/
+.custHeading {
+    font-size:45px;
+    color:#fff;
+    margin-bottom:25px;
+}
+
+.custTitle {
+    font-size: 30px;
+    color: #fff;
 }

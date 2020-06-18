@@ -421,43 +421,44 @@
                             dataType: "JSON",
                             success: function (response) {
                                 if (response.Msg != "") {
+                                   
                                     if (response.Msg == "1") {
                                         $("#ResponseMsg").html("Payment successfull");
-
-                                        if ($("#hndFromAcc").val() == 3) {
-                                            $("#divLoader").show();
-                                            $.ajax({
-                                                url: "/CheckList/LeaseBlumoon",
-                                                method: "post",
-                                                //data: JSON.stringify(param),
-                                                contentType: "application/json; charset=utf-8", // content type sent to server
-                                                dataType: "json", //Expected data format from server
-                                                success: function (response) {
-                                                    $("#divLoader").hide();
-                                                    $.alert({
-                                                        title: "",
-                                                        content: "Lease Document Generated. Check your Email to verify and sign",
-                                                        type: 'red'
-                                                    });
-                                                }
-                                            });
-                                        } else {
-                                            $.alert({
-                                                title: "",
-                                                content: "You want to go to Sanctuary Doral Web portal?",
-                                                type: 'blue',
-                                                buttons: {
-                                                    yes: {
-                                                        text: 'Yes',
-                                                        action: function (yes) {
-                                                            window.location = "/Account/Login";
-                                                        }
+                                        $.alert({
+                                            title: "",
+                                            content: "You want to go to Sanctuary Doral Web portal?",
+                                            type: 'blue',
+                                            buttons: {
+                                                yes: {
+                                                    text: 'Yes',
+                                                    action: function (yes) {
+                                                        window.location = "/Account/Login";
                                                     }
                                                 }
-                                            });
-                                        }
+                                            }
+                                        });
+                                 
 
-                                    } else {
+                                    }
+                                    else if (response.Msg == "3") {
+                                        $("#divLoader").show();
+                                        $.ajax({
+                                            url: "/CheckList/LeaseBlumoon",
+                                            method: "post",
+                                            //data: JSON.stringify(param),
+                                            contentType: "application/json; charset=utf-8", // content type sent to server
+                                            dataType: "json", //Expected data format from server
+                                            success: function (response) {
+                                                $("#divLoader").hide();
+                                                $.alert({
+                                                    title: "",
+                                                    content: "Lease Document Generated. Check your Email to verify and sign",
+                                                    type: 'red'
+                                                });
+                                            }
+                                        });
+                                    }
+                                    else {
                                         $("#ResponseMsg").html("Payment failed");
                                     }
                                 }
@@ -578,10 +579,44 @@
                             dataType: "JSON",
                             success: function (response) {
                                 if (response.Msg != "") {
+                                    alert(response.Msg)
                                     if (response.Msg == "1") {
                                         $("#ResponseMsg").html("Payment successfull");
-                                       
-                                    } else {
+                                        $.alert({
+                                            title: "",
+                                            content: "You want to go to Sanctuary Doral Web portal?",
+                                            type: 'blue',
+                                            buttons: {
+                                                yes: {
+                                                    text: 'Yes',
+                                                    action: function (yes) {
+                                                        window.location = "/Account/Login";
+                                                    }
+                                                }
+                                            }
+                                        });
+
+
+                                    }
+                                    else if (response.Msg == "3") {
+                                        $("#divLoader").show();
+                                        $.ajax({
+                                            url: "/CheckList/LeaseBlumoon",
+                                            method: "post",
+                                            //data: JSON.stringify(param),
+                                            contentType: "application/json; charset=utf-8", // content type sent to server
+                                            dataType: "json", //Expected data format from server
+                                            success: function (response) {
+                                                $("#divLoader").hide();
+                                                $.alert({
+                                                    title: "",
+                                                    content: "Lease Document Generated. Check your Email to verify and sign",
+                                                    type: 'red'
+                                                });
+                                            }
+                                        });
+                                    }
+                                    else {
                                         $("#ResponseMsg").html("Payment failed");
                                     }
                                 }

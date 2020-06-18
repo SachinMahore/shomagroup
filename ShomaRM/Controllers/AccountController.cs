@@ -310,6 +310,34 @@ namespace ShomaRM.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        [AllowAnonymous]
+        public ActionResult LogOffAutomatic()
+        {
+            Session.RemoveAll();
+            FormsAuthentication.SignOut();
+            (new ShomaGroupWebSession()).RemoveWebSession();
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
+            new CommonModel().AddPageLoginHistory("");
+            try
+            {
+                var loginHistory = db.tbl_LoginHistory.Where(p => p.UserID == userid && p.SessionID == Session.SessionID.ToString() && p.LogoutDateTime == null).FirstOrDefault();
+
+                if (loginHistory != null)
+                {
+                    loginHistory.LogoutDateTime = DateTime.Now;
+                    db.SaveChanges();
+                }
+                Session["LogOffAutomatically"] = "true";
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
+            return RedirectToAction("Login", "Account");
+        }
+
         public ActionResult IsSession()
         {
             if (Session["CurrentUser"] != null)
