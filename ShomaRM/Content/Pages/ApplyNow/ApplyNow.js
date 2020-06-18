@@ -12088,3 +12088,21 @@ var getStaticApplicantValues = function () {
         }
     });
 };
+var checkResponsibilityApplicant = function () {
+    var grandPercentage = localStorage.getItem("percentage");
+    var grandPercentageMo = localStorage.getItem("percentageMo");
+    var grandPercentageAF = localStorage.getItem("percentageAF");
+
+    if (grandPercentage != 100 || grandPercentageMo != 100 || grandPercentageAF != 100) {
+        msg = "For Move In Charges and Monthly Payment and Administration Fee the total must equal 100% in order to continue.";
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'red'
+        });
+        return;
+    }
+    else {
+        $("#popResponsibilityContinue").modal("show");
+    }
+};

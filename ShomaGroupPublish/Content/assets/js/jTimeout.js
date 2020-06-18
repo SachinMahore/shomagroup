@@ -272,7 +272,7 @@
         flashTitleSpeed: 500, //how quickly to switch between the original title, and the warning text
         flashingTitleText: '**WARNING**', //what to show in the tab/title bar when about to timeout, or after timing out
         originalTitle: document.title, //store the original title of this page
-        timeoutAfter: 1440, //pass this from server side to be fully-dynamic. For PHP: ini_get('session.gc_maxlifetime'); - 1440 is generally the default timeout
+        timeoutAfter: 60, //pass this from server side to be fully-dynamic. For PHP: ini_get('session.gc_maxlifetime'); - 1440 is generally the default timeout
         heartbeat: 1, //how many seconds in between checking and updating the timer
         extendOnMouseMove: true, //Whether or not to extend the session when the mouse is moved
         mouseDebounce: 30, //How many seconds between extending the session when the mouse is moved (instead of extending a billion times within 5 seconds)

@@ -1822,7 +1822,8 @@
                                     <button type="submit" class="btn-up btn-alltype elvetica-font" onclick="goToStep(7,7,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn-alltype" data-toggle="modal" data-target="#popResponsibilityContinue"> Continue</button>
+                                    <button type="submit" class="btn-alltype" onclick="checkResponsibilityApplicant()"> Continue</button>
+                                    @*<button type="submit" class="btn-alltype" data-toggle="modal" data-target="#popResponsibilityContinue"> Continue</button>*@
                                     <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                                 </div>
                             </div>
@@ -6150,7 +6151,7 @@
 </div>
 <div class="modal" id="popApplicantContinue">
     <div class="modal-dialog">
-        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
+        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.png');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
 
             <!-- Modal Header -->
             <div class="modal-header" style="border-bottom:none">
@@ -6163,7 +6164,7 @@
                     <div class="col-sm-15">
                         <div class="col-sm-12">
                             <div class="form-group text-center">
-                                <span style="font-size:45px;color:#fff; margin-bottom:25px">Start Application</span><br />
+                                <span style="font-size:45px;color:#fff; margin-bottom:25px;text-transform:uppercase;">Start Application</span><br />
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -6193,8 +6194,8 @@
     </div>
 </div>
 <div class="modal" id="popResponsibilityContinue">
-    <div class="modal-dialog">
-        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
+    <div class="modal-dialog modal15min">
+        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance02.png');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
 
             <!-- Modal Header -->
             <div class="modal-header" style="border-bottom:none">
@@ -6229,11 +6230,15 @@
                             <div class="form-group text-center">
                                 <span style="font-size:20px;color:#fff; margin-bottom:25px">
                                     - 2 PROOFS OF INCOME: pay stubs, tax return*<br />
-                                    FORMS OF IDENTIFICATION: driver’s license, passport*
+                                    - 2 FORMS OF IDENTIFICATION: driver’s license, passport*
                                 </span>
                             </div>
                         </div>
-
+                        <div class="col-sm-12">
+                            <div class="form-group text-center">
+                                <span style="font-size:20px;color:#fff; margin-bottom:25px;font-weight:bold;text-decoration:underline;">*Additional proofs accepted</span>
+                            </div>
+                        </div>
                         <div class="col-sm-12">
                             <div class="form-group text-center">
                                 <button class="popContinueBtn" id="popContinueBtn" onclick="goToStep(9,9,0)"> Continue</button>
@@ -6342,6 +6347,13 @@
     @@media (min-width: 768px) {
         .modal-dialog {
             width: 600px;
+            margin: 30px auto;
+        }
+    }
+
+    @@media (min-width: 768px) {
+        .modal-dialog.modal15min {
+            width: 800px;
             margin: 30px auto;
         }
     }
@@ -6652,13 +6664,15 @@
     }
 
     .popContinueBtn {
-        border-radius: 25px;
+        border-radius: 12px;
         border: 2px solid #fff;
         background-color: #fff;
-        font-size: 25px;
+        font-size: 30px;
         color: #73AD21;
-        width: 200px;
-        height: 60px;
+        width: 220px;
+        height: 61px;
+        text-transform: uppercase;
+        font-weight: bold;
     }
 </style>
 <script>
