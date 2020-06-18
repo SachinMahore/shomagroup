@@ -1365,7 +1365,6 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
     }
     if (stepid == "9") {
-        $.jTimeout.setTimeOutAfter(180);
         if (parseInt($("#hdnStepCompleted").val()) < 8) {
             msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 9);
             $.alert({
