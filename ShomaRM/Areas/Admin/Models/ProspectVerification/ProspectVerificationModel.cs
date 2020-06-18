@@ -506,7 +506,7 @@ namespace ShomaRM.Areas.Admin.Models
 
                             message = "Notification: Your Application is Approved and pay your Administration Fees. Please check the email for detail.";
                             string body = reportHTMLAdf;
-                            new EmailSendModel().SendEmail(adfee.Email, sub, body);
+                            new EmailSendModel().SendEmail(adfee.Email, "Notification: Your Application is Approved and pay your Administration Fees.", body);
                             if (SendMessage == "yes")
                             {
                                 if (!string.IsNullOrWhiteSpace(adfee.Phone))

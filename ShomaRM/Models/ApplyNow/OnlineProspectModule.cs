@@ -1991,7 +1991,7 @@ namespace ShomaRM.Models
 
             DateTime threeday1 = DateTime.Now.AddHours(72);
             DateTime threeday2 = DateTime.Now.AddHours(70);
-            var GetSignDet = db.tbl_ESignatureKeys.Where(p => p.DateDocumentCreated >= threeday1 && p.DateDocumentCreated <= threeday2 && p.DateSigned == null).ToList();
+            var GetSignDet = db.tbl_ESignatureKeys.Where(p => p.DateDocumentCreated >= threeday1 && p.DateDocumentCreated <= threeday2 && p.DateSigned == "").ToList();
             var phonenumber = "";
             if (GetSignDet != null)
             {
@@ -2034,7 +2034,7 @@ namespace ShomaRM.Models
 
             DateTime fourday1 = DateTime.Now.AddHours(96);
             DateTime fourday2 = DateTime.Now.AddHours(94);
-            var GetSignDet2 = db.tbl_ESignatureKeys.Where(p => p.DateDocumentCreated >= fourday1 && p.DateDocumentCreated <= fourday2 && p.DateSigned == null).ToList();
+            var GetSignDet2 = db.tbl_ESignatureKeys.Where(p => p.DateDocumentCreated >= fourday1 && p.DateDocumentCreated <= fourday2 && p.DateSigned == "").ToList();
           
             if (GetSignDet2 != null)
             {
@@ -2078,7 +2078,7 @@ namespace ShomaRM.Models
 
             DateTime twlvehr = DateTime.Now.AddHours(108);
             DateTime twlvehr2 = DateTime.Now.AddHours(106);
-            var GetSignDet3 = db.tbl_ESignatureKeys.Where(p => p.DateDocumentCreated >= twlvehr && p.DateDocumentCreated <= twlvehr2 && p.DateSigned==null).ToList();
+            var GetSignDet3 = db.tbl_ESignatureKeys.Where(p => p.DateDocumentCreated >= twlvehr && p.DateDocumentCreated <= twlvehr2 && p.DateSigned=="").ToList();
 
             if (GetSignDet3 != null)
             {
