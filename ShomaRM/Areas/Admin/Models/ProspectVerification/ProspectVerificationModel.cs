@@ -540,10 +540,10 @@ namespace ShomaRM.Areas.Admin.Models
                     //reportHTML = reportHTML.Replace("[%MonthlyRent%]", GetUnitDet.Current_Rent.ToString("0.00"));
                     //reportHTML = reportHTML.Replace("[%TenantEmail%]", Email);
 
-                    reportHTML = reportHTML.Replace("[%QuoteNo%]", ID.ToString());
-                    reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
-                    string body = reportHTML;
-                    new EmailSendModel().SendEmail(Email, sub, body);
+                    //reportHTML = reportHTML.Replace("[%QuoteNo%]", ID.ToString());
+                    //reportHTML = reportHTML.Replace("[%EmailFooter%]", "<br/>Regards,<br/>Administrator<br/>Sanctuary Doral");
+                    //string body = reportHTML;
+                    //new EmailSendModel().SendEmail(Email, sub, body);
                     if (SendMessage == "yes")
                     {
                         if (!string.IsNullOrWhiteSpace(phonenumber))
