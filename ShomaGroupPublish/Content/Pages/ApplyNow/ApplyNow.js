@@ -2476,7 +2476,9 @@ var showCurrentStep = function (stepid, id) {
         $("#step15").addClass("hidden");
         $("#step16").addClass("hidden");
         $("#step17").addClass("hidden");
-        //getStaticApplicantValues();
+        if ($("#hdnOPId").val() != '0') {
+            getStaticApplicantValues();
+        }
     }
     if (stepid == "6") {
 
@@ -6842,7 +6844,7 @@ var getTenantOnlineList = function (id) {
             $("#txtDateOfExpiration").val(response.model.DateExpireTxt);
             $("#ddlDocumentTypePersonal").val(response.model.IDType).change();
             $("#ddlIDTypeReg").val(response.model.IDType).change();
-            $("#ddlStatePersonal").val(response.model.State).change();
+            $("#ddlStatePersonal").val(response.model.StateHome).change();
             $("#ddlStateIDDocReg").val(response.model.State).change();
            
             $("#txtSSNNumber").val(response.model.SSN);
@@ -7806,6 +7808,9 @@ var getApplicantHistoryInfo = function (id) {
             $("#txtMoveInDateTo2").val(response.model.MoveInDateToTxt);
             $("#txtMonthlyPayment2").val(response.model.MonthlyPayment);
             $("#txtReasonforleaving2").val(response.model.Reason);
+            $("#txtApartmentCommunity2").val(response.model.ApartmentCommunity);
+            $("#txtManagementCompany2").val(response.model.ManagementCompany);
+            $("#txtManagementCompanyPhone2").val(formatPhoneFax(response.model.ManagementCompanyPhone));
         }
     });
 };
@@ -9950,7 +9955,7 @@ var editVehicle = function (id) {
             $("#ddlVState").val(response.model.State);
             $("#txtVehicleTag").val(response.model.Tag);
             //$("#ddlParking").val(response.model.ParkingName);
-            $("#txtVehicleNote").html(response.model.Notes);
+            $("#txtVehicleNote").val(response.model.Notes);
             $("#VehicleRegistationShow").html(response.model.OriginalVehicleRegistation);
             $("#hndVehicleID").val(response.model.Vehicle_ID);
             $('#ddlParking').empty();
@@ -12065,8 +12070,9 @@ var getStaticApplicantValues = function () {
 
             /*Quotation Ends*/
             /*Responsibility left block Start*/
-            
+            $("#lblVehicleFees").text(formatMoney(response.model.VehicleRegistration));
             $("#lblVehicleFees1").text(formatMoney(response.model.VehicleRegistration));
+            
             $("#lbdepo6").text(formatMoney(response.model.Deposit));
             // $("#lbdepo6").text(formatMoney(response.model.Deposit));
             $("#lbpetd6").text(formatMoney(response.model.PetDeposit));
