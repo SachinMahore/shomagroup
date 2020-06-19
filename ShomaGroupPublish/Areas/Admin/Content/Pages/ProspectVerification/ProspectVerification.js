@@ -31,7 +31,7 @@ $(document).ready(function () {
 
     else if ($("#rbtnFedralTax").is(":checked")) {
         $('#divUpload3').addClass('hidden');
-        document.getElementById('fileUploadTaxReturn3').value = '';
+        //document.getElementById('fileUploadTaxReturn3').value = '';
         $('#lblUpload1').text('Fedral Tax Return 1');
         $('#lblUpload2').text('Fedral Tax Return 2');
         $('#lblUpload3').text('Fedral Tax Return 3');
@@ -47,7 +47,7 @@ $(document).ready(function () {
         }
         else if ($("#rbtnFedralTax").is(":checked")) {
             $('#divUpload3').addClass('hidden');
-            document.getElementById('fileUploadTaxReturn3').value = '';
+            //document.getElementById('fileUploadTaxReturn3').value = '';
             $('#lblUpload1').text('Fedral Tax Return 1');
             $('#lblUpload2').text('Fedral Tax Return 2');
             $('#lblUpload3').text('Fedral Tax Return 3');
