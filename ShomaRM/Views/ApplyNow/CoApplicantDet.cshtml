@@ -4753,16 +4753,16 @@
                             <label for="txtCcvNumber2" class="star">CVV Number</label>
                             <input type="password" class="form-control" id="txtCCVNumber2" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
                         </div>
-
+                        <div class="col-sm-12" id="divChkSaveAcc" style="margin-left: -15px;">
+                            <input type="checkbox" id="chkSaveAcc">
+                            <span class="chektext">
+                                Save Account Information
+                            </span>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-12" id="divChkSaveAcc">
-                    <input type="checkbox" id="chkSaveAcc">
-                    <span class="chektext">
-                        Save Account Information
-                    </span>
-                </div>
-                <div class="col-sm-12" style="margin-bottom:20px">
+                
+                <div class="col-sm-12" style="margin-bottom:20px;margin-left: 15px;">
                     <input type="checkbox" id="chkTermsAndCondition2">
                     <span class="chektext">
                         I agree to the
@@ -5656,7 +5656,7 @@
 
 <div class="modal" id="popApplicantContinue">
     <div class="modal-dialog">
-        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
+        <div class="modal-content modal5min" style="background-image: url('../../Content/assets/img/Entrance01.png');  background-repeat: no-repeat;background-position: center;margin-top: -1px;margin-left: -1px;">
 
             <!-- Modal Header -->
             <div class="modal-header" style="border-bottom:none">
@@ -5669,12 +5669,17 @@
                     <div class="col-sm-15">
                         <div class="col-sm-12">
                             <div class="form-group text-center">
-                                <span style="font-size:45px;color:#fff; margin-bottom:25px">Start Application</span><br />
+                                <img src="~/Content/assets/img/tower_icon_white.png" /><br />
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group text-center">
-                                <span style="font-size:30px;color:#fff; margin-bottom:25px">
+                                <span style="font-size:45px!important;color:#fff; margin-bottom:25px!important;text-transform:uppercase!important;">Start Application</span><br />
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group text-center">
+                                <span style="font-size:30px!important;color:#fff; margin-bottom:25px!important">
                                     THIS STAGE SHOULD<br />
                                     TAKE LESS THAN
                                 </span><br />
@@ -5682,11 +5687,12 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group text-center">
-                                <span style="font-size:55px;color:#fff; margin-bottom:25px">5 MIN</span>
+                                <span style="font-size:55px!important;color:#fff; margin-bottom:25px!important">5 MIN</span>
                             </div>
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group text-center">
+                                @*<button class="popContinueBtn" id="popContinueResponseBtn" onclick="goToStep(8,8,0)"> Continue</button>*@
                                 <button class="popContinueBtn" id="popContinueResponseBtn" onclick="goToStep(7,7,0)"> Continue</button>
                             </div>
                         </div>
@@ -5698,8 +5704,8 @@
     </div>
 </div>
 <div class="modal" id="popResponsibilityContinue">
-    <div class="modal-dialog">
-        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
+    <div class="modal-dialog modal15min">
+        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance02.png');  background-repeat: no-repeat;background-position: center;margin-top: -1px;margin-left: -1px;">
 
             <!-- Modal Header -->
             <div class="modal-header" style="border-bottom:none">
@@ -5710,6 +5716,11 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-15">
+                        <div class="col-sm-12">
+                            <div class="form-group text-center">
+                                <img src="~/Content/assets/img/tower_icon_white.png" /><br />
+                            </div>
+                        </div>
                         <div class="col-sm-12">
                             <div class="form-group text-center">
                                 <span style="font-size:45px;color:#fff; margin-bottom:25px">FINAL APPLICATION STAGE</span><br />
@@ -5734,11 +5745,15 @@
                             <div class="form-group text-center">
                                 <span style="font-size:20px;color:#fff; margin-bottom:25px">
                                     - 2 PROOFS OF INCOME: pay stubs, tax return*<br />
-                                    FORMS OF IDENTIFICATION: driver’s license, passport*
+                                    - 2 FORMS OF IDENTIFICATION: driver’s license, passport*
                                 </span>
                             </div>
                         </div>
-
+                        <div class="col-sm-12">
+                            <div class="form-group text-center">
+                                <span style="font-size:20px;color:#fff; margin-bottom:25px;font-weight:bold;text-decoration:underline;">*Additional proofs accepted</span>
+                            </div>
+                        </div>
                         <div class="col-sm-12">
                             <div class="form-group text-center">
                                 <button class="popContinueBtn" id="popContinueBtn" onclick="goToStep(9,9,0)"> Continue</button>
@@ -5759,6 +5774,21 @@
             margin: 30px auto;
         }
     }
+    @@media (min-width: 768px) {
+        .modal-dialog.modal15min {
+            width: 800px;
+            height: 650px;
+            margin: 30px auto;
+        }
+    }
+
+    /*@@media (min-width: 768px) {
+        .modal-content.modal5min {
+            width: 700px;
+            height: 570px;
+            margin: 30px auto;
+        }
+    }*/
 
     @@media (min-width: 1200px) {
         .modal-xl {
@@ -6085,13 +6115,15 @@
     }
 
     .popContinueBtn {
-        border-radius: 25px;
+        border-radius: 12px;
         border: 2px solid #fff;
         background-color: #fff;
-        font-size: 25px;
+        font-size: 30px;
         color: #73AD21;
-        width: 200px;
-        height: 60px;
+        width: 220px;
+        height: 61px;
+        text-transform: uppercase;
+        font-weight: bold;
     }
 </style>
 <script>
