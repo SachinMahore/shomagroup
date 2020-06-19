@@ -5874,7 +5874,7 @@
 </div>
 <div class="modal" id="popApplicantContinue">
     <div class="modal-dialog">
-        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.jpg');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
+        <div class="modal-content" style="background-image: url('../../Content/assets/img/Entrance01.png');  background-repeat: no-repeat;background-attachment: fixed;background-position: top;">
 
             <!-- Modal Header -->
             <div class="modal-header" style="border-bottom:none">
@@ -5887,7 +5887,7 @@
                     <div class="col-sm-15">
                         <div class="col-sm-12">
                             <div class="form-group text-center">
-                                <span style="font-size:45px;color:#fff; margin-bottom:25px">Start Application</span><br />
+                                <span style="font-size:45px;color:#fff; margin-bottom:25px;text-transform:uppercase;">Start Application</span><br />
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -5905,6 +5905,7 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group text-center">
+                                @*<button class="popContinueBtn" id="popContinueResponseBtn" onclick="goToStep(8,8,0)"> Continue</button>*@
                                 <button class="popContinueBtn" id="popContinueResponseBtn" onclick="goToStep(7,7,0)"> Continue</button>
                             </div>
                         </div>
@@ -6229,13 +6230,15 @@
     }
 
     .popContinueBtn {
-        border-radius: 25px;
+        border-radius: 12px;
         border: 2px solid #fff;
         background-color: #fff;
-        font-size: 25px;
+        font-size: 30px;
         color: #73AD21;
-        width: 200px;
-        height: 60px;
+        width: 220px;
+        height: 61px;
+        text-transform: uppercase;
+        font-weight: bold;
     }
 </style>
 <script>
