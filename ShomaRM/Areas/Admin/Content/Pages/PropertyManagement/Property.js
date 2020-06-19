@@ -1036,6 +1036,7 @@ function SaveUpdatePropertyUnit() {
     var spaceNo = $("#txtSpaceNo").val();
 
     var isFurnished = $("#ddlFurnishedUnit").val();
+    var unitAvailability = $("#checkUnitIsAvailable").is(":checked") ? 1 : 0;
 
     if (unitNo == "") {
         msg += " Please enter Unit Title .<br />";
@@ -1148,6 +1149,7 @@ function SaveUpdatePropertyUnit() {
     $formData.append('ParkingName', spaceNo);
     $formData.append('UnitWiseRentData', unitWiseRentData);
     $formData.append('IsFurnished', isFurnished);
+    $formData.append('IsAvailable', unitAvailability);
     var $file = document.getElementById('unit-picture');
     if ($file.files.length > 0) {
         for (var i = 0; i < $file.files.length; i++) {
@@ -1906,7 +1908,6 @@ var fillUnitLeaseWisePriceList = function (pagenumber, sortby, orderby) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-
             if ($.trim(response.error) !== "") {
                 //this.cancelChanges();
             } else {
@@ -1935,6 +1936,12 @@ var fillUnitLeaseWisePriceList = function (pagenumber, sortby, orderby) {
                         uid = value.UID;
                         html += "<td>" + value.UnitNo + "</td>";
                         html += "<td>" + value.Building + "</td>";
+                        if (value.IsAvailable == 0) {
+                            html += '<td><input id="checkUnitIsAvailable_' + value.UID + '" type="checkbox" class="form-control lockunlock" style="width:20px;height:20px;margin-left:30px;"  onclick="checkUnitAvailability( ' + value.UID + ')" disabled/></td>';
+                        }
+                        else if (value.IsAvailable == 1) {
+                            html += '<td><input id="checkUnitIsAvailable_' + value.UID + '" type="checkbox" class="form-control lockunlock" style="width:20px;height:20px;margin-left:30px;"  onclick="checkUnitAvailability(' + value.UID + ')"  checked disabled/></td>';
+                        }
                     }
                     if (uid = value.UID) {
                         //html += "<td id='avUnitLeaseRent_" + value.ULPID + "' onclick='editUnitLeaseRent(" + value.UID + "," + value.ULPID + "," + value.LeaseID + "," + value.Price + ")' style='cursor: pointer!important;' >" + value.Price + "<i class='fa fa-edit pull-right' style='margin: 6px;'></i></td>";
@@ -2081,4 +2088,45 @@ var uploadPetPolicyFile = function () {
             });
         }
     });
+};
+var checkUnitAvailability = function (id) {
+    var status = "";
+    if ($("#checkUnitIsAvailable_" + id).is(':checked')) {
+        var status = 1;
+    }
+    else {
+        status = 0;
+    }
+
+    var model = {
+        UID: id,
+        IsAvailable: status
+    };
+
+    $.ajax({
+        url: "/Admin/PropertyManagement/UpdateUnitAvailability/",
+        type: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.Msg > 0) {
+                $.alert({
+                    title: 'Message!',
+                    content: "Property Unit Saved Succefully",
+                    type: 'blue',
+                });
+                $("#hndUID").val(response.Msg)
+            }
+            else {
+                $.alert({
+                    title: 'Message!',
+                    content: "Property Unit Updated Succefully",
+                    type: 'blue',
+                });
+            }
+            $("#divLoader").hide();
+        }
+    });
+
 };

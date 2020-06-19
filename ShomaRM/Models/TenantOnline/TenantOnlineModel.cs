@@ -2580,9 +2580,9 @@ namespace ShomaRM.Models
                 aptlyModel.Pets = petInfo.Breed;
 
             }
-           
-          
-            aptlyModel.PortalURL = "http://52.4.251.162:8086/Admin/ProspectVerification/EditProspect/" + tenantinfo.ProspectID;
+
+
+            aptlyModel.PortalURL = serverURL + "Admin/ProspectVerification/EditProspect/" + tenantinfo.ProspectID;
             aptlyModel.CreditPaid = applicantdata.CreditPaid==1?"True": "False";
             aptlyModel.BackgroundCheckPaid = applicantdata.BackGroundPaid == 1 ? "True" : "False";
 
