@@ -306,8 +306,7 @@ body.ja_blur > *:not(.ja_wrap)
     user-select: text;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    text-align: center;
-    /*text-align: center;*/
+    text-align:center;
 }
 
 .ja_setheight .ja_body
