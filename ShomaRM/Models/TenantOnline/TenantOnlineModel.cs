@@ -2567,7 +2567,7 @@ namespace ShomaRM.Models
             aptlyModel.Unit = (propDet.UnitNo).Replace("Unit ","");
             aptlyModel.UnitNumber=(propDet.UnitNo).Replace("Unit ", "");
             aptlyModel.FloorPlan = propDet.Building;
-            aptlyModel.Stage = "Applicants";
+            aptlyModel.Stage = "Applicant";
             aptlyModel.SubStage = tenantinfo.StepCompleted == 7 ? "Applicants" : tenantinfo.StepCompleted == 8 ? "Responsibility" : tenantinfo.StepCompleted == 9 ? "Personal Info" : tenantinfo.StepCompleted == 10 ? "Residence History" : tenantinfo.StepCompleted == 11 ? "Employment & Income" : tenantinfo.StepCompleted == 12 ? "Emergency Contact" : tenantinfo.StepCompleted == 13 ? "Vehicle Info" : tenantinfo.StepCompleted == 14 ? "Pet Info" : tenantinfo.StepCompleted == 15 ? "Payment" : tenantinfo.StepCompleted == 16 ? "Waiting Approval":"";
 
             var leaseterm = db.tbl_LeaseTerms.Where(p => p.LTID == applydata.LeaseTerm).FirstOrDefault();
