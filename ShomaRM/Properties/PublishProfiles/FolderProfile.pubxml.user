@@ -139,7 +139,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2020 20:20:10</publishTime>
     </File>
     <File Include="Areas/Admin/Content/Pages/ProspectVerification/ProspectVerification.js">
-      <publishTime>06/18/2020 19:52:25</publishTime>
+      <publishTime>06/19/2020 10:37:34</publishTime>
     </File>
     <File Include="Areas/Admin/Content/Pages/ProspectVerification/ProspectVerificationList.js">
       <publishTime>05/31/2020 18:25:22</publishTime>
@@ -856,16 +856,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/18/2020 19:59:05</publishTime>
     </File>
     <File Include="bin/ShomaRM.Data.dll.config">
-      <publishTime>06/18/2020 19:52:25</publishTime>
+      <publishTime>06/19/2020 10:37:34</publishTime>
     </File>
     <File Include="bin/ShomaRM.Data.pdb">
       <publishTime>06/18/2020 19:59:05</publishTime>
     </File>
     <File Include="bin/ShomaRM.dll">
-      <publishTime>06/18/2020 19:59:08</publishTime>
+      <publishTime>06/19/2020 12:21:30</publishTime>
     </File>
     <File Include="bin/ShomaRM.pdb">
-      <publishTime>06/18/2020 19:59:08</publishTime>
+      <publishTime>06/19/2020 12:21:30</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
       <publishTime>04/18/2020 15:13:46</publishTime>
@@ -8008,7 +8008,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/07/2020 17:26:24</publishTime>
     </File>
     <File Include="Log/Log.txt">
-      <publishTime>06/18/2020 19:52:25</publishTime>
+      <publishTime>06/19/2020 10:37:34</publishTime>
     </File>
     <File Include="Log4Net.config">
       <publishTime>04/29/2020 20:32:56</publishTime>
@@ -8092,7 +8092,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2020 21:13:30</publishTime>
     </File>
     <File Include="Views/CheckList/Index.cshtml">
-      <publishTime>06/18/2020 19:52:25</publishTime>
+      <publishTime>06/19/2020 10:37:34</publishTime>
     </File>
     <File Include="Views/CheckList/SignLease.cshtml">
       <publishTime>05/23/2020 20:20:20</publishTime>
