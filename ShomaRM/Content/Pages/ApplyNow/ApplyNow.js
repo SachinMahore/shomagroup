@@ -814,7 +814,7 @@ var goToStep = function (stepid, id, calldataupdate) {
     if (parseInt($("#hdnStepCompleted").val()) >= 15) {
         $(".gotosummary").removeClass('hidden');
     }
-    $.jTimeout.setTimeOutAfter(60);
+    $.jTimeout.setTimeOutAfter(780);
     //$.jTimeout().reset();
     if (stepid > 7) {
         if ($("#hndCreditPaid").val() == 0) {
