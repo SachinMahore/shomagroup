@@ -69,7 +69,7 @@
                 <li id="li6"><a href="javascript:void(0);" id="as6" onclick="goToStep(7,7,0)">6. Complete Application</a></li>
 
             </ul>
-            <div class="text-center">
+            <div class="text-center" style="width:99.3%">
                 <ul class="nav nav-tabs hidden text-center" style="margin-top:-14px !important;background-color:#4d738a !important;height:29px !important" id="subMenu">
                     <li class="active" id="li7" style="background-color:#4d738a"><a style="padding: 3px 15px!important;margin-left:4px !important" onclick="goToStep(7,7)" href="javascript:void(0);">a. Applicants</a></li>
                     <li id="li8" style="background-color:#4d738a"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(8,8,0)">b. Responsibility</a></li>
@@ -1446,14 +1446,22 @@
                         <br />
                     </div>
                     <div class="col-sm-12">
-                        <div class="pull-left text-center">
-                            <button type="submit" class="btn-alltype" onclick="goToStep(4,4,0)"> Back</button>
+                        <div class="col-sm-4">
+                            <div class="pull-left text-center">
+                                <button type="submit" class="btn-alltype" onclick="goToStep(4,4,0)"> Back</button>
+                            </div>
                         </div>
-                        <div class="text-center">
-                            <button id="quotePrint" class="btn-alltype" onclick="printQuotationPrint()"> Print</button>
+                        <div class="col-sm-4">
+                            <div class="text-center">
+                                <button id="quotePrint" class="btn-alltype" onclick="printQuotationPrint()"> Print</button>
+                            </div>
                         </div>
-                        <div class="pull-right  text-center">
-                            <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(6,6,0)"> Continue</button>
+                        <div class="col-sm-4">
+                            <div class="pull-right text-center">
+                                <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(6,6,0)"> Continue</button>
+                            </div>
+                        </div>
+                        <div class="pull-right text-center">
                             <button type="button" class="btn-alltype gotosummary hidden" id="" onclick="goToSummaryPageApp()">Go to summary</button>
                         </div>
                     </div>

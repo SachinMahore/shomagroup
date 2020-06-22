@@ -2580,14 +2580,18 @@ namespace ShomaRM.Models
                 aptlyModel.Pets = petInfo.Breed;
 
             }
-
-
             aptlyModel.PortalURL = serverURL + "Admin/ProspectVerification/EditProspect/" + tenantinfo.ProspectID;
             aptlyModel.CreditPaid = applicantdata.CreditPaid==1?"True": "False";
             aptlyModel.BackgroundCheckPaid = applicantdata.BackGroundPaid == 1 ? "True" : "False";
 
             var test = aptlyHelper.PostAptlyAsync(aptlyModel);
             return "";
+        }
+        public string GetSubStage()
+        {
+            string substage = "";
+
+            return substage;
         }
     }
 
