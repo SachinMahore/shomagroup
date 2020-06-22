@@ -87,6 +87,8 @@ namespace ShomaRM.Models
             jsonPost = jsonPost.Replace("CreditPaid", "Credit Paid");
             jsonPost = jsonPost.Replace("PortalURL", "Portal URL");
             jsonPost = jsonPost.Replace("BackgroundCheckPaid", "Background Check Paid");
+            jsonPost = jsonPost.Replace("Applicant Type", "Applicant Type");           
+            jsonPost = jsonPost.Replace("RelatedContacts", "Related Contacts");
             return jsonPost;
 
 
