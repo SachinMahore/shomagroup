@@ -99,7 +99,7 @@
     </Reference>
     <Reference Include="LoggerEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Downloads\LoggerEngine.dll</HintPath>
+      <HintPath>..\..\..\..\..\Downloads\LoggerEngine.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Graph, Version=1.21.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
