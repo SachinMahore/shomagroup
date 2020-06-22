@@ -1415,7 +1415,20 @@ var goToStep = function (stepid, id, calldataupdate) {
         }
         if (id == "16") {
             var msgmm = '';
+            var isSummarychecked = $("#chkAgreeSummarry").is(":checked") ? "1" : "0";
+            if (isSummarychecked != "1") {
+                msgmm = 'Please ACCEPT AGREEMENTS </br>';
 
+            }
+            if (msgmm != "") {
+                $.alert({
+                    title: "",
+                    content: msgmm,
+                    type: 'red'
+                });
+                goToStep(15, 15, 0);
+                return;
+            }
 
             // SaveUpdateStep(16);
             $("#subMenu").removeClass("hidden");
@@ -3887,7 +3900,7 @@ var addApplicant = function (at) {
     clearApplicant();
     $("#popApplicant").modal("show");
 };
-var saveupdateApplicant = function () {
+var saveupdateGuarantor= function () {
 
     $("#divLoader").show();
     var checkEmail = 0;
@@ -4062,7 +4075,7 @@ var saveupdateApplicant = function () {
     var model = {
         ApplicantID: aid,
         FirstName: fname,
-        Middle: mname,
+        MiddleName: mname,
         LastName: lname,
         Phone: aphone,
         Email: aemail,
@@ -4140,7 +4153,7 @@ var goToEditApplicantGuarantor = function (aid) {
             data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
-
+                console.log(response.model);
                 var modal = $("#popApplicant");
                 $("#txtApplicantFirstName").val(response.model.FirstName);
                 $("#txtApplicantMiddleName").val(response.model.MiddleName);
@@ -4319,7 +4332,8 @@ var goToEditApplicantGuarantor = function (aid) {
                     $("#txtApplicantCountry").trigger('change');
                     $("#txtAddressLine1").val(response.model.HomeAddress1);
                     $("#txtAddressLine2").val(response.model.HomeAddress2);
-                    $("#ddlApplicantState").val(response.model.StateHome).change();
+                    $("#ddlApplicantState").val(response.model.StateHome);
+                    $("#ddlApplicantState").trigger('change');
                     $("#txtApplicantCity").val(response.model.CityHome);
                     $("#txtApplicantZip2").val(response.model.ZipHome);
 
@@ -5605,7 +5619,7 @@ var getTenantOnlineListGuarantor = function (id) {
             $("#txtDateOfExpiration").val(response.model.DateExpireTxt);
             $("#ddlDocumentTypePersonal").val(response.model.IDType).change();
             //setTimeout(function () {
-            $("#ddlStatePersonal").val(response.model.State).change();
+            $("#ddlStatePersonal").val(response.model.StateHome).change();
             //$("#ddlStatePersonal").find("option[value='" + response.model.State + "']").attr('selected', 'selected');
             //}, 1500);
 
@@ -8837,7 +8851,7 @@ function saveCoAppPayment() {
                             if (response.Msg != "") {
                                 if (response.Msg == "1") {
                                     $("#ResponseMsg1").html("Payment successfull");
-                                    saveupdateApplicant();
+                                    saveupdateGuarantor();
                                     window.location = "/ApplyNow/GuarantorDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val(); 
 
                                 } else {
