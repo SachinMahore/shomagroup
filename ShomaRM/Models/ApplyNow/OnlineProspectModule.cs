@@ -1345,7 +1345,7 @@ namespace ShomaRM.Models
                     emailBody += "<p style=\"margin-bottom: 0px;\">Hey "+cd.FirstName + " " + cd.LastName+"! You haven’t yet completed the application and all the progress you’ve made will be lost in a matter of hours! It won’t take long to complete, and we’re here to answer any questions. This is important! This is the opportunity of a lifetime to live the lifestyle you’ve always wanted in a place you’ve always dreamed of.</p>";
                     emailBody += "<p style=\"margin-bottom: 0px;\">Username : <span style=\"text-decoration:underline;color:blue;\">" + cd.Email + "</span> </p>";
                     emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login</p>";
-                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "Account/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
                     reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
                     string appSummary = new ApplyNowModel().PrintApplicationForm(cd.ID);
@@ -1392,7 +1392,7 @@ namespace ShomaRM.Models
                     emailBody += "<p style=\"margin-bottom: 0px;\">Hey " + cd.FirstName + " " + cd.LastName + "! You haven’t yet completed the application and all the progress you’ve made will be lost in a matter of hours! It won’t take long to complete, and we’re here to answer any questions. This is important! This is the opportunity of a lifetime to live the lifestyle you’ve always wanted in a place you’ve always dreamed of.</p>";
                     emailBody += "<p style=\"margin-bottom: 0px;\">Username : <span style=\"text-decoration:underline;color:blue;\">" + cd.Email + "</span> </p>";
                     emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login</p>";
-                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "Account/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
                     reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
                     string appSummary = new ApplyNowModel().PrintApplicationForm(cd.ID);
@@ -1451,7 +1451,7 @@ namespace ShomaRM.Models
                     string emailBody = "";
                     emailBody += "<p style=\"margin-bottom: 0px;\">Hello " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "! Your Online application submitted successfully by " + GetTenantDet.FirstName + " " + GetTenantDet.LastName + ".</p>";
                     emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login</p>";
-                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "Account/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
                     reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
                     //reportHTML = reportHTML.Replace("[%CoAppType%]", GetCoappDet.Type);
@@ -1511,7 +1511,7 @@ namespace ShomaRM.Models
                 emailBody += "<p style=\"margin-bottom: 0px;\">Hello " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "! Your Online application submitted successfully. Please click below to Pay Application fees of $135.</p>";
                 emailBody += "<p style=\"margin-bottom: 0px;\"><!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">PAY NOW</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]--></p>";
                 emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login</p>";
-                emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "Account/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
                 reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
 
@@ -2009,7 +2009,7 @@ namespace ShomaRM.Models
                     emailBody += "<p style=\"margin-bottom: 0px;\">Hey " + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "! You haven’t yet signed the application Only 48 Hrs Left to expire link and all the progress you’ve made will be lost in a matter of hours! It won’t take long to complete, and we’re here to answer any questions. This is important! This is the opportunity of a lifetime to live the lifestyle you’ve always wanted in a place you’ve always dreamed of.</p>";
                     emailBody += "<p style=\"margin-bottom: 0px;\">Username : <span style=\"text-decoration:underline;color:blue;\">" + GetTenantDet.Email + "</span> </p>";
                     emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for eSignature</p>";
-                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "Account/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
                     reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
                     string appSummary = new ApplyNowModel().PrintApplicationForm(GetTenantDet.ID);
@@ -2052,7 +2052,7 @@ namespace ShomaRM.Models
                     emailBody += "<p style=\"margin-bottom: 0px;\">Hey " + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "! You haven’t yet signed the application Only 24 Hrs Left to expire link  and all the progress you’ve made will be lost in a matter of hours! It won’t take long to complete, and we’re here to answer any questions. This is important! This is the opportunity of a lifetime to live the lifestyle you’ve always wanted in a place you’ve always dreamed of.</p>";
                     emailBody += "<p style=\"margin-bottom: 0px;\">Username : <span style=\"text-decoration:underline;color:blue;\">" + GetTenantDet.Email + "</span> </p>";
                     emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for eSignature</p>";
-                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "Account/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
                     reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
                     string appSummary = new ApplyNowModel().PrintApplicationForm(GetTenantDet.ID);
@@ -2096,7 +2096,7 @@ namespace ShomaRM.Models
                     emailBody += "<p style=\"margin-bottom: 0px;\">Hey " + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "! You haven’t yet signed the application Only 12 Hrs Left to expire link  and all the progress you’ve made will be lost in a matter of hours! It won’t take long to complete, and we’re here to answer any questions. This is important! This is the opportunity of a lifetime to live the lifestyle you’ve always wanted in a place you’ve always dreamed of.</p>";
                     emailBody += "<p style=\"margin-bottom: 0px;\">Username : <span style=\"text-decoration:underline;color:blue;\">" + GetTenantDet.Email + "</span> </p>";
                     emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for eSignature</p>";
-                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "Account/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
                     reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
                     string appSummary = new ApplyNowModel().PrintApplicationForm(GetTenantDet.ID);

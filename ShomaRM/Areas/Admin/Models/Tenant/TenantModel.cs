@@ -1528,7 +1528,7 @@ namespace ShomaRM.Areas.Admin.Models
                     emailBody += "<p style=\"margin-bottom: 0px;\">Storage Amount  :  " + prospectDet.StorageAmt.Value.ToString(("0.00")) + "</p>";
                     emailBody += "<p style=\"margin-bottom: 0px;\">Monthly Charges  :  " + prospectDet.MonthlyCharges.Value.ToString(("0.00")) + "</p>";
                     emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login</p>";
-                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "Account/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
                     reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
 

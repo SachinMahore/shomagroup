@@ -862,10 +862,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/18/2020 19:59:05</publishTime>
     </File>
     <File Include="bin/ShomaRM.dll">
-      <publishTime>06/19/2020 20:06:22</publishTime>
+      <publishTime>06/20/2020 17:24:07</publishTime>
     </File>
     <File Include="bin/ShomaRM.pdb">
-      <publishTime>06/19/2020 20:06:22</publishTime>
+      <publishTime>06/20/2020 17:24:07</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
       <publishTime>04/18/2020 15:13:46</publishTime>
@@ -8077,10 +8077,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/31/2020 18:07:55</publishTime>
     </File>
     <File Include="Views/ApplyNow/CoApplicantDet.cshtml">
-      <publishTime>06/19/2020 20:05:26</publishTime>
+      <publishTime>06/20/2020 17:09:43</publishTime>
     </File>
     <File Include="Views/ApplyNow/GuarantorDet.cshtml">
-      <publishTime>06/19/2020 20:05:26</publishTime>
+      <publishTime>06/20/2020 17:09:55</publishTime>
     </File>
     <File Include="Views/ApplyNow/Index.cshtml">
       <publishTime>06/19/2020 20:05:26</publishTime>
