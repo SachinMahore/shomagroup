@@ -49,6 +49,17 @@ namespace ShomaRM.Models
         public string PortalURL { get; set; }        
         public string CreditPaid { get; set; }
         public string BackgroundCheckPaid { get; set; }
-  
+
+        public string ApplicantType { get; set; }
+        public List<RelatedContacts> RelatedContacts { get; set; }
+    }
+
+    public class RelatedContacts
+    {
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
     }
 }

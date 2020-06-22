@@ -6637,7 +6637,7 @@ var getFillSummary = function (id) {
             }
 
             $("#summEmployerStartDate").text(response.model.StartDateTxt);
-            $("#summEmployerAnnualIncome").text(formatMoney(response.model.AnnualIncome));
+            $("#summEmployerAnnualIncome").text(formatMoney(response.model.Income));
             $("#summEmployerSupervisorName").text(response.model.SupervisorName);
             $("#summEmployerSupervisorPhone").text(formatPhoneFax(response.model.SupervisorPhone));
             $("#summEmployerp").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
