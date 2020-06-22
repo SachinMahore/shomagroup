@@ -2385,7 +2385,8 @@
 
                         <div class="col-sm-12">
                             <div class="pull-left text-center">
-                                <button type="submit" class="btn-alltype" onclick="goToStep(12,12,0)"> Back</button>
+                                @*<button type="submit" class="btn-alltype" onclick="goToStep(12,12,0)"> Back</button>*@
+                                <button type="submit" class="btn-alltype" onclick="goToStep(11,11,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
                                 <button type="submit" class="btn-alltype" id="btnnext" onclick="goToStep(14,14,0)"> Continue</button>
@@ -2506,6 +2507,8 @@
                                                                     <th style="background-color: #c7cdd5;color:#3d3939">Move In Charges</th>
                                                                     <th style="background-color: #c7cdd5;color:#3d3939">Monthly %</th>
                                                                     <th style="background-color: #c7cdd5;color:#3d3939">Monthly Charges</th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939">Admin Fee %</th>
+                                                                    <th style="background-color: #c7cdd5;color:#3d3939">Admin Fee (Charges)</th>
 
                                                                 </tr>
                                                             </thead>
@@ -5128,12 +5131,12 @@
                         </div>
                     </div>
                     <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="txtMonthlyPayment">Monthly Payment </label>
-                            <input id="txtMonthlyPayment2" type="text" class="form-control form-control-small" onkeypress="return isNumber(event)" style="text-align:right" />
+                        <label for="txtMonthlyPayment">Monthly Payment </label>
+                        <div class="input-group">
                             <span class="input-group-btn">
-                                <button class="btn btn-primary search" type="button" style="margin-top:-35px;"><i class="fa-dollar fa"></i></button>
+                                <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
                             </span>
+                            <input id="txtMonthlyPayment2" type="text" class="form-control form-control-small" onkeypress="return isNumber(event)" style="text-align:right" />
                         </div>
                     </div>
                 </div>

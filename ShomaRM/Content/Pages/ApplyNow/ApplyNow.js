@@ -5481,6 +5481,8 @@ var getApplicantLists = function () {
                     htmlResp15 += "<td> $" + formatMoney(elementValue.MoveInCharge) + "</td>";
                     htmlResp15 += "<td> " + elementValue.MonthlyPercentage + "%</td>";
                     htmlResp15 += "<td> $" + formatMoney(elementValue.MonthlyPayment) + "</td>";
+                    htmlResp15 += "<td> " + elementValue.AdminFeePercentage + "%</td>";
+                    htmlResp15 += "<td> $" + formatMoney(elementValue.AdminFee) + "</td>";
                     htmlResp15 += "</tr>";
                 }
 
