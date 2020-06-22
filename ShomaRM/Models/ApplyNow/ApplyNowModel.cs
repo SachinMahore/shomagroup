@@ -2353,7 +2353,7 @@ namespace ShomaRM.Models
                         emailBody += "<p style=\"margin-bottom: 0px;\">User ID :" + appDetails.Username + " </br>Password :" + pass + "</p>";
                         emailBody += "<p style=\"margin-bottom: 0px;\">Using Quotation Number : " + ApplyNowQuotationNo + ".</p>";
                         emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login</p>";
-                        emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Accounty/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                        emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "Account/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
 
                         reportCoappHTML = reportCoappHTML.Replace("[%EmailBody%]", emailBody);
 
