@@ -40,12 +40,24 @@ namespace ShomaRM.Controllers
             aptlyModel.MoveInDate = "2020-05-25";
             aptlyModel.QuoteExpires = "2020-05-01 24:00:00";
             aptlyModel.Pets = "Dog(s)";
-            aptlyModel.Pets = "Dog(s)";
+         
             aptlyModel.PortalURL = "http://52.4.251.162:8086/Admin/ProspectVerification/EditProspect/1727";
             aptlyModel.CreditPaid = "False";
             aptlyModel.BackgroundCheckPaid = "true";
-
-            var test= aptlyHelper.PostAptlyAsync(aptlyModel);
+            RelatedContacts _objrelatedContacts = new RelatedContacts();
+            _objrelatedContacts.FirstName = "Sanctuary Doral -ganesh";
+            _objrelatedContacts.LastName = "Sanctuary Doral -ganesh";
+            _objrelatedContacts.Email = "ganesh@gmail.com";
+            _objrelatedContacts.Phone = "+14152344159";
+            RelatedContacts _objrelatedContacts1 = new RelatedContacts();
+            _objrelatedContacts1.FirstName = "Sanctuary Doral -ganesh1";
+            _objrelatedContacts1.LastName = "Sanctuary Doral -ganesh1";
+            _objrelatedContacts1.Email = "ganesh1@gmail.com";
+            _objrelatedContacts1.Phone = "+919960239121";
+            aptlyModel.RelatedContacts = new List<RelatedContacts>();
+            aptlyModel.RelatedContacts.Add(_objrelatedContacts);
+                  aptlyModel.RelatedContacts.Add(_objrelatedContacts1);
+            var test = aptlyHelper.PostAptlyAsync(aptlyModel);
 
             if (Session["DelDatAll"] != null)
             {
