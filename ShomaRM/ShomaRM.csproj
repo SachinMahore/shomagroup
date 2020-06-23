@@ -472,6 +472,7 @@
     <Compile Include="Models\ShomaGroupWebSession.cs" />
     <Compile Include="Models\TenantOnline\TenantOnlineModel.cs" />
     <Compile Include="Models\Transaction\UsaePayModel.cs" />
+    <Compile Include="Models\Transaction\UsaePayWSDLModel.cs" />
     <Compile Include="Models\TwilioApi\SMSListViewModel.cs" />
     <Compile Include="Models\TwilioApi\SMSMessageModel.cs" />
     <Compile Include="Models\TwilioApi\TwilioService.cs" />
@@ -3105,6 +3106,7 @@
     <Content Include="Views\ApplyNow\GuarantorDet.cshtml" />
     <Content Include="Views\AddressMap\Index.cshtml" />
     <Content Include="Views\CheckList\CoApplicant.cshtml" />
+    <Content Include="Views\Home\PayFromUsae.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
