@@ -732,7 +732,7 @@ namespace ShomaRM.Models
                         {
                             tenantData.StepCompleted = stepcomp;
                             db.SaveChanges();
-                            CallAptly();
+                            CallAptly(applyNow.ID);
                         }
                     }
                 }
@@ -763,7 +763,7 @@ namespace ShomaRM.Models
             int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.ProspectID != 0)
             {
-                CallAptly();
+                
                 var applyNow = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectID).FirstOrDefault();
                 var getAppldata = db.tbl_TenantOnline.Where(p => p.ProspectID == model.ProspectID && p.ParentTOID == userid).FirstOrDefault();
                 if (getAppldata != null)
@@ -874,6 +874,8 @@ namespace ShomaRM.Models
                     getAppldata.IsBankState = model.IsBankState;
 
                     db.SaveChanges();
+
+                    CallAptly(applyNow.ID);
                 }
 
                 var saveApplicantGender = db.tbl_Applicant.Where(p => p.Email == model.Email).FirstOrDefault();
@@ -2545,51 +2547,97 @@ namespace ShomaRM.Models
         }
 
         //Sachin Mahore 16 June 2020
-        public string CallAptly()
+        public string CallAptly(long Id)
         {
             aptlyHelper aptlyHelper = new aptlyHelper();
             aptlyModel aptlyModel = new aptlyModel();
             ShomaRMEntities db = new ShomaRMEntities();
-          
-            var tenantinfo = db.tbl_TenantOnline.Where(p => p.ParentTOID == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
-            var applicantdata = db.tbl_Applicant.Where(p => p.UserID ==ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
-            var applydata = db.tbl_ApplyNow.Where(p => p.ID == tenantinfo.ProspectID).FirstOrDefault();
-            var propDet = db.tbl_PropertyUnits.Where(c => c.UID == applydata.PropertyId).FirstOrDefault();
 
-            aptlyModel.name = tenantinfo.FirstName + " " + tenantinfo.LastName+" - "+ applydata.MoveInDate.Value.ToString("MM/dd/yyyy")+" - "+ propDet.UnitNo;
-            aptlyModel.Email = tenantinfo.Email;
-            aptlyModel.FirstName = tenantinfo.FirstName;
-            aptlyModel.LastName = tenantinfo.LastName;
-            aptlyModel.Phone = tenantinfo.Mobile;
-
-         
-            aptlyModel.Building = "Sanctuary Doral";
-            aptlyModel.Unit = (propDet.UnitNo).Replace("Unit ","");
-            aptlyModel.UnitNumber=(propDet.UnitNo).Replace("Unit ", "");
-            aptlyModel.FloorPlan = propDet.Building;
-            aptlyModel.Stage = "Applicant";
-            aptlyModel.SubStage = tenantinfo.StepCompleted == 7 ? "Applicants" : tenantinfo.StepCompleted == 8 ? "Responsibility" : tenantinfo.StepCompleted == 9 ? "Personal Info" : tenantinfo.StepCompleted == 10 ? "Residence History" : tenantinfo.StepCompleted == 11 ? "Employment & Income" : tenantinfo.StepCompleted == 12 ? "Emergency Contact" : tenantinfo.StepCompleted == 13 ? "Vehicle Info" : tenantinfo.StepCompleted == 14 ? "Pet Info" : tenantinfo.StepCompleted == 15 ? "Payment" : tenantinfo.StepCompleted == 16 ? "Waiting Approval":"";
-
-            var leaseterm = db.tbl_LeaseTerms.Where(p => p.LTID == applydata.LeaseTerm).FirstOrDefault();
-            aptlyModel.LeaseTerm = leaseterm.LeaseTerms.ToString();
-            aptlyModel.MoveInDate = applydata.MoveInDate.Value.ToString("MM/dd/yyyy");
-            aptlyModel.QuoteExpires =Convert.ToDateTime(tenantinfo.CreatedDate).AddDays(3).ToString("MM/dd/yyyy") + "24:00:00";
-            var petInfo = db.tbl_TenantPet.Where(p=>p.AddedBy == ShomaGroupWebSession.CurrentUser.UserID).FirstOrDefault();
-            if(petInfo!=null)
+            var applydata = db.tbl_ApplyNow.Where(p => p.ID == Id).FirstOrDefault();
+            if (applydata != null)
             {
-                aptlyModel.Pets = petInfo.Breed;
+                var applicantdata = db.tbl_Applicant.Where(p => p.TenantID == applydata.ID).ToList();
+                var tenantinfo = db.tbl_TenantOnline.Where(p => p.ProspectID == applydata.ID).ToList();
 
+                var propDet = db.tbl_PropertyUnits.Where(c => c.UID == applydata.PropertyId).FirstOrDefault();
+                var leaseterm = db.tbl_LeaseTerms.Where(p => p.LTID == applydata.LeaseTerm).FirstOrDefault();
+                
+                var applicantdataprimary = applicantdata.Where(p => p.Type == "Primary Applicant").FirstOrDefault();
+
+                if(applicantdataprimary!=null)
+                {
+                    var tenantinfoprimary = tenantinfo.Where(p => p.ParentTOID == applicantdataprimary.UserID).FirstOrDefault();
+
+                    aptlyModel.name = tenantinfoprimary.FirstName + " " + tenantinfoprimary.LastName + " - " + applydata.MoveInDate.Value.ToString("MM/dd/yyyy") + " - " + propDet.UnitNo;
+                    aptlyModel.Email = tenantinfoprimary.Email;
+                    aptlyModel.FirstName = tenantinfoprimary.FirstName;
+                    aptlyModel.LastName = tenantinfoprimary.LastName;
+                    aptlyModel.Phone = "+1" + tenantinfoprimary.Mobile;
+
+                    aptlyModel.Building = "Sanctuary Doral";
+                    aptlyModel.Unit = (propDet.UnitNo).Replace("Unit ", "");
+                    aptlyModel.UnitNumber = (propDet.UnitNo).Replace("Unit ", "");
+                    aptlyModel.FloorPlan = propDet.Building;
+                    aptlyModel.Stage = "Applicant";
+                    aptlyModel.SubStage = GetSubStage(tenantinfoprimary.StepCompleted ?? 0);
+
+                    aptlyModel.LeaseTerm = leaseterm.LeaseTerms.ToString();
+                    aptlyModel.MoveInDate = applydata.MoveInDate.Value.ToString("MM/dd/yyyy");
+                    aptlyModel.QuoteExpires = Convert.ToDateTime(applydata.CreatedDate).AddDays(3).ToString("MM/dd/yyyy") + "24:00:00";
+                    var petInfo = db.tbl_TenantPet.Where(p => p.TenantID == Id).FirstOrDefault();
+                    if (petInfo != null)
+                    {
+                        aptlyModel.Pets = petInfo.Breed;
+
+                    }
+                    aptlyModel.PortalURL = serverURL + "Admin/ProspectVerification/EditProspect/" + tenantinfoprimary.ProspectID;
+                    aptlyModel.CreditPaid = applicantdataprimary.CreditPaid == 1 ? "True" : "False";
+                    aptlyModel.BackgroundCheckPaid = applicantdataprimary.BackGroundPaid == 1 ? "True" : "False";
+
+                    var relatedContacts = applicantdata.Where(p => p.Type != "Primary Applicant").ToList();
+                    if (relatedContacts.Count() > 0)
+                    {
+                       
+                        aptlyModel.RelatedContacts = new List<RelatedContacts>();
+                        foreach (var rc in relatedContacts)
+                        {
+                            var tenantinfocoapp = tenantinfo.Where(p => p.ParentTOID == rc.UserID).FirstOrDefault();
+                            RelatedContacts _objrelatedContacts = new RelatedContacts();
+                            _objrelatedContacts.FirstName = tenantinfocoapp.FirstName;
+                            _objrelatedContacts.LastName = tenantinfocoapp.LastName;
+                            _objrelatedContacts.Email = tenantinfocoapp.Email;
+                            _objrelatedContacts.Phone = "+1" + tenantinfocoapp.Mobile;
+                            aptlyModel.RelatedContacts.Add(_objrelatedContacts);
+                        }
+                    }
+                    var test = aptlyHelper.PostAptlyAsync(aptlyModel);
+                }
             }
-            aptlyModel.PortalURL = serverURL + "Admin/ProspectVerification/EditProspect/" + tenantinfo.ProspectID;
-            aptlyModel.CreditPaid = applicantdata.CreditPaid==1?"True": "False";
-            aptlyModel.BackgroundCheckPaid = applicantdata.BackGroundPaid == 1 ? "True" : "False";
-
-            var test = aptlyHelper.PostAptlyAsync(aptlyModel);
             return "";
         }
-        public string GetSubStage()
+        public string GetSubStage(int stepcpmpleted)
         {
             string substage = "";
+            if (stepcpmpleted == 7)
+                substage = "Applicants";
+            else if (stepcpmpleted == 8)
+                substage = "Responsibility";
+            else if (stepcpmpleted == 9)
+                substage = "Personal Info";
+            else if (stepcpmpleted == 10)
+                substage = "Residence History";
+            else if (stepcpmpleted == 11)
+                substage = "Employment & Income";
+            else if (stepcpmpleted == 12)
+                substage = "Emergency Contact";
+            else if (stepcpmpleted == 13)
+                substage = "Vehicle Info";
+            else if (stepcpmpleted == 14)
+                substage = "Pet Info";
+            else if (stepcpmpleted == 15)
+                substage = "Payment";
+            else if (stepcpmpleted == 16)
+                substage = "Waiting Approval";
 
             return substage;
         }

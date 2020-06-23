@@ -5308,7 +5308,7 @@ var getApplicantLists = function () {
 
                         "<label>Primary Applicant</label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label><br/>";
-                    if (parseInt(elementValue.CreditPaid) == 0 ) {
+                    if (parseInt(elementValue.CreditPaid) == 0) {
                         $("#editApplicantFees").text("Credit Check Fees");
                         $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
                         html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a></label>";
@@ -5481,6 +5481,8 @@ var getApplicantLists = function () {
                     htmlResp15 += "<td> $" + formatMoney(elementValue.MoveInCharge) + "</td>";
                     htmlResp15 += "<td> " + elementValue.MonthlyPercentage + "%</td>";
                     htmlResp15 += "<td> $" + formatMoney(elementValue.MonthlyPayment) + "</td>";
+                    htmlResp15 += "<td> " + elementValue.AdminFeePercentage + "%</td>";
+                    htmlResp15 += "<td> $" + formatMoney(elementValue.AdminFee) + "</td>";
                     htmlResp15 += "</tr>";
                 }
 

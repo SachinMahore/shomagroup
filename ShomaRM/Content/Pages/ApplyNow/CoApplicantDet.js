@@ -983,7 +983,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             }
             else {
                 $("#popApplicantSummary").modal("hide");
-                saveupdatePaymentResponsibility(9);  //Amit's work
+                saveupdatePaymentResponsibilityCoAppli(9);  //Amit's work
                 $("#step2").addClass("hidden");
                 $("#step1").addClass("hidden");
                 $("#step4").addClass("hidden");
@@ -3805,8 +3805,6 @@ var getApplicantListsCoApplicant = function () {
         }
     });
 };
-
-
 //17082019-code changed
 var fillStateDDL_HomeCoApplicant = function (countryid, selval) {
     $("#divLoader").show();
@@ -7451,23 +7449,29 @@ function getPropertyUnitListByFloor(flid) {
 
 }
 
-function saveupdatePaymentResponsibility(stepcompleted) {
+function saveupdatePaymentResponsibilityCoAppli(stepcompleted) {
     $("#divLoader").show();
     var model = new Array();
-    $("#tblResponsibilityPay TBODY TR").each(function () {
+    $(".respo").each(function () {
         var row = $(this);
         var customer = {};
+
         customer.applicantID = row.attr("data-id");
-        customer.moveInPercentage = row.find("td:eq(1) input[type='text']").val();
+
+        customer.moveInPercentage = $("#txtpayper" + customer.applicantID).val();
         customer.moveInCharge = $("#txtpayamt" + customer.applicantID).val();
-        customer.monthlyPercentage = row.find("td:eq(2) input[type='text']").val();
+        customer.monthlyPercentage = $("#txtpayperMo" + customer.applicantID).val();
         customer.monthlyPayment = $("#txtpayamtMo" + customer.applicantID).val();
+        customer.adminFeePercentage = $("#txtpayperAF" + customer.applicantID).val();
+        customer.adminFeePayment = $("#txtpayamtAF" + customer.applicantID).val();
 
         var applicantID = customer.applicantID;
-        var moveInPercentage = unformatTextCoApplicant(customer.moveInPercentage);
-        var moveInCharge = unformatTextCoApplicant(customer.moveInCharge);
-        var monthlyPercentage = unformatTextCoApplicant(customer.monthlyPercentage);
-        var monthlyPayment = unformatTextCoApplicant(customer.monthlyPayment);
+        var moveInPercentage = unformatText(customer.moveInPercentage);
+        var moveInCharge = unformatText(customer.moveInCharge);
+        var monthlyPercentage = unformatText(customer.monthlyPercentage);
+        var monthlyPayment = unformatText(customer.monthlyPayment);
+        var adminFeePercentage = unformatText(customer.adminFeePercentage);
+        var adminFeePayment = unformatText(customer.adminFeePayment);
         var prospectId = $("#hdnOPId").val();
         model.push({
             ApplicantID: applicantID,
@@ -7475,6 +7479,8 @@ function saveupdatePaymentResponsibility(stepcompleted) {
             MoveInCharge: moveInCharge,
             MonthlyPercentage: monthlyPercentage,
             MonthlyPayment: monthlyPayment,
+            AdminFeePercentage: adminFeePercentage,
+            AdminFee: adminFeePayment,
             ProspectID: prospectId,
             StepCompleted: stepcompleted
         });

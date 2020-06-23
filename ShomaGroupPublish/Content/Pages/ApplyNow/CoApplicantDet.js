@@ -3525,6 +3525,9 @@ var getApplicantListsCoApplicant = function () {
                     htmlResp15 += "<td> $" + formatMoneyCoApplicant(elementValue.MoveInCharge) + "</td>";
                     htmlResp15 += "<td> " + elementValue.MonthlyPercentage + "%</td>";
                     htmlResp15 += "<td> $" + formatMoneyCoApplicant(elementValue.MonthlyPayment) + "</td>";
+                    htmlResp15 += "<td> " + elementValue.AdminFeePercentage + "%</td>";
+                    htmlResp15 += "<td> $" + formatMoneyCoApplicant(elementValue.AdminFee) + "</td>";
+
                     htmlResp15 += "</tr>";
                 }
                 //$("#tblApplicant15>tbody").append(html15);
@@ -3537,7 +3540,10 @@ var getApplicantListsCoApplicant = function () {
                 htmlResp15 += "<td> $" + formatMoneyCoApplicant(elementValue.MoveInCharge) + "</td>";
                 htmlResp15 += "<td> " + elementValue.MonthlyPercentage + "%</td>";
                 htmlResp15 += "<td> $" + formatMoneyCoApplicant(elementValue.MonthlyPayment) + "</td>";
+                htmlResp15 += "<td> " + elementValue.AdminFeePercentage + "%</td>";
+                htmlResp15 += "<td> $" + formatMoneyCoApplicant(elementValue.AdminFee) + "</td>";
                 htmlResp15 += "</tr>";
+
                 $("#tblRespo15>tbody").append(htmlResp15);
                 $("#tblRespo15p>tbody").append(htmlResp15);
 
@@ -3799,6 +3805,7 @@ var getApplicantListsCoApplicant = function () {
         }
     });
 };
+
 
 //17082019-code changed
 var fillStateDDL_HomeCoApplicant = function (countryid, selval) {
@@ -6328,6 +6335,7 @@ var saveupdateTenantOnlineCoapplicant = function (stepcompleted) {
     var OfficeCity = $("#ddlCityEmployee").val();
     var OfficeZip = $("#txtZipOffice").val();
     var Relationship = $("#txtRelationship").val();
+
     var EmergencyFirstName = $("#txtEmergencyFirstName").val();
     var EmergencyLastName = $("#txtEmergencyLastName").val();
     var EmergencyMobile = unformatTextCoApplicant($("#txtEmergencyMobile").val());
@@ -6338,6 +6346,7 @@ var saveupdateTenantOnlineCoapplicant = function (stepcompleted) {
     var EmergencyAddress1 = $("#txtEmergencyAddress1").val();
     var EmergencyAddress2 = $("#txtEmergencyAddress2").val();
     var EmergencyStateHome = $("#ddlStateContact").val();
+    var EmergencyCityHome = $("#ddlCityContact").val();
     var EmergencyCityHome = $("#ddlCityContact").val();
     var EmergencyZipHome = $("#txtEmergencyZip").val();
     var OtherGender = $("#txtOtherGender").val();
@@ -6480,19 +6489,19 @@ var saveupdateTenantOnlineCoapplicant = function (stepcompleted) {
     $formData.append('OfficeCity', OfficeCity);
     $formData.append('OfficeZip', OfficeZip);
     $formData.append('Relationship', Relationship);
-    $formData.append('EmergencyFirstName', EmergencyFirstName);
-    $formData.append('EmergencyLastName', EmergencyLastName);
-    $formData.append('EmergencyMobile', EmergencyMobile);
-    $formData.append('EmergencyHomePhone', EmergencyHomePhone);
-    $formData.append('EmergencyWorkPhone', EmergencyWorkPhone);
-    $formData.append('EmergencyEmail', EmergencyEmail);
-    $formData.append('EmergencyCountry', EmergencyCountry);
-    $formData.append('EmergencyAddress1', EmergencyAddress1);
-    $formData.append('EmergencyAddress2', EmergencyAddress2);
-    $formData.append('EmergencyStateHome', EmergencyStateHome);
-    $formData.append('EmergencyCityHome', EmergencyCityHome);
+    //$formData.append('EmergencyFirstName', EmergencyFirstName);
+    //$formData.append('EmergencyLastName', EmergencyLastName);
+    //$formData.append('EmergencyMobile', EmergencyMobile);
+    //$formData.append('EmergencyHomePhone', EmergencyHomePhone);
+    //$formData.append('EmergencyWorkPhone', EmergencyWorkPhone);
+    //$formData.append('EmergencyEmail', EmergencyEmail);
+    //$formData.append('EmergencyCountry', EmergencyCountry);
+    //$formData.append('EmergencyAddress1', EmergencyAddress1);
+    //$formData.append('EmergencyAddress2', EmergencyAddress2);
+    //$formData.append('EmergencyStateHome', EmergencyStateHome);
+    //$formData.append('EmergencyCityHome', EmergencyCityHome);
 
-    $formData.append('EmergencyZipHome', EmergencyZipHome);
+    //$formData.append('EmergencyZipHome', EmergencyZipHome);
     $formData.append('IsInternational', isInternational);
     $formData.append('IsAdditionalRHistory', isAdditionalRHistory);
     $formData.append('OtherGender', OtherGender);
@@ -6628,7 +6637,7 @@ var getFillSummary = function (id) {
             }
 
             $("#summEmployerStartDate").text(response.model.StartDateTxt);
-            $("#summEmployerAnnualIncome").text(formatMoney(response.model.AnnualIncome));
+            $("#summEmployerAnnualIncome").text(formatMoney(response.model.Income));
             $("#summEmployerSupervisorName").text(response.model.SupervisorName);
             $("#summEmployerSupervisorPhone").text(formatPhoneFax(response.model.SupervisorPhone));
             $("#summEmployerp").text(response.model.EmployerName + ", " + response.model.OfficeAddress1 + ", " + response.model.OfficeCity + " (" + response.model.JobTitle + ") ");
