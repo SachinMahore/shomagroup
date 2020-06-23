@@ -1,6 +1,7 @@
 ﻿using LoggerEngine;
 using ShomaRM.Models;
 using ShomaRM.Models.Bluemoon;
+using ShomaRM.Models.Corelogic;
 using ShomaRM.Models.TwilioApi;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Web.Configuration;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Xml;
+using System.Xml.Linq;
 using Twilio;
 using Twilio.AspNet.Mvc;
 using Twilio.Rest.Api.V2010.Account;
@@ -40,7 +42,7 @@ namespace ShomaRM.Controllers
             //aptlyModel.MoveInDate = "2020-05-25";
             //aptlyModel.QuoteExpires = "2020-05-01 24:00:00";
             //aptlyModel.Pets = "Dog(s)";
-         
+
             //aptlyModel.PortalURL = "http://52.4.251.162:8086/Admin/ProspectVerification/EditProspect/1727";
             //aptlyModel.CreditPaid = "False";
             //aptlyModel.BackgroundCheckPaid = "true";
@@ -59,6 +61,11 @@ namespace ShomaRM.Controllers
             //      aptlyModel.RelatedContacts.Add(_objrelatedContacts1);
             //var test = aptlyHelper.PostAptlyAsync(aptlyModel);
 
+            CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+            string strxml = _corelogichelper.PostCoreLogicData(new LeaseTermsModel,new Applicant());
+            var keyValues = new List<KeyValuePair<string, string>>();
+            keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+            _corelogichelper.PostFormUrlEncoded<List<XElement>>("DDk;EwkOK2t-dDLp2poHpK.&wy27rbPm", keyValues);
             if (Session["DelDatAll"] != null)
             {
                 if (Session["DelDatAll"].ToString() == "Del")

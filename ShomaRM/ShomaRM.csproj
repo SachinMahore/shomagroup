@@ -457,6 +457,7 @@
     <Compile Include="Models\Bluemoon\ResponseModel.cs" />
     <Compile Include="Models\CommonModel.cs" />
     <Compile Include="Models\Corelogic\CoreLogicHelper.cs" />
+    <Compile Include="Models\Corelogic\CorelogicModel.cs" />
     <Compile Include="Models\EncryptDecrypt\EncryptDecrypt.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\Property\PropertyModel.cs" />
