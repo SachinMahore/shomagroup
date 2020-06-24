@@ -1,5 +1,8 @@
-﻿@{
+
+@{
+
 }
+<input type="hidden" id="hndTransMethod" value="2" />
 <div class="content-area submit-property sanctuary-background-img">
     &nbsp;
     <div class="container-box m-t" style="width:92%">
@@ -13,18 +16,25 @@
                     <input type="text" class="form-control" id="txtFirstName" value="" placeholder="First Name">
                 </div>
             </div>
+
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="txtLastName" class="star">Last Name</label>
                     <input type="text" class="form-control" id="txtLastName" value="" placeholder="Last Name">
                 </div>
             </div>
+
+
+
             <div class="col-sm-4">
                 <div class="form-group">
                     <label for="txtEmail" class="star">Office</label>
                     <input type="text" class="form-control" id="txtEmp" value="" placeholder="Office">
                 </div>
             </div>
+
+
+
             <div class="col-sm-4 ">
                 <div class="form-group">
                     <label for="txtCountryReg" class="star">Country</label>
@@ -61,7 +71,9 @@
                     <input class="form-control form-control-small" id="txtZipReg" maxlength="7" />
                 </div>
             </div>
+
             <div class="col-sm-6"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center">Customer ID: <b id="ResponseMsg1"></b></p></div>
+
             <div class="col-sm-6">
 
                 <div class="pull-right text-center">
@@ -79,6 +91,9 @@
                     <br />
                 </div>
                 <div class="col-sm-3">
+                    <input type="button" class='btn  btn-primary' id="chkBank" onclick="clearBank()" value="Bank Account">
+                </div>
+                <div class="col-sm-3">
                     <input type="button" class='btn btn-primary active' id="chkACH" onclick="clearCard()" value="Credit Card">
                 </div>
 
@@ -88,6 +103,7 @@
                 </div>
                 <div class="col-sm-12">
                     <label id="lblPaymentDet">Enter Credit Card Details.</label>
+
                 </div>
                 <div class="col-sm-12 hidden" id="divBank">
                     <div class="col-sm-3">
@@ -130,6 +146,7 @@
                             @for (int i = 1; i <= 12; i++)
                             {
                                 <option value="@(i.ToString("00"))">@i</option>
+
                             }
                         </select>
                     </div>
@@ -139,20 +156,42 @@
                             @for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(5).Year; i++)
                             {
                                 <option value="@(i.ToString().Substring(2,2))">@i</option>
+
                             }
                         </select>
                     </div>
-                    <div class="form-group col-sm-2">
-                        <label for="txtCcvNumber" class="star">Customer ID</label>
-                        <input type="text" class="form-control" id="txtCustID" placeholder="Customer ID" value="">
-                    </div>
-                    <div class="col-sm-12" style="margin-bottom:20px">
-                        <button type="submit" class="btn btn-primary" onclick="savePayMethod()">Save Payment Method</button>
-                    </div>
-                    <div class="col-sm-2">
-                        <br />
-                    </div>
-                    <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center">Payment Method ID: <b id="ResponseMsg"></b></p></div>
+
+                </div>
+                <div class="form-group col-sm-2">
+                    <label for="txtCcvNumber" class="star">Customer ID</label>
+                    <input type="text" class="form-control" id="txtCustID" placeholder="Customer ID" value="">
+                </div>
+                <div class="col-sm-12" style="margin-bottom:20px">
+                    <button type="submit" class="btn btn-primary" onclick="savePayMethod()">Save Payment Method</button>
+                </div>
+                <div class="col-sm-2">
+
+                    <br />
+
+                </div>
+                <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center">Payment Method ID: <b id="ResponseMsg"></b></p></div>
+                <div class="col-sm-6" style="margin-bottom:20px">
+                    <button type="submit" class="btn btn-primary" onclick="getCustPaymentMethod()">Payment Method Report</button>
+                </div>
+                <div style="width:100%">
+                    <table id="tblBankCC" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #c7cdd5;color:#3d3939">Payment ID</th>
+                                <th style="background-color: #c7cdd5;color:#3d3939">Account Name</th>
+                                <th style="background-color: #c7cdd5;color:#3d3939">Account/Card Number</th>
+
+                                <th style="background-color: #c7cdd5;color:#3d3939">Select</th>
+                                <th style="background-color: #c7cdd5;color:#3d3939">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -161,11 +200,15 @@
                 <h3 style="color:#4D738A;font-size:36px;">Make Transaction using Cust ID and Payment method ID (Saved Payment account from UsaePay) </h3>
             </div>
             <div class="col-sm-12" id="">
+
+
                 <div class="col-sm-12">
                     <br />
-                    <div class="dot-hr"></div>
+                    <div class="dot-hr"></div>s
                 </div>
+
                 <div class="col-sm-12" id="">
+
                     <div class="form-group col-sm-2">
                         <label for="" class="star">Customer ID</label>
                         <input type="text" class="form-control" id="txtCustID1" placeholder="Customer ID" value="">
@@ -186,29 +229,49 @@
                         <button type="submit" class="btn btn-primary" onclick="MakePayment()">Make Payment</button>
                     </div>
                     <div class="col-sm-2">
+
                         <br />
+
                     </div>
                     <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center">Transaction ID: <b id="ResponseMsg3"></b></p></div>
+
                 </div>
-                <div class="col-sm-12" style="margin-bottom:20px">
+
+                <div class="col-sm-6" style="margin-bottom:20px">
                     <button type="submit" class="btn btn-primary" onclick="transReport()">Transaction Report</button>
                 </div>
                 <div class="col-sm-2">
+
                     <br />
+
                 </div>
-                <div class="col-sm-12"><p  id="ResponseMsg4">Transaction ID: </p></div>
+                <div class="col-sm-12"><p id="ResponseMsg4">Transaction ID: </p></div>
+
+            </div>
+
+
+            <div class="m-t text-center wizard-header">
+                <h3 style="color:#4D738A;font-size:36px;">Refund Transaction </h3>
+            </div>
+            <div class="form-group col-sm-2">
+                <label for="txtRefNum" class="star">Reference Num</label>
+                <input type="text" class="form-control" id="txtRefNum" placeholder="Reference Num" value="3110335697">
+            </div>
+            <div class="col-sm-12" style="margin-bottom:20px">
+                <button type="submit" class="btn btn-primary" onclick="refundTrans()">Refund Trans</button>
             </div>
         </div>
-        </div>
+    </div>
 </div>
 
 <script>
     var SaveCustomer = function () {
         $("#divLoader").show();
         var msg = "";
-     
+
         var firstName = $("#txtFirstName").val();
         var lastName = $("#txtLastName").val();
+
         var emp = $("#txtEmp").val();
         var country = $("#txtCountry").val();
         var homeAddress1 = $("#txtAddress1Reg").val();
@@ -217,12 +280,16 @@
         var cityHome = $("#txtCity").val();
         var zipHome = $("#txtZipReg").val();
 
+
         if (!firstName) {
             msg += "Please fill the First Name </br>";
         }
         if (!lastName) {
             msg += "Please fill the  Last Name </br>";
         }
+
+
+
         if (msg != "") {
             $.alert({
                 title: "",
@@ -234,15 +301,20 @@
         }
 
         var model = {
+
             FirstName: firstName,
+
             LastName: lastName,
             EmployerName: emp,
+
+
             CountryString: country,
             HomeAddress1: homeAddress1,
             HomeAddress2: homeAddress2,
             StateHomeString: stateHome,
             CityHome: cityHome,
             ZipHome: zipHome,
+
         };
 
         $.ajax({
@@ -265,57 +337,103 @@
         });
     }
     function savePayMethod() {
+
         $("#divLoader").show();
         var msg = "";
-        var nameonCard = $("#txtNameonCard").val();
-        var cardNumber = $("#txtCardNumber").val();
-        var cardMonth = $("#ddlcardmonth").val();
-        var cardYear = $("#ddlcardyear").val();
-        var cid = $("#txtCustID").val();
-
-        if (!nameonCard) {
-            msg += "Please Enter Name on Card</br>";
-        }
-        if (cardNumber == "" || cardNumber.length != 16) {
-            msg += "Please enter your 16 digit Card Number</br>";
-        }
-        if (cardMonth == "0") {
-            msg += "Please enter Card Month</br>";
-        }
-        if (cardYear == "0") {
-            msg += "Please enter Card Year</br>";
-        }
-
-        var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
-        var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-
-        GivenDate = new Date(GivenDate);
-        CurrentDate = new Date(CurrentDate);
-
-        if (GivenDate <= CurrentDate) {
-            msg += "Your Credit Card Expired..</br>";
-        }
-
-        if (msg != "") {
+        if ($("#hndTransMethod").val() == "0") {
             $("#divLoader").hide();
             $.alert({
                 title: "",
-                content: msg,
+                content: "Please Select Payment Method</br>",
                 type: 'red'
             });
             return;
         }
 
+        if ($("#hndTransMethod").val() == "2") {
+            var paymentMethod = 2;
+
+            var nameonCard = $("#txtNameonCard").val();
+            var cardNumber = $("#txtCardNumber").val();
+            var cardMonth = $("#ddlcardmonth").val();
+            var cardYear = $("#ddlcardyear").val();
+
+            var routingNumber = $("#txtRoutingNumber").val();
+            var bankName = $("#txtBankName").val();
+            var cid = $("#txtCustID").val();
+            if (!nameonCard) {
+                msg += "Please Enter Name on Card</br>";
+            }
+            if (cardNumber == "" || cardNumber.length != 16) {
+                msg += "Please enter your 16 digit Card Number</br>";
+            }
+            if (cardMonth == "0") {
+                msg += "Please enter Card Month</br>";
+            }
+            if (cardYear == "0") {
+                msg += "Please enter Card Year</br>";
+            }
+
+            var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
+            var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+
+            GivenDate = new Date(GivenDate);
+            CurrentDate = new Date(CurrentDate);
+
+            if (GivenDate <= CurrentDate) {
+                msg += "Your Credit Card Expired..</br>";
+            }
+
+            if (msg != "") {
+                $("#divLoader").hide();
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+                return;
+            }
+        } else {
+            var paymentMethod = 1;
+            var nameonCard = $("#txtAccountName").val();
+            var cardNumber = $("#txtAccountNumber").val();
+            var cardMonth = 0;
+            var cardYear = 0;
+
+            var routingNumber = $("#txtRoutingNumber").val();
+            var bankName = $("#txtBankName").val();
+            var cid = $("#txtCustID").val();
+            if (nameonCard == "") {
+                msg += "Please Enter Account Name</br>";
+            }
+            if (cardNumber == "") {
+                msg += "Please Enter Account Number</br>";
+            }
+
+            if (msg != "") {
+                $("#divLoader").hide();
+                $.alert({
+                    title: "",
+                    content: msg,
+                    type: 'red'
+                });
+                return;
+            }
+        }
         var model = {
-            CCVNumber: cid,
+
             Name_On_Card: nameonCard,
             CardNumber: cardNumber,
             CardMonth: cardMonth,
             CardYear: cardYear,
-        };
 
+            RoutingNumber: routingNumber,
+            BankName: bankName,
+            PaymentMethod: paymentMethod,
+            CCVNumber:cid,
+        };
         $.ajax({
-            url: "/Home/AddCustPaymentMethodCC/",
+            url: "/Home/AddCustPaymentMethod/",
             type: "post",
             contentType: "application/json utf-8",
             data: JSON.stringify(model),
@@ -324,7 +442,7 @@
                 $("#divLoader").hide();
                 $("#ResponseMsg").text(response.msg);
                 $("#txtPaymentID").val(response.msg);
-
+                getCustPaymentMethod();
                 $.alert({
                     title: "",
                     content: response.msg,
@@ -333,11 +451,12 @@
             }
         });
     }
-
     function MakePayment() {
 
         $("#divLoader").show();
         var msg = "";
+
+
         var pmid = $("#txtPaymentID").val();
         var cid = $("#txtCustID1").val();
         var desc = $("#txtDesc").val();
@@ -359,7 +478,7 @@
             success: function (response) {
                 $("#divLoader").hide();
                 $("#ResponseMsg3").text(response.msg);
-               
+
                 $.alert({
                     title: "",
                     content: response.msg,
@@ -369,16 +488,146 @@
         });
     }
     function transReport() {
+
         $("#divLoader").show();
+
+
         $.ajax({
             url: "/Home/TransReport/",
             type: "post",
             contentType: "application/json utf-8",
+           // data: JSON.stringify(model),
             dataType: "JSON",
             success: function (response) {
                 $("#divLoader").hide();
                 $("#ResponseMsg4").append(response.msg);
 
+            }
+        });
+    }
+
+    function getCustPaymentMethod() {
+
+        $("#divLoader").show();
+        var msg = "";
+
+
+        var pmid = $("#txtPaymentID").val();
+        var cid = $("#txtCustID").val();
+
+        var model = {
+            CustID: cid,
+            PMID: pmid
+        };
+
+        $.ajax({
+            url: "/Home/GetCustPaymentMethod/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $("#divLoader").hide();
+                $("#tblBankCC>tbody").empty();
+                $.each(response.msg, function (elementType, elementValue) {
+
+                    var html = "<tr id='tr_" + elementValue.PAID + "' data-value='" + elementValue.PAID + "'>";
+                    html += "<td>" + elementValue.PAID + "</td>";
+                    html += "<td>" + elementValue.Name_On_Card + "</td>";
+                    html += "<td>" +elementValue.CardNumber + "</td>";
+                    html += "<td><input style='background: transparent; margin-right:10px' type='radio' name='rdpay' onclick='selectPay(" + elementValue.PAID + ")'></td>";
+                    html += "<td><input type='button' value='delete'  onclick='deletePay(" + elementValue.PAID + ")'></td>";
+                    html += "</tr>";
+                    $("#tblBankCC>tbody").append(html);
+
+                });
+
+            }
+        });
+    }
+    function selectPay(paid) {
+        $("#txtPaymentID").val(paid);
+    }
+    function deletePay(paid) {
+        $("#divLoader").show();
+        var msg = "";
+
+
+        var pmid =paid;
+        var cid = $("#txtCustID").val();
+
+        var model = {
+            CustID: cid,
+            PMID: pmid
+        };
+
+        $.ajax({
+            url: "/Home/DeletePaymentMethod/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $("#divLoader").hide();
+                getCustPaymentMethod();
+                $.alert({
+                    title: "",
+                    content: response.msg,
+                    type: 'red'
+                });
+
+            }
+        });
+    }
+
+    var clearBank = function () {
+        $("#hndTransMethod").val("1");
+        $("#chkBank").addClass("active");
+        $("#chkACH").removeClass("active");
+        $("#divCard").addClass("hidden");
+        $("#divBank").removeClass("hidden");
+
+        $("#lblPaymentDet").text("Enter Bank Account Details.");
+    }
+    var clearCard = function () {
+        $("#hndTransMethod").val("2");
+        $("#chkACH").addClass("active");
+        $("#chkBank").removeClass("active");
+        $("#divCard").removeClass("hidden");
+        $("#divBank").addClass("hidden");
+
+        $("#lblPaymentDet").text("Enter Credit Card Details.");
+    }
+
+    function refundTrans() {
+
+        $("#divLoader").show();
+        var msg = "";
+
+
+        var refnum = $("#txtRefNum").val();
+        var amt = "450";
+
+        var model = {
+            RefNum: refnum,
+            Amount: amt,
+
+        };
+
+        $.ajax({
+            url: "/Home/RefundTrans/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $("#divLoader").hide();
+
+                $.alert({
+                    title: "",
+                    content: response.msg,
+                    type: 'red'
+                });
             }
         });
     }
