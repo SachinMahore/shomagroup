@@ -114,7 +114,7 @@ namespace ShomaRM.Models.Corelogic
             return ApplicantXmlStr;
         }
 
-        public   string PostFormUrlEncoded<TResult>(string url, List<KeyValuePair<string, string>> postData)
+        public async Task<List<XElement>>  PostFormUrlEncoded<TResult>(string url, List<KeyValuePair<string, string>> postData)
         {
             using (var httpClient = new HttpClient())
             {
@@ -125,9 +125,27 @@ namespace ShomaRM.Models.Corelogic
 
                     HttpResponseMessage response = await httpClient.PostAsync(url, content);
                     string serializedString = await response.Content.ReadAsStringAsync();
-                  
-                    return serializedString;
 
+
+                    var xDoc = XDocument.Parse(serializedString);
+
+                    // <Response>
+                    //< TransactionNumber > 58258585 </ TransactionNumber >
+                    //< ReportDate > 2020 - 06 - 24 </ ReportDate >
+                    //< ApplicantDecision > Accept with Conditions</ ApplicantDecision >
+
+                    //   < ApplicationDecision > Conditional </ ApplicationDecision >
+
+                    //   < ApplicantScore > 340 </ ApplicantScore >
+                    var resultOrderDetail = xDoc
+                      .Descendants("TransactionNumber")
+                    .Descendants("ReportDate")
+                    .Descendants("ApplicantDecision")
+                    .Descendants("ApplicationDecision")
+                    .Descendants("ApplicantScore")
+                  .ToList();
+
+                    return resultOrderDetail;
                 }
             }
         }
