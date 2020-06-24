@@ -18,25 +18,25 @@ namespace ShomaRM.Models.Corelogic
             try
             {
                 //SOAP Body Request  
-                FinalStr = @"<?xml version=""1.0"" encoding=""utf - 8""?>
-                                <ApplicantScreening xmlns: MITS = ""http://my-company.com/namespace"" >
-                                <Request xmlns: xsi = ""http://www.w3.org/2001/XMLSchema-instance"">
+                FinalStr = @"<?xml version=""1.0"" encoding=""utf-8""?>
+                                <ApplicantScreening xmlns:MITS=""http://my-company.com/namespace"" >
+                                <Request xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
                                 <PropertyID>
-                                <MITS:Identification Type = ""other"">
-                                <MITS:PrimaryID />
-                                <MITS:MarketingName />
-                                <MITS:WebSite > https://office.yourwebsite.com</MITS:WebSite>
-                                </ MITS:Identification >
-                                </ PropertyID >
-                             <RequestType > New </ RequestType>
+                                <MITS:Identification Type=""other"">
+                                <MITS:PrimaryID/>
+                                <MITS:MarketingName/>
+                                <MITS:WebSite>https://office.yourwebsite.com</MITS:WebSite>
+                                </MITS:Identification>
+                                </PropertyID>
+                             <RequestType>New</RequestType>
                              <ReportOptions>
-                             <ReportName> CRD </ReportName>
-                             </ ReportOptions>
-                             <OriginatorID > 501214 </OriginatorID>
-                             <UserAccount > 1M898 </ UserAccount>
-                             <UserName> APIShomatest </ UserName>
-                             <UserPassword > Shomatest1! </UserPassword>
-                             </ Request></ApplicantScreening";
+                             <ReportName>CRD</ReportName>
+                             </ReportOptions>
+                             <OriginatorID>501214</OriginatorID>
+                             <UserAccount>1M898</UserAccount>
+                             <UserName>APIShomatest</UserName>
+                             <UserPassword>Shomatest1!</UserPassword>
+                             </Request>" + Body + @"</ApplicantScreening>";
             }
             catch (Exception ex)
             {
@@ -57,9 +57,9 @@ namespace ShomaRM.Models.Corelogic
             try
             {
                 leaseXmlStr = @"<LeaseTerms>
-                             <MonthlyRent>"+ leaseRequestModel.LeaseMonths+ @"</MonthlyRent>
+                             <MonthlyRent>"+ leaseRequestModel.MonthlyRent+ @"</MonthlyRent>
                              <LeaseMonths>"+ leaseRequestModel.LeaseMonths+ @"</LeaseMonths>
-		                      <SecurityDeposit>" + leaseRequestModel.LeaseMonths + @"</SecurityDeposit>
+		                      <SecurityDeposit>" + leaseRequestModel.SecurityDeposit + @"</SecurityDeposit>
                                </LeaseTerms>";
             }
             catch (Exception ex)
@@ -76,36 +76,36 @@ namespace ShomaRM.Models.Corelogic
             {
                 ApplicantXmlStr = @"<Applicant>
                                 <Other>
-                                      <CurrentRent>"+ applicant.CurrentRent + @" </CurrentRent>
+                                      <CurrentRent>"+ applicant.CurrentRent + @"</CurrentRent>
                                       <ConsentObtained>YES</ConsentObtained>
                                 </Other>
                                 <Income>
                                        <EmploymentGrossIncome>" + applicant.EmploymentGrossIncome + @"</EmploymentGrossIncome>
                                 </Income>
                                 <AS_Information>
-                                       <ApplicantIdentifier>" + applicant.EmploymentGrossIncome + @"</ApplicantIdentifier>
+                                       <ApplicantIdentifier>" + applicant.ApplicantIdentifier + @"</ApplicantIdentifier>
                                        <ApplicantType>" + applicant.ApplicantType + @"</ApplicantType>
 			                           <Birthdate>" + applicant.Birthdate + @"</Birthdate>								 
 			                           <SocSecNumber>" + applicant.SocSecNumber + @"</SocSecNumber>
                                 </AS_Information>
                                 <Customers>
                                <MITS:Customer Type=""applicant"">
-                               <MITS:CustomerID> " + applicant.CustomerID + @" </MITS:CustomerID>     
+                               <MITS:CustomerID>" + applicant.CustomerID + @" </MITS:CustomerID>     
                                 <MITS:Name>      
-                                         <MITS:FirstName > " + applicant.FirstName + @" </MITS:FirstName>           
-                                         <MITS:MiddleName ></ MITS:MiddleName>              
-                                         <MITS:LastName > " + applicant.LastName + @" </ MITS:LastName>                   
+                                         <MITS:FirstName>" + applicant.FirstName + @"</MITS:FirstName>           
+                                         <MITS:MiddleName></MITS:MiddleName>              
+                                         <MITS:LastName> " + applicant.LastName + @"</MITS:LastName>                   
                                 </MITS:Name>                    
-                                  <MITS:Address Type = ""current"">                     
-                                         <MITS:Address1>" + applicant.Address1 + @"</ MITS:Address1>                         
-                                         <MITS:City> " + applicant.City + @" </ MITS:City>                              
-                                         <MITS:State> " + applicant.State + @" </ MITS:State>                                   
-                                         <MITS:PostalCode> " + applicant.State + @" </MITS:PostalCode>                                        
-                                         <MITS:UnparsedAddress >" + applicant.UnparsedAddress + @"</ MITS:UnparsedAddress>                                            
-                                    </ MITS:Address>                                             
-                                  </ MITS:Customer>                                             
-                                  </ Customers>                                             
-                                </ Applicant> ";
+                                  <MITS:Address Type=""current"">                     
+                                         <MITS:Address1>"+ applicant.Address1 + @"</MITS:Address1>                         
+                                         <MITS:City>" + applicant.City + @"</MITS:City>                              
+                                         <MITS:State>" + applicant.State + @"</MITS:State>                                   
+                                         <MITS:PostalCode>" + applicant.PostalCode + @"</MITS:PostalCode>                                        
+                                         <MITS:UnparsedAddress>" + applicant.UnparsedAddress + @"</MITS:UnparsedAddress>                                            
+                                    </MITS:Address>                                             
+                                  </MITS:Customer>                                             
+                                  </Customers>                                             
+                                </Applicant>";
             }
             catch (Exception ex)
             {
@@ -114,7 +114,7 @@ namespace ShomaRM.Models.Corelogic
             return ApplicantXmlStr;
         }
 
-        public  async Task<List<XElement>> PostFormUrlEncoded<TResult>(string url, List<KeyValuePair<string, string>> postData)
+        public   string PostFormUrlEncoded<TResult>(string url, List<KeyValuePair<string, string>> postData)
         {
             using (var httpClient = new HttpClient())
             {
@@ -125,14 +125,8 @@ namespace ShomaRM.Models.Corelogic
 
                     HttpResponseMessage response = await httpClient.PostAsync(url, content);
                     string serializedString = await response.Content.ReadAsStringAsync();
-                    var xDoc = XDocument.Parse(serializedString);
-
-                    // for attribute
-                    var resultOrderDetail = xDoc
-                     .Descendants("<List<XElement>>")
-                    
-                     .ToList();
-                    return resultOrderDetail;
+                  
+                    return serializedString;
 
                 }
             }
