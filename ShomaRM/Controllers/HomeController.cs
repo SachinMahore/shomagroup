@@ -62,10 +62,10 @@ namespace ShomaRM.Controllers
             //var test = aptlyHelper.PostAptlyAsync(aptlyModel);
 
             CoreLogicHelper _corelogichelper = new CoreLogicHelper();
-            string strxml = _corelogichelper.PostCoreLogicData(new LeaseTermsModel,new Applicant());
+            string strxml = _corelogichelper.PostCoreLogicData(new LeaseTermsModel(),new Applicant());
             var keyValues = new List<KeyValuePair<string, string>>();
             keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
-            _corelogichelper.PostFormUrlEncoded<List<XElement>>("DDk;EwkOK2t-dDLp2poHpK.&wy27rbPm", keyValues);
+            _corelogichelper.PostFormUrlEncoded<List<XElement>>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues);
             if (Session["DelDatAll"] != null)
             {
                 if (Session["DelDatAll"].ToString() == "Del")

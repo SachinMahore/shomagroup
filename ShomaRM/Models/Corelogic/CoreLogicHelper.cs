@@ -36,7 +36,7 @@ namespace ShomaRM.Models.Corelogic
                              <UserAccount > 1M898 </ UserAccount>
                              <UserName> APIShomatest </ UserName>
                              <UserPassword > Shomatest1! </UserPassword>
-                             </ Request></ApplicantScreening";
+                             </ Request></ApplicantScreening>";
             }
             catch (Exception ex)
             {
