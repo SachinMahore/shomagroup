@@ -217,11 +217,11 @@ namespace ShomaRM.Controllers
                 return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult AddCustPaymentMethodCC(ApplyNowModel model)
+        public ActionResult AddCustPaymentMethod(ApplyNowModel model)
         {
             try
             {
-                return Json(new { msg = (new UsaePayWSDLModel().AddCustPaymentMethodCC(model)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { msg = (new UsaePayWSDLModel().AddCustPaymentMethod(model)) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
             {
@@ -262,5 +262,41 @@ namespace ShomaRM.Controllers
                 return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult GetCustPaymentMethod(string CustID, string PMID)
+        {
+            try
+            {
+                return Json(new { msg = (new UsaePayWSDLModel().GetCustPaymentMethod(CustID, PMID)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult DeletePaymentMethod(string CustID, string PMID)
+        {
+            try
+            {
+                return Json(new { msg = (new UsaePayWSDLModel().DeletePaymentMethod(CustID, PMID)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult RefundTrans( string RefNum, decimal Amount)
+        {
+            try
+            {
+                return Json(new { msg = (new UsaePayWSDLModel().RefundTrans(RefNum, Amount)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }
