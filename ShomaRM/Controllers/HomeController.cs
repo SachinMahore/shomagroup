@@ -1,6 +1,8 @@
 ﻿using LoggerEngine;
+using Microsoft.Graph;
 using ShomaRM.Models;
 using ShomaRM.Models.Bluemoon;
+using ShomaRM.Models.Corelogic;
 using ShomaRM.Models.TwilioApi;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ using System.Web.Configuration;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Xml;
+using System.Xml.Linq;
 using Twilio;
 using Twilio.AspNet.Mvc;
 using Twilio.Rest.Api.V2010.Account;
@@ -40,7 +43,7 @@ namespace ShomaRM.Controllers
             //aptlyModel.MoveInDate = "2020-05-25";
             //aptlyModel.QuoteExpires = "2020-05-01 24:00:00";
             //aptlyModel.Pets = "Dog(s)";
-         
+
             //aptlyModel.PortalURL = "http://52.4.251.162:8086/Admin/ProspectVerification/EditProspect/1727";
             //aptlyModel.CreditPaid = "False";
             //aptlyModel.BackgroundCheckPaid = "true";
@@ -58,6 +61,35 @@ namespace ShomaRM.Controllers
             //aptlyModel.RelatedContacts.Add(_objrelatedContacts);
             //      aptlyModel.RelatedContacts.Add(_objrelatedContacts1);
             //var test = aptlyHelper.PostAptlyAsync(aptlyModel);
+
+            CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+            var LeaseTermsModel = new LeaseTermsModel();
+            LeaseTermsModel.MonthlyRent = "25.00";
+            LeaseTermsModel.LeaseMonths = "12";
+            LeaseTermsModel.SecurityDeposit = "25.00";
+            var applicant=new  Applicant();
+            applicant.CurrentRent = "50";
+            applicant.CustomerID = "111223";
+            applicant.ConsentObtained = "Yes";
+            applicant.EmploymentGrossIncome = "25";
+            applicant.ApplicantIdentifier = "abc123";
+            applicant.ApplicantType = "Applicant";
+            applicant.Birthdate = "1960-06-25";
+            applicant.SocSecNumber = "880544745";
+            applicant.FirstName = "Edwin";
+            applicant.LastName = "Avila";
+            applicant.Address1 = "85 Rebecca Ln";
+            applicant.City = "Youngsville";
+            applicant.State = "NC";
+            applicant.PostalCode = "27596";
+            applicant.UnparsedAddress = "85 Rebecca Ln";
+
+            string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant);
+            var keyValues = new List<KeyValuePair<string, string>>();
+            keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+         var data=   _corelogichelper.PostFormUrlEncoded<List<XElement>>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues);
+
+          
 
             if (Session["DelDatAll"] != null)
             {
@@ -87,8 +119,7 @@ namespace ShomaRM.Controllers
         }
 
 
-        public async System.Threading.Tasks.Task<ActionResult> About()   
-
+        public async System.Threading.Tasks.Task<ActionResult> About()
         {
             ViewBag.Message = "Your application description page.";
 

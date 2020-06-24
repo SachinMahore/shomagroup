@@ -103,7 +103,7 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <b>Desired Move-In</b>
-                                    <input class="input-box form-group reponsiveWidth" id="txtDate" data-date-format="mm/dd/yyyy" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" type="text" style="padding: 5px 10px;" /><span class="input-box-cal">
+                                    <input class="input-box form-group reponsiveWidth" id="txtDate_Quotation" data-date-format="mm/dd/yyyy" value="@Model.MoveInDate.ToString("MM/dd/yyyy")" type="text" style="padding: 5px 10px;" /><span class="input-box-cal">
                                         <i class="fa-calendar fa large-fa"></i>
                                     </span>
 
@@ -162,7 +162,7 @@
                     <div class="popular_property">
                         <div class="container">
 
-                            <div class="row justify-content-center" id="listModelUnit">
+                            <div class="row justify-content-center" id="listModelUnitQuotation">
 
                             </div>
                         </div>
@@ -691,7 +691,7 @@
                         <div class="col-sm-12 col-lg-3">
 
                             <div id="uDet">
-                                <a href="JavaScript:Void(0)" onclick="displayImg()">
+                                <a href="JavaScript:Void(0)" onclick="displayImgQuotation()">
                                     <img src="" id="imgFloorPlan1" class="img-responsive">
                                 </a>
                                 <div class="panel panel-default sidebar-menu similar-property-wdg wow fadeInRight animated NoBorder">
@@ -1191,7 +1191,7 @@
                                                 <span>Security Deposit **: </span>
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                                <span style="text-decoration:underline;font-weight:bold;" id="fdepo">$@((Model.Deposit ?? 0).ToString("0.00"))</span>
+                                                <span style="text-decoration:underline;font-weight:bold;" id="fdepo">@((Model.Deposit ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
 
@@ -1200,7 +1200,7 @@
                                                 <span id="spfpetd">Pet Non-Refundable Deposit:</span>
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                                <span style="text-decoration:underline;font-weight:bold;" id="fpetd">$@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="fpetd">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
 
@@ -1209,7 +1209,7 @@
                                                 <span id="spanPetDNAFee2">Pet DNA Fee:</span>
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                                <span style="text-decoration:underline;font-weight:bold;" id="fpetdna">$@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="fpetdna">@((Model.PetDNAAmt ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
 
@@ -1218,7 +1218,7 @@
                                                 <span id="spanVechReg">Vehicle Registration@(((Model.VehicleRegistration ?? 0) / 15) > 0 ? " (" + ((Model.VehicleRegistration ?? 0) / 15).ToString() + " Vehicle)" : ""): @(((Model.VehicleRegistration ?? 0) / 15) > 0 ? " (" + ((Model.VehicleRegistration ?? 0) / 15).ToString() + " Vehicle)" : "")</span>
                                             </div>
                                             <div class="col-md-6 col-sm-6 col-xs-6">
-                                                <span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">$@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span>
+                                                $<span style="text-decoration:underline;font-weight:bold;" id="lblVehicleFees">@((Model.VehicleRegistration ?? 0).ToString("0.00"))</span>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -1387,10 +1387,10 @@
                                                 <span style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                             <div class="col-md-3 col-sm-3 col-xs-3">
-                                                <span id="lblMonthly_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
+                                                $<span id="lblMonthly_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                             <div class="col-md-3 col-sm-3 col-xs-3">
-                                                <span id="lblProrated_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
+                                                $<span id="lblProrated_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
 
@@ -4448,7 +4448,7 @@
                                 <button type="submit" class="btn-alltype" onclick="goToStepQuotation(15,15,0)"> Back</button>
                             </div>
                             <div class="pull-right text-center">
-                                <button type="submit" id="btnC2Tenant" class="btn-alltype" onclick="cancel()">Submit Application</button>
+                                <button type="submit" id="btnC2Tenant" class="btn-alltype" onclick="cancelGenerateQuotation()">Submit Application</button>
                             </div>
                         </div>
                     </div>
@@ -4514,7 +4514,7 @@
                             </div>
                             <div class="col-sm-12 form-inline">
                                 <div class="text-center">
-                                    <button type="button" class="btn-alltype" id="btnSave" onclick="SaveUpdateDocumentVerification()"><i class="fa fa-save"></i><span id="spanSaveUpdate">Save</span></button>
+                                    <button type="button" class="btn-alltype" id="btnSave" onclick="SaveUpdateDocumentVerificationQuotation()"><i class="fa fa-save"></i><span id="spanSaveUpdate">Save</span></button>
                                 </div>
                             </div>
                         </div>
@@ -4530,7 +4530,7 @@
                             <div class="col-sm-11">
                                 <div class="form-group">
                                     <div class="">
-                                        @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn-alltype" onclick="saveLeaseDoc()">Review and Sign Your Online Leasing Application</a>*@
+                                        @*<a href="javascript:void(0)" id="btnDownloadLeaseDocument" class="btn-alltype" onclick="saveLeaseDocQuotation()">Review and Sign Your Online Leasing Application</a>*@
                                         <label class="info-text pull-left hidden" style="color:#4d738a" id="lblsignin">Your Lease Agreement generated successfull at Bluemoon. Please click on continue button. Lease ID: @Model.EnvelopeID</label>
                                         <br />
 
@@ -6832,10 +6832,10 @@
 
         var dtend100 = new Date();
         dtend100.setFullYear(new Date().getFullYear() + 100);
-        $('#txtDate').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: "+1d", endDate: dtend100, maxViewMode: 2, autoclose: true });
+        $('#txtDate_Quotation').datepicker({ format: "mm/dd/yyyy", weekStart: 0, startDate: "+1d", endDate: dtend100, maxViewMode: 2, autoclose: true });
 
         //$("#icontxtDate").click(function () {
-        //    $("#txtDate").focus();
+        //    $("#txtDate_Quotation").focus();
         //});
         $("#txtDateOfExpiration").datepicker();
 
