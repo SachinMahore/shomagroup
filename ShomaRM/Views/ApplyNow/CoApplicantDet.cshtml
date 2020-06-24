@@ -31,6 +31,7 @@
 <input type="hidden" id="hndAppCreditFees" value="@((Model.AppCCCheckFees??0).ToString("0.00"))" />
 <input type="hidden" id="hndAppBackgroundFees" value="@((Model.AppBGCheckFees??0).ToString("0.00"))" />
 <input type="hidden" id="hndGotoSummary" value="" />
+<input id="hdnProspectId" type="hidden" value="@Model.ProspectId" />
 @*Sachin Mahore 21 Apr 2020*@
 
 
@@ -3740,14 +3741,11 @@
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <div class="col-sm-6">
-                                <div class="col-sm-1 form-group">
-                                    <input class="form-control" type="checkbox" id="chkAgreeSummarry" style="width: 60px !important;height: 20px !important;">
-                                </div>
-                                <div class="col-sm-11" style="text-align: left;">
-                                    <label>
-                                        ACCEPT AGREEMENTS
-                                    </label>
+                            <div class="col-sm-6 pb-1 pl-6">
+
+                                <div class="chekbox-wrapper pull-left">
+
+                                    <input class="form-control" type="checkbox" id="chkAgreeSummarry" /> <span class="agree-text">  ACCEPT AGREEMENTS</span>
                                 </div>
                             </div>
                             <div class="pull-right text-center">
@@ -4513,7 +4511,7 @@
                             <label class="form-control form-control-small" id="ddlApplicantType"></label>
                         </div>
                     </div>
-                    <div class="col-sm-4 @(Model.CreditPaid == 1 ? "hidden" : "")" style="margin-bottom:20px" id="divchkCCPay">
+                    <div class="col-sm-4" style="margin-bottom:20px" id="divchkCCPay">
                         <input type="checkbox" id="chkCCPay">
                         <span class="chektext">
                             Pay Credit Check Fees Now (Fill SSN# to pay fees)
@@ -4611,6 +4609,7 @@
                             Save Account Information
                         </span>
                     </div>
+                    <div class="col-sm-12" style="margin:2px"></div>
                     <div class="col-sm-12">
                         <input type="checkbox" id="chkTermsAndCondition1">
                         <span class="chektext">
@@ -4623,8 +4622,8 @@
 
             <!-- Modal footer -->
             <div class="modal-footer" style="border-top:none">
-                <button type="submit" class="btn btn-primary" id="btnsaveappl" onclick="saveupdateApplicantCoApplicant()">Save</button>
-                <button type="submit" class="btn btn-primary hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
+                <button type="submit" class="btn-alltype" id="btnsaveappl" onclick="saveupdateApplicant()">Save</button>
+                <button type="submit" class="btn-alltype hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
             </div>
 
         </div>
@@ -6128,6 +6127,9 @@
         height: 61px;
         text-transform: uppercase;
         font-weight: bold;
+    }
+    .pl-6, .px-6 {
+        padding-left: 0rem !important;
     }
 </style>
 <script>

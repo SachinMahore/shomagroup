@@ -34,6 +34,8 @@
 <input type="hidden" id="hndAppBackgroundFees" value="@((Model.AppBGCheckFees??0).ToString("0.00"))" />
 <input type="hidden" id="hndStorageOrderBy" value="ASC" />
 <input type="hidden" id="hndOldUID" value="0" />
+<input type="hidden" id="hndCurrentUserId" value="@ShomaGroupWebSession.CurrentUser.UserID" />
+<input id="hdnProspectId" type="hidden" value="@Model.ProspectId" />
 
 
 <div class="content-area submit-property sanctuary-background-img">
@@ -2876,7 +2878,7 @@
 
                                     <div class="col-md-12 clear">
                                         <div style="width:100%;overflow-x:scroll">
-                                            <table id="tblPet" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                                            <table id="tblPetApplyNow" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                                                 <thead>
                                                     <tr>
                                                         <th style="background-color: #c7cdd5;color:#3d3939">Photo</th>
@@ -4188,9 +4190,9 @@
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 pb-1 pl-6">
 
-                                <div class="chekbox-wrapper">
+                                <div class="chekbox-wrapper pull-left">
 
                                     <input class="form-control" type="checkbox" id="chkAgreeSummarry" /> <span class="agree-text">  ACCEPT AGREEMENTS</span>
                                 </div>
@@ -4950,7 +4952,7 @@
                             <label class="form-control form-control-small" id="ddlApplicantType"></label>
                         </div>
                     </div>
-                    <div class="col-sm-4 @(Model.CreditPaid == 1 ? "hidden" : "")" style="margin-bottom:20px" id="divchkCCPay">
+                    <div class="col-sm-4" style="margin-bottom:20px" id="divchkCCPay" >
                         <input type="checkbox" id="chkCCPay">
                         <span class="chektext">
                             Pay Credit Check Fees Now (Fill SSN# to pay fees)
@@ -5048,6 +5050,7 @@
                             Save Account Information
                         </span>
                     </div>
+                    <div class="col-sm-12" style="margin:2px"></div>
                     <div class="col-sm-12">
                         <input type="checkbox" id="chkTermsAndCondition1">
                         <span class="chektext">
@@ -6702,6 +6705,9 @@
         text-transform: uppercase;
         font-weight: bold;
     }
+    .pl-6, .px-6 {
+        padding-left: 0rem !important;
+    }
 </style>
 <script>
     $.jTimeout();
@@ -6866,6 +6872,7 @@
     });
 
     $(document).ready(function () {
+        //alert(@Model.Type);
         $("#apartimg_2").maphilight();
         $("#ddlRoom").val(@Model.Bedroom);
         $("#ddlRoom").trigger('change');

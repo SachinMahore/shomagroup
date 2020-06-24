@@ -12,6 +12,7 @@ namespace ShomaRM.Models
     public class UsaePayWSDLModel
     {
         public string sourceKeySendBox = WebConfigurationManager.AppSettings["USEPaySourceKeySandBox"];
+        public string pinSendBox = WebConfigurationManager.AppSettings["USEPayPinSandBox"];
         public string sourceKeyLive = WebConfigurationManager.AppSettings["USEPaySourceKeyLive"];
         public bool useSandBox = Convert.ToBoolean(WebConfigurationManager.AppSettings["USEPayUseSandbox"]);
 
@@ -24,7 +25,7 @@ namespace ShomaRM.Models
 
             token.SourceKey = sourceKeySendBox;
             token.ClientIP = "11.22.33.44";  // IP address of end user (if applicable)
-            string pin = "4987";   // pin assigned to source
+            string pin = pinSendBox;   // pin assigned to source
 
             usaepay.ueHash hash = new usaepay.ueHash();
             hash.Type = "md5";  // Type of encryption 
@@ -77,7 +78,7 @@ namespace ShomaRM.Models
 
             return transStatus;
         }
-        public string AddCustPaymentMethodCC(ApplyNowModel model)
+        public string AddCustPaymentMethod(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string transStatus = "";
@@ -86,7 +87,7 @@ namespace ShomaRM.Models
 
             token.SourceKey = sourceKeySendBox;
             token.ClientIP = "11.22.33.44";  // IP address of end user (if applicable)
-            string pin = "4987";   // pin assigned to source
+            string pin = pinSendBox;   // pin assigned to source
 
             usaepay.ueHash hash = new usaepay.ueHash();
             hash.Type = "md5";  // Type of encryption 
@@ -99,10 +100,21 @@ namespace ShomaRM.Models
             string CustNum = model.CCVNumber;
 
             usaepay.PaymentMethod payMethod = new usaepay.PaymentMethod();
-            payMethod.CardExpiration = model.CardMonth+model.CardYear;
-            payMethod.CardNumber =model.CardNumber;
-            payMethod.AvsStreet = "Nagpur";
-            payMethod.AvsZip = "90046";
+            if(model.PaymentMethod==2)
+            {
+                payMethod.MethodType = "CreditCard";
+                payMethod.CardExpiration = model.CardMonth + model.CardYear;
+                payMethod.CardNumber = model.CardNumber;
+                payMethod.AvsStreet = "Nagpur";
+                payMethod.AvsZip = "90046";
+            }
+            else
+            {
+                payMethod.MethodType = "ACH";
+                payMethod.Routing = model.RoutingNumber;
+                payMethod.Account = model.AccountNumber;
+            }
+         
             payMethod.MethodName = model.Name_On_Card;
 
             string response;
@@ -309,7 +321,7 @@ namespace ShomaRM.Models
 
             token.SourceKey = sourceKeySendBox;
             token.ClientIP = "11.22.33.44";  // IP address of end user (if applicable)
-            string pin = "7894";   // pin assigned to source
+            string pin = pinSendBox;   // pin assigned to source
 
             usaepay.ueHash hash = new usaepay.ueHash();
             hash.Type = "md5";  // Type of encryption 
@@ -322,7 +334,7 @@ namespace ShomaRM.Models
             string CustNum = "11248650";
 
             usaepay.PaymentMethod payMethod = new usaepay.PaymentMethod();
-            
+            payMethod.MethodType = "ACH";
             payMethod.Routing = "234329098";
             payMethod.Account = "676867862126";
             //payMethod.AvsZip = "90046";
@@ -351,7 +363,7 @@ namespace ShomaRM.Models
 
             token.SourceKey = sourceKeySendBox;
             token.ClientIP = "11.22.33.44";  // IP address of end user (if applicable)
-            string pin = "4987";   // pin assigned to source
+            string pin = pinSendBox;   // pin assigned to source
 
             usaepay.ueHash hash = new usaepay.ueHash();
             hash.Type = "md5";  // Type of encryption 
@@ -396,7 +408,7 @@ namespace ShomaRM.Models
 
             token.SourceKey = sourceKeySendBox;
             token.ClientIP = "11.22.33.44";  // IP address of end user (if applicable)
-            string pin = "4987";   // pin assigned to source
+            string pin = pinSendBox;   // pin assigned to source
 
             usaepay.ueHash hash = new usaepay.ueHash();
             hash.Type = "md5";  // Type of encryption 
@@ -407,7 +419,7 @@ namespace ShomaRM.Models
 
             token.PinHash = hash;   // add hash value to token
             string start = "2020-06-01";
-            string end = "2020-06-23";
+            string end = "2020-06-24";
             string format = "html";
             string report = "CreditCard:Sales By Date";
 
@@ -424,6 +436,176 @@ namespace ShomaRM.Models
             }
             return transStatus;
         }
-        
+        //Sachin M 24 june
+        public string DeletePaymentMethod(string CustID, string PMID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string transStatus = "";
+            usaepay.ueSoapServerPortTypeClient client = new usaepay.ueSoapServerPortTypeClient();
+            usaepay.ueSecurityToken token = new usaepay.ueSecurityToken();
+
+            token.SourceKey = sourceKeySendBox;
+            token.ClientIP = "11.22.33.44";  // IP address of end user (if applicable)
+            string pin = pinSendBox;   // pin assigned to source
+
+            usaepay.ueHash hash = new usaepay.ueHash();
+            hash.Type = "md5";  // Type of encryption 
+            hash.Seed = Guid.NewGuid().ToString();  // unique encryption seed
+
+            string prehashvalue = string.Concat(token.SourceKey, hash.Seed, pin);  // combine data into single string
+            hash.HashValue = GenerateHash(prehashvalue); // generate hash
+
+            token.PinHash = hash;   // add hash value to token
+            string CustNum = CustID;
+            string PaymentID =PMID;
+
+            Boolean response;
+
+            try
+            {
+                response = client.deleteCustomerPaymentMethod(token, CustNum, PaymentID);
+              transStatus =string.Concat(response);
+            }
+
+            catch (Exception err)
+            {
+               transStatus= err.Message;
+            }
+            return transStatus;
+        }
+
+        public List<ApplyNowModel> GetCustPaymentMethod(string CustID, string PMID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string transStatus = "";
+            usaepay.ueSoapServerPortTypeClient client = new usaepay.ueSoapServerPortTypeClient();
+            usaepay.ueSecurityToken token = new usaepay.ueSecurityToken();
+
+            token.SourceKey = sourceKeySendBox;
+            token.ClientIP = "11.22.33.44";  // IP address of end user (if applicable)
+            string pin = pinSendBox;   // pin assigned to source
+
+            usaepay.ueHash hash = new usaepay.ueHash();
+            hash.Type = "md5";  // Type of encryption 
+            hash.Seed = Guid.NewGuid().ToString();  // unique encryption seed
+
+            string prehashvalue = string.Concat(token.SourceKey, hash.Seed, pin);  // combine data into single string
+            hash.HashValue = GenerateHash(prehashvalue); // generate hash
+
+            token.PinHash = hash;   // add hash value to token
+            string CustNum = CustID;
+            List<ApplyNowModel> pmmodel = new List<ApplyNowModel>();
+            try
+            {
+                usaepay.PaymentMethod[] Method = client.getCustomerPaymentMethods(token, CustNum);
+
+               
+
+                foreach(var pm in Method)
+                {
+                    ApplyNowModel mm = new ApplyNowModel();
+                    mm.PAID =Convert.ToInt32(pm.MethodID);
+                   
+                    mm.Name_On_Card = pm.MethodName;
+                    mm.CardYear = pm.CardExpiration;
+                    mm.RoutingNumber = pm.Routing;
+                    if(pm.MethodType=="ACH")
+                    {
+                        mm.CardNumber = pm.Routing;
+                    }
+                    else
+                    {
+                        mm.CardNumber = pm.CardNumber;
+                    }
+                    pmmodel.Add(mm);
+                }
+               //transStatus= string.Concat(Method[0],Method[1]);
+            }
+
+            catch (Exception err)
+            {
+                transStatus = err.Message;
+            }
+            return pmmodel;
+        }
+        public string GetCustomerList(string CustID, string PMID)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string transStatus = "";
+            usaepay.ueSoapServerPortTypeClient client = new usaepay.ueSoapServerPortTypeClient();
+            usaepay.ueSecurityToken token = new usaepay.ueSecurityToken();
+
+            token.SourceKey = sourceKeySendBox;
+            token.ClientIP = "11.22.33.44";  // IP address of end user (if applicable)
+            string pin = pinSendBox;   // pin assigned to source
+
+            usaepay.ueHash hash = new usaepay.ueHash();
+            hash.Type = "md5";  // Type of encryption 
+            hash.Seed = Guid.NewGuid().ToString();  // unique encryption seed
+
+            string prehashvalue = string.Concat(token.SourceKey, hash.Seed, pin);  // combine data into single string
+            hash.HashValue = GenerateHash(prehashvalue); // generate hash
+
+            token.PinHash = hash;   // add hash value to token
+            string CustNum = CustID;
+
+            try
+            {
+                usaepay.PaymentMethod[] Method = client.getCustomerPaymentMethods(token, CustNum);
+                transStatus = string.Concat(Method.Length);
+            }
+
+            catch (Exception err)
+            {
+                transStatus = err.Message;
+            }
+            return transStatus;
+        }
+
+        public string RefundTrans(string RefNum,decimal Amount)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string transStatus = "";
+            usaepay.ueSoapServerPortTypeClient client = new usaepay.ueSoapServerPortTypeClient();
+            usaepay.ueSecurityToken token = new usaepay.ueSecurityToken();
+
+            token.SourceKey = sourceKeySendBox;
+            token.ClientIP = "11.22.33.44";  // IP address of end user (if applicable)
+            string pin = pinSendBox;   // pin assigned to source
+
+            usaepay.ueHash hash = new usaepay.ueHash();
+            hash.Type = "md5";  // Type of encryption 
+            hash.Seed = Guid.NewGuid().ToString();  // unique encryption seed
+
+            string prehashvalue = string.Concat(token.SourceKey, hash.Seed, pin);  // combine data into single string
+            hash.HashValue = GenerateHash(prehashvalue); // generate hash
+
+            token.PinHash = hash;   // add hash value to token
+            string refnum = RefNum;
+            double amount =Convert.ToDouble(Amount);
+
+            usaepay.TransactionResponse response = new usaepay.TransactionResponse();
+
+            try
+            {
+                response = client.refundTransaction(token, refnum, amount);
+
+                if (response.ResultCode == "A")
+                {
+                  transStatus= string.Concat("Transaction Approved, RefNum: ",response.RefNum);
+                }
+                else
+                {
+                    transStatus= string.Concat("Transaction Failed: ",response.Error);
+                }
+            }
+
+            catch (Exception err)
+            {
+                transStatus = err.Message;
+            }
+            return transStatus;
+        }
+
     }
 }

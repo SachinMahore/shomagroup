@@ -134,6 +134,7 @@ namespace ShomaRM.Data
         public string ResidenceNotes { get; set; }
         public Nullable<int> EmpStatus { get; set; }
         public string EmpNotes { get; set; }
+        public Nullable<int> IsAgreeSummarry { get; set; }
     
         public virtual tbl_ApplyNow tbl_ApplyNow { get; set; }
     }

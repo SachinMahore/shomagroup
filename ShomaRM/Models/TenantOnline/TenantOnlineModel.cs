@@ -192,6 +192,8 @@ namespace ShomaRM.Models
         public string FloorPlanBathUnit { get; set; }
         public string FloorPlanAreaUnit { get; set; }
         public string FloorPlanStartPriceUnit { get; set; }
+        public long CurrentUserId { get; set; }
+        public int? IsAgreeSummary { get; set; }
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
@@ -557,6 +559,11 @@ namespace ShomaRM.Models
                         {
                             lstpr.FloorPlanStartPriceUnit = getUnitLesePriceData.Price.Value.ToString("0.00");
                         }
+                    }
+                    var getIsAgreeSummary = db.tbl_TenantOnline.Where(co => co.ParentTOID == toid).FirstOrDefault();
+                    if (getIsAgreeSummary!=null)
+                    {
+                        lstpr.IsAgreeSummary = getIsAgreeSummary.IsAgreeSummarry;
                     }
                 }
                 db.Dispose();
@@ -2640,6 +2647,20 @@ namespace ShomaRM.Models
                 substage = "Waiting Approval";
 
             return substage;
+        }
+
+        public string SaveUpdateAgreeSummary(long CurrentUserId, int isAgreeSummary)
+        {
+            string msg = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+            var saveupdatIsSummary = db.tbl_TenantOnline.Where(co => co.ParentTOID == CurrentUserId).FirstOrDefault();
+            if (saveupdatIsSummary!=null)
+            {
+                saveupdatIsSummary.IsAgreeSummarry = isAgreeSummary;
+                db.SaveChanges();
+            }
+            db.Dispose();
+            return msg;
         }
     }
 
