@@ -87,25 +87,8 @@ namespace ShomaRM.Controllers
             string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant);
             var keyValues = new List<KeyValuePair<string, string>>();
             keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
-           string serializeResponse =  _corelogichelper.PostFormUrlEncoded<List<XElement>>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues);
+         var data=   _corelogichelper.PostFormUrlEncoded<List<XElement>>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues);
 
-            var xDoc = XDocument.Parse(serializeResponse);
-
-            // <Response>
-        //< TransactionNumber > 58258585 </ TransactionNumber >
-        //< ReportDate > 2020 - 06 - 24 </ ReportDate >
-        //< ApplicantDecision > Accept with Conditions</ ApplicantDecision >
-   
-        //   < ApplicationDecision > Conditional </ ApplicationDecision >
-   
-        //   < ApplicantScore > 340 </ ApplicantScore >
-               var resultOrderDetail = xDoc
-                 .Descendants("TransactionNumber")
-               .Descendants("ReportDate")
-               .Descendants("ApplicantDecision")
-               .Descendants("ApplicationDecision")
-               .Descendants("ApplicantScore")             
-             .ToList();
             // insert this into database resultOrderDetail
 
             if (Session["DelDatAll"] != null)
