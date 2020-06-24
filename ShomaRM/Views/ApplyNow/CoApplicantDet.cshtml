@@ -4513,7 +4513,7 @@
                             <label class="form-control form-control-small" id="ddlApplicantType"></label>
                         </div>
                     </div>
-                    <div class="col-sm-4 @(Model.CreditPaid == 1 ? "hidden" : "")" style="margin-bottom:20px" id="divchkCCPay">
+                    <div class="col-sm-4" style="margin-bottom:20px" id="divchkCCPay">
                         <input type="checkbox" id="chkCCPay">
                         <span class="chektext">
                             Pay Credit Check Fees Now (Fill SSN# to pay fees)
@@ -4611,6 +4611,7 @@
                             Save Account Information
                         </span>
                     </div>
+                    <div class="col-sm-12" style="margin:2px"></div>
                     <div class="col-sm-12">
                         <input type="checkbox" id="chkTermsAndCondition1">
                         <span class="chektext">
@@ -4623,8 +4624,8 @@
 
             <!-- Modal footer -->
             <div class="modal-footer" style="border-top:none">
-                <button type="submit" class="btn btn-primary" id="btnsaveappl" onclick="saveupdateApplicantCoApplicant()">Save</button>
-                <button type="submit" class="btn btn-primary hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
+                <button type="submit" class="btn-alltype" id="btnsaveappl" onclick="saveupdateApplicant()">Save</button>
+                <button type="submit" class="btn-alltype hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
             </div>
 
         </div>
