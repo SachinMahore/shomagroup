@@ -255,7 +255,11 @@
             </div>
             <div class="form-group col-sm-2">
                 <label for="txtRefNum" class="star">Reference Num</label>
-                <input type="text" class="form-control" id="txtRefNum" placeholder="Reference Num" value="3110335697">
+                <input type="text" class="form-control" id="txtRefNum" placeholder="Reference Num" value="">
+            </div>
+            <div class="form-group col-sm-2">
+                <label for="txtRefAmount" class="star">Refund Amount</label>
+                <input type="text" class="form-control" id="txtRefAmount" placeholder="Refund Amount" value="">
             </div>
             <div class="col-sm-12" style="margin-bottom:20px">
                 <button type="submit" class="btn btn-primary" onclick="refundTrans()">Refund Trans</button>
@@ -606,8 +610,8 @@
 
 
         var refnum = $("#txtRefNum").val();
-        var amt = "450";
-
+        var amt = $("#txtRefAmount").val();
+        
         var model = {
             RefNum: refnum,
             Amount: amt,
