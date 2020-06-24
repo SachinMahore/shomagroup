@@ -1,0 +1,385 @@
+﻿@{
+}
+<div class="content-area submit-property sanctuary-background-img">
+    &nbsp;
+    <div class="container-box m-t" style="width:92%">
+        <div class="wizard-container" id="wizardProperty">
+            <div class="m-t text-center wizard-header">
+                <h3 style="color:#4D738A;font-size:36px;">Create Usae Pay Customer Account </h3>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="txtFirstName" class="star">First Name</label>
+                    <input type="text" class="form-control" id="txtFirstName" value="" placeholder="First Name">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="txtLastName" class="star">Last Name</label>
+                    <input type="text" class="form-control" id="txtLastName" value="" placeholder="Last Name">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="txtEmail" class="star">Office</label>
+                    <input type="text" class="form-control" id="txtEmp" value="" placeholder="Office">
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="form-group">
+                    <label for="txtCountryReg" class="star">Country</label>
+                    <input type="text" class="form-control" id="txtCountry" value="" placeholder="Country">
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="form-group">
+                    <label for="txtAddress1Reg" class="star">Address 1</label>
+                    <input id="txtAddress1Reg" type="text" class="form-control form-control-small" maxlength="300" />
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="form-group">
+                    <label for="txtAddress2Reg">Address Line 2</label>
+                    <input id="txtAddress2Reg" type="text" class="form-control form-control-small" maxlength="300" />
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="form-group">
+                    <label class="star"> State :</label>
+                    <input type="text" class="form-control" id="txtState" value="" placeholder="State">
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="form-group">
+                    <label class="star"> City :</label>
+                    <input id="txtCity" type="text" class="form-control form-control-small" maxlength="100" />
+                </div>
+            </div>
+            <div class="col-sm-4 ">
+                <div class="form-group">
+                    <label for="txtZipReg" class="star">Zip</label>
+                    <input class="form-control form-control-small" id="txtZipReg" maxlength="7" />
+                </div>
+            </div>
+            <div class="col-sm-6"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center">Customer ID: <b id="ResponseMsg1"></b></p></div>
+            <div class="col-sm-6">
+
+                <div class="pull-right text-center">
+                    <button type="submit" class="btn-alltype" id="btnnext" onclick="SaveCustomer()"> Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="wizard-container" id="wizardProperty">
+            <div class="m-t text-center wizard-header">
+                <h3 style="color:#4D738A;font-size:36px;">Save Payment Method in Usae Pay  </h3>
+            </div>
+            <div class="col-sm-12" id="divNewAcc">
+                <div class="col-sm-12">
+                    <div class="dot-hr"></div>
+                    <br />
+                </div>
+                <div class="col-sm-3">
+                    <input type="button" class='btn btn-primary active' id="chkACH" onclick="clearCard()" value="Credit Card">
+                </div>
+
+                <div class="col-sm-12">
+                    <br />
+                    <div class="dot-hr"></div>
+                </div>
+                <div class="col-sm-12">
+                    <label id="lblPaymentDet">Enter Credit Card Details.</label>
+                </div>
+                <div class="col-sm-12 hidden" id="divBank">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="star">Bank Name</label>
+                            <input id="txtBankName" type="text" class="form-control" placeholder="Bank Name" value="">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label id="lblAccCardname" class="star">Account Name</label>
+                            <input id="txtAccountName" type="text" class="form-control" placeholder="Account Name" value="">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label id="lblAccCardnum" class="star">Account Number</label>
+                            <input id="txtAccountNumber" type="text" class="form-control" placeholder="Account Number" onkeypress="return isOnlyNumber(event)" maxlength="12" value="">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>Routing Number</label>
+                            <input id="txtRoutingNumber" type="text" class="form-control" placeholder="Routing Number" maxlength="9" onkeypress="return isNumber(event)" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12" id="divCard">
+                    <div class="form-group col-sm-3">
+                        <label for="name">Name on Card</label>
+                        <input type="text" class="form-control" id="txtNameonCard" placeholder="Name on Card" value="">
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="cardnumber" class="star">Card Number</label>
+                        <input type="text" class="form-control" id="txtCardNumber" placeholder="Card Number" onkeypress="return isOnlyNumber(event)" maxlength="16" value="">
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label for="cardmonth">Card Month</label>
+                        <select id="ddlcardmonth" class="form-control form-control-small">
+                            @for (int i = 1; i <= 12; i++)
+                            {
+                                <option value="@(i.ToString("00"))">@i</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label for="cardyear">Card Year</label>
+                        <select id="ddlcardyear" class="form-control form-control-small">
+                            @for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(5).Year; i++)
+                            {
+                                <option value="@(i.ToString().Substring(2,2))">@i</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label for="txtCcvNumber" class="star">Customer ID</label>
+                        <input type="text" class="form-control" id="txtCustID" placeholder="Customer ID" value="">
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom:20px">
+                        <button type="submit" class="btn btn-primary" onclick="savePayMethod()">Save Payment Method</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <br />
+                    </div>
+                    <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center">Payment Method ID: <b id="ResponseMsg"></b></p></div>
+                </div>
+            </div>
+        </div>
+        <div class="wizard-container" id="wizardProperty">
+            <div class="m-t text-center wizard-header">
+                <h3 style="color:#4D738A;font-size:36px;">Make Transaction using Cust ID and Payment method ID (Saved Payment account from UsaePay) </h3>
+            </div>
+            <div class="col-sm-12" id="">
+                <div class="col-sm-12">
+                    <br />
+                    <div class="dot-hr"></div>
+                </div>
+                <div class="col-sm-12" id="">
+                    <div class="form-group col-sm-2">
+                        <label for="" class="star">Customer ID</label>
+                        <input type="text" class="form-control" id="txtCustID1" placeholder="Customer ID" value="">
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label for="" class="star">Payment Method ID</label>
+                        <input type="text" class="form-control" id="txtPaymentID" placeholder="Payment ID" value="">
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label for="" class="star">Description</label>
+                        <input type="text" class="form-control" id="txtDesc" placeholder="Customer ID" value="">
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label for="" class="star">Amount</label>
+                        <input type="text" class="form-control" id="txtAmount" placeholder="Payment ID" value="">
+                    </div>
+                    <div class="col-sm-12" style="margin-bottom:20px">
+                        <button type="submit" class="btn btn-primary" onclick="MakePayment()">Make Payment</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <br />
+                    </div>
+                    <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center">Transaction ID: <b id="ResponseMsg3"></b></p></div>
+                </div>
+                <div class="col-sm-12" style="margin-bottom:20px">
+                    <button type="submit" class="btn btn-primary" onclick="transReport()">Transaction Report</button>
+                </div>
+                <div class="col-sm-2">
+                    <br />
+                </div>
+                <div class="col-sm-12"><p  id="ResponseMsg4">Transaction ID: </p></div>
+            </div>
+        </div>
+        </div>
+</div>
+
+<script>
+    var SaveCustomer = function () {
+        $("#divLoader").show();
+        var msg = "";
+     
+        var firstName = $("#txtFirstName").val();
+        var lastName = $("#txtLastName").val();
+        var emp = $("#txtEmp").val();
+        var country = $("#txtCountry").val();
+        var homeAddress1 = $("#txtAddress1Reg").val();
+        var homeAddress2 = $("#txtAddress2Reg").val();
+        var stateHome = $("#txtState").val();
+        var cityHome = $("#txtCity").val();
+        var zipHome = $("#txtZipReg").val();
+
+        if (!firstName) {
+            msg += "Please fill the First Name </br>";
+        }
+        if (!lastName) {
+            msg += "Please fill the  Last Name </br>";
+        }
+        if (msg != "") {
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            $("#divLoader").hide();
+            return;
+        }
+
+        var model = {
+            FirstName: firstName,
+            LastName: lastName,
+            EmployerName: emp,
+            CountryString: country,
+            HomeAddress1: homeAddress1,
+            HomeAddress2: homeAddress2,
+            StateHomeString: stateHome,
+            CityHome: cityHome,
+            ZipHome: zipHome,
+        };
+
+        $.ajax({
+            url: '/Home/CreateUsaePayAccount',
+            type: 'post',
+            data: JSON.stringify(model),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (response) {
+                $("#divLoader").hide();
+                $("#ResponseMsg1").text(response.msg);
+                $("#txtCustID").val(response.msg);
+                $("#txtCustID1").val(response.msg);
+                $.alert({
+                    title: "",
+                    content: response.msg,
+                    type: 'red'
+                });
+            }
+        });
+    }
+    function savePayMethod() {
+        $("#divLoader").show();
+        var msg = "";
+        var nameonCard = $("#txtNameonCard").val();
+        var cardNumber = $("#txtCardNumber").val();
+        var cardMonth = $("#ddlcardmonth").val();
+        var cardYear = $("#ddlcardyear").val();
+        var cid = $("#txtCustID").val();
+
+        if (!nameonCard) {
+            msg += "Please Enter Name on Card</br>";
+        }
+        if (cardNumber == "" || cardNumber.length != 16) {
+            msg += "Please enter your 16 digit Card Number</br>";
+        }
+        if (cardMonth == "0") {
+            msg += "Please enter Card Month</br>";
+        }
+        if (cardYear == "0") {
+            msg += "Please enter Card Year</br>";
+        }
+
+        var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
+        var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+
+        GivenDate = new Date(GivenDate);
+        CurrentDate = new Date(CurrentDate);
+
+        if (GivenDate <= CurrentDate) {
+            msg += "Your Credit Card Expired..</br>";
+        }
+
+        if (msg != "") {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+
+        var model = {
+            CCVNumber: cid,
+            Name_On_Card: nameonCard,
+            CardNumber: cardNumber,
+            CardMonth: cardMonth,
+            CardYear: cardYear,
+        };
+
+        $.ajax({
+            url: "/Home/AddCustPaymentMethodCC/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $("#divLoader").hide();
+                $("#ResponseMsg").text(response.msg);
+                $("#txtPaymentID").val(response.msg);
+
+                $.alert({
+                    title: "",
+                    content: response.msg,
+                    type: 'red'
+                });
+            }
+        });
+    }
+
+    function MakePayment() {
+
+        $("#divLoader").show();
+        var msg = "";
+        var pmid = $("#txtPaymentID").val();
+        var cid = $("#txtCustID1").val();
+        var desc = $("#txtDesc").val();
+        var amt = $("#txtAmount").val();
+
+        var model = {
+            CustID: cid,
+            PMID: pmid,
+            Amount: amt,
+            Desc:desc,
+        };
+
+        $.ajax({
+            url: "/Home/PayUsingCustomerNum/",
+            type: "post",
+            contentType: "application/json utf-8",
+            data: JSON.stringify(model),
+            dataType: "JSON",
+            success: function (response) {
+                $("#divLoader").hide();
+                $("#ResponseMsg3").text(response.msg);
+               
+                $.alert({
+                    title: "",
+                    content: response.msg,
+                    type: 'red'
+                });
+            }
+        });
+    }
+    function transReport() {
+        $("#divLoader").show();
+        $.ajax({
+            url: "/Home/TransReport/",
+            type: "post",
+            contentType: "application/json utf-8",
+            dataType: "JSON",
+            success: function (response) {
+                $("#divLoader").hide();
+                $("#ResponseMsg4").append(response.msg);
+
+            }
+        });
+    }
+</script>

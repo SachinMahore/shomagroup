@@ -89,7 +89,7 @@ namespace ShomaRM.Controllers
             keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
          var data=   _corelogichelper.PostFormUrlEncoded<List<XElement>>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues);
 
-            // insert this into database resultOrderDetail
+          
 
             if (Session["DelDatAll"] != null)
             {
@@ -119,8 +119,7 @@ namespace ShomaRM.Controllers
         }
 
 
-        public async System.Threading.Tasks.Task<ActionResult> About()   
-
+        public async System.Threading.Tasks.Task<ActionResult> About()
         {
             ViewBag.Message = "Your application description page.";
 
@@ -203,5 +202,65 @@ namespace ShomaRM.Controllers
             return Json("");
         }
         #endregion
+
+
+        //Sachin M 23 June
+
+        public ActionResult CreateUsaePayAccount(TenantOnlineModel model)
+        {
+            try
+            {
+                return Json(new { msg = (new UsaePayWSDLModel().CreateUsaePayAccount(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult AddCustPaymentMethodCC(ApplyNowModel model)
+        {
+            try
+            {
+                return Json(new { msg = (new UsaePayWSDLModel().AddCustPaymentMethodCC(model)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult AddCustPaymentMethodACH(ApplyNowModel mm)
+        {
+            UsaePayWSDLModel model = new UsaePayWSDLModel();
+            model.AddCustPaymentMethodACH(mm);
+            return View();
+        }
+        public ActionResult PayUsingCustomerNum(string CustID, string PMID, decimal Amount, string Desc)
+        {
+            try
+            {
+                return Json(new { msg = (new UsaePayWSDLModel().PayUsingCustomerNum(CustID,PMID,Amount,Desc)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult PayFromUsae()
+        {
+            
+            return View();
+        }
+        public ActionResult TransReport()
+        {
+            try
+            {
+                return Json(new { msg = (new UsaePayWSDLModel().TransReport()) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
