@@ -224,9 +224,40 @@ $(document).ready(function () {
             else {
                 $("#hndShowPaymentPolicy").val(1);
             }
+
+            var model = {
+                CurrentUserId: $('#hndCoAppUserId').val(),
+                isAgreeSummary: 1,
+            };
+
+            $.ajax({
+                url: '/ApplyNow/SaveUpdateAgreeSummary',
+                type: 'post',
+                data: JSON.stringify(model),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+
+                }
+            });
         }
         else if ($("#chkAgreeSummarry").is(":not(:checked)")) {
             //  $("#popApplicantSummary").modal("hide");
+            var model = {
+                CurrentUserId: $('#hndCoAppUserId').val(),
+                isAgreeSummary: 0,
+            };
+
+            $.ajax({
+                url: '/ApplyNow/SaveUpdateAgreeSummary',
+                type: 'post',
+                data: JSON.stringify(model),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+
+                }
+            });
         }
     });
 
@@ -946,7 +977,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step17").addClass("hidden");
 
             $("#li8").addClass("active");
-            $("#li7").removeClass("active");
+            $("#li7").addClass("active");
             $("#li9").removeClass("active");
             $("#li10").removeClass("active");
             $("#li11").removeClass("active");
@@ -1004,8 +1035,8 @@ var goToStep = function (stepid, id, calldataupdate) {
 
 
                 $("#li9").addClass("active");
-                $("#li8").removeClass("active");
-                $("#li7").removeClass("active");
+                $("#li8").addClass("active");
+                $("#li7").addClass("active");
                 $("#li10").removeClass("active");
                 $("#li11").removeClass("active");
                 $("#li12").removeClass("active");
@@ -1202,9 +1233,9 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#step16").addClass("hidden");
 
                 $("#li10").addClass("active");
-                $("#li8").removeClass("active");
-                $("#li9").removeClass("active");
-                $("#li7").removeClass("active");
+                $("#li8").addClass("active");
+                $("#li9").addClass("active");
+                $("#li7").addClass("active");
                 $("#li11").removeClass("active");
                 $("#li12").removeClass("active");
                 $("#li13").removeClass("active");
@@ -1306,10 +1337,10 @@ var goToStep = function (stepid, id, calldataupdate) {
                             $("#step17").addClass("hidden");
 
                             $("#li11").addClass("active");
-                            $("#li8").removeClass("active");
-                            $("#li9").removeClass("active");
-                            $("#li7").removeClass("active");
-                            $("#li10").removeClass("active");
+                            $("#li8").addClass("active");
+                            $("#li9").addClass("active");
+                            $("#li7").addClass("active");
+                            $("#li10").addClass("active");
                             $("#li12").removeClass("active");
                             $("#li13").removeClass("active");
                             $("#li14").removeClass("active");
@@ -1330,194 +1361,6 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#divLoader").hide();
                 return;
             }
-        }
-    }
-    if (stepid == "12") {
-        if (parseInt($("#hdnStepCompleted").val()) < 11) {
-            msg = getStepCompletedMsg(parseInt($("#hdnStepCompleted").val()) + 1, 12);
-            $.alert({
-                title: "",
-                content: msg,
-                type: 'red'
-            });
-            return;
-        }
-        if (id == "12") {
-            msg = '';
-            if (!$("#txtEmployerName").val()) {
-                msg += "Please Fill The Employer Name </br>";
-            }
-            if (!$("#txtStartDate").val()) {
-                msg += "Please Fill The Start Date </br>";
-            }
-            if (!$("#txtAnnualIncome").val()) {
-                msg += "Please Fill The Annual Income </br>";
-            }
-            if ($("#txtAnnualIncome").val() == '0.00') {
-                msg += "Please Fill The Annual Income </br>";
-            }
-            if (!$("#txtSupervisiorName").val()) {
-                msg += "Please Fill The Supervisior Name </br>";
-            }
-
-            if (!$("#txtSupervisiorPhone").val()) {
-                msg += "Please Fill The Supervisior Phone </br>";
-            } else if (unformatText($("#txtSupervisiorPhone").val()).length < 10) {
-                msg += "Please Fill The 10 digit Supervisior Phone </br>";
-            }
-
-            if ($("#hndHasTaxReturnFile").val() == "0") {
-                if (document.getElementById('fileUploadTaxReturn').files.length == '0') {
-                    msg += "Please Upload last 3 paystubs or if self-employed last 2 year's Federal Tax Returns or 3 consecutive bank statements</br>";
-                }
-            }
-            if ($("#rbtnPaystub").is(":checked")) {
-                if ($("#hndHasTaxReturnFile4").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn4').files.length == '0') {
-                        var upLabel44 = $('#lblUpload4').text();
-                        msg += "Please Upload " + upLabel44 + " </br>";
-                    }
-                }
-                if ($("#hndHasTaxReturnFile5").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn5').files.length == '0') {
-                        var upLabel25 = $('#lblUpload5').text();
-                        msg += "Please Upload " + upLabel25 + " </br>";
-                    }
-                }
-                if ($("#hndHasTaxReturnFile3").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn3').files.length == '0') {
-                        var upLabel3 = $('#lblUpload3').text();
-                        msg += "Please Upload " + upLabel3 + " </br>";
-                    }
-                }
-            }
-            if ($("#rbtnFedralTax").is(":checked")) {
-                if ($("#hndHasTaxReturnFile1").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
-                        var upLabel4 = $('#lblUpload1').text();
-                        msg += "Please Upload " + upLabel4 + " </br>";
-                    }
-                }
-                if ($("#hndHasTaxReturnFile2").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
-                        var upLabel5 = $('#lblUpload2').text();
-                        msg += "Please Upload " + upLabel5 + " </br>";
-                    }
-                }
-            }
-            if ($("#rbtnBankStatement").is(":checked")) {
-                if ($("#hndHasBankStateFile1").val() == "0") {
-                    if (document.getElementById('fileBankState1').files.length == '0') {
-                        var upLabel6 = $('#lblUploadBankState1').text();
-                        msg += "Please Upload " + upLabel6 + " </br>";
-                    }
-                }
-                if ($("#hndHasBankStateFile2").val() == "0") {
-                    if (document.getElementById('fileBankState2').files.length == '0') {
-                        var upLabel7 = $('#lblUploadBankState2').text();
-                        msg += "Please Upload " + upLabel7 + " </br>";
-                    }
-                }
-                if ($("#hndHasBankStateFile3").val() == "0") {
-                    if (document.getElementById('fileBankState3').files.length == '0') {
-                        var upLabel8 = $('#lblUploadBankState3').text();
-                        msg += "Please Upload " + upLabel8 + " </br>";
-                    }
-                }
-            }
-
-
-            if ($("#txtCountryOffice").val() == '0') {
-                msg += "Please Select The Country </br>";
-            }
-            if (!$("#txtofficeAddress1").val()) {
-                msg += "Please Fill The Address Line 1 </br>";
-            }
-            if ($("#ddlStateEmployee").val() == '0') {
-                msg += "Please Select The State </br>";
-            }
-            if (!$("#ddlCityEmployee").val()) {
-                msg += "Please Fill The City </br>";
-            }
-            if (!$("#txtZipOffice").val()) {
-                msg += "Please Fill The Zip </br>";
-            }
-
-            if (nofup < 2) {
-                msg += "Please Select any  two of the three options (tax return, paystubs, and bank statements)";
-            }
-
-            if (msg != "") {
-                $.alert({
-                    title: "",
-                    content: msg,
-                    type: 'red'
-                });
-                return;
-            }
-            else {
-                todaysDate = new Date();
-                twoDigitMonth = ((todaysDate.getMonth().length + 1) === 1) ? (todaysDate.getMonth() + 1) : '0' + (todaysDate.getMonth() + 1);
-                twoDigitDay = ((todaysDate.getDate().length) === 1) ? (todaysDate.getDate()) : '0' + (todaysDate.getDate());
-                todaysDate = twoDigitMonth + "/" + todaysDate.getDate() + "/" + todaysDate.getFullYear();
-                tenantId = $("#hdnOPId").val();
-                fromDateEmpHis = $('#txtStartDate').val();
-                var toDateEmpHis = todaysDate;
-                model = {
-                    TenantId: tenantId,
-                    EmpStartDate: fromDateEmpHis,
-                    EmpTerminationDate: toDateEmpHis
-                };
-                $.ajax({
-                    url: '/ApplyNow/GetMonthsFromEmployerHistory',
-                    type: "post",
-                    contentType: "application/json utf-8",
-                    data: JSON.stringify(model),
-                    dataType: "JSON",
-                    success: function (response) {
-                        $("#hdnEmployerHistory").val(response.model.TotalMonthsEmployerHistory);
-                        if ($("#hdnEmployerHistory").val() < 36) {
-                            alert("Please provide at least 3 years of employment history");
-                        } else {
-                            $("#summEmployer").text($("#txtEmployerName").val() + ", " + $("#txtofficeAddress1").val() + ", " + ((!$("#txtofficeAddress2").val()) ? "" : ", " + $("#txtofficeAddress2").val()) + $("#ddlCityEmployee").val() + ", " + $("#ddlStateEmployee option:selected").text() + " - " + $("#txtZipOffice").val() + ", " + $("#txtCountryOffice option:selected").text());
-                            $("#summEstartdate").text($("#txtStartDate").val());
-                            $("#summSalary").text(formatMoney($("#txtAnnualIncome").val()));
-                            saveupdateTenantOnlineCoapplicant(12);
-                            getTenantPetPlaceDataCoapp();
-                            $("#step2").addClass("hidden");
-                            $("#step1").addClass("hidden");
-                            $("#step4").addClass("hidden");
-                            $("#step3").addClass("hidden");
-                            $("#step5").addClass("hidden");
-                            $("#step6").addClass("hidden");
-                            $("#step7").addClass("hidden");
-                            $("#step8").addClass("hidden");
-                            $("#step9").addClass("hidden");
-                            $("#step10").addClass("hidden");
-                            $("#step11").addClass("hidden");
-                            $("#step12").removeClass("hidden");
-                            $("#step13").addClass("hidden");
-                            $("#step14").addClass("hidden");
-                            $("#step15").addClass("hidden");
-                            $("#step16").addClass("hidden");
-
-                            $("#li12").addClass("active");
-                            $("#li8").removeClass("active");
-                            $("#li9").removeClass("active");
-                            $("#li7").removeClass("active");
-                            $("#li11").removeClass("active");
-                            $("#li10").removeClass("active");
-                            $("#li13").removeClass("active");
-                            $("#li14").removeClass("active");
-                            $("#li15").removeClass("active");
-                            $("#li16").removeClass("active");
-                            $("#li17").removeClass("active");
-                            $("#hndGotoSummary").val(12);
-                        }
-                    }
-                });
-            }
-
         }
     }
     if (stepid == "13") {
@@ -1570,6 +1413,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         msg += "Please Upload " + upLabel3 + " </br>";
                     }
                 }
+                nofup += 1;
             }
             if ($("#rbtnFedralTax").is(":checked")) {
                 if ($("#hndHasTaxReturnFile1").val() == "0") {
@@ -1584,6 +1428,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         msg += "Please Upload " + upLabel5 + " </br>";
                     }
                 }
+                nofup += 1;
             }
             if ($("#rbtnBankStatement").is(":checked")) {
                 if ($("#hndHasBankStateFile1").val() == "0") {
@@ -1604,6 +1449,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         msg += "Please Upload " + upLabel8 + " </br>";
                     }
                 }
+                nofup += 1;
             }
             if ($("#txtCountryOffice").val() == '0') {
                 msg += "Please Select The Country </br>";
@@ -1694,12 +1540,12 @@ var goToStep = function (stepid, id, calldataupdate) {
                             $("#step16").addClass("hidden");
 
                             $("#li13").addClass("active");
-                            $("#li8").removeClass("active");
-                            $("#li9").removeClass("active");
-                            $("#li7").removeClass("active");
-                            $("#li11").removeClass("active");
-                            $("#li12").removeClass("active");
-                            $("#li10").removeClass("active");
+                            $("#li8").addClass("active");
+                            $("#li9").addClass("active");
+                            $("#li7").addClass("active");
+                            $("#li11").addClass("active");
+                            //$("#li12").removeClass("active");
+                            $("#li10").addClass("active");
                             $("#li14").removeClass("active");
                             $("#li15").removeClass("active");
                             $("#li16").removeClass("active");
@@ -1734,13 +1580,13 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step17").addClass("hidden");
 
             $("#li14").addClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-            $("#li13").removeClass("active");
-            $("#li10").removeClass("active");
+            $("#li8").addClass("active");
+            $("#li9").addClass("active");
+            $("#li7").addClass("active");
+            $("#li11").addClass("active");
+            //$("#li12").removeClass("active");
+            $("#li13").addClass("active");
+            $("#li10").addClass("active");
             $("#li15").removeClass("active");
             $("#li16").removeClass("active");
             $("#li17").removeClass("active");
@@ -1778,14 +1624,14 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step17").addClass("hidden");
 
             $("#li15").addClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-            $("#li13").removeClass("active");
-            $("#li14").removeClass("active");
-            $("#li10").removeClass("active");
+            $("#li8").addClass("active");
+            $("#li9").addClass("active");
+            $("#li7").addClass("active");
+            $("#li11").addClass("active");
+            //$("#li12").removeClass("active");
+            $("#li13").addClass("active");
+            $("#li14").addClass("active");
+            $("#li10").addClass("active");
             $("#li16").removeClass("active");
             $("#li17").removeClass("active");
 
@@ -1831,15 +1677,15 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step17").addClass("hidden");
 
             $("#li16").addClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-            $("#li13").removeClass("active");
-            $("#li14").removeClass("active");
-            $("#li15").removeClass("active");
-            $("#li10").removeClass("active");
+            $("#li8").addClass("active");
+            $("#li9").addClass("active");
+            $("#li7").addClass("active");
+            $("#li11").addClass("active");
+            //$("#li12").removeClass("active");
+            $("#li13").addClass("active");
+            $("#li14").addClass("active");
+            $("#li15").addClass("active");
+            $("#li10").addClass("active");
             $("#li17").removeClass("active");
 
         }
@@ -1867,16 +1713,16 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step17").removeClass("hidden");
 
             $("#li17").addClass("active");
-            $("#li8").removeClass("active");
-            $("#li9").removeClass("active");
-            $("#li7").removeClass("active");
-            $("#li11").removeClass("active");
-            $("#li12").removeClass("active");
-            $("#li13").removeClass("active");
-            $("#li14").removeClass("active");
-            $("#li15").removeClass("active");
-            $("#li16").removeClass("active");
-            $("#li10").removeClass("active");
+            $("#li8").addClass("active");
+            $("#li9").addClass("active");
+            $("#li7").addClass("active");
+            $("#li11").addClass("active");
+            //$("#li12").removeClass("active");
+            $("#li13").addClass("active");
+            $("#li14").addClass("active");
+            $("#li15").addClass("active");
+            $("#li16").addClass("active");
+            $("#li10").addClass("active");
 
         }
     }
@@ -1901,166 +1747,7 @@ var getStepCompletedMsg = function (currentstep, clickstep) {
 };
 
 var showCurrentStep = function (stepid, id) {
-    if (stepid == 1) {
-        $("#subMenu").addClass("hidden");
-        $("#li1").addClass("active");
-        $("#li2").removeClass("active");
-        $("#li3").removeClass("active");
-        $("#li4").removeClass("active");
-        $("#li5").removeClass("active");
-        $("#li6").removeClass("active");
-        $("#li7").removeClass("active");
-
-        $("#step1").removeClass("hidden");
-        $("#step2").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-        $("#step17").addClass("hidden");
-        $("#subMenu").addClass("hidden");
-    }
-    if (stepid == "2") {
-        $("#subMenu").addClass("hidden");
-        $("#as2").removeAttr("onclick");
-        $("#as2").attr("onclick", "goToStep(2,2,1)");
-        $("#li1").addClass("active");
-        $("#li2").addClass("active");
-
-        $("#li3").removeClass("active");
-        $("#li4").removeClass("active");
-        $("#li5").removeClass("active");
-        $("#li6").removeClass("active");
-        $("#li7").removeClass("active");
-        $("#step1").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step2").removeClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-        $("#step17").addClass("hidden");
-
-    }
-    if (stepid == "3") {
-        $("#subMenu").addClass("hidden");
-        $("#as3").removeAttr("onclick");
-        $("#as3").attr("onclick", "goToStep(4,4,0)");
-        $("#subMenu").addClass("hidden");
-
-        $("#li1").addClass("active");
-        $("#li2").addClass("active");
-        $("#li3").addClass("active");
-
-        $("#li4").removeClass("active");
-        $("#li5").removeClass("active");
-        $("#li6").removeClass("active");
-        $("#li7").removeClass("active");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step3").removeClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-        $("#step17").addClass("hidden");
-    }
-    if (stepid == "4") {
-
-        $("#subMenu").addClass("hidden");
-        $("#as4").removeAttr("onclick");
-        $("#as4").attr("onclick", "goToStep(5,5,0)");
-
-        $("#li1").addClass("active");
-        $("#li2").addClass("active");
-        $("#li3").addClass("active");
-        $("#li4").removeClass("active");
-        $("#li5").removeClass("active");
-        $("#li6").removeClass("active");
-        $("#li7").removeClass("active");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").removeClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-        $("#step17").addClass("hidden");
-
-    }
-    if (stepid == "5") {
-
-        $("#subMenu").addClass("hidden");
-        $("#as5").removeAttr("onclick");
-        $("#as5").attr("onclick", "goToStep(6,6,0)");
-
-        $("#mainApplName").removeClass("hidden");
-        $("#getting-startedTimeRemainingClock").removeClass("hidden");
-        $("#li1").addClass("active");
-        $("#li2").addClass("active");
-        $("#li3").addClass("active");
-        $("#li4").addClass("active");
-
-        $("#li5").removeClass("active");
-        $("#li6").removeClass("active");
-        $("#li7").removeClass("active");
-
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step5").removeClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").addClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-        $("#step17").addClass("hidden");
-
-    }
+    
     if (stepid == "6") {
 
         $("#subMenu").addClass("hidden");
@@ -2262,37 +1949,6 @@ var showCurrentStep = function (stepid, id) {
         $("#li7").removeClass("active");
         $("#li10").removeClass("active");
         $("#li12").removeClass("active");
-        $("#li13").removeClass("active");
-        $("#li14").removeClass("active");
-        $("#li15").removeClass("active");
-        $("#li16").removeClass("active");
-        $("#li17").removeClass("active");
-    }
-    if (stepid == "12") {
-        $("#subMenu").removeClass("hidden");
-        $("#step2").addClass("hidden");
-        $("#step1").addClass("hidden");
-        $("#step4").addClass("hidden");
-        $("#step3").addClass("hidden");
-        $("#step5").addClass("hidden");
-        $("#step6").addClass("hidden");
-        $("#step7").addClass("hidden");
-        $("#step8").addClass("hidden");
-        $("#step9").addClass("hidden");
-        $("#step10").addClass("hidden");
-        $("#step11").addClass("hidden");
-        $("#step12").removeClass("hidden");
-        $("#step13").addClass("hidden");
-        $("#step14").addClass("hidden");
-        $("#step15").addClass("hidden");
-        $("#step16").addClass("hidden");
-
-        $("#li12").addClass("active");
-        $("#li8").removeClass("active");
-        $("#li9").removeClass("active");
-        $("#li7").removeClass("active");
-        $("#li11").removeClass("active");
-        $("#li10").removeClass("active");
         $("#li13").removeClass("active");
         $("#li14").removeClass("active");
         $("#li15").removeClass("active");
@@ -5520,7 +5176,7 @@ var saveupdateApplicantCoApplicant = function () {
     var model = {
         ApplicantID: aid,
         FirstName: fname,
-        Middle: mname,
+        MiddleName: mname,
         LastName: lname,
         Phone: aphone,
         Email: aemail,
@@ -5576,7 +5232,21 @@ var payFeePop = function (aid, ct) {
         $("#sppayFees2").text($("#hndAppCreditFees").val());
     } 
     getBankCCLists();
+    clearPayFeePop();
     $("#popCCPay").modal("show");
+}
+var clearPayFeePop = function () {
+    $('#txtNameonCard2').val("");
+    $('#txtCardNumber2').val("");
+    $('#ddlcardmonth2').val("01");
+    $('#ddlcardyear2').val("20");
+    $('#txtCCVNumber2').val("");
+    $('#chkSaveAcc').removeAttr("checked");
+    $('#chkSaveAcc').parent().remove("checked");
+    $('#chkSaveAcc').parent().removeClass("checked");
+    $('#chkTermsAndCondition2').removeAttr("checked");
+    $('#chkTermsAndCondition2').parent().remove("checked");
+    $('#chkTermsAndCondition2').parent().removeClass("checked");
 }
 var addAppFess = function (appFees, appid, type) {
     var totfees = unformatText($("#totalFinalFees").text());
@@ -5905,12 +5575,13 @@ var clearApplicant = function () {
 var saveupdatePetCoApplicant = function () {
     $("#divLoader").show();
     var msg = "";
+    var prospectID = $("#hdnProspectId").val();
     var petId = $("#hndPetID").val();
     //var petType = $("#ddlpetType").val();
     var breed = $("#txtpetBreed").val();
     var weight = $("#txtpetWeight").val();
     //var age = $("#txtpetAge").val();
-    var prospectID = $("#hdnOPId").val();
+
     var photo = document.getElementById('pet-picture');
     var petVaccinationCertificate = document.getElementById('filePetVaccinationCertificate');
     var petName = $("#txtpetName").val();
@@ -5919,9 +5590,7 @@ var saveupdatePetCoApplicant = function () {
     var hiddenPetVaccinationCertificate = $("#hndPetVaccinationCertificate").val();
     var hiddenOriginalPetPicture = $("#hndOriginalPetPicture").val();
     var hiddenOriginalPetVaccinationCertificate = $("#hndOriginalPetVaccinationCertificate").val();
-    //if (petType == '0') {
-    //    msg += "Select Pet Type</br>";
-    //}
+    var hiddenCurrentUserId = $("#hndCurrentUserId").val();
     if (!petName) {
         msg += "Enter Pet Name</br>";
     }
@@ -5938,8 +5607,11 @@ var saveupdatePetCoApplicant = function () {
             msg += "Please Upload Pet Vaccination Certificate</br>";
         }
     }
-    if (weight > "40") {
-        msg += "Weight must be upto 40 lbs.</br>";
+    if (!weight) {
+        msg += "Enter Pet Weight</br>";
+    }
+    if (weight > 40) {
+        msg += "Weight must be upto 40 lbs</br>";
     }
     if (msg != "") {
         $("#divLoader").hide();
@@ -5953,10 +5625,8 @@ var saveupdatePetCoApplicant = function () {
     $formData = new FormData();
 
     $formData.append('PetID', petId);
-    //$formData.append('PetType', petType);
     $formData.append('Breed', breed);
     $formData.append('Weight', weight);
-    //$formData.append('Age', age);
     $formData.append('TenantID', prospectID);
     $formData.append('PetName', petName);
     $formData.append('VetsName', vetsName);
@@ -5965,6 +5635,7 @@ var saveupdatePetCoApplicant = function () {
     $formData.append('PetVaccinationCertificate', hiddenPetVaccinationCertificate);
     $formData.append('OriginalPetNameFile', hiddenOriginalPetPicture);
     $formData.append('OriginalPetVaccinationCertificateFile', hiddenOriginalPetVaccinationCertificate);
+    $formData.append('CurrentUserId', hiddenCurrentUserId);
 
     $.ajax({
         url: "/Tenant/Pet/SaveUpdatePet/",
@@ -5975,21 +5646,20 @@ var saveupdatePetCoApplicant = function () {
         dataType: 'json',
         success: function (response) {
             $("#divLoader").hide();
+            console.log(response.Msg);
+            getPetListsCoApplicant();
+
             localStorage.setItem('tenantIds', response.Msg);
 
             var str = localStorage.getItem('tenantIds');
             var tId = str.split(',');
             document.getElementById('hdnOPId').value = tId[0];
-            //$("#hdnOPId").val(tId[0]);
-            getPetListsCoApplicant();
+
             $.alert({
                 title: "",
-                content: response.Msg,
+                content: tId[1],
                 type: 'blue'
             });
-
-
-            //$("#popPet").PopupWindow("close");
             $("#popPet").modal("hide");
         }
     });
@@ -5998,7 +5668,7 @@ var petIdd = 0;
 var getPetListsCoApplicant = function () {
     $("#divLoader").show();
     var model = {
-        TenantID: $("#hdnOPId").val()
+        TenantID: $("#hdnProspectId").val()
     };
     $.ajax({
         url: "/Pet/GetPetList",
@@ -6666,7 +6336,14 @@ var getTenantOnlineListCoApplicant = function (id) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-
+            if (response.model.IsAgreeSummary == '1') {
+                $("#chkAgreeSummarry").attr("checked", "checked");
+                $("#chkAgreeSummarry").parent().addClass("checked");
+            }
+            else {
+                $("#chkAgreeSummarry").removeAttr("checked");
+                $("#chkAgreeSummarry").parent().remove("checked");
+            }
             $("#ddlIsInter").val(response.model.IsInternational).change();
             $("#txtEmailNew").val(response.model.Email);
             $("#txtMobileNumber").val(formatPhoneFaxCoApplicant(response.model.Mobile));
@@ -6784,7 +6461,7 @@ var getTenantOnlineListCoApplicant = function (id) {
             $("#txtDateOfExpiration").val(response.model.DateExpireTxt);
             $("#ddlDocumentTypePersonal").val(response.model.IDType).change();
             //setTimeout(function () {
-            $("#ddlStatePersonal").val(response.model.State).change();
+            $("#ddlStatePersonal").val(response.model.StateHome).change();
             //$("#ddlStatePersonal").find("option[value='" + response.model.State + "']").attr('selected', 'selected');
             //}, 1500);
 

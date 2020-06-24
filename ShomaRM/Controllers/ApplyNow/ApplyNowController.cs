@@ -1400,6 +1400,19 @@ namespace ShomaRM.Controllers
                 return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-       
+
+        public ActionResult SaveUpdateAgreeSummary(long CurrentUserId,int isAgreeSummary)
+        {
+            try
+            {
+                return Json(new { model = new TenantOnlineModel().SaveUpdateAgreeSummary(CurrentUserId, isAgreeSummary) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
     }
 }

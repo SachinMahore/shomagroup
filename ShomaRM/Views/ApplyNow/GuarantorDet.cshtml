@@ -34,6 +34,7 @@
 <input type="hidden" id="hndAppCreditFees" value="@((Model.GuaCCCheckFees??0).ToString("0.00"))" />
 <input type="hidden" id="hndAppBackgroundFees" value="@((Model.GuaBGCheckFees??0).ToString("0.00"))" />
 <input type="hidden" id="hndStepGotosummary" value="" />
+<input type="hidden" id="hndCurrentUserId" value="@ShomaGroupWebSession.CurrentUser.UserID" />
 @*Sachin Mahore 21 Apr 2020*@
 <div class="content-area submit-property sanctuary-background-img">
     &nbsp;
@@ -3771,8 +3772,10 @@
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <div class="col-sm-6">
-                                <div class="">
+                            <div class="col-sm-6 pb-1 pl-6">
+
+                                <div class="chekbox-wrapper pull-left">
+
                                     <input class="form-control" type="checkbox" id="chkAgreeSummarry" /> <span class="agree-text">  ACCEPT AGREEMENTS</span>
                                 </div>
                             </div>
@@ -6248,6 +6251,9 @@
         height: 61px;
         text-transform: uppercase;
         font-weight: bold;
+    }
+    .pl-6, .px-6 {
+        padding-left: 0rem !important;
     }
 </style>
 <script>

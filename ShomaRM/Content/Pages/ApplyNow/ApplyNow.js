@@ -429,8 +429,38 @@ $(document).ready(function () {
             else {
                 $("#hndShowPaymentPolicy").val(1);
             }
+            var model = {
+                CurrentUserId: $('#hndCurrentUserId').val(),
+                isAgreeSummary: 1,
+            };
+
+            $.ajax({
+                url: '/ApplyNow/SaveUpdateAgreeSummary',
+                type: 'post',
+                data: JSON.stringify(model),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+
+                }
+            });
         }
         else if ($("#chkAgreeSummarry").is(":not(:checked)")) {
+            var model = {
+                CurrentUserId: $('#hndCurrentUserId').val(),
+                isAgreeSummary: 0,
+            };
+
+            $.ajax({
+                url: '/ApplyNow/SaveUpdateAgreeSummary',
+                type: 'post',
+                data: JSON.stringify(model),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+
+                }
+            });
         }
     });
 
@@ -604,7 +634,7 @@ $(document).ready(function () {
     setTimeout(function () {
         getApplicantLists();
         getVehicleLists();
-        getPetLists();
+        getPetListsApplyNow();
     }, 2000);
 
     $("#ddladdHistory").on("change", function () {
@@ -1804,6 +1834,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         msg += "Please Upload " + upLabel3 + " </br>";
                     }
                 }
+                nofup+=1;
             }
             if ($("#rbtnFedralTax").is(":checked")) {
                 if ($("#hndHasTaxReturnFile1").val() == "0") {
@@ -1818,6 +1849,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         msg += "Please Upload " + upLabel5 + " </br>";
                     }
                 }
+                nofup += 1;
             }
             if ($("#rbtnBankStatement").is(":checked")) {
                 if ($("#hndHasBankStateFile1").val() == "0") {
@@ -1838,6 +1870,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         msg += "Please Upload " + upLabel8 + " </br>";
                     }
                 }
+                nofup += 1;
             }
             if ($("#txtCountryOffice").val() == '0') {
                 msg += "Please Select The Country </br>";
@@ -2051,7 +2084,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             });
             return;
         }
-        var petAdded = $("#tblPet tbody tr").length;
+        var petAdded = $("#tblPetApplyNow tbody tr").length;
         $("#btnAddPet").prop("disabled", false);
         if (id == "14") {
             SaveUpdateStep(14);
@@ -2167,7 +2200,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             var msgmm = '';
             if (parseInt($("#hdnStepCompleted").val()) > 15) {
                 var numOfPets = $("#hndPetPlaceCount").val();
-                petAdded = $("#tblPet tbody tr").length;
+                petAdded = $("#tblPetApplyNow tbody tr").length;
 
                 msgmm = '';
 
@@ -2239,7 +2272,7 @@ var goToStep = function (stepid, id, calldataupdate) {
         var msgm = '';
         if (parseInt($("#hdnStepCompleted").val()) > 15) {
             numOfPets = $("#hndPetPlaceCount").val();
-            petAdded = $("#tblPet tbody tr").length;
+            petAdded = $("#tblPetApplyNow tbody tr").length;
 
             msgm = '';
 
@@ -5962,6 +5995,7 @@ var goToEditApplicant = function (aid) {
 };
 
 var payFeePop = function (aid, ct) {
+    clearPayFeePop();
     $("#hndApplicantID").val(aid);
     $("#hndFromAcc").val(ct);
     if (ct == 5) {
@@ -5977,7 +6011,21 @@ var payFeePop = function (aid, ct) {
         $("#sppayFees2").text(unformatText($("#totalFinalFees").text()));
     }
     getBankCCLists();
+    
     $("#popCCPay").modal("show");
+}
+var clearPayFeePop = function () {
+    $('#txtNameonCard2').val("");
+    $('#txtCardNumber2').val("");
+    $('#ddlcardmonth2').val("01");
+    $('#ddlcardyear2').val("20");
+    $('#txtCCVNumber2').val("");
+    $('#chkSaveAcc').removeAttr("checked");
+    $('#chkSaveAcc').parent().remove("checked");
+    $('#chkSaveAcc').parent().removeClass("checked");
+    $('#chkTermsAndCondition2').removeAttr("checked");
+    $('#chkTermsAndCondition2').parent().remove("checked");
+    $('#chkTermsAndCondition2').parent().removeClass("checked");
 }
 var clearApplicant = function () {
     $("#hndApplicantID").val(0);
@@ -6010,12 +6058,13 @@ var clearApplicant = function () {
 var saveupdatePet = function () {
     $("#divLoader").show();
     var msg = "";
+    var prospectID = $("#hdnProspectId").val();
     var petId = $("#hndPetID").val();
     //var petType = $("#ddlpetType").val();
     var breed = $("#txtpetBreed").val();
     var weight = $("#txtpetWeight").val();
     //var age = $("#txtpetAge").val();
-    var prospectID = $("#hdnOPId").val();
+    
     var photo = document.getElementById('pet-picture');
     var petVaccinationCertificate = document.getElementById('filePetVaccinationCertificate');
     var petName = $("#txtpetName").val();
@@ -6024,6 +6073,7 @@ var saveupdatePet = function () {
     var hiddenPetVaccinationCertificate = $("#hndPetVaccinationCertificate").val();
     var hiddenOriginalPetPicture = $("#hndOriginalPetPicture").val();
     var hiddenOriginalPetVaccinationCertificate = $("#hndOriginalPetVaccinationCertificate").val();
+    var hiddenCurrentUserId = $("#hndCurrentUserId").val();
     if (!petName) {
         msg += "Enter Pet Name</br>";
     }
@@ -6068,6 +6118,7 @@ var saveupdatePet = function () {
     $formData.append('PetVaccinationCertificate', hiddenPetVaccinationCertificate);
     $formData.append('OriginalPetNameFile', hiddenOriginalPetPicture);
     $formData.append('OriginalPetVaccinationCertificateFile', hiddenOriginalPetVaccinationCertificate);
+    $formData.append('CurrentUserId', hiddenCurrentUserId);
 
     $.ajax({
         url: "/Tenant/Pet/SaveUpdatePet/",
@@ -6078,12 +6129,14 @@ var saveupdatePet = function () {
         dataType: 'json',
         success: function (response) {
             $("#divLoader").hide();
+            
+            getPetListsApplyNow();
             localStorage.setItem('tenantIds', response.Msg);
 
             var str = localStorage.getItem('tenantIds');
             var tId = str.split(',');
             document.getElementById('hdnOPId').value = tId[0];
-            getPetLists();
+            
             $.alert({
                 title: "",
                 content: tId[1],
@@ -6094,10 +6147,10 @@ var saveupdatePet = function () {
     });
 };
 var petIdd = 0;
-var getPetLists = function () {
+var getPetListsApplyNow = function () {
     $("#divLoader").show();
     var model = {
-        TenantID: $("#hdnOPId").val()
+        TenantID: $("#hdnProspectId").val()
     };
     $.ajax({
         url: "/Pet/GetPetList",
@@ -6107,7 +6160,7 @@ var getPetLists = function () {
         dataType: "JSON",
         success: function (response) {
             $("#divLoader").hide();
-            $("#tblPet>tbody").empty();
+            $("#tblPetApplyNow>tbody").empty();
             $("#tblPet15>tbody").empty();
             $("#tblPet15p>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
@@ -6124,7 +6177,7 @@ var getPetLists = function () {
                 html += "<a href='../../Content/assets/img/pet/" + elementValue.PetVaccinationCertificate + "' download=" + elementValue.PetVaccinationCertificate + " target='_blank'><span class='fa fa-download'></span></a>";
                 html += "</td >";
                 html += "</tr>";
-                $("#tblPet>tbody").append(html);
+                $("#tblPetApplyNow>tbody").append(html);
 
                 var html15 = "<tr id='tr_" + elementValue.PetID + "' data-value='" + elementValue.PetID + "'>";
 
@@ -6743,7 +6796,15 @@ var getTenantOnlineList = function (id) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-
+            if (response.model.IsAgreeSummary == '1') {
+                $("#chkAgreeSummarry").attr("checked", "checked");
+                $("#chkAgreeSummarry").parent().addClass("checked");
+            }
+            else {
+                $("#chkAgreeSummarry").removeAttr("checked");
+                $("#chkAgreeSummarry").parent().remove("checked");
+            }
+            
             $("#ddlIsInter").val(response.model.IsInternational).change();
             $("#hndDocumentTypePersonal").val(response.model.IDType);
             $("#ddlCountryOfOrigin").val(response.model.CountryOfOrigin);
@@ -7224,7 +7285,7 @@ var delPet = function (petId) {
                         success: function (response) {
                             $("#divLoader").hide();
                             $('#tr_' + petId).remove();
-                            getPetLists();
+                            getPetListsApplyNow();
                         }
                     });
                 }
@@ -8543,7 +8604,7 @@ var getTenantPetPlaceData = function () {
             $("#divLoader").hide();
             var tenantCount = response.model.TenantPetCount;
             var valueCount = response.model.NumberOfPets;
-            var rowCount = $("#tblPet >tbody").children().length;
+            var rowCount = $("#tblPetApplyNow >tbody").children().length;
             $("#hndPetPlaceCount").val(valueCount);
 
             if (parseInt(response.model.NumberOfPets) == 1) {
@@ -8586,7 +8647,7 @@ var getTenantPetPlaceData = function () {
             if (!valueCount) { valueCount = 0; }
 
             if (valueCount == 0 && tenantCount == 0) {
-                $("#tblPet>tbody").empty();
+                $("#tblPetApplyNow>tbody").empty();
                 //$("#chkDontHavePetDiv").removeClass("hidden");
                 $("#chkDontHavePet").iCheck('check');
                 $("#btnAddPet").attr("disabled", true);
@@ -9615,7 +9676,7 @@ var checkAndDeletePet = function (noofpetdelete) {
         dataType: "JSON",
         success: function (response) {
             $("#divLoader").hide();
-            getPetLists();
+            getPetListsApplyNow();
         }
     });
 };

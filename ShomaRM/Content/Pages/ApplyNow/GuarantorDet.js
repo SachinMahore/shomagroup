@@ -290,9 +290,39 @@ $(document).ready(function () {
             else {
                 $("#hndShowPaymentPolicy").val(1);
             }
+            var model = {
+                CurrentUserId: $('#hndCurrentUserId').val(),
+                isAgreeSummary: 1,
+            };
+
+            $.ajax({
+                url: '/ApplyNow/SaveUpdateAgreeSummary',
+                type: 'post',
+                data: JSON.stringify(model),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+
+                }
+            });
         }
         else if ($("#chkAgreeSummarry").is(":not(:checked)")) {
             //  $("#popApplicantSummary").modal("hide");
+            var model = {
+                CurrentUserId: $('#hndCurrentUserId').val(),
+                isAgreeSummary: 0,
+            };
+
+            $.ajax({
+                url: '/ApplyNow/SaveUpdateAgreeSummary',
+                type: 'post',
+                data: JSON.stringify(model),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+
+                }
+            });
         }
     });
 
@@ -1262,6 +1292,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         msg += "Please Upload " + upLabel3 + " </br>";
                     }
                 }
+                nofup += 1;
             }
             if ($("#rbtnFedralTax").is(":checked")) {
                 if ($("#hndHasTaxReturnFile1").val() == "0") {
@@ -1276,6 +1307,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         msg += "Please Upload " + upLabel5 + " </br>";
                     }
                 }
+                nofup += 1;
             }
             if ($("#rbtnBankStatement").is(":checked")) {
                 if ($("#hndHasBankStateFile1").val() == "0") {
@@ -1296,6 +1328,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         msg += "Please Upload " + upLabel8 + " </br>";
                     }
                 }
+                nofup += 1;
             }
             if ($("#txtCountryOffice").val() == '0') {
                 msg += "Please Select The Country </br>";
@@ -5502,7 +5535,14 @@ var getTenantOnlineListGuarantor = function (id) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-
+            if (response.model.IsAgreeSummary == '1') {
+                $("#chkAgreeSummarry").attr("checked", "checked");
+                $("#chkAgreeSummarry").parent().addClass("checked");
+            }
+            else {
+                $("#chkAgreeSummarry").removeAttr("checked");
+                $("#chkAgreeSummarry").parent().remove("checked");
+            }
             $("#ddlIsInter").val(response.model.IsInternational).change();
             $("#txtEmailNew").val(response.model.Email);
             $("#txtMobileNumber").val(formatPhoneFax(response.model.Mobile));

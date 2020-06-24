@@ -28,6 +28,7 @@ namespace ShomaRM.Areas.Tenant.Models
         public long? TenantPetPlace { get; set; }
         public int? PetCount { get; set; }
         public int TenantPetPlaceIDInt { get; set; }
+        public int CurrentUserId { get; set; }
 
         public string SaveUpdatePet(PetModel model)
         {
@@ -37,39 +38,42 @@ namespace ShomaRM.Areas.Tenant.Models
 
             var availableSpace = db.tbl_TenantPetPlace.Where(p => p.TenantID == model.TenantID).FirstOrDefault();
             var availablePetList = db.tbl_TenantPet.Where(p => p.TenantID == model.TenantID).ToList();
-
-            if (availablePetList.Count < availableSpace.PetPlaceID)
+            if (availableSpace!=null && availablePetList!=null)
             {
-
-                if (model.PetID == 0)
+                if (availablePetList.Count < availableSpace.PetPlaceID)
                 {
-                    var savePet = new tbl_TenantPet()
-                    {
-                        PetID = model.PetID,
-                        TenantID = model.TenantID,
-                        PetType = model.PetType,
-                        Breed = model.Breed,
-                        Weight = model.Weight,
-                        Age = model.Age,
-                        Photo = model.Photo,
-                        PetVaccinationCert = model.PetVaccinationCertificate,
-                        OriginalPhoto = model.OriginalPetNameFile,
-                        OriginalVaccinationCert = model.OriginalPetVaccinationCertificateFile,
-                        PetName = model.PetName,
-                        VetsName = model.VetsName,
-                        AddedBy = userid
-                    };
-                    db.tbl_TenantPet.Add(savePet);
-                    db.SaveChanges();
-                    msg = savePet.TenantID.ToString();
 
-                    msg += ",Pet Saved Successfully";
+                    if (model.PetID == 0)
+                    {
+                        var savePet = new tbl_TenantPet()
+                        {
+                            PetID = model.PetID,
+                            TenantID = model.TenantID,
+                            PetType = model.PetType,
+                            Breed = model.Breed,
+                            Weight = model.Weight,
+                            Age = model.Age,
+                            Photo = model.Photo,
+                            PetVaccinationCert = model.PetVaccinationCertificate,
+                            OriginalPhoto = model.OriginalPetNameFile,
+                            OriginalVaccinationCert = model.OriginalPetVaccinationCertificateFile,
+                            PetName = model.PetName,
+                            VetsName = model.VetsName,
+                            AddedBy = model.CurrentUserId
+                        };
+                        db.tbl_TenantPet.Add(savePet);
+                        db.SaveChanges();
+                        msg = savePet.TenantID.ToString();
+
+                        msg += ",Pet Saved Successfully";
+                    }
+                }
+                else
+                {
+                    msg = ",You can not add Pet Due to Un-available Pet Space";
                 }
             }
-            else
-            {
-                msg = "You can not add Vehicle Due to Un-available Pet Space";
-            }
+            
             if (model.PetID != 0)
             {
                 var getPetdata = db.tbl_TenantPet.Where(p => p.PetID == model.PetID).FirstOrDefault();
@@ -89,7 +93,7 @@ namespace ShomaRM.Areas.Tenant.Models
                     getPetdata.VetsName = model.VetsName;
                 }
                 db.SaveChanges();
-                msg = "Pet Updated Successfully";
+                msg = ",Pet Updated Successfully";
             }
 
             db.Dispose();

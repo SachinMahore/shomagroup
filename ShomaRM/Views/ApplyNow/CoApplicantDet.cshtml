@@ -31,6 +31,7 @@
 <input type="hidden" id="hndAppCreditFees" value="@((Model.AppCCCheckFees??0).ToString("0.00"))" />
 <input type="hidden" id="hndAppBackgroundFees" value="@((Model.AppBGCheckFees??0).ToString("0.00"))" />
 <input type="hidden" id="hndGotoSummary" value="" />
+<input id="hdnProspectId" type="hidden" value="@Model.ProspectId" />
 @*Sachin Mahore 21 Apr 2020*@
 
 
@@ -3740,14 +3741,11 @@
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <div class="col-sm-6">
-                                <div class="col-sm-1 form-group">
-                                    <input class="form-control" type="checkbox" id="chkAgreeSummarry" style="width: 60px !important;height: 20px !important;">
-                                </div>
-                                <div class="col-sm-11" style="text-align: left;">
-                                    <label>
-                                        ACCEPT AGREEMENTS
-                                    </label>
+                            <div class="col-sm-6 pb-1 pl-6">
+
+                                <div class="chekbox-wrapper pull-left">
+
+                                    <input class="form-control" type="checkbox" id="chkAgreeSummarry" /> <span class="agree-text">  ACCEPT AGREEMENTS</span>
                                 </div>
                             </div>
                             <div class="pull-right text-center">
@@ -6128,6 +6126,9 @@
         height: 61px;
         text-transform: uppercase;
         font-weight: bold;
+    }
+    .pl-6, .px-6 {
+        padding-left: 0rem !important;
     }
 </style>
 <script>
