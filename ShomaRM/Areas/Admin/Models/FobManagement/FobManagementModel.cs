@@ -79,6 +79,8 @@ namespace ShomaRM.Areas.Admin.Models
         public string SortLname { get; set; }
         public string SortUno { get; set; }
         public string SortModel { get; set; }
+        public Nullable<int> Movers { get; set; }
+        public Nullable<int> IsCheckSD { get; set; }
     }
     public class FobManagementModel : FobManagement
     {
@@ -567,8 +569,10 @@ namespace ShomaRM.Areas.Admin.Models
                             ElectricityDoc = getMoveInchecklist == null ? "" : !string.IsNullOrWhiteSpace(getMoveInchecklist.ElectricityDoc) ? getMoveInchecklist.ElectricityDoc : "",
                             IsCheckPO = getMoveInchecklist == null ? 0 : getMoveInchecklist.IsCheckPO.HasValue ? getMoveInchecklist.IsCheckPO : 0,
                             IsCheckATT = getMoveInchecklist == null ? 0 : getMoveInchecklist.IsCheckATT.HasValue ? getMoveInchecklist.IsCheckATT : 0,
-                            IsCheckWater = getMoveInchecklist == null ? 0 :getMoveInchecklist.IsCheckWater.HasValue ? getMoveInchecklist.IsCheckWater : 0,
+                            IsCheckWater = getMoveInchecklist == null ? 0 : getMoveInchecklist.IsCheckWater.HasValue ? getMoveInchecklist.IsCheckWater : 0,
                             CreatedDateString = getMoveInchecklist == null ? "" : getMoveInchecklist.CreatedDate.HasValue ? getMoveInchecklist.CreatedDate.Value.ToString("MM/dd/yyyy") : "",
+                            IsCheckSD = getMoveInchecklist == null ? 0 : getMoveInchecklist.IsCheckSD.HasValue ? getMoveInchecklist.IsCheckSD : 0,
+                            Movers = getMoveInchecklist == null ? 0 : getMoveInchecklist.Movers.HasValue ? getMoveInchecklist.Movers : 0,
                         });
                     }
                 }

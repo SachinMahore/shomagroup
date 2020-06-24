@@ -4551,25 +4551,29 @@
                             <label class="form-control form-control-small" id="ddlApplicantType"></label>
                         </div>
                     </div>
-                    <div class="col-sm-4 @(Model.CreditPaid == 1 ? "hidden" : "")" style="margin-bottom:20px" id="divchkCCPay">
+                    <div class="col-sm-4" style="margin-bottom:20px" id="divchkCCPay">
                         <input type="checkbox" id="chkCCPay">
                         <span class="chektext">
-                            Pay Credit Check Fees Now
+                            Pay Credit Check Fees Now (Fill SSN# to pay fees)
                         </span>
                     </div>
                 </div>
-                <div class="col-sm-12 hidden" id="divCreditCheckPayment">
+                <div class="col-sm-12  hidden" id="divCreditCheckPayment">
                     <input type="hidden" id="hndTransMethod1" value="2" />
                     <input type="hidden" id="hndFromAcc" value="4" />
                     <span class="hidden" id="sppayFees"></span>
                     <div class="col-sm-12">
                         <div class="dot-hr"></div>
+                        <div class="form-group">
+                            <span id="editApplicantFees"></span> : $<span id="editApplicantFeesVal"></span>
+                        </div>
+                        <div class="dot-hr"></div>
                     </div>
                     <div class="col-sm-3">
-                        <input type="button" class='btn  btn-primary' id="chkBank1" onclick="clearBank1()" value="Bank Account">
+                        <input type="button" class='btn-alltype' id="chkBank1" onclick="clearBank1()" value="Bank Account">
                     </div>
                     <div class="col-sm-3">
-                        <input type="button" class='btn btn-primary active' id="chkACH1" onclick="clearCard1()" value="Credit Card">
+                        <input type="button" class='btn-alltype active' id="chkACH1" onclick="clearCard1()" value="Credit Card">
                     </div>
 
                     <div class="col-sm-12">
@@ -4645,6 +4649,7 @@
                             Save Account Information
                         </span>
                     </div>
+                    <div class="col-sm-12" style="margin:2px"></div>
                     <div class="col-sm-12">
                         <input type="checkbox" id="chkTermsAndCondition1">
                         <span class="chektext">
@@ -4657,7 +4662,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer" style="border-top:none">
-                <button type="submit" class="btn-alltype" id="btnsaveappl" onclick="saveupdateGuarantor()">Save</button>
+                <button type="submit" class="btn-alltype" id="btnsaveappl" onclick="saveupdateApplicant()">Save</button>
                 <button type="submit" class="btn-alltype hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
             </div>
 

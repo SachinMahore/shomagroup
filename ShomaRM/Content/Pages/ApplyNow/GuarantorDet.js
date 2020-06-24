@@ -29,9 +29,9 @@ $(document).ready(function () {
 
     $("#txtApplicantSSNNumber").focusout(function () {
         var ssnLength = $("#txtApplicantSSNNumber").val().length;
-        console.log(ssnLength);
+        // console.log(ssnLength);
         if (ssnLength < 8) {
-            $("#divchkCCPay").add("hidden");
+            // $("#divchkCCPay").add("hidden");
             $("#chkCCPay").prop("disabled", true);
         }
         else if (ssnLength > 8) {
@@ -347,14 +347,24 @@ $(document).ready(function () {
         $("#btnAddVehicle").removeAttr("style");
     }
     //Sachin M 17 June
+    //Modified By Amit 24 June
     $("#chkNoSSN").on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            $("#txtApplicantSSNNumber").val("000000000");
+        var checked = $(this).is(":checked");
+        if (checked == true) {
+            $("#txtApplicantSSNNumber").focus().val("000000000");
         }
         else {
+            $("#chkCCPay").prop("disabled", true);
+            $("#txtApplicantSSNNumber").attr("data-value", "");
             $("#txtApplicantSSNNumber").val("");
+            $("#txtApplicantSSNNumber").focusin(function () {
+                $("#txtApplicantSSNNumber").val("");
+                $("#txtApplicantSSNNumber").attr("data-value", "");
+            });
         }
     });
+
+
     $('input[type=checkbox]').on('ifChanged', function (event) {
         if ($("#chkDontHaveVehicle").is(":checked")) {
             $("#btnAddVehicle").attr("disabled", true);
@@ -4306,19 +4316,19 @@ var goToEditApplicantGuarantor = function (aid) {
                     var ssnnumber = $.trim($("#txtApplicantSSNNumber").val());
                     if (parseInt($("#hndCreditPaid").val()) == 0) {
                         $("#sppayFees").text($("#hndAppCreditFees").val());
-                        if (!ssnnumber) {
-                            $("#divchkCCPay").addClass("hidden");
-                            //modal.find('.modal-content').css("height", "560px");
+                        var ssnLength = $("#txtApplicantSSNNumber").val().length;
+                        if (ssnLength <= 8) {
+                            //$("#divchkCCPay").addClass("hidden");
+                            $("#chkCCPay").prop("disabled", true);
                         }
-                        else {
-                            $("#divchkCCPay").removeClass("hidden");
-                            //modal.find('.modal-content').css("height", "530px");
+                        else if (ssnLength > 8) {
+                            $("#chkCCPay").prop("disabled", false);
                         }
                     }
 
                     var ssnLength = $("#txtApplicantSSNNumber").val().length;
                     if (ssnLength <= 8) {
-                        $("#divchkCCPay").add("hidden");
+                       // $("#divchkCCPay").add("hidden");
                         $("#chkCCPay").prop("disabled", true);
                     }
                     else if (ssnLength > 8) {
@@ -4433,7 +4443,7 @@ var clearApplicant = function () {
     clearBank1();
     clearCard1();
     $("#chkCCPay").iCheck('uncheck');
-    $("#divchkCCPay").addClass("hidden");
+    //$("#divchkCCPay").addClass("hidden");
     $("#divCreditCheckPayment").addClass("hidden");
 }
 var totpaid = 0;
@@ -4487,11 +4497,11 @@ var getApplicantListsGuarantor = function () {
                         if (parseInt(elementValue.CreditPaid) == 0 ) {
                             $("#editApplicantFees").text("Credit Check Fees");
                             $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
-                            html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
+                            //html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
                         } else if (parseInt(elementValue.CreditPaid) == 1 && parseInt(elementValue.BackGroundPaid) == 0) {
                             $("#editApplicantFees").text("Background Check Fees");
                             $("#editApplicantFeesVal").text($("#hndAppBackgroundFees").val());
-                            html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a>";
+                           // html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a>";
                         }
                         html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                     }

@@ -2563,61 +2563,61 @@ namespace ShomaRM.Models
             var applydata = db.tbl_ApplyNow.Where(p => p.ID == Id).FirstOrDefault();
             if (applydata != null)
             {
-                var applicantdata = db.tbl_Applicant.Where(p => p.TenantID == applydata.ID).ToList();
-                var tenantinfo = db.tbl_TenantOnline.Where(p => p.ProspectID == applydata.ID).ToList();
+                var applicantList = db.tbl_Applicant.Where(p => p.TenantID == applydata.ID).ToList();
+                var tenantList = db.tbl_TenantOnline.Where(p => p.ProspectID == applydata.ID).ToList();
 
                 var propDet = db.tbl_PropertyUnits.Where(c => c.UID == applydata.PropertyId).FirstOrDefault();
                 var leaseterm = db.tbl_LeaseTerms.Where(p => p.LTID == applydata.LeaseTerm).FirstOrDefault();
-                
-                var applicantdataprimary = applicantdata.Where(p => p.Type == "Primary Applicant").FirstOrDefault();
 
-                if(applicantdataprimary!=null)
+                foreach(var applicantdata in applicantList)
                 {
-                    var tenantinfoprimary = tenantinfo.Where(p => p.ParentTOID == applicantdataprimary.UserID).FirstOrDefault();
-
-                    aptlyModel.name = tenantinfoprimary.FirstName + " " + tenantinfoprimary.LastName + " - " + applydata.MoveInDate.Value.ToString("MM/dd/yyyy") + " - " + propDet.UnitNo;
-                    aptlyModel.Email = tenantinfoprimary.Email;
-                    aptlyModel.FirstName = tenantinfoprimary.FirstName;
-                    aptlyModel.LastName = tenantinfoprimary.LastName;
-                    aptlyModel.Phone = "+1" + tenantinfoprimary.Mobile;
-
-                    aptlyModel.Building = "Sanctuary Doral";
-                    aptlyModel.Unit = (propDet.UnitNo).Replace("Unit ", "");
-                    aptlyModel.UnitNumber = (propDet.UnitNo).Replace("Unit ", "");
-                    aptlyModel.FloorPlan = propDet.Building;
-                    aptlyModel.Stage = "Applicant";
-                    aptlyModel.SubStage = GetSubStage(tenantinfoprimary.StepCompleted ?? 0);
-
-                    aptlyModel.LeaseTerm = leaseterm.LeaseTerms.ToString();
-                    aptlyModel.MoveInDate = applydata.MoveInDate.Value.ToString("MM/dd/yyyy");
-                    aptlyModel.QuoteExpires = Convert.ToDateTime(applydata.CreatedDate).AddDays(3).ToString("MM/dd/yyyy") + "24:00:00";
-                    var petInfo = db.tbl_TenantPet.Where(p => p.TenantID == Id).FirstOrDefault();
-                    if (petInfo != null)
+                    if (applicantdata.Type == "Primary Applicant" || applicantdata.Type == "Co-Applicant")
                     {
-                        aptlyModel.Pets = petInfo.Breed;
+                        var tenantinfo = tenantList.Where(p => p.ParentTOID == applicantdata.UserID).FirstOrDefault();
 
-                    }
-                    aptlyModel.PortalURL = serverURL + "Admin/ProspectVerification/EditProspect/" + tenantinfoprimary.ProspectID;
-                    aptlyModel.CreditPaid = applicantdataprimary.CreditPaid == 1 ? "True" : "False";
-                    aptlyModel.BackgroundCheckPaid = applicantdataprimary.BackGroundPaid == 1 ? "True" : "False";
+                        aptlyModel.name = applicantdata.FirstName + " " + applicantdata.LastName + " - " + applydata.MoveInDate.Value.ToString("MM/dd/yyyy") + " - " + propDet.UnitNo;
+                        aptlyModel.Email = tenantinfo.Email;
+                        aptlyModel.FirstName = tenantinfo.FirstName;
+                        aptlyModel.LastName = tenantinfo.LastName;
+                        aptlyModel.Phone = "+1" + tenantinfo.Mobile;
 
-                    var relatedContacts = applicantdata.Where(p => p.Type != "Primary Applicant").ToList();
-                    if (relatedContacts.Count() > 0)
-                    {
-                       
-                        aptlyModel.RelatedContacts = new List<RelatedContacts>();
-                        foreach (var rc in relatedContacts)
+                        aptlyModel.Building = "Sanctuary Doral";
+                        aptlyModel.Unit = (propDet.UnitNo).Replace("Unit ", "");
+                        aptlyModel.UnitNumber = (propDet.UnitNo).Replace("Unit ", "");
+                        aptlyModel.FloorPlan = propDet.Building;
+                        aptlyModel.Stage = "Applicant";
+                        aptlyModel.SubStage = GetSubStage(tenantinfo.StepCompleted ?? 0);
+                        aptlyModel.ApplicantType = applicantdata.Type;
+
+                        aptlyModel.LeaseTerm = leaseterm.LeaseTerms.ToString();
+                        aptlyModel.MoveInDate = applydata.MoveInDate.Value.ToString("MM/dd/yyyy");
+                        aptlyModel.QuoteExpires = Convert.ToDateTime(applydata.CreatedDate).AddDays(3).ToString("MM/dd/yyyy") + "24:00:00";
+                        var petInfo = db.tbl_TenantPet.Where(p => p.TenantID == Id).FirstOrDefault();
+                        if (petInfo != null)
                         {
-                            var tenantinfocoapp = tenantinfo.Where(p => p.ParentTOID == rc.UserID).FirstOrDefault();
-                            RelatedContacts _objrelatedContacts = new RelatedContacts();
-                            _objrelatedContacts.FirstName = tenantinfocoapp.FirstName;
-                            _objrelatedContacts.LastName = tenantinfocoapp.LastName;
-                            _objrelatedContacts.Email = tenantinfocoapp.Email;
-                            _objrelatedContacts.Phone = "+1" + tenantinfocoapp.Mobile;
-                            aptlyModel.RelatedContacts.Add(_objrelatedContacts);
+                            aptlyModel.Pets = petInfo.Breed;
                         }
+
+                        aptlyModel.PortalURL = serverURL + "Admin/ProspectVerification/EditProspect/" + tenantinfo.ProspectID;
+                        aptlyModel.CreditPaid = applicantdata.CreditPaid == 1 ? "True" : "False";
+                        aptlyModel.BackgroundCheckPaid = applicantdata.BackGroundPaid == 1 ? "True" : "False";
+
+                        if (tenantList.Count() > 0)
+                        {
+                            aptlyModel.RelatedContacts = new List<RelatedContacts>();
+                            foreach (var rc in tenantList)
+                            {
+
+                                RelatedContacts _objrelatedContacts = new RelatedContacts();
+                                _objrelatedContacts.FirstName = rc.FirstName;
+                                _objrelatedContacts.LastName = rc.LastName;
+                                _objrelatedContacts.Email = rc.Email;
+                                _objrelatedContacts.Phone = "+1" + rc.Mobile;
+                                aptlyModel.RelatedContacts.Add(_objrelatedContacts);
+                            }
+                        }
+                        var test = aptlyHelper.PostAptlyAsync(aptlyModel);
                     }
-                    var test = aptlyHelper.PostAptlyAsync(aptlyModel);
                 }
             }
             return "";

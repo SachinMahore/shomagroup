@@ -180,12 +180,20 @@ $(document).ready(function () {
     }
 
     //Sachin M 17 June
+    //Modified By Amit 24 June
     $("#chkNoSSN").on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            $("#txtApplicantSSNNumber").val("000000000");
+        var checked = $(this).is(":checked");
+        if (checked == true) {
+            $("#txtApplicantSSNNumber").focus().val("000000000");
         }
         else {
+            $("#chkCCPay").prop("disabled", true);
+            $("#txtApplicantSSNNumber").attr("data-value", "");
             $("#txtApplicantSSNNumber").val("");
+            $("#txtApplicantSSNNumber").focusin(function () {
+                $("#txtApplicantSSNNumber").val("");
+                $("#txtApplicantSSNNumber").attr("data-value", "");
+            });
         }
     });
 
@@ -822,9 +830,9 @@ $(document).ready(function () {
     };
     $("#txtApplicantSSNNumber").focusout(function () {
         var ssnLength = $("#txtApplicantSSNNumber").val().length;
-        console.log(ssnLength);
+        // console.log(ssnLength);
         if (ssnLength < 8) {
-            $("#divchkCCPay").add("hidden");
+            // $("#divchkCCPay").add("hidden");
             $("#chkCCPay").prop("disabled", true);
         }
         else if (ssnLength > 8) {
@@ -2923,11 +2931,11 @@ var getApplicantListsCoApplicant = function () {
                     if (parseInt(elementValue.CreditPaid) == 0) {
                         $("#editApplicantFees").text("Credit Check Fees");
                         $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
-                        html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
+                        //html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
                     } else if (parseInt(elementValue.CreditPaid) == 1 && parseInt(elementValue.BackGroundPaid) == 0) {
                         $("#editApplicantFees").text("Background Check Fees");
                         $("#editApplicantFeesVal").text($("#hndAppBackgroundFees").val());
-                        html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a>";
+                        //html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a>";
                     }
                     html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                 }
@@ -2986,13 +2994,13 @@ var getApplicantListsCoApplicant = function () {
                         "<div class='col-sm-12 box-padding'>" +
                         "<div class='col-lg-12 text-center'><b>Move In Charges</b></div>" +
                         "<div class='col-lg-12'>" +
-                        "<input class='input-box payper' type='text' id='txtpayper" + elementValue.ApplicantID + "' value='" + elementValue.MoveInPercentage + "' />" +
+                        "<input class='input-box payper' type='text' id='txtpayper" + elementValue.ApplicantID + "' value='" + elementValue.MoveInPercentage + "' disabled/>" +
                         "<span class='input-box-span custPad'><b>%</b></span>" +
                         "</div>" +
                         "<div class='col-sm-12 custResponsibility'>&nbsp;</div>" +
                         "<div class='col-lg-12'>" +
                         "<span class='input-box-span custPad'><b>$</b></span>" +
-                        "<input class='input-box' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "' type='text' id='txtpayamt" + elementValue.ApplicantID + "' />" +
+                        "<input class='input-box' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "' type='text' id='txtpayamt" + elementValue.ApplicantID + "' disabled/>" +
                         "</div>" +
                         "</div>" +
                         "</div>" +
@@ -3000,13 +3008,13 @@ var getApplicantListsCoApplicant = function () {
                         "<div class='col-sm-12 box-padding '>" +
                         "<div class='col-lg-12 box-padding text-center'><b>Monthly Payment</b></div>" +
                         "<div class='col-lg-12'>" +
-                        "<input class='input-box payperMo' value='" + elementValue.MonthlyPercentage + "' type='text' id='txtpayperMo" + elementValue.ApplicantID + "' />" +
+                        "<input class='input-box payperMo' value='" + elementValue.MonthlyPercentage + "' type='text' id='txtpayperMo" + elementValue.ApplicantID + "' disabled/>" +
                         "<span class='input-box-span custPad'><b>%</b></span>" +
                         "</div>" +
                         "<div class='col-sm-12 custResponsibility'>&nbsp;</div>" +
                         "<div class='col-lg-12'>" +
                         "<span class='input-box-span custPad'><b>$</b></span>" +
-                        "<input class='input-box' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "' type='text' id='txtpayamtMo" + elementValue.ApplicantID + "' />" +
+                        "<input class='input-box' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "' type='text' id='txtpayamtMo" + elementValue.ApplicantID + "' disabled/>" +
                         "</div>" +
                         "</div>" +
                         "</div>" +
@@ -3014,13 +3022,13 @@ var getApplicantListsCoApplicant = function () {
                         "<div class='col-sm-12 box-padding '>" +
                         "<div class='col-lg-12 box-padding text-center'><b>Administation Fee</b></div>" +
                         "<div class='col-lg-12'>" +
-                        "<input class='input-box payperAF' value='" + elementValue.AdminFeePercentage + "' type='text' id='txtpayperAF" + elementValue.ApplicantID + "' />" +
+                        "<input class='input-box payperAF' value='" + elementValue.AdminFeePercentage + "' type='text' id='txtpayperAF" + elementValue.ApplicantID + "' disabled/>" +
                         "<span class='input-box-span custPad'><b>%</b></span>" +
                         "</div>" +
                         "<div class='col-sm-12 custResponsibility'>&nbsp;</div>" +
                         "<div class='col-lg-12'>" +
                         "<span class='input-box-span custPad'><b>$</b></span>" +
-                        "<input class='input-box' value='" + parseFloat(elementValue.AdminFee).toFixed(2) + "' type='text' id='txtpayamtAF" + elementValue.ApplicantID + "' />" +
+                        "<input class='input-box' value='" + parseFloat(elementValue.AdminFee).toFixed(2) + "' type='text' id='txtpayamtAF" + elementValue.ApplicantID + "' disabled/>" +
                         "</div>" +
                         "</div>" +
                         "</div>" +
@@ -5385,8 +5393,9 @@ var goToEditApplicant = function (aid) {
                         $("#hndNewCoApp").val("1");
 
                         var ssnLength = $("#txtApplicantSSNNumber").val().length;
+
                         if (ssnLength <= 8) {
-                            $("#divchkCCPay").add("hidden");
+                            //$("#divchkCCPay").addClass("hidden");
                             $("#chkCCPay").prop("disabled", true);
                         }
                         else if (ssnLength > 8) {
@@ -5446,13 +5455,13 @@ var goToEditApplicant = function (aid) {
                         var ssnnumber = $.trim($("#txtApplicantSSNNumber").val());
                         if (parseInt($("#hndCreditPaid").val()) == 0) {
                             $("#sppayFees").text($("#hndAppCreditFees").val());
-                            if (!ssnnumber) {
-                                $("#divchkCCPay").addClass("hidden");
-                                //modal.find('.modal-content').css("height", "560px");
+                            var ssnLength = $("#txtApplicantSSNNumber").val().length;
+                            if (ssnLength <= 8) {
+                                //$("#divchkCCPay").addClass("hidden");
+                                $("#chkCCPay").prop("disabled", true);
                             }
-                            else {
-                                $("#divchkCCPay").removeClass("hidden");
-                                //modal.find('.modal-content').css("height", "530px");
+                            else if (ssnLength > 8) {
+                                $("#chkCCPay").prop("disabled", false);
                             }
                         }
                     }
@@ -5569,7 +5578,7 @@ var clearApplicant = function () {
     clearBank1();
     clearCard1();
     $("#chkCCPay").iCheck('uncheck');
-    $("#divchkCCPay").addClass("hidden");
+    //$("#divchkCCPay").addClass("hidden");
     $("#divCreditCheckPayment").addClass("hidden");
 }
 var saveupdatePetCoApplicant = function () {
@@ -8289,6 +8298,33 @@ var onFocusCoApplicant = function () {
         .focus(function () {
             $("#txtManagementCompanyPhone2").val(unformatTextCoApplicant($("#txtManagementCompanyPhone2").val()));
         });
+    //$("#txtApplicantSSNNumber").focusin(function () {
+    //    getEncDecValueCoApplicant(this, 1);
+    //}).focusout(function () {
+    //    var ssn = $(this).val();
+    //    if (ssn.length < 9) {
+    //        alert("SSN must be 9 digit");
+    //        // $("#divchkCCPay").addClass("hidden");
+    //        return;
+    //    } else {
+    //        if ($("#hndCreditPaid").val() != "1") {
+    //            $("#divchkCCPay").removeClass("hidden");
+    //        }
+    //        var modal = $("#popApplicant");
+    //        //modal.find('.modal-content').css("height", "560px");
+    //    }
+    //    if (ssn.length > 4) {
+    //        getEncDecValueCoApplicant(this, 2);
+    //        $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+    //    }
+
+    //    if (ssn.length < 9) {
+    //        $("#chkCCPay").prop("disabled", true);
+    //    } else if (ssn.length > 8) {
+    //        $("#chkCCPay").prop("disabled", false);
+    //    }
+    //});
+
     $("#txtApplicantSSNNumber").focusin(function () {
         getEncDecValueCoApplicant(this, 1);
     }).focusout(function () {
@@ -8315,6 +8351,7 @@ var onFocusCoApplicant = function () {
             $("#chkCCPay").prop("disabled", false);
         }
     });
+
 
     $("#txtApplicantIDNumber").focusin(function () {
         getEncDecValueCoApplicant(this, 1);

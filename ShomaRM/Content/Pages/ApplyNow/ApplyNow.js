@@ -7,6 +7,7 @@ var addUpArray = [];
 var nofup = 0;
 var rbtnClick = "";
 $(document).ready(function () {
+   
     //alert($("#hdnOPId").val());
     onFocusApplyNow();
     localStorage.removeItem("CheckReload");
@@ -143,12 +144,20 @@ $(document).ready(function () {
     });
 
      //Sachin M 17 June
+    //Modified By Amit 24 June
     $("#chkNoSSN").on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            $("#txtApplicantSSNNumber").val("000000000");
+        var checked = $(this).is(":checked");
+        if (checked == true) {
+            $("#txtApplicantSSNNumber").focus().val("000000000");
         }
         else {
+            $("#chkCCPay").prop("disabled", true);
+            $("#txtApplicantSSNNumber").attr("data-value", "");
             $("#txtApplicantSSNNumber").val("");
+            $("#txtApplicantSSNNumber").focusin(function () {
+                $("#txtApplicantSSNNumber").val("");
+                $("#txtApplicantSSNNumber").attr("data-value", "");
+            });
         }
     });
 
@@ -760,9 +769,9 @@ $(document).ready(function () {
 
     $("#txtApplicantSSNNumber").focusout(function () {
         var ssnLength = $("#txtApplicantSSNNumber").val().length;
-        console.log(ssnLength);
+       // console.log(ssnLength);
         if (ssnLength < 8) {
-            $("#divchkCCPay").add("hidden");
+           // $("#divchkCCPay").add("hidden");
             $("#chkCCPay").prop("disabled", true);
         }
         else if (ssnLength > 8) {
@@ -945,7 +954,9 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step17").addClass("hidden");
             if ($("#hdnOPId").val() != '0') {
                 getStaticApplicantValues();
+               
             }
+            $("#listUnitNew").find('tr').hasClass('select-unit').click();
             
         }
     }
@@ -4226,7 +4237,7 @@ var getCompareModelList = function () {
     });
 }
 var getPropertyUnitList = function (modelname, filldata) {
-
+    
     /*SOHAN 12062020 START */
     getPropertyFloarListRebind(modelname, filldata);
     $("#imgFloorCoordinate").attr("src", "");
@@ -4282,9 +4293,18 @@ var getPropertyUnitList = function (modelname, filldata) {
                 $("#listUnit>tbody").empty();
                 $("#listUnitNew>tbody").empty();
                 $("#popUnitPlan").empty();
+                var html = "";
+                var htmlNew = "";
                 $.each(response.model, function (elementType, value) {
-                    var html = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td style='text-align: center;width=100px'>$" + formatMoney(value.Current_Rent) + "</td><td style='text-align: center; width:45%'>" + value.Premium + "</td><td style='text-align: center;width=100px'>" + value.AvailableDateText + "</td></tr>";
-                    var htmlNew = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td class='unit'><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td class='price'>$" + formatMoney(value.Current_Rent) + "</td><td class='available'>" + value.AvailableDateText + "</td><td class='charges'><a href ='javascript:void(0);' class='genric-btn success' onclick='showPriceTable(" + value.UID + ")'> Apply</a><a href='javascript:void(0);' class='genric-btn success' onclick='showMonthlyCharges(" + value.UID + ")'>Monthly Charges</a></td ></tr>";
+
+                    if (elementType == 0) {
+                        html = " <tr class='select-unit' id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td style='text-align: center;width=100px'>$" + formatMoney(value.Current_Rent) + "</td><td style='text-align: center; width:45%'>" + value.Premium + "</td><td style='text-align: center;width=100px'>" + value.AvailableDateText + "</td></tr>";
+                        htmlNew = " <tr class='select-unit' id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td class='unit'><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td class='price'>$" + formatMoney(value.Current_Rent) + "</td><td class='available'>" + value.AvailableDateText + "</td><td class='charges'><a href ='javascript:void(0);' class='genric-btn success' onclick='showPriceTable(" + value.UID + ")'> Apply</a><a href='javascript:void(0);' class='genric-btn success' onclick='showMonthlyCharges(" + value.UID + ")'>Monthly Charges</a></td ></tr>";
+                    } else {
+                        html = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td style='text-align: center;width=100px'>$" + formatMoney(value.Current_Rent) + "</td><td style='text-align: center; width:45%'>" + value.Premium + "</td><td style='text-align: center;width=100px'>" + value.AvailableDateText + "</td></tr>";
+                        htmlNew = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td class='unit'><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td class='price'>$" + formatMoney(value.Current_Rent) + "</td><td class='available'>" + value.AvailableDateText + "</td><td class='charges'><a href ='javascript:void(0);' class='genric-btn success' onclick='showPriceTable(" + value.UID + ")'> Apply</a><a href='javascript:void(0);' class='genric-btn success' onclick='showMonthlyCharges(" + value.UID + ")'>Monthly Charges</a></td ></tr>";
+                    }
+                    
                     $("#listUnit>tbody").append(html);
                     $("#listUnitNew>tbody").append(htmlNew);
                     $("#lblArea22").text(value.Area);
@@ -4296,11 +4316,13 @@ var getPropertyUnitList = function (modelname, filldata) {
                     $("#lblRent33").text((value.Current_Rent).toFixed(2));
                     $("#lblOccupancy22").text((parseInt(value.Bedroom) * 2).toString());
                     $("#lblfloorPlan").text(modelname);
-                });
+                }); 
             }
+            
             goToStep(2, 2,0);
         }
     });
+    
 }
 
 
@@ -4979,10 +5001,13 @@ var saveupdateStorage = function () {
 var addApplicant = function (at) {
     
     var modal = $("#popApplicant");
+    $("#divchkCCPay").removeClass("hidden");
     if (at == 1) {
         $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
         //modal.find('.modal-content').css("height", "375px");
         modal.find('.modal-title').text('Add Co-Applicant');
+
+        $("#divchkCCPay").addClass("hidden");
         $("#popApplicant").modal("show");
         $("#ddlApplicantType").text("Co-Applicant");
         $("#ddlARelationship").empty();
@@ -5027,6 +5052,7 @@ var addApplicant = function (at) {
     else if (at == 2) {
         $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
         //modal.find('.modal-content').css("height", "300px");
+        $("#divchkCCPay").addClass("hidden");
         modal.find('.modal-title').text('Add Minor');
         $("#popApplicant").modal("show");
         $("#ddlApplicantType").text("Minor");
@@ -5053,6 +5079,7 @@ var addApplicant = function (at) {
         $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
         //modal.find('.modal-content').css("height", "375px");
         modal.find('.modal-title').text('Add Guarantor');
+        $("#divchkCCPay").addClass("hidden");
         $("#popApplicant").modal("show");
         $("#ddlApplicantType").text("Guarantor");
         $("#ddlARelationship").empty();
@@ -5319,18 +5346,17 @@ var getApplicantLists = function () {
                         "<label> " + elementValue.Type + " </label><br/>" +
                         "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
                         "<label><a href='javascript:void(0)' onclick='delApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>";
-
                     if (parseInt(elementValue.CreditPaid) == 0 && parseInt(elementValue.HasSSN) == 1) {
                         $("#editApplicantFees").text("Credit Check Fees");
                         $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
-                        html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a></label>";
+                        //html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a></label>";
                     } else if (parseInt(elementValue.CreditPaid) == 1 && parseInt(elementValue.BackGroundPaid) == 0) {
                         $("#editApplicantFees").text("Background Check Fees");
                         $("#editApplicantFeesVal").text($("#hndAppBackgroundFees").val());
-                        html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a></label>";
+                        //html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a></label>";
                     }
                     html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
-                    $("#divchkCCPay").addClass("hidden");
+                    //$("#divchkCCPay").addClass("hidden");
                     $("#divCreditCheckPayment").addClass("hidden");
                 }
                 else {
@@ -5344,15 +5370,14 @@ var getApplicantLists = function () {
                     if (parseInt(elementValue.CreditPaid) == 0) {
                         $("#editApplicantFees").text("Credit Check Fees");
                         $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
-                        html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a></label>";
+                        //html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a></label>";
                     } else if (parseInt(elementValue.CreditPaid) == 1 && parseInt(elementValue.BackGroundPaid) == 0) {
                         $("#editApplicantFees").text("Background Check Fees");
                         $("#editApplicantFeesVal").text($("#hndAppBackgroundFees").val());
-
-                        html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a></label>";
+                        ///html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a></label>";
                     }
                     html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
-                    $("#divchkCCPay").addClass("hidden");
+                    //$("#divchkCCPay").addClass("hidden");
                     $("#divCreditCheckPayment").addClass("hidden");
                 }
                 if (elementValue.Type == "Primary Applicant" || elementValue.Type == "Co-Applicant") {
@@ -5801,6 +5826,7 @@ var goToEditApplicant = function (aid) {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
 
                     modal.find('.modal-title').text('Edit Primary Applicant');
+                    $("#divchkCCPay").removeClass("hidden");
                     $("#popApplicant").modal("show");
                     $("#ddlApplicantType").text("Primary Applicant");
                     $("#ddlARelationship").empty();
@@ -5844,19 +5870,11 @@ var goToEditApplicant = function (aid) {
                     var ssnnumber = $.trim($("#txtApplicantSSNNumber").val());
                     if (parseInt($("#hndCreditPaid").val()) == 0) {
                         $("#sppayFees").text("$" + $("#hndAppCreditFees").val());
-                        if (!ssnnumber) {
-                            $("#divchkCCPay").addClass("hidden");
-                            //modal.find('.modal-content').css("height", "560px");
-                        }
-                        else {
-                            $("#divchkCCPay").removeClass("hidden");
-                            //modal.find('.modal-content').css("height", "530px");
-                        }
                     }
 
                     var ssnLength = $("#txtApplicantSSNNumber").val().length;
                     if (ssnLength <= 8) {
-                        $("#divchkCCPay").add("hidden");
+                        //$("#divchkCCPay").addClass("hidden");
                         $("#chkCCPay").prop("disabled", true);
                     }
                     else if (ssnLength > 8) {
@@ -5867,6 +5885,7 @@ var goToEditApplicant = function (aid) {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
                     //modal.find('.modal-content').css("height", "375px");
                     modal.find('.modal-title').text('Edit Co-Applicant');
+                    $("#divchkCCPay").addClass("hidden");
                     $("#popApplicant").modal("show");
                     $("#ddlApplicantType").text("Co-Applicant");
                     $("#ddlARelationship").empty();
@@ -5916,6 +5935,7 @@ var goToEditApplicant = function (aid) {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
                     //modal.find('.modal-content').css("height", "375px");
                     modal.find('.modal-title').text('Edit Guarantor');
+                    $("#divchkCCPay").addClass("hidden");
                     $("#popApplicant").modal("show");
                     $("#ddlApplicantType").text("Guarantor");
                     $("#ddlARelationship").empty();
@@ -5964,6 +5984,7 @@ var goToEditApplicant = function (aid) {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
                     ///modal.find('.modal-content').css("height", "300px");
                     modal.find('.modal-title').text('Edit Minor');
+                    $("#divchkCCPay").addClass("hidden");
                     $("#popApplicant").modal("show");
                     $("#ddlApplicantType").text("Minor");
                     $("#ddlARelationship").empty();
@@ -6052,7 +6073,7 @@ var clearApplicant = function () {
     clearBank1();
     clearCard1();
     $("#chkCCPay").iCheck('uncheck');
-    $("#divchkCCPay").addClass("hidden");
+    //$("#divchkCCPay").addClass("hidden");
     $("#divCreditCheckPayment").addClass("hidden");
 }
 var saveupdatePet = function () {
@@ -11127,7 +11148,7 @@ var getPropertyModelUnitList = function (stype, pid) {
 }
 
 var getPropertyUnitDetails = function (uid) {
-    $("#listUnitNew tr").removeClass("select-unit");
+    //$("#listUnitNew tr").removeClass("select-unit");
     //$("#unitdiv_" + $("#hndOldUID").val()).removeClass("select-unit");
     $("#divLoader").show();
     var model = { UID: uid, LeaseTermID: $("#hndLeaseTermID").val() };
