@@ -61,11 +61,12 @@ namespace ShomaRM.Controllers
             //      aptlyModel.RelatedContacts.Add(_objrelatedContacts1);
             //var test = aptlyHelper.PostAptlyAsync(aptlyModel);
 
-            CoreLogicHelper _corelogichelper = new CoreLogicHelper();
-            string strxml = _corelogichelper.PostCoreLogicData(new LeaseTermsModel,new Applicant());
-            var keyValues = new List<KeyValuePair<string, string>>();
-            keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
-            _corelogichelper.PostFormUrlEncoded<List<XElement>>("DDk;EwkOK2t-dDLp2poHpK.&wy27rbPm", keyValues);
+            //CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+            //string strxml = _corelogichelper.PostCoreLogicData(new LeaseTermsModel, new Applicant());
+            //var keyValues = new List<KeyValuePair<string, string>>();
+            //keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+            //_corelogichelper.PostFormUrlEncoded<List<XElement>>("DDk;EwkOK2t-dDLp2poHpK.&wy27rbPm", keyValues);
+
             if (Session["DelDatAll"] != null)
             {
                 if (Session["DelDatAll"].ToString() == "Del")
