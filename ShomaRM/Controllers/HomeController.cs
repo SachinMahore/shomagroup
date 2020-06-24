@@ -1,4 +1,5 @@
 ﻿using LoggerEngine;
+using Microsoft.Graph;
 using ShomaRM.Models;
 using ShomaRM.Models.Bluemoon;
 using ShomaRM.Models.Corelogic;
@@ -62,10 +63,51 @@ namespace ShomaRM.Controllers
             //var test = aptlyHelper.PostAptlyAsync(aptlyModel);
 
             CoreLogicHelper _corelogichelper = new CoreLogicHelper();
-            string strxml = _corelogichelper.PostCoreLogicData(new LeaseTermsModel(),new Applicant());
+            var LeaseTermsModel = new LeaseTermsModel();
+            LeaseTermsModel.MonthlyRent = "25.00";
+            LeaseTermsModel.LeaseMonths = "12";
+            LeaseTermsModel.SecurityDeposit = "25.00";
+            var applicant=new  Applicant();
+            applicant.CurrentRent = "50";
+            applicant.CustomerID = "111223";
+            applicant.ConsentObtained = "Yes";
+            applicant.EmploymentGrossIncome = "25";
+            applicant.ApplicantIdentifier = "abc123";
+            applicant.ApplicantType = "Applicant";
+            applicant.Birthdate = "1960-06-25";
+            applicant.SocSecNumber = "880544745";
+            applicant.FirstName = "Edwin";
+            applicant.LastName = "Avila";
+            applicant.Address1 = "85 Rebecca Ln";
+            applicant.City = "Youngsville";
+            applicant.State = "NC";
+            applicant.PostalCode = "27596";
+            applicant.UnparsedAddress = "85 Rebecca Ln";
+
+            string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant);
             var keyValues = new List<KeyValuePair<string, string>>();
             keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
-            _corelogichelper.PostFormUrlEncoded<List<XElement>>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues);
+           string serializeResponse =  _corelogichelper.PostFormUrlEncoded<List<XElement>>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues);
+
+            var xDoc = XDocument.Parse(serializeResponse);
+
+            // <Response>
+        //< TransactionNumber > 58258585 </ TransactionNumber >
+        //< ReportDate > 2020 - 06 - 24 </ ReportDate >
+        //< ApplicantDecision > Accept with Conditions</ ApplicantDecision >
+   
+        //   < ApplicationDecision > Conditional </ ApplicationDecision >
+   
+        //   < ApplicantScore > 340 </ ApplicantScore >
+               var resultOrderDetail = xDoc
+                 .Descendants("TransactionNumber")
+               .Descendants("ReportDate")
+               .Descendants("ApplicantDecision")
+               .Descendants("ApplicationDecision")
+               .Descendants("ApplicantScore")             
+             .ToList();
+            // insert this into database resultOrderDetail
+
             if (Session["DelDatAll"] != null)
             {
                 if (Session["DelDatAll"].ToString() == "Del")
