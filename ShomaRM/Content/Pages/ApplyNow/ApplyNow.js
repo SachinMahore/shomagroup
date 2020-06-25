@@ -997,7 +997,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                     data: JSON.stringify(model),
                     dataType: "JSON",
                     success: function (response) {
-                        console.log(response);
+                        //console.log(response);
                         var result = response.result.split('|');
                         $("#divLoader").hide();
                         if (result[0] == 0) {
@@ -4147,7 +4147,7 @@ var addToCompare = function (modelname) {
         addModelArray = jQuery.grep(addModelArray, function (value) {
             return value != modelname;
         });
-        console.log(addModelArray)
+        //console.log(addModelArray)
         noofcomapre = addModelArray.length;
         $("#btncompare").text("Compare(" + noofcomapre + ")");
         getCompareModelList();
@@ -6445,6 +6445,7 @@ var clearVehicle = function () {
 var saveupdateTenantOnline = function (stepcompleted) {
     var msg = "";
     var ProspectID = $("#hdnOPId").val();
+    //console.log($("#hdnOPId").val() + "   " + $("#hndCurrentUserId").val() )
     var isInternational = $("#ddlIsInter").val();
     var FirstName = $("#txtFirstNamePersonal").val();
     var MiddleInitial = $("#txtMiddleInitial").val();
@@ -6467,7 +6468,7 @@ var saveupdateTenantOnline = function (stepcompleted) {
     var RentOwn = $("#ddlRentOwn").val();
     var MoveInDateFrom = $("#txtMoveInDateFrom").val();
     var MonthlyPayment = unformatText($("#txtMonthlyPayment").val());
-    var Reason = $("#txtReasonforleaving").val();
+    var Reason = "";
 
     var Country2 = $("#txtCountry2").val();
     var HomeAddress12 = $("#txtAddress12").val();
@@ -12025,7 +12026,7 @@ var getPropertyFloarListRebind = function (modelname, filldata) {
                     var X = (e.pageX - offset.left);
                     var Y = (e.pageY - offset.top);
 
-                    console.log("X:" + X + ", Y:" + Y);
+                   // console.log("X:" + X + ", Y:" + Y);
 
                     if (Y < 0) {
                         Y = Y + 200;

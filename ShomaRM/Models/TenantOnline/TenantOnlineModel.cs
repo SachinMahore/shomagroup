@@ -194,6 +194,8 @@ namespace ShomaRM.Models
         public string FloorPlanStartPriceUnit { get; set; }
         public long CurrentUserId { get; set; }
         public int? IsAgreeSummary { get; set; }
+        public string OfficeStateString { get; private set; }
+
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
@@ -1879,6 +1881,10 @@ namespace ShomaRM.Models
                     int officeContryTemp = lstpr.OfficeCountry != "" ? Convert.ToInt32(lstpr.OfficeCountry) : 0;
                     var OfficeCountryVar = db.tbl_Country.Where(co => co.ID == officeContryTemp).FirstOrDefault();
                     lstpr.OfficeCountryString = OfficeCountryVar != null ? OfficeCountryVar.CountryName : "";
+
+                    var OfficeStatetxt = db.tbl_State.Where(co => co.ID == lstpr.OfficeState).FirstOrDefault();
+                    lstpr.OfficeStateString = OfficeStatetxt != null ? PersonalStateVar.StateName : "";
+
                     int emergencyContryTemp = lstpr.EmergencyCountry != "" ? Convert.ToInt32(lstpr.EmergencyCountry) : 0;
                     var EmergencyCountryVar = db.tbl_Country.Where(co => co.ID == emergencyContryTemp).FirstOrDefault();
                     lstpr.EmergencyCountryString = EmergencyCountryVar != null ? EmergencyCountryVar.CountryName : "";
