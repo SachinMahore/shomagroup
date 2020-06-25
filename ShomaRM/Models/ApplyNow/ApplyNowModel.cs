@@ -1223,6 +1223,239 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
+
+        // Sachin M 25 june 2020
+        public async Task<string> saveListPaymentFinalStep(ApplyNowModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string msg = "";
+
+            if (model.ProspectId != 0)
+            {
+                var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
+                var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
+                var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                var UserData = db.tbl_Login.Where(p => p.UserID == GetCoappDet.UserID).FirstOrDefault();
+
+                var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ID == model.PAID).FirstOrDefault();
+
+                string decrytpedCardNumber = new EncryptDecrypt().DecryptText(GetPayDetails.CardNumber);
+                string decrytpedCardMonth = new EncryptDecrypt().DecryptText(GetPayDetails.CardMonth);
+                string decrytpedCardYear = new EncryptDecrypt().DecryptText(GetPayDetails.CardYear);
+                string decryptedPayemntCardNumber = new EncryptDecrypt().DecryptText(GetPayDetails.CardNumber);
+
+                decimal processingFees = 0;
+
+                if (GePropertyData != null)
+                {
+                    processingFees = GePropertyData.ProcessingFees ?? 0;
+                }
+
+                string transStatus = "";
+                string cardaccnum = "";
+                model.Email = GetCoappDet.Email;
+                model.ProcessingFees = processingFees;
+                model.Name_On_Card = GetPayDetails.Name_On_Card;
+                if (GetPayDetails.PaymentMethod == 2)
+                {
+                    model.CardNumber = decryptedPayemntCardNumber;
+                    model.CardMonth = decrytpedCardMonth;
+                    model.CardYear = decrytpedCardYear;
+                    cardaccnum = model.CardNumber.Substring(model.CardNumber.Length - 4);
+                    transStatus = new UsaePayModel().ChargeCard(model);
+                }
+                else if (GetPayDetails.PaymentMethod == 1)
+                {
+                    model.AccountNumber = decrytpedCardNumber;
+                    model.RoutingNumber = model.CCVNumber;
+                    cardaccnum = model.AccountNumber.Substring(model.AccountNumber.Length - 4);
+                    transStatus = new UsaePayModel().ChargeACH(model);
+                }
+
+                String[] spearator = { "|" };
+                String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+                string bat = "";
+
+                if (strlist[1] != "000000")
+                {
+                    if (model.FromAcc == 1)
+                    {
+                        bat = model.AID.ToString();
+
+                        if (model.lstApp != null)
+                        {
+                            foreach (var coapp in model.lstApp)
+                            { 
+                                var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == coapp.ApplicantID).FirstOrDefault();
+                                if (coappliList != null)
+                                {
+                                    if (coapp.Type == "4")
+                                    {
+                                        coappliList.CreditPaid = 1;
+                                    }
+                                    if (coapp.Type == "5")
+                                    {
+                                        coappliList.BackGroundPaid = 1;
+                                    }
+                                    if ((coappliList.CreditPaid ?? 0) == 1 && (coappliList.BackGroundPaid ?? 0) == 1)
+                                    {
+                                        coappliList.Paid = 1;
+                                    }
+                                    db.SaveChanges();
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        bat = "1";
+                    }
+                    if (model.FromAcc == 4)
+                    {
+                        bat = "4";
+                    }
+                    if (model.FromAcc == 5)
+                    {
+                        bat = "5";
+                    }
+                    if (model.FromAcc == 3)
+                    {
+                        bat = "3";
+                    }
+                    var saveTransaction = new tbl_Transaction()
+                    {
+                        TenantID = Convert.ToInt64(GetProspectData.UserId),
+                        PAID = model.PAID.ToString(),
+                        Transaction_Date = DateTime.Now,
+                        CreatedDate = DateTime.Now,
+                        Credit_Amount = model.Charge_Amount,
+                        Description = model.Description + "| TransID: " + strlist[2],
+                        Charge_Date = DateTime.Now,
+                        Charge_Type = Convert.ToInt32(bat),
+                        Authcode = strlist[1],
+                        Charge_Amount = model.Charge_Amount,
+                        Miscellaneous_Amount = processingFees,
+                        Accounting_Date = DateTime.Now,
+                        Batch = bat,
+                        CreatedBy = Convert.ToInt32(GetProspectData.UserId),
+                        UserID = GetCoappDet.UserID,
+                        RefNum = strlist[2],
+                    };
+                    db.tbl_Transaction.Add(saveTransaction);
+                    db.SaveChanges();
+
+                    var TransId = saveTransaction.TransID;
+                    MyTransactionModel mm = new MyTransactionModel();
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);
+
+                    string reportHTML = "";
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                    string message = "";
+                    string phonenumber = GetCoappDet.Phone;
+                    string sub = "";
+                    if (model != null)
+                    {
+                        if (model.FromAcc == 1 || model.FromAcc == 2)
+                        {
+                            GetProspectData.IsApplyNow = 2;
+                            db.SaveChanges();
+
+                            
+                            sub = "Sanctuary Payment Confirmation";
+
+                            string emailBody = "";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment date:" + DateTime.Now.ToString("MM/dd/yyyy hh:mm tt") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment amount:$" + (model.Charge_Amount ?? 0).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Service fee:$" + processingFees.ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Total payment:$" + ((model.Charge_Amount ?? 0) + processingFees).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">*The service fee is collected by the payment agent not the property management company and will not display your ledger. Service fee is non Refundable.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">In meantime, if you have any questions about the application process please contact us</p>";
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+                            string body = reportHTML;
+                            
+                            new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
+                            message = "Sanctuary Payment Confirmation. Please check the email for detail.";
+                            if (SendMessage == "yes")
+                            {
+                                if (!string.IsNullOrWhiteSpace(phonenumber))
+                                {
+                                    new TwilioService().SMS(phonenumber, message);
+                                }
+                            }
+                            msg = "1";
+                        }
+                       
+                        else
+                        {
+                            GetProspectData.IsApplyNow = 2;
+                            db.SaveChanges();
+
+                           
+                            sub = "Sanctuary Payment Confirmation";
+
+                            reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+                            string emailBody = "";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment date:" + DateTime.Now.ToString("MM/dd/yyyy hh:mm tt") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment amount:$" + (model.Charge_Amount ?? 0).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Service fee:$" + processingFees.ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Total payment:$" + ((model.Charge_Amount ?? 0) + processingFees).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">*The service fee is collected by the payment agent not the property management company and will not display your ledger. Service fee is non Refundable.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">In meantime, if you have any questions about the application process please contact us</p>";
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+                            string body = reportHTML;
+
+                            //sachin m 01 may 2020
+                            new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
+                            message = "Sanctuary Payment Confirmation. Please check the email for detail.";
+
+                            if (SendMessage == "yes")
+                            {
+                                if (!string.IsNullOrWhiteSpace(phonenumber))
+                                {
+                                    new TwilioService().SMS(phonenumber, message);
+                                }
+                            }
+                            var currentUser = new CurrentUser();
+                            currentUser.UserID = Convert.ToInt32(GetProspectData.UserId);
+
+                            (new ShomaGroupWebSession()).SetWebSession(currentUser);
+                            msg = "1";
+                            decimal admfee = 0;
+                            var chkAdminFeesPaid = db.tbl_Transaction.Where(k => k.TenantID == GetProspectData.UserId && k.Batch == "3").ToList();
+                            foreach (var ad in chkAdminFeesPaid)
+                            {
+                                admfee += Convert.ToDecimal(ad.Credit_Amount);
+                            }
+                            if (GePropertyData.AdminFees == admfee)
+                            {
+                                msg = "3";
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    msg = "0";
+                }
+
+            }
+
+            db.Dispose();
+            return msg;
+        }
         public ApplyNowModel ForgetPassword(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();

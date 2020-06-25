@@ -63,6 +63,7 @@ namespace ShomaRM.Areas.Tenant.Models
         public Nullable<decimal> GuarBackGroundFees { get; set; }
 
         public int HasSSN { get; set; }
+       
 
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -712,7 +713,8 @@ namespace ShomaRM.Areas.Tenant.Models
                     AppBackGroundFees = propertyData.AppBGCheckFees,
                     GuarCreditFees = propertyData.GuaCCCheckFees,
                     GuarBackGroundFees = propertyData.GuaBGCheckFees,
-                    HasSSN = hasSSN
+                    HasSSN = hasSSN,
+                    StepCompleted=Convert.ToInt32(tenantOnline.StepCompleted),
                 });
             }
             return lstAppli;

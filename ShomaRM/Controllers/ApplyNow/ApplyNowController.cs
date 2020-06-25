@@ -221,6 +221,19 @@ namespace ShomaRM.Controllers
                 return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        //Sachin M 25 June 2020
+        public async System.Threading.Tasks.Task<ActionResult> saveListPaymentFinalStep(ApplyNowModel model)
+        {
+            try
+            {
+                string msg = await (new ApplyNowModel().saveListPaymentFinalStep(model));
+                return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         public ActionResult GetApplyNowList(int id)
         {
             try
