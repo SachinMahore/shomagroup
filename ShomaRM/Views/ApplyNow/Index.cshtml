@@ -34,7 +34,7 @@
 <input type="hidden" id="hndAppBackgroundFees" value="@((Model.AppBGCheckFees??0).ToString("0.00"))" />
 <input type="hidden" id="hndStorageOrderBy" value="ASC" />
 <input type="hidden" id="hndOldUID" value="0" />
-<input type="hidden" id="hndCurrentUserId" value="@ShomaGroupWebSession.CurrentUser.UserID" />
+<input type="hidden" id="hndCurrentUserId" value="@(ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0)" />
 <input id="hdnProspectId" type="hidden" value="@Model.ProspectId" />
 
 
@@ -6872,7 +6872,7 @@
     });
 
     $(document).ready(function () {
-        //alert(@Model.Type);
+        
         $("#apartimg_2").maphilight();
         $("#ddlRoom").val(@Model.Bedroom);
         $("#ddlRoom").trigger('change');
