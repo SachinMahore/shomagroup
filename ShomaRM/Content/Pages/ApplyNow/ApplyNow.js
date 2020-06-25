@@ -895,7 +895,7 @@ var goToStep = function (stepid, id, calldataupdate) {
     }
     if (stepid == "2") {
 
-        getPropertyUnitDetails($("#hndUID").val());
+        
 
         if (parseInt($("#hndIsModelSelected").val()) == 0) {
             var msg = "Please select floor plan to choose your new apartment";
@@ -913,6 +913,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             $('#lblLeaseStartDate').text($('#txtAvailableDate').text());
         }
         if (id == "2") {
+            
             var floorNoSearch = $("#hndFloorNo").val();
             var bedRoomSearch = $("#hndBedRoom").val();
             var buildingSearch = $("#hndBuilding").val();
@@ -954,9 +955,15 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step17").addClass("hidden");
             if ($("#hdnOPId").val() != '0') {
                 getStaticApplicantValues();
-               
+                getPropertyUnitDetails($("#hndUID").val());
             }
-            $("#listUnitNew").find('tr').hasClass('select-unit').click();
+           
+            if ($("#listUnitNew tr").hasClass("select-unit")) {
+               // $("#listUnitNew tr").trigger("click");
+                var selectedID = $("#listUnitNew tr").attr("id");
+                var selectedIDNew = selectedID.split('_')
+                getPropertyUnitDetails(selectedIDNew[1]);
+            }
             
         }
     }
@@ -4322,6 +4329,7 @@ var getPropertyUnitList = function (modelname, filldata) {
             goToStep(2, 2,0);
         }
     });
+   
     
 }
 
@@ -11148,7 +11156,7 @@ var getPropertyModelUnitList = function (stype, pid) {
 }
 
 var getPropertyUnitDetails = function (uid) {
-    //$("#listUnitNew tr").removeClass("select-unit");
+    $("#listUnitNew tr").removeClass("select-unit");
     //$("#unitdiv_" + $("#hndOldUID").val()).removeClass("select-unit");
     $("#divLoader").show();
     var model = { UID: uid, LeaseTermID: $("#hndLeaseTermID").val() };
