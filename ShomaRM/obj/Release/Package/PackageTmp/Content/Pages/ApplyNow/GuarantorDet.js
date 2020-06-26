@@ -29,9 +29,9 @@ $(document).ready(function () {
 
     $("#txtApplicantSSNNumber").focusout(function () {
         var ssnLength = $("#txtApplicantSSNNumber").val().length;
-        console.log(ssnLength);
+        // console.log(ssnLength);
         if (ssnLength < 8) {
-            $("#divchkCCPay").add("hidden");
+            // $("#divchkCCPay").add("hidden");
             $("#chkCCPay").prop("disabled", true);
         }
         else if (ssnLength > 8) {
@@ -290,9 +290,39 @@ $(document).ready(function () {
             else {
                 $("#hndShowPaymentPolicy").val(1);
             }
+            var model = {
+                CurrentUserId: $('#hndCurrentUserId').val(),
+                isAgreeSummary: 1,
+            };
+
+            $.ajax({
+                url: '/ApplyNow/SaveUpdateAgreeSummary',
+                type: 'post',
+                data: JSON.stringify(model),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+
+                }
+            });
         }
         else if ($("#chkAgreeSummarry").is(":not(:checked)")) {
             //  $("#popApplicantSummary").modal("hide");
+            var model = {
+                CurrentUserId: $('#hndCurrentUserId').val(),
+                isAgreeSummary: 0,
+            };
+
+            $.ajax({
+                url: '/ApplyNow/SaveUpdateAgreeSummary',
+                type: 'post',
+                data: JSON.stringify(model),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+
+                }
+            });
         }
     });
 
@@ -317,14 +347,24 @@ $(document).ready(function () {
         $("#btnAddVehicle").removeAttr("style");
     }
     //Sachin M 17 June
+    //Modified By Amit 24 June
     $("#chkNoSSN").on('ifChanged', function (event) {
-        if ($(this).is(":checked")) {
-            $("#txtApplicantSSNNumber").val("000000000");
+        var checked = $(this).is(":checked");
+        if (checked == true) {
+            $("#txtApplicantSSNNumber").focus().val("000000000");
         }
         else {
+            $("#chkCCPay").prop("disabled", true);
+            $("#txtApplicantSSNNumber").attr("data-value", "");
             $("#txtApplicantSSNNumber").val("");
+            $("#txtApplicantSSNNumber").focusin(function () {
+                $("#txtApplicantSSNNumber").val("");
+                $("#txtApplicantSSNNumber").attr("data-value", "");
+            });
         }
     });
+
+
     $('input[type=checkbox]').on('ifChanged', function (event) {
         if ($("#chkDontHaveVehicle").is(":checked")) {
             $("#btnAddVehicle").attr("disabled", true);
@@ -1262,6 +1302,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         msg += "Please Upload " + upLabel3 + " </br>";
                     }
                 }
+                nofup += 1;
             }
             if ($("#rbtnFedralTax").is(":checked")) {
                 if ($("#hndHasTaxReturnFile1").val() == "0") {
@@ -1276,6 +1317,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         msg += "Please Upload " + upLabel5 + " </br>";
                     }
                 }
+                nofup += 1;
             }
             if ($("#rbtnBankStatement").is(":checked")) {
                 if ($("#hndHasBankStateFile1").val() == "0") {
@@ -1296,6 +1338,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                         msg += "Please Upload " + upLabel8 + " </br>";
                     }
                 }
+                nofup += 1;
             }
             if ($("#txtCountryOffice").val() == '0') {
                 msg += "Please Select The Country </br>";
@@ -2818,7 +2861,7 @@ var getCompareModelList = function () {
             $("#divLoader").hide();
             if (response != null) {
                 $("#listModelCompare").empty();
-                console.log(addModelArray)
+                //console.log(addModelArray)
                 var chtml = "<div class='col-sm-3'><div class='col-sm-12'><span><br><br><br><br><br></span></div><div class='col-sm-12'><span><br /> </span></div><div class='col-sm-12'><span> </span></div> <div class='col-sm-12'><span>Monthly Rent: </span></div><div class='col-sm-12'><span>Square feet: </span></div><div class='col-sm-12'><span id=''>Bedrooms: </span></div><div class='col-sm-12'><span id=''>Bathrooms: </span></div><div class='col-sm-12'><span>Available: </span></div> <div class='col-sm-12'><span id=''>Occupancy: </span></div></div>";
                 $.each(response.model, function (elementType, value) {
                     for (var j = 0; j < addModelArray.length; j++) {
@@ -4273,19 +4316,19 @@ var goToEditApplicantGuarantor = function (aid) {
                     var ssnnumber = $.trim($("#txtApplicantSSNNumber").val());
                     if (parseInt($("#hndCreditPaid").val()) == 0) {
                         $("#sppayFees").text($("#hndAppCreditFees").val());
-                        if (!ssnnumber) {
-                            $("#divchkCCPay").addClass("hidden");
-                            //modal.find('.modal-content').css("height", "560px");
+                        var ssnLength = $("#txtApplicantSSNNumber").val().length;
+                        if (ssnLength <= 8) {
+                            //$("#divchkCCPay").addClass("hidden");
+                            $("#chkCCPay").prop("disabled", true);
                         }
-                        else {
-                            $("#divchkCCPay").removeClass("hidden");
-                            //modal.find('.modal-content').css("height", "530px");
+                        else if (ssnLength > 8) {
+                            $("#chkCCPay").prop("disabled", false);
                         }
                     }
 
                     var ssnLength = $("#txtApplicantSSNNumber").val().length;
                     if (ssnLength <= 8) {
-                        $("#divchkCCPay").add("hidden");
+                       // $("#divchkCCPay").add("hidden");
                         $("#chkCCPay").prop("disabled", true);
                     }
                     else if (ssnLength > 8) {
@@ -4400,7 +4443,7 @@ var clearApplicant = function () {
     clearBank1();
     clearCard1();
     $("#chkCCPay").iCheck('uncheck');
-    $("#divchkCCPay").addClass("hidden");
+    //$("#divchkCCPay").addClass("hidden");
     $("#divCreditCheckPayment").addClass("hidden");
 }
 var totpaid = 0;
@@ -4454,11 +4497,11 @@ var getApplicantListsGuarantor = function () {
                         if (parseInt(elementValue.CreditPaid) == 0 ) {
                             $("#editApplicantFees").text("Credit Check Fees");
                             $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
-                            html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
+                            //html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a>";
                         } else if (parseInt(elementValue.CreditPaid) == 1 && parseInt(elementValue.BackGroundPaid) == 0) {
                             $("#editApplicantFees").text("Background Check Fees");
                             $("#editApplicantFeesVal").text($("#hndAppBackgroundFees").val());
-                            html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a>";
+                           // html += "<a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a>";
                         }
                         html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                     }
@@ -5502,7 +5545,14 @@ var getTenantOnlineListGuarantor = function (id) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-
+            if (response.model.IsAgreeSummary == '1') {
+                $("#chkAgreeSummarry").attr("checked", "checked");
+                $("#chkAgreeSummarry").parent().addClass("checked");
+            }
+            else {
+                $("#chkAgreeSummarry").removeAttr("checked");
+                $("#chkAgreeSummarry").parent().remove("checked");
+            }
             $("#ddlIsInter").val(response.model.IsInternational).change();
             $("#txtEmailNew").val(response.model.Email);
             $("#txtMobileNumber").val(formatPhoneFax(response.model.Mobile));

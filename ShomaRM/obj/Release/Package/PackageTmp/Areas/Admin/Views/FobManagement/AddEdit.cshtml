@@ -145,39 +145,109 @@
                                                         <div class="col-sm-12">
                                                             <div class="pull-left col-sm-12">
                                                                 <div class="checkbox">
-                                                                    <div class="col-sm-3" style="margin-left: -20px;">
-                                                                        <label>
-                                                                            <input type="checkbox" id="chkPay" checked="@(!string.IsNullOrWhiteSpace(item.MoveInCharges) ? true : false)" disabled><span style="margin-left: 10px;">
-                                                                                Pay your Move-in charges
-                                                                            </span>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="col-sm-3" style="margin-left: -80px;">
-                                                                        <div class="input-group" style="margin-left: 57px;">
-                                                                            <span class="input-group-btn">
-                                                                                <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
-                                                                            </span>
-                                                                            <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@(item.MoveInCharges)" disabled />
-                                                                        </div>
-                                                                    </div>
+                                                                    <label style="margin-left: -5px;">
+                                                                        <input type="checkbox" id="chkIns" checked="@(string.IsNullOrWhiteSpace(item.InsuranceDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
+                                                                            <span style="margin-left: 25px;"> <b>Bind your insurance liability coverage</b> in the amount of $300,000. If you do not have an agent to assist you in this matter, visit Assurant (American Bankers Ins. Co. of Fl) at <a href="www.quoterenters.com" target="_blank" style="text-decoration:underline">www.quoterenters.com</a> or call them at 855-846-9278 (M-F: 8AM–10PM and Sat 10AM- 5PM). Assurant’s approximate cost for $300,000 liability coverage is $166/year or $13.84/month. For your convenience  ? nd some information herein: <a href="www.AssurantResidentSolutions.com" target="_blank" style="text-decoration:underline">www.AssurantResidentSolutions.com.</a> <span style="text-decoration:underline">Make sure to upload your insurance binder before your Pre-Move in appointment</span></span>
+                                                                            <br />
+                                                                            <b>Download Proof of Insurance&nbsp;&nbsp;&nbsp;</b>
+                                                                            <a id="dwnldPOI@(item.ApplicantID)" data-value="@(!string.IsNullOrWhiteSpace(item.InsuranceDoc)? item.InsuranceDoc : "")" href="javascript:void(0)" class="btn btn-primary" onclick="downloadInsuranceDoc(@(item.ApplicantID));"><i class="fa fa-download"></i> @(!string.IsNullOrWhiteSpace(item.InsuranceDoc) ? item.InsuranceDoc : "")</a>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <h5 style="color:#4d738a;">Set up Utilities:</h5>
+                                                            <div class="pull-left col-sm-12">
+                                                                <div class="checkbox">
+                                                                    <label style="margin-left: -5px;">
+                                                                        <input type="checkbox" id="chkEle" checked="@(string.IsNullOrWhiteSpace(item.ElectricityDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
+                                                                            <span style="margin-left: 25px;">Electricity- log in to <a href="https://fpl.com" style="text-decoration:underline" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545 . <span style="text-decoration:underline"> Make sure you upload proof of new account before your Pre-Move in appointment.</span> </span>
+                                                                            <br />
+                                                                            <b>Download Proof of Electricity&nbsp;&nbsp;&nbsp;</b>
+                                                                            <a id="dwnldPOE@(item.ApplicantID)" data-value="@(!string.IsNullOrWhiteSpace(item.ElectricityDoc) ? item.ElectricityDoc : "")" href="javascript:void(0)" class="btn btn-primary" onclick="downloadElectricDoc(@(item.ApplicantID));"><i class="fa fa-download"></i> @(!string.IsNullOrWhiteSpace(item.ElectricityDoc) ? item.ElectricityDoc : "")</a>
+                                                                        </span>
+                                                                    </label>
                                                                 </div>
                                                             </div>
                                                             <div class="pull-left col-sm-12">
                                                                 <div class="checkbox">
-                                                                    <div class="col-sm-3" style="margin-left: -20px;">
+                                                                    <label style="margin-left: -5px;">
+                                                                        <input type="checkbox" id="chkAt" checked="@(item.IsCheckATT == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
+                                                                        <span style="margin-left: 25px;"> AT&T- Call to establish your internet service and/or enhance your cable plan at <a href="www.att.com/residents" style="text-decoration:underline" target="_blank">www.att.com/residents</a> or by calling (877) 910-0501. </span>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="pull-left col-sm-12">
+                                                                <div class="checkbox">
+                                                                    <label style="margin-left: -5px;">
+                                                                        <input type="checkbox" id="chkWater" checked="@(item.IsCheckWater == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
+                                                                         <span style="margin-left: 25px;">If needed, contact Miami Dade W&S Department to stop service at your previous address. Log into <a href="www.miamidade.gov/global/water/home.page" style="text-decoration:underline" target="_blank">www.miamidade.gov/global/water/home.page</a> or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month. </span>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="pull-left col-sm-12">
+                                                                <h5 style="color:#4d738a;">Deposit Alternative: </h5>
+                                                                <div class="checkbox">
+                                                                    <label>
+                                                                        <input type="checkbox" id="chkSDP" checked="@(item.IsCheckSD == 1 ? true : false)" disabled  />
+                                                                        <span style="margin-left: 25px;">
+                                                                            If you would like to participate in the Flex Deposit Program which may assist you in bonding your Security Deposit for a Non-Refundable fee, depending on credit, of as low as $50, please contact our leasing agents. Our leasing sta?  will begin processing your bond enrollment process with Assurant by starting an online application. Once our sta?  sets up the bond application, Assurant will automatically send you an email with a secure link to access the remaining portion of the bond application. Our property management team will be noti? ed once your Security Deposit requirement has been satis? ed. We will adjust your Security Deposit amount and your Move-in charges accordingly, so you can process your payment correctly. If you would like more information about the Flex Deposit Program please visit <a href="www.?exdeposit.com" style="text-decoration:underline" target="_blank">www.?exdeposit.com</a>  or contact them by phone, 1-877-277-4811. For your convenience ?nd some information herein: <a href="https://?exdeposit.com/public/guide-resident.htm" style="text-decoration:underline" target="_blank">https://?exdeposit.com/public/guide-resident.htm</a>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <h5 style="color:#4d738a;">Pay your <b><span id="lblPaymentPer"></span>%</b> Move-in charges: </h5>
+                                                            <div class="pull-left col-sm-12">
+                                                                <div class="checkbox">
+                                                                    <div class="col-sm-6" style="margin-left: -20px;">
                                                                         <label>
-                                                                            <input type="checkbox" id="chkMovein" checked="@(!string.IsNullOrWhiteSpace(item.MoveInDateString) ? true : false)" disabled="disabled" /><span style="margin-left: 10px;">
-                                                                                Schedule a move-in date and time
+                                                                            <input type="checkbox" id="chkPay" checked="@(!string.IsNullOrWhiteSpace(item.MoveInCharges) ? true : false)" disabled><span style="margin-left: 10px;">
+                                                                             <span style="margin-left: 25px;"> Your move-in charges must be paid prior to your Pre-Move-in appointment. </span>
                                                                             </span>
                                                                         </label>
                                                                     </div>
-                                                                    <div class="col-sm-3" style="margin-left: -80px;">
-                                                                        <div class="input-group" style="margin-left: 57px;">
-                                                                            <input id="txtMoveInDate" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@item.MoveInDateString" disabled />
+                                                                    
+                                                                </div>
+                                                                <div class="col-sm-3" style="margin-left: -80px;">
+                                                                    <div class="input-group" style="margin-left: 57px;">
+                                                                        <span class="input-group-btn">
+                                                                            <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                                                        </span>
+                                                                        <input id="txtPayment" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@(item.MoveInCharges)" disabled />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <h5 style="color:#4d738a;">Schedule your Pre-move-in date appointment: </h5>
+                                                            <div class="pull-left col-sm-12">
+                                                                <div class="checkbox">
+                                                                    <div class="col-sm-12" style="margin-left: -20px;">
+                                                                        <label>
+                                                                            <input type="checkbox" id="chkMovein" checked="@(!string.IsNullOrWhiteSpace(item.MoveInDateString) ? true : false)" disabled="disabled" /><span style="margin-left: 10px;">
+                                                                                                                                                                                                                          <span style="margin-left: 25px;"> It is important that at least three days before your desired move-in date, you schedule an appointment to establish your biometrics authentication, obtain your vehicle decals, and complete your pet(s) DNA testing. If you have not already uploaded your insurance and FPL account information, please make sure you do so before your appointment. Please note we are unable to schedule your move-in date without proof of insurance and electric account set-up</span>
+                                                                            </span>
+                                                                        </label>
+                                                                    </div>
+                                                                    <br />
+                                                                    <div class="col-sm-3">
+                                                                        <div class="input-group" style="margin-left: -70px;">
+                                                                            <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@item.MoveInTime" disabled />
                                                                             <span class="input-group-btn" style="width:0% !important">
-                                                                                <button class="btn btn-primary search" type="button"><i class="fa-calendar fa"></i></button>
+                                                                                <button class="btn btn-primary search" type="button"><i class="fa-clock-o  fa"></i></button>
                                                                             </span>
                                                                         </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <h5 style="color:#4d738a;">Schedule your Move-in date: </h5>
+                                                            <div class="pull-left col-sm-12">
+                                                                <div class="checkbox">
+                                                                    <div class="col-sm-8" style="margin-left: -20px;">
+                                                                        <label>
+                                                                            <input type="checkbox" id="chkMovein" checked="@(!string.IsNullOrWhiteSpace(item.MoveInDateString) ? true : false)" disabled="disabled" /><span style="margin-left: 10px;">
+                                                                                                                                                                                                                          <span style="margin-left: 25px;"> During your pre-move-in appointment, your agent will assist you in scheduling your move-in date and time. </span>
+                                                                            </span>
+                                                                        </label>
                                                                     </div>
                                                                     <div class="col-sm-3">
                                                                         <div class="input-group" style="margin-left: -70px;">
@@ -190,54 +260,22 @@
                                                                 </div>
                                                             </div>
                                                             <div class="pull-left col-sm-12">
+                                                                <h5 style="color:#4d738a;">Schedule your Movers: </h5>
                                                                 <div class="checkbox">
-                                                                    <label style="margin-left: -5px;">
-                                                                        <input type="checkbox" id="chkIns" checked="@(string.IsNullOrWhiteSpace(item.InsuranceDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
-                                                                            Make sure you have Renter’s insurance.  If you have not purchased it and would like to use our partner, login or call Serrod Insurance 	Agency at (305) 445-6441
-                                                                            <br />
-                                                                            <b>Download Proof of Insurance&nbsp;&nbsp;&nbsp;</b>
-                                                                            <a id="dwnldPOI@(item.ApplicantID)" data-value="@(!string.IsNullOrWhiteSpace(item.InsuranceDoc)? item.InsuranceDoc : "")" href="javascript:void(0)" class="btn btn-primary" onclick="downloadInsuranceDoc(@(item.ApplicantID));"><i class="fa fa-download"></i> @(!string.IsNullOrWhiteSpace(item.InsuranceDoc) ? item.InsuranceDoc : "")</a>
+                                                                    <label>
+                                                                        <input type="checkbox" id="chkMovers" checked="@(item.Movers == 1 ? true : false)" disabled />
+                                                                        <span style="margin-left: 25px;">
+                                                                            If you do not have your own moving company, please contact our preferred movers, Johnny Moving at 786-346-0924.  We have negotiated a ?x fee of $480 for 1-bedroom and $550 for 2- or 3-bedrooms for all moves within Miami-Dade County. You can also email <a href="mailto:Johnnymoving1968@gmail.com" style="text-decoration:underline" target="_blank">Johnnymoving1968@gmail.com</a>
                                                                         </span>
                                                                     </label>
                                                                 </div>
+
                                                             </div>
                                                             <div class="pull-left col-sm-12">
                                                                 <div class="checkbox">
                                                                     <label style="margin-left: -5px;">
                                                                         <input type="checkbox" id="chkPo" checked="@(item.IsCheckPO == 1 ? true : false)" disabled><span style="margin-left: 10px;">
-                                                                            Complete the Post Office change of address by logging into <a href="https://movingonlineservice.com" target="_blank">https://movingonlineservice.com</a>
-                                                                        </span>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-12" style="margin-bottom:10px !important"><h4 style="color:#4d738a;">Utilities</h4></div>
-                                                            <div class="pull-left col-sm-12">
-                                                                <div class="checkbox">
-                                                                    <label style="margin-left: -5px;">
-                                                                        <input type="checkbox" id="chkEle" checked="@(string.IsNullOrWhiteSpace(item.ElectricityDoc) == false ? true : false)" disabled><span style="margin-left: 10px;">
-                                                                            Electricity- log in to <a href="https://fpl.com" target="_blank">https://fpl.com</a> to start service or call 1-800-226-3545.
-                                                                            <br />
-                                                                            <b>Download Proof of Electricity&nbsp;&nbsp;&nbsp;</b>
-                                                                            <a id="dwnldPOE@(item.ApplicantID)" data-value="@(!string.IsNullOrWhiteSpace(item.ElectricityDoc) ? item.ElectricityDoc : "")" href="javascript:void(0)" class="btn btn-primary" onclick="downloadElectricDoc(@(item.ApplicantID));"><i class="fa fa-download"></i> @(!string.IsNullOrWhiteSpace(item.ElectricityDoc) ? item.ElectricityDoc : "")</a>
-                                                                        </span>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="pull-left col-sm-12">
-                                                                <div class="checkbox">
-                                                                    <label style="margin-left: -5px;">
-                                                                        <input type="checkbox" id="chkAt" checked="@(item.IsCheckATT == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
-                                                                            AT&T- Call to establish your internet service and/or enhance your cable plan.
-                                                                        </span>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="pull-left col-sm-12">
-                                                                <div class="checkbox">
-                                                                    <label style="margin-left: -5px;">
-                                                                        <input type="checkbox" id="chkWater" checked="@(item.IsCheckWater == 1 ? true : false)" disabled /><span style="margin-left: 10px;">
-                                                                            If needed, contact Miami Dade Water and Sewer Department to stop service at your previous address. Login to <a href="http://www.miamidade.gov/global/water/home.page" target="_blank">www.miamidade.gov/global/water/home.page</a>
-                                                                            or call (305) 665-7488.  Your water will be set up automatically upon move-in and will be billed directly the following month.
+                                                                                                                                                                       <span style="margin-left: 25px;"><b>Complete the Post Office change of address</b> by logging into <a href="https://movingonlineservice.com" style="text-decoration:underline" target="_blank">https://movingonlineservice.com</a></span>
                                                                         </span>
                                                                     </label>
                                                                 </div>

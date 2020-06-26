@@ -1317,132 +1317,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_TenantOnline">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantOnline">
-        <MappingFragment StoreEntitySet="tbl_TenantOnline">
-          <ScalarProperty Name="EmpNotes" ColumnName="EmpNotes" />
-          <ScalarProperty Name="EmpStatus" ColumnName="EmpStatus" />
-          <ScalarProperty Name="ResidenceNotes" ColumnName="ResidenceNotes" />
-          <ScalarProperty Name="ResidenceStatus" ColumnName="ResidenceStatus" />
-          <ScalarProperty Name="IsBankState" ColumnName="IsBankState" />
-          <ScalarProperty Name="IsFedralTax" ColumnName="IsFedralTax" />
-          <ScalarProperty Name="TaxReturnOrginalFile8" ColumnName="TaxReturnOrginalFile8" />
-          <ScalarProperty Name="TaxReturnOrginalFile7" ColumnName="TaxReturnOrginalFile7" />
-          <ScalarProperty Name="TaxReturnOrginalFile6" ColumnName="TaxReturnOrginalFile6" />
-          <ScalarProperty Name="TaxReturnOrginalFile5" ColumnName="TaxReturnOrginalFile5" />
-          <ScalarProperty Name="TaxReturnOrginalFile4" ColumnName="TaxReturnOrginalFile4" />
-          <ScalarProperty Name="TaxReturn8" ColumnName="TaxReturn8" />
-          <ScalarProperty Name="TaxReturn7" ColumnName="TaxReturn7" />
-          <ScalarProperty Name="TaxReturn6" ColumnName="TaxReturn6" />
-          <ScalarProperty Name="TaxReturn5" ColumnName="TaxReturn5" />
-          <ScalarProperty Name="TaxReturn4" ColumnName="TaxReturn4" />
-          <ScalarProperty Name="IsRentalQualification" ColumnName="IsRentalQualification" />
-          <ScalarProperty Name="IsRentalPolicy" ColumnName="IsRentalPolicy" />
-          <ScalarProperty Name="StepCompleted" ColumnName="StepCompleted" />
-          <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
-          <ScalarProperty Name="IsProprNoticeLeaseAgreement" ColumnName="IsProprNoticeLeaseAgreement" />
-          <ScalarProperty Name="ManagementCompanyPhone" ColumnName="ManagementCompanyPhone" />
-          <ScalarProperty Name="ManagementCompany" ColumnName="ManagementCompany" />
-          <ScalarProperty Name="ApartmentCommunity" ColumnName="ApartmentCommunity" />
-          <ScalarProperty Name="ReferredBrokerMerchant" ColumnName="ReferredBrokerMerchant" />
-          <ScalarProperty Name="ReferredResidentName" ColumnName="ReferredResidentName" />
-          <ScalarProperty Name="ReferredResident" ColumnName="ReferredResident" />
-          <ScalarProperty Name="DoYouSmoke" ColumnName="DoYouSmoke" />
-          <ScalarProperty Name="CriminalChargPenDetails" ColumnName="CriminalChargPenDetails" />
-          <ScalarProperty Name="CriminalChargPen" ColumnName="CriminalChargPen" />
-          <ScalarProperty Name="ConvictedFelonyDetails" ColumnName="ConvictedFelonyDetails" />
-          <ScalarProperty Name="ConvictedFelony" ColumnName="ConvictedFelony" />
-          <ScalarProperty Name="EvictedDetails" ColumnName="EvictedDetails" />
-          <ScalarProperty Name="Evicted" ColumnName="Evicted" />
-          <ScalarProperty Name="CountryOfOrigin" ColumnName="CountryOfOrigin" />
-          <ScalarProperty Name="IsPaystub" ColumnName="IsPaystub" />
-          <ScalarProperty Name="IdentityDocumentOriginalFile" ColumnName="IdentityDocumentOriginalFile" />
-          <ScalarProperty Name="PassportDocumentOriginalFile" ColumnName="PassportDocumentOriginalFile" />
-          <ScalarProperty Name="HavePet" ColumnName="HavePet" />
-          <ScalarProperty Name="TaxReturnOrginalFile3" ColumnName="TaxReturnOrginalFile3" />
-          <ScalarProperty Name="TaxReturnOrginalFile2" ColumnName="TaxReturnOrginalFile2" />
-          <ScalarProperty Name="TaxReturnOrginalFile" ColumnName="TaxReturnOrginalFile" />
-          <ScalarProperty Name="HaveVehicle" ColumnName="HaveVehicle" />
-          <ScalarProperty Name="TaxReturn3" ColumnName="TaxReturn3" />
-          <ScalarProperty Name="TaxReturn2" ColumnName="TaxReturn2" />
-          <ScalarProperty Name="SSN" ColumnName="SSN" />
-          <ScalarProperty Name="TaxReturn" ColumnName="TaxReturn" />
-          <ScalarProperty Name="IdentityDocument" ColumnName="IdentityDocument" />
-          <ScalarProperty Name="PassportDocument" ColumnName="PassportDocument" />
-          <ScalarProperty Name="IsAdditionalRHistory" ColumnName="IsAdditionalRHistory" />
-          <ScalarProperty Name="Reason2" ColumnName="Reason2" />
-          <ScalarProperty Name="MonthlyPayment2" ColumnName="MonthlyPayment2" />
-          <ScalarProperty Name="MoveInDateTo2" ColumnName="MoveInDateTo2" />
-          <ScalarProperty Name="MoveInDateFrom2" ColumnName="MoveInDateFrom2" />
-          <ScalarProperty Name="RentOwn2" ColumnName="RentOwn2" />
-          <ScalarProperty Name="ZipHome2" ColumnName="ZipHome2" />
-          <ScalarProperty Name="CityHome2" ColumnName="CityHome2" />
-          <ScalarProperty Name="StateHome2" ColumnName="StateHome2" />
-          <ScalarProperty Name="HomeAddress22" ColumnName="HomeAddress22" />
-          <ScalarProperty Name="HomeAddress12" ColumnName="HomeAddress12" />
-          <ScalarProperty Name="Country2" ColumnName="Country2" />
-          <ScalarProperty Name="MoveInDateTo" ColumnName="MoveInDateTo" />
-          <ScalarProperty Name="MoveInDateFrom" ColumnName="MoveInDateFrom" />
-          <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
-          <ScalarProperty Name="IsInternational" ColumnName="IsInternational" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="EmergencyZipHome" ColumnName="EmergencyZipHome" />
-          <ScalarProperty Name="EmergencyCityHome" ColumnName="EmergencyCityHome" />
-          <ScalarProperty Name="EmergencyStateHome" ColumnName="EmergencyStateHome" />
-          <ScalarProperty Name="EmergencyAddress2" ColumnName="EmergencyAddress2" />
-          <ScalarProperty Name="EmergencyAddress1" ColumnName="EmergencyAddress1" />
-          <ScalarProperty Name="EmergencyCountry" ColumnName="EmergencyCountry" />
-          <ScalarProperty Name="EmergencyEmail" ColumnName="EmergencyEmail" />
-          <ScalarProperty Name="EmergencyWorkPhone" ColumnName="EmergencyWorkPhone" />
-          <ScalarProperty Name="EmergencyHomePhone" ColumnName="EmergencyHomePhone" />
-          <ScalarProperty Name="EmergencyMobile" ColumnName="EmergencyMobile" />
-          <ScalarProperty Name="EmergencyLastName" ColumnName="EmergencyLastName" />
-          <ScalarProperty Name="EmergencyFirstName" ColumnName="EmergencyFirstName" />
-          <ScalarProperty Name="Relationship" ColumnName="Relationship" />
-          <ScalarProperty Name="OfficeZip" ColumnName="OfficeZip" />
-          <ScalarProperty Name="OfficeCity" ColumnName="OfficeCity" />
-          <ScalarProperty Name="OfficeState" ColumnName="OfficeState" />
-          <ScalarProperty Name="OfficeAddress2" ColumnName="OfficeAddress2" />
-          <ScalarProperty Name="OfficeAddress1" ColumnName="OfficeAddress1" />
-          <ScalarProperty Name="OfficeCountry" ColumnName="OfficeCountry" />
-          <ScalarProperty Name="SupervisorEmail" ColumnName="SupervisorEmail" />
-          <ScalarProperty Name="SupervisorPhone" ColumnName="SupervisorPhone" />
-          <ScalarProperty Name="SupervisorName" ColumnName="SupervisorName" />
-          <ScalarProperty Name="AdditionalIncome" ColumnName="AdditionalIncome" />
-          <ScalarProperty Name="Income" ColumnName="Income" />
-          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-          <ScalarProperty Name="JobType" ColumnName="JobType" />
-          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
-          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
-          <ScalarProperty Name="Reason" ColumnName="Reason" />
-          <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
-          <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
-          <ScalarProperty Name="RentOwn" ColumnName="RentOwn" />
-          <ScalarProperty Name="ZipHome" ColumnName="ZipHome" />
-          <ScalarProperty Name="CityHome" ColumnName="CityHome" />
-          <ScalarProperty Name="StateHome" ColumnName="StateHome" />
-          <ScalarProperty Name="HomeAddress2" ColumnName="HomeAddress2" />
-          <ScalarProperty Name="HomeAddress1" ColumnName="HomeAddress1" />
-          <ScalarProperty Name="Country" ColumnName="Country" />
-          <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
-          <ScalarProperty Name="State" ColumnName="State" />
-          <ScalarProperty Name="IDType" ColumnName="IDType" />
-          <ScalarProperty Name="DateExpire" ColumnName="DateExpire" />
-          <ScalarProperty Name="DateIssuance" ColumnName="DateIssuance" />
-          <ScalarProperty Name="CountryIssuance" ColumnName="CountryIssuance" />
-          <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
-          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
-          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_BackgroundScreening">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
         <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
@@ -1712,6 +1586,133 @@
           <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
           <ScalarProperty Name="TenantID" ColumnName="TenantID" />
           <ScalarProperty Name="ESID" ColumnName="ESID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_TenantOnline">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_TenantOnline">
+        <MappingFragment StoreEntitySet="tbl_TenantOnline">
+          <ScalarProperty Name="IsAgreeSummarry" ColumnName="IsAgreeSummarry" />
+          <ScalarProperty Name="EmpNotes" ColumnName="EmpNotes" />
+          <ScalarProperty Name="EmpStatus" ColumnName="EmpStatus" />
+          <ScalarProperty Name="ResidenceNotes" ColumnName="ResidenceNotes" />
+          <ScalarProperty Name="ResidenceStatus" ColumnName="ResidenceStatus" />
+          <ScalarProperty Name="IsBankState" ColumnName="IsBankState" />
+          <ScalarProperty Name="IsFedralTax" ColumnName="IsFedralTax" />
+          <ScalarProperty Name="TaxReturnOrginalFile8" ColumnName="TaxReturnOrginalFile8" />
+          <ScalarProperty Name="TaxReturnOrginalFile7" ColumnName="TaxReturnOrginalFile7" />
+          <ScalarProperty Name="TaxReturnOrginalFile6" ColumnName="TaxReturnOrginalFile6" />
+          <ScalarProperty Name="TaxReturnOrginalFile5" ColumnName="TaxReturnOrginalFile5" />
+          <ScalarProperty Name="TaxReturnOrginalFile4" ColumnName="TaxReturnOrginalFile4" />
+          <ScalarProperty Name="TaxReturn8" ColumnName="TaxReturn8" />
+          <ScalarProperty Name="TaxReturn7" ColumnName="TaxReturn7" />
+          <ScalarProperty Name="TaxReturn6" ColumnName="TaxReturn6" />
+          <ScalarProperty Name="TaxReturn5" ColumnName="TaxReturn5" />
+          <ScalarProperty Name="TaxReturn4" ColumnName="TaxReturn4" />
+          <ScalarProperty Name="IsRentalQualification" ColumnName="IsRentalQualification" />
+          <ScalarProperty Name="IsRentalPolicy" ColumnName="IsRentalPolicy" />
+          <ScalarProperty Name="StepCompleted" ColumnName="StepCompleted" />
+          <ScalarProperty Name="ParentTOID" ColumnName="ParentTOID" />
+          <ScalarProperty Name="IsProprNoticeLeaseAgreement" ColumnName="IsProprNoticeLeaseAgreement" />
+          <ScalarProperty Name="ManagementCompanyPhone" ColumnName="ManagementCompanyPhone" />
+          <ScalarProperty Name="ManagementCompany" ColumnName="ManagementCompany" />
+          <ScalarProperty Name="ApartmentCommunity" ColumnName="ApartmentCommunity" />
+          <ScalarProperty Name="ReferredBrokerMerchant" ColumnName="ReferredBrokerMerchant" />
+          <ScalarProperty Name="ReferredResidentName" ColumnName="ReferredResidentName" />
+          <ScalarProperty Name="ReferredResident" ColumnName="ReferredResident" />
+          <ScalarProperty Name="DoYouSmoke" ColumnName="DoYouSmoke" />
+          <ScalarProperty Name="CriminalChargPenDetails" ColumnName="CriminalChargPenDetails" />
+          <ScalarProperty Name="CriminalChargPen" ColumnName="CriminalChargPen" />
+          <ScalarProperty Name="ConvictedFelonyDetails" ColumnName="ConvictedFelonyDetails" />
+          <ScalarProperty Name="ConvictedFelony" ColumnName="ConvictedFelony" />
+          <ScalarProperty Name="EvictedDetails" ColumnName="EvictedDetails" />
+          <ScalarProperty Name="Evicted" ColumnName="Evicted" />
+          <ScalarProperty Name="CountryOfOrigin" ColumnName="CountryOfOrigin" />
+          <ScalarProperty Name="IsPaystub" ColumnName="IsPaystub" />
+          <ScalarProperty Name="IdentityDocumentOriginalFile" ColumnName="IdentityDocumentOriginalFile" />
+          <ScalarProperty Name="PassportDocumentOriginalFile" ColumnName="PassportDocumentOriginalFile" />
+          <ScalarProperty Name="HavePet" ColumnName="HavePet" />
+          <ScalarProperty Name="TaxReturnOrginalFile3" ColumnName="TaxReturnOrginalFile3" />
+          <ScalarProperty Name="TaxReturnOrginalFile2" ColumnName="TaxReturnOrginalFile2" />
+          <ScalarProperty Name="TaxReturnOrginalFile" ColumnName="TaxReturnOrginalFile" />
+          <ScalarProperty Name="HaveVehicle" ColumnName="HaveVehicle" />
+          <ScalarProperty Name="TaxReturn3" ColumnName="TaxReturn3" />
+          <ScalarProperty Name="TaxReturn2" ColumnName="TaxReturn2" />
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="TaxReturn" ColumnName="TaxReturn" />
+          <ScalarProperty Name="IdentityDocument" ColumnName="IdentityDocument" />
+          <ScalarProperty Name="PassportDocument" ColumnName="PassportDocument" />
+          <ScalarProperty Name="IsAdditionalRHistory" ColumnName="IsAdditionalRHistory" />
+          <ScalarProperty Name="Reason2" ColumnName="Reason2" />
+          <ScalarProperty Name="MonthlyPayment2" ColumnName="MonthlyPayment2" />
+          <ScalarProperty Name="MoveInDateTo2" ColumnName="MoveInDateTo2" />
+          <ScalarProperty Name="MoveInDateFrom2" ColumnName="MoveInDateFrom2" />
+          <ScalarProperty Name="RentOwn2" ColumnName="RentOwn2" />
+          <ScalarProperty Name="ZipHome2" ColumnName="ZipHome2" />
+          <ScalarProperty Name="CityHome2" ColumnName="CityHome2" />
+          <ScalarProperty Name="StateHome2" ColumnName="StateHome2" />
+          <ScalarProperty Name="HomeAddress22" ColumnName="HomeAddress22" />
+          <ScalarProperty Name="HomeAddress12" ColumnName="HomeAddress12" />
+          <ScalarProperty Name="Country2" ColumnName="Country2" />
+          <ScalarProperty Name="MoveInDateTo" ColumnName="MoveInDateTo" />
+          <ScalarProperty Name="MoveInDateFrom" ColumnName="MoveInDateFrom" />
+          <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
+          <ScalarProperty Name="IsInternational" ColumnName="IsInternational" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="EmergencyZipHome" ColumnName="EmergencyZipHome" />
+          <ScalarProperty Name="EmergencyCityHome" ColumnName="EmergencyCityHome" />
+          <ScalarProperty Name="EmergencyStateHome" ColumnName="EmergencyStateHome" />
+          <ScalarProperty Name="EmergencyAddress2" ColumnName="EmergencyAddress2" />
+          <ScalarProperty Name="EmergencyAddress1" ColumnName="EmergencyAddress1" />
+          <ScalarProperty Name="EmergencyCountry" ColumnName="EmergencyCountry" />
+          <ScalarProperty Name="EmergencyEmail" ColumnName="EmergencyEmail" />
+          <ScalarProperty Name="EmergencyWorkPhone" ColumnName="EmergencyWorkPhone" />
+          <ScalarProperty Name="EmergencyHomePhone" ColumnName="EmergencyHomePhone" />
+          <ScalarProperty Name="EmergencyMobile" ColumnName="EmergencyMobile" />
+          <ScalarProperty Name="EmergencyLastName" ColumnName="EmergencyLastName" />
+          <ScalarProperty Name="EmergencyFirstName" ColumnName="EmergencyFirstName" />
+          <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+          <ScalarProperty Name="OfficeZip" ColumnName="OfficeZip" />
+          <ScalarProperty Name="OfficeCity" ColumnName="OfficeCity" />
+          <ScalarProperty Name="OfficeState" ColumnName="OfficeState" />
+          <ScalarProperty Name="OfficeAddress2" ColumnName="OfficeAddress2" />
+          <ScalarProperty Name="OfficeAddress1" ColumnName="OfficeAddress1" />
+          <ScalarProperty Name="OfficeCountry" ColumnName="OfficeCountry" />
+          <ScalarProperty Name="SupervisorEmail" ColumnName="SupervisorEmail" />
+          <ScalarProperty Name="SupervisorPhone" ColumnName="SupervisorPhone" />
+          <ScalarProperty Name="SupervisorName" ColumnName="SupervisorName" />
+          <ScalarProperty Name="AdditionalIncome" ColumnName="AdditionalIncome" />
+          <ScalarProperty Name="Income" ColumnName="Income" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="JobType" ColumnName="JobType" />
+          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+          <ScalarProperty Name="EmployerName" ColumnName="EmployerName" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
+          <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+          <ScalarProperty Name="RentOwn" ColumnName="RentOwn" />
+          <ScalarProperty Name="ZipHome" ColumnName="ZipHome" />
+          <ScalarProperty Name="CityHome" ColumnName="CityHome" />
+          <ScalarProperty Name="StateHome" ColumnName="StateHome" />
+          <ScalarProperty Name="HomeAddress2" ColumnName="HomeAddress2" />
+          <ScalarProperty Name="HomeAddress1" ColumnName="HomeAddress1" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="IDNumber" ColumnName="IDNumber" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="IDType" ColumnName="IDType" />
+          <ScalarProperty Name="DateExpire" ColumnName="DateExpire" />
+          <ScalarProperty Name="DateIssuance" ColumnName="DateIssuance" />
+          <ScalarProperty Name="CountryIssuance" ColumnName="CountryIssuance" />
+          <ScalarProperty Name="PassportNumber" ColumnName="PassportNumber" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="MiddleInitial" ColumnName="MiddleInitial" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

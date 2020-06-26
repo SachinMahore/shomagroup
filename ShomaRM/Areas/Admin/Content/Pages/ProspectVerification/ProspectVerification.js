@@ -2442,7 +2442,7 @@ var getTransationLists = function (userid) {
                 adhtml += "<td>Admin Fees</td>";
                 adhtml += "<td style='text-align: center;'>$" + formatMoney($("#lblAdminFees").text()) + "</td>";
                 adhtml += "<td style='text-align: center;'></td>";
-                adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)'><span>Send Reminder to Pay Administration Fees </span></button></td>";
+                adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)' disabled='disabled'xds><span>Send Reminder to Pay Administration Fees </span></button></td>";
                 $("#tblAdminFee>tbody").append(adhtml);
             }
             if (totPaid >= parseFloat($("#txtPayment").val()))

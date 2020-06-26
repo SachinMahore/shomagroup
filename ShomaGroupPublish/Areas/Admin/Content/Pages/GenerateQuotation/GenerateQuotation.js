@@ -79,8 +79,8 @@ $(document).ready(function () {
     $("#ddlSortOrder").on("change", function () {
         getPropertyModelUnitListQuotation();
     });
-    $("#txtDate").on("change", function () {
-        if ($("#txtDate").val() != "") {
+    $("#txtDate_Quotation").on("change", function () {
+        if ($("#txtDate_Quotation").val() != "") {
             getPropertyModelUnitListQuotation();
         }
     });
@@ -92,39 +92,39 @@ $(document).ready(function () {
     $("#txtCountry").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
-            fillStateDDL_Home(selected, 0);
+            fillStateDDL_HomeQuotation(selected, 0);
         }
     });
     $("#txtCountryReg").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
-            fillStateDDLReg_IDType(selected, 0);
-            fillStateDDLReg_Home(selected, 0);
+            fillStateDDLReg_IDTypeQuotation(selected, 0);
+            fillStateDDLReg_HomeQuotation(selected, 0);
         }
     });
     $("#txtCountryOffice").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
-            fillStateDDL_Office(selected, 0);
+            fillStateDDL_OfficeQuotation(selected, 0);
         }
     });
     $("#txtCountryOfficeHEI").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
-            fillStateDDL_OfficeHEI(selected, 0);
+            fillStateDDL_OfficeHEIQuotation(selected, 0);
         }
     });
     $("#txtEmergencyCountry").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
-            fillStateDDL_EmeContact(selected, 0);
+            fillStateDDL_EmeContactQuotation(selected, 0);
         }
     });
     //17082019 - end
     $("#txtCountry2").on('change', function (evt, params) {
         var selected = $(this).val();
         if (selected != null) {
-            fillStateDDL_Home2(selected, 0);
+            fillStateDDL_Home2Quotation(selected, 0);
         }
     });
 
@@ -273,7 +273,7 @@ $(document).ready(function () {
     
 });
 
-var cancel = function () {
+var cancelGenerateQuotation = function () {
 
     $.alert({
         title: "",
@@ -314,7 +314,7 @@ var cancel = function () {
 
 
 };
-function checkFormstatus() {
+function checkFormstatusQuotation() {
     $("#checkForm").toggleClass("hidden");
 }
 var totalAmt = 0;
@@ -368,7 +368,7 @@ var goToStepQuotation = function (stepid, id, calldataupdate) {
             return;
         }
         if ($('#txtAvailableDate').text() == '') {
-            $('#lblLeaseStartDate').text($('#txtDate').val());
+            $('#lblLeaseStartDate').text($('#txtDate_Quotation').val());
         }
         else {
             $('#lblLeaseStartDate').text($('#txtAvailableDate').text());
@@ -413,6 +413,18 @@ var goToStepQuotation = function (stepid, id, calldataupdate) {
             $("#step17").addClass("hidden");
             if ($("#hdnOPId").val() != '0') {
                 getStaticApplicantValuesGenearateQuotation();
+            }
+
+            if ($("#hdnOPId").val() != '0') {
+                getStaticApplicantValuesGenearateQuotation();
+                getPropertyUnitDetails($("#hndUID").val());
+            }
+
+            if ($("#listUnitNew tr").hasClass("select-unit")) {
+                // $("#listUnitNew tr").trigger("click");
+                var selectedID = $("#listUnitNew tr").attr("id");
+                var selectedIDNew = selectedID.split('_')
+                getPropertyUnitDetails(selectedIDNew[1]);
             }
         }
     }
@@ -1041,7 +1053,7 @@ var SaveGenerateQuotation = function () {
     var annualIncome = $("#txtAnnualIncome").val();
     var addiAnnualIncome = $("#txtAddiAnnualIncome").val();
 
-    var moveInDate = $("#txtDate").val();
+    var moveInDate = $("#txtDate_Quotation").val();
     var isAgree = $("#chkAgreeTerms").is(":checked") ? "1" : "0";
     var leaseterm = $("#hndLeaseTermID").val();
 
@@ -1318,7 +1330,7 @@ var SaveQuoteQuotation = function (stepcompleted) {
     //    var PestAmt = $("#lblPestAmt").text();
     //    var ConvergentAmt = $("#lblConvergentAmt").text();
     //    var TrashAmt = unformatText($("#lblTrashAmt").text());
-    //    var moveInDate = $("#txtDate").val();
+    //    var moveInDate = $("#txtDate_Quotation").val();
     //    var moveInCharges = unformatText($("#ftotal").text());
     //    var monthlyCharges = unformatText($("#lblMonthly_TotalRent").text());
 
@@ -1386,7 +1398,7 @@ var SaveQuoteQuotation = function (stepcompleted) {
     //            var idmsg = response.msg.split('|');
     //            var hasUnitChange = idmsg[1];
     //            if (hasUnitChange == 1) {
-    //                updateCalculation();
+    //                updateCalculationQuotation();
     //            }
     //            $("#lblFNLQuote").text(idmsg[0]);
     //            var stepcomp = parseInt($("#hdnStepCompleted").val());
@@ -1405,7 +1417,7 @@ var SaveQuoteQuotation = function (stepcompleted) {
     //    var PestAmt = $("#lblPestAmt").text();
     //    var ConvergentAmt = $("#lblConvergentAmt").text();
     //    var TrashAmt = unformatText($("#lblTrashAmt").text());
-    //    var moveInDate = $("#txtDate").val();
+    //    var moveInDate = $("#txtDate_Quotation").val();
     //    var moveInCharges = unformatText($("#ftotal").text());
     //    var monthlyCharges = unformatText($("#lblMonthly_TotalRent").text());
 
@@ -1473,7 +1485,7 @@ var SaveQuoteQuotation = function (stepcompleted) {
     //            var idmsg = response.msg.split('|');
     //            var hasUnitChange = idmsg[1];
     //            if (hasUnitChange == 1) {
-    //                updateCalculation();
+    //                updateCalculationQuotation();
     //            }
     //            $("#lblFNLQuote").text(idmsg[0]);
     //            var stepcomp = parseInt($("#hdnStepCompleted").val());
@@ -1491,7 +1503,7 @@ var SaveQuoteQuotation = function (stepcompleted) {
     var PestAmt = $("#lblPestAmt").text();
     var ConvergentAmt = $("#lblConvergentAmt").text();
     var TrashAmt = unformatText($("#lblTrashAmt").text());
-    var moveInDate = $("#txtDate").val();
+    var moveInDate = $("#txtDate_Quotation").val();
     var moveInCharges = unformatText($("#ftotal").text());
     var monthlyCharges = unformatText($("#lblMonthly_TotalRent").text());
 
@@ -1519,7 +1531,7 @@ var SaveQuoteQuotation = function (stepcompleted) {
             $("#spanVechReg").text("Vehicle Registration (" + (parseInt(additionalParking) + 2) + " Vehicles)");
             $("#spanVechReg1").text("Vehicle Registration (" + (parseInt(additionalParking) + 2) + " Vehicles)");
         }
-        $("#lblVehicleFees").text("$" + parseFloat(vehiclefees).toFixed(2));
+        $("#lblVehicleFees").text(parseFloat(vehiclefees).toFixed(2));
         $("#lblVehicleFees1").text(parseFloat(vehiclefees).toFixed(2));
     }
 
@@ -1559,7 +1571,7 @@ var SaveQuoteQuotation = function (stepcompleted) {
             var idmsg = response.msg.split('|');
             var hasUnitChange = idmsg[1];
             if (hasUnitChange == 1) {
-                updateCalculation();
+                updateCalculationQuotation();
             }
             $("#lblFNLQuote").text(idmsg[0]);
             var stepcomp = parseInt($("#hdnStepCompleted").val());
@@ -1569,7 +1581,7 @@ var SaveQuoteQuotation = function (stepcompleted) {
         }
     });
 };
-var updateCalculation = function () {
+var updateCalculationQuotation = function () {
     addParkingArray = [];
     $("#hndAdditionalParking").val(0);
     //lbltotalAmount
@@ -1646,7 +1658,7 @@ var getApplyNowListGenerateQuotation = function (id) {
 }
 
 //17082019-code changed
-var fillStateDDL_Home = function (countryid, selval) {
+var fillStateDDL_HomeQuotation = function (countryid, selval) {
     $("#divLoader").show();
     var param = { CID: countryid };
     $.ajax({
@@ -1670,7 +1682,7 @@ var fillStateDDL_Home = function (countryid, selval) {
         }
     });
 }
-var fillStateDDL_Home2 = function (countryid, selval) {
+var fillStateDDL_Home2Quotation = function (countryid, selval) {
     $("#divLoader").show();
     var param = { CID: countryid };
     $.ajax({
@@ -1694,7 +1706,7 @@ var fillStateDDL_Home2 = function (countryid, selval) {
         }
     });
 }
-var fillStateDDL_OfficeHEI = function (countryid, selval) {
+var fillStateDDL_OfficeHEIQuotation = function (countryid, selval) {
     $("#divLoader").show();
     var param = { CID: countryid };
     $.ajax({
@@ -1718,7 +1730,7 @@ var fillStateDDL_OfficeHEI = function (countryid, selval) {
         }
     });
 }
-var fillStateDDL_Office = function (countryid, selval) {
+var fillStateDDL_OfficeQuotation = function (countryid, selval) {
     $("#divLoader").show();
     var param = { CID: countryid };
     $.ajax({
@@ -1742,7 +1754,7 @@ var fillStateDDL_Office = function (countryid, selval) {
         }
     });
 }
-var fillStateDDL_EmeContact = function (countryid, selval) {
+var fillStateDDL_EmeContactQuotation = function (countryid, selval) {
     $("#divLoader").show();
     var param = { CID: countryid };
     $.ajax({
@@ -1766,7 +1778,7 @@ var fillStateDDL_EmeContact = function (countryid, selval) {
         }
     });
 }
-var fillStateDDL = function () {
+var fillStateDDLQuotation = function () {
     $("#divLoader").show();
     var param = { CID: 1 };
     $.ajax({
@@ -1796,7 +1808,7 @@ var fillStateDDL = function () {
     });
 }
 
-var fillStateDDLReg_Home = function (countryid, selval) {
+var fillStateDDLReg_HomeQuotation = function (countryid, selval) {
     $("#divLoader").show();
     var param = { CID: countryid };
     $.ajax({
@@ -1827,7 +1839,7 @@ var fillStateDDLReg_Home = function (countryid, selval) {
         }
     });
 }
-var fillStateDDLReg_IDType = function (countryid, selval) {
+var fillStateDDLReg_IDTypeQuotation = function (countryid, selval) {
     $("#divLoader").show();
     var param = { CID: countryid };
     $.ajax({
@@ -1851,7 +1863,7 @@ var fillStateDDLReg_IDType = function (countryid, selval) {
         }
     });
 }
-var fillCountryDropDownList = function () {
+var fillCountryDropDownListQuotation = function () {
     $("#divLoader").show();
     $.ajax({
         url: '/City/FillCountryDropDownList',
@@ -1880,10 +1892,10 @@ var fillCountryDropDownList = function () {
                 $("#txtCountryOffice").val(1);
                 $("#txtEmergencyCountry").val(1);
                 $("#txtCountryOfficeHEI").val(1);
-                fillStateDDL_Home(1, 0);
-                fillStateDDL_Office(1, 0);
-                fillStateDDL_EmeContact(1);
-                fillStateDDL_OfficeHEI(1);
+                fillStateDDL_HomeQuotation(1, 0);
+                fillStateDDL_OfficeQuotation(1, 0);
+                fillStateDDL_EmeContactQuotation(1);
+                fillStateDDL_OfficeHEIQuotation(1);
                 //setTimeout(function () {
                 //    $("#ddlStateHome").find("option[value='0']").attr('selected', 'selected');
                 //    $("#ddlStateEmployee").find("option[value='0']").attr('selected', 'selected');
@@ -1893,8 +1905,8 @@ var fillCountryDropDownList = function () {
         }
     });
 }
-//17082019-fillStateDDL code changed
-var fillCityList = function (stateid) {
+//17082019-fillStateDDLQuotation code changed
+var fillCityListQuotation = function (stateid) {
     $("#divLoader").show();
     var params = { StateID: stateid };
     $.ajax({
@@ -1918,7 +1930,7 @@ var fillCityList = function (stateid) {
         }
     });
 }
-var fillCityListHome = function (stateid) {
+var fillCityListHomeQuotation = function (stateid) {
     $("#divLoader").show();
     var params = { StateID: stateid };
     $.ajax({
@@ -1944,7 +1956,7 @@ var fillCityListHome = function (stateid) {
         }
     });
 }
-var fillCityListEmployee = function (stateid) {
+var fillCityListEmployeeQuotation = function (stateid) {
     $("#divLoader").show();
     var params = { StateID: stateid };
     $.ajax({
@@ -1970,7 +1982,7 @@ var fillCityListEmployee = function (stateid) {
         }
     });
 }
-var fillCityListContact = function (stateid) {
+var fillCityListContactQuotation = function (stateid) {
     $("#divLoader").show();
     var params = { StateID: stateid };
     $.ajax({
@@ -1997,12 +2009,12 @@ var fillCityListContact = function (stateid) {
         }
     });
 }
-var addModelArray = [];
-var noofcomapre = 0;
+var addModelArrayQuotation = [];
+var noofcomapreQuotation = 0;
 
 
-var addToCompare = function (modelname) {
-    if (noofcomapre < 3) {
+var addToCompareQuotation = function (modelname) {
+    if (noofcomapreQuotation < 3) {
         //$("#modeldiv" + $("#modelname").val()).css("background-color", "");
         //$("#modeldiv" + modelname).css("background-color", "rebeccapurple");
 
@@ -2012,11 +2024,11 @@ var addToCompare = function (modelname) {
         $("#divMainSearch").addClass("hidden");
         $("#btncompRemove" + modelname).removeClass("hidden");
         $("#btnCompare" + modelname).addClass("hidden");
-        addModelArray.push(modelname);
+        addModelArrayQuotation.push(modelname);
 
-        noofcomapre = addModelArray.length;
-        $("#btncompare").text("Compare(" + noofcomapre + ")");
-        getCompareModelList();
+        noofcomapreQuotation = addModelArrayQuotation.length;
+        $("#btncompare").text("Compare(" + noofcomapreQuotation + ")");
+        getCompareModelListQuotation();
     } else {
         $.alert({
             title: "",
@@ -2026,23 +2038,23 @@ var addToCompare = function (modelname) {
     }
 
 }
-var removeToCompare = function (modelname) {
+var removeToCompareQuotation = function (modelname) {
     //$("#modeldiv" + $("#modelname").val()).css("background-color", "");
     //$("#modeldiv" + modelname).css("background-color", "");
 
     $("#chkCompareid" + modelname).addClass("hidden");
     $("#btncompRemove" + modelname).addClass("hidden");
     $("#btnCompare" + modelname).removeClass("hidden");
-    addModelArray.pop(modelname);
-    noofcomapre = addModelArray.length;
-    $("#btncompare").text("Compare(" + noofcomapre + ")");
-    getCompareModelList();
-    if (noofcomapre == 0) {
+    addModelArrayQuotation.pop(modelname);
+    noofcomapreQuotation = addModelArrayQuotation.length;
+    $("#btncompare").text("Compare(" + noofcomapreQuotation + ")");
+    getCompareModelListQuotation();
+    if (noofcomapreQuotation == 0) {
         $("#divCompare").addClass("hidden");
         $("#divMainSearch").removeClass("hidden");
     }
 }
-var getCompareModelList = function () {
+var getCompareModelListQuotation = function () {
     $("#divLoader").show();
     var maxrent = 0;
     if ($("#txtMaxRent").val() == "0") {
@@ -2059,7 +2071,7 @@ var getCompareModelList = function () {
     else {
         bedroom = $("#ddlRoom").val();
     }
-    var availdate = $("#txtDate").val();
+    var availdate = $("#txtDate_Quotation").val();
 
 
 
@@ -2074,12 +2086,12 @@ var getCompareModelList = function () {
             $("#divLoader").hide();
             if (response != null) {
                 $("#listModelCompare").empty();
-                //console.log(addModelArray)
+                //console.log(addModelArrayQuotation)
                 var chtml = "<div class='col-sm-3'><div class='col-sm-12'><span><br><br><br><br><br></span></div><div class='col-sm-12'><span><br /> </span></div><div class='col-sm-12'><span> </span></div> <div class='col-sm-12'><span>Monthly Rent: </span></div><div class='col-sm-12'><span>Square feet: </span></div><div class='col-sm-12'><span id=''>Bedrooms: </span></div><div class='col-sm-12'><span id=''>Bathrooms: </span></div><div class='col-sm-12'><span>Available: </span></div> <div class='col-sm-12'><span id=''>Occupancy: </span></div></div>";
                 $.each(response.model, function (elementType, value) {
-                    for (var j = 0; j < addModelArray.length; j++) {
-                        if (addModelArray[j] == value.Building) {
-                            chtml += " <div class='col-sm-3'><div class='col-sm-12 center'><span><a href = '#' onclick='displayCompImg(\"" + value.Building + "\")'> <img src='/content/assets/img/plan/" + value.FloorPlan + "'></a> </span></div><div class='col-sm-12 center'><span><b>" + value.Building + "</b> </span></div><div class='col-sm-12 center'><span><button type='button' class='btn-default btn' onclick=getPropertyUnitListQuotation(\"" + value.Building + "\") style='width:100%;padding:5px;'>Select</button> <br /> </span></div> <div class='col-sm-12 center'><span>" + value.RentRange + " </span></div><div class='col-sm-12 center'><span>" + value.Area + "</span></div><div class='col-sm-12 center'><span id=''>" + value.Bedroom + " </span></div><div class='col-sm-12 center'><span id=''>" + value.Bathroom + " </span></div><div class='col-sm-12 center'><span>" + value.NoAvailable + " </span></div> <div class='col-sm-12 center'><span id=''>" + value.Bedroom + "</span></div></div>";
+                    for (var j = 0; j < addModelArrayQuotation.length; j++) {
+                        if (addModelArrayQuotation[j] == value.Building) {
+                            chtml += " <div class='col-sm-3'><div class='col-sm-12 center'><span><a href = '#' onclick='displayCompImgQuotation(\"" + value.Building + "\")'> <img src='/content/assets/img/plan/" + value.FloorPlan + "'></a> </span></div><div class='col-sm-12 center'><span><b>" + value.Building + "</b> </span></div><div class='col-sm-12 center'><span><button type='button' class='btn-default btn' onclick=getPropertyUnitListQuotation(\"" + value.Building + "\") style='width:100%;padding:5px;'>Select</button> <br /> </span></div> <div class='col-sm-12 center'><span>" + value.RentRange + " </span></div><div class='col-sm-12 center'><span>" + value.Area + "</span></div><div class='col-sm-12 center'><span id=''>" + value.Bedroom + " </span></div><div class='col-sm-12 center'><span id=''>" + value.Bathroom + " </span></div><div class='col-sm-12 center'><span>" + value.NoAvailable + " </span></div> <div class='col-sm-12 center'><span id=''>" + value.Bedroom + "</span></div></div>";
 
                         }
                     }
@@ -2091,16 +2103,16 @@ var getCompareModelList = function () {
 }
 
 
-function displayImg() {
+function displayImgQuotation() {
     $("#popFloorPlan").modal("show");
 }
 
 
-function displayCompImg(modname) {
+function displayCompImgQuotation(modname) {
     $("#imgFloorPlan2").attr("src", "/content/assets/img/plan/" + modname + "Det.jpg");
     $("#popFloorPlan").modal("show");
 }
-var SaveUpdateDocumentVerification = function () {
+var SaveUpdateDocumentVerificationQuotation = function () {
     $("#divLoader").show();
     var msg = "";
     var documentVerificationID = $("#hdnDocumentVerificationId").val();
@@ -2159,7 +2171,7 @@ var SaveUpdateDocumentVerification = function () {
         $("#divLoader").hide();
     }
 }
-var saveLeaseDoc = function () {
+var saveLeaseDocQuotation = function () {
     var userid = $("#hdnOPId").val();
     $("#divLoader").show();
     var param = { TenantID: userid };
@@ -2177,7 +2189,7 @@ var saveLeaseDoc = function () {
     });
 }
 
-var SaveLeaseDocumentVerification = function () {
+var SaveLeaseDocumentVerificationQuotation = function () {
     $("#divLoader").show();
 
     var PID = $("#hdnOPId").val();
@@ -4274,7 +4286,7 @@ var getTenantOnlineListGenerateQuotation = function (id) {
             $("#summCuAdd").text(response.model.HomeAddress1 + " " + response.model.HomeAddress2 + ", " + response.model.CityHome + ", " + response.model.StateHomeString + "- " + response.model.ZipHome);
             $("#summCuAddp").text(response.model.HomeAddress1 + " " + response.model.HomeAddress2 + ", " + response.model.CityHome + ", " + response.model.StateHomeString + "- " + response.model.ZipHome);
 
-            //fillCityListHome(response.model.StateHome);
+            //fillCityListHomeQuotation(response.model.StateHome);
             //setTimeout(function () {
 
             $("#txtZip").val(response.model.ZipHome);
@@ -4302,7 +4314,7 @@ var getTenantOnlineListGenerateQuotation = function (id) {
             //$("#txtCountryOffice").val(response.model.OfficeCountry);
             $("#txtofficeAddress1").val(response.model.OfficeAddress1);
             $("#txtofficeAddress2").val(response.model.OfficeAddress2);
-            //fillCityListEmployee(response.model.OfficeState);
+            //fillCityListEmployeeQuotation(response.model.OfficeState);
 
             //setTimeout(function () {
             //$("#ddlStateEmployee").find("option[value='" + response.model.OfficeState + "']").attr('selected', 'selected');
@@ -4319,7 +4331,7 @@ var getTenantOnlineListGenerateQuotation = function (id) {
             //$("#txtEmergencyCountry").val(response.model.EmergencyCountry);
             $("#txtEmergencyAddress1").val(response.model.EmergencyAddress1);
             $("#txtEmergencyAddress2").val(response.model.EmergencyAddress2);
-            //fillCityListContact(response.model.EmergencyStateHome);
+            //fillCityListContactQuotation(response.model.EmergencyStateHome);
             $("#summEmergname").text(response.model.EmergencyFirstName + " " + response.model.EmergencyLastName);
             $("#summEmegmobile").text(formatPhoneFax(response.model.EmergencyMobile));
             $("#summEmerrelation").text(response.model.Relationship);
@@ -4354,12 +4366,12 @@ var getTenantOnlineListGenerateQuotation = function (id) {
             $("#txtMoveInDateFrom").val(response.model.MoveInDateFromTxt);
             //$("#txtMoveInDateTo").val(response.model.MoveInDateToTxt);
             $("#txtCountry").val(response.model.Country);
-            fillStateDDL_Home(response.model.Country, response.model.StateHome);
+            fillStateDDL_HomeQuotation(response.model.Country, response.model.StateHome);
 
             $("#txtCountryReg").val(response.model.Country);
 
-            fillStateDDLReg_IDType(response.model.Country, response.model.StateHome);
-            fillStateDDLReg_Home(response.model.Country, response.model.StateHome);
+            fillStateDDLReg_IDTypeQuotation(response.model.Country, response.model.StateHome);
+            fillStateDDLReg_HomeQuotation(response.model.Country, response.model.StateHome);
 
             //$("#ddlStateHome").val(response.model.StateHome).change();
             //setTimeout(function () {
@@ -4374,7 +4386,7 @@ var getTenantOnlineListGenerateQuotation = function (id) {
             //}, 2000);
             $("#txtCountryOffice").val(response.model.OfficeCountry);
             //$("#ddlStateEmployee").val(response.model.OfficeState).change();
-            fillStateDDL_Office(response.model.OfficeCountry, response.model.OfficeState);
+            fillStateDDL_OfficeQuotation(response.model.OfficeCountry, response.model.OfficeState);
 
 
             //setTimeout(function () {
@@ -4382,7 +4394,7 @@ var getTenantOnlineListGenerateQuotation = function (id) {
             //}, 2000);
             $("#txtEmergencyCountry").val(response.model.EmergencyCountry);
             //$("#ddlStateContact").val(response.model.EmergencyStateHome).change();
-            fillStateDDL_EmeContact(response.model.EmergencyCountry, response.model.EmergencyStateHome);
+            fillStateDDL_EmeContactQuotation(response.model.EmergencyCountry, response.model.EmergencyStateHome);
             //setTimeout(function () {
             //$("#txtEmergencyCountry").find("option[value='" + response.model.EmergencyCountry + "']").attr('selected', 'selected');
             //}, 2000);
@@ -4835,7 +4847,7 @@ var getApplicantHistoryInfo = function (id) {
             $("#txtAddress12").val(response.model.HomeAddress1);
             $("#txtAddress22").val(response.model.HomeAddress2);
             //$("#ddlStateHome2").val(response.model.StateHome).change();
-            fillStateDDL_Home2(response.model.Country, response.model.StateHome);
+            fillStateDDL_Home2Quotation(response.model.Country, response.model.StateHome);
             $("#ddlCityHome2").val(response.model.CityHome);
             $("#txtZip2").val(response.model.ZipHome);
             $("#ddlRentOwn2").val(response.model.RentOwn);
@@ -4850,7 +4862,7 @@ var getApplicantHistoryInfo = function (id) {
 var clearApplicantHistory = function () {
     $("#hdnAHRId").val(0);
     $("#txtCountry2").val("1");
-    fillStateDDL_Home2(1, 0);
+    fillStateDDL_Home2Quotation(1, 0);
     $("#txtAddress12").val("");
     $("#txtAddress22").val("");
     $("#ddlStateHome2").val(0);
@@ -6137,7 +6149,7 @@ var clearHistoryOfResidence = function () {
     $('#txtSupervisiorPhoneHEI').val('');
     $('#txtSupervisiorEmailHEI').val('');
     $('#txtCountryOfficeHEI').val('1');
-    fillStateDDL_OfficeHEI(1, 0);
+    fillStateDDL_OfficeHEIQuotation(1, 0);
 
     $('#txtofficeAddress1HEI').val('');
     $('#txtofficeAddress2HEI').val('');
@@ -6879,7 +6891,6 @@ var btnApplyNowLeaseCurrent = function () {
             $("#lblProrated_MonthlyCharge1").text(formatMoney(parseFloat(parseFloat(response.model.Current_Rent) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
 
             $("#lblRFPMonthlyCharges").text(formatMoney(response.model.Current_Rent.toFixed(2)));
-
             $("#fdepo").text((response.model.Deposit).toFixed(2));
             $("#lbdepo6").text((response.model.Deposit).toFixed(2));
 
@@ -7350,7 +7361,7 @@ var getPropertyUnitListQuotation = function (modelname, filldata) {
     else {
         bedroom = $("#ddlRoom").val();
     }
-    var availdate = $("#txtDate").val();
+    var availdate = $("#txtDate_Quotation").val();
     var leasetermid = $("#hndLeaseTermID").val();
 
     var prospectid = $("#hdnOPId").val();
@@ -7369,8 +7380,13 @@ var getPropertyUnitListQuotation = function (modelname, filldata) {
                 $("#listUnit>tbody").empty();
                 $("#listUnitNew>tbody").empty();
                 $.each(response.model, function (elementType, value) {
-                    var html = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td style='text-align: center;width=100px'>$" + formatMoney(value.Current_Rent) + "</td><td style='text-align: center; width:45%'>" + value.Premium + "</td><td style='text-align: center;width=100px'>" + value.AvailableDateText + "</td></tr>";
-                    var htmlNew = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td class='unit'><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td class='price'>$" + formatMoney(value.Current_Rent) + "</td><td class='available'>" + value.AvailableDateText + "</td><td class='charges'><a href ='javascript:void(0);' class='genric-btn success' onclick='showPriceTable(" + value.UID + ")'> Apply</a><a href='javascript:void(0);' class='genric-btn success' onclick='showMonthlyCharges(" + value.UID + ")'>Monthly Charges</a><a href='javascript:void(0);'><i class='fa fa-map-marker' aria-hidden='true'></i></a></td ></tr>";
+                    if (elementType == 0) {
+                        html = " <tr class='select-unit' id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td style='text-align: center;width=100px'>$" + formatMoney(value.Current_Rent) + "</td><td style='text-align: center; width:45%'>" + value.Premium + "</td><td style='text-align: center;width=100px'>" + value.AvailableDateText + "</td></tr>";
+                        htmlNew = " <tr class='select-unit' id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td class='unit'><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td class='price'>$" + formatMoney(value.Current_Rent) + "</td><td class='available'>" + value.AvailableDateText + "</td><td class='charges'><a href ='javascript:void(0);' class='genric-btn success' onclick='showPriceTable(" + value.UID + ")'> Apply</a><a href='javascript:void(0);' class='genric-btn success' onclick='showMonthlyCharges(" + value.UID + ")'>Monthly Charges</a></td ></tr>";
+                    } else {
+                        html = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td style='text-align: center;width=100px'>$" + formatMoney(value.Current_Rent) + "</td><td style='text-align: center; width:45%'>" + value.Premium + "</td><td style='text-align: center;width=100px'>" + value.AvailableDateText + "</td></tr>";
+                        htmlNew = " <tr id='unitdiv_" + value.UID + "' data-floorid = '" + value.FloorNoText + "'><td class='unit'><a href='javascript:void(0);' onclick='getPropertyUnitDetails(" + value.UID + ")'><h5 style='width: 80px;'>#" + value.UnitNo + " </h5></a> </td><td class='price'>$" + formatMoney(value.Current_Rent) + "</td><td class='available'>" + value.AvailableDateText + "</td><td class='charges'><a href ='javascript:void(0);' class='genric-btn success' onclick='showPriceTable(" + value.UID + ")'> Apply</a><a href='javascript:void(0);' class='genric-btn success' onclick='showMonthlyCharges(" + value.UID + ")'>Monthly Charges</a></td ></tr>";
+                    }
                     $("#listUnit>tbody").append(html);
                     $("#listUnitNew>tbody").append(htmlNew);
                     $("#lblArea22").text(value.Area);
@@ -7390,8 +7406,8 @@ var getPropertyUnitListQuotation = function (modelname, filldata) {
 }
 
 var getPropertyModelUnitListQuotation = function () {
-    addModelArray = [];
-    noofcomapre = 0;
+    addModelArrayQuotation = [];
+    noofcomapreQuotation = 0;
     $("#divCompare").addClass("hidden");
     $("#divMainSearch").removeClass("hidden");
     $("#divLoader").show();
@@ -7412,7 +7428,7 @@ var getPropertyModelUnitListQuotation = function () {
     else {
         bedroom = $("#ddlRoom").val();
     }
-    var availdate = $("#txtDate").val();
+    var availdate = $("#txtDate_Quotation").val();
 
     var furnished = $("#ddlFurnishedUnit").val();
 
@@ -7426,13 +7442,13 @@ var getPropertyModelUnitListQuotation = function () {
         success: function (response) {
             $("#divLoader").hide();
             if (response != null) {
-                $("#listModelUnit").empty();
+                $("#listModelUnitQuotation").empty();
                 $.each(response.model, function (elementType, value) {
                     var html = "<div class='col-xl-5 col-md-6 col-lg-5' id='modeldiv" + value.Building + "'><div class='single_property'><div class='row'><div class='col-md-6 col-sm-6'><div class='property_thumb'>";
                     html += "<img src='/content/assets/img/plan/" + value.FloorPlan + "' style='height:250px'; alt=''></div></div>";
                     html += "<div class='col-md-6 col-sm-6'><div class='property_content'><div class='main_pro'><h3>Floor Plan " + value.Building + "</h3> ";
                     html += "<div class='mark_pro'><p>" + value.Bedroom + " Bed | " + value.Bathroom + "Bath</p><p> " + value.Area + " Sq Ft</p><p>Starting at </p><p>" + value.RentRange + "  / month</p></div>";
-                    html += "<div class='button'><button class='btn' style='margin-top: -19px;margin-bottom: -48px;'  onclick='getPropertyUnitListQuotation(\"" + value.Building + "\")'><a href='javascript:void(0);' class='genric-btn available'>" + value.NoAvailable + " Available</a></button><br><p><div class='input-group' style='width:100%;margin-top: 25px;' id='chkComp" + value.Building + "'><div style='width:15%;float:left' ><input  style='cursor: pointer;' type='checkbox' onclick='addToCompare(\"" + value.Building + "\")' id='btnCompare" + value.Building + "'/></div> <div style='width:85%;float:left;text-align: left;'>Compare</div> </div></p></div>";
+                    html += "<div class='button'><button class='btn' style='margin-top: -19px;margin-bottom: -48px;'  onclick='getPropertyUnitListQuotation(\"" + value.Building + "\")'><a href='javascript:void(0);' class='genric-btn available'>" + value.NoAvailable + " Available</a></button><br><p><div class='input-group' style='width:100%;margin-top: 25px;' id='chkComp" + value.Building + "'><div style='width:15%;float:left' ><input  style='cursor: pointer;' type='checkbox' onclick='addToCompareQuotation(\"" + value.Building + "\")' id='btnCompare" + value.Building + "'/></div> <div style='width:85%;float:left;text-align: left;'>Compare</div> </div></p></div>";
                     html += "</div></div></div></div></div></div>";
 
                     //var html = "<div class='col-sm-4 col-md-4 p0' id='modeldiv" + value.Building + "'><div class='box-two proerty-item'>";
@@ -7441,9 +7457,9 @@ var getPropertyModelUnitListQuotation = function () {
                     //html += "<div class='item-thumb'><a href = '#' onclick='getPropertyUnitList(\"" + value.Building + "\")'> <img src='/content/assets/img/plan/" + value.FloorPlan + "' style='height:250px';></a></div> ";
                     //html += "<div class='property-icon'><center>" + value.Bedroom + " Bed | " + value.Bathroom + "Bath ";
                     //html += "| " + value.Area + "Sq Ft <br/><center><span class='proerty-price'>" + value.RentRange + " </span></center></center> ";
-                    //html += "</br><button class='btn-success' onclick='getPropertyUnitList(\"" + value.Building + "\")' style='width: 100%;'>Available (" + value.NoAvailable + ")</button> <center><u style=''><a onclick='addToCompare(\"" + value.Building + "\")'  href='javascript:void(0);'  id='btnCompare" + value.Building + "' class='custome-item-entry'>Compare</a><a onclick='removeToCompare(\"" + value.Building + "\")'  id='btncompRemove" + value.Building + "'  href='javascript:void(0);' class='hidden'>Remove</a></u></center>";
+                    //html += "</br><button class='btn-success' onclick='getPropertyUnitList(\"" + value.Building + "\")' style='width: 100%;'>Available (" + value.NoAvailable + ")</button> <center><u style=''><a onclick='addToCompareQuotation(\"" + value.Building + "\")'  href='javascript:void(0);'  id='btnCompare" + value.Building + "' class='custome-item-entry'>Compare</a><a onclick='removeToCompareQuotation(\"" + value.Building + "\")'  id='btncompRemove" + value.Building + "'  href='javascript:void(0);' class='hidden'>Remove</a></u></center>";
                     //html += "</div></div></div></div>";
-                    $("#listModelUnit").append(html);
+                    $("#listModelUnitQuotation").append(html);
 
                 });
             }
@@ -7487,17 +7503,17 @@ var getPropertyUnitDetails = function (uid) {
             //alert(response.model.PriceTableUID)
             $('#hndpriceTableUID').val(response.model.PriceTableUID);
 
-            $("#priceTableDate").val($('#txtDate').val());
-            $("#priceTableMoveInDate1").text($('#txtDate').val());
-            $("#priceTableMoveInDate2").text($('#txtDate').val());
-            $("#priceTableMoveInDate3").text($('#txtDate').val());
+            $("#priceTableDate").val($('#txtDate_Quotation').val());
+            $("#priceTableMoveInDate1").text($('#txtDate_Quotation').val());
+            $("#priceTableMoveInDate2").text($('#txtDate_Quotation').val());
+            $("#priceTableMoveInDate3").text($('#txtDate_Quotation').val());
 
             //for new pop up
             $("#popMonthlyChargesFloorPlan").attr("src", "/content/assets/img/plan/" + response.model.Building + ".jpg");
             $('#popMonthlyChargesModel').text(response.model.Building);
             $('#popMonthlyChargesUnit').text(response.model.UnitNo);
             $('#popMonthlyChargesLeaseTerm').text(response.model.PriceTableLeaseTermCurrent);
-            $('#popMonthlyChargesDesMoveIn').text($('#txtDate').val());
+            $('#popMonthlyChargesDesMoveIn').text($('#txtDate_Quotation').val());
             $('#popMonthlyChargesBedrooms').text(response.model.Bedroom);
             $('#popMonthlyChargesBathrooms').text(response.model.Bathroom);
             $('#popMonthlyChargesArea').text(response.model.Area);
@@ -7758,7 +7774,7 @@ function showFloorPlan(flid, numbedroom, modelname) {
     else {
         maxrent = $("#txtMaxRent").val();
     }
-    var availdate = $("#txtDate").val();
+    var availdate = $("#txtDate_Quotation").val();
     var leaseterm = $("#hndLeaseTermID").val();
     var prospectid = $("#hdnOPId").val();
     var model = { FloorID: flid, AvailableDate: availdate, Bedroom: bedroom, MaxRent: maxrent, LeaseTermID: leaseterm, ModelName: modelname, ProspectId: prospectid };
@@ -7887,7 +7903,7 @@ function getPropertyUnitListByFloor(flid) {
     else {
         maxrent = $("#txtMaxRent").val();
     }
-    var availdate = $("#txtDate").val();
+    var availdate = $("#txtDate_Quotation").val();
     var leaseterm = $("#hndLeaseTermID").val();
 
     var prospectid = $("#hdnOPId").val();
@@ -8135,7 +8151,7 @@ var SaveOnlineProspectQuotation = function () {
     var annualIncome = $("#txtAnnualIncome").val();
     var addiAnnualIncome = $("#txtAddiAnnualIncome").val();
 
-    var moveInDate = $("#txtDate").val();
+    var moveInDate = $("#txtDate_Quotation").val();
     var isAgree = $("#chkAgreeTerms").is(":checked") ? "1" : "0";
     var leaseterm = $("#hndLeaseTermID").val();
 
@@ -8531,18 +8547,18 @@ var getTenantOnlineList = function (id) {
 
             $("#txtMoveInDateFrom").val(response.model.MoveInDateFromTxt);
             $("#txtCountry").val(response.model.Country);
-            fillStateDDL_Home(response.model.Country, response.model.StateHome);
+            fillStateDDL_HomeQuotation(response.model.Country, response.model.StateHome);
 
             $("#txtCountryReg").val(response.model.Country);
 
-            fillStateDDLReg_IDType(response.model.Country, response.model.StateHome);
-            fillStateDDLReg_Home(response.model.Country, response.model.StateHome);
+            fillStateDDLReg_IDTypeQuotation(response.model.Country, response.model.StateHome);
+            fillStateDDLReg_HomeQuotation(response.model.Country, response.model.StateHome);
 
             $("#txtCountryOffice").val(response.model.OfficeCountry);
-            fillStateDDL_Office(response.model.OfficeCountry, response.model.OfficeState);
+            fillStateDDL_OfficeQuotation(response.model.OfficeCountry, response.model.OfficeState);
 
             $("#txtEmergencyCountry").val(response.model.EmergencyCountry);
-            fillStateDDL_EmeContact(response.model.EmergencyCountry, response.model.EmergencyStateHome);
+            fillStateDDL_EmeContactQuotation(response.model.EmergencyCountry, response.model.EmergencyStateHome);
 
             if (response.model.IdentityDocument != "") {
                 $("#hndHasIdentityFile").val("1");
@@ -9593,7 +9609,7 @@ var getPropertyFloarListRebindQuotation = function (modelname, filldata) {
     else {
         bedroom = $("#ddlRoom").val();
     }
-    var availdate = $("#txtDate").val();
+    var availdate = $("#txtDate_Quotation").val();
     var leasetermid = $("#hndLeaseTermID").val();
 
     var prospectid = $("#hdnOPId").val();

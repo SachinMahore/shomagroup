@@ -921,10 +921,10 @@
 
                                             <div class="col-sm-2">&nbsp;</div>
                                             <div class="col-sm-3">
-                                                $<span id="lblMonthly_MonthlyCharge" style="text-decoration:underline;font-weight:bold;"></span>
+                                               <span id="lblMonthly_MonthlyCharge" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                             <div class="col-sm-3">
-                                                $ <span id="lblProrated_MonthlyCharge" style="text-decoration:underline;font-weight:bold;"></span>
+                                                <span id="lblProrated_MonthlyCharge" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -1042,10 +1042,10 @@
                                                 <span style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                             <div class="col-sm-3" style="color:green">
-                                                $<span id="lblMonthly_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
+                                                <span id="lblMonthly_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                             <div class="col-sm-3" style="color:green">
-                                                $ <span id="lblProrated_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
+                                                <span id="lblProrated_TotalRent" style="text-decoration:underline;font-weight:bold;"></span>
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -1928,15 +1928,18 @@
                             <p>Download last 3 paystubs or if self-employed last 2 year's Fedral Tax Returns or  3 consecutive bank statements.</p>
                         </div>
                         <div class="col-md-12">
-                            <div class="col-md-8">
-                                <div class="form-group">
+                            <div class="form-group">
+                                <div class="col-md-2">
+                                    <label for="rbtnPaystub">Paystub</label>
                                     <input id="rbtnPaystub" class="form-control form-control-small empup" type="checkbox" name="tax" disabled />
-                                    <label for="rbtnPaystub">Paystub</label>&nbsp;&nbsp;
-                                    <input id="rbtnFedralTax" class="form-control form-control-small empup" type="checkbox" name="tax" disabled />
+                                </div>
+                                <div class="col-md-2">
                                     <label for="rbtnFedralTax">Fedral Tax Return</label>
-                                    &nbsp;&nbsp;
-                                    <input id="rbtnBankStatement" class="form-control form-control-small empup" type="checkbox" name="tax" disabled />
+                                    <input id="rbtnFedralTax" class="form-control form-control-small empup" type="checkbox" name="tax" disabled />
+                                </div>
+                                <div class="col-md-2">
                                     <label for="rbtnBankStatement">Bank Statements</label>
+                                    <input id="rbtnBankStatement" class="form-control form-control-small empup" type="checkbox" name="tax" disabled />
                                 </div>
                             </div>
                         </div>
@@ -1945,19 +1948,19 @@
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label id="lblPaystub1">Download Paystub 1</label><br />
-                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downPaystub1"><i class="fa fa-download fa-lg"></i></a>
+                                        <a href="javascript:void(0)" class="btn btn-primary" style="max-width:100%;" target='_blank' download="" id="downPaystub1"><i class="fa fa-download fa-lg"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label id="lblPaystub2">Download Paystub 2</label><br />
-                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downPaystub2"><i class="fa fa-download fa-lg"></i></a>
+                                        <a href="javascript:void(0)" class="btn btn-primary" style="max-width:100%;" target='_blank' download="" id="downPaystub2"><i class="fa fa-download fa-lg"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label id="lblPaystub3">Download Paystub 3</label><br />
-                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downPaystub3"><i class="fa fa-download fa-lg"></i></a>
+                                        <a href="javascript:void(0)" class="btn btn-primary" style="max-width:100%;" target='_blank' download="" id="downPaystub3"><i class="fa fa-download fa-lg"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -1965,13 +1968,13 @@
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label id="lblFedral1">Download Fedral 1</label><br />
-                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downFedral1"><i class="fa fa-download fa-lg"></i></a>
+                                        <a href="javascript:void(0)" class="btn btn-primary" style="max-width:100%;" target='_blank' download="" id="downFedral1"><i class="fa fa-download fa-lg"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label id="lblFedral2">Download Fedral 2</label><br />
-                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downFedral2"><i class="fa fa-download fa-lg"></i></a>
+                                        <a href="javascript:void(0)" class="btn btn-primary" style="max-width:100%;" target='_blank' download="" id="downFedral2"><i class="fa fa-download fa-lg"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -1979,7 +1982,7 @@
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label id="lblBankStatment1">Download Bank Statement 1</label><br />
-                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downBankStat1"><i class="fa fa-download fa-lg"></i></a>
+                                        <a href="javascript:void(0)" class="btn btn-primary" style="max-width:100%;" target='_blank' download="" id="downBankStat1"><i class="fa fa-download fa-lg"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -1991,7 +1994,7 @@
                                 <div class="col-sm-2">
                                     <div class="form-group">
                                         <label id="lblBankStatment3">Download Bank Statement 1</label><br />
-                                        <a href="javascript:void(0)" class="btn btn-primary" target='_blank' download="" id="downBankStat3"><i class="fa fa-download fa-lg"></i></a>
+                                        <a href="javascript:void(0)" class="btn btn-primary" style="max-width:100%;" target='_blank' download="" id="downBankStat3"><i class="fa fa-download fa-lg"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -2405,8 +2408,8 @@
                                     <div class="dot-hr"></div>
                                 </div>
                                 <div class="col-sm-10">
-                                    <div class="col-sm-8"><b>Total</b></div>
-                                    <div class="col-sm-3"><b><label id="totalFinalFees"></label></b></div>
+                                    <div class="col-sm-7 text-center"><b>Total</b></div>
+                                    <div class="col-sm-3 text-center"><b><label style="margin-left:25px" id="totalFinalFees"></label></b></div>
                                 </div>
 
                                 <input type="hidden" id="hndTransID" value="0" />

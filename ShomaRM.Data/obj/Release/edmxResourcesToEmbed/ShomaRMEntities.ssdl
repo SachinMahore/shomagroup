@@ -1441,6 +1441,7 @@
     <Property Name="ResidenceNotes" Type="nvarchar(max)" />
     <Property Name="EmpStatus" Type="int" />
     <Property Name="EmpNotes" Type="nvarchar(max)" />
+    <Property Name="IsAgreeSummarry" Type="int" />
   </EntityType>
   <EntityType Name="tbl_TenantParking">
     <Key>
