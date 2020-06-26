@@ -12,7 +12,7 @@ namespace ShomaRM.Models.Corelogic
     public class CoreLogicHelper
     {
 
-        private string CreateXMLDocument(string Body)
+        private string CreateXMLDocument(string Body,string Service, string TrsansactionId="", bool IsNew=true)
         {
             string FinalStr = "";
             try
@@ -28,10 +28,14 @@ namespace ShomaRM.Models.Corelogic
                                 <MITS:WebSite>https://office.yourwebsite.com</MITS:WebSite>
                                 </MITS:Identification>
                                 </PropertyID>
-                             <RequestType>New</RequestType>
+                             <RequestType>" + @"
+                              " + (IsNew==true?"New":"View") + @"</RequestType>
                              <ReportOptions>
-                             <ReportName>CRD</ReportName>
-                             </ReportOptions>
+                            <ReportName>" + @"
+                              "+ Service + @"</ReportName>                           
+                             </ReportOptions>" + @"
+                              " + (IsNew == true ? "" : "<ReportID>" + TrsansactionId + "</ReportID>") + @"
+                          
                              <OriginatorID>501214</OriginatorID>
                              <UserAccount>1M898</UserAccount>
                              <UserName>APIShomatest</UserName>
@@ -49,7 +53,7 @@ namespace ShomaRM.Models.Corelogic
         {
            string leasebody= LeaseXMLData(leaseRequestModel);
            string applicatnt=  ApplicantXMLData(applicant);
-          return  CreateXMLDocument(leasebody + applicatnt);
+          return  CreateXMLDocument(leasebody + applicatnt,"CRM","",true);
         }
         private string LeaseXMLData(LeaseTermsModel leaseRequestModel)
         {
