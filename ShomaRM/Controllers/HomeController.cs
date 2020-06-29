@@ -24,6 +24,34 @@ namespace ShomaRM.Controllers
     public class HomeController : TwilioController
     {
 
+        public ActionResult Index()
+        {
+            if (Session["DelDatAll"] != null)
+            {
+                if (Session["DelDatAll"].ToString() == "Del")
+                {
+                    ViewBag.DelAData = Session["DelDatAll"].ToString();
+                }
+                else
+                {
+                    ViewBag.DelAData = "";
+                }
+            }
+            else
+            {
+                ViewBag.DelAData = "";
+            }
+            Session["DelDatAll"] = null;
+            var model = new HomeModel().GetLeaseTerms();
+            ////To get Server url            
+            //var serverURL = Request.Url;
+            ////Change key in WebConfig file
+            //Configuration AppConfigSettings = WebConfigurationManager.OpenWebConfiguration("~");
+            //AppConfigSettings.AppSettings.Settings["ServerURL"].Value = serverURL.ToString();
+            //AppConfigSettings.Save();
+            ViewBag.ActiveMenu = "home";
+            return View(model);
+        }
         public async System.Threading.Tasks.Task<ActionResult> IndexAsync()
         {
 
@@ -90,7 +118,6 @@ namespace ShomaRM.Controllers
             ViewBag.ActiveMenu = "home";
             return View(model);
         }
-
 
         public async System.Threading.Tasks.Task<ActionResult> About()
         {
