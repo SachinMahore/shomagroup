@@ -1,5 +1,7 @@
 
-Date - 29 Jun 2020 13:21:18
+
+Date - 29 Jun 2020 13:44:08
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -19,7 +21,9 @@ Logger: EmailSendModel.cs
 
 
 
-Date - 29 Jun 2020 13:21:18
+
+Date - 29 Jun 2020 13:44:08
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -39,7 +43,9 @@ Logger: EmailSendModel.cs
 
 
 
-Date - 29 Jun 2020 13:28:51
+
+Date - 29 Jun 2020 13:45:17
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -59,7 +65,9 @@ Logger: EmailSendModel.cs
 
 
 
-Date - 29 Jun 2020 13:28:51
+
+Date - 29 Jun 2020 13:45:17
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -76,6 +84,7 @@ Method Name: SendEmail
 Line Number: 36
 
 Logger: EmailSendModel.cs
+
 
 
 
@@ -280,6 +289,7 @@ Logger: EmailSendModel.cs
 
 
 Date - 29 Jun 2020 15:32:45
+
 Level - INFO
 UserAgent - 
 Message - 
