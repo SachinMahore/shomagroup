@@ -15,12 +15,15 @@ namespace ShomaRM.Data
     public partial class tbl_BackgroundScreening
     {
         public int Id { get; set; }
-        public int TenantId { get; set; }
-        public string Type { get; set; }
-        public int OrderID { get; set; }
-        public string Status { get; set; }
-        public string PDFUrl { get; set; }
+        public int ApplyNowId { get; set; }
+        public int ApplicantId { get; set; }
+        public string ReportType { get; set; }
+        public string SSN { get; set; }
+        public string TransactionNumber { get; set; }
+        public string ReportDate { get; set; }
+        public string ApplicantDecision { get; set; }
+        public string ApplicationDecision { get; set; }
+        public string ApplicantScore { get; set; }
         public string Notes { get; set; }
-        public string SSNNumber { get; set; }
     }
 }

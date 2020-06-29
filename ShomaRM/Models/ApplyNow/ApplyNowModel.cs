@@ -18,6 +18,7 @@ using iText.Layout;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using ShomaRM.Models.Corelogic;
 
 namespace ShomaRM.Models
 {
@@ -76,9 +77,13 @@ namespace ShomaRM.Models
             {
                 var GetApplicantData = db.tbl_Applicant.Where(p => p.UserID == userid).FirstOrDefault();
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
-             
                 var GetPropertyDetails = db.tbl_Properties.Where(P => P.PID == 8).FirstOrDefault();
                 
+                var GetTenantOnlineDet = db.tbl_TenantOnline.Where(c => c.ParentTOID == GetApplicantData.UserID).FirstOrDefault();
+                var GetLeaseDet = db.tbl_LeaseTerms.Where(c => c.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
+                var GetState = db.tbl_State.Where(s => s.ID == GetTenantOnlineDet.StateHome).FirstOrDefault();
+                var UserData = db.tbl_Login.Where(p => p.UserID == GetApplicantData.UserID).FirstOrDefault();
+
                 decimal processingFees = 0;
 
                 if(GetPropertyDetails!=null)
@@ -208,6 +213,34 @@ namespace ShomaRM.Models
                     {
                         if (chargeType == 4)
                         {
+                            GetApplicantData.CreditPaid = 1;
+                            db.SaveChanges();
+
+                            CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+                            var LeaseTermsModel = new LeaseTermsModel();
+                            LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                            LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
+                            LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
+                            var applicant = new Applicant();
+                            applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                            applicant.ApplyNowID = GetProspectData.ID.ToString();
+                            applicant.CustomerID = GetApplicantData.ApplicantID.ToString();
+                            applicant.ConsentObtained = "Yes";
+                            applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                            applicant.ApplicantIdentifier = GetApplicantData.ApplicantID.ToString();
+                            applicant.ApplicantType = "Applicant";
+                            applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                            applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
+                            applicant.FirstName = GetTenantOnlineDet.FirstName;
+                            applicant.LastName = GetTenantOnlineDet.LastName;
+                            applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                            applicant.City = GetTenantOnlineDet.CityHome;
+                            applicant.State = (GetState != null ? GetState.Abbreviation : "");
+                            applicant.PostalCode = GetTenantOnlineDet.ZipHome;
+                            applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+
+                            string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+
                             sub = "Payment Confirmation, Application agreement and Rental Qualifications";
                             emailBody += "<p style=\"margin-bottom: 0px;\">It’s all happening, " + GetProspectData.FirstName + " " + GetProspectData.LastName + "! You’ve submitted the required information for your credit check and accepted the “Application Agreement & Rental Qualifications” document in the prospect portal. We’ve attached documents for your review. Please contact us with any questions.</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
@@ -223,13 +256,42 @@ namespace ShomaRM.Models
 
                             string rulepolicy = HttpContext.Current.Server.MapPath("~/Content/assets/img/Policy/Rules_Policies_fragmented.pdf"); ;
                             string rentalqualification = HttpContext.Current.Server.MapPath("~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf"); ;
-                            
+
                             filePaths.Add(rulepolicy);
                             filePaths.Add(rentalqualification);
                             message = "Payment Confirmation, Application agreement and Rental Qualifications";
                         }
                         if (chargeType == 5)
                         {
+                            GetApplicantData.BackGroundPaid = 1;
+                            GetApplicantData.Paid = 1;
+                            db.SaveChanges();
+
+                            CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+                            var LeaseTermsModel = new LeaseTermsModel();
+                            LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                            LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
+                            LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
+                            var applicant = new Applicant();
+                            applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                            applicant.ApplyNowID = GetProspectData.ID.ToString();
+                            applicant.CustomerID = GetApplicantData.ApplicantID.ToString();
+                            applicant.ConsentObtained = "Yes";
+                            applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                            applicant.ApplicantIdentifier = GetApplicantData.ApplicantID.ToString();
+                            applicant.ApplicantType = "Applicant";
+                            applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                            applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
+                            applicant.FirstName = GetTenantOnlineDet.FirstName;
+                            applicant.LastName = GetTenantOnlineDet.LastName;
+                            applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                            applicant.City = GetTenantOnlineDet.CityHome;
+                            applicant.State = (GetState != null ? GetState.Abbreviation : "");
+                            applicant.PostalCode = GetTenantOnlineDet.ZipHome;
+                            applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+
+                            string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
+
                             sub = "Your Sanctuary Rental Application and Rules and Policies";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetProspectData.FirstName + " " + GetProspectData.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
@@ -256,11 +318,6 @@ namespace ShomaRM.Models
 
                             message = "Your Sanctuary Rental Application and Rules and Policies. Please check the email for detail.";
                         }
-                        //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Payment Received");
-                        //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
-                        //reportHTML = reportHTML.Replace("[%TenantName%]", GetProspectData.FirstName + " " + GetProspectData.LastName);
-                        //reportHTML = reportHTML.Replace("[%TenantEmail%]", GetProspectData.Email);
-
                     }
                     string body = reportHTML;
                     new EmailSendModel().SendEmailWithAttachment(GetProspectData.Email, sub, body, filePaths);
@@ -290,9 +347,19 @@ namespace ShomaRM.Models
             int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
             if (model.PID != 0)
             {
+                var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == model.AID).FirstOrDefault();
+                if (coappliList != null)
+                {
+                    coappliList.Paid = 1;
+                    db.SaveChanges();
+                }
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
-              
                 var GetPropertyDetails = db.tbl_Properties.Where(P => P.PID == 8).FirstOrDefault();
+
+                var GetTenantOnlineDet = db.tbl_TenantOnline.Where(c => c.ParentTOID == coappliList.UserID).FirstOrDefault();
+                var GetLeaseDet = db.tbl_LeaseTerms.Where(c => c.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
+                var GetState = db.tbl_State.Where(s => s.ID == GetTenantOnlineDet.StateHome).FirstOrDefault();
+                var UserData = db.tbl_Login.Where(p => p.UserID == coappliList.UserID).FirstOrDefault();
 
                 decimal processingFees = 0;
 
@@ -376,12 +443,7 @@ namespace ShomaRM.Models
                     MyTransactionModel mm = new MyTransactionModel();
                     mm.CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);
 
-                    var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == model.AID).FirstOrDefault();
-                    if (coappliList != null)
-                    {
-                        coappliList.Paid = 1;
-                        db.SaveChanges();
-                    }
+                    
                     string reportHTML = "";
                     string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                     reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
@@ -404,11 +466,6 @@ namespace ShomaRM.Models
                         emailBody += "<p style=\"margin-bottom: 0px;\">*The service fee is collected by the payment agent not the property management company and will not display your ledger. Service fee is non Refundable.</p>";
                         emailBody += "<p style=\"margin-bottom: 0px;\">In meantime, if you have any questions about the application process please contact us</p>";
                         reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
-
-                        //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Payment Received");
-                        //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
-                        //reportHTML = reportHTML.Replace("[%TenantName%]", coappliList.FirstName + " " + coappliList.LastName);
-                        //reportHTML = reportHTML.Replace("[%TenantEmail%]", coappliList.Email);
                     }
                     string body = reportHTML;
 
@@ -434,7 +491,7 @@ namespace ShomaRM.Models
             return msg;
         }
 
-        public async Task<string> saveCoAppPayment(ApplyNowModel model)
+        public string saveCoAppPayment(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
@@ -442,8 +499,10 @@ namespace ShomaRM.Models
             if (model.ProspectId != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
-                // var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
+                var GetTenantOnlineDet = db.tbl_TenantOnline.Where(c => c.ParentTOID == GetCoappDet.UserID).FirstOrDefault();
+                var GetLeaseDet = db.tbl_LeaseTerms.Where(c => c.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
+                var GetState = db.tbl_State.Where(s => s.ID == GetTenantOnlineDet.StateHome).FirstOrDefault();
                 var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
                 var UserData = db.tbl_Login.Where(p => p.UserID == GetCoappDet.UserID).FirstOrDefault();
 
@@ -549,7 +608,7 @@ namespace ShomaRM.Models
                         Credit_Amount = model.Charge_Amount,
                         Description = model.Description + "| TransID: " + strlist[2],
                         Charge_Date = DateTime.Now,
-                        Charge_Type =Convert.ToInt32(bat),
+                        Charge_Type = Convert.ToInt32(bat),
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
                         Miscellaneous_Amount = processingFees,
@@ -557,7 +616,7 @@ namespace ShomaRM.Models
                         Batch = bat,
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
                         UserID = GetCoappDet.UserID,
-                        RefNum= strlist[2],
+                        RefNum = strlist[2],
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -582,23 +641,17 @@ namespace ShomaRM.Models
                             GetProspectData.IsApplyNow = 2;
                             db.SaveChanges();
 
-                            //sub = "Online Application Fees Payment Received";
-                            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Online Application Fees Payment Received");
-                            //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
-                            //reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
-                            //reportHTML = reportHTML.Replace("[%TenantEmail%]", GetCoappDet.Email);
-
                             sub = "Sanctuary Payment Confirmation";
-                            
+
                             string emailBody = "";
-                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: "+ GetCoappDet.FirstName + " " + GetCoappDet.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment date:" + DateTime.Now.ToString("MM/dd/yyyy hh:mm tt") + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment amount:$" + (model.Charge_Amount ?? 0).ToString("0.00") + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Service fee:$" + processingFees.ToString("0.00") + "</p>";
-                            emailBody += "<p style=\"margin-bottom: 0px;\">Total payment:$" + ((model.Charge_Amount ?? 0)+processingFees).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Total payment:$" + ((model.Charge_Amount ?? 0) + processingFees).ToString("0.00") + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">*The service fee is collected by the payment agent not the property management company and will not display your ledger. Service fee is non Refundable.</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">In meantime, if you have any questions about the application process please contact us</p>";
                             reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
@@ -618,34 +671,44 @@ namespace ShomaRM.Models
                         }
                         else if (model.FromAcc == 4)
                         {
-                            //sachin m 01 may 2020
-                            // Credit Check Fees Paid //
+                            GetCoappDet.CreditPaid = 1;
+                            db.SaveChanges();
 
-                            //sub = "Credit Check Fees Payment Received";
-                            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Credit Check Fees Payment Received");
-                            //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your Credit Check fees payment.  Please save this email for your personal records.  Your application is being processed for background check, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
-                            //reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
-                            //reportHTML = reportHTML.Replace("[%TenantEmail%]", GetCoappDet.Email);
-                            //string body = reportHTML;
-                            //new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
-                            //message = "Credit Check Fees Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
-                            //if (SendMessage == "yes")
-                            //{
-                            //    if (!string.IsNullOrWhiteSpace(phonenumber))
-                            //    {
-                            //        new TwilioService().SMS(phonenumber, message);
-                            //    }
-                            //}
+                            CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+                            var LeaseTermsModel = new LeaseTermsModel();
+                            LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                            LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms??12).ToString();
+                            LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
+                            var applicant = new Applicant();
+                            applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                            applicant.ApplyNowID = GetProspectData.ID.ToString();
+                            applicant.CustomerID = GetCoappDet.ApplicantID.ToString();
+                            applicant.ConsentObtained = "Yes";
+                            applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income??0).ToString("0.00");
+                            applicant.ApplicantIdentifier = GetCoappDet.ApplicantID.ToString();
+                            applicant.ApplicantType = "Applicant";
+                            applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                            applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
+                            applicant.FirstName = GetTenantOnlineDet.FirstName;
+                            applicant.LastName = GetTenantOnlineDet.LastName;
+                            applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                            applicant.City = GetTenantOnlineDet.CityHome;
+                            applicant.State = (GetState != null ? GetState.Abbreviation : "");
+                            applicant.PostalCode = GetTenantOnlineDet.ZipHome;
+                            applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+
+                            string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+
                             sub = "Payment Confirmation, Application agreement and Rental Qualifications";
-                            
+
                             string emailBody = "";
-                            emailBody += "<p style=\"margin-bottom: 0px;\">It’s all happening, "+ GetCoappDet.FirstName + " " + GetCoappDet.LastName+"! You’ve submitted the required information for your credit check and accepted the “Application Agreement & Rental Qualifications” document in the prospect portal. We’ve attached documents for your review. Please contact us with any questions.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">It’s all happening, " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "! You’ve submitted the required information for your credit check and accepted the “Application Agreement & Rental Qualifications” document in the prospect portal. We’ve attached documents for your review. Please contact us with any questions.</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment date:" + DateTime.Now.ToString("MM/dd/yyyy hh:mm tt") + "</p>";
-                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment amount:$" + (model.Charge_Amount??0).ToString("0.00") + "</p>";
-                            emailBody += "<p style=\"margin-bottom: 0px;\">Service fee:$"+ processingFees.ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment amount:$" + (model.Charge_Amount ?? 0).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Service fee:$" + processingFees.ToString("0.00") + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Total payment:$" + ((model.Charge_Amount ?? 0) + processingFees).ToString("0.00") + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Application fees are non refundable, even if the application is denied except to the extent otherwise required by applicable law</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">In meantime, if you have any questions about the application process please contact us</p>";
@@ -671,41 +734,6 @@ namespace ShomaRM.Models
 
                             string pass = "";
                             pass = new EncryptDecrypt().DecryptText(UserData.Password);
-
-
-                            // Credit Check Background Check //
-                            
-                            //var acutraqrequest = new AcutraqRequest();
-                            //TenantOnlineModel modelTD = new TenantOnlineModel().GetTenantOnlineList((int)GetProspectData.ID, GetCoappDet.UserID ?? 0);
-                            //string result = await acutraqrequest.PostAqutraqTenant(modelTD);
-
-                            //if (result == "1")
-                            //{
-                            //var gerResultData = db.tbl_BackgroundScreening.Where(p => p.TenantId == model.ProspectId && p.Type == "TENTCREDIT").FirstOrDefault();
-
-                            GetCoappDet.CreditPaid = 1;
-                            db.SaveChanges();
-
-                            //string reportHTMLbc = "";
-                            //reportHTMLbc = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect5.html");
-                            //reportHTMLbc = reportHTMLbc.Replace("[%ServerURL%]", serverURL);
-                            //sub = "Credit Check Approved and Complete Online Application";
-                            //reportHTMLbc = reportHTMLbc.Replace("[%EmailHeader%]", "Credit Check Approved and Complete Online Application");
-                            //reportHTMLbc = reportHTMLbc.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Congratulation! Your application for credit check is approved. Please complete your Online Application by clicking below link</p>");
-                            //reportHTMLbc = reportHTMLbc.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
-                            //reportHTMLbc = reportHTMLbc.Replace("[%TenantEmail%]", GetCoappDet.Email);
-                            //reportHTMLbc = reportHTMLbc.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
-                            //string bodybc = reportHTMLbc;
-                            //new EmailSendModel().SendEmail(GetCoappDet.Email, "Credit Check Approved", bodybc);
-                            //message = "Credit Check Approved. Please check the email for detail.";
-                            //if (SendMessage == "yes")
-                            //{
-                            //    if (!string.IsNullOrWhiteSpace(phonenumber))
-                            //    {
-                            //        new TwilioService().SMS(phonenumber, message);
-                            //    }
-                            //}
-                            ////}
                             msg = "1";
                         }
                         else if (model.FromAcc == 5)
@@ -722,15 +750,33 @@ namespace ShomaRM.Models
                             phonenumber = GetCoappDet.Phone;
                             if (model != null)
                             {
-                                //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Background Check Payment Received");
-                                //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
+                                CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+                                var LeaseTermsModel = new LeaseTermsModel();
+                                LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                                LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
+                                LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
+                                var applicant = new Applicant();
+                                applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                                applicant.ApplyNowID = GetProspectData.ID.ToString();
+                                applicant.CustomerID = GetCoappDet.ApplicantID.ToString();
+                                applicant.ConsentObtained = "Yes";
+                                applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                                applicant.ApplicantIdentifier = GetCoappDet.ApplicantID.ToString();
+                                applicant.ApplicantType = "Applicant";
+                                applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                                applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
+                                applicant.FirstName = GetTenantOnlineDet.FirstName;
+                                applicant.LastName = GetTenantOnlineDet.LastName;
+                                applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                                applicant.City = GetTenantOnlineDet.CityHome;
+                                applicant.State = (GetState != null ? GetState.Abbreviation : "");
+                                applicant.PostalCode = GetTenantOnlineDet.ZipHome;
+                                applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
-                                //reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
-
-                                //reportHTML = reportHTML.Replace("[%TenantEmail%]", GetCoappDet.Email);
+                                string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
 
                                 string emailBody = "";
-                                emailBody += "<p style=\"margin-bottom: 0px;\">Dear "+ GetCoappDet.FirstName + " " + GetCoappDet.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
+                                emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
@@ -744,7 +790,6 @@ namespace ShomaRM.Models
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login to edit application</p>";
                                 emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Account/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
                                 reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
-
                             }
                             string body = reportHTML;
 
@@ -773,16 +818,6 @@ namespace ShomaRM.Models
                             GetProspectData.IsApplyNow = 2;
                             db.SaveChanges();
 
-                            //sub = "Administration Fees Payment Received";
-                            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Administration Fees Payment Received");
-                            //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p>");
-                            //reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
-                            //reportHTML = reportHTML.Replace("[%TenantEmail%]", GetCoappDet.Email);
-                            ////sachin m 01 may 2020
-                            //string body = reportHTML;
-                            //new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
-                            //message = "Administration Fees Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
-
                             sub = "Sanctuary Payment Confirmation";
 
                             reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
@@ -800,7 +835,6 @@ namespace ShomaRM.Models
                             reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
                             string body = reportHTML;
 
-                            //sachin m 01 may 2020
                             new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
                             message = "Sanctuary Payment Confirmation. Please check the email for detail.";
 
@@ -818,32 +852,28 @@ namespace ShomaRM.Models
                             msg = "1";
                             decimal admfee = 0;
                             var chkAdminFeesPaid = db.tbl_Transaction.Where(k => k.TenantID == GetProspectData.UserId && k.Batch == "3").ToList();
-                            foreach(var ad in chkAdminFeesPaid)
+                            foreach (var ad in chkAdminFeesPaid)
                             {
-                                admfee +=Convert.ToDecimal(ad.Credit_Amount);
+                                admfee += Convert.ToDecimal(ad.Credit_Amount);
                             }
-                            if(GePropertyData.AdminFees==admfee)
+                            if (GePropertyData.AdminFees == admfee)
                             {
                                 msg = "3";
                             }
                         }
                     }
-
-                   
                 }
                 else
                 {
                     msg = "0";
                 }
-
             }
-
             db.Dispose();
             return msg;
         }
 
         // Sachin M 09 june 2020
-        public async Task<string> saveListPayment(ApplyNowModel model)
+        public string saveListPayment(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
@@ -852,7 +882,11 @@ namespace ShomaRM.Models
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
+                var GetTenantOnlineDet = db.tbl_TenantOnline.Where(c => c.ParentTOID == GetCoappDet.UserID).FirstOrDefault();
                 var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                var GetLeaseDet = db.tbl_LeaseTerms.Where(c => c.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
+                var GetState = db.tbl_State.Where(s => s.ID == GetTenantOnlineDet.StateHome).FirstOrDefault();
+
                 var UserData = db.tbl_Login.Where(p => p.UserID == GetCoappDet.UserID).FirstOrDefault();
 
                 var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ID == model.PAID).FirstOrDefault();
@@ -965,12 +999,6 @@ namespace ShomaRM.Models
                             GetProspectData.IsApplyNow = 2;
                             db.SaveChanges();
 
-                            //sub = "Online Application Fees Payment Received";
-                            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Online Application Fees Payment Received");
-                            //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
-                            //reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
-                            //reportHTML = reportHTML.Replace("[%TenantEmail%]", GetCoappDet.Email);
-
                             sub = "Sanctuary Payment Confirmation";
 
                             string emailBody = "";
@@ -1001,24 +1029,34 @@ namespace ShomaRM.Models
                         }
                         else if (model.FromAcc == 4)
                         {
-                            //sachin m 01 may 2020
-                            // Credit Check Fees Paid //
+                            GetCoappDet.CreditPaid = 1;
+                            db.SaveChanges();
 
-                            //sub = "Credit Check Fees Payment Received";
-                            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Credit Check Fees Payment Received");
-                            //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your Credit Check fees payment.  Please save this email for your personal records.  Your application is being processed for background check, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
-                            //reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
-                            //reportHTML = reportHTML.Replace("[%TenantEmail%]", GetCoappDet.Email);
-                            //string body = reportHTML;
-                            //new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
-                            //message = "Credit Check Fees Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
-                            //if (SendMessage == "yes")
-                            //{
-                            //    if (!string.IsNullOrWhiteSpace(phonenumber))
-                            //    {
-                            //        new TwilioService().SMS(phonenumber, message);
-                            //    }
-                            //}
+                            CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+                            var LeaseTermsModel = new LeaseTermsModel();
+                            LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                            LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
+                            LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
+                            var applicant = new Applicant();
+                            applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                            applicant.ApplyNowID = GetProspectData.ID.ToString();
+                            applicant.CustomerID = GetCoappDet.ApplicantID.ToString();
+                            applicant.ConsentObtained = "Yes";
+                            applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                            applicant.ApplicantIdentifier = GetCoappDet.ApplicantID.ToString();
+                            applicant.ApplicantType = "Applicant";
+                            applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                            applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
+                            applicant.FirstName = GetTenantOnlineDet.FirstName;
+                            applicant.LastName = GetTenantOnlineDet.LastName;
+                            applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                            applicant.City = GetTenantOnlineDet.CityHome;
+                            applicant.State = (GetState != null ? GetState.Abbreviation : "");
+                            applicant.PostalCode = GetTenantOnlineDet.ZipHome;
+                            applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+
+                            string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+
                             sub = "Payment Confirmation, Application agreement and Rental Qualifications";
 
                             string emailBody = "";
@@ -1055,44 +1093,42 @@ namespace ShomaRM.Models
                             string pass = "";
                             pass = new EncryptDecrypt().DecryptText(UserData.Password);
 
-
-                            // Credit Check Background Check //
-
-                            //var acutraqrequest = new AcutraqRequest();
-                            //TenantOnlineModel modelTD = new TenantOnlineModel().GetTenantOnlineList((int)GetProspectData.ID, GetCoappDet.UserID ?? 0);
-                            //string result = await acutraqrequest.PostAqutraqTenant(modelTD);
-
-                            //if (result == "1")
-                            //{
-                            //var gerResultData = db.tbl_BackgroundScreening.Where(p => p.TenantId == model.ProspectId && p.Type == "TENTCREDIT").FirstOrDefault();
-
                             GetCoappDet.CreditPaid = 1;
                             db.SaveChanges();
 
-                            //string reportHTMLbc = "";
-                            //reportHTMLbc = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect5.html");
-                            //reportHTMLbc = reportHTMLbc.Replace("[%ServerURL%]", serverURL);
-                            //sub = "Credit Check Approved and Complete Online Application";
-                            //reportHTMLbc = reportHTMLbc.Replace("[%EmailHeader%]", "Credit Check Approved and Complete Online Application");
-                            //reportHTMLbc = reportHTMLbc.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Congratulation! Your application for credit check is approved. Please complete your Online Application by clicking below link</p>");
-                            //reportHTMLbc = reportHTMLbc.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
-                            //reportHTMLbc = reportHTMLbc.Replace("[%TenantEmail%]", GetCoappDet.Email);
-                            //reportHTMLbc = reportHTMLbc.Replace("[%LeaseNowButton%]", "<!--[if mso]><table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\"><tr><td style=\"padding-top: 25px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"" + serverURL + "/Account/Login\" style=\"height:46.5pt; width:168.75pt; v-text-anchor:middle;\" arcsize=\"7%\" stroke=\"false\" fillcolor=\"#a8bf6f\"><w:anchorlock/><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:'Trebuchet MS', Tahoma, sans-serif; font-size:16px\"><![endif]--> <a href=\"" + serverURL + "/Account/Login\" style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #a8bf6f; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; width: auto; width: auto; border-top: 1px solid #a8bf6f; border-right: 1px solid #a8bf6f; border-bottom: 1px solid #a8bf6f; border-left: 1px solid #a8bf6f; padding-top: 15px; padding-bottom: 15px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; text-align: center; mso-border-alt: none; word-break: keep-all;\" target=\"_blank\"><span style=\"padding-left:15px;padding-right:15px;font-size:16px;display:inline-block;\"><span style=\"font-size: 16px; line-height: 32px;\">Login</span></span></a><!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->");
-                            //string bodybc = reportHTMLbc;
-                            //new EmailSendModel().SendEmail(GetCoappDet.Email, "Credit Check Approved", bodybc);
-                            //message = "Credit Check Approved. Please check the email for detail.";
-                            //if (SendMessage == "yes")
-                            //{
-                            //    if (!string.IsNullOrWhiteSpace(phonenumber))
-                            //    {
-                            //        new TwilioService().SMS(phonenumber, message);
-                            //    }
-                            //}
-                            ////}
                             msg = "1";
                         }
                         else if (model.FromAcc == 5)
                         {
+                            GetCoappDet.BackGroundPaid = 1;
+                            GetCoappDet.Paid = 1;
+                            db.SaveChanges();
+
+                            CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+                            var LeaseTermsModel = new LeaseTermsModel();
+                            LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                            LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
+                            LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
+                            var applicant = new Applicant();
+                            applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                            applicant.ApplyNowID = GetProspectData.ID.ToString();
+                            applicant.CustomerID = GetCoappDet.ApplicantID.ToString();
+                            applicant.ConsentObtained = "Yes";
+                            applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                            applicant.ApplicantIdentifier = GetCoappDet.ApplicantID.ToString();
+                            applicant.ApplicantType = "Applicant";
+                            applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                            applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
+                            applicant.FirstName = GetTenantOnlineDet.FirstName;
+                            applicant.LastName = GetTenantOnlineDet.LastName;
+                            applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                            applicant.City = GetTenantOnlineDet.CityHome;
+                            applicant.State = (GetState != null ? GetState.Abbreviation : "");
+                            applicant.PostalCode = GetTenantOnlineDet.ZipHome;
+                            applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+
+                            string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+
                             GetCoappDet.BackGroundPaid = 1;
                             GetCoappDet.Paid = 1;
                             db.SaveChanges();
@@ -1105,13 +1141,6 @@ namespace ShomaRM.Models
                             phonenumber = GetCoappDet.Phone;
                             if (model != null)
                             {
-                                //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Application Completed and Background Check Payment Received");
-                                //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p><p style='font-size: 14px;font-style:italic; line-height: 21px; text-align: justify; margin: 0;'><br/><br/>*Application fees are non-refundable, even if the application is denied, except to the extent otherwise required by applicable law. </p>");
-
-                                //reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
-
-                                //reportHTML = reportHTML.Replace("[%TenantEmail%]", GetCoappDet.Email);
-
                                 string emailBody = "";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
@@ -1127,7 +1156,6 @@ namespace ShomaRM.Models
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login to edit application</p>";
                                 emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Account/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
                                 reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
-
                             }
                             string body = reportHTML;
 
@@ -1155,16 +1183,6 @@ namespace ShomaRM.Models
                         {
                             GetProspectData.IsApplyNow = 2;
                             db.SaveChanges();
-
-                            //sub = "Administration Fees Payment Received";
-                            //reportHTML = reportHTML.Replace("[%EmailHeader%]", "Administration Fees Payment Received");
-                            //reportHTML = reportHTML.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Thank you for signing and submitting your application.  This email confirms that we have received your online application fees payment.  Please save this email for your personal records.  Your application is being processed, and we will soon contact you with your next step.  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;PAYMENT INFORMATION: </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment confirmation number: #" + strlist[1] + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Date : " + DateTime.Now + " </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;Payment Amount: $" + model.Charge_Amount + "  </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; For your convenience, we have attached a copy of your signed application together with the Terms and Conditions and Policies and Procedures for your review.  Please save these documents for your records. </p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; If you need to edit your online application, kindly contact us, and we will be happy to assist you.</p><p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;You are just steps away from signing your lease and moving in to the home of your dreams.” </p>");
-                            //reportHTML = reportHTML.Replace("[%TenantName%]", GetCoappDet.FirstName + " " + GetCoappDet.LastName);
-                            //reportHTML = reportHTML.Replace("[%TenantEmail%]", GetCoappDet.Email);
-                            ////sachin m 01 may 2020
-                            //string body = reportHTML;
-                            //new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
-                            //message = "Administration Fees Payment of $" + model.Charge_Amount + " Received. Please check the email for detail.";
 
                             sub = "Sanctuary Payment Confirmation";
 
@@ -1211,13 +1229,11 @@ namespace ShomaRM.Models
                             }
                         }
                     }
-                    
                 }
                 else
                 {
                     msg = "0";
                 }
-
             }
 
             db.Dispose();
@@ -1225,7 +1241,7 @@ namespace ShomaRM.Models
         }
 
         // Sachin M 25 june 2020
-        public async Task<string> saveListPaymentFinalStep(ApplyNowModel model)
+        public string saveListPaymentFinalStep(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
@@ -1234,9 +1250,13 @@ namespace ShomaRM.Models
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
+                var GetTenantOnlineDet = db.tbl_TenantOnline.Where(c => c.ParentTOID == GetCoappDet.UserID).FirstOrDefault();
                 var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
-                var UserData = db.tbl_Login.Where(p => p.UserID == GetCoappDet.UserID).FirstOrDefault();
+                var GetLeaseDet = db.tbl_LeaseTerms.Where(c => c.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
+                var GetState = db.tbl_State.Where(s => s.ID == GetTenantOnlineDet.StateHome).FirstOrDefault();
 
+                var UserData = db.tbl_Login.Where(p => p.UserID == GetCoappDet.UserID).FirstOrDefault();
+                
                 var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ID == model.PAID).FirstOrDefault();
 
                 string decrytpedCardNumber = new EncryptDecrypt().DecryptText(GetPayDetails.CardNumber);
@@ -1281,30 +1301,6 @@ namespace ShomaRM.Models
                     if (model.FromAcc == 1)
                     {
                         bat = model.AID.ToString();
-
-                        if (model.lstApp != null)
-                        {
-                            foreach (var coapp in model.lstApp)
-                            { 
-                                var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == coapp.ApplicantID).FirstOrDefault();
-                                if (coappliList != null)
-                                {
-                                    if (coapp.Type == "4")
-                                    {
-                                        coappliList.CreditPaid = 1;
-                                    }
-                                    if (coapp.Type == "5")
-                                    {
-                                        coappliList.BackGroundPaid = 1;
-                                    }
-                                    if ((coappliList.CreditPaid ?? 0) == 1 && (coappliList.BackGroundPaid ?? 0) == 1)
-                                    {
-                                        coappliList.Paid = 1;
-                                    }
-                                    db.SaveChanges();
-                                }
-                            }
-                        }
                     }
                     else
                     {
@@ -1357,6 +1353,82 @@ namespace ShomaRM.Models
                     string message = "";
                     string phonenumber = GetCoappDet.Phone;
                     string sub = "";
+
+                    if (model.lstApp != null)
+                    {
+                        foreach (var coapp in model.lstApp)
+                        {
+                            var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == coapp.ApplicantID).FirstOrDefault();
+                            if (coappliList != null)
+                            {
+                                if (coapp.Type == "4")
+                                {
+                                    CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+                                    var LeaseTermsModel = new LeaseTermsModel();
+                                    LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                                    LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
+                                    LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
+                                    var applicant = new Applicant();
+                                    applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                                    applicant.ApplyNowID = GetProspectData.ID.ToString();
+                                    applicant.CustomerID = GetCoappDet.ApplicantID.ToString();
+                                    applicant.ConsentObtained = "Yes";
+                                    applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                                    applicant.ApplicantIdentifier = GetCoappDet.ApplicantID.ToString();
+                                    applicant.ApplicantType = "Applicant";
+                                    applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                                    applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
+                                    applicant.FirstName = GetTenantOnlineDet.FirstName;
+                                    applicant.LastName = GetTenantOnlineDet.LastName;
+                                    applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                                    applicant.City = GetTenantOnlineDet.CityHome;
+                                    applicant.State = (GetState != null ? GetState.Abbreviation : "");
+                                    applicant.PostalCode = GetTenantOnlineDet.ZipHome;
+                                    applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+
+                                    string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+
+                                    coappliList.CreditPaid = 1;
+                                }
+                                if (coapp.Type == "5")
+                                {
+                                    CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+                                    var LeaseTermsModel = new LeaseTermsModel();
+                                    LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                                    LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
+                                    LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
+                                    var applicant = new Applicant();
+                                    applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                                    applicant.ApplyNowID = GetProspectData.ID.ToString();
+                                    applicant.CustomerID = GetCoappDet.ApplicantID.ToString();
+                                    applicant.ConsentObtained = "Yes";
+                                    applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                                    applicant.ApplicantIdentifier = GetCoappDet.ApplicantID.ToString();
+                                    applicant.ApplicantType = "Applicant";
+                                    applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                                    applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
+                                    applicant.FirstName = GetTenantOnlineDet.FirstName;
+                                    applicant.LastName = GetTenantOnlineDet.LastName;
+                                    applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                                    applicant.City = GetTenantOnlineDet.CityHome;
+                                    applicant.State = (GetState != null ? GetState.Abbreviation : "");
+                                    applicant.PostalCode = GetTenantOnlineDet.ZipHome;
+                                    applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+
+                                    string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
+
+
+                                    coappliList.BackGroundPaid = 1;
+                                }
+                                if ((coappliList.CreditPaid ?? 0) == 1 && (coappliList.BackGroundPaid ?? 0) == 1)
+                                {
+                                    coappliList.Paid = 1;
+                                }
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+
                     if (model != null)
                     {
                         if (model.FromAcc == 1 || model.FromAcc == 2)
@@ -1364,7 +1436,6 @@ namespace ShomaRM.Models
                             GetProspectData.IsApplyNow = 2;
                             db.SaveChanges();
 
-                            
                             sub = "Sanctuary Payment Confirmation";
 
                             string emailBody = "";
@@ -1380,7 +1451,7 @@ namespace ShomaRM.Models
                             emailBody += "<p style=\"margin-bottom: 0px;\">In meantime, if you have any questions about the application process please contact us</p>";
                             reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
                             string body = reportHTML;
-                            
+
                             new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
                             message = "Sanctuary Payment Confirmation. Please check the email for detail.";
                             if (SendMessage == "yes")
@@ -1392,13 +1463,11 @@ namespace ShomaRM.Models
                             }
                             msg = "1";
                         }
-                       
                         else
                         {
                             GetProspectData.IsApplyNow = 2;
                             db.SaveChanges();
 
-                           
                             sub = "Sanctuary Payment Confirmation";
 
                             reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
@@ -1444,13 +1513,11 @@ namespace ShomaRM.Models
                             }
                         }
                     }
-
                 }
                 else
                 {
                     msg = "0";
                 }
-
             }
 
             db.Dispose();

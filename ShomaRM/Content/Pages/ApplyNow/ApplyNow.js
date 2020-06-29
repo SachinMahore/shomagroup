@@ -131,6 +131,7 @@ $(document).ready(function () {
             $('#btnsaveappl').addClass('hidden');
             //modal.find('.modal-content').css("height", "760px");
             $('#divCreditCheckPayment').removeClass('hidden');
+           
         }
         else {
             //$("#popCCPay").modal("hide");
@@ -5113,8 +5114,7 @@ var addApplicant = function (at) {
     clearApplicant();
     $("#popApplicant").modal("show");
 };
-var saveupdateApplicant = function () {
-
+var saveupdateApplicant = function (callFrom) {
     $("#divLoader").show();
     var checkEmail = 0;
     var msg = "";
@@ -5255,17 +5255,89 @@ var saveupdateApplicant = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: "Progress Saved.",
-                type: 'blue',
-            });
-            getApplicantLists();
-            $("#popApplicant").modal("hide");
+            if (callFrom == 1) {
+                $("#divLoader").hide();
+                $.alert({
+                    title: "",
+                    content: "Progress Saved.",
+                    type: 'blue',
+                });
+                getApplicantLists();
+                $("#popApplicant").modal("hide");
+            }
+            else {
+                if ($("#hndTransMethod1").val() == "2") {
+                    var paymentMethod = 2;
+                    var propertyId = $("#hndUID").val();
+                    var nameonCard = $("#txtNameonCard1").val();
+                    var cardNumber = $("#txtCardNumber1").val();
+                    var cardMonth = $("#ddlcardmonth1").val();
+                    var cardYear = $("#ddlcardyear1").val();
+                    var ccvNumber = $("#txtCCVNumber1").val();
+                    var prospectID = $("#hdnOPId").val();
+                    var amounttoPay = unformatText($("#sppayFees").text());
+                    var description = $("#lblpopcctitle").text();
+                    var routingNumber = $("#txtRoutingNumber1").val();
+                    var bankName = $("#txtBankName1").val();
+                } else {
+                    var paymentMethod = 1;
+                    var nameonCard = $("#txtAccountName1").val();
+                    var cardNumber = $("#txtAccountNumber1").val();
+                    var cardMonth = 0;
+                    var cardYear = 0;
+                    var ccvNumber = 0;
+                    var routingNumber = $("#txtRoutingNumber1").val();
+                    var bankName = $("#txtBankName1").val();
+                    var amounttoPay = unformatText($("#sppayFees").text());
+                    var description = $("#lblpopcctitle").text();
+                    var prospectID = $("#hdnOPId").val();
+                    var propertyId = $("#hndUID").val();
+                }
+                var model = {
+                    PID: propertyId,
+                    Name_On_Card: nameonCard,
+                    CardNumber: cardNumber,
+                    CardMonth: cardMonth,
+                    CardYear: cardYear,
+                    CCVNumber: ccvNumber,
+                    Charge_Amount: amounttoPay,
+                    Charge_Type: "4",
+                    ProspectID: prospectID,
+                    Description: description,
+                    GL_Trans_Description: description,
+                    RoutingNumber: routingNumber,
+                    BankName: bankName,
+                    PaymentMethod: paymentMethod,
+                    AID: $("#hndApplicantID").val(),
+                    FromAcc: $("#hndFromAcc").val(),
+                    IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
+                };
+                $.ajax({
+                    url: "/ApplyNow/saveCoAppPayment/",
+                    type: "post",
+                    contentType: "application/json utf-8",
+                    data: JSON.stringify(model),
+                    dataType: "JSON",
+                    success: function (response) {
+                        if (response.Msg != "") {
+                            if (response.Msg == "1") {
+                                $("#ResponseMsg1").html("Payment successfull");
+                                window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
+                            } else {
+                                $.alert({
+                                    title: "",
+                                    content: "Payment failed",
+                                    type: 'red'
+                                });
+                            }
+                        }
+                    }
+                });
+            }
         }
     });
 }
+
 
 var totpaid = 0;
 var totnotpaid = 0;
@@ -10144,12 +10216,10 @@ var clearCard2 = function () {
 }
 function saveCoAppPayment() {
 
+    alert("hi");
     $("#divLoader").show();
-
-   
     var checkEmail = 0;
     var msg = "";
-
     var fname = $("#txtApplicantFirstName").val();
     var mname = $("#txtApplicantMiddleName").val();
     var lname = $("#txtApplicantLastName").val();
@@ -10169,7 +10239,6 @@ function saveCoAppPayment() {
     var applicantCountry = $("#txtApplicantCountry").val();
     var applicantCity = $("#txtApplicantCity").val();
     var applicantApplicantZip2 = $("#txtApplicantZip2").val();
-
 
     if (type == "Co-Applicant") {
         checkEmail = 1;
@@ -10253,7 +10322,6 @@ function saveCoAppPayment() {
         msg += "Please accept Terms & Condition </br>";
     }
     
-    
     if ($("#hndTransMethod1").val() == "2") {
         var paymentMethod = 2;
         var propertyId = $("#hndUID").val();
@@ -10320,25 +10388,26 @@ function saveCoAppPayment() {
         });
         return;
     }
-    var model = {
-        PID: propertyId,
-        Name_On_Card: nameonCard,
-        CardNumber: cardNumber,
-        CardMonth: cardMonth,
-        CardYear: cardYear,
-        CCVNumber: ccvNumber,
-        Charge_Amount: amounttoPay,
-        Charge_Type: "4",
-        ProspectID: prospectID,
-        Description: description,
-        GL_Trans_Description: description,
-        RoutingNumber: routingNumber,
-        BankName: bankName,
-        PaymentMethod: paymentMethod,
-        AID: $("#hndApplicantID").val(),
-        FromAcc: $("#hndFromAcc").val(),
-        IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
-    };
+
+    //var model = {
+    //    PID: propertyId,
+    //    Name_On_Card: nameonCard,
+    //    CardNumber: cardNumber,
+    //    CardMonth: cardMonth,
+    //    CardYear: cardYear,
+    //    CCVNumber: ccvNumber,
+    //    Charge_Amount: amounttoPay,
+    //    Charge_Type: "4",
+    //    ProspectID: prospectID,
+    //    Description: description,
+    //    GL_Trans_Description: description,
+    //    RoutingNumber: routingNumber,
+    //    BankName: bankName,
+    //    PaymentMethod: paymentMethod,
+    //    AID: $("#hndApplicantID").val(),
+    //    FromAcc: $("#hndFromAcc").val(),
+    //    IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
+    //};
 
     $.alert({
         title: "",
@@ -10348,29 +10417,30 @@ function saveCoAppPayment() {
             yes: {
                 text: 'Yes',
                 action: function (yes) {
-                    $.ajax({
-                        url: "/ApplyNow/saveCoAppPayment/",
-                        type: "post",
-                        contentType: "application/json utf-8",
-                        data: JSON.stringify(model),
-                        dataType: "JSON",
-                        success: function (response) {
-                            if (response.Msg != "") {
-                                if (response.Msg == "1") {
-                                    $("#ResponseMsg1").html("Payment successfull");
-                                    saveupdateApplicant();
-                                    window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
+                    saveupdateApplicant(2);
 
-                                } else {
-                                    $.alert({
-                                        title: "",
-                                        content: "Payment failed",
-                                        type: 'red'
-                                    });
-                                }
-                            }
-                        }
-                    });
+                    //$.ajax({
+                    //    url: "/ApplyNow/saveCoAppPayment/",
+                    //    type: "post",
+                    //    contentType: "application/json utf-8",
+                    //    data: JSON.stringify(model),
+                    //    dataType: "JSON",
+                    //    success: function (response) {
+                    //        if (response.Msg != "") {
+                    //            if (response.Msg == "1") {
+                    //                $("#ResponseMsg1").html("Payment successfull");
+                                    
+                    //                //window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
+                    //            } else {
+                    //                $.alert({
+                    //                    title: "",
+                    //                    content: "Payment failed",
+                    //                    type: 'red'
+                    //                });
+                    //            }
+                    //        }
+                    //    }
+                    //});
                 }
             },
             no: {

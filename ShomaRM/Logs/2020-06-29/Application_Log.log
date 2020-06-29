@@ -1,6 +1,46 @@
 
 
-Date - 29 Jun 2020 13:44:08
+Date - 29 Jun 2020 16:15:23
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 29 Jun 2020 16:15:23
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 29 Jun 2020 16:16:01
 
 Level - INFO
 UserAgent - 
@@ -22,7 +62,217 @@ Logger: EmailSendModel.cs
 
 
 
-Date - 29 Jun 2020 13:44:08
+Date - 29 Jun 2020 16:16:02
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 29 Jun 2020 18:58:53
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 29 Jun 2020 18:58:53
+
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 29 Jun 2020 18:59:02
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 29 Jun 2020 18:59:02
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 29 Jun 2020 19:02:35
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: One or more errors occurred.
+Exception Details - A task was canceled.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.AggregateException: One or more errors occurred. ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at ShomaRM.Models.Web.Deliver(ISendGrid message) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\Web.cs:line 70
+   at ShomaRM.Models.EmailSendModel.SendAsync(SendGridMessage message, String SGUserName, String SGPassword) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs:line 91
+---> (Inner Exception #0) System.Threading.Tasks.TaskCanceledException: A task was canceled.<---
+
+
+Date - 29 Jun 2020 19:02:35
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: One or more errors occurred.
+Exception Details - A task was canceled.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.AggregateException: One or more errors occurred. ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.
+   --- End of inner exception stack trace ---
+   at ShomaRM.Models.EmailSendModel.SendEmailWithAttachment(String ToEmail, String Subject, String Body, List`1 FilePath) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs:line 76
+---> (Inner Exception #0) System.Threading.Tasks.TaskCanceledException: A task was canceled.<---
+
+
+Date - 29 Jun 2020 19:03:26
+
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 29 Jun 2020 19:03:26
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 29 Jun 2020 19:03:31
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 29 Jun 2020 19:03:31
 
 Level - INFO
 UserAgent - 
@@ -44,7 +294,47 @@ Logger: EmailSendModel.cs
 
 
 
-Date - 29 Jun 2020 13:45:17
+Date - 29 Jun 2020 19:11:42
+
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+Date - 29 Jun 2020 19:11:42
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 29 Jun 2020 19:12:15
 
 Level - INFO
 UserAgent - 
@@ -66,7 +356,7 @@ Logger: EmailSendModel.cs
 
 
 
-Date - 29 Jun 2020 13:45:17
+Date - 29 Jun 2020 19:12:15
 
 Level - INFO
 UserAgent - 
@@ -88,7 +378,8 @@ Logger: EmailSendModel.cs
 
 
 
-Date - 29 Jun 2020 13:34:48
+Date - 29 Jun 2020 19:15:08
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -108,27 +399,9 @@ Logger: EmailSendModel.cs
 
 
 
-Date - 29 Jun 2020 15:13:54
-Level - INFO
-UserAgent - 
-Message - 
-Method SendAsync -Success
 
-User Referrer: localhost:53678
+Date - 29 Jun 2020 19:15:08
 
-Browser Name: Firefox
-
-File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
-
-Method Name: SendAsync
-
-Line Number: 92
-
-Logger: EmailSendModel.cs
-
-
-
-Date - 29 Jun 2020 15:13:54
 Level - INFO
 UserAgent - 
 Message - 
@@ -148,7 +421,9 @@ Logger: EmailSendModel.cs
 
 
 
-Date - 29 Jun 2020 15:14:18
+
+Date - 29 Jun 2020 19:33:15
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -168,7 +443,9 @@ Logger: EmailSendModel.cs
 
 
 
-Date - 29 Jun 2020 15:14:18
+
+Date - 29 Jun 2020 19:33:15
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -188,7 +465,9 @@ Logger: EmailSendModel.cs
 
 
 
-Date - 29 Jun 2020 15:18:26
+
+Date - 29 Jun 2020 19:33:28
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -208,7 +487,31 @@ Logger: EmailSendModel.cs
 
 
 
-Date - 29 Jun 2020 15:18:26
+
+Date - 29 Jun 2020 19:39:34
+
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+
+Date - 29 Jun 2020 19:39:34
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -228,67 +531,8 @@ Logger: EmailSendModel.cs
 
 
 
-Date - 29 Jun 2020 15:19:13
-Level - INFO
-UserAgent - 
-Message - 
-Method SendAsync -Success
 
-User Referrer: localhost:53678
-
-Browser Name: Firefox
-
-File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
-
-Method Name: SendAsync
-
-Line Number: 92
-
-Logger: EmailSendModel.cs
-
-
-
-Date - 29 Jun 2020 15:32:07
-Level - INFO
-UserAgent - 
-Message - 
-Method SendAsync -Success
-
-User Referrer: localhost:53678
-
-Browser Name: Firefox
-
-File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
-
-Method Name: SendAsync
-
-Line Number: 92
-
-Logger: EmailSendModel.cs
-
-
-
-Date - 29 Jun 2020 15:32:07
-Level - INFO
-UserAgent - 
-Message - 
-Method SendEmail -Success
-
-User Referrer: localhost:53678
-
-Browser Name: Firefox
-
-File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
-
-Method Name: SendEmail
-
-Line Number: 36
-
-Logger: EmailSendModel.cs
-
-
-
-Date - 29 Jun 2020 15:32:45
+Date - 29 Jun 2020 19:40:07
 
 Level - INFO
 UserAgent - 

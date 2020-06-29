@@ -27,6 +27,7 @@ namespace ShomaRM.Controllers
         public async System.Threading.Tasks.Task<ActionResult> IndexAsync()
         {
 
+
             var bmservice = new BluemoonService();
             LeaseResponseModel authenticateData = await bmservice.CreateSession();
             LeaseRequestModel leaseRequestModel = new LeaseRequestModel();

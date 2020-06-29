@@ -111,11 +111,11 @@ namespace ShomaRM.Models
                 //Saving CRAOrderId and tenant id result in database 
                 foreach (var item in result)
                 {
-                    BackgroundScreeningModel backgroundscreening = new BackgroundScreeningModel();
-                    backgroundscreening.Type = item.FirstAttribute.Value;
-                    backgroundscreening.OrderID = Convert.ToInt32(item.LastAttribute.Value);
-                    backgroundscreening.TenantId = Convert.ToInt32(data.ProspectID);
-                    saveresult = (new BackgroundScreeningModel().SaveBackgroundScreening(backgroundscreening));
+                    //BackgroundScreeningModel backgroundscreening = new BackgroundScreeningModel();
+                    //backgroundscreening.Type = item.FirstAttribute.Value;
+                    //backgroundscreening.OrderID = Convert.ToInt32(item.LastAttribute.Value);
+                    //backgroundscreening.TenantId = Convert.ToInt32(data.ProspectID);
+                    //saveresult = (new BackgroundScreeningModel().SaveBackgroundScreening(backgroundscreening));
                 }
             }
             return null;
@@ -186,11 +186,11 @@ namespace ShomaRM.Models
                 //Saving CRAOrderId and tenant id result in database 
                 foreach (var item in result)
                 {
-                    BackgroundScreeningModel backgroundscreening = new BackgroundScreeningModel();
-                    backgroundscreening.Type = item.FirstAttribute.Value;
-                    backgroundscreening.OrderID = Convert.ToInt32(item.LastAttribute.Value);
-                    backgroundscreening.TenantId = Convert.ToInt32(data.ProspectID);
-                    saveresult = (new BackgroundScreeningModel().SaveBackgroundScreening(backgroundscreening));
+                    //BackgroundScreeningModel backgroundscreening = new BackgroundScreeningModel();
+                    //backgroundscreening.Type = item.FirstAttribute.Value;
+                    //backgroundscreening.OrderID = Convert.ToInt32(item.LastAttribute.Value);
+                    //backgroundscreening.TenantId = Convert.ToInt32(data.ProspectID);
+                    //saveresult = (new BackgroundScreeningModel().SaveBackgroundScreening(backgroundscreening));
                 }
             }
             return null;
@@ -265,11 +265,11 @@ namespace ShomaRM.Models
                 //Saving CRAOrderId and tenant id result in database 
                 foreach (var item in result)
                 {
-                    BackgroundScreeningModel backgroundscreening = new BackgroundScreeningModel();
-                    backgroundscreening.Type = item.FirstAttribute.Value;
-                    backgroundscreening.OrderID = Convert.ToInt32(item.LastAttribute.Value);
-                    backgroundscreening.TenantId = Convert.ToInt32(data.ProspectID);
-                    saveresult = (new BackgroundScreeningModel().SaveBackgroundScreening(backgroundscreening));
+                    //BackgroundScreeningModel backgroundscreening = new BackgroundScreeningModel();
+                    //backgroundscreening.Type = item.FirstAttribute.Value;
+                    //backgroundscreening.OrderID = Convert.ToInt32(item.LastAttribute.Value);
+                    //backgroundscreening.TenantId = Convert.ToInt32(data.ProspectID);
+                    //saveresult = (new BackgroundScreeningModel().SaveBackgroundScreening(backgroundscreening));
                 }
             }
             return null;
@@ -341,11 +341,11 @@ namespace ShomaRM.Models
                 var saveresult = "";
                 foreach (var item in result)
                 {
-                    BackgroundScreeningModel backgroundscreening = new BackgroundScreeningModel();
-                    backgroundscreening.Type = item.FirstAttribute.Value;
-                    backgroundscreening.OrderID = Convert.ToInt32(item.LastAttribute.Value);
-                    backgroundscreening.TenantId = Convert.ToInt32(data.ID);
-                    saveresult = (new BackgroundScreeningModel().SaveBackgroundScreening(backgroundscreening));
+                    //BackgroundScreeningModel backgroundscreening = new BackgroundScreeningModel();
+                    //backgroundscreening.Type = item.FirstAttribute.Value;
+                    //backgroundscreening.OrderID = Convert.ToInt32(item.LastAttribute.Value);
+                    //backgroundscreening.TenantId = Convert.ToInt32(data.ID);
+                    //saveresult = (new BackgroundScreeningModel().SaveBackgroundScreening(backgroundscreening));
                 }
             }
             return bgresult;

@@ -195,11 +195,11 @@ namespace ShomaRM.Controllers
                 return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public async System.Threading.Tasks.Task<ActionResult> saveCoAppPayment(ApplyNowModel model)
+        public ActionResult saveCoAppPayment(ApplyNowModel model)
         {
             try
             {
-                string msg = await (new ApplyNowModel().saveCoAppPayment(model));
+                string msg =(new ApplyNowModel()).saveCoAppPayment(model);
                 return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -209,11 +209,11 @@ namespace ShomaRM.Controllers
         }
 
         //Sachin M 09 June 2020
-        public async System.Threading.Tasks.Task<ActionResult> saveListPayment(ApplyNowModel model)
+        public ActionResult saveListPayment(ApplyNowModel model)
         {
             try
             {
-                string msg = await (new ApplyNowModel().saveListPayment(model));
+                string msg = (new ApplyNowModel().saveListPayment(model));
                 return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -222,11 +222,11 @@ namespace ShomaRM.Controllers
             }
         }
         //Sachin M 25 June 2020
-        public async System.Threading.Tasks.Task<ActionResult> saveListPaymentFinalStep(ApplyNowModel model)
+        public ActionResult saveListPaymentFinalStep(ApplyNowModel model)
         {
             try
             {
-                string msg = await (new ApplyNowModel().saveListPaymentFinalStep(model));
+                string msg = (new ApplyNowModel().saveListPaymentFinalStep(model));
                 return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

@@ -896,7 +896,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
             $("#hndGotoSummary").val(6);
-            
+
             if ($("#hdnOPId").val() != '0') {
                 getStaticApplicantValuesCoApplicant();
             }
@@ -1010,17 +1010,17 @@ var goToStep = function (stepid, id, calldataupdate) {
             var grandPercentageMo = localStorage.getItem("percentageMo");
             var grandPercentageAF = localStorage.getItem("percentageAF");
 
-            if (grandPercentage != 100 || grandPercentageMo != 100 || grandPercentageAF != 100) {
-                msg = "For Move In Charges and Monthly Payment and Administration Fee the total must equal 100% in order to continue.";
+            //if (grandPercentage != 100 || grandPercentageMo != 100 || grandPercentageAF != 100) {
+            //    msg = "For Move In Charges and Monthly Payment and Administration Fee the total must equal 100% in order to continue.";
 
-                $.alert({
-                    title: "",
-                    content: msg,
-                    type: 'red'
-                });
-                return;
-            }
-            else {
+            //    $.alert({
+            //        title: "",
+            //        content: msg,
+            //        type: 'red'
+            //    });
+            //    return;
+            //}
+            //else {
                 $("#popApplicantSummary").modal("hide");
                 saveupdatePaymentResponsibilityCoAppli(9);  //Amit's work
                 $("#step2").addClass("hidden");
@@ -1054,15 +1054,15 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
                 $("#hndGotoSummary").val(9);
-            }
+            //}
 
-            if (msg != "") {
-                $.alert({
-                    title: "",
-                    content: msg,
-                    type: 'red'
-                });
-            }
+            //if (msg != "") {
+            //    $.alert({
+            //        title: "",
+            //        content: msg,
+            //        type: 'red'
+            //    });
+            //}
         }
     }
     if (stepid == "10") {
@@ -1755,7 +1755,7 @@ var getStepCompletedMsg = function (currentstep, clickstep) {
 };
 
 var showCurrentStep = function (stepid, id) {
-    
+
     if (stepid == "6") {
 
         $("#subMenu").addClass("hidden");
@@ -2697,7 +2697,8 @@ var SaveCheckPolicy = function (stepcompleted) {
     });
 }
 function savePayment() {
-    if ($("#chkTermsAndCondition").is(':unchecked')) {
+
+    if ($("#chkTermsAndCondition2").is(':unchecked')) {
         $("#divLoader").hide();
         $.alert({
             title: "",
@@ -2708,180 +2709,169 @@ function savePayment() {
     }
     $("#divLoader").show();
     var msg = "";
-    if (unformatText($("#totalFinalFees").text()) == 0) {
+    if ($("#hndTransMethod2").val() == "0") {
         $("#divLoader").hide();
         $.alert({
             title: "",
-            content: "Please Select to Pay </br>",
+            content: "Please Select Payment Method</br>",
             type: 'red'
         });
         return;
-    } else {
-        var isSummarychecked = $("#chkAgreeSummarry").is(":checked") ? "1" : "0";
-        if ($("#hndTransMethod").val() == "0") {
+    }
+
+    var paymentMethod = 2;
+    var propertyId = 0;
+    var nameonCard = "";
+    var cardNumber = "";
+    var cardMonth = 0;
+    var cardYear = 0;
+    var ccvNumber = "";
+    var prospectID = 0;
+    var amounttoPay = 0;
+    var description = "";
+
+    if ($("#hndTransMethod2").val() == "2") {
+        paymentMethod = 2;
+        propertyId = $("#hndUID").val();
+        nameonCard = $("#txtNameonCard2").val();
+        cardNumber = $("#txtCardNumber2").val();
+        cardMonth = $("#ddlcardmonth2").val();
+        cardYear = $("#ddlcardyear2").val();
+        ccvNumber = $("#txtCCVNumber2").val();
+        prospectID = $("#hdnOPId").val();
+        amounttoPay = unformatText($("#sppayFees2").text());
+        description = $("#lblpopcctitle").text();
+
+        routingNumber = $("#txtRoutingNumber2").val();
+        bankName = $("#txtBankName1").val();
+
+        if (!nameonCard) {
+            msg += "Please Enter Name on Card</br>";
+        }
+        if (cardNumber == "" || cardNumber.length != 16) {
+            msg += "Please enter your 16 digit Card Number</br>";
+        }
+        if (cardMonth == "0") {
+            msg += "Please enter Card Month</br>";
+        }
+        if (cardYear == "0") {
+            msg += "Please enter Card Year</br>";
+        }
+
+        var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
+        var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+
+        GivenDate = new Date(GivenDate);
+        CurrentDate = new Date(CurrentDate);
+
+        if (GivenDate <= CurrentDate) {
+            msg += "Your Credit Card Expired..</br>";
+        }
+
+        if (msg != "") {
             $("#divLoader").hide();
             $.alert({
                 title: "",
-                content: "Please Select Payment Method</br>",
+                content: msg,
                 type: 'red'
             });
             return;
-
+        }
+    } else {
+        paymentMethod = 1;
+        nameonCard = $("#txtAccountName2").val();
+        cardNumber = $("#txtAccountNumber2").val();
+        cardMonth = 0;
+        cardYear = 0;
+        ccvNumber = 0;
+        routingNumber = $("#txtRoutingNumber2").val();
+        bankName = $("#txtBankName2").val();
+        amounttoPay = unformatText($("#sppayFees2").text());
+        description = $("#lblpopcctitle").text();
+        prospectID = $("#hdnOPId").val();
+        propertyId = $("#hndUID").val();
+        if (nameonCard == "") {
+            msg += "Please Enter Account Name</br>";
+        }
+        if (cardNumber == "") {
+            msg += "Please Enter Account Number</br>";
         }
 
-        if ($("#hndTransMethod").val() == 2) {
-            var paymentMethod = 2;
-            var propertyId = $("#hndUID").val();
-            var nameonCard = $("#txtNameonCard").val();
-            var cardNumber = $("#txtCardNumber").val();
-            var cardMonth = $("#ddlcardmonth").val();
-            var cardYear = $("#ddlcardyear").val();
-            var ccvNumber = $("#txtCCVNumber").val();
-            var prospectID = $("#hdnOPId").val();
-            var amounttoPay = unformatText($("#totalFinalFees").text());
-            var description = "Background Check fees";
-            var glTrans_Description = $("#payDes").text();
-            var routingNumber = $("#txtRoutingNumber").val();
-            var bankName = $("#txtBankName").val();
-
-            if (!nameonCard) {
-                msg += "Please Enter Name on Card</br>";
-            }
-            if (cardNumber == "" || cardNumber.length != 16) {
-                msg += "Please enter your 16 digit Card Number</br>";
-            }
-            if (cardMonth == "0") {
-                msg += "Please enter Card Month</br>";
-            }
-            if (cardYear == "0") {
-                msg += "Please enter Card Year</br>";
-            }
-            if (ccvNumber < 3) {
-                msg += "Please enter CVV Number and It must be 3 digit long</br>";
-            }
-
-            var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
-            var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-
-            GivenDate = new Date(GivenDate);
-            CurrentDate = new Date(CurrentDate);
-
-            if (GivenDate < CurrentDate) {
-                msg += "Your Credit Card Expired..</br>";
-            }
-
-            if (msg != "") {
-                $("#divLoader").hide();
-                $.alert({
-                    title: "",
-                    content: msg,
-                    type: 'red'
-                });
-                return;
-            }
-        } else {
-            var paymentMethod = 1;
-            var propertyId = $("#hndUID").val();
-            var nameonCard = $("#txtAccountName").val();
-            var cardNumber = $("#txtAccountNumber").val();
-            var cardMonth = 0;
-            var cardYear = 0;
-            var routingNumber = $("#txtRoutingNumber").val();
-            var ccvNumber = $("#txtRoutingNumber").val();
-            var bankName = $("#txtBankName").val();
-            var prospectID = $("#hdnOPId").val();
-            var amounttoPay = unformatText($("#totalFinalFees").text());
-            var description = "Online Application Non Refundable fees";
-            var glTrans_Description = $("#payDes").text();
-            if (bankName == "") {
-                msg += "Please Enter Bank Name</br>";
-            }
-            if (nameonCard == "") {
-                msg += "Please Enter Account Name</br>";
-            }
-            if (cardNumber == "") {
-                msg += "Please Enter Account Number</br>";
-            }
-            if (ccvNumber == "") {
-                msg += "Please Enter Routing Number</br>";
-            }
-            if (msg != "") {
-                $("#divLoader").hide();
-                $.alert({
-                    title: "",
-                    content: msg,
-                    type: 'red'
-                });
-                return;
-            }
+        if (msg != "") {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
         }
+    }
+    var model = {
+        PID: propertyId,
+        Name_On_Card: nameonCard,
+        CardNumber: cardNumber,
+        AccountNumber: cardNumber,
+        CardMonth: cardMonth,
+        CardYear: cardYear,
+        CCVNumber: ccvNumber,
+        Charge_Amount: amounttoPay,
+        ProspectID: prospectID,
+        Description: description,
 
+        RoutingNumber: routingNumber,
+        BankName: bankName,
+        PaymentMethod: paymentMethod,
 
-        var model = {
-            PID: propertyId,
-            Name_On_Card: nameonCard,
-            CardNumber: cardNumber,
-            AccountNumber: cardNumber,
-            CardMonth: cardMonth,
-            CardYear: cardYear,
-            CCVNumber: ccvNumber,
-            Charge_Amount: amounttoPay,
-            ProspectID: prospectID,
-            Description: description,
-            GL_Trans_Description: glTrans_Description,
-            RoutingNumber: routingNumber,
-            BankName: bankName,
-            PaymentMethod: paymentMethod,
-            AcceptSummary: isSummarychecked,
-            lstApp: addApplicntArrayCoapplicant,
-        };
-        $.alert({
-            title: "",
-            content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesCoApplicant()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesCoApplicant())).toFixed(2) + ". Do you want to Pay Now?",
-            type: 'blue',
-            buttons: {
-                yes: {
-                    text: 'Yes',
-                    action: function (yes) {
-                        $.ajax({
-                            url: "/ApplyNow/SavePaymentDetails/",
-                            type: "post",
-                            contentType: "application/json utf-8",
-                            data: JSON.stringify(model),
-                            dataType: "JSON",
-                            success: function (response) {
-                                $("#divLoader").hide();
-                                if (response.Msg == "1") {
-                                    //$("#carddetails").addClass("hidden");
-                                    $(".payNext").removeAttr("disabled");
-                                    $("#ResponseMsg").html("Payment Successfull");
-                                    $.alert({
-                                        title: "",
-                                        content: "Payment Successfull",
-                                        type: 'red'
-                                    });
-                                    getTransationLists($("#hdnUserId").val());
-                                    getApplicantListsCoApplicant();
-                                } else {
-                                    $.alert({
-                                        title: "",
-                                        content: "Payment Failed",
-                                        type: 'red'
-                                    });
-                                }
+        lstApp: addApplicntArrayCoapplicant,
+    };
+    $.alert({
+        title: "",
+        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesCoApplicant()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesCoApplicant())).toFixed(2) + ". Do you want to Pay Now?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: "/ApplyNow/SavePaymentDetails/",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $("#divLoader").hide();
+                            if (response.Msg == "1") {
+                                //$("#carddetails").addClass("hidden");
+                                $(".payNext").removeAttr("disabled");
+                                $("#ResponseMsg").html("Payment Successfull");
+                                $.alert({
+                                    title: "",
+                                    content: "Payment Successfull",
+                                    type: 'red'
+                                });
+                                getTransationLists($("#hdnUserId").val());
+                                getApplicantListsCoApplicant();
+                            } else {
+                                $.alert({
+                                    title: "",
+                                    content: "Payment Failed",
+                                    type: 'red'
+                                });
                             }
-                        });
-                    }
-                },
-                no: {
-                    text: 'No',
-                    action: function (no) {
-                        $("#divLoader").hide();
-                    }
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                    $("#divLoader").hide();
                 }
             }
-        });
-    }
+        }
+    });
+
 }
 var getApplicantListsCoApplicant = function () {
     var model = {
@@ -3390,7 +3380,7 @@ var getApplicantListsCoApplicant = function () {
                     var totalCoAppl = noofCapl;
                     var totalMinor = noofminor;
                     var total = 0;
-                   // console.log("Applicant:" + totalAppl + " Co-app:" + totalCoAppl + " Minor:" + totalMinor);
+                    // console.log("Applicant:" + totalAppl + " Co-app:" + totalCoAppl + " Minor:" + totalMinor);
                     if (nofbed == 1) {
                         total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
                         if (totalCoAppl <= parseInt(totalPeople) - 1) {
@@ -4859,7 +4849,7 @@ var saveupdateStorageCoApplicant = function () {
 var addApplicantCoApplicant = function (at) {
     var modal = $("#popApplicant");
     if (at == 1) {
-        $("#appphone,#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+        $("#appphone,#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").addClass("hidden");
         //modal.find('.modal-content').css("height", "350px");
         modal.find('.modal-title').text('Add Co-Applicant');
         $("#popApplicant").modal("show");
@@ -4904,7 +4894,7 @@ var addApplicantCoApplicant = function (at) {
         $("#hndNewCoApp").val("1");
     }
     else if (at == 2) {
-        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").addClass("hidden");
         //modal.find('.modal-content').css("height", "300px");
         modal.find('.modal-title').text('Add Minor');
         $("#popApplicant").modal("show");
@@ -4929,7 +4919,7 @@ var addApplicantCoApplicant = function (at) {
         $("#appemail").addClass("hidden");
     }
     else if (at == 3) {
-        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").addClass("hidden");
         //modal.find('.modal-content').css("height", "350px");
         modal.find('.modal-title').text('Add Guarantor');
         $("#popApplicant").modal("show");
@@ -4978,7 +4968,7 @@ var addApplicantCoApplicant = function (at) {
     //$("#popApplicant").PopupWindow("open");
     $("#popApplicant").modal("show");
 };
-var saveupdateApplicantCoApplicant = function () {
+var saveupdateApplicantCoApplicant = function (callFrom) {
 
     $("#divLoader").show();
     var checkEmail = 0;
@@ -4994,7 +4984,7 @@ var saveupdateApplicantCoApplicant = function () {
     var type = $("#ddlApplicantType").text();
     var aotherGender = $("#txtApplicantOtherGender").val();
     var applicantSSNNumber = $("#txtApplicantSSNNumber").attr("data-value");
- 
+
     //var applicantIDNumber = $("#txtApplicantIDNumber").attr("data-value");
     //var applicantIDType = $("#ddlApplicantDocumentTypePersonal").val();
     //var applicantStateDoc = $("#ddlApplicantStateDoc").val();
@@ -5214,15 +5204,86 @@ var saveupdateApplicantCoApplicant = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: "Progress Saved.",
-                type: 'blue',
-            });
-            getApplicantListsCoApplicant();
-            //$("#popApplicant").PopupWindow("close");
-            $("#popApplicant").modal("hide");
+            if (callFrom == 1) {
+                $("#divLoader").hide();
+                $.alert({
+                    title: "",
+                    content: "Progress Saved.",
+                    type: 'blue',
+                });
+                getApplicantListsCoApplicant();
+                //$("#popApplicant").PopupWindow("close");
+                $("#popApplicant").modal("hide");
+            }
+            else {
+                if ($("#hndTransMethod1").val() == "2") {
+                    var paymentMethod = 2;
+                    var propertyId = $("#hndUID").val();
+                    var nameonCard = $("#txtNameonCard1").val();
+                    var cardNumber = $("#txtCardNumber1").val();
+                    var cardMonth = $("#ddlcardmonth1").val();
+                    var cardYear = $("#ddlcardyear1").val();
+                    var ccvNumber = $("#txtCCVNumber1").val();
+                    var prospectID = $("#hdnOPId").val();
+                    var amounttoPay = unformatText($("#sppayFees").text());
+                    var description = $("#lblpopcctitle").text();
+                    var routingNumber = $("#txtRoutingNumber1").val();
+                    var bankName = $("#txtBankName1").val();
+                } else {
+                    var paymentMethod = 1;
+                    var nameonCard = $("#txtAccountName1").val();
+                    var cardNumber = $("#txtAccountNumber1").val();
+                    var cardMonth = 0;
+                    var cardYear = 0;
+                    var ccvNumber = 0;
+                    var routingNumber = $("#txtRoutingNumber1").val();
+                    var bankName = $("#txtBankName1").val();
+                    var amounttoPay = unformatText($("#sppayFees").text());
+                    var description = $("#lblpopcctitle").text();
+                    var prospectID = $("#hdnOPId").val();
+                    var propertyId = $("#hndUID").val();
+                }
+                var model = {
+                    PID: propertyId,
+                    Name_On_Card: nameonCard,
+                    CardNumber: cardNumber,
+                    CardMonth: cardMonth,
+                    CardYear: cardYear,
+                    CCVNumber: ccvNumber,
+                    Charge_Amount: amounttoPay,
+                    Charge_Type: "4",
+                    ProspectID: prospectID,
+                    Description: description,
+                    GL_Trans_Description: description,
+                    RoutingNumber: routingNumber,
+                    BankName: bankName,
+                    PaymentMethod: paymentMethod,
+                    AID: $("#hndApplicantID").val(),
+                    FromAcc: $("#hndFromAcc").val(),
+                    IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
+                };
+                $.ajax({
+                    url: "/ApplyNow/saveCoAppPayment/",
+                    type: "post",
+                    contentType: "application/json utf-8",
+                    data: JSON.stringify(model),
+                    dataType: "JSON",
+                    success: function (response) {
+                        if (response.Msg != "") {
+                            if (response.Msg == "1") {
+                                $("#ResponseMsg1").html("Payment successfull");
+                                window.location = "/ApplyNow/CoApplicantDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val();
+                            } else {
+                                $.alert({
+                                    title: "",
+                                    content: "Payment failed",
+                                    type: 'red'
+                                });
+                            }
+                        }
+                    }
+                });
+            }
         }
     });
 }
@@ -5232,13 +5293,41 @@ var totnotpaid = 0;
 var payFeePop = function (aid, ct) {
     $("#hndApplicantID").val(aid);
     $("#hndFromAcc").val(ct);
-    if (ct == 5) {
-        $("#lblpopcctitle").text("Pay Background Check Fees");
-        $("#sppayFees2").text($("#hndAppBackgroundFees").val());
-    } else if (ct == 4) {
-        $("#lblpopcctitle").text("Pay Credit Check Fees");
-        $("#sppayFees2").text($("#hndAppCreditFees").val());
-    } 
+
+    var hasCF = false;
+    var hasBF = false;
+
+    $.each(addApplicntArrayCoapplicant, function (elementType, elementValue) {
+        if (elementValue.Type == 4) {
+            hasCF = true;
+        }
+        if (elementValue.Type == 5) {
+            hasBF = true;
+        }
+    });
+
+
+
+    if (hasCF == true && hasBF == true) {
+        $("#lblpopcctitle").text("Pay Remaining Fees");
+        $("#sppayFees2").text(unformatText($("#totalFinalFees").text()));
+        $("#hndFinalPaybutton").val(1);
+        $("#hndFromAcc").val(1);
+    }
+    else {
+        if (ct == 5) {
+            $("#lblpopcctitle").text("Pay Background Check Fees");
+            $("#sppayFees2").text($("#hndAppBackgroundFees").val());
+        } else if (ct == 4) {
+            $("#lblpopcctitle").text("Pay Credit Check Fees");
+            $("#sppayFees2").text($("#hndAppCreditFees").val());
+        } else {
+            $("#lblpopcctitle").text("Pay Remaining Fees");
+            $("#sppayFees2").text(unformatText($("#totalFinalFees").text()));
+            $("#hndFinalPaybutton").val(1);
+        }
+    }
+    
     getBankCCLists();
     clearPayFeePop();
     $("#popCCPay").modal("show");
@@ -5294,7 +5383,7 @@ var goToEditApplicant = function (aid) {
                     $("#chkNoSSN").iCheck('uncheck');
                 }
                 if (response.model.Type == "Primary Applicant") {
-                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
+                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").removeClass("hidden");
                     //modal.find('.modal-content').css("height", "530px");
                     modal.find('.modal-title').text('Edit Primary Applicant');
                     $("#popApplicant").modal("show");
@@ -5342,7 +5431,7 @@ var goToEditApplicant = function (aid) {
                 }
                 else if (response.model.Type == "Co-Applicant") {
                     if (response.model.ApplicantAddedBy == $('#hndCoAppUserId').val()) {
-                        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+                        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").addClass("hidden");
                         //modal.find('.modal-content').css("height", "350px");
                         modal.find('.modal-title').text('Edit Co-Applicant');
                         $("#popApplicant").modal("show");
@@ -5403,7 +5492,7 @@ var goToEditApplicant = function (aid) {
                         }
                     }
                     else {
-                        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
+                        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").removeClass("hidden");
                         //modal.find('.modal-content').css("height", "530px");
                         modal.find('.modal-title').text('Edit Co-Applicant');
                         $("#popApplicant").modal("show");
@@ -5467,7 +5556,7 @@ var goToEditApplicant = function (aid) {
                     }
                 }
                 else if (response.model.Type == "Guarantor") {
-                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").addClass("hidden");
                     //modal.find('.modal-content').css("height", "350px");
                     modal.find('.modal-title').text('Edit Guarantor');
                     $("#popApplicant").modal("show");
@@ -5516,7 +5605,7 @@ var goToEditApplicant = function (aid) {
 
                 }
                 else if (response.model.Type == "Minor") {
-                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").addClass("hidden");
                     //modal.find('.modal-content').css("height", "300px");
                     modal.find('.modal-title').text('Edit Minor');
                     $("#popApplicant").modal("show");
@@ -5655,7 +5744,7 @@ var saveupdatePetCoApplicant = function () {
         dataType: 'json',
         success: function (response) {
             $("#divLoader").hide();
-           // console.log(response.Msg);
+            // console.log(response.Msg);
             getPetListsCoApplicant();
 
             localStorage.setItem('tenantIds', response.Msg);
@@ -9800,25 +9889,25 @@ function saveCoAppPayment() {
         });
         return;
     }
-    var model = {
-        PID: propertyId,
-        Name_On_Card: nameonCard,
-        CardNumber: cardNumber,
-        CardMonth: cardMonth,
-        CardYear: cardYear,
-        CCVNumber: ccvNumber,
-        Charge_Amount: amounttoPay,
-        Charge_Type: "4",
-        ProspectID: prospectID,
-        Description: description,
-        GL_Trans_Description: description,
-        RoutingNumber: routingNumber,
-        BankName: bankName,
-        PaymentMethod: paymentMethod,
-        AID: $("#hndApplicantID").val(),
-        FromAcc: $("#hndFromAcc").val(),
-        IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
-    };
+    //var model = {
+    //    PID: propertyId,
+    //    Name_On_Card: nameonCard,
+    //    CardNumber: cardNumber,
+    //    CardMonth: cardMonth,
+    //    CardYear: cardYear,
+    //    CCVNumber: ccvNumber,
+    //    Charge_Amount: amounttoPay,
+    //    Charge_Type: "4",
+    //    ProspectID: prospectID,
+    //    Description: description,
+    //    GL_Trans_Description: description,
+    //    RoutingNumber: routingNumber,
+    //    BankName: bankName,
+    //    PaymentMethod: paymentMethod,
+    //    AID: $("#hndApplicantID").val(),
+    //    FromAcc: $("#hndFromAcc").val(),
+    //    IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
+    //};
 
     $.alert({
         title: "",
@@ -9828,28 +9917,29 @@ function saveCoAppPayment() {
             yes: {
                 text: 'Yes',
                 action: function (yes) {
-                    $.ajax({
-                        url: "/ApplyNow/saveCoAppPayment/",
-                        type: "post",
-                        contentType: "application/json utf-8",
-                        data: JSON.stringify(model),
-                        dataType: "JSON",
-                        success: function (response) {
-                            if (response.Msg != "") {
-                                if (response.Msg == "1") {
-                                    $("#ResponseMsg1").html("Payment successfull");
-                                    saveupdateApplicantCoApplicant();
-                                    window.location = "/ApplyNow/CoApplicantDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val();
-                                } else {
-                                    $.alert({
-                                        title: "",
-                                        content: "Payment failed",
-                                        type: 'red'
-                                    });
-                                }
-                            }
-                        }
-                    });
+                    saveupdateApplicantCoApplicant(2);
+                    //$.ajax({
+                    //    url: "/ApplyNow/saveCoAppPayment/",
+                    //    type: "post",
+                    //    contentType: "application/json utf-8",
+                    //    data: JSON.stringify(model),
+                    //    dataType: "JSON",
+                    //    success: function (response) {
+                    //        if (response.Msg != "") {
+                    //            if (response.Msg == "1") {
+                    //                $("#ResponseMsg1").html("Payment successfull");
+                    //                saveupdateApplicantCoApplicant(2);
+                    //                window.location = "/ApplyNow/CoApplicantDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val();
+                    //            } else {
+                    //                $.alert({
+                    //                    title: "",
+                    //                    content: "Payment failed",
+                    //                    type: 'red'
+                    //                });
+                    //            }
+                    //        }
+                    //    }
+                    //});
                 }
             },
             no: {
@@ -9973,7 +10063,7 @@ function saveCoAppPaymentPopup() {
         Charge_Type: "4",
         ProspectID: prospectID,
         Description: description,
-   
+
         RoutingNumber: routingNumber,
         BankName: bankName,
         PaymentMethod: paymentMethod,
@@ -10083,9 +10173,19 @@ var getBankCCLists = function () {
 
 function savePayNewEx() {
     if ($("#hndNeEx").val() == 1) {
-        saveCoAppPaymentPopup();
+        if ($("#hndFinalPaybutton").val() == 1) {
+            savePayment();
+        } else {
+            saveCoAppPaymentPopup();
+        }
+
     } else if ($("#hndNeEx").val() == 2) {
-        saveListPayment();
+
+        if ($("#hndFinalPaybutton").val() == 1) {
+            saveListPaymentFinal();
+        } else {
+            saveListPayment();
+        }
     }
 }
 function selectPay(paid) {
@@ -10205,7 +10305,7 @@ var getStaticApplicantValuesCoApplicant = function () {
         dataType: "JSON",
         success: function (response) {
             $("#divLoader").hide();
-            
+
             /*Select Option Starts*/
             $("#lblArea").text(response.model.AreaSqft);
             $("#lblLease").text(response.model.LeaseMonths);
@@ -10269,7 +10369,7 @@ var getStaticApplicantValuesCoApplicant = function () {
 
             /*Quotation Ends*/
             /*Responsibility left block Start*/
-            
+
             $("#lblVehicleFees1").text(formatMoney(response.model.VehicleRegistration));
             $("#lbdepo6").text(formatMoney(response.model.Deposit));
             // $("#lbdepo6").text(formatMoney(response.model.Deposit));
@@ -10293,20 +10393,114 @@ var getStaticApplicantValuesCoApplicant = function () {
     });
 };
 var checkResponsibilityCoApplicant = function () {
-    var grandPercentage = localStorage.getItem("percentage");
-    var grandPercentageMo = localStorage.getItem("percentageMo");
-    var grandPercentageAF = localStorage.getItem("percentageAF");
-    if (grandPercentage != 100 || grandPercentageMo != 100 || grandPercentageAF != 100) {
-        msg = "For Move In Charges and Monthly Payment and Administration Fee the total must equal 100% in order to continue.";
+    //var grandPercentage = localStorage.getItem("percentage");
+    //var grandPercentageMo = localStorage.getItem("percentageMo");
+    //var grandPercentageAF = localStorage.getItem("percentageAF");
+    //if (grandPercentage != 100 || grandPercentageMo != 100 || grandPercentageAF != 100) {
+    //    msg = "For Move In Charges and Monthly Payment and Administration Fee the total must equal 100% in order to continue.";
 
+    //    $.alert({
+    //        title: "",
+    //        content: msg,
+    //        type: 'red'
+    //    });
+    //    return;
+    //}
+    //else {
+        $("#popResponsibilityContinue").modal("show");
+    //}
+};
+function saveListPaymentFinal() {
+    if ($("#chkTermsAndCondition2").is(':unchecked')) {
+        $("#divLoader").hide();
         $.alert({
             title: "",
-            content: msg,
+            content: "Please accept Terms & Condition </br>",
             type: 'red'
         });
         return;
     }
-    else {
-        $("#popResponsibilityContinue").modal("show");
+    $("#divLoader").show();
+    var msg = "";
+    if ($("#hndPAID").val() == 0) {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Please Select Payment Account</br>",
+            type: 'red'
+        });
+        return;
     }
-};
+    if ($("#txtCVVList").val() == "") {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Please Enter CVV / Routing Number</br>",
+            type: 'red'
+        });
+        return;
+    }
+
+
+    var propertyId = $("#hndUID").val();
+    var prospectID = $("#hdnOPId").val();
+    var amounttoPay = unformatText($("#sppayFees2").text());
+    var description = $("#lblpopcctitle").text();
+    var cvvroutingNumber = $("#txtCVVList").val();
+
+    var model = {
+        PID: propertyId,
+        CCVNumber: cvvroutingNumber,
+        Charge_Amount: amounttoPay,
+        ProspectID: prospectID,
+        Description: description,
+        AID: $("#hndApplicantID").val(),
+        FromAcc: $("#hndFromAcc").val(),
+        PAID: $("#hndPAID").val(),
+
+        lstApp: addApplicntArrayCoapplicant,
+    };
+
+    $.alert({
+        title: "",
+        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesCoApplicant()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesCoApplicant())).toFixed(2) + ". Do you want to Pay Now?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: "/ApplyNow/saveListPaymentFinalStep/",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            if (response.Msg != "") {
+                                if (response.Msg == "1") {
+                                    $("#ResponseMsg2").html("Payment successfull");
+                                    if (parseInt($("#hndFromAcc").val()) == 4) {
+                                        $("#divAppWarning").addClass("hidden");
+                                        $("#btnnextAppinfo").removeClass("hidden");
+                                        $("#hndCreditPaid").val(1);
+                                    }
+                                    getApplicantListsCoApplicant();
+                                    getTransationLists($("#hdnUserId").val());
+                                    $("#popCCPay").modal("hide");
+                                } else {
+                                    $("#ResponseMsg2").html("Payment failed");
+                                }
+                            }
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                    $("#divLoader").hide();
+                }
+            }
+        }
+    });
+}

@@ -2283,31 +2283,30 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
-        public string UpdateBGCCStatus(int ID,int TenantID, int Status, string Notes)
-        {
+        //public string UpdateBGCCStatus(int ID,int TenantID, int Status, string Notes)
+        //{
 
-            string msg = "";
-            ShomaRMEntities db = new ShomaRMEntities();
+        //    string msg = "";
+        //    ShomaRMEntities db = new ShomaRMEntities();
 
-            if (ID != 0)
-            {
+        //    if (ID != 0)
+        //    {
+        //        var saveBGCC = new tbl_BackgroundScreening()
+        //        {
+        //            TenantId = TenantID,
+        //            Type="0",
+        //            OrderID = ID,
+        //            Status = Status.ToString(),
+        //            Notes = Notes,
+        //        };
+        //        db.tbl_BackgroundScreening.Add(saveBGCC);
+        //        db.SaveChanges();
 
-                var saveBGCC = new tbl_BackgroundScreening()
-                {
-                    TenantId = TenantID,
-                    Type="0",
-                    OrderID = ID,
-                    Status = Status.ToString(),
-                    Notes = Notes,
-                };
-                db.tbl_BackgroundScreening.Add(saveBGCC);
-                db.SaveChanges();
-
-                msg = " Status Saved Successfully";
-            }
-            db.Dispose();
-            return msg;
-        }
+        //        msg = " Status Saved Successfully";
+        //    }
+        //    db.Dispose();
+        //    return msg;
+        //}
         public TenantOnlineModel GetTenantOnlineList(int id, int userid)
         {
             ShomaRMEntities db = new ShomaRMEntities();
