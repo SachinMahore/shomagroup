@@ -1,4 +1,5 @@
 
+
 Date - 29 Jun 2020 16:15:23
 Level - INFO
 UserAgent - 
@@ -40,6 +41,7 @@ Logger: EmailSendModel.cs
 
 
 Date - 29 Jun 2020 16:16:01
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -56,6 +58,7 @@ Method Name: SendAsync
 Line Number: 92
 
 Logger: EmailSendModel.cs
+
 
 
 
@@ -100,6 +103,7 @@ Logger: EmailSendModel.cs
 
 
 Date - 29 Jun 2020 18:58:53
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -208,6 +212,7 @@ System.AggregateException: One or more errors occurred. ---> System.Threading.Ta
 
 
 Date - 29 Jun 2020 19:03:26
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -268,6 +273,7 @@ Logger: EmailSendModel.cs
 
 
 Date - 29 Jun 2020 19:03:31
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -287,7 +293,9 @@ Logger: EmailSendModel.cs
 
 
 
+
 Date - 29 Jun 2020 19:11:42
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -304,7 +312,6 @@ Method Name: SendAsync
 Line Number: 92
 
 Logger: EmailSendModel.cs
-
 
 
 Date - 29 Jun 2020 19:11:42
@@ -328,6 +335,7 @@ Logger: EmailSendModel.cs
 
 
 Date - 29 Jun 2020 19:12:15
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -344,10 +352,12 @@ Method Name: SendAsync
 Line Number: 92
 
 Logger: EmailSendModel.cs
+
 
 
 
 Date - 29 Jun 2020 19:12:15
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -367,7 +377,9 @@ Logger: EmailSendModel.cs
 
 
 
+
 Date - 29 Jun 2020 19:15:08
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -387,7 +399,9 @@ Logger: EmailSendModel.cs
 
 
 
+
 Date - 29 Jun 2020 19:15:08
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -407,7 +421,9 @@ Logger: EmailSendModel.cs
 
 
 
+
 Date - 29 Jun 2020 19:33:15
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -427,7 +443,9 @@ Logger: EmailSendModel.cs
 
 
 
+
 Date - 29 Jun 2020 19:33:15
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -444,10 +462,12 @@ Method Name: SendEmail
 Line Number: 36
 
 Logger: EmailSendModel.cs
+
 
 
 
 Date - 29 Jun 2020 19:33:28
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -467,7 +487,9 @@ Logger: EmailSendModel.cs
 
 
 
+
 Date - 29 Jun 2020 19:39:34
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -487,7 +509,9 @@ Logger: EmailSendModel.cs
 
 
 
+
 Date - 29 Jun 2020 19:39:34
+
 Level - INFO
 UserAgent - 
 Message - 
@@ -507,7 +531,9 @@ Logger: EmailSendModel.cs
 
 
 
+
 Date - 29 Jun 2020 19:40:07
+
 Level - INFO
 UserAgent - 
 Message - 
