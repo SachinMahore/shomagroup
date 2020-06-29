@@ -24,70 +24,42 @@ namespace ShomaRM.Controllers
     public class HomeController : TwilioController
     {
 
-        public ActionResult Index()
+        public async System.Threading.Tasks.Task<ActionResult> IndexAsync()
         {
-            //aptlyHelper aptlyHelper = new aptlyHelper();
-            //aptlyModel aptlyModel = new aptlyModel();
-            //aptlyModel.name = "Sanctuary Doral -ganesh";
-            //aptlyModel.Email = "ganesh@gmail.com";
-            //aptlyModel.FirstName = "ganesh bokde";
-            //aptlyModel.LastName = "bokde";
-            //aptlyModel.Phone = "+14152344159";
-            //aptlyModel.Building = "Sanctuary Doral";
-            //aptlyModel.Unit = "104";
-            //aptlyModel.UnitNumber = "104";
-            //aptlyModel.FloorPlan = "A1";
-            //aptlyModel.Stage = "Applicants";
-            //aptlyModel.SubStage = "Applicants";
-            //aptlyModel.LeaseTerm = "12";
-            //aptlyModel.MoveInDate = "2020-05-25";
-            //aptlyModel.QuoteExpires = "2020-05-01 24:00:00";
-            //aptlyModel.Pets = "Dog(s)";
 
-            //aptlyModel.PortalURL = "http://52.4.251.162:8086/Admin/ProspectVerification/EditProspect/1727";
-            //aptlyModel.CreditPaid = "False";
-            //aptlyModel.BackgroundCheckPaid = "true";
-            //RelatedContacts _objrelatedContacts = new RelatedContacts();
-            //_objrelatedContacts.FirstName = "Sanctuary Doral -ganesh";
-            //_objrelatedContacts.LastName = "Sanctuary Doral -ganesh";
-            //_objrelatedContacts.Email = "ganesh@gmail.com";
-            //_objrelatedContacts.Phone = "+14152344159";
-            //RelatedContacts _objrelatedContacts1 = new RelatedContacts();
-            //_objrelatedContacts1.FirstName = "Sanctuary Doral -ganesh1";
-            //_objrelatedContacts1.LastName = "Sanctuary Doral -ganesh1";
-            //_objrelatedContacts1.Email = "ganesh1@gmail.com";
-            //_objrelatedContacts1.Phone = "+919960239121";
-            //aptlyModel.RelatedContacts = new List<RelatedContacts>();
-            //aptlyModel.RelatedContacts.Add(_objrelatedContacts);
-            //      aptlyModel.RelatedContacts.Add(_objrelatedContacts1);
-            //var test = aptlyHelper.PostAptlyAsync(aptlyModel);
+            var bmservice = new BluemoonService();
+            LeaseResponseModel authenticateData = await bmservice.CreateSession();
+            LeaseRequestModel leaseRequestModel = new LeaseRequestModel();
 
-            //   CoreLogicHelper _corelogichelper = new CoreLogicHelper();
-            //   var LeaseTermsModel = new LeaseTermsModel();
-            //   LeaseTermsModel.MonthlyRent = "25.00";
-            //   LeaseTermsModel.LeaseMonths = "12";
-            //   LeaseTermsModel.SecurityDeposit = "25.00";
-            //   var applicant=new  Applicant();
-            //   applicant.CurrentRent = "50";
-            //   applicant.CustomerID = "111223";
-            //   applicant.ConsentObtained = "Yes";
-            //   applicant.EmploymentGrossIncome = "25";
-            //   applicant.ApplicantIdentifier = "abc123";
-            //   applicant.ApplicantType = "Applicant";
-            //   applicant.Birthdate = "1960-06-25";
-            //   applicant.SocSecNumber = "880544745";
-            //   applicant.FirstName = "Edwin";
-            //   applicant.LastName = "Avila";
-            //   applicant.Address1 = "85 Rebecca Ln";
-            //   applicant.City = "Youngsville";
-            //   applicant.State = "NC";
-            //   applicant.PostalCode = "27596";
-            //   applicant.UnparsedAddress = "85 Rebecca Ln";
+            leaseRequestModel.LEASE_BEGIN_DATE = "";
+            leaseRequestModel.LEASE_END_DATE = "";
 
-            //   string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant);
-            //   var keyValues = new List<KeyValuePair<string, string>>();
-            //   keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
-            //var data=   _corelogichelper.PostFormUrlEncoded<List<XElement>>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues);
+            leaseRequestModel.RESIDENT_1 = "Lalut";
+
+            LeaseResponseModel leaseCreateResponse = await bmservice.CreateLeaseCustomForm(leaseRequestModel: leaseRequestModel, PropertyId: "112154", sessionId: authenticateData.SessionId);
+            //var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == tid).FirstOrDefault();
+
+            //onlineProspectData.EnvelopeID = leaseCreateResponse.LeaseId;
+            //db.SaveChanges();
+
+            var leaseid = leaseCreateResponse.LeaseId;
+            List<EsignatureParty> esignatureParties = new List<EsignatureParty>();
+            esignatureParties.Add(new EsignatureParty()
+            {
+                Email = "info@sanctuarydoral.com",
+                IsOwner = true,
+                Name = "Sanctuary Doral",
+                Phone = "786-437-8658"
+            });
+
+            //for true =SHOMA_APPAGREE  AND FALSE SHOMA_RULESPOL
+            LeaseResponseModel EsignatureResponse = await bmservice.RequestCustomEsignature(leaseId: leaseid, sessionId: authenticateData.SessionId, esignatureParties: esignatureParties, AppAgree: true);
+
+            // this will not give pdf with signature right away because this will need to be called after residents will sign the esignature. 
+            // so please call it on any download lease document button 
+            // Note. please save the esignature id for downloading document 
+
+            LeaseResponseModel leaseDocumentWithEsignature = await bmservice.GetLeaseDocumentWithEsignature(SessionId: authenticateData.SessionId, EsignatureId: EsignatureResponse.EsignatureId);
 
 
 
