@@ -62,33 +62,35 @@ namespace ShomaRM.Controllers
             //      aptlyModel.RelatedContacts.Add(_objrelatedContacts1);
             //var test = aptlyHelper.PostAptlyAsync(aptlyModel);
 
-            //   CoreLogicHelper _corelogichelper = new CoreLogicHelper();
-            //   var LeaseTermsModel = new LeaseTermsModel();
-            //   LeaseTermsModel.MonthlyRent = "25.00";
-            //   LeaseTermsModel.LeaseMonths = "12";
-            //   LeaseTermsModel.SecurityDeposit = "25.00";
-            //   var applicant=new  Applicant();
-            //   applicant.CurrentRent = "50";
-            //   applicant.CustomerID = "111223";
-            //   applicant.ConsentObtained = "Yes";
-            //   applicant.EmploymentGrossIncome = "25";
-            //   applicant.ApplicantIdentifier = "abc123";
-            //   applicant.ApplicantType = "Applicant";
-            //   applicant.Birthdate = "1960-06-25";
-            //   applicant.SocSecNumber = "880544745";
-            //   applicant.FirstName = "Edwin";
-            //   applicant.LastName = "Avila";
-            //   applicant.Address1 = "85 Rebecca Ln";
-            //   applicant.City = "Youngsville";
-            //   applicant.State = "NC";
-            //   applicant.PostalCode = "27596";
-            //   applicant.UnparsedAddress = "85 Rebecca Ln";
+            //CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+            //var LeaseTermsModel = new LeaseTermsModel();
+            //LeaseTermsModel.MonthlyRent = "25.00";
+            //LeaseTermsModel.LeaseMonths = "12";
+            //LeaseTermsModel.SecurityDeposit = "25.00";
+            //var applicant = new Applicant();
+            //applicant.CurrentRent = "50";
+            //applicant.ApplyNowID = "143";
+            //applicant.CustomerID = "143";
+            //applicant.ConsentObtained = "Yes";
+            //applicant.EmploymentGrossIncome = "25";
+            //applicant.ApplicantIdentifier = "143        ";
+            //applicant.ApplicantType = "Applicant";
+            //applicant.Birthdate = "1956-02-03";
+            //applicant.SocSecNumber = "881841656";
+            //applicant.FirstName = "Rayan";
+            //applicant.LastName = "Coulter";
+            //applicant.Address1 = "15770 BELLAIRE BLVD";
+            //applicant.City = "HOUSTON";
+            //applicant.State = "TX";
+            //applicant.PostalCode = "77083";
+            //applicant.UnparsedAddress = "15770 BELLAIRE BLVD";
 
-            //   string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant);
-            //   var keyValues = new List<KeyValuePair<string, string>>();
-            //   keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
-            //var data=   _corelogichelper.PostFormUrlEncoded<List<XElement>>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues);
+            //string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant,"CRD","",true);
 
+            //var keyValues = new List<KeyValuePair<string, string>>();
+            //keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+
+            //_corelogichelper.PostFormUrlEncoded<List<XElement>>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRD", 111223, "880544745");
 
 
             if (Session["DelDatAll"] != null)

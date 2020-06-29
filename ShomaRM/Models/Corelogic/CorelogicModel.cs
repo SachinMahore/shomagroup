@@ -13,6 +13,7 @@ namespace ShomaRM.Models.Corelogic
     }
     public class Applicant
     {
+        public string ApplyNowID { get; set; }
         public string CurrentRent { get; set; }
         public string ConsentObtained { get; set; }
         public string EmploymentGrossIncome { get; set; }

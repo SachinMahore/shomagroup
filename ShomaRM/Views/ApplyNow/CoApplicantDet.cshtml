@@ -10,7 +10,7 @@
 <input type="hidden" id="hndPTOID" value="@ViewBag.PTOID" />
 <input type="hidden" id="hndIDNumber" value="" />
 <input type="hidden" id="hndSSNNumber" value="" />
-<input type="hidden" id="hndAppHisMon" value="0" onclick="goToStep(12,12,0)"
+<input type="hidden" id="hndAppHisMon" value="0" onclick="goToStep(12,12,0)" />
 <input type="hidden" id="hndHistory" value="0" />
 <input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
 <input type="hidden" id="hdnEmployerHistory" value="0" />
@@ -33,7 +33,7 @@
 <input type="hidden" id="hndGotoSummary" value="" />
 <input id="hdnProspectId" type="hidden" value="@Model.ProspectId" />
 @*Sachin Mahore 21 Apr 2020*@
-
+<input type="hidden" id="hndFinalPaybutton" value="0" />
 
 <div class="content-area submit-property sanctuary-background-img">
     &nbsp;
@@ -4662,7 +4662,7 @@
                                     <th style="background-color: #c7cdd5;color:#3d3939">Payment Method</th>
                                     <th style="background-color: #c7cdd5;color:#3d3939">Account Name</th>
                                     <th style="background-color: #c7cdd5;color:#3d3939">Account/Card Number</th>
-                                
+
                                     <th style="background-color: #c7cdd5;color:#3d3939">Select</th>
                                 </tr>
                             </thead>
@@ -4764,7 +4764,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-12" style="margin-bottom:20px;margin-left: 15px;">
                     <input type="checkbox" id="chkTermsAndCondition2">
                     <span class="chektext">
@@ -5777,6 +5777,7 @@
             margin: 30px auto;
         }
     }
+
     @@media (min-width: 768px) {
         .modal-dialog.modal15min {
             width: 800px;
@@ -5981,54 +5982,54 @@
         }
 
 
-            .nav-tabs.wizard li.active a {
-                padding-top: 15px;
-            }
+        .nav-tabs.wizard li.active a {
+            padding-top: 15px;
+        }
 
-            .nav-tabs.wizard li::after, .nav-tabs.wizard li > ::after {
-                content: '';
-                position: absolute;
-                top: -1px;
-                left: 100%;
-                height: 0;
-                width: 0;
-                border: 24px solid transparent;
-                border-right-width: 24px;
-                border-left-color: transparent;
-                border-right-width: 0;
-                border-left-width: 20px;
-                border-right-color: #B4ADA5 !important;
-            }
+        .nav-tabs.wizard li::after, .nav-tabs.wizard li > ::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 100%;
+            height: 0;
+            width: 0;
+            border: 24px solid transparent;
+            border-right-width: 24px;
+            border-left-color: transparent;
+            border-right-width: 0;
+            border-left-width: 20px;
+            border-right-color: #B4ADA5 !important;
+        }
 
-            .nav-tabs.wizard li:not(.active) a::after {
-                border-right-color: transparent !important;
-                border-left-color: #B4ADA5 !important;
-            }
+        .nav-tabs.wizard li:not(.active) a::after {
+            border-right-color: transparent !important;
+            border-left-color: #B4ADA5 !important;
+        }
 
-            .nav-tabs.wizard li.active a::after {
-                border-right-color: transparent !important;
-                border-left-color: #4d738a !important;
-            }
+        .nav-tabs.wizard li.active a::after {
+            border-right-color: transparent !important;
+            border-left-color: #4d738a !important;
+        }
 
-            .nav-tabs.wizard li:not(.active) a:hover::after {
-                border-left-color: #4d738a !important;
-            }
+        .nav-tabs.wizard li:not(.active) a:hover::after {
+            border-left-color: #4d738a !important;
+        }
 
-            .nav-tabs.wizard li::after {
-                z-index: 1;
-                -webkit-transform: translateX(4px);
-                -moz-transform: translateX(4px);
-                -ms-transform: translateX(4px);
-                -o-transform: translateX(4px);
-                transform: translateX(4px);
-                border-left-color: #fff;
-                margin: 0
-            }
+        .nav-tabs.wizard li::after {
+            z-index: 1;
+            -webkit-transform: translateX(4px);
+            -moz-transform: translateX(4px);
+            -ms-transform: translateX(4px);
+            -o-transform: translateX(4px);
+            transform: translateX(4px);
+            border-left-color: #fff;
+            margin: 0
+        }
 
-            .nav-tabs.wizard li > *::after {
-                z-index: 2;
-                border-left-color: inherit
-            }
+        .nav-tabs.wizard li > *::after {
+            z-index: 2;
+            border-left-color: inherit
+        }
 
         .nav-tabs.wizard > li:nth-of-type(1) > a {
             border-top-left-radius: 0px;
@@ -6128,6 +6129,7 @@
         text-transform: uppercase;
         font-weight: bold;
     }
+
     .pl-6, .px-6 {
         padding-left: 0rem !important;
     }
