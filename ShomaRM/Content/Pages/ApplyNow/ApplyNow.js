@@ -920,7 +920,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             var ubitIdSearch = $("#hndUID").val();
 
             if (ubitIdSearch != 0 && buildingSearch != "" && floorNoSearch > 0) {
-                showFloorPlan(floorNoSearch, bedRoomSearch, buildingSearch);
+                showFloorPlanApplicant(floorNoSearch, bedRoomSearch, buildingSearch);
             }
 
             $("#subMenu").addClass("hidden");
@@ -962,6 +962,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                // $("#listUnitNew tr").trigger("click");
                 var selectedID = $("#listUnitNew tr").attr("id");
                 var selectedIDNew = selectedID.split('_')
+                console.log(selectedIDNew[1]);
                 getPropertyUnitDetails(selectedIDNew[1]);
             }
             
@@ -1013,7 +1014,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                             var ubitIdSearch = 0;
 
                             if (ubitIdSearch != 0 && buildingSearch != "" && floorNoSearch > 0) {
-                                showFloorPlan(floorNoSearch, bedRoomSearch, buildingSearch);
+                                showFloorPlanApplicant(floorNoSearch, bedRoomSearch, buildingSearch);
                             }
                             getPropertyUnitList(buildingSearch);
                             $("#popUnitPlan").empty();
@@ -3100,7 +3101,7 @@ var SaveOnlineProspect = function () {
                 var ubitIdSearch = 0;
 
                 if (ubitIdSearch != 0 && buildingSearch != "" && floorNoSearch > 0) {
-                    showFloorPlan(floorNoSearch, bedRoomSearch, buildingSearch);
+                    showFloorPlanApplicant(floorNoSearch, bedRoomSearch, buildingSearch);
                 }
                 getPropertyUnitList(buildingSearch);
                 $("#popUnitPlan").empty();
@@ -7369,7 +7370,7 @@ var delApplicant = function (appliId) {
 
 }
 
-function showFloorPlan(flid, numbedroom, modelname) {
+function showFloorPlanApplicant(flid, numbedroom, modelname) {
     $("#divLoaderFloorData").show();
     setTimeout(function () { $("#returnButton").removeClass("hidden"); $("#returnButton").html("Return to List View"); }, 1000);
     $("#UnitListDesc").text("Choose any unit in green to see more information including a video and complete layout of your unit. ");
@@ -10716,7 +10717,7 @@ var btnApplyNowLeaseCurrent = function () {
             $("#lblBath32").text(response.model.Bathroom);
             $("#lblDeposit3").text("$" + (formatMoney(response.model.Deposit)));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
 
             //new code for price table
             $('#priceTableUnit').text(response.model.UnitNo);
@@ -10885,7 +10886,7 @@ var btnApplyNowLeaseBest = function () {
             $("#lblBath32").text(response.model.Bathroom);
             $("#lblDeposit3").text("$" + (formatMoney(response.model.Deposit)));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
 
             //new code for price table
             $('#priceTableUnit').text(response.model.UnitNo);
@@ -11057,7 +11058,7 @@ var btnApplyNowLeaseGreat = function () {
             $("#lblBath32").text(response.model.Bathroom);
             $("#lblDeposit3").text("$" + (formatMoney(response.model.Deposit)));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
 
             //new code for price table
             $('#priceTableUnit').text(response.model.UnitNo);
@@ -11159,6 +11160,7 @@ var getPropertyModelUnitList = function (stype, pid) {
 }
 
 var getPropertyUnitDetails = function (uid) {
+    console.log(uid);
     $("#listUnitNew tr").removeClass("select-unit");
     //$("#unitdiv_" + $("#hndOldUID").val()).removeClass("select-unit");
     $("#divLoader").show();
@@ -11473,7 +11475,7 @@ var getPropertyUnitDetails = function (uid) {
             //console.log(parseFloat($("#lblRFPPestControl").text()));
             //console.log(parseFloat($("#lblRFPConvergentbillingfee").text()));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
 
             $("#divLoader").hide();
         }
@@ -11709,7 +11711,7 @@ var applyFromFloorPlanDetails = function () {
             $("#lblBath32").text(response.model.Bathroom);
             $("#lblDeposit3").text("$" + (formatMoney(response.model.Deposit)));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
             $("#popAvailableFloorPlanDetailss").modal('hide');
             $("#divLoader").hide();
             $('#divPriceTable').removeClass('hidden');
