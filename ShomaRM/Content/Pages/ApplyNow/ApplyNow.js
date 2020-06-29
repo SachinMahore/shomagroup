@@ -5114,7 +5114,6 @@ var addApplicant = function (at) {
     $("#popApplicant").modal("show");
 };
 var saveupdateApplicant = function (callFrom) {
-    alert("IN")
     $("#divLoader").show();
     var checkEmail = 0;
     var msg = "";
