@@ -36,6 +36,8 @@ namespace ShomaRM.Data
         public Nullable<int> BackGroundPaid { get; set; }
         public Nullable<decimal> AdminFee { get; set; }
         public Nullable<decimal> AdminFeePercentage { get; set; }
+        public string CreditResult { get; set; }
+        public string BackGroungResult { get; set; }
     
         public virtual tbl_ApplyNow tbl_ApplyNow { get; set; }
     }

@@ -15,7 +15,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using System.IO;
 using System.Text.RegularExpressions;
-
+using System.Runtime.InteropServices;
 
 namespace ShomaRM.Controllers
 {
@@ -173,11 +173,11 @@ namespace ShomaRM.Controllers
 
         }
 
-        public ActionResult SavePaymentDetails(ApplyNowModel model)
+        public async System.Threading.Tasks.Task<ActionResult> SavePaymentDetails(ApplyNowModel model)
         {
             try
             {
-                return Json(new { Msg = (new ApplyNowModel().SavePaymentDetails(model)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { Msg = await (new ApplyNowModel().SavePaymentDetails(model)) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -195,11 +195,11 @@ namespace ShomaRM.Controllers
                 return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult saveCoAppPayment(ApplyNowModel model)
+        public async System.Threading.Tasks.Task<ActionResult> saveCoAppPayment(ApplyNowModel model)
         {
             try
             {
-                string msg =(new ApplyNowModel()).saveCoAppPayment(model);
+                string msg = await (new ApplyNowModel()).saveCoAppPayment(model);
                 return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -209,11 +209,11 @@ namespace ShomaRM.Controllers
         }
 
         //Sachin M 09 June 2020
-        public ActionResult saveListPayment(ApplyNowModel model)
+        public async System.Threading.Tasks.Task<ActionResult> saveListPayment(ApplyNowModel model)
         {
             try
             {
-                string msg = (new ApplyNowModel().saveListPayment(model));
+                string msg = await (new ApplyNowModel().saveListPayment(model));
                 return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -222,11 +222,11 @@ namespace ShomaRM.Controllers
             }
         }
         //Sachin M 25 June 2020
-        public ActionResult saveListPaymentFinalStep(ApplyNowModel model)
+        public async System.Threading.Tasks.Task<ActionResult>  saveListPaymentFinalStep(ApplyNowModel model)
         {
             try
             {
-                string msg = (new ApplyNowModel().saveListPaymentFinalStep(model));
+                string msg =await (new ApplyNowModel().saveListPaymentFinalStep(model));
                 return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

@@ -54,11 +54,10 @@ namespace ShomaRM.Models.Corelogic
             string leasebody = LeaseXMLData(leaseRequestModel);
             string applicatnt = ApplicantXMLData(applicant);
             string strxml = CreateXMLDocument(leasebody + applicatnt, ReportType, TransactionId, IsNew);
-            var keyValues = new List<KeyValuePair<string, string>>();
-            keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
-
-            Task.Run(() => PostFormUrlEncoded<List<XElement>>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, ReportType, applicant.ApplyNowID , applicant.CustomerID, applicant.SocSecNumber));
-            return "Ok";
+            //var keyValues = new List<KeyValuePair<string, string>>();
+            //keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+            //Task.Run(() => PostFormUrlEncoded<List<XElement>>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, ReportType, applicant.ApplyNowID , applicant.CustomerID, applicant.SocSecNumber));
+            return strxml;
         }
         private string LeaseXMLData(LeaseTermsModel leaseRequestModel)
         {
@@ -122,8 +121,9 @@ namespace ShomaRM.Models.Corelogic
             }
             return ApplicantXmlStr;
         }
-        public async void PostFormUrlEncoded<TResult>(string url, List<KeyValuePair<string, string>> postData, string ReportType, string ApplyNowId, string ApplicationId, string SSN)
+        public async Task<string> PostFormUrlEncoded<TResult>(string url, List<KeyValuePair<string, string>> postData, string ReportType, string ApplyNowId, string ApplicationId, string SSN)
         {
+            string result = "";
             using (var httpClient = new HttpClient())
             {
                 using (var content = new FormUrlEncodedContent(postData))
@@ -165,6 +165,7 @@ namespace ShomaRM.Models.Corelogic
                             bsExists.ApplicationDecision = applicationDecision;
                             bsExists.ApplicantScore = applicantScore;
                             db.SaveChanges();
+                            result = applicationDecision;
                         }
                         else
                         {
@@ -187,13 +188,14 @@ namespace ShomaRM.Models.Corelogic
                                 };
                                 db.tbl_BackgroundScreening.Add(bcSave);
                                 db.SaveChanges();
+                                result = applicationDecision;
                             }
                         }
                         db.Dispose();
                     }
-                   
                 }
             }
+            return result;
         }
     }
 }
