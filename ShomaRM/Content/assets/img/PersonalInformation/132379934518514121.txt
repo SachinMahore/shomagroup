@@ -1,0 +1,93 @@
+Date:- 10-04-2020
+Friday
+------------------------
+as per new reuirement
+1) In apply Now Form in personal info tab, add "are you a US Citizen" dropdown also add a origin of country ddl.
+2) create functionality on us citizen ddl if user not a us citizen then origin of
+   country ddl appears to select country.
+3) modify the save function to save us citizen and country of orgin value in to the database.
+4) modify save function add fields to save data in controller,model and in js where neccessary.
+5) add country of origin field in database to save country of origin value.
+6) modify store procedure as per requirement to get country of origin and us citizen value.
+7) modify get function and add country of origin and us citizen field to get value from db.
+8) create function to select dropdown with perfect and show value from database.
+10) create validation for same fields in javascript to prevent user to store garbage values in db.
+11) create function to fill country of origin ddl.
+-------------------------------------------------------------------
+
+Date:- 11-04-2020
+Saturday
+---------------------
+as per new reuirement
+1)In apply Now Form in personal info tab, design additional question header.
+2) design and add six dropdown there name as per "Have you ever been evicted?" , "Have you ever been convicted of a felony?"
+   "Do you have any criminal charges pending, awaiting disposition, or looming in any way?",
+   "Do you or any occupants smoke?", "Referred by another Resident?" and 
+   "Broker or Merchant referred" in the form.
+3) design and add 3 "details" text box and 1 "Please provide Name" in it.
+4) create functionality on "Have you ever been evicted?" dropdown if select yes then the
+   "detail" text box will appear to add detail value and also "Have you ever been convicted of a felony?"
+   and "Do you have any criminal charges pending, awaiting disposition, or looming in any way?"
+5) this 2 dropdown will appears on select yes too.
+6) create functionality on "Have you ever been convicted of a felony?" dropdown if user select
+   yes then the detail text box will appear to fill more detail.
+7) create functionality on "Do you have any criminal charges pending, awaiting disposition, or looming in any way?"
+   dropdown if user select yes then the detail text box will appear to fill more detail.
+8) create functionality on "Referred by another Resident?" dropdown if user select yes
+   then the "Please provide Name" text box will appear to fill Another resident name.
+9) create validation function to prevent user to save garbage values in to the database.
+10) add 10 fields to save same dropdown and extboxes values in to the database.
+11) create save and update function to save same ddl and text box fields value in controller,
+    model and javascript to save or update values in to the database.
+12) create get function in controller, model and javascript to get this values and show
+    in the same ddl and text boxes.
+13) create store procedure to get values from database.
+-----------------------------------------------------------
+Date:- 12-04-2020
+Sunday
+---------------------
+
+as per new reuirement
+1) In apply Now Form in resident history tab, design and add 3 text boxes the name as per 
+   "Apartment Community", "Management Company" and "Management Company Phone" in it.
+2) design and add "Was proper notice given per your lease agreement?" drop down in same form.
+3) add same 4 fields in database.
+4) modify save and update function in controller, model and in javascript to save this 4 fields
+   in database.
+5) modify store procedure to get this 4 fields.
+6) modify get function to read store procedure in controller, model and in javascript to read
+   the fields and show values.
+7) add phone format to the "Management Company Phone" to show proper phone no.
+-----------------------------------------------------
+
+Date:- 13-04-2020
+Monday
+-----------------------
+
+1) in admin section design and add pre moving menue on top to show premoving form also create
+   function to show select menu.
+2) create and add pre moving management form.
+3) design and add pre moving management table to show approved tenant list.
+4) craete function to get tenant data whos status is approved.
+5) create get function in controller, model and in js to show tenant data.
+6) create action link to jump premoving details page.
+------------------------------------------------------------------------------
+Date:- 14-04-2020
+Tuesday
+-----------------------
+1) in admin premoving detail form ,design a premoving management header section to show all applicants related to the tenant.
+2) design box pannel to show applicant details in card format.
+3) create get function in controller, model and in js to show applicant details data.
+4) design a lease doc signed header section to show all applicants related to the tenant.
+5) design a lease doc sign table to show applicant data.
+6) create get function to show lease doc sign status data in table.
+7) in the table applicant who are not sign yet the link is provided to as send link.
+---------------------
+Date:- 15-04-2020
+Wednesday
+---------------------
+1) create and design fob management detail table to show applicant related to tenant.
+2) create get function in controller, model and in js to show fob management data in fob 
+   management table.
+3) create tbl_tenantfob to add FOB.
+4) create save, update, activate and deactivate functionality.

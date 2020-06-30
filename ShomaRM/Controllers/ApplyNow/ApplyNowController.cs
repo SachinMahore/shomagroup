@@ -588,6 +588,69 @@ namespace ShomaRM.Controllers
             }
         }
 
+        // New Upload Code Start //
+
+        // New Paystub File Upload
+        public ActionResult PaystubUpload()
+        {
+            try
+            {
+                List<HttpPostedFileBase> filePaystubUpload = new List<HttpPostedFileBase>();
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    filePaystubUpload.Add(Request.Files[i]);
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SavePaystubUpload(filePaystubUpload) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // New Fedral File Upload
+        public ActionResult FedralUpload()
+        {
+            try
+            {
+                List<HttpPostedFileBase> fileFedralUpload = new List<HttpPostedFileBase>();                
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileFedralUpload.Add(Request.Files[i]);
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SaveFedralUpload(fileFedralUpload) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // New BankStatement File Upload
+        public ActionResult BankStatementUpload()
+        {
+            try
+            {
+                List<HttpPostedFileBase> fileBankStatementUpload = new List<HttpPostedFileBase>();
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBankStatementUpload.Add(Request.Files[i]);
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SaveBankStatementUpload(fileBankStatementUpload) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // New Upload Code End //
 
         //sachin m 11 may
         public ActionResult TaxFileUpload6(TenantOnlineModel model)
