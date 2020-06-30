@@ -68,7 +68,7 @@ namespace ShomaRM.Models
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
 
-        public string SavePaymentDetails(ApplyNowModel model)
+        public async System.Threading.Tasks.Task<string> SavePaymentDetails(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
@@ -213,9 +213,6 @@ namespace ShomaRM.Models
                     {
                         if (chargeType == 4)
                         {
-                            GetApplicantData.CreditPaid = 1;
-                            db.SaveChanges();
-
                             CoreLogicHelper _corelogichelper = new CoreLogicHelper();
                             var LeaseTermsModel = new LeaseTermsModel();
                             LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
@@ -241,6 +238,15 @@ namespace ShomaRM.Models
 
                             string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
 
+                            var keyValues = new List<KeyValuePair<string, string>>();
+                            keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+
+                            string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRD", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
+
+                            GetApplicantData.CreditPaid = 1;
+                            GetApplicantData.CreditResult = result;
+                            db.SaveChanges();
+
                             sub = "Payment Confirmation, Application agreement and Rental Qualifications";
                             emailBody += "<p style=\"margin-bottom: 0px;\">It’s all happening, " + GetProspectData.FirstName + " " + GetProspectData.LastName + "! You’ve submitted the required information for your credit check and accepted the “Application Agreement & Rental Qualifications” document in the prospect portal. We’ve attached documents for your review. Please contact us with any questions.</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
@@ -263,10 +269,6 @@ namespace ShomaRM.Models
                         }
                         if (chargeType == 5)
                         {
-                            GetApplicantData.BackGroundPaid = 1;
-                            GetApplicantData.Paid = 1;
-                            db.SaveChanges();
-
                             CoreLogicHelper _corelogichelper = new CoreLogicHelper();
                             var LeaseTermsModel = new LeaseTermsModel();
                             LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
@@ -291,6 +293,16 @@ namespace ShomaRM.Models
                             applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
                             string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
+
+                            var keyValues = new List<KeyValuePair<string, string>>();
+                            keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+
+                            string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRM", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
+
+                            GetApplicantData.BackGroundPaid = 1;
+                            GetApplicantData.Paid = 1;
+                            GetApplicantData.BackGroungResult = result;
+                            db.SaveChanges();
 
                             sub = "Your Sanctuary Rental Application and Rules and Policies";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetProspectData.FirstName + " " + GetProspectData.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
@@ -491,7 +503,7 @@ namespace ShomaRM.Models
             return msg;
         }
 
-        public string saveCoAppPayment(ApplyNowModel model)
+        public async System.Threading.Tasks.Task<string> saveCoAppPayment(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
@@ -671,9 +683,6 @@ namespace ShomaRM.Models
                         }
                         else if (model.FromAcc == 4)
                         {
-                            GetCoappDet.CreditPaid = 1;
-                            db.SaveChanges();
-
                             CoreLogicHelper _corelogichelper = new CoreLogicHelper();
                             var LeaseTermsModel = new LeaseTermsModel();
                             LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
@@ -698,6 +707,15 @@ namespace ShomaRM.Models
                             applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
                             string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+
+                            var keyValues = new List<KeyValuePair<string, string>>();
+                            keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+
+                            string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRD", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
+
+                            GetCoappDet.CreditPaid = 1;
+                            GetCoappDet.CreditResult = result;
+                            db.SaveChanges();
 
                             sub = "Payment Confirmation, Application agreement and Rental Qualifications";
 
@@ -738,9 +756,7 @@ namespace ShomaRM.Models
                         }
                         else if (model.FromAcc == 5)
                         {
-                            GetCoappDet.BackGroundPaid = 1;
-                            GetCoappDet.Paid = 1;
-                            db.SaveChanges();
+                            
 
                             filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
@@ -774,6 +790,16 @@ namespace ShomaRM.Models
                                 applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
                                 string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
+
+                                var keyValues = new List<KeyValuePair<string, string>>();
+                                keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+
+                                string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRM", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
+
+                                GetCoappDet.BackGroundPaid = 1;
+                                GetCoappDet.Paid = 1;
+                                GetCoappDet.BackGroungResult = result;
+                                db.SaveChanges();
 
                                 string emailBody = "";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
@@ -873,7 +899,7 @@ namespace ShomaRM.Models
         }
 
         // Sachin M 09 june 2020
-        public string saveListPayment(ApplyNowModel model)
+        public async System.Threading.Tasks.Task<string> saveListPayment(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
@@ -1029,9 +1055,6 @@ namespace ShomaRM.Models
                         }
                         else if (model.FromAcc == 4)
                         {
-                            GetCoappDet.CreditPaid = 1;
-                            db.SaveChanges();
-
                             CoreLogicHelper _corelogichelper = new CoreLogicHelper();
                             var LeaseTermsModel = new LeaseTermsModel();
                             LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
@@ -1056,6 +1079,15 @@ namespace ShomaRM.Models
                             applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
                             string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+
+                            var keyValues = new List<KeyValuePair<string, string>>();
+                            keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+
+                            string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRD", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
+
+                            GetCoappDet.CreditPaid = 1;
+                            GetCoappDet.CreditResult = result;
+                            db.SaveChanges();
 
                             sub = "Payment Confirmation, Application agreement and Rental Qualifications";
 
@@ -1093,17 +1125,10 @@ namespace ShomaRM.Models
                             string pass = "";
                             pass = new EncryptDecrypt().DecryptText(UserData.Password);
 
-                            GetCoappDet.CreditPaid = 1;
-                            db.SaveChanges();
-
                             msg = "1";
                         }
                         else if (model.FromAcc == 5)
                         {
-                            GetCoappDet.BackGroundPaid = 1;
-                            GetCoappDet.Paid = 1;
-                            db.SaveChanges();
-
                             CoreLogicHelper _corelogichelper = new CoreLogicHelper();
                             var LeaseTermsModel = new LeaseTermsModel();
                             LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
@@ -1129,8 +1154,14 @@ namespace ShomaRM.Models
 
                             string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
 
+                            var keyValues = new List<KeyValuePair<string, string>>();
+                            keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+
+                            string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRD", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
+
                             GetCoappDet.BackGroundPaid = 1;
                             GetCoappDet.Paid = 1;
+                            GetCoappDet.BackGroungResult = result;
                             db.SaveChanges();
 
                             filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
@@ -1241,7 +1272,7 @@ namespace ShomaRM.Models
         }
 
         // Sachin M 25 june 2020
-        public string saveListPaymentFinalStep(ApplyNowModel model)
+        public async System.Threading.Tasks.Task<string> saveListPaymentFinalStep(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
@@ -1388,7 +1419,13 @@ namespace ShomaRM.Models
 
                                     string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
 
+                                    var keyValues = new List<KeyValuePair<string, string>>();
+                                    keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+
+                                    string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRD", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
+
                                     coappliList.CreditPaid = 1;
+                                    coappliList.CreditResult = result;
                                 }
                                 if (coapp.Type == "5")
                                 {
@@ -1417,8 +1454,14 @@ namespace ShomaRM.Models
 
                                     string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
 
+                                    var keyValues = new List<KeyValuePair<string, string>>();
+                                    keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
 
+                                    string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRM", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
+                                    
                                     coappliList.BackGroundPaid = 1;
+                                    coappliList.BackGroungResult = result;
+
                                 }
                                 if ((coappliList.CreditPaid ?? 0) == 1 && (coappliList.BackGroundPaid ?? 0) == 1)
                                 {

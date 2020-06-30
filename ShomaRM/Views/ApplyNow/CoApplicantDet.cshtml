@@ -1274,8 +1274,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="divAppWarning" class="col-sm-12 @(Model.CreditPaid != 0 ? "hidden" : "") pt-4">
-                            <h3 class="panel-title pull-right">Please click on ‘Edit/Complete Information’, located on the Primary Application card, to proceed to the Credit Check.</h3>
+                        <div id="divAppWarning" class="col-sm-12 @(Model.CreditResult == "Accept" ? "hidden" : "") pt-4">
+                            @if (Model.CreditResult == "")
+                            {
+                                <h3 class="panel-title pull-right">Please click on ‘Edit/Complete Information’, located on the Co-Applicant card, to proceed to the Credit Check.</h3>
+                            }
+                            else if (Model.CreditResult == "Conditional")
+                            {
+                                <h3 class="panel-title pull-right">Your Credit Check result is conditional. Please contact Administrator.</h3>
+                            }
+                            else if (Model.CreditResult == "Pending")
+                            {
+                                <h3 class="panel-title pull-right">Your Credit Check result is pending please wait.</h3>
+                            }
                         </div>
                         <div class="row m-t-30">
                             <div class="col-sm-12 button-box-wrapper ">
@@ -1284,7 +1295,7 @@
                                 </div>
                                 <div class="pull-right text-center">
                                     @*<button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>*@
-                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
+                                    <button type="submit" class="btn-alltype @(Model.CreditResult != "Accept" ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2138,19 +2149,41 @@
                             <p>Upload last 3 paystubs or if self-employed last 2 year's Fedral Tax Returns or  3 consecutive bank statements. You must select two of the following three options.</p>
                         </div>
                         <div class="col-sm-12">
-
                             <div class="form-group">
                                 <div class="col-sm-2">
                                     <input id="rbtnPaystub" class="form-control form-control-small empup" type="checkbox" name="tax" />
-                                    <label for="rbtnPaystub">Paystub</label>
+                                    <label for="rbtnPaystub">Paystub (3 files)</label>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div id="divUpload3" class="hidden">
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label class="star" id="lblUploadPaystub">Paystub</label><br />
+                                        <input type="file" name="fileUploadPaystub" id="fileUploadPaystub" class="inputfile inputfile-1" multiple />
+                                        <label for="fileUploadPaystub"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadPaystubShow">Choose a file&hellip;</span></label>
+                                        <input type="hidden" id="hndHasTaxReturnFile4" value="0" />
+                                        <input type="hidden" id="hndFileUploadName4" value="0" />
+                                        <input type="hidden" id="hndOriginalFileUploadName4" value="0" />
+                                        <input type="hidden" id="hndHasTaxReturnFile5" value="0" />
+                                        <input type="hidden" id="hndFileUploadName5" value="0" />
+                                        <input type="hidden" id="hndOriginalFileUploadName5" value="0" />
+                                        <input type="hidden" id="hndHasTaxReturnFile3" value="0" />
+                                        <input type="hidden" id="hndFileUploadName3" value="0" />
+                                        <input type="hidden" id="hndOriginalFileUploadName3" value="0" />
+                                        <input type="hidden" id="fileUploadTaxReturn4Show" />
+                                        <input type="hidden" id="fileUploadTaxReturn5Show" />
+                                        <input type="hidden" id="fileUploadTaxReturn3Show" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
                                 <div class="col-sm-2">
                                     <input id="rbtnFedralTax" class="form-control form-control-small empup" type="checkbox" name="tax" checked="checked" />
-                                    <label for="rbtnFedralTax">Fedral Tax Return</label>
-                                </div>
-                                <div class="col-sm-2">
-                                    <input id="rbtnBankStatement" class="form-control form-control-small empup" type="checkbox" name="tax" />
-                                    <label for="rbtnBankStatement">Bank Statements</label>
+                                    <label for="rbtnFedralTax">Fedral Tax Return (2 files)</label>
                                 </div>
                             </div>
                         </div>
@@ -2158,87 +2191,49 @@
                             <div id="divFederalTax">
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label class="star" id="lblUpload1">Fedral Tax Return 1</label><br />
-                                        <input type="file" name="fileUploadTaxReturn1" id="fileUploadTaxReturn1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadTaxReturn1"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn1Show">Choose a file&hellip;</span></label>
+                                        <label class="star" id="lblUploadFedral">Fedral</label><br />
+                                        <input type="file" name="fileUploadFedral" id="fileUploadFedral" class="inputfile inputfile-1" multiple />
+                                        <label for="fileUploadFedral"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadFedralShow">Choose a file&hellip;</span></label>
                                         <input type="hidden" id="hndHasTaxReturnFile1" value="0" />
                                         <input type="hidden" id="hndFileUploadName1" value="0" />
                                         <input type="hidden" id="hndOriginalFileUploadName1" value="0" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUpload2">Fedral Tax Return 2</label><br />
-                                        <input type="file" name="fileUploadTaxReturn2" id="fileUploadTaxReturn2" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadTaxReturn2"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn2Show">Choose a file&hellip;</span></label>
                                         <input type="hidden" id="hndHasTaxReturnFile2" value="0" />
                                         <input type="hidden" id="hndFileUploadName2" value="0" />
                                         <input type="hidden" id="hndOriginalFileUploadName2" value="0" />
+
+                                        <input type="hidden" id="fileUploadTaxReturn1Show" />
+                                        <input type="hidden" id="fileUploadTaxReturn2Show" />
                                     </div>
                                 </div>
                             </div>
-                            <div id="divUpload3" class="hidden">
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
                                 <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUpload4">Paystub 1</label><br />
-                                        <input type="file" name="fileUploadTaxReturn4" id="fileUploadTaxReturn4" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadTaxReturn4"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn4Show">Choose a file&hellip;</span></label>
-                                        <input type="hidden" id="hndHasTaxReturnFile4" value="0" />
-                                        <input type="hidden" id="hndFileUploadName4" value="0" />
-                                        <input type="hidden" id="hndOriginalFileUploadName4" value="0" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUpload5">Paystub 2</label><br />
-                                        <input type="file" name="fileUploadTaxReturn5" id="fileUploadTaxReturn5" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadTaxReturn5"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn5Show">Choose a file&hellip;</span></label>
-                                        <input type="hidden" id="hndHasTaxReturnFile5" value="0" />
-                                        <input type="hidden" id="hndFileUploadName5" value="0" />
-                                        <input type="hidden" id="hndOriginalFileUploadName5" value="0" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUpload3">Paystub 3</label><br />
-                                        <input type="file" name="fileUploadTaxReturn3" id="fileUploadTaxReturn3" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadTaxReturn3"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn3Show">Choose a file&hellip;</span></label>
-                                        <input type="hidden" id="hndHasTaxReturnFile3" value="0" />
-                                        <input type="hidden" id="hndFileUploadName3" value="0" />
-                                        <input type="hidden" id="hndOriginalFileUploadName3" value="0" />
-                                    </div>
+                                    <input id="rbtnBankStatement" class="form-control form-control-small empup" type="checkbox" name="tax" />
+                                    <label for="rbtnBankStatement">Bank Statements (3 files)</label>
                                 </div>
                             </div>
-                            @*Sachin M 11 May 2020*@
+                        </div>
+                        <div class="col-sm-12">
                             <div id="divBankUpload" class="hidden">
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label class="star" id="lblUploadBankState1">Bank Statement 1</label><br />
-                                        <input type="file" name="fileBankState1" id="fileBankState1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileBankState1"><i class="fa fa-upload fa-2x"></i> <span id="fileBankState1Show">Choose a file&hellip;</span></label>
+                                        <label class="star" id="lblUploadBankStatement">Bank Statement</label><br />
+                                        <input type="file" name="fileUploadBankStatement" id="fileUploadBankStatement" class="inputfile inputfile-1" multiple />
+                                        <label for="fileUploadBankStatement"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadBankStatementShow">Choose a file&hellip;</span></label>
                                         <input type="hidden" id="hndHasBankStateFile1" value="0" />
                                         <input type="hidden" id="hndFileUploadNameBankState1" value="0" />
                                         <input type="hidden" id="hndOriginalFileUploadNameBankState1" value="0" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUploadBankState2">Bank Statement 2</label><br />
-                                        <input type="file" name="fileBankState2" id="fileBankState2" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileBankState2"><i class="fa fa-upload fa-2x"></i> <span id="fileBankState2Show">Choose a file&hellip;</span></label>
                                         <input type="hidden" id="hndHasBankStateFile2" value="0" />
                                         <input type="hidden" id="hndFileUploadNameBankState2" value="0" />
                                         <input type="hidden" id="hndOriginalFileUploadNameBankState2" value="0" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUploadBankState3">Bank Statement 3</label><br />
-                                        <input type="file" name="fileBankState3" id="fileBankState3" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileBankState3"><i class="fa fa-upload fa-2x"></i> <span id="fileBankState3Show">Choose a file&hellip;</span></label>
                                         <input type="hidden" id="hndHasBankStateFile3" value="0" />
                                         <input type="hidden" id="hndFileUploadNameBankState3" value="0" />
                                         <input type="hidden" id="hndOriginalFileUploadNameBankState3" value="0" />
+                                        <input type="hidden" id="fileBankState1Show" />
+                                        <input type="hidden" id="fileBankState2Show" />
+                                        <input type="hidden" id="fileBankState3Show" />
                                     </div>
                                 </div>
                             </div>
