@@ -131,6 +131,7 @@ $(document).ready(function () {
             $('#btnsaveappl').addClass('hidden');
             //modal.find('.modal-content').css("height", "760px");
             $('#divCreditCheckPayment').removeClass('hidden');
+           
         }
         else {
             //$("#popCCPay").modal("hide");
@@ -733,18 +734,18 @@ $(document).ready(function () {
     };
     $("#ddlRentOwn").on("change", function () {
         if (this.value == '1') {
-            $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone").addClass("star");
+            $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone,#lblProperNoticeLeaseAgreement").addClass("star");
         }
         else if (this.value == '2') {
-            $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone").removeClass("star");
+            $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone,#lblProperNoticeLeaseAgreement").removeClass("star");
         }
     });
     $("#ddlRentOwn2").on("change", function () {
         if (this.value == '1') {
-            $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2").addClass("star");
+            $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2,#lblProperNoticeLeaseAgreement2").addClass("star");
         }
         else if (this.value == '2') {
-            $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2").removeClass("star");
+            $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2,#lblProperNoticeLeaseAgreement2").removeClass("star");
         }
     });
     $("#txtpetWeight").keypress(function (event) { return nonNegDecimal(event, $(this)); });
@@ -920,7 +921,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             var ubitIdSearch = $("#hndUID").val();
 
             if (ubitIdSearch != 0 && buildingSearch != "" && floorNoSearch > 0) {
-                showFloorPlan(floorNoSearch, bedRoomSearch, buildingSearch);
+                showFloorPlanApplicant(floorNoSearch, bedRoomSearch, buildingSearch);
             }
 
             $("#subMenu").addClass("hidden");
@@ -962,6 +963,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                // $("#listUnitNew tr").trigger("click");
                 var selectedID = $("#listUnitNew tr").attr("id");
                 var selectedIDNew = selectedID.split('_')
+                console.log(selectedIDNew[1]);
                 getPropertyUnitDetails(selectedIDNew[1]);
             }
             
@@ -1013,7 +1015,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                             var ubitIdSearch = 0;
 
                             if (ubitIdSearch != 0 && buildingSearch != "" && floorNoSearch > 0) {
-                                showFloorPlan(floorNoSearch, bedRoomSearch, buildingSearch);
+                                showFloorPlanApplicant(floorNoSearch, bedRoomSearch, buildingSearch);
                             }
                             getPropertyUnitList(buildingSearch);
                             $("#popUnitPlan").empty();
@@ -3100,7 +3102,7 @@ var SaveOnlineProspect = function () {
                 var ubitIdSearch = 0;
 
                 if (ubitIdSearch != 0 && buildingSearch != "" && floorNoSearch > 0) {
-                    showFloorPlan(floorNoSearch, bedRoomSearch, buildingSearch);
+                    showFloorPlanApplicant(floorNoSearch, bedRoomSearch, buildingSearch);
                 }
                 getPropertyUnitList(buildingSearch);
                 $("#popUnitPlan").empty();
@@ -4866,17 +4868,17 @@ var saveupdatePetPlace = function () {
                     $("#spanPetDNAFee4").text("Pet DNA Fee (1 Pet):");
 
                     $("#lblPetDeposit").text(formatMoney("500.00"));
-                    $("#spPetNRDeposit").text("Pet Non-refundable Deposit (1 Pet):");
+                    $("#spPetNRDeposit").text("Pet Deposit:");
 
                     $("#lblPetDNAAmt").text(parseFloat(response.petDNAFees).toFixed(2));
                     $("#lbpetdna6").text(parseFloat(response.petDNAFees).toFixed(2));
                     $("#fpetdna").text("$"+parseFloat(response.petDNAFees).toFixed(2));
 
                     $("#fpetd").text("$500.00");
-                    $("#spfpetd").text("Pet Non-refundable Deposit (1 Pet):");
+                    $("#spfpetd").text("Pet Deposit:");
 
                     $("#lbpetd6").text("500.00");
-                    $("#spPetNRDep6").text("Pet Non-refundable Deposit (1 Pet):");
+                    $("#spPetNRDep6").text("Pet Deposit:");
 
                     $("#hndPetPlaceID").val(1);
                     $("#btnAddPet").removeAttr("disabled");
@@ -4890,7 +4892,7 @@ var saveupdatePetPlace = function () {
                     $("#spanPetDNAFee4").text("Pet DNA Fee (2 Pets):");
 
                     $("#lblPetDeposit").text(formatMoney("750.00"));
-                    $("#spPetNRDeposit").text("Pet Non-refundable Deposit (2 Pets):");
+                    $("#spPetNRDeposit").text("Pet Deposit:");
 
                     $("#lblPetDNAAmt").text((parseFloat(response.petDNAFees) * parseInt(response.numOfPet)).toFixed(2));
 
@@ -4898,10 +4900,10 @@ var saveupdatePetPlace = function () {
                     $("#fpetdna").text("$"+(parseFloat(response.petDNAFees) * parseInt(response.numOfPet)).toFixed(2));
 
                     $("#fpetd").text("$750.00");
-                    $("#spPetNRDep6").text("Pet Non-refundable Deposit (2 Pets):");
+                    $("#spPetNRDep6").text("Pet Deposit:");
 
                     $("#lbpetd6").text("750.00");
-                    $("#spfpetd").text("Pet Non-refundable Deposit (2 Pets):");
+                    $("#spfpetd").text("Pet Deposit:");
 
                     $("#hndPetPlaceID").val(2);
                     $("#btnAddPet").removeAttr("disabled");
@@ -4913,9 +4915,9 @@ var saveupdatePetPlace = function () {
                     $("#spanPetDNAFee3").text("Pet DNA Fee:");
                     $("#spanPetDNAFee4").text("Pet DNA Fee:");
 
-                    $("#spPetNRDeposit").text("Pet Non-Refundable Deposit:");
-                    $("#spPetNRDep6").text("Pet Non-refundable Deposit:");
-                    $("#spfpetd").text("Pet Non-refundable Deposit:");
+                    $("#spPetNRDeposit").text("Pet Deposit:");
+                    $("#spPetNRDep6").text("Pet Deposit:");
+                    $("#spfpetd").text("Pet Deposit:");
 
                     $("#hndPetPlaceID").val(0);
                     $("#btnAddPet").css("background-color", "#B4ADA5").attr("disabled", "disabled");
@@ -5112,8 +5114,7 @@ var addApplicant = function (at) {
     clearApplicant();
     $("#popApplicant").modal("show");
 };
-var saveupdateApplicant = function () {
-
+var saveupdateApplicant = function (callFrom) {
     $("#divLoader").show();
     var checkEmail = 0;
     var msg = "";
@@ -5254,17 +5255,89 @@ var saveupdateApplicant = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: "Progress Saved.",
-                type: 'blue',
-            });
-            getApplicantLists();
-            $("#popApplicant").modal("hide");
+            if (callFrom == 1) {
+                $("#divLoader").hide();
+                $.alert({
+                    title: "",
+                    content: "Progress Saved.",
+                    type: 'blue',
+                });
+                getApplicantLists();
+                $("#popApplicant").modal("hide");
+            }
+            else {
+                if ($("#hndTransMethod1").val() == "2") {
+                    var paymentMethod = 2;
+                    var propertyId = $("#hndUID").val();
+                    var nameonCard = $("#txtNameonCard1").val();
+                    var cardNumber = $("#txtCardNumber1").val();
+                    var cardMonth = $("#ddlcardmonth1").val();
+                    var cardYear = $("#ddlcardyear1").val();
+                    var ccvNumber = $("#txtCCVNumber1").val();
+                    var prospectID = $("#hdnOPId").val();
+                    var amounttoPay = unformatText($("#sppayFees").text());
+                    var description = $("#lblpopcctitle").text();
+                    var routingNumber = $("#txtRoutingNumber1").val();
+                    var bankName = $("#txtBankName1").val();
+                } else {
+                    var paymentMethod = 1;
+                    var nameonCard = $("#txtAccountName1").val();
+                    var cardNumber = $("#txtAccountNumber1").val();
+                    var cardMonth = 0;
+                    var cardYear = 0;
+                    var ccvNumber = 0;
+                    var routingNumber = $("#txtRoutingNumber1").val();
+                    var bankName = $("#txtBankName1").val();
+                    var amounttoPay = unformatText($("#sppayFees").text());
+                    var description = $("#lblpopcctitle").text();
+                    var prospectID = $("#hdnOPId").val();
+                    var propertyId = $("#hndUID").val();
+                }
+                var model = {
+                    PID: propertyId,
+                    Name_On_Card: nameonCard,
+                    CardNumber: cardNumber,
+                    CardMonth: cardMonth,
+                    CardYear: cardYear,
+                    CCVNumber: ccvNumber,
+                    Charge_Amount: amounttoPay,
+                    Charge_Type: "4",
+                    ProspectID: prospectID,
+                    Description: description,
+                    GL_Trans_Description: description,
+                    RoutingNumber: routingNumber,
+                    BankName: bankName,
+                    PaymentMethod: paymentMethod,
+                    AID: $("#hndApplicantID").val(),
+                    FromAcc: $("#hndFromAcc").val(),
+                    IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
+                };
+                $.ajax({
+                    url: "/ApplyNow/saveCoAppPayment/",
+                    type: "post",
+                    contentType: "application/json utf-8",
+                    data: JSON.stringify(model),
+                    dataType: "JSON",
+                    success: function (response) {
+                        if (response.Msg != "") {
+                            if (response.Msg == "1") {
+                                $("#ResponseMsg1").html("Payment successfull");
+                                window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
+                            } else {
+                                $.alert({
+                                    title: "",
+                                    content: "Payment failed",
+                                    type: 'red'
+                                });
+                            }
+                        }
+                    }
+                });
+            }
         }
     });
 }
+
 
 var totpaid = 0;
 var totnotpaid = 0;
@@ -7369,7 +7442,7 @@ var delApplicant = function (appliId) {
 
 }
 
-function showFloorPlan(flid, numbedroom, modelname) {
+function showFloorPlanApplicant(flid, numbedroom, modelname) {
     $("#divLoaderFloorData").show();
     setTimeout(function () { $("#returnButton").removeClass("hidden"); $("#returnButton").html("Return to List View"); }, 1000);
     $("#UnitListDesc").text("Choose any unit in green to see more information including a video and complete layout of your unit. ");
@@ -8645,9 +8718,12 @@ var getTenantPetPlaceData = function () {
                 $("#spanPetDNAFee3").text("Pet DNA Fee (1 Pet):");
                 $("#spanPetDNAFee4").text("Pet DNA Fee (1 Pet):");
 
-                $("#spPetNRDeposit").text("Pet Non-refundable Deposit (1 Pet):");
-                $("#spfpetd").text("Pet Non-refundable Deposit (1 Pet):");
-                $("#spPetNRDep6").text("Pet Non-refundable Deposit (1 Pet):");
+                //$("#spPetNRDeposit").text("Pet Non-refundable Deposit (1 Pet):");
+                //$("#spfpetd").text("Pet Non-refundable Deposit (1 Pet):");
+                //$("#spPetNRDep6").text("Pet Non-refundable Deposit (1 Pet):");
+                $("#spPetNRDeposit").text("Pet Deposit:");
+                $("#spfpetd").text("Pet Deposit:");
+                $("#spPetNRDep6").text("Pet Deposit:");
 
 
             } else if (parseInt(response.model.NumberOfPets) == 2) {
@@ -8656,9 +8732,9 @@ var getTenantPetPlaceData = function () {
                 $("#spanPetDNAFee3").text("Pet DNA Fee (2 Pets):");
                 $("#spanPetDNAFee4").text("Pet DNA Fee (2 Pets):");
 
-                $("#spPetNRDeposit").text("Pet Non-refundable Deposit (2 Pets):");
-                $("#spfpetd").text("Pet Non-refundable Deposit (2 Pets):");
-                $("#spPetNRDep6").text("Pet Non-refundable Deposit (2 Pets):");
+                $("#spPetNRDeposit").text("Pet Deposit:");
+                $("#spfpetd").text("Pet Deposit:");
+                $("#spPetNRDep6").text("Pet Deposit:");
 
             }
             else {
@@ -8667,9 +8743,9 @@ var getTenantPetPlaceData = function () {
                 $("#spanPetDNAFee3").text("Pet DNA Fee:");
                 $("#spanPetDNAFee4").text("Pet DNA Fee:");
 
-                $("#spPetNRDeposit").text("Pet Non-refundable Deposit:");
-                $("#spfpetd").text("Pet Non-refundable Deposit:");
-                $("#spPetNRDep6").text("Pet Non-refundable Deposit:");
+                $("#spPetNRDeposit").text("Pet  Deposit:");
+                $("#spfpetd").text("Pet Deposit:");
+                $("#spPetNRDep6").text("Pet Deposit:");
             }
 
             if ($("#chkDontHavePet").is(':checked')) {
@@ -10140,12 +10216,10 @@ var clearCard2 = function () {
 }
 function saveCoAppPayment() {
 
+    alert("hi");
     $("#divLoader").show();
-
-   
     var checkEmail = 0;
     var msg = "";
-
     var fname = $("#txtApplicantFirstName").val();
     var mname = $("#txtApplicantMiddleName").val();
     var lname = $("#txtApplicantLastName").val();
@@ -10165,7 +10239,6 @@ function saveCoAppPayment() {
     var applicantCountry = $("#txtApplicantCountry").val();
     var applicantCity = $("#txtApplicantCity").val();
     var applicantApplicantZip2 = $("#txtApplicantZip2").val();
-
 
     if (type == "Co-Applicant") {
         checkEmail = 1;
@@ -10249,7 +10322,6 @@ function saveCoAppPayment() {
         msg += "Please accept Terms & Condition </br>";
     }
     
-    
     if ($("#hndTransMethod1").val() == "2") {
         var paymentMethod = 2;
         var propertyId = $("#hndUID").val();
@@ -10316,25 +10388,26 @@ function saveCoAppPayment() {
         });
         return;
     }
-    var model = {
-        PID: propertyId,
-        Name_On_Card: nameonCard,
-        CardNumber: cardNumber,
-        CardMonth: cardMonth,
-        CardYear: cardYear,
-        CCVNumber: ccvNumber,
-        Charge_Amount: amounttoPay,
-        Charge_Type: "4",
-        ProspectID: prospectID,
-        Description: description,
-        GL_Trans_Description: description,
-        RoutingNumber: routingNumber,
-        BankName: bankName,
-        PaymentMethod: paymentMethod,
-        AID: $("#hndApplicantID").val(),
-        FromAcc: $("#hndFromAcc").val(),
-        IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
-    };
+
+    //var model = {
+    //    PID: propertyId,
+    //    Name_On_Card: nameonCard,
+    //    CardNumber: cardNumber,
+    //    CardMonth: cardMonth,
+    //    CardYear: cardYear,
+    //    CCVNumber: ccvNumber,
+    //    Charge_Amount: amounttoPay,
+    //    Charge_Type: "4",
+    //    ProspectID: prospectID,
+    //    Description: description,
+    //    GL_Trans_Description: description,
+    //    RoutingNumber: routingNumber,
+    //    BankName: bankName,
+    //    PaymentMethod: paymentMethod,
+    //    AID: $("#hndApplicantID").val(),
+    //    FromAcc: $("#hndFromAcc").val(),
+    //    IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
+    //};
 
     $.alert({
         title: "",
@@ -10344,29 +10417,30 @@ function saveCoAppPayment() {
             yes: {
                 text: 'Yes',
                 action: function (yes) {
-                    $.ajax({
-                        url: "/ApplyNow/saveCoAppPayment/",
-                        type: "post",
-                        contentType: "application/json utf-8",
-                        data: JSON.stringify(model),
-                        dataType: "JSON",
-                        success: function (response) {
-                            if (response.Msg != "") {
-                                if (response.Msg == "1") {
-                                    $("#ResponseMsg1").html("Payment successfull");
-                                    saveupdateApplicant();
-                                    window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
+                    saveupdateApplicant(2);
 
-                                } else {
-                                    $.alert({
-                                        title: "",
-                                        content: "Payment failed",
-                                        type: 'red'
-                                    });
-                                }
-                            }
-                        }
-                    });
+                    //$.ajax({
+                    //    url: "/ApplyNow/saveCoAppPayment/",
+                    //    type: "post",
+                    //    contentType: "application/json utf-8",
+                    //    data: JSON.stringify(model),
+                    //    dataType: "JSON",
+                    //    success: function (response) {
+                    //        if (response.Msg != "") {
+                    //            if (response.Msg == "1") {
+                    //                $("#ResponseMsg1").html("Payment successfull");
+                                    
+                    //                //window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
+                    //            } else {
+                    //                $.alert({
+                    //                    title: "",
+                    //                    content: "Payment failed",
+                    //                    type: 'red'
+                    //                });
+                    //            }
+                    //        }
+                    //    }
+                    //});
                 }
             },
             no: {
@@ -10716,7 +10790,7 @@ var btnApplyNowLeaseCurrent = function () {
             $("#lblBath32").text(response.model.Bathroom);
             $("#lblDeposit3").text("$" + (formatMoney(response.model.Deposit)));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
 
             //new code for price table
             $('#priceTableUnit').text(response.model.UnitNo);
@@ -10885,7 +10959,7 @@ var btnApplyNowLeaseBest = function () {
             $("#lblBath32").text(response.model.Bathroom);
             $("#lblDeposit3").text("$" + (formatMoney(response.model.Deposit)));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
 
             //new code for price table
             $('#priceTableUnit').text(response.model.UnitNo);
@@ -11057,7 +11131,7 @@ var btnApplyNowLeaseGreat = function () {
             $("#lblBath32").text(response.model.Bathroom);
             $("#lblDeposit3").text("$" + (formatMoney(response.model.Deposit)));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
 
             //new code for price table
             $('#priceTableUnit').text(response.model.UnitNo);
@@ -11159,6 +11233,7 @@ var getPropertyModelUnitList = function (stype, pid) {
 }
 
 var getPropertyUnitDetails = function (uid) {
+    console.log(uid);
     $("#listUnitNew tr").removeClass("select-unit");
     //$("#unitdiv_" + $("#hndOldUID").val()).removeClass("select-unit");
     $("#divLoader").show();
@@ -11473,7 +11548,7 @@ var getPropertyUnitDetails = function (uid) {
             //console.log(parseFloat($("#lblRFPPestControl").text()));
             //console.log(parseFloat($("#lblRFPConvergentbillingfee").text()));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
 
             $("#divLoader").hide();
         }
@@ -11709,7 +11784,7 @@ var applyFromFloorPlanDetails = function () {
             $("#lblBath32").text(response.model.Bathroom);
             $("#lblDeposit3").text("$" + (formatMoney(response.model.Deposit)));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
             $("#popAvailableFloorPlanDetailss").modal('hide');
             $("#divLoader").hide();
             $('#divPriceTable').removeClass('hidden');

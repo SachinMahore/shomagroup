@@ -1317,20 +1317,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_BackgroundScreening">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
-        <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
-          <ScalarProperty Name="SSNNumber" ColumnName="SSNNumber" />
-          <ScalarProperty Name="Notes" ColumnName="Notes" />
-          <ScalarProperty Name="PDFUrl" ColumnName="PDFUrl" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="TenantId" ColumnName="TenantId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_Vehicle">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Vehicle">
         <MappingFragment StoreEntitySet="tbl_Vehicle">
@@ -1713,6 +1699,23 @@
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_BackgroundScreening">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
+        <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="ApplicantScore" ColumnName="ApplicantScore" />
+          <ScalarProperty Name="ApplicationDecision" ColumnName="ApplicationDecision" />
+          <ScalarProperty Name="ApplicantDecision" ColumnName="ApplicantDecision" />
+          <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+          <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="ReportType" ColumnName="ReportType" />
+          <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
+          <ScalarProperty Name="ApplyNowId" ColumnName="ApplyNowId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

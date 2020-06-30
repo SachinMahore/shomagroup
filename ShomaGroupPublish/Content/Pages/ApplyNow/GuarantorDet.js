@@ -3943,7 +3943,7 @@ var addApplicant = function (at) {
     clearApplicant();
     $("#popApplicant").modal("show");
 };
-var saveupdateGuarantor = function () {
+var saveupdateGuarantor = function (callFrom) {
 
     $("#divLoader").show();
     var checkEmail = 0;
@@ -4148,38 +4148,85 @@ var saveupdateGuarantor = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: response.Msg,
-                type: 'blue',
-            });
-            getApplicantListsGuarantor();
-            $("#popApplicant").modal("hide");
-            //$("#hndApplicantID").val(aid);
-            //var model = { id: aid, FromAcc: 0 };
-            //$.ajax({
-            //    url: "/Tenant/Applicant/GetApplicantDetails",
-            //    type: "post",
-            //    contentType: "application/json utf-8",
-            //    data: JSON.stringify(model),
-            //    dataType: "JSON",
-            //    success: function (response) {
-            //        if (response.model.Type == "Guarantor") {
-            //            if (response.model.Paid == 0) {
-            //                $.alert({
-            //                    title: "",
-            //                    content: "Progress saved. </br> You have to paid the background application fees to continue",
-            //                    type: 'red',
-            //                });
-            //            }
-            //            else {
-            //                $(".guarConti").attr("disabled", false);
-            //            }
-            //        }
-            //    }
-
-            //});
+            if (callFrom == 1) {
+                $("#divLoader").hide();
+                $.alert({
+                    title: "",
+                    content: response.Msg,
+                    type: 'blue',
+                });
+                getApplicantListsGuarantor();
+                $("#popApplicant").modal("hide");
+            }
+            else {
+                if ($("#hndTransMethod1").val() == "2") {
+                    var paymentMethod = 2;
+                    var propertyId = $("#hndUID").val();
+                    var nameonCard = $("#txtNameonCard1").val();
+                    var cardNumber = $("#txtCardNumber1").val();
+                    var cardMonth = $("#ddlcardmonth1").val();
+                    var cardYear = $("#ddlcardyear1").val();
+                    var ccvNumber = $("#txtCCVNumber1").val();
+                    var prospectID = $("#hdnOPId").val();
+                    var amounttoPay = unformatText($("#sppayFees").text());
+                    var description = $("#lblpopcctitle").text();
+                    var routingNumber = $("#txtRoutingNumber1").val();
+                    var bankName = $("#txtBankName1").val();
+                } else {
+                    var paymentMethod = 1;
+                    var nameonCard = $("#txtAccountName1").val();
+                    var cardNumber = $("#txtAccountNumber1").val();
+                    var cardMonth = 0;
+                    var cardYear = 0;
+                    var ccvNumber = 0;
+                    var routingNumber = $("#txtRoutingNumber1").val();
+                    var bankName = $("#txtBankName1").val();
+                    var amounttoPay = unformatText($("#sppayFees").text());
+                    var description = $("#lblpopcctitle").text();
+                    var prospectID = $("#hdnOPId").val();
+                    var propertyId = $("#hndUID").val();
+                }
+                var model = {
+                    PID: propertyId,
+                    Name_On_Card: nameonCard,
+                    CardNumber: cardNumber,
+                    CardMonth: cardMonth,
+                    CardYear: cardYear,
+                    CCVNumber: ccvNumber,
+                    Charge_Amount: amounttoPay,
+                    Charge_Type: "4",
+                    ProspectID: prospectID,
+                    Description: description,
+                    GL_Trans_Description: description,
+                    RoutingNumber: routingNumber,
+                    BankName: bankName,
+                    PaymentMethod: paymentMethod,
+                    AID: $("#hndApplicantID").val(),
+                    FromAcc: $("#hndFromAcc").val(),
+                    IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
+                };
+                $.ajax({
+                    url: "/ApplyNow/saveCoAppPayment/",
+                    type: "post",
+                    contentType: "application/json utf-8",
+                    data: JSON.stringify(model),
+                    dataType: "JSON",
+                    success: function (response) {
+                        if (response.Msg != "") {
+                            if (response.Msg == "1") {
+                                $("#ResponseMsg1").html("Payment successfull");
+                                window.location = "/ApplyNow/GuarantorDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val(); 
+                            } else {
+                                $.alert({
+                                    title: "",
+                                    content: "Payment failed",
+                                    type: 'red'
+                                });
+                            }
+                        }
+                    }
+                });
+            }
         }
     });
 };
@@ -8862,25 +8909,25 @@ function saveCoAppPayment() {
         });
         return;
     }
-    var model = {
-        PID: propertyId,
-        Name_On_Card: nameonCard,
-        CardNumber: cardNumber,
-        CardMonth: cardMonth,
-        CardYear: cardYear,
-        CCVNumber: ccvNumber,
-        Charge_Amount: amounttoPay,
-        Charge_Type: "4",
-        ProspectID: prospectID,
-        Description: description,
-        GL_Trans_Description: description,
-        RoutingNumber: routingNumber,
-        BankName: bankName,
-        PaymentMethod: paymentMethod,
-        AID: $("#hndApplicantID").val(),
-        FromAcc: $("#hndFromAcc").val(),
-        IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
-    };
+    //var model = {
+    //    PID: propertyId,
+    //    Name_On_Card: nameonCard,
+    //    CardNumber: cardNumber,
+    //    CardMonth: cardMonth,
+    //    CardYear: cardYear,
+    //    CCVNumber: ccvNumber,
+    //    Charge_Amount: amounttoPay,
+    //    Charge_Type: "4",
+    //    ProspectID: prospectID,
+    //    Description: description,
+    //    GL_Trans_Description: description,
+    //    RoutingNumber: routingNumber,
+    //    BankName: bankName,
+    //    PaymentMethod: paymentMethod,
+    //    AID: $("#hndApplicantID").val(),
+    //    FromAcc: $("#hndFromAcc").val(),
+    //    IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
+    //};
 
     $.alert({
         title: "",
@@ -8890,29 +8937,30 @@ function saveCoAppPayment() {
             yes: {
                 text: 'Yes',
                 action: function (yes) {
-                    $.ajax({
-                        url: "/ApplyNow/saveCoAppPayment/",
-                        type: "post",
-                        contentType: "application/json utf-8",
-                        data: JSON.stringify(model),
-                        dataType: "JSON",
-                        success: function (response) {
-                            if (response.Msg != "") {
-                                if (response.Msg == "1") {
-                                    $("#ResponseMsg1").html("Payment successfull");
-                                    saveupdateGuarantor();
-                                    window.location = "/ApplyNow/GuarantorDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val(); 
+                    saveupdateGuarantor(2);
+                    //$.ajax({
+                    //    url: "/ApplyNow/saveCoAppPayment/",
+                    //    type: "post",
+                    //    contentType: "application/json utf-8",
+                    //    data: JSON.stringify(model),
+                    //    dataType: "JSON",
+                    //    success: function (response) {
+                    //        if (response.Msg != "") {
+                    //            if (response.Msg == "1") {
+                    //                $("#ResponseMsg1").html("Payment successfull");
+                    //                saveupdateGuarantor(2);
+                    //                window.location = "/ApplyNow/GuarantorDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val(); 
 
-                                } else {
-                                    $.alert({
-                                        title: "",
-                                        content: "Payment failed",
-                                        type: 'red'
-                                    });
-                                }
-                            }
-                        }
-                    });
+                    //            } else {
+                    //                $.alert({
+                    //                    title: "",
+                    //                    content: "Payment failed",
+                    //                    type: 'red'
+                    //                });
+                    //            }
+                    //        }
+                    //    }
+                    //});
                 }
             },
             no: {
