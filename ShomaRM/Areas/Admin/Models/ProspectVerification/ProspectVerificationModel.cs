@@ -582,7 +582,7 @@ namespace ShomaRM.Areas.Admin.Models
                                 emailBodyCoapp += "<p style=\"margin-bottom: 0px;\">" + app.MoveInPercentage + " % Move In charges Payment Link</p>";
                                 emailBodyCoapp += "<p style=\"margin-bottom: 0px;\">Hello <b>" + app.FirstName + " " + app.LastName + "</b>! Your Online application is Approved. Please click below to pay " + app.MoveInPercentage + "% Move In Charges $" + (((GetTenantDet.MoveInCharges * app.MoveInPercentage) / 100).Value.ToString("0.00")) + ".</p>";
                                 emailBodyCoapp += "<p style=\"margin-bottom: 0px;\">Please click here for Pay Now</p>";
-                                emailBodyCoapp += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/PayLink/?pid=" + app.ApplicantID + "\" class=\"link-button\" target=\"_blank\">Pay Now</a></p>";
+                                emailBodyCoapp += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/PayLink/?pid=" + mpayid + "\" class=\"link-button\" target=\"_blank\">Pay Now</a></p>";
                                 reportHTMLCoapp = reportHTMLCoapp.Replace("[%EmailBody%]", emailBodyCoapp);
 
                                 //reportHTMLCoapp = reportHTMLCoapp.Replace("[%Status%]", "Lease has been finalized : Pay your Move In Charges");

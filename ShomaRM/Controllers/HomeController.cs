@@ -228,12 +228,7 @@ namespace ShomaRM.Controllers
                 return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult AddCustPaymentMethodACH(ApplyNowModel mm)
-        {
-            UsaePayWSDLModel model = new UsaePayWSDLModel();
-            model.AddCustPaymentMethodACH(mm);
-            return View();
-        }
+   
         public ActionResult PayUsingCustomerNum(string CustID, string PMID, decimal Amount, string Desc)
         {
             try

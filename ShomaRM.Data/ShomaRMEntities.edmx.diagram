@@ -45,7 +45,6 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_MoveInPayment" Width="1.5" PointX="14.75" PointY="4.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Notes" Width="1.5" PointX="14.75" PointY="8.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Notice" Width="1.5" PointX="10.25" PointY="63.25" />
-        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_OnlinePayment" Width="1.5" PointX="14.75" PointY="12.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_PaymentAccounts" Width="1.5" PointX="16.75" PointY="4.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_PetPlace" Width="1.5" PointX="10.25" PointY="85.5" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_PremiumType" Width="1.5" PointX="8.75" PointY="16.75" />
@@ -172,6 +171,7 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ESignatureKeys" Width="1.5" PointX="19.375" PointY="0.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_TenantOnline" Width="1.5" PointX="23" PointY="64" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_TenantOnline_tbl_ApplyNow" />
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_OnlinePayment" Width="1.5" PointX="19.375" PointY="10.75" />
 
         </Diagram>
     </edmx:Diagrams>

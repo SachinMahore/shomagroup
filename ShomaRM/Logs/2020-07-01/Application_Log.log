@@ -1,0 +1,1237 @@
+
+Date - 01 Jul 2020 12:32:40
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 12:32:40
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 12:32:50
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 12:32:50
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 12:39:24
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at ShomaRM.Models.Web.AttachFiles(ISendGrid message, MultipartFormDataContent content)
+   at ShomaRM.Models.Web.Deliver(ISendGrid message)
+   at ShomaRM.Models.EmailSendModel.SendAsync(SendGridMessage message, String SGUserName, String SGPassword)
+
+Date - 01 Jul 2020 12:39:24
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+   at ShomaRM.Models.EmailSendModel.SendEmailWithAttachment(String ToEmail, String Subject, String Body, List`1 FilePath)
+
+Date - 01 Jul 2020 13:56:53
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at ShomaRM.Models.Web.AttachFiles(ISendGrid message, MultipartFormDataContent content)
+   at ShomaRM.Models.Web.Deliver(ISendGrid message)
+   at ShomaRM.Models.EmailSendModel.SendAsync(SendGridMessage message, String SGUserName, String SGPassword)
+
+Date - 01 Jul 2020 13:56:53
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+   at ShomaRM.Models.EmailSendModel.SendEmailWithAttachment(String ToEmail, String Subject, String Body, List`1 FilePath)
+
+Date - 01 Jul 2020 13:59:52
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at ShomaRM.Models.Web.AttachFiles(ISendGrid message, MultipartFormDataContent content)
+   at ShomaRM.Models.Web.Deliver(ISendGrid message)
+   at ShomaRM.Models.EmailSendModel.SendAsync(SendGridMessage message, String SGUserName, String SGPassword)
+
+Date - 01 Jul 2020 13:59:52
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+   at ShomaRM.Models.EmailSendModel.SendEmailWithAttachment(String ToEmail, String Subject, String Body, List`1 FilePath)
+
+Date - 01 Jul 2020 14:10:59
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 14:11:00
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 14:11:59
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 14:11:59
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 14:12:58
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 14:13:26
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 14:13:26
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 14:16:14
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 14:16:42
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 14:16:42
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 14:20:24
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at ShomaRM.Models.Web.AttachFiles(ISendGrid message, MultipartFormDataContent content) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\Web.cs:line 111
+   at ShomaRM.Models.Web.Deliver(ISendGrid message) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\Web.cs:line 69
+   at ShomaRM.Models.EmailSendModel.SendAsync(SendGridMessage message, String SGUserName, String SGPassword) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs:line 91
+
+Date - 01 Jul 2020 14:20:24
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+   at ShomaRM.Models.EmailSendModel.SendEmailWithAttachment(String ToEmail, String Subject, String Body, List`1 FilePath) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs:line 76
+
+Date - 01 Jul 2020 14:22:22
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at ShomaRM.Models.Web.AttachFiles(ISendGrid message, MultipartFormDataContent content) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\Web.cs:line 111
+   at ShomaRM.Models.Web.Deliver(ISendGrid message) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\Web.cs:line 69
+   at ShomaRM.Models.EmailSendModel.SendAsync(SendGridMessage message, String SGUserName, String SGPassword) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs:line 91
+
+Date - 01 Jul 2020 14:22:22
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+   at ShomaRM.Models.EmailSendModel.SendEmailWithAttachment(String ToEmail, String Subject, String Body, List`1 FilePath) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs:line 76
+
+Date - 01 Jul 2020 14:27:58
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at ShomaRM.Models.Web.AttachFiles(ISendGrid message, MultipartFormDataContent content)
+   at ShomaRM.Models.Web.Deliver(ISendGrid message)
+   at ShomaRM.Models.EmailSendModel.SendAsync(SendGridMessage message, String SGUserName, String SGPassword)
+
+Date - 01 Jul 2020 14:27:58
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+   at ShomaRM.Models.EmailSendModel.SendEmailWithAttachment(String ToEmail, String Subject, String Body, List`1 FilePath)
+
+Date - 01 Jul 2020 14:29:58
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 14:29:58
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 15:07:49
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 15:09:13
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at ShomaRM.Models.Web.AttachFiles(ISendGrid message, MultipartFormDataContent content)
+   at ShomaRM.Models.Web.Deliver(ISendGrid message)
+   at ShomaRM.Models.EmailSendModel.SendAsync(SendGridMessage message, String SGUserName, String SGPassword)
+
+Date - 01 Jul 2020 15:09:14
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_15.pdf'.
+   at ShomaRM.Models.EmailSendModel.SendEmailWithAttachment(String ToEmail, String Subject, String Body, List`1 FilePath)
+
+Date - 01 Jul 2020 15:10:49
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 15:48:21
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 15:48:21
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 15:50:05
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 15:50:05
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 16:17:07
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 16:17:07
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 16:36:30
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 16:36:30
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 17:42:53
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 17:42:53
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 18:23:12
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 18:23:12
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 18:23:37
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 18:23:37
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 18:24:14
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 18:24:14
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 18:29:41
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 18:29:41
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 19:55:49
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 19:55:50
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 19:57:18
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 19:57:18
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 21:23:40
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: One or more errors occurred.
+Exception Details - An error occurred while sending the request.
+The remote name could not be resolved: 'api.sendgrid.com'
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: The remote name could not be resolved: 'api.sendgrid.com'
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Net.Http.HttpClient.<FinishSendAsync>d__58.MoveNext()
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at ShomaRM.Models.Web.Deliver(ISendGrid message) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\Web.cs:line 70
+   at ShomaRM.Models.EmailSendModel.SendAsync(SendGridMessage message, String SGUserName, String SGPassword) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs:line 91
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: The remote name could not be resolved: 'api.sendgrid.com'
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Net.Http.HttpClient.<FinishSendAsync>d__58.MoveNext()<---
+
+
+Date - 01 Jul 2020 21:23:41
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: One or more errors occurred.
+Exception Details - An error occurred while sending the request.
+The remote name could not be resolved: 'api.sendgrid.com'
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: The remote name could not be resolved: 'api.sendgrid.com'
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Net.Http.HttpClient.<FinishSendAsync>d__58.MoveNext()
+   --- End of inner exception stack trace ---
+   at ShomaRM.Models.EmailSendModel.SendAsync(SendGridMessage message, String SGUserName, String SGPassword) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs:line 97
+   at ShomaRM.Models.EmailSendModel.SendEmail(String ToEmail, String Subject, String Body) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs:line 35
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: The remote name could not be resolved: 'api.sendgrid.com'
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Net.Http.HttpClient.<FinishSendAsync>d__58.MoveNext()<---
+
+
+Date - 01 Jul 2020 21:23:41
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: One or more errors occurred.
+Exception Details - An error occurred while sending the request.
+The remote name could not be resolved: 'api.sendgrid.com'
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: The remote name could not be resolved: 'api.sendgrid.com'
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Net.Http.HttpClient.<FinishSendAsync>d__58.MoveNext()
+   --- End of inner exception stack trace ---
+   at ShomaRM.Models.EmailSendModel.SendEmail(String ToEmail, String Subject, String Body) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs:line 41
+---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: The remote name could not be resolved: 'api.sendgrid.com'
+   at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)
+   at System.Net.Http.HttpClientHandler.GetRequestStreamCallback(IAsyncResult ar)
+   --- End of inner exception stack trace ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Net.Http.HttpClient.<FinishSendAsync>d__58.MoveNext()<---
+
+
+Date - 01 Jul 2020 21:47:46
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 01 Jul 2020 21:47:47
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+

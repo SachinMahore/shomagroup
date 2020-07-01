@@ -1264,51 +1264,37 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
+            // var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
+            var tenentUID = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var GetApplicantData = db.tbl_Applicant.Where(c => c.UserID == tenentUID).FirstOrDefault();
+            var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+           
+            var UserData = db.tbl_TenantOnline.Where(p => p.ParentTOID == tenentUID).FirstOrDefault();
 
-            var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
-            var propertyDet = db.tbl_Properties.Where(co => co.PID == 8).FirstOrDefault();
-            ApplyNowModel mm = new ApplyNowModel();
-            string transStatus = "";
-            //string encryptedCardNumber = editPaymentAccounts.CardNumber == null ? null :  new EncryptDecrypt().EncryptText(editPaymentAccounts.CardNumber);
-            //string encryptedCardMonth = new EncryptDecrypt().EncryptText(editPaymentAccounts.Month);
-            //string encryptedCardYear = new EncryptDecrypt().EncryptText(editPaymentAccounts.Year);
-            //string encryptedAccountNumber = editPaymentAccounts.AccountNumber == "" ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.AccountNumber);
-            //string encryptedRoutingNumber = editPaymentAccounts.RoutingNumber == "" ? "" : new EncryptDecrypt().EncryptText(editPaymentAccounts.RoutingNumber);
-            if (editPaymentAccounts != null)
+
+            var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ID == model.PAID).FirstOrDefault();
+
+            string decrytpedPMID = new EncryptDecrypt().DecryptText(GetPayDetails.PaymentID);
+
+
+            decimal processingFees = 0;
+
+            if (GePropertyData != null)
             {
-                if (propertyDet != null)
-                {
-                    mm.ProcessingFees = propertyDet.ProcessingFees ?? 0;
-                }
-                mm.CardNumber = !string.IsNullOrWhiteSpace(editPaymentAccounts.CardNumber)?new EncryptDecrypt().DecryptText(editPaymentAccounts.CardNumber) :"";
-                mm.CardMonth = !string.IsNullOrWhiteSpace(editPaymentAccounts.Month) ? new EncryptDecrypt().DecryptText(editPaymentAccounts.Month) : "";
-                mm.CardYear = !string.IsNullOrWhiteSpace(editPaymentAccounts.Year) ? new EncryptDecrypt().DecryptText(editPaymentAccounts.Year) : "";
-                mm.CCVNumber = "123";
-                mm.ProspectId = model.TenantID;
-                mm.PaymentMethod = 1;
-                mm.Charge_Amount = model.Charge_Amount;
-
-                mm.AccountNumber = !string.IsNullOrWhiteSpace(editPaymentAccounts.AccountNumber) ? new EncryptDecrypt().DecryptText(editPaymentAccounts.AccountNumber) : ""; 
-                mm.RoutingNumber = !string.IsNullOrWhiteSpace(editPaymentAccounts.RoutingNumber) ? new EncryptDecrypt().DecryptText(editPaymentAccounts.RoutingNumber) : ""; 
-                mm.BankName = editPaymentAccounts.BankName;
-
-                var GetTenData = db.tbl_TenantInfo.Where(p => p.TenantID == model.TenantID).FirstOrDefault();
-                mm.Email = GetTenData.Email;
-                if (!string.IsNullOrWhiteSpace(mm.CardNumber))
-                {
-                    mm.Name_On_Card = editPaymentAccounts.NameOnCard;
-                    transStatus = new UsaePayModel().ChargeCard(mm);
-                }
-                else if (!string.IsNullOrWhiteSpace(mm.RoutingNumber))
-                {
-                    mm.Name_On_Card = editPaymentAccounts.AccountName;
-                    transStatus = new UsaePayModel().ChargeACH(mm);
-                }
+                processingFees = GePropertyData.ProcessingFees ?? 0;
             }
-            
+
+            string transStatus = "";
+            //string cardaccnum = "";
+            //model.Email = GetApplicantData.Email;
+            //model.ProcessingFees = processingFees;
+
+            transStatus = new UsaePayWSDLModel().PayUsingCustomerNum(GetApplicantData.CustID, decrytpedPMID, Convert.ToDecimal(model.Charge_Amount), model.Description);
+
+
             String[] spearator = { "|" };
             String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
-            if (strlist[1] != "000000")
+            if (strlist[0] == "Approved")
             {
                 var saveTransaction = new tbl_Transaction()
                 {
@@ -1458,49 +1444,35 @@ namespace ShomaRM.Areas.Tenant.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
+            // var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
+            var tenentUID = ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0;
+            var GetApplicantData = db.tbl_Applicant.Where(c => c.UserID == tenentUID).FirstOrDefault();
+            var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
 
-            var editPaymentAccounts = db.tbl_PaymentAccounts.Where(co => co.PAID == model.PAID).FirstOrDefault();
-            var propertyDet = db.tbl_Properties.Where(co => co.PID == 8).FirstOrDefault();
-            ApplyNowModel mm = new ApplyNowModel();
-            string transStatus = "";
+            var UserData = db.tbl_TenantOnline.Where(p => p.ParentTOID == tenentUID).FirstOrDefault();
 
-            string decryptedCardNumber = string.IsNullOrWhiteSpace(editPaymentAccounts.CardNumber) ? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.CardNumber);
-            string decryptedAccountNumber = string.IsNullOrWhiteSpace(editPaymentAccounts.AccountNumber) ? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.AccountNumber);
-            string decrytpedCardMonth = string.IsNullOrWhiteSpace(editPaymentAccounts.Month) ? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.Month);
-            string decrytpedCardYear = string.IsNullOrWhiteSpace(editPaymentAccounts.Year) ? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.Year);
-            string decrytpedRoutingNumber = string.IsNullOrWhiteSpace(editPaymentAccounts.RoutingNumber) ? "" : new EncryptDecrypt().DecryptText(editPaymentAccounts.RoutingNumber);
 
-            if (editPaymentAccounts != null)
+            var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ID == model.PAID).FirstOrDefault();
+
+            string decrytpedPMID = new EncryptDecrypt().DecryptText(GetPayDetails.PaymentID);
+
+
+            decimal processingFees = 0;
+
+            if (GePropertyData != null)
             {
-                if (propertyDet != null)
-                {
-                    mm.ProcessingFees = propertyDet.ProcessingFees ?? 0;
-                }
-                mm.CardNumber = decryptedCardNumber;
-                mm.CardMonth = decrytpedCardMonth;
-                mm.CardYear = decrytpedCardYear;
-                //mm.CCVNumber = model.CCVNumber;
-                mm.ProspectId = model.TenantID;
-                mm.PaymentMethod = 1;
-                mm.Charge_Amount = model.Charge_Amount;
-
-                mm.AccountNumber = decryptedAccountNumber;
-                mm.RoutingNumber = decrytpedRoutingNumber;
-                mm.BankName = editPaymentAccounts.BankName;
-                var GetTenData = db.tbl_TenantOnline.Where(p => p.ID == model.TenantID).FirstOrDefault();
-                mm.Email = GetTenData.Email;
-                if (!string.IsNullOrWhiteSpace(mm.CardNumber))
-                {
-                    mm.Name_On_Card = editPaymentAccounts.NameOnCard;
-                    transStatus = new UsaePayModel().ChargeCard(mm);
-                }
-                else if (!string.IsNullOrWhiteSpace(mm.RoutingNumber))
-                {
-                    mm.Name_On_Card = editPaymentAccounts.AccountName;
-                    transStatus = new UsaePayModel().ChargeACH(mm);
-                }
+                processingFees = GePropertyData.ProcessingFees ?? 0;
             }
-            
+
+            string transStatus = "";
+            //string cardaccnum = "";
+            //model.Email = GetApplicantData.Email;
+            //model.ProcessingFees = processingFees;
+
+            transStatus = new UsaePayWSDLModel().PayUsingCustomerNum(GetApplicantData.CustID, decrytpedPMID, Convert.ToDecimal(model.Charge_Amount), model.Description);
+
+
+
             String[] spearator = { "|" };
             String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
             if (strlist[1] != "000000")
@@ -1528,7 +1500,7 @@ namespace ShomaRM.Areas.Tenant.Models
                 var TransId = saveTransaction.TransID;
 
                 var serEstDet = db.tbl_Estimate.Where(p => p.EID == model.EID).FirstOrDefault();
-                var GetTenantData = db.tbl_TenantInfo.Where(p => p.TenantID == editPaymentAccounts.TenantId).FirstOrDefault();
+                var GetTenantData = db.tbl_TenantInfo.Where(p => p.TenantID == model.TenantID).FirstOrDefault();
 
                 string reportHTML = "";
                 string body = "";

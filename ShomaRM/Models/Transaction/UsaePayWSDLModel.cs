@@ -43,25 +43,25 @@ namespace ShomaRM.Models
             address.Company = model.EmployerName;
             address.Street = model.HomeAddress1+" "+model.HomeAddress2;
             address.City =model.CityHome;
-            address.State = model.StateHomeString;
+            address.State = model.StateString;
             address.Zip = model.ZipHome;
             address.Country = model.CountryString;
             customer.BillingAddress = address;
 
             customer.Enabled = true;
-            customer.Amount = 5.00;
-            customer.Next = "2025-08-15";
-            customer.Schedule = "monthly";
+            //customer.Amount = 5.00;
+            //customer.Next = "2025-08-15";
+            //customer.Schedule = "monthly";
 
-            usaepay.PaymentMethod[] payMethod = new usaepay.PaymentMethod[1];
-            payMethod[0] = new usaepay.PaymentMethod();
-            payMethod[0].CardExpiration = "1222";
-            payMethod[0].CardNumber = "4000100011112224";
-            payMethod[0].AvsStreet = "123 Main st.";
-            payMethod[0].AvsZip = "90046";
-            payMethod[0].CardType = "My Visa";
+            //usaepay.PaymentMethod[] payMethod = new usaepay.PaymentMethod[1];
+            //payMethod[0] = new usaepay.PaymentMethod();
+            //payMethod[0].CardExpiration = "1222";
+            //payMethod[0].CardNumber = "4000100011112224";
+            //payMethod[0].AvsStreet = "123 Main st.";
+            //payMethod[0].AvsZip = "90046";
+            //payMethod[0].CardType = "My Visa";
 
-            customer.PaymentMethods = payMethod;
+            //customer.PaymentMethods = payMethod;
             string response;
 
             try
@@ -97,7 +97,7 @@ namespace ShomaRM.Models
             hash.HashValue = GenerateHash(prehashvalue); // generate hash
 
             token.PinHash = hash;   // add hash value to token
-            string CustNum = model.CCVNumber;
+            string CustNum = model.CustID;
 
             usaepay.PaymentMethod payMethod = new usaepay.PaymentMethod();
             if(model.PaymentMethod==2)
@@ -112,7 +112,7 @@ namespace ShomaRM.Models
             {
                 payMethod.MethodType = "ACH";
                 payMethod.Routing = model.RoutingNumber;
-                payMethod.Account = model.AccountNumber;
+                payMethod.Account = model.CardNumber;
             }
          
             payMethod.MethodName = model.Name_On_Card;
@@ -225,7 +225,7 @@ namespace ShomaRM.Models
 
             token.SourceKey = sourceKeySendBox;
             token.ClientIP = "11.22.33.44";  // IP address of end user (if applicable)
-            string pin = "5577";   // pin assigned to source
+            string pin = pinSendBox;   // pin assigned to source
 
             usaepay.ueHash hash = new usaepay.ueHash();
             hash.Type = "md5";  // Type of encryption 
@@ -238,122 +238,70 @@ namespace ShomaRM.Models
 
             usaepay.TransactionRequestObject tran = new usaepay.TransactionRequestObject();
 
-            tran.Command = "cc:sale";
+           
             tran.Details = new usaepay.TransactionDetail();
-            tran.Details.Amount = 1.00;
+            tran.Details.Amount =Convert.ToDouble(model.Charge_Amount);
             tran.Details.AmountSpecified = true;
             tran.Details.Invoice = "1234";
-            tran.Details.Description = "Example Transaction";
-
-            tran.CreditCardData = new usaepay.CreditCardData();
-            tran.CreditCardData.CardNumber = "4444555566667779";
-            tran.CreditCardData.CardExpiration = "0919";
-
+            tran.Details.Description = model.Description;
             usaepay.TransactionResponse response = new usaepay.TransactionResponse();
-
-            try
+            if (model.PaymentMethod == 2)
             {
-                response = client.runTransaction(token, tran);
-
-                if (response.ResultCode == "A")
+                tran.Command = "cc:sale";
+                tran.CreditCardData = new usaepay.CreditCardData();
+                tran.CreditCardData.CardNumber = model.CardNumber;
+                tran.CreditCardData.CardExpiration = model.CardMonth + model.CardYear;
+                try
                 {
-                    transStatus = string.Concat("Transaction Approved, RefNum: ", response.RefNum);
+                    response = client.runTransaction(token, tran);
+
+                    if (response.ResultCode == "A")
+                    {
+                        transStatus = string.Concat(response.Result);
+                    }
+                    else
+                    {
+                        transStatus = string.Concat("Transaction Failed: ", response.Error);
+                    }
                 }
-                else
+                catch (Exception err)
                 {
-                    transStatus = string.Concat("Transaction Failed: ", response.Error);
+                    transStatus = err.Message;
                 }
             }
-            catch (Exception err)
+            else if(model.PaymentMethod == 1)
             {
-                transStatus = err.Message;
+                
+                tran.CheckData = new usaepay.CheckData();
+                tran.CheckData.Account = model.AccountNumber;
+                tran.CheckData.Routing = model.RoutingNumber;
+               
+
+                tran.AccountHolder = model.Name_On_Card;
+                try
+                {
+                    response = client.runCheckSale(token, tran);
+
+                    if (response.ResultCode == "A")
+                    {
+                        transStatus = string.Concat(response.Result);
+                    }
+                    else
+                    {
+                        transStatus = string.Concat("Transaction Failed: ", response.Error);
+                    }
+                }
+                catch (Exception err)
+                {
+                    transStatus = err.Message;
+                }
             }
-            return transStatus;
+            
+
+          
+            return transStatus + "|" + response.AuthCode + "|" + response.RefNum;
         }
-        //public string AddCustPaymentMethodCC(ApplyNowModel model)
-        //{
-        //    ShomaRMEntities db = new ShomaRMEntities();
-        //    string transStatus = "";
-        //    usaepay.ueSoapServerPortTypeClient client = new usaepay.ueSoapServerPortTypeClient();
-        //    usaepay.ueSecurityToken token = new usaepay.ueSecurityToken();
-
-        //    token.SourceKey = sourceKeySendBox;
-        //    token.ClientIP = "11.22.33.44";  // IP address of end user (if applicable)
-        //    string pin = "7894";   // pin assigned to source
-
-        //    usaepay.ueHash hash = new usaepay.ueHash();
-        //    hash.Type = "md5";  // Type of encryption 
-        //    hash.Seed = Guid.NewGuid().ToString();  // unique encryption seed
-
-        //    string prehashvalue = string.Concat(token.SourceKey, hash.Seed, pin);  // combine data into single string
-        //    hash.HashValue = GenerateHash(prehashvalue); // generate hash
-
-        //    token.PinHash = hash;   // add hash value to token
-        //    string CustNum = "11248650";
-
-        //    usaepay.PaymentMethod payMethod = new usaepay.PaymentMethod();
-        //    payMethod.CardExpiration = "1222";
-        //    payMethod.CardNumber = "4000100011112224";
-        //    payMethod.AvsStreet = "Nagpur";
-        //    payMethod.AvsZip = "90046";
-        //    payMethod.MethodName = "My Visa";
-
-        //    string response;
-
-        //    try
-        //    {
-        //        response = client.addCustomerPaymentMethod(token, CustNum, payMethod, false, true);
-        //        transStatus = string.Concat(response);
-        //    }
-
-        //    catch (Exception err)
-        //    {
-        //        transStatus = err.Message;
-        //    }
-        //    return transStatus;
-        //}
-        public string AddCustPaymentMethodACH(ApplyNowModel model)
-        {
-            ShomaRMEntities db = new ShomaRMEntities();
-            string transStatus = "";
-            usaepay.ueSoapServerPortTypeClient client = new usaepay.ueSoapServerPortTypeClient();
-            usaepay.ueSecurityToken token = new usaepay.ueSecurityToken();
-
-            token.SourceKey = sourceKeySendBox;
-            token.ClientIP = "11.22.33.44";  // IP address of end user (if applicable)
-            string pin = pinSendBox;   // pin assigned to source
-
-            usaepay.ueHash hash = new usaepay.ueHash();
-            hash.Type = "md5";  // Type of encryption 
-            hash.Seed = Guid.NewGuid().ToString();  // unique encryption seed
-
-            string prehashvalue = string.Concat(token.SourceKey, hash.Seed, pin);  // combine data into single string
-            hash.HashValue = GenerateHash(prehashvalue); // generate hash
-
-            token.PinHash = hash;   // add hash value to token
-            string CustNum = "11248650";
-
-            usaepay.PaymentMethod payMethod = new usaepay.PaymentMethod();
-            payMethod.MethodType = "ACH";
-            payMethod.Routing = "234329098";
-            payMethod.Account = "676867862126";
-            //payMethod.AvsZip = "90046";
-            payMethod.MethodName = "SachinSBIACH";
-
-            string response;
-
-            try
-            {
-                response = client.addCustomerPaymentMethod(token, CustNum, payMethod, false, true);
-                transStatus = string.Concat(response);
-            }
-
-            catch (Exception err)
-            {
-                transStatus = err.Message;
-            }
-            return transStatus;
-        }
+     
         public string PayUsingCustomerNum(string CustID, string PMID,decimal Amount,string Desc)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -396,7 +344,7 @@ namespace ShomaRM.Models
             {
                 transStatus = err.Message;
             }
-            return transStatus;
+            return transStatus + "|" + response.AuthCode + "|" + response.RefNum;
         }
 
         public string TransReport()

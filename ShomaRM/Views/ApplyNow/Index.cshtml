@@ -4280,108 +4280,7 @@
                                     </div>
 
                                 </div>
-                                <div class="col-sm-12 hidden">
-                                    <input type="hidden" id="hndTransID" value="0" />
-                                    <input type="hidden" id="hndTransMethod" value="2" />
-                                    <div class="col-sm-12">
-                                        <div class="dot-hr"></div>
-                                        <br />
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <input type="button" class='btn-alltype' id="chkBank" onclick="clearBank()" value="Bank Account">
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <input type="button" class='btn-alltype active' id="chkACH" onclick="clearCard()" value="Credit Card">
-                                    </div>
-
-                                    <div class="col-sm-12">
-                                        <br />
-                                        <div class="dot-hr"></div>
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <label id="lblPaymentDet">Enter Credit Card Details.</label>
-
-                                    </div>
-                                    <div class="col-sm-12 hidden" id="divBank">
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label class="star">Bank Name</label>
-                                                <input id="txtBankName" type="text" class="form-control" placeholder="Bank Name" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label id="lblAccCardname" class="star">Account Name</label>
-                                                <input id="txtAccountName" type="text" class="form-control" placeholder="Account Name" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label id="lblAccCardnum" class="star">Account Number</label>
-                                                <input id="txtAccountNumber" type="text" class="form-control" placeholder="Account Number" onkeypress="return isOnlyNumber(event)" maxlength="29" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label>Routing Number</label>
-                                                <input id="txtRoutingNumber" type="text" class="form-control" placeholder="Routing Number" maxlength="9" onkeypress="return isNumber(event)" value="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12" id="divCard">
-                                        <div class="form-group col-sm-3">
-                                            <label for="name" class="star">Name on Card</label>
-                                            <input type="text" class="form-control" id="txtNameonCard" placeholder="Name on Card" value="">
-                                        </div>
-                                        <div class="form-group col-sm-3">
-                                            <label for="cardnumber" class="star">Card Number</label>
-                                            <input type="text" class="form-control" id="txtCardNumber" placeholder="Card Number" onkeypress="return isOnlyNumber(event)" maxlength="16" value="">
-                                        </div>
-                                        <div class="form-group col-sm-2">
-                                            <label for="cardmonth">Card Month</label>
-                                            <select id="ddlcardmonth" class="form-control form-control-small">
-                                                <option value='01'>01</option>
-                                                <option value='02'>02</option>
-                                                <option value='03'>03</option>
-                                                <option value='04'>04</option>
-                                                <option value='05'>05</option>
-                                                <option value='06'>06</option>
-                                                <option value='07'>07</option>
-                                                <option value='08'>08</option>
-                                                <option value='09'>09</option>
-                                                <option value='10'>10</option>
-                                                <option value='11'>11</option>
-                                                <option value='12'>12</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-sm-2">
-                                            <label for="cardyear">Card Year</label>
-                                            <select id="ddlcardyear" class="form-control form-control-small">
-                                                @for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(5).Year; i++)
-                                            {
-                                                    <option value="@(i.ToString().Substring(2,2))">@i</option>
-
-                                            }
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-sm-2">
-                                            <label for="txtCcvNumber" class="star">CVV Number</label>
-                                            <input type="password" class="form-control" id="txtCCVNumber" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-sm-12">
-                                        <div class="dot-hr"></div>
-                                    </div>
-                                    <div class="col-sm-12" style="margin-bottom:20px">
-                                        <input type="checkbox" id="chkTermsAndCondition">
-                                        <span class="chektext">
-                                            I agree to the
-                                            <span class="span1"><a id="ShowTermsAndCondition" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <button type="submit" class="btn-alltype" id="btnpaynow" onclick="savePayment()" disabled>Pay Now</button>
-                                        </span>
-                                    </div>
-                                </div>
+                         
                             </div>
                             <div class="col-sm-12 hidden" id="Divtranslist">
                                 <br />
@@ -5105,8 +5004,7 @@
                                 <tr>
                                     <th style="background-color: #c7cdd5;color:#3d3939">Payment Method</th>
                                     <th style="background-color: #c7cdd5;color:#3d3939">Account Name</th>
-                                    <th style="background-color: #c7cdd5;color:#3d3939">Account/Card Number</th>
-
+                                    
                                     <th style="background-color: #c7cdd5;color:#3d3939">Select</th>
                                 </tr>
                             </thead>
@@ -5200,15 +5098,16 @@
                             <label for="txtCcvNumber2" class="star">CVV Number</label>
                             <input type="password" class="form-control" id="txtCCVNumber2" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
                         </div>
-                        <div class="col-sm-12" id="divChkSaveAcc" style="margin-left: -15px;">
-                            <input type="checkbox" id="chkSaveAcc">
-                            <span class="chektext">
-                                Save Account Information
-                            </span>
-                        </div>
+                      
+                    </div>
+                    <div class="col-sm-12" id="divChkSaveAcc" style="margin-left: -15px;">
+                        <input type="checkbox" id="chkSaveAcc">
+                        <span class="chektext">
+                            Save Account Information
+                        </span>
                     </div>
                 </div>
-                
+            
                 <div class="col-sm-12" style="margin-bottom:20px;margin-left: 15px;">
                     <input type="checkbox" id="chkTermsAndCondition2">
                     <span class="chektext">
