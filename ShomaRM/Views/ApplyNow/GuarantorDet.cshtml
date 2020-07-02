@@ -34,7 +34,7 @@
 <input type="hidden" id="hndAppCreditFees" value="@((Model.GuaCCCheckFees??0).ToString("0.00"))" />
 <input type="hidden" id="hndAppBackgroundFees" value="@((Model.GuaBGCheckFees??0).ToString("0.00"))" />
 <input type="hidden" id="hndStepGotosummary" value="" />
-<input type="hidden" id="hndCurrentUserId" value="@(ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0)" />
+<input type="hidden" id="hndCurrentUserId" value="@ShomaGroupWebSession.CurrentUser.UserID" />
 @*Sachin Mahore 21 Apr 2020*@
 <div class="content-area submit-property sanctuary-background-img">
     &nbsp;
@@ -1479,24 +1479,27 @@
                                                 <table class="table" cellspacing="0" style="width:100%;overflow-x:scroll">
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rental qualifications</span></td>
-                                                        <td><a href="javascript:void(0)" id="rentalQulification" onclick="createESignPolicyAndAgreementGuarantor(true)"><span>Sign</span></a></td>
-                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyDownloadDataGuarantor(true)">Download</a></td>
-                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyPrintDataGuarantor(true)">Print</a></td>
+                                                        <td><label style="color: #1F1F1F;font-weight: bold;cursor:default;">Sign</label></td>
+                                                        <td><a href="javascript:void(0)" onclick="saveToDiskPDF('/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf','RentalQualifications.pdf')">Download</a></td>
+                                                        <td><a data-toggle="modal" data-target="#modalRentalQualificationPolicy" href="javascript:void(0);" id="printRentalQualificationPolicy">Print</a></td>
                                                     </tr>
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rules and Policies</span></td>
-                                                        <td><a href="javascript:void(0)" id="rulesPolicy" onclick="createESignPolicyAndAgreementGuarantor(false)"><span>Sign</span></a></td>
-                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyDownloadDataGuarantor(false)">Download</a></td>
-                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyPrintDataGuarantor(false)">Print</a></td>
+                                                        <td><label style="color: #1F1F1F;font-weight: bold;cursor:default;">Sign</label></td>
+                                                        <td><a href="javascript:void(0)" onclick="saveToDiskPDF('/Content/assets/img/Policy/Rules_Policies_fragmented.pdf','RulesPolicies.pdf')">Download</a></td>
+                                                        <td><a data-toggle="modal" data-target="#modalRulesAndPolicy" href="javascript:void(0);" id="print">Print</a></td>
                                                     </tr>
                                                 </table>
-                                                <input id="hdnAgreePoli" type="hidden" value="" />
                                             </div>
                                             <div class="col-sm-12">
-                                                <div class="chekbox-wrapper hidden">
+
+                                                <div class="chekbox-wrapper">
+
                                                     <input class="form-control" type="checkbox" id="chkAgreeTermsPolicy" /> <span class="agree-text"> I agree with Sanctuary terms & conditions. </span>
                                                 </div>
                                             </div>
+
+
                                         </div>
                                         <div class="col-sm-2"></div>
                                     </div>
@@ -5913,21 +5916,6 @@
                         </div>
 
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal" id="modalAgreementPolicy">
-    <div class="modal-dialog  modal-xl">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header" style="border-top:none">
-                <button type="button" class="close" data-dismiss="modal" style="color:#000000;" onclick="checkEsignPolicyAgreementStatusGuarantor()"><i class="fa fa-times-circle"></i></button>
-            </div>
-            <div class="modal-body">
-                <div class="text-center">
-                    <div><iframe id="iframeAgreementPolicy" src="" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
                 </div>
             </div>
         </div>

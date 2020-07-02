@@ -10149,13 +10149,11 @@ var goToSummaryPageCoapp = function () {
     else if (id == 10) {
         getApplicantHistoryList();
         saveupdateTenantOnlineCoapplicant(10);
-
-    } else if (id == 11) {
+} else if (id == 11) {
         saveupdateTenantOnlineCoapplicant(11);
     } else if (id == 12) {
         saveupdateTenantOnlineCoapplicant(12);
         getTenantPetPlaceDataCoapp();
-
     } else if (id == 13) {
         saveupdateTenantOnlineCoapplicant(15);
         getTenantPetPlaceDataCoapp();
@@ -10676,7 +10674,6 @@ var bankstatementFileUploadCoapplicant = function () {
         }
     });
 };
-
 // New Upload Code End //
 
 var createESignPolicyAndAgreementCoApplicant = function (appAgree) {
@@ -10821,3 +10818,4 @@ var getESignAgreePolicyPrintDataCoApplicant = function (appAgree) {
         }
     });
 };
+
