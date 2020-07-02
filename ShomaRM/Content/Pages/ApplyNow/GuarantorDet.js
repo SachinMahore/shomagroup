@@ -4012,7 +4012,7 @@ var saveupdateGuarantor = function (callFrom) {
                     IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
                 };
                 $.ajax({
-                    url: "/ApplyNow/saveCoAppPayment/",
+                    url: "/ApplyNow/saveNewPayment/",
                     type: "post",
                     contentType: "application/json utf-8",
                     data: JSON.stringify(model),
@@ -8911,7 +8911,7 @@ function saveCoAppPaymentPopup() {
                 text: 'Yes',
                 action: function (yes) {
                     $.ajax({
-                        url: "/ApplyNow/saveCoAppPayment/",
+                        url: "/ApplyNow/saveNewPayment/",
                         type: "post",
                         contentType: "application/json utf-8",
                         data: JSON.stringify(model),
@@ -8982,8 +8982,7 @@ var getBankCCLists = function () {
                 var html = "<tr id='tr_" + elementValue.ID + "' data-value='" + elementValue.ID + "'>";
                 html += "<td>" + elementValue.PaymentMethodString + "</td>";
                 html += "<td>" + elementValue.Name_On_Card + "</td>";
-                html += "<td>" + MaskCardNumber(elementValue.CardNumber) + "</td>";
-
+               
                 html += "<td><input style='background: transparent; margin-right:10px' type='radio' name='rdpay' onclick='selectPay(" + elementValue.ID + ")'></a>";
                 html += "</tr>";
                 $("#tblBankCC>tbody").append(html);
