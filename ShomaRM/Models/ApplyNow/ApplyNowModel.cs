@@ -719,38 +719,38 @@ namespace ShomaRM.Models
                         else if (model.FromAcc == 4)
                         {
 
-                            CoreLogicHelper _corelogichelper = new CoreLogicHelper();
-                            var LeaseTermsModel = new LeaseTermsModel();
-                            LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
-                            LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms??12).ToString();
-                            LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
-                            var applicant = new Applicant();
-                            applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
-                            applicant.ApplyNowID = GetProspectData.ID.ToString();
-                            applicant.CustomerID = GetApplicantData.ApplicantID.ToString();
-                            applicant.ConsentObtained = "Yes";
-                            applicant.EmploymentGrossIncome = (UserData.Income??0).ToString("0.00");
-                            applicant.ApplicantIdentifier = GetApplicantData.ApplicantID.ToString();
-                            applicant.ApplicantType = "Applicant";
-                            applicant.Birthdate = (UserData.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
-                            applicant.SocSecNumber = !string.IsNullOrWhiteSpace(UserData.SSN) ? new EncryptDecrypt().DecryptText(UserData.SSN) : "";
-                            applicant.FirstName = UserData.FirstName;
-                            applicant.LastName = UserData.LastName;
-                            applicant.Address1 = UserData.HomeAddress1 + (!string.IsNullOrWhiteSpace(UserData.HomeAddress2) ? " " + UserData.HomeAddress2 : "");
-                            applicant.City = UserData.CityHome;
-                            applicant.State = (GetState != null ? GetState.Abbreviation : "");
-                            applicant.PostalCode = UserData.ZipHome;
-                            applicant.UnparsedAddress = UserData.HomeAddress1 + (!string.IsNullOrWhiteSpace(UserData.HomeAddress2) ? " " + UserData.HomeAddress2 : "");
+                            //CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+                            //var LeaseTermsModel = new LeaseTermsModel();
+                            //LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                            //LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms??12).ToString();
+                            //LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
+                            //var applicant = new Applicant();
+                            //applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                            //applicant.ApplyNowID = GetProspectData.ID.ToString();
+                            //applicant.CustomerID = GetApplicantData.ApplicantID.ToString();
+                            //applicant.ConsentObtained = "Yes";
+                            //applicant.EmploymentGrossIncome = (UserData.Income??0).ToString("0.00");
+                            //applicant.ApplicantIdentifier = GetApplicantData.ApplicantID.ToString();
+                            //applicant.ApplicantType = "Applicant";
+                            //applicant.Birthdate = (UserData.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                            //applicant.SocSecNumber = !string.IsNullOrWhiteSpace(UserData.SSN) ? new EncryptDecrypt().DecryptText(UserData.SSN) : "";
+                            //applicant.FirstName = UserData.FirstName;
+                            //applicant.LastName = UserData.LastName;
+                            //applicant.Address1 = UserData.HomeAddress1 + (!string.IsNullOrWhiteSpace(UserData.HomeAddress2) ? " " + UserData.HomeAddress2 : "");
+                            //applicant.City = UserData.CityHome;
+                            //applicant.State = (GetState != null ? GetState.Abbreviation : "");
+                            //applicant.PostalCode = UserData.ZipHome;
+                            //applicant.UnparsedAddress = UserData.HomeAddress1 + (!string.IsNullOrWhiteSpace(UserData.HomeAddress2) ? " " + UserData.HomeAddress2 : "");
 
-                            string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+                            //string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
 
-                            var keyValues = new List<KeyValuePair<string, string>>();
-                            keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+                            //var keyValues = new List<KeyValuePair<string, string>>();
+                            //keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
 
-                            string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRD", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
+                            //string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRD", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
 
                             GetApplicantData.CreditPaid = 1;
-                            GetApplicantData.CreditResult = result;
+                            //GetApplicantData.CreditResult = result;
                             db.SaveChanges();
 
 
@@ -1426,42 +1426,41 @@ namespace ShomaRM.Models
                         else if (model.FromAcc == 5)
                         {
 
-                            GetApplicantData.BackGroundPaid = 1;
-                            GetApplicantData.Paid = 1;
+                           
 
-                            CoreLogicHelper _corelogichelper = new CoreLogicHelper();
-                            var LeaseTermsModel = new LeaseTermsModel();
-                            LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
-                            LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
-                            LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
-                            var applicant = new Applicant();
-                            applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
-                            applicant.ApplyNowID = GetProspectData.ID.ToString();
-                            applicant.CustomerID = GetCoappDet.ApplicantID.ToString();
-                            applicant.ConsentObtained = "Yes";
-                            applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
-                            applicant.ApplicantIdentifier = GetCoappDet.ApplicantID.ToString();
-                            applicant.ApplicantType = "Applicant";
-                            applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
-                            applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
-                            applicant.FirstName = GetTenantOnlineDet.FirstName;
-                            applicant.LastName = GetTenantOnlineDet.LastName;
-                            applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
-                            applicant.City = GetTenantOnlineDet.CityHome;
-                            applicant.State = (GetState != null ? GetState.Abbreviation : "");
-                            applicant.PostalCode = GetTenantOnlineDet.ZipHome;
-                            applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                            //CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+                            //var LeaseTermsModel = new LeaseTermsModel();
+                            //LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                            //LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
+                            //LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
+                            //var applicant = new Applicant();
+                            //applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                            //applicant.ApplyNowID = GetProspectData.ID.ToString();
+                            //applicant.CustomerID = GetCoappDet.ApplicantID.ToString();
+                            //applicant.ConsentObtained = "Yes";
+                            //applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                            //applicant.ApplicantIdentifier = GetCoappDet.ApplicantID.ToString();
+                            //applicant.ApplicantType = "Applicant";
+                            //applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                            //applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
+                            //applicant.FirstName = GetTenantOnlineDet.FirstName;
+                            //applicant.LastName = GetTenantOnlineDet.LastName;
+                            //applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                            //applicant.City = GetTenantOnlineDet.CityHome;
+                            //applicant.State = (GetState != null ? GetState.Abbreviation : "");
+                            //applicant.PostalCode = GetTenantOnlineDet.ZipHome;
+                            //applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
-                            string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+                            //string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
 
-                            var keyValues = new List<KeyValuePair<string, string>>();
-                            keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+                            //var keyValues = new List<KeyValuePair<string, string>>();
+                            //keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
 
-                            string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRD", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
+                            //string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRD", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
 
-                            GetCoappDet.BackGroundPaid = 1;
-                            GetCoappDet.Paid = 1;
-                            GetCoappDet.BackGroungResult = result;
+                              GetCoappDet.BackGroundPaid = 1;
+                              GetCoappDet.Paid = 1;
+                            //GetCoappDet.BackGroungResult = result;
 
                             db.SaveChanges();
 
@@ -1721,38 +1720,38 @@ namespace ShomaRM.Models
                                 }
                                 if (coapp.Type == "5")
                                 {
-                                    CoreLogicHelper _corelogichelper = new CoreLogicHelper();
-                                    var LeaseTermsModel = new LeaseTermsModel();
-                                    LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
-                                    LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
-                                    LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
-                                    var applicant = new Applicant();
-                                    applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
-                                    applicant.ApplyNowID = GetProspectData.ID.ToString();
-                                    applicant.CustomerID = GetCoappDet.ApplicantID.ToString();
-                                    applicant.ConsentObtained = "Yes";
-                                    applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
-                                    applicant.ApplicantIdentifier = GetCoappDet.ApplicantID.ToString();
-                                    applicant.ApplicantType = "Applicant";
-                                    applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
-                                    applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
-                                    applicant.FirstName = GetTenantOnlineDet.FirstName;
-                                    applicant.LastName = GetTenantOnlineDet.LastName;
-                                    applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
-                                    applicant.City = GetTenantOnlineDet.CityHome;
-                                    applicant.State = (GetState != null ? GetState.Abbreviation : "");
-                                    applicant.PostalCode = GetTenantOnlineDet.ZipHome;
-                                    applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                                    //CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+                                    //var LeaseTermsModel = new LeaseTermsModel();
+                                    //LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                                    //LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
+                                    //LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
+                                    //var applicant = new Applicant();
+                                    //applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                                    //applicant.ApplyNowID = GetProspectData.ID.ToString();
+                                    //applicant.CustomerID = GetCoappDet.ApplicantID.ToString();
+                                    //applicant.ConsentObtained = "Yes";
+                                    //applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                                    //applicant.ApplicantIdentifier = GetCoappDet.ApplicantID.ToString();
+                                    //applicant.ApplicantType = "Applicant";
+                                    //applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                                    //applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
+                                    //applicant.FirstName = GetTenantOnlineDet.FirstName;
+                                    //applicant.LastName = GetTenantOnlineDet.LastName;
+                                    //applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                                    //applicant.City = GetTenantOnlineDet.CityHome;
+                                    //applicant.State = (GetState != null ? GetState.Abbreviation : "");
+                                    //applicant.PostalCode = GetTenantOnlineDet.ZipHome;
+                                    //applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
-                                    string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
+                                    //string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
 
-                                    var keyValues = new List<KeyValuePair<string, string>>();
-                                    keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+                                    //var keyValues = new List<KeyValuePair<string, string>>();
+                                    //keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
 
-                                    string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRM", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
+                                    //string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRM", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
                                     
                                     coappliList.BackGroundPaid = 1;
-                                    coappliList.BackGroungResult = result;
+                                    //coappliList.BackGroungResult = result;
 
                                 }
                                 if ((coappliList.CreditPaid ?? 0) == 1 && (coappliList.BackGroundPaid ?? 0) == 1)
