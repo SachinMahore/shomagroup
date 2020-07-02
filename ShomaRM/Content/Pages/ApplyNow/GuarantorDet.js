@@ -2035,7 +2035,84 @@ var SaveCheckPolicy = function (stepcompleted) {
         }
     });
 }
+function savePayment() {
+    if ($("#chkTermsAndCondition").is(':unchecked')) {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Please accept Terms & Condition </br>",
+            type: 'red'
+        });
+        return;
+    }
+    $("#divLoader").show();
+    var msg = "";
+    if (unformatText($("#totalFinalFees").text()) == 0) {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Please Select to Pay </br>",
+            type: 'red'
+        });
+        return;
+    } else {
+        var isSummarychecked = $("#chkAgreeSummarry").is(":checked") ? "1" : "0";
+        if ($("#hndTransMethod").val() == "0") {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: "Please Select Payment Method</br>",
+                type: 'red'
+            });
+            return;
 
+        }
+
+        //if (isSummarychecked != "1") {
+        //    $("#divLoader").hide();
+        //    $.alert({
+        //        title: "",
+        //        content: "Please ACCEPT AGREEMENTS </br>",
+        //        type: 'red'
+        //    });
+        //    return;
+        //}
+        if ($("#hndTransMethod").val() == 2) {
+            var paymentMethod = 2;
+            var propertyId = $("#hndUID").val();
+            var nameonCard = $("#txtNameonCard").val();
+            var cardNumber = $("#txtCardNumber").val();
+            var cardMonth = $("#ddlcardmonth").val();
+            var cardYear = $("#ddlcardyear").val();
+            var ccvNumber = $("#txtCCVNumber").val();
+            var prospectID = $("#hdnOPId").val();
+            var amounttoPay = unformatText($("#totalFinalFees").text());
+            var description = "Online Application Non Refundable fees";
+            var glTrans_Description = $("#payDes").text();
+            var routingNumber = $("#txtRoutingNumber").val();
+            var bankName = $("#txtBankName").val();
+
+            if (!nameonCard) {
+                msg += "Please Enter Name on Card</br>";
+            }
+            if (cardNumber == "" || cardNumber.length != 16) {
+                msg += "Please enter your 16 digit Card Number</br>";
+            }
+            if (cardMonth == "0") {
+                msg += "Please enter Card Month</br>";
+            }
+            if (cardYear == "0") {
+                msg += "Please enter Card Year</br>";
+            }
+            if (ccvNumber < 3) {
+                msg += "Please enter CVV Number and It must be 3 digit long</br>";
+            }
+
+            var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
+            var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+
+            GivenDate = new Date(GivenDate);
+            CurrentDate = new Date(CurrentDate);
 
             if (GivenDate < CurrentDate) {
                 msg += "Your Credit Card Expired..</br>";
@@ -2154,7 +2231,6 @@ var SaveCheckPolicy = function (stepcompleted) {
         });
     }
 }
-
 
 var getApplyNowListGuar = function (id) {
     $("#divLoader").show();
@@ -8681,33 +8757,30 @@ function saveCoAppPayment() {
             yes: {
                 text: 'Yes',
                 action: function (yes) {
-
-                    $.ajax({
-                        url: "/ApplyNow/saveNewPayment/",
-                        type: "post",
-                        contentType: "application/json utf-8",
-                        data: JSON.stringify(model),
-                        dataType: "JSON",
-                        success: function (response) {
-                            if (response.Msg != "") {
-                                if (response.Msg == "1") {
-                                    $("#ResponseMsg1").html("Payment successfull");
-                                    saveupdateGuarantor();
-                                    window.location = "/ApplyNow/GuarantorDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val(); 
-
-                                } else {
-                                    $.alert({
-                                        title: "",
-                                        content: "Payment failed",
-                                        type: 'red'
-                                    });
-                                }
-                            }
-                        }
-                    });
-
                     saveupdateGuarantor(2);
- 
+                    //$.ajax({
+                    //    url: "/ApplyNow/saveCoAppPayment/",
+                    //    type: "post",
+                    //    contentType: "application/json utf-8",
+                    //    data: JSON.stringify(model),
+                    //    dataType: "JSON",
+                    //    success: function (response) {
+                    //        if (response.Msg != "") {
+                    //            if (response.Msg == "1") {
+                    //                $("#ResponseMsg1").html("Payment successfull");
+                    //                saveupdateGuarantor(2);
+                    //                window.location = "/ApplyNow/GuarantorDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val(); 
+
+                    //            } else {
+                    //                $.alert({
+                    //                    title: "",
+                    //                    content: "Payment failed",
+                    //                    type: 'red'
+                    //                });
+                    //            }
+                    //        }
+                    //    }
+                    //});
                 }
             },
             no: {
@@ -8849,7 +8922,7 @@ function saveCoAppPaymentPopup() {
                 text: 'Yes',
                 action: function (yes) {
                     $.ajax({
-                        url: "/ApplyNow/saveNewPayment/",
+                        url: "/ApplyNow/saveCoAppPayment/",
                         type: "post",
                         contentType: "application/json utf-8",
                         data: JSON.stringify(model),
@@ -8920,6 +8993,7 @@ var getBankCCLists = function () {
                 var html = "<tr id='tr_" + elementValue.ID + "' data-value='" + elementValue.ID + "'>";
                 html += "<td>" + elementValue.PaymentMethodString + "</td>";
                 html += "<td>" + elementValue.Name_On_Card + "</td>";
+                html += "<td>" + MaskCardNumber(elementValue.CardNumber) + "</td>";
 
                 html += "<td><input style='background: transparent; margin-right:10px' type='radio' name='rdpay' onclick='selectPay(" + elementValue.ID + ")'></a>";
                 html += "</tr>";
@@ -9188,169 +9262,3 @@ var bankstatementFileUploadGuarantor = function () {
 };
 
 // New Upload Code End //
-
-var createESignPolicyAndAgreementGuarantor = function (appAgree) {
-    $("#divLoader").show();
-    var userid = $("#hndCurrentUserId").val();
-    console.log(appAgree);
-    var model = { uid: userid, AppAgree: appAgree };
-
-    $.ajax({
-        url: '/ApplyNow/CreateESignPolicyAgreement',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $("#divLoader").hide();
-            console.log(JSON.stringify(response));
-            $("#modalAgreementPolicy").modal("show");
-            $("#iframeAgreementPolicy").attr("src", "https://www-new.bluemoonforms.com/esignature/" + response.model);
-
-        }
-    });
-};
-
-
-var createESignPolicyAndAgreementGuarantor = function (appAgree) {
-    $("#divLoader").show();
-    var userid = $("#hndCurrentUserId").val();
-    console.log(appAgree);
-    if (appAgree) {
-        $("#hdnAgreePoli").val(true);
-    }
-    else {
-        $("#hdnAgreePoli").val(false);
-    }
-    var model = { uid: userid, AppAgree: appAgree };
-
-    $.ajax({
-        url: '/ApplyNow/CreateESignPolicyAgreement',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            console.log(JSON.stringify(response));
-            $("#divLoader").hide();
-            if (!response.DateSigned) {
-                $("#modalAgreementPolicy").modal("show");
-                $("#iframeAgreementPolicy").attr("src", "https://www-new.bluemoonforms.com/esignature/" + response.model);
-            }
-            else {
-
-                $.alert({
-                    title: "",
-                    content: "You have already Signed. Please Download or Print",
-                    type: 'blue'
-                });
-            }
-
-
-        }
-    });
-};
-
-var checkEsignPolicyAgreementStatusGuarantor = function () {
-    $("#divLoader").show();
-    var userid = $("#hndCurrentUserId").val();
-    var appAgree = $("#hdnAgreePoli").val();
-    var model = { uid: userid, AppAgree: appAgree };
-
-    $.ajax({
-        url: '/ApplyNow/CheckESignPolicyAgreementStatus',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $("#divLoader").hide();
-            //console.log(JSON.stringify(response));
-
-            if (response.AllSigned == 1) {
-                $("#policyStart").attr("disabled", false);
-            } else {
-                $("#policyStart").attr("disabled", true);
-            }
-
-        }
-    });
-};
-
-var getESignAgreePolicyDownloadDataGuarantor = function (appAgree) {
-    $("#divLoader").show();
-    var userid = $("#hndCurrentUserId").val();
-    var model = { uid: userid, AppAgree: appAgree };
-    var fileName = "";
-    if (appAgree) {
-        fileName = "Agreement";
-    }
-    else {
-        fileName = "RulesAndPolicy"
-    }
-    $.ajax({
-        url: '/ApplyNow/GetESignAgreePolicyDownloadData',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $("#divLoader").hide();
-            console.log(JSON.stringify(response));
-            if (response.DateSigned != "") {
-                saveToDiskPDF("/Content/assets/img/Document/AgreementRulePolicy_" + response.model + ".pdf", "Agreement.pdf");
-            }
-            else {
-
-                $.alert({
-                    title: "",
-                    content: "Please Signed the doc to Download",
-                    type: 'blue'
-                });
-            }
-        }
-    });
-};
-
-var getESignAgreePolicyPrintDataGuarantor = function (appAgree) {
-    $("#modalRentalQualificationPolicy").modal("hide");
-    $("#modalRulesAndPolicy").modal("hide");
-    $("#divLoader").show();
-    var userid = $("#hndCurrentUserId").val();
-    var model = { uid: userid, AppAgree: appAgree };
-    var fileName = "";
-    if (appAgree) {
-        fileName = "Agreement";
-    }
-    else {
-        fileName = "RulesAndPolicy"
-    }
-    $.ajax({
-        url: '/ApplyNow/GetESignAgreePolicyDownloadData',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            $("#divLoader").hide();
-            console.log(JSON.stringify(response));
-            if (response.DateSigned != "") {
-                if (appAgree) {
-                    $("#iframeRental").attr("src", webURL() + "/Content/assets/img/Document/AgreementRulePolicy_" + response.model + ".pdf");
-                    $("#modalRentalQualificationPolicy").modal("show");
-                } else {
-                    $("#iframeRules").attr("src", webURL() + "/Content/assets/img/Document/AgreementRulePolicy_" + response.model + ".pdf");
-                    $("#modalRulesAndPolicy").modal("show");
-                }
-            }
-            else {
-
-                $.alert({
-                    title: "",
-                    content: "Please Signed the doc to Download",
-                    type: 'blue'
-                });
-            }
-        }
-    });
-};
