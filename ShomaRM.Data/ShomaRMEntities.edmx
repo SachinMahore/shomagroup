@@ -89,6 +89,9 @@
           <Property Name="BackGroundPaid" Type="int" />
           <Property Name="AdminFee" Type="decimal" Precision="18" Scale="2" />
           <Property Name="AdminFeePercentage" Type="decimal" Precision="18" Scale="2" />
+
+          <Property Name="CustID" Type="varchar" MaxLength="10" />
+
           <Property Name="CreditResult" Type="varchar" MaxLength="50" />
           <Property Name="BackGroungResult" Type="varchar" MaxLength="50" />
         </EntityType>
@@ -775,14 +778,12 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PID" Type="bigint" />
-          <Property Name="Name_On_Card" Type="nvarchar" MaxLength="29" />
-          <Property Name="CardNumber" Type="nvarchar" MaxLength="255" />
-          <Property Name="CardMonth" Type="nvarchar" MaxLength="255" />
-          <Property Name="CardYear" Type="nvarchar" MaxLength="255" />
-          <Property Name="CCVNumber" Type="nvarchar" MaxLength="255" />
+          <Property Name="PaymentName" Type="nvarchar" MaxLength="29" />
+          <Property Name="PaymentID" Type="nvarchar" MaxLength="255" />
           <Property Name="ProspectId" Type="bigint" />
           <Property Name="PaymentMethod" Type="int" />
           <Property Name="ApplicantID" Type="bigint" />
+          <Property Name="TenantID" Type="bigint" />
         </EntityType>
         <EntityType Name="tbl_Parking">
           <Key>
@@ -3019,7 +3020,6 @@
           <EntitySet Name="tbl_MoveInPayment" EntityType="ShomaRMEntitiesModel.tbl_MoveInPayment" />
           <EntitySet Name="tbl_Notes" EntityType="ShomaRMEntitiesModel.tbl_Notes" />
           <EntitySet Name="tbl_Notice" EntityType="ShomaRMEntitiesModel.tbl_Notice" />
-          <EntitySet Name="tbl_OnlinePayment" EntityType="ShomaRMEntitiesModel.tbl_OnlinePayment" />
           <EntitySet Name="tbl_PaymentAccounts" EntityType="ShomaRMEntitiesModel.tbl_PaymentAccounts" />
           <EntitySet Name="tbl_PetPlace" EntityType="ShomaRMEntitiesModel.tbl_PetPlace" />
           <EntitySet Name="tbl_PremiumType" EntityType="ShomaRMEntitiesModel.tbl_PremiumType" />
@@ -3372,6 +3372,9 @@
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_TenantOnline" EntitySet="tbl_TenantOnline" />
           </AssociationSet>
+
+          <EntitySet Name="tbl_OnlinePayment" EntityType="ShomaRMEntitiesModel.tbl_OnlinePayment" />
+
           <EntitySet Name="tbl_BackgroundScreening" EntityType="ShomaRMEntitiesModel.tbl_BackgroundScreening" />
           <EntitySet Name="tbl_Applicant" EntityType="ShomaRMEntitiesModel.tbl_Applicant" />
           <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow">
@@ -3966,21 +3969,6 @@
           <NavigationProperty Name="tbl_Lease" Relationship="ShomaRMEntitiesModel.FK_tbl_Notice_tbl_Lease" FromRole="tbl_Notice" ToRole="tbl_Lease" />
           <NavigationProperty Name="tbl_Tenant" Relationship="ShomaRMEntitiesModel.FK_tbl_Notice_tbl_Tenant" FromRole="tbl_Notice" ToRole="tbl_Tenant" />
           <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Notice_tbl_Properties" FromRole="tbl_Notice" ToRole="tbl_Properties" />
-        </EntityType>
-        <EntityType Name="tbl_OnlinePayment">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PID" Type="Int64" />
-          <Property Name="Name_On_Card" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
-          <Property Name="CardNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CardMonth" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CardYear" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="CCVNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="ProspectId" Type="Int64" />
-          <Property Name="PaymentMethod" Type="Int32" />
-          <Property Name="ApplicantID" Type="Int64" />
         </EntityType>
         <EntityType Name="tbl_PaymentAccounts">
           <Key>
@@ -6035,11 +6023,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+
+        <EntityType Name="tbl_OnlinePayment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PID" Type="Int64" />
+          <Property Name="PaymentName" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ProspectId" Type="Int64" />
+          <Property Name="PaymentMethod" Type="Int32" />
+          <Property Name="ApplicantID" Type="Int64" />
+          <Property Name="TenantID" Type="Int64" />
+        </EntityType>
+
         <EntityType Name="tbl_BackgroundScreening">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+
           <Property Name="ApplyNowId" Type="Int32" Nullable="false" />
           <Property Name="ApplicantId" Type="Int32" Nullable="false" />
           <Property Name="ReportType" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -6050,6 +6054,7 @@
           <Property Name="ApplicationDecision" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ApplicantScore" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+
         </EntityType>
         <EntityType Name="tbl_Applicant">
           <Key>
@@ -6077,6 +6082,9 @@
           <Property Name="BackGroundPaid" Type="Int32" />
           <Property Name="AdminFee" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="AdminFeePercentage" Type="Decimal" Precision="18" Scale="2" />
+
+          <Property Name="CustID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+
           <Property Name="CreditResult" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BackGroungResult" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
@@ -6695,22 +6703,6 @@
                 <ScalarProperty Name="UID" ColumnName="UID" />
                 <ScalarProperty Name="PID" ColumnName="PID" />
                 <ScalarProperty Name="NoticeID" ColumnName="NoticeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_OnlinePayment">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_OnlinePayment">
-              <MappingFragment StoreEntitySet="tbl_OnlinePayment">
-                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
-                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
-                <ScalarProperty Name="ProspectId" ColumnName="ProspectId" />
-                <ScalarProperty Name="CCVNumber" ColumnName="CCVNumber" />
-                <ScalarProperty Name="CardYear" ColumnName="CardYear" />
-                <ScalarProperty Name="CardMonth" ColumnName="CardMonth" />
-                <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
-                <ScalarProperty Name="Name_On_Card" ColumnName="Name_On_Card" />
-                <ScalarProperty Name="PID" ColumnName="PID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7788,6 +7780,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+
+          <EntitySetMapping Name="tbl_OnlinePayment">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_OnlinePayment">
+              <MappingFragment StoreEntitySet="tbl_OnlinePayment">
+                <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+                <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="ProspectId" ColumnName="ProspectId" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="PaymentName" ColumnName="PaymentName" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+       
           <EntitySetMapping Name="tbl_BackgroundScreening">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
               <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
@@ -7801,6 +7809,7 @@
                 <ScalarProperty Name="ReportType" ColumnName="ReportType" />
                 <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
                 <ScalarProperty Name="ApplyNowId" ColumnName="ApplyNowId" />
+
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -7810,6 +7819,9 @@
               <MappingFragment StoreEntitySet="tbl_Applicant">
                 <ScalarProperty Name="BackGroungResult" ColumnName="BackGroungResult" />
                 <ScalarProperty Name="CreditResult" ColumnName="CreditResult" />
+
+                <ScalarProperty Name="CustID" ColumnName="CustID" />
+
                 <ScalarProperty Name="AdminFeePercentage" ColumnName="AdminFeePercentage" />
                 <ScalarProperty Name="AdminFee" ColumnName="AdminFee" />
                 <ScalarProperty Name="BackGroundPaid" ColumnName="BackGroundPaid" />

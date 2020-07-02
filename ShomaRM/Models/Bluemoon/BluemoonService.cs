@@ -20,7 +20,9 @@ namespace ShomaRM.Models.Bluemoon
             {
                 //SOAP Body Request  
                 body.LoadXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
+
                                     <SOAP-ENV:Envelope
+
                                     xmlns:SOAP-ENV=""http://schemas.xmlsoap.org/soap/envelope/""
                                     xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
                                     xmlns:ns1=""https://www.bluemoonforms.com/services/lease.php"">
@@ -974,7 +976,7 @@ namespace ShomaRM.Models.Bluemoon
                             var resultGetEsignaturePdfDetails = resultEsignatureResendRequestData
                              .Descendants("ResendEsignatureRequestResult")
                              .ToList();
-
+                            leaseResponseModel.EsignatureKey = item.Value;
                             leaseResponseModel.EsignatureId = resultCloseSessionDetails[0].Value;
                             leaseResponseModel.EsignatureKey = item.Value;
 

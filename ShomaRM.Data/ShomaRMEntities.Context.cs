@@ -64,7 +64,6 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_MoveInPayment> tbl_MoveInPayment { get; set; }
         public virtual DbSet<tbl_Notes> tbl_Notes { get; set; }
         public virtual DbSet<tbl_Notice> tbl_Notice { get; set; }
-        public virtual DbSet<tbl_OnlinePayment> tbl_OnlinePayment { get; set; }
         public virtual DbSet<tbl_PaymentAccounts> tbl_PaymentAccounts { get; set; }
         public virtual DbSet<tbl_PetPlace> tbl_PetPlace { get; set; }
         public virtual DbSet<tbl_PremiumType> tbl_PremiumType { get; set; }
@@ -111,6 +110,9 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_SureDeposit> tbl_SureDeposit { get; set; }
         public virtual DbSet<tbl_ESignatureKeys> tbl_ESignatureKeys { get; set; }
         public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
+
+        public virtual DbSet<tbl_OnlinePayment> tbl_OnlinePayment { get; set; }
+
         public virtual DbSet<tbl_BackgroundScreening> tbl_BackgroundScreening { get; set; }
         public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
         public virtual DbSet<tbl_ESignPolicyAgreement> tbl_ESignPolicyAgreement { get; set; }

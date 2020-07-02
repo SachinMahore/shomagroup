@@ -2035,84 +2035,7 @@ var SaveCheckPolicy = function (stepcompleted) {
         }
     });
 }
-function savePayment() {
-    if ($("#chkTermsAndCondition").is(':unchecked')) {
-        $("#divLoader").hide();
-        $.alert({
-            title: "",
-            content: "Please accept Terms & Condition </br>",
-            type: 'red'
-        });
-        return;
-    }
-    $("#divLoader").show();
-    var msg = "";
-    if (unformatText($("#totalFinalFees").text()) == 0) {
-        $("#divLoader").hide();
-        $.alert({
-            title: "",
-            content: "Please Select to Pay </br>",
-            type: 'red'
-        });
-        return;
-    } else {
-        var isSummarychecked = $("#chkAgreeSummarry").is(":checked") ? "1" : "0";
-        if ($("#hndTransMethod").val() == "0") {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: "Please Select Payment Method</br>",
-                type: 'red'
-            });
-            return;
 
-        }
-
-        //if (isSummarychecked != "1") {
-        //    $("#divLoader").hide();
-        //    $.alert({
-        //        title: "",
-        //        content: "Please ACCEPT AGREEMENTS </br>",
-        //        type: 'red'
-        //    });
-        //    return;
-        //}
-        if ($("#hndTransMethod").val() == 2) {
-            var paymentMethod = 2;
-            var propertyId = $("#hndUID").val();
-            var nameonCard = $("#txtNameonCard").val();
-            var cardNumber = $("#txtCardNumber").val();
-            var cardMonth = $("#ddlcardmonth").val();
-            var cardYear = $("#ddlcardyear").val();
-            var ccvNumber = $("#txtCCVNumber").val();
-            var prospectID = $("#hdnOPId").val();
-            var amounttoPay = unformatText($("#totalFinalFees").text());
-            var description = "Online Application Non Refundable fees";
-            var glTrans_Description = $("#payDes").text();
-            var routingNumber = $("#txtRoutingNumber").val();
-            var bankName = $("#txtBankName").val();
-
-            if (!nameonCard) {
-                msg += "Please Enter Name on Card</br>";
-            }
-            if (cardNumber == "" || cardNumber.length != 16) {
-                msg += "Please enter your 16 digit Card Number</br>";
-            }
-            if (cardMonth == "0") {
-                msg += "Please enter Card Month</br>";
-            }
-            if (cardYear == "0") {
-                msg += "Please enter Card Year</br>";
-            }
-            if (ccvNumber < 3) {
-                msg += "Please enter CVV Number and It must be 3 digit long</br>";
-            }
-
-            var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
-            var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
-
-            GivenDate = new Date(GivenDate);
-            CurrentDate = new Date(CurrentDate);
 
             if (GivenDate < CurrentDate) {
                 msg += "Your Credit Card Expired..</br>";
@@ -2231,6 +2154,7 @@ function savePayment() {
         });
     }
 }
+
 
 var getApplyNowListGuar = function (id) {
     $("#divLoader").show();
@@ -4357,7 +4281,7 @@ var getApplicantListsGuarantor = function () {
                     html += "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>";
                     html += "<label> " + elementValue.Type + " </label><br/>";
                     if (elementValue.Type == "Guarantor") {
-                        html += "<label><a href='javascript:void(0)' onclick='goToEditApplicantGuarantor(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
+                        html += "<label><a class='cust-link' href='javascript:void(0)' onclick='goToEditApplicantGuarantor(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
                         if (parseInt(elementValue.CreditPaid) == 0 ) {
                             $("#editApplicantFees").text("Credit Check Fees");
                             $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
@@ -8757,30 +8681,33 @@ function saveCoAppPayment() {
             yes: {
                 text: 'Yes',
                 action: function (yes) {
-                    saveupdateGuarantor(2);
-                    //$.ajax({
-                    //    url: "/ApplyNow/saveCoAppPayment/",
-                    //    type: "post",
-                    //    contentType: "application/json utf-8",
-                    //    data: JSON.stringify(model),
-                    //    dataType: "JSON",
-                    //    success: function (response) {
-                    //        if (response.Msg != "") {
-                    //            if (response.Msg == "1") {
-                    //                $("#ResponseMsg1").html("Payment successfull");
-                    //                saveupdateGuarantor(2);
-                    //                window.location = "/ApplyNow/GuarantorDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val(); 
 
-                    //            } else {
-                    //                $.alert({
-                    //                    title: "",
-                    //                    content: "Payment failed",
-                    //                    type: 'red'
-                    //                });
-                    //            }
-                    //        }
-                    //    }
-                    //});
+                    $.ajax({
+                        url: "/ApplyNow/saveNewPayment/",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            if (response.Msg != "") {
+                                if (response.Msg == "1") {
+                                    $("#ResponseMsg1").html("Payment successfull");
+                                    saveupdateGuarantor();
+                                    window.location = "/ApplyNow/GuarantorDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val(); 
+
+                                } else {
+                                    $.alert({
+                                        title: "",
+                                        content: "Payment failed",
+                                        type: 'red'
+                                    });
+                                }
+                            }
+                        }
+                    });
+
+                    saveupdateGuarantor(2);
+ 
                 }
             },
             no: {
@@ -8922,7 +8849,7 @@ function saveCoAppPaymentPopup() {
                 text: 'Yes',
                 action: function (yes) {
                     $.ajax({
-                        url: "/ApplyNow/saveCoAppPayment/",
+                        url: "/ApplyNow/saveNewPayment/",
                         type: "post",
                         contentType: "application/json utf-8",
                         data: JSON.stringify(model),
@@ -8993,7 +8920,6 @@ var getBankCCLists = function () {
                 var html = "<tr id='tr_" + elementValue.ID + "' data-value='" + elementValue.ID + "'>";
                 html += "<td>" + elementValue.PaymentMethodString + "</td>";
                 html += "<td>" + elementValue.Name_On_Card + "</td>";
-                html += "<td>" + MaskCardNumber(elementValue.CardNumber) + "</td>";
 
                 html += "<td><input style='background: transparent; margin-right:10px' type='radio' name='rdpay' onclick='selectPay(" + elementValue.ID + ")'></a>";
                 html += "</tr>";
