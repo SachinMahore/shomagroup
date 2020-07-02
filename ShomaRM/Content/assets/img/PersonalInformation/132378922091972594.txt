@@ -1,0 +1,276 @@
+function SaveUpdatePropertyUnit() {
+    $("#divLoader").show();
+    var msg = "";
+    var pID = $("#hndPID").val();
+    var uID = $("#hndUID").val();
+    var unitNo = $("#txtPropUnit").val();
+    //var rooms = $("#txtRooms").val();
+    var rooms = "1";
+    var bedroom = $("#txtBedroom").val();
+    var bathroom = $("#txtBathroom").val();
+    var premium = $("#ddlPremium").val();
+    //var hall = $("#txtHall").val();
+    var hall = 1;
+    var deposit = $("#txtDeposit").val();
+    var current_Rent = unformatText($("#txtCurrentRent").val());
+    //var previous_Rent = $("#txtPreviousRent").val();
+    var previous_Rent = "0.00";
+    //var market_Rent = $("#txtMarketRent").val();
+    var market_Rent = "0.00";
+    //var wing = $("#txtWing").val();
+    var wing = "A";
+    //var building = $("#txtBuilding").val();
+    var building = $("#ddlModel").val();;
+    //var leased = $("#txtLeased").val();
+    var leased = "12";
+    //var petDetails = $("#txtPetDetails").val();
+    var petDetails = "Pet Details";
+    var floorNo = $("#ddlFloorNo").val();
+    var area = $("#txtArea").val();
+    var floorPlanCord = $("#txtunitcord").val();
+    //var carpet_Color = $("#txtCarpet_Color").val();
+    var carpet_Color = "Colour";
+    //var wall_Paint_Color = $("#txtWall_Paint_Color").val();
+    var wall_Paint_Color = "wall_Paint";
+    //var furnished = $("#chkFurnished").is(":checked") ? "1" : "0";
+    var furnished = "1";
+    //var washer = $("#chkWasher").is(":checked") ? "1" : "0";
+    var washer = "0";
+    //var refrigerator = $("#chkRefrigerator").is(":checked") ? "1" : "0";
+    var refrigerator = "0";
+    //var drapes = $("#chkTakeOffList").is(":checked") ? "1" : "0";
+    var drapes = "0";
+    //var dryer = $("#chkDryer").is(":checked") ? "1" : "0";
+    var dryer = "0";
+    //var dishwasher = $("#chkDishwasher").is(":checked") ? "1" : "0";
+    var dishwasher = "0";
+    //var disposal = $("#chkDisposal").is(":checked") ? "1" : "0";
+    var disposal = "0";
+    //var elec_Range = $("#chkElec_Range").is(":checked") ? "1" : "0";
+    var elec_Range = "0";
+    //var Gas_Range = $("#chkGas_Range").is(":checked") ? "1" : "0";
+    var Gas_Range = "0";
+    //var carpet = $("#chkCarpet").is(":checked") ? "1" : "0";
+    var carpet = "0";
+    //var air_Conditioning = $("#chkAir_Conditioning").is(":checked") ? "1" : "0";
+    var air_Conditioning = "0";
+    //var fireplace = $("#chkFireplace").is(":checked") ? "1" : "0";
+    var fireplace = "0";
+    //var den = $("#chkDen").is(":checked") ? "1" : "0";
+    var den = "0";
+    var availableDate = $("#txtAvailableDate").val();
+    var occupancyDate = $("#txtOccupancyDate").val();
+    //var pendingMoveIn = $("#chkPendingMoveIn").is(":checked") ? "1" : "0";
+    var pendingMoveIn = "0";
+
+    var intendedMoveIn_Date = $("#txtIntendedMoveIn_Date").val();
+    var intendMoveOutDate = $("#txtIntendMoveOutDate").val();
+
+    var actualMoveInDate = $("#txtActualMoveInDate").val();
+    var actualMoveOutDate = $("#txtActualMoveOutDate").val();
+    var leaseendDate = $("#txtLeaseEndDate").val();
+    var intarea = $("#txtInteriorArea").val();
+    var balcarea = $("#txtBalconyArea").val();
+    var notes = $("#txtUnitNotes").val();
+
+    var parkingNo = $("#txtParkingNo").val();
+    var charges = 0.00;
+    var type = 1;
+    var ddlLocation = $("#ddlLocation").find(':selected').data("list");
+    var spaceNo = $("#txtSpaceNo").val();
+
+    var isFurnished = $("#ddlFurnishedUnit").val();
+    var unitAvailability = $("#checkUnitIsAvailable").is(":checked") ? 1 : 0;
+
+    if (unitNo == "") {
+        msg += " Please enter Unit Title .<br />";
+    }
+
+    if (bedroom == "") {
+        msg += " Please enter No. of bedroom .<br />";
+    }
+    if (bathroom == "") {
+        msg += " Please enter No. of bathroom .<br />";
+    }
+    //if (hall == "") {
+    //    msg += " Please enter No. of hall .<br />";
+    //}
+    if (deposit == "0") {
+        msg += " Please enter deposit .<br />";
+    }
+    if (current_Rent == "0") {
+        msg += " Please enter current_Rent .<br />";
+    }
+
+    if (floorNo == "0") {
+        msg += " Please select floorNo .<br />";
+    }
+
+    if (area == "") {
+        msg += " Please enter area .<br />";
+    }
+
+    if (floorPlanCord == "") {
+        msg += " Please enter Floor Coordinates .<br />";
+    }
+    var unitWiseRentData = "";
+    $("tr.leaseunitrent").each(function (index, key) {
+        var ltid = $(this).data("value");
+        var rent = $("#txtLease_" + ltid).val();
+        var ren = unformatText(rent);
+        var leaseTerms = $(this).find('td:eq(1)').html();
+        if (ren == '0.00' || ren == '') {
+            msg += "Please enter " + leaseTerms + " Rent .<br />";
+        }
+        if (unitWiseRentData == "") {
+            unitWiseRentData = ltid + "," + ren;
+        } else {
+            unitWiseRentData += "|" + ltid + "," + ren;
+        }
+    });
+
+    if (msg != "") {
+        $("#divLoader").hide();
+        $.alert({
+            title: 'Alert!',
+            content: msg,
+            type: 'red'
+        });
+        return;
+    }
+
+    $formData = new FormData();
+
+    $formData.append('PID', pID);
+    $formData.append('UID', uID);
+    $formData.append('UnitNo', unitNo);
+    $formData.append('Rooms', rooms);
+    $formData.append('Bedroom', bedroom);
+    $formData.append('Bathroom', bathroom);
+    $formData.append('Hall', hall);
+    $formData.append('Deposit', deposit);
+    $formData.append('Current_Rent', current_Rent);
+    $formData.append('Previous_Rent', previous_Rent);
+    $formData.append('Market_Rent', market_Rent);
+    $formData.append('Wing', 'A');
+    $formData.append('Building', building);
+    $formData.append('Leased', leased);
+    $formData.append('PetDetails', petDetails);
+    $formData.append('FloorNo', floorNo);
+    $formData.append('Area', area);
+    $formData.append('Carpet_Color', carpet_Color);
+    $formData.append('Wall_Paint_Color', wall_Paint_Color);
+    $formData.append('Furnished', furnished);
+    $formData.append('Washer', washer);
+    $formData.append('Refrigerator', refrigerator);
+    $formData.append('Drapes', drapes);
+    $formData.append('Dryer', dryer);
+    $formData.append('Dishwasher', dishwasher);
+    $formData.append('Disposal', disposal);
+    $formData.append('Elec_Range', elec_Range);
+    $formData.append('Gas_Range', Gas_Range);
+    $formData.append('Carpet', carpet);
+    $formData.append('Air_Conditioning', air_Conditioning);
+    $formData.append('Fireplace', fireplace);
+    $formData.append('Den', den);
+    $formData.append('AvailableDate', availableDate);
+    $formData.append('OccupancyDate', occupancyDate);
+    $formData.append('PendingMoveIn', pendingMoveIn);
+    $formData.append('VacancyLoss_Date', leaseendDate);
+    $formData.append('IntendedMoveIn_Date', intendedMoveIn_Date);
+    $formData.append('IntendMoveOutDate', intendMoveOutDate);
+    $formData.append('ActualMoveInDate', actualMoveInDate);
+    $formData.append('ActualMoveOutDate', actualMoveOutDate);
+    $formData.append('Coordinates', floorPlanCord);
+    $formData.append('Premium', premium);
+    $formData.append('InteriorArea', intarea);
+    $formData.append('BalconyArea', balcarea);
+    $formData.append('Notes', notes);
+    $formData.append('ParkingID', parkingNo);
+    $formData.append('Charges', charges);
+    $formData.append('Type', type);
+    $formData.append('Description', ddlLocation);
+    $formData.append('ParkingName', spaceNo);
+    $formData.append('UnitWiseRentData', unitWiseRentData);
+    $formData.append('IsFurnished', isFurnished);
+    $formData.append('IsAvailable', unitAvailability);
+    var $file = document.getElementById('unit-picture');
+    if ($file.files.length > 0) {
+        for (var i = 0; i < $file.files.length; i++) {
+            $formData.append('file-' + i, $file.files[i]);
+        }
+    }
+
+    $.ajax({
+        url: "/Admin/PropertyManagement/SaveUpdatePropertyUnit/",
+        type: "post",
+        data: $formData,
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response.Msg > 0) {
+                $.alert({
+                    title: 'Message!',
+                    content: "Property Unit Saved Succefully",
+                    type: 'blue',
+                });
+                $("#hndUID").val(response.Msg)
+            }
+            else {
+                $.alert({
+                    title: 'Message!',
+                    content: "Property Unit Updated Succefully",
+                    type: 'blue',
+                });
+            }
+            $("#divLoader").hide();
+        }
+    });
+
+}
+
+***********************************************************
+New Function
+
+var checkUnitAvailability = function (id) {
+    var status = "";
+    if ($("#checkUnitIsAvailable_" + id).is(':checked')) {
+        var status = 1;
+    }
+    else {
+        status = 0;
+    }
+
+    var model = {
+        UID: id,
+        IsAvailable: status
+    };
+
+    $.ajax({
+        url: "/Admin/PropertyManagement/UpdateUnitAvailability/",
+        type: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            if (response.Msg > 0) {
+                $.alert({
+                    title: 'Message!',
+                    content: "Property Unit Saved Succefully",
+                    type: 'blue',
+                });
+                $("#hndUID").val(response.Msg)
+            }
+            else {
+                $.alert({
+                    title: 'Message!',
+                    content: "Property Unit Updated Succefully",
+                    type: 'blue',
+                });
+            }
+            $("#divLoader").hide();
+        }
+    });
+
+};

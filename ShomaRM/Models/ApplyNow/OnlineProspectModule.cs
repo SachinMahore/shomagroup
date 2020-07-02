@@ -127,6 +127,8 @@ namespace ShomaRM.Models
         public int BackGroundPaid { get; set; }
         public long ApplicantID { get; set; }
 
+        public string CreditResult { get; set; }
+        public string BackGroundResult { get; set; }
 
         public string SaveOnlineProspect(OnlineProspectModule model)
         {
@@ -243,7 +245,9 @@ namespace ShomaRM.Models
                     UserID = (int)Uid,
                     CreditPaid = 0,
                     Paid = 0,
-                    BackGroundPaid = 0
+                    BackGroundPaid = 0,
+                    CreditResult="",
+                    BackGroungResult=""
                 };
                 db.tbl_Applicant.Add(saveApplicant);
                 db.SaveChanges();
@@ -505,7 +509,9 @@ namespace ShomaRM.Models
                     UserID = (int)Uid,
                     CreditPaid = 0,
                     Paid = 0,
-                    BackGroundPaid = 0
+                    BackGroundPaid = 0,
+                    CreditResult="",
+                    BackGroungResult=""
                 };
                 db.tbl_Applicant.Add(saveApplicant);
                 db.SaveChanges();
@@ -1005,6 +1011,8 @@ namespace ShomaRM.Models
             model.Bedroom = 0;
             model.AdditionalParking = 0;
             model.CreditPaid = 0;
+            model.CreditResult = "";
+            model.BackGroundResult = "";
             model.IsRentalPolicy = 0;
             model.IsRentalQualification = 0;
 
@@ -1182,6 +1190,8 @@ namespace ShomaRM.Models
                     model.ApplicantID = applicantData.ApplicantID;
                     model.CreditPaid = applicantData.CreditPaid ?? 0;
                     model.BackGroundPaid = applicantData.BackGroundPaid ?? 0;
+                    model.CreditResult = applicantData.CreditResult;
+                    model.BackGroundResult = applicantData.BackGroungResult;
                     if (applicantData.Type!= "Primary Applicant")
                     {
                         if (tenantOnlineData != null)
@@ -1906,7 +1916,9 @@ namespace ShomaRM.Models
                 UserID = (int)Uid,
                 CreditPaid = 0,
                 Paid = 0,
-                BackGroundPaid = 0
+                BackGroundPaid = 0,
+                CreditResult="",
+                BackGroungResult=""
             };
             db.tbl_Applicant.Add(saveApplicant);
             db.SaveChanges();

@@ -93,51 +93,7 @@ $(document).ready(function () {
             $('#lblUpload3HEI').text('Fedral Tax Return 3');
         }
     });
-    document.getElementById('fileUploadTaxReturn1').onchange = function () {
-        var fileUploadTaxReturn1Bool = restrictFileUpload($(this).val());
-        if (fileUploadTaxReturn1Bool == true) {
-            taxReturnFileUpload1();
-        }
-        else {
-            document.getElementById('fileUploadTaxReturn1').value = '';
-            $('#fileUploadTaxReturn1Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
-    document.getElementById('fileUploadTaxReturn2').onchange = function () {
-        var fileUploadTaxReturn2Bool = restrictFileUpload($(this).val());
-        if (fileUploadTaxReturn2Bool == true) {
-            taxReturnFileUpload2();
-        }
-        else {
-            document.getElementById('fileUploadTaxReturn2').value = '';
-            $('#fileUploadTaxReturn2Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
-    document.getElementById('fileUploadTaxReturn3').onchange = function () {
-        var fileUploadTaxReturn3Bool = restrictFileUpload($(this).val());
-        if (fileUploadTaxReturn3Bool == true) {
-            taxReturnFileUpload3();
-        }
-        else {
-            document.getElementById('fileUploadTaxReturn3').value = '';
-            $('#fileUploadTaxReturn3Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
+
     document.getElementById('fileUploadPassport').onchange = function () {
         var fileUploadPassportBool = restrictFileUpload($(this).val());
         if (fileUploadPassportBool == true) {
@@ -169,6 +125,178 @@ $(document).ready(function () {
         }
 
     };
+
+    // New Upload Code Start //
+
+    // new code paystub file upload
+    document.getElementById('fileUploadPaystub').onchange = function () {
+        var paystubFile = document.getElementById('fileUploadPaystub');
+
+        if (paystubFile.files.length == 3) {
+            for (var i = 0; i < paystubFile.files.length; i++) {
+
+                var name1 = paystubFile.files[0].name;
+                var name2 = paystubFile.files[1].name;
+                var name3 = paystubFile.files[2].name;
+
+                var filePaystubBool1 = restrictFileUpload(name1);
+                var filePaystubBool2 = restrictFileUpload(name2);
+                var filePaystubBool3 = restrictFileUpload(name3);
+
+                if (filePaystubBool1 == false) {
+                    document.getElementById('fileUploadPaystub').value = '';
+                    $('#fileUploadPaystubShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                else if (filePaystubBool2 == false) {
+                    document.getElementById('fileUploadPaystub').value = '';
+                    $('#fileUploadPaystubShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                else if (filePaystubBool3 == false) {
+                    document.getElementById('fileUploadPaystub').value = '';
+                    $('#fileUploadPaystubShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+            }
+            paystubFileUploadCoapplicant();
+        }
+        else {
+            document.getElementById('fileUploadPaystub').value = '';
+            $('#fileUploadPaystubShow').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Select number of 3 files to upload",
+                type: 'blue'
+            });
+            return;
+        }
+    };
+
+    // new code fedral file upload
+    document.getElementById('fileUploadFedral').onchange = function () {
+        var fedralFile = document.getElementById('fileUploadFedral');
+
+        if (fedralFile.files.length == 2) {
+            for (var i = 0; i < fedralFile.files.length; i++) {
+
+                var name1 = fedralFile.files[0].name;
+                var name2 = fedralFile.files[1].name;
+
+                var fileFedralBool1 = restrictFileUpload(name1);
+                var fileFedralBool2 = restrictFileUpload(name2);
+
+                if (fileFedralBool1 == false) {
+                    document.getElementById('fileUploadFedral').value = '';
+                    $('#fileUploadFedralShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                else if (fileFedralBool2 == false) {
+                    document.getElementById('fileUploadFedral').value = '';
+                    $('#fileUploadFedralShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+            }
+            fedralFileUploadCoapplicant();
+        }
+        else {
+            document.getElementById('fileUploadFedral').value = '';
+            $('#fileUploadFedralShow').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Select number of 2 files to upload",
+                type: 'blue'
+            });
+            return;
+        }
+    };
+
+    // new code bankstatement file upload
+    document.getElementById('fileUploadBankStatement').onchange = function () {
+        var bankstatementFile = document.getElementById('fileUploadBankStatement');
+
+        if (bankstatementFile.files.length == 3) {
+            for (var i = 0; i < bankstatementFile.files.length; i++) {
+
+                var name1 = bankstatementFile.files[0].name;
+                var name2 = bankstatementFile.files[1].name;
+                var name3 = bankstatementFile.files[2].name;
+
+                var fileBankstatementBool1 = restrictFileUpload(name1);
+                var fileBankstatementBool2 = restrictFileUpload(name2);
+                var fileBankstatementBool3 = restrictFileUpload(name3);
+
+                if (fileBankstatementBool1 == false) {
+                    document.getElementById('fileUploadBankStatement').value = '';
+                    $('#fileUploadBankStatementShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                else if (fileBankstatementBool2 == false) {
+                    document.getElementById('fileUploadBankStatement').value = '';
+                    $('#fileUploadBankStatementShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                else if (fileBankstatementBool3 == false) {
+                    document.getElementById('fileUploadBankStatement').value = '';
+                    $('#fileUploadBankStatementShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+            }
+            bankstatementFileUploadCoapplicant();
+        }
+        else {
+            document.getElementById('fileUploadBankStatement').value = '';
+            $('#fileUploadBankStatementShow').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Select number of 3 files to upload",
+                type: 'blue'
+            });
+            return;
+        }
+    };
+
+    // New Upload Code End //
 
     if ($("#chkAgreeTermsPolicy").is(":checked")) {
         $("#policyStart").attr("disabled", true);
@@ -637,18 +765,18 @@ $(document).ready(function () {
     }
     $("#ddlRentOwn").on("change", function () {
         if (this.value == '1') {
-            $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone").addClass("star");
+            $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone,#lblddlProperNoticeLeaseAgreement").addClass("star");
         }
         else if (this.value == '2') {
-            $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone").removeClass("star");
+            $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone,#lblddlProperNoticeLeaseAgreement").removeClass("star");
         }
     });
     $("#ddlRentOwn2").on("change", function () {
         if (this.value == '1') {
-            $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2").addClass("star");
+            $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2,#lblddlProperNoticeLeaseAgreement2").addClass("star");
         }
         else if (this.value == '2') {
-            $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2").removeClass("star");
+            $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2,#lblddlProperNoticeLeaseAgreement2").removeClass("star");
         }
     });
 
@@ -753,82 +881,7 @@ $(document).ready(function () {
         }
     });
 
-    document.getElementById('fileUploadTaxReturn4').onchange = function () {
-        var fileUploadTaxReturn4Bool = restrictFileUpload($(this).val());
-        if (fileUploadTaxReturn4Bool == true) {
-            taxReturnFileUpload4();
-        }
-        else {
-            document.getElementById('fileUploadTaxReturn4').value = '';
-            $('#fileUploadTaxReturn4Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
-    document.getElementById('fileUploadTaxReturn5').onchange = function () {
-        var fileUploadTaxReturn5Bool = restrictFileUpload($(this).val());
-        if (fileUploadTaxReturn5Bool == true) {
-            taxReturnFileUpload5();
-        }
-        else {
-            document.getElementById('fileUploadTaxReturn5').value = '';
-            $('#fileUploadTaxReturn5Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
-
-    document.getElementById('fileBankState1').onchange = function () {
-        var fileUploadBankState1Bool = restrictFileUpload($(this).val());
-        if (fileUploadBankState1Bool == true) {
-            bankstateFileUpload1();
-        }
-        else {
-            document.getElementById('fileBankState1').value = '';
-            $('#fileBankState1Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
-    document.getElementById('fileBankState2').onchange = function () {
-        var fileUploadBankState2Bool = restrictFileUpload($(this).val());
-        if (fileUploadBankState2Bool == true) {
-            bankstateFileUpload2();
-        }
-        else {
-            document.getElementById('fileBankState2').value = '';
-            $('#fileBankState2Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
-    document.getElementById('fileBankState3').onchange = function () {
-        var fileUploadBankState3Bool = restrictFileUpload($(this).val());
-        if (fileUploadBankState3Bool == true) {
-            bankstateFileUpload3();
-        }
-        else {
-            document.getElementById('fileBankState3').value = '';
-            $('#fileBankState3Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
+    
     $("#txtApplicantSSNNumber").focusout(function () {
         var ssnLength = $("#txtApplicantSSNNumber").val().length;
         // console.log(ssnLength);
@@ -897,7 +950,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             $("#step16").addClass("hidden");
             $("#step17").addClass("hidden");
             $("#hndGotoSummary").val(6);
-            
+
             if ($("#hdnOPId").val() != '0') {
                 getStaticApplicantValuesCoApplicant();
             }
@@ -1011,17 +1064,17 @@ var goToStep = function (stepid, id, calldataupdate) {
             var grandPercentageMo = localStorage.getItem("percentageMo");
             var grandPercentageAF = localStorage.getItem("percentageAF");
 
-            if (grandPercentage != 100 || grandPercentageMo != 100 || grandPercentageAF != 100) {
-                msg = "For Move In Charges and Monthly Payment and Administration Fee the total must equal 100% in order to continue.";
+            //if (grandPercentage != 100 || grandPercentageMo != 100 || grandPercentageAF != 100) {
+            //    msg = "For Move In Charges and Monthly Payment and Administration Fee the total must equal 100% in order to continue.";
 
-                $.alert({
-                    title: "",
-                    content: msg,
-                    type: 'red'
-                });
-                return;
-            }
-            else {
+            //    $.alert({
+            //        title: "",
+            //        content: msg,
+            //        type: 'red'
+            //    });
+            //    return;
+            //}
+            //else {
                 $("#popApplicantSummary").modal("hide");
                 saveupdatePaymentResponsibilityCoAppli(9);  //Amit's work
                 $("#step2").addClass("hidden");
@@ -1055,15 +1108,15 @@ var goToStep = function (stepid, id, calldataupdate) {
                 $("#li16").removeClass("active");
                 $("#li17").removeClass("active");
                 $("#hndGotoSummary").val(9);
-            }
+            //}
 
-            if (msg != "") {
-                $.alert({
-                    title: "",
-                    content: msg,
-                    type: 'red'
-                });
-            }
+            //if (msg != "") {
+            //    $.alert({
+            //        title: "",
+            //        content: msg,
+            //        type: 'red'
+            //    });
+            //}
         }
     }
     if (stepid == "10") {
@@ -1403,59 +1456,28 @@ var goToStep = function (stepid, id, calldataupdate) {
                     msg += "Please Upload last 3 paystubs or if self-employed last 2 year's Federal Tax Returns </br>";
                 }
             }
+            nofup = 0;
             if ($("#rbtnPaystub").is(":checked")) {
-                if ($("#hndHasTaxReturnFile4").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn4').files.length == '0') {
-                        var upLabel44 = $('#lblUpload4').text();
-                        msg += "Please Upload " + upLabel44 + " </br>";
+                if (($("#hndHasTaxReturnFile3").val() == "0") && ($("#hndHasTaxReturnFile4").val() == "0") && ($("#hndHasTaxReturnFile5").val() == "0")) {
+                    
+                    if (document.getElementById('fileUploadPaystub').files.length == '0') {
+                        msg += "Please Upload Paystub </br>";
                     }
                 }
-                if ($("#hndHasTaxReturnFile5").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn5').files.length == '0') {
-                        var upLabel25 = $('#lblUpload5').text();
-                        msg += "Please Upload " + upLabel25 + " </br>";
-                    }
-                }
-                if ($("#hndHasTaxReturnFile3").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn3').files.length == '0') {
-                        var upLabel3 = $('#lblUpload3').text();
-                        msg += "Please Upload " + upLabel3 + " </br>";
-                    }
-                }
-                nofup += 1;
+                nofup+=1;
             }
             if ($("#rbtnFedralTax").is(":checked")) {
-                if ($("#hndHasTaxReturnFile1").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
-                        var upLabel4 = $('#lblUpload1').text();
-                        msg += "Please Upload " + upLabel4 + " </br>";
-                    }
-                }
-                if ($("#hndHasTaxReturnFile2").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
-                        var upLabel5 = $('#lblUpload2').text();
-                        msg += "Please Upload " + upLabel5 + " </br>";
+                if (($("#hndHasTaxReturnFile1").val() == "0") && ($("#hndHasTaxReturnFile2").val() == "0")) {
+                    if (document.getElementById('fileUploadFedral').files.length == '0') {
+                        msg += "Please Upload Fedral </br>";
                     }
                 }
                 nofup += 1;
             }
             if ($("#rbtnBankStatement").is(":checked")) {
-                if ($("#hndHasBankStateFile1").val() == "0") {
-                    if (document.getElementById('fileBankState1').files.length == '0') {
-                        var upLabel6 = $('#lblUploadBankState1').text();
-                        msg += "Please Upload " + upLabel6 + " </br>";
-                    }
-                }
-                if ($("#hndHasBankStateFile2").val() == "0") {
-                    if (document.getElementById('fileBankState2').files.length == '0') {
-                        var upLabel7 = $('#lblUploadBankState2').text();
-                        msg += "Please Upload " + upLabel7 + " </br>";
-                    }
-                }
-                if ($("#hndHasBankStateFile3").val() == "0") {
-                    if (document.getElementById('fileBankState3').files.length == '0') {
-                        var upLabel8 = $('#lblUploadBankState3').text();
-                        msg += "Please Upload " + upLabel8 + " </br>";
+                if (($("#hndHasBankStateFile1").val() == "0") && ($("#hndHasBankStateFile2").val() == "0") && ($("#hndHasBankStateFile3").val() == "0")) {
+                    if (document.getElementById('fileUploadBankStatement').files.length == '0') {
+                        msg += "Please Upload Bankstatement </br>";
                     }
                 }
                 nofup += 1;
@@ -1756,7 +1778,7 @@ var getStepCompletedMsg = function (currentstep, clickstep) {
 };
 
 var showCurrentStep = function (stepid, id) {
-    
+
     if (stepid == "6") {
 
         $("#subMenu").addClass("hidden");
@@ -2697,7 +2719,9 @@ var SaveCheckPolicy = function (stepcompleted) {
         }
     });
 }
+
 function saveNewPayment() {
+
     if ($("#chkTermsAndCondition2").is(':unchecked')) {
         $("#divLoader").hide();
         $.alert({
@@ -2729,6 +2753,7 @@ function saveNewPayment() {
     var prospectID = 0;
     var amounttoPay = 0;
     var description = "";
+
 
     if ($("#hndTransMethod2").val() == "2") {
         paymentMethod = 2;
@@ -2768,6 +2793,7 @@ function saveNewPayment() {
             msg += "Your Credit Card Expired..</br>";
         }
 
+
         if (msg != "") {
             $("#divLoader").hide();
             $.alert({
@@ -2776,6 +2802,7 @@ function saveNewPayment() {
                 type: 'red'
             });
             return;
+
         }
     } else {
         paymentMethod = 1;
@@ -2795,36 +2822,27 @@ function saveNewPayment() {
         }
         if (cardNumber == "") {
             msg += "Please Enter Account Number</br>";
-        }
 
-        if (msg != "") {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: msg,
-                type: 'red'
-            });
-            return;
         }
     }
     var model = {
         PID: propertyId,
         Name_On_Card: nameonCard,
         CardNumber: cardNumber,
+        AccountNumber: cardNumber,
         CardMonth: cardMonth,
         CardYear: cardYear,
         CCVNumber: ccvNumber,
         Charge_Amount: amounttoPay,
-        Charge_Type: "4",
         ProspectID: prospectID,
         Description: description,
-        GL_Trans_Description: description,
+
+
         RoutingNumber: routingNumber,
         BankName: bankName,
         PaymentMethod: paymentMethod,
-        AID: $("#hndApplicantID").val(),
-        FromAcc: $("#hndFromAcc").val(),
-        IsSaveAcc: $("#chkSaveAcc").is(":checked") ? "1" : "0",
+
+        lstApp: addApplicntArrayCoapplicant,
     };
 
     $.alert({
@@ -2836,25 +2854,34 @@ function saveNewPayment() {
                 text: 'Yes',
                 action: function (yes) {
                     $.ajax({
+
                         url: "/ApplyNow/SaveNewPayment/",
+
                         type: "post",
                         contentType: "application/json utf-8",
                         data: JSON.stringify(model),
                         dataType: "JSON",
                         success: function (response) {
-                            if (response.Msg != "") {
-                                if (response.Msg == "1") {
-                                    $("#ResponseMsg2").html("Payment successfull");
-                                    if (parseInt($("#hndFromAcc").val()) == 4) {
-                                        $("#divAppWarning").addClass("hidden");
-                                        $("#btnnextAppinfo").removeClass("hidden");
-                                        $("#hndCreditPaid").val(1);
-                                    }
-                                    getApplicantListsCoApplicant();
-                                    $("#popCCPay").modal("hide");
-                                } else {
-                                    $("#ResponseMsg2").html("Payment failed");
-                                }
+
+                            $("#divLoader").hide();
+                            if (response.Msg == "1") {
+                                //$("#carddetails").addClass("hidden");
+                                $(".payNext").removeAttr("disabled");
+                                $("#ResponseMsg").html("Payment Successfull");
+                                $.alert({
+                                    title: "",
+                                    content: "Payment Successfull",
+                                    type: 'red'
+                                });
+                                getTransationLists($("#hdnUserId").val());
+                                getApplicantListsCoApplicant();
+                            } else {
+                                $.alert({
+                                    title: "",
+                                    content: "Payment Failed",
+                                    type: 'red'
+                                });
+
                             }
                         }
                     });
@@ -2868,6 +2895,7 @@ function saveNewPayment() {
             }
         }
     });
+
 }
 var getApplicantListsCoApplicant = function () {
     var model = {
@@ -2913,7 +2941,7 @@ var getApplicantListsCoApplicant = function () {
                         "<img src='/Content/assets/img/user.png'></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                         "<label> " + elementValue.Type + " </label><br/>" +
-                        "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
+                        "<label><a class='cust-link' href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
                     if (parseInt(elementValue.CreditPaid) == 0) {
                         $("#editApplicantFees").text("Credit Check Fees");
                         $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
@@ -2931,7 +2959,7 @@ var getApplicantListsCoApplicant = function () {
                         "<img src='/Content/assets/img/user.png'></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                         "<label> " + elementValue.Type + " </label><br/>" +
-                        "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
+                        "<label><a class='cust-link' href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
                         "<label><a href='javascript:void(0)' onclick='delApplicantCoApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
                         "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                 }
@@ -2942,7 +2970,7 @@ var getApplicantListsCoApplicant = function () {
                             "<img src='/Content/assets/img/user.png'></div>" +
                             "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                             "<label> " + elementValue.Type + " </label><br/>" +
-                            "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
+                            "<label><a class='cust-link' href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
                             "<label><a href='javascript:void(0)' onclick='delApplicantCoApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
                             "</div><div><center><label><b>Status:  " + elementValue.ComplStatus + "</b></label></center></div></div>"
                     }
@@ -3376,12 +3404,12 @@ var getApplicantListsCoApplicant = function () {
                     var totalCoAppl = noofCapl;
                     var totalMinor = noofminor;
                     var total = 0;
-                   // console.log("Applicant:" + totalAppl + " Co-app:" + totalCoAppl + " Minor:" + totalMinor);
+                    // console.log("Applicant:" + totalAppl + " Co-app:" + totalCoAppl + " Minor:" + totalMinor);
                     if (nofbed == 1) {
                         total = parseInt(noofapl) + parseInt(totalCoAppl) + parseInt(totalMinor);
                         if (totalCoAppl <= parseInt(totalPeople) - 1) {
                             if (total <= parseInt(totalPeople) - 1) {
-                                $("#tblApplicantCoApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                                $("#tblApplicantCoApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a class='cust-link' href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
                             }
                             else {
                                 var test = "";
@@ -3389,7 +3417,7 @@ var getApplicantListsCoApplicant = function () {
                         }
                         if (totalMinor <= parseInt(totalPeople) - 1) {
                             if (total <= parseInt(totalPeople) - 1) {
-                                $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                                $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a class='cust-link' href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
                             }
                             else {
                                 test = "";
@@ -3402,17 +3430,17 @@ var getApplicantListsCoApplicant = function () {
                         if (total <= parseInt(totalPeople) - 1) {
                             if (totalCoAppl < 2) {
                                 if (total < parseInt(totalPeople)) {
-                                    $("#tblApplicantCoApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                                    $("#tblApplicantCoApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a class='cust-link' href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
                                     if (totalMinor <= 1) {
-                                        $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                                        $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a class='cust-link' href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
                                     }
                                 }
                             }
                             else if (totalMinor < 2) {
                                 if (total < parseInt(totalPeople)) {
-                                    $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                                    $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a class='cust-link' href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
                                     if (totalCoAppl <= 1) {
-                                        $("#tblApplicantCoApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                                        $("#tblApplicantCoApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a class='cust-link' href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
                                     }
                                 }
                             }
@@ -3426,17 +3454,17 @@ var getApplicantListsCoApplicant = function () {
                         if (total <= parseInt(totalPeople) - 1) {
                             if (totalCoAppl < 3) {
                                 if (total < parseInt(totalPeople)) {
-                                    $("#tblApplicantCoApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                                    $("#tblApplicantCoApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a class='cust-link' href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
                                     if (totalMinor <= 2) {
-                                        $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                                        $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a class='cust-link' href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
                                     }
                                 }
                             }
                             else if (totalMinor < 3) {
                                 if (total < parseInt(totalPeople)) {
-                                    $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
+                                    $("#tblApplicantMinor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a class='cust-link' href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(2)'><i class='fa fa-plus-circle'></i> Add Minor</a></label></div></div></div></div>");
                                     if (totalCoAppl <= 2) {
-                                        $("#tblApplicantCoApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
+                                        $("#tblApplicantCoApplicant").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a class='cust-link' href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(1)'><i class='fa fa-plus-circle'></i> Add Co-Applicant</a></label></div></div></div></div>");
                                     }
                                 }
                             }
@@ -3446,7 +3474,7 @@ var getApplicantListsCoApplicant = function () {
                         }
                     }
                     if (noofgur == 0) {
-                        $("#tblApplicantGuarantor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(3)'><i class='fa fa-plus-circle'></i> Add Guarantor</a></label></div></div></div></div>");
+                        $("#tblApplicantGuarantor").append("<div class='col-sm-3 box-two proerty-item'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><div class='form-group col-sm-12'><label></br><a class='cust-link' href='javascript:void(0)' id='btnAddApplicant' onclick='addApplicantCoApplicant(3)'><i class='fa fa-plus-circle'></i> Add Guarantor</a></label></div></div></div></div>");
                     }
                 }
 
@@ -4845,7 +4873,7 @@ var saveupdateStorageCoApplicant = function () {
 var addApplicantCoApplicant = function (at) {
     var modal = $("#popApplicant");
     if (at == 1) {
-        $("#appphone,#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+        $("#appphone,#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").addClass("hidden");
         //modal.find('.modal-content').css("height", "350px");
         modal.find('.modal-title').text('Add Co-Applicant');
         $("#popApplicant").modal("show");
@@ -4890,7 +4918,7 @@ var addApplicantCoApplicant = function (at) {
         $("#hndNewCoApp").val("1");
     }
     else if (at == 2) {
-        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").addClass("hidden");
         //modal.find('.modal-content').css("height", "300px");
         modal.find('.modal-title').text('Add Minor');
         $("#popApplicant").modal("show");
@@ -4915,7 +4943,7 @@ var addApplicantCoApplicant = function (at) {
         $("#appemail").addClass("hidden");
     }
     else if (at == 3) {
-        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").addClass("hidden");
         //modal.find('.modal-content').css("height", "350px");
         modal.find('.modal-title').text('Add Guarantor');
         $("#popApplicant").modal("show");
@@ -4964,7 +4992,7 @@ var addApplicantCoApplicant = function (at) {
     //$("#popApplicant").PopupWindow("open");
     $("#popApplicant").modal("show");
 };
-var saveupdateApplicantCoApplicant = function () {
+var saveupdateApplicantCoApplicant = function (callFrom) {
 
     $("#divLoader").show();
     var checkEmail = 0;
@@ -4980,7 +5008,7 @@ var saveupdateApplicantCoApplicant = function () {
     var type = $("#ddlApplicantType").text();
     var aotherGender = $("#txtApplicantOtherGender").val();
     var applicantSSNNumber = $("#txtApplicantSSNNumber").attr("data-value");
- 
+
     //var applicantIDNumber = $("#txtApplicantIDNumber").attr("data-value");
     //var applicantIDType = $("#ddlApplicantDocumentTypePersonal").val();
     //var applicantStateDoc = $("#ddlApplicantStateDoc").val();
@@ -5200,15 +5228,88 @@ var saveupdateApplicantCoApplicant = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: "Progress Saved.",
-                type: 'blue',
-            });
-            //getApplicantListsCoApplicant();
-            //$("#popApplicant").PopupWindow("close");
-           // $("#popApplicant").modal("hide");
+
+            if (callFrom == 1) {
+                $("#divLoader").hide();
+                $.alert({
+                    title: "",
+                    content: "Progress Saved.",
+                    type: 'blue',
+                });
+                getApplicantListsCoApplicant();
+                //$("#popApplicant").PopupWindow("close");
+                $("#popApplicant").modal("hide");
+            }
+            else {
+                if ($("#hndTransMethod1").val() == "2") {
+                    var paymentMethod = 2;
+                    var propertyId = $("#hndUID").val();
+                    var nameonCard = $("#txtNameonCard1").val();
+                    var cardNumber = $("#txtCardNumber1").val();
+                    var cardMonth = $("#ddlcardmonth1").val();
+                    var cardYear = $("#ddlcardyear1").val();
+                    var ccvNumber = $("#txtCCVNumber1").val();
+                    var prospectID = $("#hdnOPId").val();
+                    var amounttoPay = unformatText($("#sppayFees").text());
+                    var description = $("#lblpopcctitle").text();
+                    var routingNumber = $("#txtRoutingNumber1").val();
+                    var bankName = $("#txtBankName1").val();
+                } else {
+                    var paymentMethod = 1;
+                    var nameonCard = $("#txtAccountName1").val();
+                    var cardNumber = $("#txtAccountNumber1").val();
+                    var cardMonth = 0;
+                    var cardYear = 0;
+                    var ccvNumber = 0;
+                    var routingNumber = $("#txtRoutingNumber1").val();
+                    var bankName = $("#txtBankName1").val();
+                    var amounttoPay = unformatText($("#sppayFees").text());
+                    var description = $("#lblpopcctitle").text();
+                    var prospectID = $("#hdnOPId").val();
+                    var propertyId = $("#hndUID").val();
+                }
+                var model = {
+                    PID: propertyId,
+                    Name_On_Card: nameonCard,
+                    CardNumber: cardNumber,
+                    CardMonth: cardMonth,
+                    CardYear: cardYear,
+                    CCVNumber: ccvNumber,
+                    Charge_Amount: amounttoPay,
+                    Charge_Type: "4",
+                    ProspectID: prospectID,
+                    Description: description,
+                    GL_Trans_Description: description,
+                    RoutingNumber: routingNumber,
+                    BankName: bankName,
+                    PaymentMethod: paymentMethod,
+                    AID: $("#hndApplicantID").val(),
+                    FromAcc: $("#hndFromAcc").val(),
+                    IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
+                };
+                $.ajax({
+                    url: "/ApplyNow/saveCoAppPayment/",
+                    type: "post",
+                    contentType: "application/json utf-8",
+                    data: JSON.stringify(model),
+                    dataType: "JSON",
+                    success: function (response) {
+                        if (response.Msg != "") {
+                            if (response.Msg == "1") {
+                                $("#ResponseMsg1").html("Payment successfull");
+                                window.location = "/ApplyNow/CoApplicantDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val();
+                            } else {
+                                $.alert({
+                                    title: "",
+                                    content: "Payment failed",
+                                    type: 'red'
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+
         }
     });
 }
@@ -5218,17 +5319,42 @@ var totnotpaid = 0;
 var payFeePop = function (aid, ct) {
     $("#hndApplicantID").val(aid);
     $("#hndFromAcc").val(ct);
-    if (ct == 5) {
-        $("#lblpopcctitle").text("Pay Background Check Fees");
-        $("#sppayFees2").text($("#hndAppBackgroundFees").val());
-    } else if (ct == 4) {
-        $("#lblpopcctitle").text("Pay Credit Check Fees");
-        $("#sppayFees2").text($("#hndAppCreditFees").val());
-    } else {
+
+
+    var hasCF = false;
+    var hasBF = false;
+
+    $.each(addApplicntArrayCoapplicant, function (elementType, elementValue) {
+        if (elementValue.Type == 4) {
+            hasCF = true;
+        }
+        if (elementValue.Type == 5) {
+            hasBF = true;
+        }
+    });
+
+
+
+    if (hasCF == true && hasBF == true) {
         $("#lblpopcctitle").text("Pay Remaining Fees");
         $("#sppayFees2").text(unformatText($("#totalFinalFees").text()));
         $("#hndFinalPaybutton").val(1);
+        $("#hndFromAcc").val(1);
     }
+    else {
+        if (ct == 5) {
+            $("#lblpopcctitle").text("Pay Background Check Fees");
+            $("#sppayFees2").text($("#hndAppBackgroundFees").val());
+        } else if (ct == 4) {
+            $("#lblpopcctitle").text("Pay Credit Check Fees");
+            $("#sppayFees2").text($("#hndAppCreditFees").val());
+        } else {
+            $("#lblpopcctitle").text("Pay Remaining Fees");
+            $("#sppayFees2").text(unformatText($("#totalFinalFees").text()));
+            $("#hndFinalPaybutton").val(1);
+        }
+    }
+
     getBankCCLists();
     clearPayFeePop();
     $("#popCCPay").modal("show");
@@ -5284,7 +5410,7 @@ var goToEditApplicant = function (aid) {
                     $("#chkNoSSN").iCheck('uncheck');
                 }
                 if (response.model.Type == "Primary Applicant") {
-                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
+                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").removeClass("hidden");
                     //modal.find('.modal-content').css("height", "530px");
                     modal.find('.modal-title').text('Edit Primary Applicant');
                     $("#popApplicant").modal("show");
@@ -5332,7 +5458,7 @@ var goToEditApplicant = function (aid) {
                 }
                 else if (response.model.Type == "Co-Applicant") {
                     if (response.model.ApplicantAddedBy == $('#hndCoAppUserId').val()) {
-                        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+                        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").addClass("hidden");
                         //modal.find('.modal-content').css("height", "350px");
                         modal.find('.modal-title').text('Edit Co-Applicant');
                         $("#popApplicant").modal("show");
@@ -5393,7 +5519,7 @@ var goToEditApplicant = function (aid) {
                         }
                     }
                     else {
-                        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
+                        $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").removeClass("hidden");
                         //modal.find('.modal-content').css("height", "530px");
                         modal.find('.modal-title').text('Edit Co-Applicant');
                         $("#popApplicant").modal("show");
@@ -5457,7 +5583,7 @@ var goToEditApplicant = function (aid) {
                     }
                 }
                 else if (response.model.Type == "Guarantor") {
-                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").addClass("hidden");
                     //modal.find('.modal-content').css("height", "350px");
                     modal.find('.modal-title').text('Edit Guarantor');
                     $("#popApplicant").modal("show");
@@ -5506,7 +5632,7 @@ var goToEditApplicant = function (aid) {
 
                 }
                 else if (response.model.Type == "Minor") {
-                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
+                    $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").addClass("hidden");
                     //modal.find('.modal-content').css("height", "300px");
                     modal.find('.modal-title').text('Edit Minor');
                     $("#popApplicant").modal("show");
@@ -5645,7 +5771,7 @@ var saveupdatePetCoApplicant = function () {
         dataType: 'json',
         success: function (response) {
             $("#divLoader").hide();
-           // console.log(response.Msg);
+            // console.log(response.Msg);
             getPetListsCoApplicant();
 
             localStorage.setItem('tenantIds', response.Msg);
@@ -6762,13 +6888,16 @@ var getTenantOnlineListCoApplicant = function (id) {
             if (response.model.IsPaystub == 1) {
                 $("#rbtnPaystub").iCheck('check');
                 $('#divUpload3').removeClass('hidden');
+                $("#fileUploadPaystubShow").text("3 files selected");
             }
             if (response.model.IsFedralTax == 1) {
                 $("#rbtnFedralTax").iCheck('check');
+                $("#fileUploadFedralShow").text("2 files selected");
             }
             if (response.model.IsBankState == 1) {
                 $("#rbtnBankStatement").iCheck('check');
                 $('#divBankUpload').removeClass('hidden');
+                $("#fileUploadBankStatementShow").text("3 files selected");
             }
 
             $("#divLoaderFullData").hide();
@@ -9790,25 +9919,25 @@ function saveCoAppPayment() {
         });
         return;
     }
-    var model = {
-        PID: propertyId,
-        Name_On_Card: nameonCard,
-        CardNumber: cardNumber,
-        CardMonth: cardMonth,
-        CardYear: cardYear,
-        CCVNumber: ccvNumber,
-        Charge_Amount: amounttoPay,
-        Charge_Type: "4",
-        ProspectID: prospectID,
-        Description: description,
-        GL_Trans_Description: description,
-        RoutingNumber: routingNumber,
-        BankName: bankName,
-        PaymentMethod: paymentMethod,
-        AID: $("#hndApplicantID").val(),
-        FromAcc: $("#hndFromAcc").val(),
-        IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
-    };
+    //var model = {
+    //    PID: propertyId,
+    //    Name_On_Card: nameonCard,
+    //    CardNumber: cardNumber,
+    //    CardMonth: cardMonth,
+    //    CardYear: cardYear,
+    //    CCVNumber: ccvNumber,
+    //    Charge_Amount: amounttoPay,
+    //    Charge_Type: "4",
+    //    ProspectID: prospectID,
+    //    Description: description,
+    //    GL_Trans_Description: description,
+    //    RoutingNumber: routingNumber,
+    //    BankName: bankName,
+    //    PaymentMethod: paymentMethod,
+    //    AID: $("#hndApplicantID").val(),
+    //    FromAcc: $("#hndFromAcc").val(),
+    //    IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
+    //};
 
     $.alert({
         title: "",
@@ -9818,28 +9947,9 @@ function saveCoAppPayment() {
             yes: {
                 text: 'Yes',
                 action: function (yes) {
-                    $.ajax({
-                        url: "/ApplyNow/saveNewPayment/",
-                        type: "post",
-                        contentType: "application/json utf-8",
-                        data: JSON.stringify(model),
-                        dataType: "JSON",
-                        success: function (response) {
-                            if (response.Msg != "") {
-                                if (response.Msg == "1") {
-                                    $("#ResponseMsg1").html("Payment successfull");
-                                    saveupdateApplicantCoApplicant();
-                                    window.location = "/ApplyNow/CoApplicantDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val();
-                                } else {
-                                    $.alert({
-                                        title: "",
-                                        content: "Payment failed",
-                                        type: 'red'
-                                    });
-                                }
-                            }
-                        }
-                    });
+
+                    saveupdateApplicantCoApplicant(2);
+                  
                 }
             },
             no: {
@@ -10096,14 +10206,18 @@ function saveNewPaymentFinal() {
 function savePayNewEx() {
     if ($("#hndNeEx").val() == 1) {
         if ($("#hndFinalPaybutton").val() == 1) {
+
             saveNewPaymentFinal();
         } else {
             saveNewPayment();
+
         }
 
     } else if ($("#hndNeEx").val() == 2) {
 
+
         saveListPaymentFinal();
+
     }
 }
 function selectPay(paid) {
@@ -10317,7 +10431,7 @@ var getStaticApplicantValuesCoApplicant = function () {
         dataType: "JSON",
         success: function (response) {
             $("#divLoader").hide();
-            
+
             /*Select Option Starts*/
             $("#lblArea").text(response.model.AreaSqft);
             $("#lblLease").text(response.model.LeaseMonths);
@@ -10381,7 +10495,7 @@ var getStaticApplicantValuesCoApplicant = function () {
 
             /*Quotation Ends*/
             /*Responsibility left block Start*/
-            
+
             $("#lblVehicleFees1").text(formatMoney(response.model.VehicleRegistration));
             $("#lbdepo6").text(formatMoney(response.model.Deposit));
             // $("#lbdepo6").text(formatMoney(response.model.Deposit));
@@ -10405,22 +10519,22 @@ var getStaticApplicantValuesCoApplicant = function () {
     });
 };
 var checkResponsibilityCoApplicant = function () {
-    var grandPercentage = localStorage.getItem("percentage");
-    var grandPercentageMo = localStorage.getItem("percentageMo");
-    var grandPercentageAF = localStorage.getItem("percentageAF");
-    if (grandPercentage != 100 || grandPercentageMo != 100 || grandPercentageAF != 100) {
-        msg = "For Move In Charges and Monthly Payment and Administration Fee the total must equal 100% in order to continue.";
+    //var grandPercentage = localStorage.getItem("percentage");
+    //var grandPercentageMo = localStorage.getItem("percentageMo");
+    //var grandPercentageAF = localStorage.getItem("percentageAF");
+    //if (grandPercentage != 100 || grandPercentageMo != 100 || grandPercentageAF != 100) {
+    //    msg = "For Move In Charges and Monthly Payment and Administration Fee the total must equal 100% in order to continue.";
 
-        $.alert({
-            title: "",
-            content: msg,
-            type: 'red'
-        });
-        return;
-    }
-    else {
+    //    $.alert({
+    //        title: "",
+    //        content: msg,
+    //        type: 'red'
+    //    });
+    //    return;
+    //}
+    //else {
         $("#popResponsibilityContinue").modal("show");
-    }
+    //}
 };
 function saveListPaymentFinal() {
     if ($("#chkTermsAndCondition2").is(':unchecked')) {
@@ -10516,3 +10630,155 @@ function saveListPaymentFinal() {
         }
     });
 }
+
+// New Upload Code Start //
+
+// New Paystub file Upload Method
+var paystubFileUploadCoapplicant = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var paystubUpload = document.getElementById('fileUploadPaystub');
+
+    for (var i = 0; i < paystubUpload.files.length; i++) {
+        $formData.append('file-' + i, paystubUpload.files[i]);
+    }
+
+    $.ajax({
+        url: '/ApplyNow/PaystubUpload',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            var fileName = [];
+            var originalFileName = [];
+            $.each(response.model.PaystubFiles, function (index, elementValue) {
+                fileName.push(elementValue);
+            });
+            $.each(response.model.PaystubOriginalFiles, function (index, elementValue) {
+                originalFileName.push(elementValue);
+            });
+
+            //1
+            $('#hndFileUploadName4').val(fileName[0]);
+            $('#hndOriginalFileUploadName4').val(originalFileName[0]);
+            //2
+            $('#hndFileUploadName5').val(fileName[1]);
+            $('#hndOriginalFileUploadName5').val(originalFileName[1]);
+            //3
+            $('#hndFileUploadName3').val(fileName[2]);
+            $('#hndOriginalFileUploadName3').val(originalFileName[2]);
+
+            $("#fileUploadPaystubShow").text("3 files selected");
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'blue'
+            });
+        }
+    });
+};
+
+// New Fedral file Upload Method
+var fedralFileUploadCoapplicant = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var fedralUpload = document.getElementById('fileUploadFedral');
+
+    for (var i = 0; i < fedralUpload.files.length; i++) {
+        $formData.append('file-' + i, fedralUpload.files[i]);
+    }
+
+    $.ajax({
+        url: '/ApplyNow/FedralUpload',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            var fileName = [];
+            var originalFileName = [];
+            $.each(response.model.FedralFiles, function (index, elementValue) {
+                fileName.push(elementValue);
+            });
+            $.each(response.model.FedralOriginalFiles, function (index, elementValue) {
+                originalFileName.push(elementValue);
+            });
+
+            //1
+            $('#hndFileUploadName1').val(fileName[0]);
+            $('#hndOriginalFileUploadName1').val(originalFileName[0]);
+            //2
+            $('#hndFileUploadName2').val(fileName[1]);
+            $('#hndOriginalFileUploadName2').val(originalFileName[1]);
+            $("#fileUploadFedralShow").text("2 files selected");
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'blue'
+            });
+        }
+    });
+};
+
+// New Paystub file Upload Method
+var bankstatementFileUploadCoapplicant = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var bankstatementUpload = document.getElementById('fileUploadBankStatement');
+
+    for (var i = 0; i < bankstatementUpload.files.length; i++) {
+        $formData.append('file-' + i, bankstatementUpload.files[i]);
+    }
+
+};
+
+
+    $.ajax({
+        url: '/ApplyNow/BankStatementUpload',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            var fileName = [];
+            var originalFileName = [];
+            $.each(response.model.BankStatementFiles, function (index, elementValue) {
+                fileName.push(elementValue);
+            });
+            $.each(response.model.BankStatementOriginalFiles, function (index, elementValue) {
+                originalFileName.push(elementValue);
+            });
+
+            //1
+            $('#hndFileUploadNameBankState1').val(fileName[0]);
+            $('#hndOriginalFileUploadNameBankState1').val(originalFileName[0]);
+            //2
+            $('#hndFileUploadNameBankState2').val(fileName[1]);
+            $('#hndOriginalFileUploadNameBankState2').val(originalFileName[1]);
+            //3
+            $('#hndFileUploadNameBankState3').val(fileName[2]);
+            $('#hndOriginalFileUploadNameBankState3').val(originalFileName[2]);
+            $("#fileUploadBankStatementShow").text("3 files selected");
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'blue'
+            });
+        }
+    });
+};
+
+

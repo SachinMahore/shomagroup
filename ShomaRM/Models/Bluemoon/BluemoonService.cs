@@ -19,30 +19,15 @@ namespace ShomaRM.Models.Bluemoon
             try
             {
                 //SOAP Body Request  
-                body.LoadXml(@"<?xml version = ""1.0"" encoding=""utf - 8""?>
-                            <ApplicantScreening xmlns: MITS = ""http://my-company.com/namespace"">
-                            <Request xmlns: xsi = ""http://www.w3.org/2001/XMLSchema-instance"" >
-                             <PropertyID>
-                                    <MITS:Identification Type = ""other"" >
-                                    <MITS:PrimaryID/>
-                                    <MITS:MarketingName/> 
-                                    <MITS:WebSite> https://office.yourwebsite.com</MITS:WebSite>
-                                    </MITS:Identification>
-                                    </PropertyID>
-                                     <RequestType> New </RequestType>
-                                      <ReportOptions >
-                                    <ReportName> CRD </ReportName>
-                                   </ReportOptions>
-                                    <OriginatorID > 501214 </OriginatorID>
-                                    <UserAccount> 1M898 </UserAccount>
-                                    <UserName> APIShomatest </UserName>
-                                    <UserPassword> Shomatest1! </UserPassword>
-                                    </Request>
-                                 " + Body + @"
-
-                                </ApplicantScreening>");
-
-
+                body.LoadXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
+                                    <SOAP-ENV:Envelope 
+                                    xmlns:SOAP-ENV=""http://schemas.xmlsoap.org/soap/envelope/""
+                                    xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
+                                    xmlns:ns1=""https://www.bluemoonforms.com/services/lease.php"">
+                                    <SOAP-ENV:Body>
+                                        " + Body + @"
+                                    </SOAP-ENV:Body>
+                                    </SOAP-ENV:Envelope>");
             }
             catch (Exception ex)
             {
@@ -824,5 +809,186 @@ namespace ShomaRM.Models.Bluemoon
             return leaseResponseModel;
         }
 
+        public async Task<LeaseResponseModel> CreateLeaseCustomForm(LeaseRequestModel leaseRequestModel, string sessionId, string PropertyId)
+        {
+            LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
+            string leaseId = "";
+
+
+            var bodyForLease = CreateXMLForCustomForm(leaseRequestModel, PropertyId, sessionId);
+
+            var result = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#CreateLease", bodyForLease);
+            if (result != null)
+            {
+                var resultlease = result
+                 .Descendants("CreateLeaseResult")
+                 .ToList();
+                leaseId = resultlease[0].Value;
+            }
+
+
+
+            leaseResponseModel.LeaseId = leaseId;
+            leaseResponseModel.SessionId = sessionId;
+
+
+            return leaseResponseModel;
+        }
+
+        private XmlDocument CreateXMLForCustomForm(LeaseRequestModel leaseRequestModel, string propertyId, string sessionId)
+        {
+            string leaseXmlStr = "";
+            try
+            {
+                leaseXmlStr = @" <ns1:CreateLease>
+                <SessionId>" + sessionId + @"</SessionId>" + LeaseXMLCustomFormData(leaseRequestModel) +
+                (propertyId == null ? @" <PropertyId xsi:nil=""true""/>" : "<PropertyId>" + propertyId + @"</PropertyId>") + @"
+                <LeaseId xsi:nil=""true""/>
+                </ns1:CreateLease>";
+            }
+            catch (Exception ex)
+            {
+
+            }
+            var bodyForLease = CreateXMLDocument(leaseXmlStr);
+
+
+            return bodyForLease;
+        }
+
+        private string LeaseXMLCustomFormData(LeaseRequestModel leaseRequestModel)
+        {
+            string leaseData = @"<LeaseXMLData>
+            	    &lt;BLUEMOON&gt;
+                    &lt;LEASE&gt;
+                    &lt;STANDARD&gt;
+                      " + (leaseRequestModel.RESIDENT_1 == null ? "&lt;RESIDENT-1/&gt;" : "&lt;RESIDENT-1&gt;" + leaseRequestModel.RESIDENT_1 + @"&lt;/RESIDENT-1&gt;") + @"
+                     " + (leaseRequestModel.LEASE_BEGIN_DATE == null ? "&lt;LEASE-BEGIN-DATE/&gt;" : "&lt;LEASE-BEGIN-DATE&gt;" + leaseRequestModel.LEASE_BEGIN_DATE + @"&lt;/LEASE-BEGIN-DATE&gt;") + @"
+                    " + (leaseRequestModel.LEASE_END_DATE == null ? "&lt;LEASE-END-DATE/&gt;" : "&lt;LEASE-END-DATE&gt;" + leaseRequestModel.LEASE_END_DATE + @"&lt;/LEASE-END-DATE&gt;") + @"
+                    &lt;/STANDARD&gt;
+                    &lt;CUSTOM&gt;
+                    &lt;/CUSTOM&gt;
+                    &lt;/LEASE&gt;
+                    &lt;/BLUEMOON&gt;
+                </LeaseXMLData>";
+
+            return leaseData;
+        }
+
+        public async Task<LeaseResponseModel> RequestCustomEsignature(string sessionId, string leaseId, List<EsignatureParty> esignatureParties, bool AppAgree = true)
+        {
+            var owner = esignatureParties.Where(a => a.IsOwner == true).FirstOrDefault();
+
+            string requestEsignStr = @"<ns1:RequestEsignature>
+          <SessionId>" + sessionId + @"</SessionId>
+            <LeaseId>" + leaseId + @"</LeaseId>
+            <OwnerRep>
+                <Name>" + owner.Name + @"</Name>
+                <Email>" + owner.Email + @"</Email>
+                <Phone>" + owner.Phone + @"</Phone>
+            </OwnerRep><Residents>";
+
+            foreach (var item in esignatureParties.Where(a => a.IsOwner == false))
+            {
+                requestEsignStr += @"<item>
+                    <Name>" + item.Name + @"</Name>
+                    <Email>" + item.Email + @"</Email>
+                    <Phone>" + item.Phone + @"</Phone>
+                </item>";
+            }
+            if (AppAgree)
+            {
+                requestEsignStr += @"</Residents>
+                                    <CustomForms>
+    	                                                <item> <Id>SHOMA_APPAGREE</Id> </item>
+                                                       
+                                         </CustomForms>
+                                        <SendOwnerRepNotices xsi:nil=""true""/>
+                                    </ns1:RequestEsignature>
+                                  ";
+            }
+            else
+            {
+                requestEsignStr += @"</Residents>
+                                    <CustomForms>
+    	                                                <item> <Id>SHOMA_RULESPOL</Id> </item>
+                                                       
+                                         </CustomForms>
+                                        <SendOwnerRepNotices xsi:nil=""true""/>
+                                    </ns1:RequestEsignature>
+                                  ";
+
+            }
+
+
+            LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
+            var bodyForCloseSession = CreateXMLDocument(requestEsignStr);
+
+
+            var resultRequestEsign = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#RequestEsignature", bodyForCloseSession);
+            if (resultRequestEsign != null)
+            {
+                // for attribute
+                var resultCloseSessionDetails = resultRequestEsign
+                 .Descendants("RequestEsignatureResult")
+                 .ToList();
+
+
+
+
+                var bodyEsignatureData = CreateXMLDocument(@"<ns1:GetEsignatureData>
+                                                        <SessionId>" + sessionId + @"</SessionId>
+                                                        <EsignatureId>" + resultCloseSessionDetails[0].Value + @"</EsignatureId>
+                                                     </ns1:GetEsignatureData>");
+
+
+                var resultEsignatureData = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#GetEsignatureData", bodyEsignatureData);
+                if (resultEsignatureData != null)
+                {
+                    //// for attribute
+                    //var resultGetEsignatureDetails = resultEsignatureData
+                    // .Descendants("GetEsignatureDataResult")
+                    // .ToList();
+
+                    var keys = resultEsignatureData
+                  .Descendants("Key")
+                  .ToList();
+
+
+                    var emails = resultEsignatureData
+              .Descendants("Email")
+              .ToList();
+
+                    int i = 0;
+                    foreach (var item in keys)
+                    {
+                        var bodyEsignResendRequest = CreateXMLDocument(@" <ns1:ResendEsignatureRequest>
+                                                                        <SessionId>" + sessionId + @"</SessionId>
+                                                                         <SignerKey>" + item.Value + @"</SignerKey>
+                                                                        <Email>" + emails[i].Value + @"</Email>
+                                                                        </ns1:ResendEsignatureRequest>");
+
+                        var resultEsignatureResendRequestData = await AquatraqHelper.Post<List<XElement>>(BaseUrl + "lease.php#ResendEsignatureRequest", bodyEsignResendRequest);
+                        if (resultEsignatureResendRequestData != null)
+                        {
+                            // for attribute
+                            var resultGetEsignaturePdfDetails = resultEsignatureResendRequestData
+                             .Descendants("ResendEsignatureRequestResult")
+                             .ToList();
+                            leaseResponseModel.EsignatureKey = item.Value;
+                            leaseResponseModel.EsignatureId = resultCloseSessionDetails[0].Value;
+
+                        }
+                        i++;
+                    }
+                }
+            }
+
+
+            leaseResponseModel.LeaseId = leaseId;
+            leaseResponseModel.SessionId = sessionId;
+
+            return leaseResponseModel;
+        }
     }
 }

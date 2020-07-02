@@ -2442,7 +2442,7 @@ var getTransationLists = function (userid) {
                 adhtml += "<td>Admin Fees</td>";
                 adhtml += "<td style='text-align: center;'>$" + formatMoney($("#lblAdminFees").text()) + "</td>";
                 adhtml += "<td style='text-align: center;'></td>";
-                adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)'><span>Send Reminder to Pay Administration Fees </span></button></td>";
+                adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)' disabled='disabled'xds><span>Send Reminder to Pay Administration Fees </span></button></td>";
                 $("#tblAdminFee>tbody").append(adhtml);
             }
             if (totPaid >= parseFloat($("#txtPayment").val()))
@@ -5921,9 +5921,9 @@ var getBackgroundScreeningList= function () {
             $.each(response, function (elementType, elementValue) {
                 var html = "<tr id='tr_" + elementValue.Id + "' data-value='" + elementValue.Id + "'>";
                 html += "<td>" + elementValue.TenantName + " </td>";
-                html += "<td>" + elementValue.Type + "</td>";
-                html += "<td>" + elementValue.Status + "</td>";
-                html += "<td>" + elementValue.PDFUrl + "</td>";
+                html += "<td>" + elementValue.ReportType + "</td>";
+                html += "<td>" + elementValue.ApplicationDecision + "</td>";
+                html += "<td>" + elementValue.ApplicantDecision + "</td>";
                 html += "<td><input type='text' id='txtScrNotes" + elementValue.Id + "' class='form-control' value='" + elementValue.Notes + "' /></td>";
 
                 html += "<td class='text-center'>";

@@ -196,6 +196,13 @@ namespace ShomaRM.Models
         public int? IsAgreeSummary { get; set; }
         public string OfficeStateString { get; private set; }
 
+        public List<string> PaystubFiles { get; set; }
+        public List<string> PaystubOriginalFiles { get; set; }
+        public List<string> FedralFiles { get; set; }
+        public List<string> FedralOriginalFiles { get; set; }
+        public List<string> BankStatementFiles { get; set; }
+        public List<string> BankStatementOriginalFiles { get; set; }
+
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
@@ -1265,6 +1272,141 @@ namespace ShomaRM.Models
             return tenantModelU3;
         }
 
+        // New Upload Code Start //
+
+        // New Paystub Upload Code 
+        public TenantOnlineModel SavePaystubUpload(List<HttpPostedFileBase> fileBaseUploadPaystub)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel tenantModelPaystubUpload = new TenantOnlineModel();
+            List<string> _fileName = new List<string>();
+            List<string> _originalfileName = new List<string>();
+
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseUploadPaystub.Count > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                foreach (var item in fileBaseUploadPaystub)
+                {
+                    fileName = item.FileName;
+                    Extension = Path.GetExtension(item.FileName);
+                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(item.FileName);
+                    item.SaveAs(filePath + "//" + sysFileName);
+                    if (!string.IsNullOrWhiteSpace(item.FileName))
+                    {
+                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
+
+                    }
+                    _fileName.Add(sysFileName.ToString());
+                    _originalfileName.Add(fileName);
+                }
+
+                tenantModelPaystubUpload.PaystubFiles = _fileName;
+                tenantModelPaystubUpload.PaystubOriginalFiles = _originalfileName;
+            }
+
+            return tenantModelPaystubUpload;
+        }
+
+        // New Fedral Upload Code 
+        public TenantOnlineModel SaveFedralUpload(List<HttpPostedFileBase> fileBaseUploadFedral)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel tenantModelFedralUpload = new TenantOnlineModel();
+            List<string> _fileName = new List<string>();
+            List<string> _originalfileName = new List<string>();
+
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseUploadFedral.Count > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                foreach (var item in fileBaseUploadFedral)
+                {
+                    fileName = item.FileName;
+                    Extension = Path.GetExtension(item.FileName);
+                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(item.FileName);
+                    item.SaveAs(filePath + "//" + sysFileName);
+                    if (!string.IsNullOrWhiteSpace(item.FileName))
+                    {
+                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
+
+                    }
+                    _fileName.Add(sysFileName.ToString());
+                    _originalfileName.Add(fileName);
+                }
+
+                tenantModelFedralUpload.FedralFiles = _fileName;
+                tenantModelFedralUpload.FedralOriginalFiles = _originalfileName;
+            }
+
+            return tenantModelFedralUpload;
+        }
+
+        // New BankStatement Upload Code 
+        public TenantOnlineModel SaveBankStatementUpload(List<HttpPostedFileBase> fileBaseUploadBankStatement)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            TenantOnlineModel tenantModelBankStatementUpload = new TenantOnlineModel();
+            List<string> _fileName = new List<string>();
+            List<string> _originalfileName = new List<string>();
+
+            string filePath = "";
+            string fileName = "";
+            string sysFileName = "";
+            string Extension = "";
+
+            if (fileBaseUploadBankStatement.Count > 0)
+            {
+                filePath = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/");
+                DirectoryInfo di = new DirectoryInfo(filePath);
+                FileInfo _FileInfo = new FileInfo(filePath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                foreach (var item in fileBaseUploadBankStatement)
+                {
+                    fileName = item.FileName;
+                    Extension = Path.GetExtension(item.FileName);
+                    sysFileName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(item.FileName);
+                    item.SaveAs(filePath + "//" + sysFileName);
+                    if (!string.IsNullOrWhiteSpace(item.FileName))
+                    {
+                        string afileName = HttpContext.Current.Server.MapPath("~/Content/assets/img/PersonalInformation/") + "/" + sysFileName;
+
+                    }
+                    _fileName.Add(sysFileName.ToString());
+                    _originalfileName.Add(fileName);
+                }
+
+                tenantModelBankStatementUpload.BankStatementFiles = _fileName;
+                tenantModelBankStatementUpload.BankStatementOriginalFiles = _originalfileName;
+            }
+
+            return tenantModelBankStatementUpload;
+        }
+
+        // New Upload Code End //
 
         public TenantOnlineModel SaveUploadPassport(HttpPostedFileBase fileBaseUploadPassport, TenantOnlineModel model)
         {
@@ -2283,31 +2425,30 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
-        public string UpdateBGCCStatus(int ID,int TenantID, int Status, string Notes)
-        {
+        //public string UpdateBGCCStatus(int ID,int TenantID, int Status, string Notes)
+        //{
 
-            string msg = "";
-            ShomaRMEntities db = new ShomaRMEntities();
+        //    string msg = "";
+        //    ShomaRMEntities db = new ShomaRMEntities();
 
-            if (ID != 0)
-            {
+        //    if (ID != 0)
+        //    {
+        //        var saveBGCC = new tbl_BackgroundScreening()
+        //        {
+        //            TenantId = TenantID,
+        //            Type="0",
+        //            OrderID = ID,
+        //            Status = Status.ToString(),
+        //            Notes = Notes,
+        //        };
+        //        db.tbl_BackgroundScreening.Add(saveBGCC);
+        //        db.SaveChanges();
 
-                var saveBGCC = new tbl_BackgroundScreening()
-                {
-                    TenantId = TenantID,
-                    Type="0",
-                    OrderID = ID,
-                    Status = Status.ToString(),
-                    Notes = Notes,
-                };
-                db.tbl_BackgroundScreening.Add(saveBGCC);
-                db.SaveChanges();
-
-                msg = " Status Saved Successfully";
-            }
-            db.Dispose();
-            return msg;
-        }
+        //        msg = " Status Saved Successfully";
+        //    }
+        //    db.Dispose();
+        //    return msg;
+        //}
         public TenantOnlineModel GetTenantOnlineList(int id, int userid)
         {
             ShomaRMEntities db = new ShomaRMEntities();

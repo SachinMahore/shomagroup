@@ -244,7 +244,7 @@ namespace ShomaRM.Areas.Admin.Models
         {
             ShomaRMEntities db = new ShomaRMEntities();
             var GetTenantDet = db.tbl_ApplyNow.Where(p => p.UserId == UserId).FirstOrDefault();
-            var bgscrData = db.tbl_BackgroundScreening.Where(a => a.TenantId == GetTenantDet.ID).ToList();
+            var bgscrData = db.tbl_BackgroundScreening.Where(a => a.ApplyNowId == GetTenantDet.ID).ToList();
 
             List<BackgroundScreeningModel> bgScrLIst = new List<BackgroundScreeningModel>();
             try
@@ -252,11 +252,11 @@ namespace ShomaRM.Areas.Admin.Models
                 foreach (var bgscr in bgscrData)
                 {
                     BackgroundScreeningModel bgScr = new BackgroundScreeningModel();
-                    bgScr.TenantId = bgscr.TenantId;
-                    bgScr.OrderID = bgscr.OrderID;
-                    bgScr.Status = bgscr.Status;
-                    bgScr.PDFUrl = bgscr.PDFUrl;
-                    bgScr.Type = bgscr.Type;
+                    bgScr.ApplyNowId = bgscr.ApplyNowId;
+                    bgScr.ApplicantId = bgscr.ApplicantId;
+                    bgScr.ApplicationDecision = bgscr.ApplicationDecision;
+                    bgScr.ApplicantDecision = bgscr.ApplicantDecision;
+                    bgScr.ReportType = bgscr.ReportType;
                     bgScrLIst.Add(bgScr);
                 }
                 db.Dispose();
@@ -438,19 +438,19 @@ namespace ShomaRM.Areas.Admin.Models
                 //emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "Account/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
                 //reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
 
-                
-
                 var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
-                
-
 
                 //sachin 13 may
                 var saveBGCC = new tbl_BackgroundScreening()
                 {
-                    TenantId = Convert.ToInt32(tenantData.ID),
-                    Type = "0",
-                    OrderID = Convert.ToInt32(ProspectId),
-                    Status = Status,
+                    TransactionNumber = "",
+                    SSN= tenantData.SSN,
+                    ReportDate=DateTime.Now.ToString("yyyy-MM-dd"),
+                    ApplyNowId = Convert.ToInt32(tenantData.ID),
+                    ReportType = "",
+                    ApplicantId = Convert.ToInt32(ProspectId),
+                    ApplicantDecision = Status,
+                    ApplicationDecision = Status,
                     Notes = Notes,
                 };
                 db.tbl_BackgroundScreening.Add(saveBGCC);
@@ -781,23 +781,21 @@ namespace ShomaRM.Areas.Admin.Models
         public List<BackgroundScreeningModel> BackgroundScreeningList(long TenantId)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-         
-            var bgscrData = db.tbl_BackgroundScreening.Where(a => a.OrderID == TenantId).ToList();
-
+            var bgscrData = db.tbl_BackgroundScreening.Where(a => a.ApplyNowId == TenantId).ToList();
             List<BackgroundScreeningModel> bgScrLIst = new List<BackgroundScreeningModel>();
             try
             {
                 foreach (var bgscr in bgscrData)
                 {
-                    var tenDet = db.tbl_Applicant.Where(c => c.ApplicantID == bgscr.TenantId).FirstOrDefault();
+                    var tenDet = db.tbl_Applicant.Where(c => c.ApplicantID == bgscr.ApplicantId).FirstOrDefault();
                     BackgroundScreeningModel bgScr = new BackgroundScreeningModel();
                     bgScr.TenantName = tenDet.FirstName + " " + tenDet.LastName;
                     bgScr.Id = bgscr.Id;
-                    bgScr.TenantId = bgscr.TenantId;
-                    bgScr.OrderID = bgscr.OrderID;
-                    bgScr.Status = bgscr.Status==null?"": bgscr.Status;
-                    bgScr.PDFUrl = bgscr.PDFUrl==null?"": bgscr.PDFUrl;
-                    bgScr.Type = bgscr.Type;
+                    bgScr.ApplyNowId = bgscr.ApplyNowId;
+                    bgScr.ApplicantId = bgscr.ApplicantId;
+                    bgScr.ApplicationDecision = bgscr.ApplicationDecision==null?"": bgscr.ApplicationDecision;
+                    bgScr.ApplicantDecision = bgscr.ApplicantDecision == null?"": bgscr.ApplicantDecision;
+                    bgScr.ReportType = bgscr.ReportType;
                     bgScr.Notes = bgscr.Notes == null ? "" : bgscr.Notes;
                     bgScrLIst.Add(bgScr);
                 }
@@ -822,7 +820,6 @@ namespace ShomaRM.Areas.Admin.Models
                 var getdata = db.tbl_BackgroundScreening.Where(p => p.Id == ID).FirstOrDefault();
                 if (getdata != null)
                 {
-                   
                     getdata.Notes =Notes;
                 }
                 db.SaveChanges();

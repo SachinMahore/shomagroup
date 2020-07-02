@@ -554,12 +554,20 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="col-sm-4">
-                                        <span id="">Pet Non-refundable Deposit: </span>
+                                        <span id="">Pet Deposit: </span>
                                     </div>
                                     <div class="col-sm-2">
                                         $<span id="lblPetDeposit">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
                                     </div>
 
+                                    <div class="col-sm-6">
+                                        <span id="">&nbsp;</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="col-sm-5">
+                                        <span id="">**Pet Deposit: $500:1 pet  & $750:2 pets (non-refundable)</span>
+                                    </div>
                                     <div class="col-sm-6">
                                         <span id="">&nbsp;</span>
                                     </div>
@@ -611,10 +619,10 @@
                                         <span id="">&nbsp;</span>
                                     </div>
                                     <div class="col-sm-4">
-                                        <span id="">Pet Fee </span><span class="hidden" id="lblpetplace">@Model.PetPlaceID</span>
+                                        <span id="">Pet Fees </span><span class="hidden" id="lblpetplace">@Model.PetPlaceID</span>
                                     </div>
                                     <div class="col-sm-2">
-                                        $<span id="lblPetFee">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
+                                        $<span id="lblPetFee">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span><span>/mo</span>
                                     </div>
                                     <div class="col-sm-6">
                                         <span id="">&nbsp;</span>
@@ -864,10 +872,15 @@
                                                 </div>
                                                 <div class="col-sm-12">
                                                     <div class="col-sm-5">
-                                                        <span> Pet Non-Refundable Deposit: </span>
+                                                        <span> Pet Deposit: </span>
                                                     </div>
                                                     <div class="col-sm-7">
                                                         $<span style="text-decoration:underline;font-weight:bold;" id="fpetd">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <div class="col-sm-7">
+                                                        <span>**Pet Deposit: $500:1 pet  & $750:2 pets (non-refundable)</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-12">
@@ -1014,14 +1027,14 @@
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-3">
-                                                <span> Pet Fee </span>
+                                                <span> Pet Fees </span>
 
                                             </div>
                                             <div class="col-sm-2">
                                                 <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
                                             </div>
                                             <div class="col-sm-3">
-                                                $<span id="lblMonthly_PetRent" style="text-decoration:underline;font-weight:bold;">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
+                                                $<span id="lblMonthly_PetRent" style="text-decoration:underline;font-weight:bold;">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span><span style="text-decoration:underline;font-weight:bold;">/mo</span>
                                             </div>
                                             <div class="col-sm-3">
                                                 $ <span id="lblProrated_PetRent" style="text-decoration:underline;font-weight:bold;"></span>
@@ -1273,6 +1286,12 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
+                                        <div class="col-sm-12">
+                                            <span>**Pet Deposit: $500:1 pet  & $750:2 pets (non-refundable)</span>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                    </div>
+                                    <div class="col-sm-12">
                                         <div class="col-sm-8">
                                             <span>Pet DNA Amt: </span>
                                         </div>
@@ -1347,11 +1366,11 @@
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="col-sm-8">
-                                            <span>Pet Rent </span>
+                                            <span>Pet Fees </span>
                                         </div>
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-3">
-                                            $<span id="lblRFPPetRent" style="text-decoration:underline;font-weight:bold;">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
+                                            $<span id="lblRFPPetRent" style="text-decoration:underline;font-weight:bold;">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span><span  style="text-decoration:underline;font-weight:bold;">/mo</span>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
@@ -2525,9 +2544,8 @@
                                     <tr>
                                         <th style="width:20%;">Applicant Name</th>
                                         <th>Status Type</th>
-                                        <th>Status</th>
-
-                                        <th>PDF Url</th>
+                                        <th>Application Decision</th>
+                                        <th>Applicant Decision</th>
                                         <th style="width:20%;">Notes</th>
                                     </tr>
                                 </thead>

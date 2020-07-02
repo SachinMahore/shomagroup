@@ -1317,20 +1317,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_BackgroundScreening">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
-        <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
-          <ScalarProperty Name="SSNNumber" ColumnName="SSNNumber" />
-          <ScalarProperty Name="Notes" ColumnName="Notes" />
-          <ScalarProperty Name="PDFUrl" ColumnName="PDFUrl" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="TenantId" ColumnName="TenantId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_Vehicle">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Vehicle">
         <MappingFragment StoreEntitySet="tbl_Vehicle">
@@ -1478,34 +1464,6 @@
           <ScalarProperty Name="UnitNo" ColumnName="UnitNo" />
           <ScalarProperty Name="PID" ColumnName="PID" />
           <ScalarProperty Name="UID" ColumnName="UID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tbl_Applicant">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Applicant">
-        <MappingFragment StoreEntitySet="tbl_Applicant">
-          <ScalarProperty Name="AdminFeePercentage" ColumnName="AdminFeePercentage" />
-          <ScalarProperty Name="AdminFee" ColumnName="AdminFee" />
-          <ScalarProperty Name="BackGroundPaid" ColumnName="BackGroundPaid" />
-          <ScalarProperty Name="CreditPaid" ColumnName="CreditPaid" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
-          <ScalarProperty Name="Paid" ColumnName="Paid" />
-          <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
-          <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
-          <ScalarProperty Name="MonthlyPercentage" ColumnName="MonthlyPercentage" />
-          <ScalarProperty Name="MoveInCharge" ColumnName="MoveInCharge" />
-          <ScalarProperty Name="MoveInPercentage" ColumnName="MoveInPercentage" />
-          <ScalarProperty Name="Relationship" ColumnName="Relationship" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
-          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -1713,6 +1671,53 @@
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="ProspectID" ColumnName="ProspectID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_BackgroundScreening">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
+        <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="ApplicantScore" ColumnName="ApplicantScore" />
+          <ScalarProperty Name="ApplicationDecision" ColumnName="ApplicationDecision" />
+          <ScalarProperty Name="ApplicantDecision" ColumnName="ApplicantDecision" />
+          <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+          <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="ReportType" ColumnName="ReportType" />
+          <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
+          <ScalarProperty Name="ApplyNowId" ColumnName="ApplyNowId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Applicant">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Applicant">
+        <MappingFragment StoreEntitySet="tbl_Applicant">
+          <ScalarProperty Name="BackGroungResult" ColumnName="BackGroungResult" />
+          <ScalarProperty Name="CreditResult" ColumnName="CreditResult" />
+          <ScalarProperty Name="AdminFeePercentage" ColumnName="AdminFeePercentage" />
+          <ScalarProperty Name="AdminFee" ColumnName="AdminFee" />
+          <ScalarProperty Name="BackGroundPaid" ColumnName="BackGroundPaid" />
+          <ScalarProperty Name="CreditPaid" ColumnName="CreditPaid" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="AddedBy" ColumnName="AddedBy" />
+          <ScalarProperty Name="Paid" ColumnName="Paid" />
+          <ScalarProperty Name="OtherGender" ColumnName="OtherGender" />
+          <ScalarProperty Name="MonthlyPayment" ColumnName="MonthlyPayment" />
+          <ScalarProperty Name="MonthlyPercentage" ColumnName="MonthlyPercentage" />
+          <ScalarProperty Name="MoveInCharge" ColumnName="MoveInCharge" />
+          <ScalarProperty Name="MoveInPercentage" ColumnName="MoveInPercentage" />
+          <ScalarProperty Name="Relationship" ColumnName="Relationship" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

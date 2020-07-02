@@ -24,7 +24,7 @@
 
         body {
             
-            font-size: 12px;
+            font-size: 10px;
             padding: 1px;
             margin: 1px;
             font-family: Montserrat-Regular;
@@ -32,7 +32,7 @@
            
         }
         th, td {
-            padding: 10px;
+            padding: 5px;
             text-align: left;
         }
         .vertical-top{
@@ -52,17 +52,17 @@
         .heder {
             background-image: url('[%ServerURL%]/Content/Templates/images/Header_quote_background.png');
             width: 100%;
-            height: 150px;
+            height: 120px;
         }
 
         .heder-img {
             width: 40%;
         }
 
-        .heder-img img {
-            width: 75%;
-            padding-left: 75px;
-        }
+            .heder-img img {
+                width: 75%;
+                padding-left: 75px;
+            }
 
         .heder-text {
             width: 60%;
@@ -81,19 +81,19 @@
         .model-unit
         {
             font-family:Montserrat-SemiBold;
-            font-size:18px;
+            font-size:14px;
         }
         .unit-unit {
             font-family: Montserrat-Regular;
-            font-size: 18px;
+            font-size: 14px;
         }
         .text-bold {
             font-family: Montserrat-SemiBold;
-            font-size: 12px;
+            font-size: 10px;
         }
         .text-normal {
             font-family: Montserrat-Regular;
-            font-size: 12px;
+            font-size: 10px;
             color: #838384 ;
             font-weight:normal;
         }
@@ -106,7 +106,7 @@
             padding: 5px 15px;
             color: #7fbc42;
             font-style: italic;
-            font-size: 14px;
+            font-size: 12px;
             font-weight:600;
         }
         .span-right {
@@ -116,7 +116,7 @@
             border: 1px solid #7fbc42;
             padding: 15px 15px;
             color: #7fbc42;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
         }
 
@@ -172,6 +172,8 @@
             color: #838384;
             border-collapse: collapse;
             width: 100%;
+            margin-left: 20px !important;
+            margin-right: 20px !important;
         }
         .text-white {
             color: #fff;
@@ -181,7 +183,7 @@
             background: #7fbc42;
             color: #fff;
             text-align: center;
-            font-size: 16px;
+            font-size: 14px;
             font-family: Montserrat-SemiBold;
             padding: 10px;
         }
@@ -189,7 +191,7 @@
         .td-pet-bold-center {
             color: #000;
             text-align: center;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 600;
             width: 33.33%;
             border: 1px solid #838384;
@@ -198,7 +200,7 @@
         .td-pet {
             color: #000;
             text-align: center;
-            font-size: 12px;
+            font-size: 10px;
             width: 33.33%;
             border: 1px solid #838384;
         }
@@ -206,7 +208,7 @@
         .td-vehicle-bold-center {
             color: #000;
             text-align: center;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 600;
             width: 16.66%;
             border: 1px solid #838384;
@@ -215,7 +217,7 @@
         .td-vehicle {
             color: #000;
             text-align: center;
-            font-size: 12px;
+            font-size: 10px;
             width: 16.66%;
             border: 1px solid #838384;
         }
@@ -224,13 +226,13 @@
             width: 28.5%;
             text-align: right;
             font-family: Montserrat-SemiBold;
-            font-size: 12px;
+            font-size: 10px;
         }
 
         .detail-section-data {
             width: 21%;
             height: 25px;
-            font-size: 12px;
+            font-size: 10px;
         }
 
         .detail-section-gap {
@@ -247,7 +249,7 @@
 </head>
 <body>
     <div class="layout-section">
-        <table class="heder">
+        <table class="heder" style="margin-left: 0px !important;margin-right: 0px !important;">
             <tbody>
                 <tr>
                     <td class="heder-img">
@@ -384,10 +386,16 @@
                                     </tr>
                                     <tr>
                                         <td class="text-bold">
-                                            PET NON-REFUNDABLE DEPOSIT <span >[%NumberOfPet%]</span>
+                                            PET DEPOSIT <span >[%NumberOfPet%]</span>
                                         </td>
                                         <td class="text-normal">
                                             [%PetNonRefundableFee%]
+                                        </td>
+                                        <td class="text-normal"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-bold">
+                                            **Pet Deposit: $500:1 pet  & $750:2 pets (non-refundable) 
                                         </td>
                                         <td class="text-normal"></td>
                                     </tr>
@@ -469,8 +477,8 @@
                                         <td class="text-normal">[%ProratedStorageAmount%]</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-bold">PET RENT <span >[%NumberOfPet%]</span></td>
-                                        <td class="text-normal">[%PetFee%]</td>
+                                        <td class="text-bold">PET FEES <span >[%NumberOfPet%]</span></td>
+                                        <td class="text-normal">[%PetFee%]/mo
                                         <td class="text-normal">[%ProratedPetFee%]</td>
                                     </tr>
                                     <tr>

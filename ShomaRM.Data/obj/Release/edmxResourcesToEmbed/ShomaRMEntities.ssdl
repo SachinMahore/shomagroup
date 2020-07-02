@@ -84,6 +84,8 @@
     <Property Name="BackGroundPaid" Type="int" />
     <Property Name="AdminFee" Type="decimal" Precision="18" Scale="2" />
     <Property Name="AdminFeePercentage" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CreditResult" Type="varchar" MaxLength="50" />
+    <Property Name="BackGroungResult" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="tbl_ApplicantHistory">
     <Key>
@@ -184,13 +186,16 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TenantId" Type="int" Nullable="false" />
-    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="OrderID" Type="int" Nullable="false" />
-    <Property Name="Status" Type="nvarchar(max)" />
-    <Property Name="PDFUrl" Type="nvarchar(max)" />
+    <Property Name="ApplyNowId" Type="int" Nullable="false" />
+    <Property Name="ApplicantId" Type="int" Nullable="false" />
+    <Property Name="ReportType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SSN" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="TransactionNumber" Type="varchar" MaxLength="100" />
+    <Property Name="ReportDate" Type="varchar" MaxLength="20" />
+    <Property Name="ApplicantDecision" Type="nvarchar(max)" />
+    <Property Name="ApplicationDecision" Type="nvarchar(max)" />
+    <Property Name="ApplicantScore" Type="nvarchar(max)" />
     <Property Name="Notes" Type="nvarchar(max)" />
-    <Property Name="SSNNumber" Type="varchar" MaxLength="500" />
   </EntityType>
   <EntityType Name="tbl_BankAccount">
     <Key>

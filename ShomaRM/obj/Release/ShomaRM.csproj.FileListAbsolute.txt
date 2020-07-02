@@ -1035,4 +1035,6 @@ E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\itext.styledxmlparser.xml
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\itext.svg.xml
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\log4net.dll
 E:\ShomaRM_GH\Shoma-RM\ShomaRM\bin\log4net.xml
-E:\ShomaRM_GH\Shoma-RM\ShomaRM\obj\Release\ShomaRM.csprojResolveAssemblyReference.cache
+E:\ShomaRM_GH\Shoma-RM\ShomaRM\obj\Release\ShomaRM.csprojAssemblyReference.cache
+E:\ShomaRM_GH\Shoma-RM\ShomaRM\obj\Release\ShomaRM.csproj.CoreCompileInputs.cache
+E:\ShomaRM_GH\Shoma-RM\ShomaRM\obj\Release\ShomaRM.csproj.CopyComplete

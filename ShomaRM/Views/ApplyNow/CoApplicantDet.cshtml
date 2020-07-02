@@ -10,7 +10,7 @@
 <input type="hidden" id="hndPTOID" value="@ViewBag.PTOID" />
 <input type="hidden" id="hndIDNumber" value="" />
 <input type="hidden" id="hndSSNNumber" value="" />
-<input type="hidden" id="hndAppHisMon" value="0" onclick="goToStep(12,12,0)"
+<input type="hidden" id="hndAppHisMon" value="0" onclick="goToStep(12,12,0)" />
 <input type="hidden" id="hndHistory" value="0" />
 <input type="hidden" id="hndLeaseTermID" value="@Model.LeaseTermID" />
 <input type="hidden" id="hdnEmployerHistory" value="0" />
@@ -1153,8 +1153,8 @@
                                         <div class="col-sm-2"></div>
                                         <div class="col-sm-8">
                                             <p style="text-align: justify;">
-                                                Congratulations! You have selected your new home. Greate choice. We've made your move in process seamless and fun, so lets get started.<br>
-                                                Before we proceed, you need to accept Sanctury's policies and conditions. Please click <a href="javascript:void(0);" id="rentalQualification" data-toggle="modal" data-target="#popRentalQualification"><b style="font-weight:900;">here</b></a>.<br>
+                                                Congratulations! You have selected your new home. Greate choice. We've made your move in process seamless and fun, so lets get started.
+                                                Before we proceed, you need to accept Sanctury's policies and conditions. @*Please click <a href="javascript:void(0);" id="rentalQualification" data-toggle="modal" data-target="#popRentalQualification"><b style="font-weight:900;">here</b></a>.*@<br>
                                                 Once you've read and accepted the policies and conditions, you may proceed to apply.<br>
                                                 Steps are simple, complete application, wait for confirmation complete your lease online, pay, and you are set.<br>
                                                 Once our office has received your lease and payment, we will send you a link with your own move in procedures.
@@ -1165,14 +1165,14 @@
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rental qualifications</span></td>
                                                         <td><label style="color: #1F1F1F;font-weight: bold;cursor:default;">Sign</label></td>
-                                                        <td><a href="~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf" target="_blank">Download</a></td>
-                                                        <td><a data-toggle="modal" data-target="#modalRentalQualificationPolicy" href="javascript:void(0);" id="printRentalQualificationPolicy">Print</a></td>
+                                                        <td><a class="cust-link" href="javascript:void(0)" onclick="saveToDiskPDF('/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf','RentalQualifications.pdf')">Download</a></td>
+                                                        <td><a class="cust-link" data-toggle="modal" data-target="#modalRentalQualificationPolicy" href="javascript:void(0);" id="printRentalQualificationPolicy">Print</a></td>
                                                     </tr>
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rules and Policies</span></td>
                                                         <td><label style="color: #1F1F1F;font-weight: bold;cursor:default;">Sign</label></td>
-                                                        <td><a href="~/Content/assets/img/Policy/Rules&Policies_fragmented.pdf" target="_blank">Download</a></td>
-                                                        <td><a data-toggle="modal" data-target="#modalRulesAndPolicy" href="javascript:void(0);" id="print">Print</a></td>
+                                                        <td><a class="cust-link" href="javascript:void(0)" onclick="saveToDiskPDF('/Content/assets/img/Policy/Rules_Policies_fragmented.pdf','RulesPolicies.pdf')">Download</a></td>
+                                                        <td><a class="cust-link" data-toggle="modal" data-target="#modalRulesAndPolicy" href="javascript:void(0);" id="print">Print</a></td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -1180,7 +1180,7 @@
 
                                                 <div class="chekbox-wrapper">
 
-                                                    <input class="form-control" type="checkbox" id="chkAgreeTermsPolicy" /> <span class="agree-text"> I agree with Sanctuary's terms and conditions.</span>
+                                                    <input class="form-control" type="checkbox" id="chkAgreeTermsPolicy" /> <span class="agree-text"> I agree with Sanctuary terms & conditions. </span>
                                                 </div>
                                             </div>
 
@@ -1274,8 +1274,33 @@
                                 </div>
                             </div>
                         </div>
+                        @*<div id="divAppWarning" class="col-sm-12 @(Model.CreditResult == "Accept" ? "hidden" : "") pt-4">
+            @if (Model.CreditResult == "")
+            {
+                <h3 class="panel-title pull-right">Please click on ‘Edit/Complete Information’, located on the Co-Applicant card, to proceed to the Credit Check.</h3>
+            }
+            else if (Model.CreditResult == "Conditional")
+            {
+                <h3 class="panel-title pull-right">Your Credit Check result is conditional. Please contact Administrator.</h3>
+            }
+            else if (Model.CreditResult == "Pending")
+            {
+                <h3 class="panel-title pull-right">Your Credit Check result is pending please wait.</h3>
+            }
+        </div>
+        <div class="row m-t-30">
+            <div class="col-sm-12 button-box-wrapper ">
+                <div class="pull-left text-center">
+                    <button type="submit" class="btn-alltype wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
+                </div>
+                <div class="pull-right text-center">
+                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>
+                    <button type="submit" class="btn-alltype @(Model.CreditResult != "Accept" ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
+                </div>
+            </div>
+        </div>*@
                         <div id="divAppWarning" class="col-sm-12 @(Model.CreditPaid != 0 ? "hidden" : "") pt-4">
-                            <h3 class="panel-title pull-right">Please click on ‘Edit/Complete Information’, located on the Primary Application card, to proceed to the Credit Check.</h3>
+                            <h3 class="panel-title pull-right">Please click on ‘Edit/Complete Information’, located on the Co-Applicant card, to proceed to the Credit Check.</h3>
                         </div>
                         <div class="row m-t-30">
                             <div class="col-sm-12 button-box-wrapper ">
@@ -1335,7 +1360,7 @@
                                             <div class="col-sm-12">
                                                 <div class="row line-height-text">
                                                     <div class="col-mr-70 col-sm-6 col-lg-8">
-                                                        <span id="spPetNRDep6">Pet Non-refundable Deposit:</span>
+                                                        <span id="spPetNRDep6">Pet Deposit:</span>
                                                     </div>
                                                     <div class="col-mr-25 col-sm-6 col-lg-4">
                                                         $<span id="lbpetd6">@((Model.PetDeposit ?? 0).ToString("0.00"))</span>
@@ -1343,6 +1368,13 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-sm-12">
+                                                <div class="row line-height-text">
+                                                    <div class="col-mr-70 col-sm-12 col-lg-12">
+                                                        <span id="">**Pet Deposit: $500:1 pet  & $750:2 pets (non-refundable) </span>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                             <div class="col-sm-12">
                                                 <div class="row line-height-text">
@@ -1428,10 +1460,10 @@
                                             <div class="col-sm-12">
                                                 <div class="row line-height-text">
                                                     <div class="col-mr-70  col-sm-6 col-lg-8">
-                                                        <span id="">Pet Rent : </span>
+                                                        <span id="">Pet Fees : </span>
                                                     </div>
                                                     <div class="col-mr-25 col-sm-6 col-lg-4">
-                                                        $<span id="lblRFPPetRent">$@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span>
+                                                        $<span id="lblRFPPetRent">$@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span><span>/mo</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1971,7 +2003,7 @@
                         <div class="col-sm-12">
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label for="ddlProperNoticeLeaseAgreement" class="star">Was proper notice given per your lease agreement?</label>
+                                    <label id="lblddlProperNoticeLeaseAgreement" for="ddlProperNoticeLeaseAgreement" class="star">Was proper notice given per your lease agreement?</label>
                                     <select id="ddlProperNoticeLeaseAgreement" class="form-control form-control-small">
                                         <option value="1">Yes</option>
                                         <option value="2">No</option>
@@ -2131,19 +2163,41 @@
                             <p>Upload last 3 paystubs or if self-employed last 2 year's Fedral Tax Returns or  3 consecutive bank statements. You must select two of the following three options.</p>
                         </div>
                         <div class="col-sm-12">
-
                             <div class="form-group">
                                 <div class="col-sm-2">
                                     <input id="rbtnPaystub" class="form-control form-control-small empup" type="checkbox" name="tax" />
-                                    <label for="rbtnPaystub">Paystub</label>
+                                    <label for="rbtnPaystub">Paystub (3 files)</label>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div id="divUpload3" class="hidden">
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label class="star" id="lblUploadPaystub">Paystub</label><br />
+                                        <input type="file" name="fileUploadPaystub" id="fileUploadPaystub" class="inputfile inputfile-1" multiple />
+                                        <label for="fileUploadPaystub"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadPaystubShow">Choose a file&hellip;</span></label>
+                                        <input type="hidden" id="hndHasTaxReturnFile4" value="0" />
+                                        <input type="hidden" id="hndFileUploadName4" value="0" />
+                                        <input type="hidden" id="hndOriginalFileUploadName4" value="0" />
+                                        <input type="hidden" id="hndHasTaxReturnFile5" value="0" />
+                                        <input type="hidden" id="hndFileUploadName5" value="0" />
+                                        <input type="hidden" id="hndOriginalFileUploadName5" value="0" />
+                                        <input type="hidden" id="hndHasTaxReturnFile3" value="0" />
+                                        <input type="hidden" id="hndFileUploadName3" value="0" />
+                                        <input type="hidden" id="hndOriginalFileUploadName3" value="0" />
+                                        <input type="hidden" id="fileUploadTaxReturn4Show" />
+                                        <input type="hidden" id="fileUploadTaxReturn5Show" />
+                                        <input type="hidden" id="fileUploadTaxReturn3Show" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
                                 <div class="col-sm-2">
                                     <input id="rbtnFedralTax" class="form-control form-control-small empup" type="checkbox" name="tax" checked="checked" />
-                                    <label for="rbtnFedralTax">Fedral Tax Return</label>
-                                </div>
-                                <div class="col-sm-2">
-                                    <input id="rbtnBankStatement" class="form-control form-control-small empup" type="checkbox" name="tax" />
-                                    <label for="rbtnBankStatement">Bank Statements</label>
+                                    <label for="rbtnFedralTax">Fedral Tax Return (2 files)</label>
                                 </div>
                             </div>
                         </div>
@@ -2151,87 +2205,49 @@
                             <div id="divFederalTax">
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label class="star" id="lblUpload1">Fedral Tax Return 1</label><br />
-                                        <input type="file" name="fileUploadTaxReturn1" id="fileUploadTaxReturn1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadTaxReturn1"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn1Show">Choose a file&hellip;</span></label>
+                                        <label class="star" id="lblUploadFedral">Fedral</label><br />
+                                        <input type="file" name="fileUploadFedral" id="fileUploadFedral" class="inputfile inputfile-1" multiple />
+                                        <label for="fileUploadFedral"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadFedralShow">Choose a file&hellip;</span></label>
                                         <input type="hidden" id="hndHasTaxReturnFile1" value="0" />
                                         <input type="hidden" id="hndFileUploadName1" value="0" />
                                         <input type="hidden" id="hndOriginalFileUploadName1" value="0" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUpload2">Fedral Tax Return 2</label><br />
-                                        <input type="file" name="fileUploadTaxReturn2" id="fileUploadTaxReturn2" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadTaxReturn2"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn2Show">Choose a file&hellip;</span></label>
                                         <input type="hidden" id="hndHasTaxReturnFile2" value="0" />
                                         <input type="hidden" id="hndFileUploadName2" value="0" />
                                         <input type="hidden" id="hndOriginalFileUploadName2" value="0" />
+
+                                        <input type="hidden" id="fileUploadTaxReturn1Show" />
+                                        <input type="hidden" id="fileUploadTaxReturn2Show" />
                                     </div>
                                 </div>
                             </div>
-                            <div id="divUpload3" class="hidden">
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
                                 <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUpload4">Paystub 1</label><br />
-                                        <input type="file" name="fileUploadTaxReturn4" id="fileUploadTaxReturn4" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadTaxReturn4"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn4Show">Choose a file&hellip;</span></label>
-                                        <input type="hidden" id="hndHasTaxReturnFile4" value="0" />
-                                        <input type="hidden" id="hndFileUploadName4" value="0" />
-                                        <input type="hidden" id="hndOriginalFileUploadName4" value="0" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUpload5">Paystub 2</label><br />
-                                        <input type="file" name="fileUploadTaxReturn5" id="fileUploadTaxReturn5" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadTaxReturn5"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn5Show">Choose a file&hellip;</span></label>
-                                        <input type="hidden" id="hndHasTaxReturnFile5" value="0" />
-                                        <input type="hidden" id="hndFileUploadName5" value="0" />
-                                        <input type="hidden" id="hndOriginalFileUploadName5" value="0" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUpload3">Paystub 3</label><br />
-                                        <input type="file" name="fileUploadTaxReturn3" id="fileUploadTaxReturn3" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileUploadTaxReturn3"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadTaxReturn3Show">Choose a file&hellip;</span></label>
-                                        <input type="hidden" id="hndHasTaxReturnFile3" value="0" />
-                                        <input type="hidden" id="hndFileUploadName3" value="0" />
-                                        <input type="hidden" id="hndOriginalFileUploadName3" value="0" />
-                                    </div>
+                                    <input id="rbtnBankStatement" class="form-control form-control-small empup" type="checkbox" name="tax" />
+                                    <label for="rbtnBankStatement">Bank Statements (3 files)</label>
                                 </div>
                             </div>
-                            @*Sachin M 11 May 2020*@
+                        </div>
+                        <div class="col-sm-12">
                             <div id="divBankUpload" class="hidden">
                                 <div class="col-sm-2">
                                     <div class="form-group">
-                                        <label class="star" id="lblUploadBankState1">Bank Statement 1</label><br />
-                                        <input type="file" name="fileBankState1" id="fileBankState1" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileBankState1"><i class="fa fa-upload fa-2x"></i> <span id="fileBankState1Show">Choose a file&hellip;</span></label>
+                                        <label class="star" id="lblUploadBankStatement">Bank Statement</label><br />
+                                        <input type="file" name="fileUploadBankStatement" id="fileUploadBankStatement" class="inputfile inputfile-1" multiple />
+                                        <label for="fileUploadBankStatement"><i class="fa fa-upload fa-2x"></i> <span id="fileUploadBankStatementShow">Choose a file&hellip;</span></label>
                                         <input type="hidden" id="hndHasBankStateFile1" value="0" />
                                         <input type="hidden" id="hndFileUploadNameBankState1" value="0" />
                                         <input type="hidden" id="hndOriginalFileUploadNameBankState1" value="0" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUploadBankState2">Bank Statement 2</label><br />
-                                        <input type="file" name="fileBankState2" id="fileBankState2" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileBankState2"><i class="fa fa-upload fa-2x"></i> <span id="fileBankState2Show">Choose a file&hellip;</span></label>
                                         <input type="hidden" id="hndHasBankStateFile2" value="0" />
                                         <input type="hidden" id="hndFileUploadNameBankState2" value="0" />
                                         <input type="hidden" id="hndOriginalFileUploadNameBankState2" value="0" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label class="star" id="lblUploadBankState3">Bank Statement 3</label><br />
-                                        <input type="file" name="fileBankState3" id="fileBankState3" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" />
-                                        <label for="fileBankState3"><i class="fa fa-upload fa-2x"></i> <span id="fileBankState3Show">Choose a file&hellip;</span></label>
                                         <input type="hidden" id="hndHasBankStateFile3" value="0" />
                                         <input type="hidden" id="hndFileUploadNameBankState3" value="0" />
                                         <input type="hidden" id="hndOriginalFileUploadNameBankState3" value="0" />
+                                        <input type="hidden" id="fileBankState1Show" />
+                                        <input type="hidden" id="fileBankState2Show" />
+                                        <input type="hidden" id="fileBankState3Show" />
                                     </div>
                                 </div>
                             </div>
@@ -2468,7 +2484,7 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(9,9,0)">&nbsp;&nbsp;Edit</a></a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(9,9,0)">Edit</a></a>
                                                 </h3>
                                             </div>
                                             <div id="collapse3" class="panel-collapse collapse">
@@ -2492,8 +2508,8 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
-                                                    <a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(8,8,0)">&nbsp;&nbsp;Edit</a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
+                                                    <a href="javascript:void(0);" class="pull-right hidden" onclick="goToStep(8,8,0)">Edit</a>
                                                 </h3>
                                             </div>
                                             <div id="collapse2" class="panel-collapse collapse">
@@ -2523,7 +2539,7 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a></a>
                                                 </h3>
                                             </div>
                                             <div id="collapse4" class="panel-collapse collapse">
@@ -2597,7 +2613,7 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(11,11,0)">&nbsp;&nbsp;Edit</a></a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(11,11,0)">Edit</a></a>
                                                 </h3>
                                             </div>
                                             <div id="collapse5" class="panel-collapse collapse">
@@ -2675,8 +2691,8 @@
                                         <div class="panel panel-default accordian-border-group hidden">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
-                                                    <a href="javascript:void(0);" class="pull-right" onclick="goToStep(12,12,0)">&nbsp;&nbsp;Edit</a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
+                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(12,12,0)">Edit</a>
                                                 </h3>
                                             </div>
                                             <div id="collapse6" class="panel-collapse collapse">
@@ -2697,8 +2713,8 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
-                                                    <a href="javascript:void(0);" class="pull-right" onclick="goToStep(13,13,0)">&nbsp;&nbsp;Edit</a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
+                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(13,13,0)">Edit</a>
                                                 </h3>
                                             </div>
                                             <div id="collapse7" class="panel-collapse collapse">
@@ -2726,8 +2742,8 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
-                                                    <a href="javascript:void(0);" class="pull-right" onclick="goToStep(14,14,0)">&nbsp;&nbsp;Edit</a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
+                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(14,14,0)">Edit</a>
                                                 </h3>
                                             </div>
                                             <div id="collapse8" class="panel-collapse collapse">
@@ -4622,7 +4638,7 @@
 
             <!-- Modal footer -->
             <div class="modal-footer" style="border-top:none">
-                <button type="submit" class="btn-alltype" id="btnsaveappl" onclick="saveupdateApplicantCoApplicant()">Save</button>
+                <button type="submit" class="btn-alltype" id="btnsaveappl" onclick="saveupdateApplicantCoApplicant(1)">Save</button>
                 <button type="submit" class="btn-alltype hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
             </div>
 
@@ -4661,7 +4677,7 @@
                                 <tr>
                                     <th style="background-color: #c7cdd5;color:#3d3939">Payment Method</th>
                                     <th style="background-color: #c7cdd5;color:#3d3939">Account Name</th>
-                                   
+
                                     <th style="background-color: #c7cdd5;color:#3d3939">Select</th>
                                 </tr>
                             </thead>
@@ -4763,7 +4779,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-12" style="margin-bottom:20px;margin-left: 15px;">
                     <input type="checkbox" id="chkTermsAndCondition2">
                     <span class="chektext">
@@ -5161,7 +5177,7 @@
                 <div class="col-sm-12">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="ddlProperNoticeLeaseAgreement2" class="star">Was proper notice given per your lease agreement?</label>
+                            <label id="lblddlProperNoticeLeaseAgreement2" for="ddlProperNoticeLeaseAgreement2" class="star">Was proper notice given per your lease agreement?</label>
                             <select id="ddlProperNoticeLeaseAgreement2" class="form-control form-control-small">
                                 <option value="1">Yes</option>
                                 <option value="2">No</option>
@@ -5776,6 +5792,7 @@
             margin: 30px auto;
         }
     }
+
     @@media (min-width: 768px) {
         .modal-dialog.modal15min {
             width: 800px;
@@ -5980,54 +5997,54 @@
         }
 
 
-            .nav-tabs.wizard li.active a {
-                padding-top: 15px;
-            }
+        .nav-tabs.wizard li.active a {
+            padding-top: 15px;
+        }
 
-            .nav-tabs.wizard li::after, .nav-tabs.wizard li > ::after {
-                content: '';
-                position: absolute;
-                top: -1px;
-                left: 100%;
-                height: 0;
-                width: 0;
-                border: 24px solid transparent;
-                border-right-width: 24px;
-                border-left-color: transparent;
-                border-right-width: 0;
-                border-left-width: 20px;
-                border-right-color: #B4ADA5 !important;
-            }
+        .nav-tabs.wizard li::after, .nav-tabs.wizard li > ::after {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 100%;
+            height: 0;
+            width: 0;
+            border: 24px solid transparent;
+            border-right-width: 24px;
+            border-left-color: transparent;
+            border-right-width: 0;
+            border-left-width: 20px;
+            border-right-color: #B4ADA5 !important;
+        }
 
-            .nav-tabs.wizard li:not(.active) a::after {
-                border-right-color: transparent !important;
-                border-left-color: #B4ADA5 !important;
-            }
+        .nav-tabs.wizard li:not(.active) a::after {
+            border-right-color: transparent !important;
+            border-left-color: #B4ADA5 !important;
+        }
 
-            .nav-tabs.wizard li.active a::after {
-                border-right-color: transparent !important;
-                border-left-color: #4d738a !important;
-            }
+        .nav-tabs.wizard li.active a::after {
+            border-right-color: transparent !important;
+            border-left-color: #4d738a !important;
+        }
 
-            .nav-tabs.wizard li:not(.active) a:hover::after {
-                border-left-color: #4d738a !important;
-            }
+        .nav-tabs.wizard li:not(.active) a:hover::after {
+            border-left-color: #4d738a !important;
+        }
 
-            .nav-tabs.wizard li::after {
-                z-index: 1;
-                -webkit-transform: translateX(4px);
-                -moz-transform: translateX(4px);
-                -ms-transform: translateX(4px);
-                -o-transform: translateX(4px);
-                transform: translateX(4px);
-                border-left-color: #fff;
-                margin: 0
-            }
+        .nav-tabs.wizard li::after {
+            z-index: 1;
+            -webkit-transform: translateX(4px);
+            -moz-transform: translateX(4px);
+            -ms-transform: translateX(4px);
+            -o-transform: translateX(4px);
+            transform: translateX(4px);
+            border-left-color: #fff;
+            margin: 0
+        }
 
-            .nav-tabs.wizard li > *::after {
-                z-index: 2;
-                border-left-color: inherit
-            }
+        .nav-tabs.wizard li > *::after {
+            z-index: 2;
+            border-left-color: inherit
+        }
 
         .nav-tabs.wizard > li:nth-of-type(1) > a {
             border-top-left-radius: 0px;
@@ -6127,6 +6144,7 @@
         text-transform: uppercase;
         font-weight: bold;
     }
+
     .pl-6, .px-6 {
         padding-left: 0rem !important;
     }

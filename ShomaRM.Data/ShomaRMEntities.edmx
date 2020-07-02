@@ -89,7 +89,9 @@
           <Property Name="BackGroundPaid" Type="int" />
           <Property Name="AdminFee" Type="decimal" Precision="18" Scale="2" />
           <Property Name="AdminFeePercentage" Type="decimal" Precision="18" Scale="2" />
+
           <Property Name="CustID" Type="varchar" MaxLength="10" />
+
           <Property Name="CreditResult" Type="varchar" MaxLength="50" />
           <Property Name="BackGroungResult" Type="varchar" MaxLength="50" />
         </EntityType>
@@ -192,13 +194,16 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TenantId" Type="int" Nullable="false" />
-          <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="OrderID" Type="int" Nullable="false" />
-          <Property Name="Status" Type="nvarchar(max)" />
-          <Property Name="PDFUrl" Type="nvarchar(max)" />
+          <Property Name="ApplyNowId" Type="int" Nullable="false" />
+          <Property Name="ApplicantId" Type="int" Nullable="false" />
+          <Property Name="ReportType" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SSN" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="TransactionNumber" Type="varchar" MaxLength="100" />
+          <Property Name="ReportDate" Type="varchar" MaxLength="20" />
+          <Property Name="ApplicantDecision" Type="nvarchar(max)" />
+          <Property Name="ApplicationDecision" Type="nvarchar(max)" />
+          <Property Name="ApplicantScore" Type="nvarchar(max)" />
           <Property Name="Notes" Type="nvarchar(max)" />
-          <Property Name="SSNNumber" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="tbl_BankAccount">
           <Key>
@@ -3351,7 +3356,9 @@
             <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
             <End Role="tbl_TenantOnline" EntitySet="tbl_TenantOnline" />
           </AssociationSet>
+
           <EntitySet Name="tbl_OnlinePayment" EntityType="ShomaRMEntitiesModel.tbl_OnlinePayment" />
+
           <EntitySet Name="tbl_BackgroundScreening" EntityType="ShomaRMEntitiesModel.tbl_BackgroundScreening" />
           <EntitySet Name="tbl_Applicant" EntityType="ShomaRMEntitiesModel.tbl_Applicant" />
           <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow">
@@ -5999,6 +6006,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+
         <EntityType Name="tbl_OnlinePayment">
           <Key>
             <PropertyRef Name="ID" />
@@ -6012,18 +6020,24 @@
           <Property Name="ApplicantID" Type="Int64" />
           <Property Name="TenantID" Type="Int64" />
         </EntityType>
+
         <EntityType Name="tbl_BackgroundScreening">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenantId" Type="Int32" Nullable="false" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PDFUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+
+          <Property Name="ApplyNowId" Type="Int32" Nullable="false" />
+          <Property Name="ApplicantId" Type="Int32" Nullable="false" />
+          <Property Name="ReportType" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SSN" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ReportDate" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ApplicantDecision" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationDecision" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicantScore" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SSNNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+
         </EntityType>
         <EntityType Name="tbl_Applicant">
           <Key>
@@ -6051,7 +6065,9 @@
           <Property Name="BackGroundPaid" Type="Int32" />
           <Property Name="AdminFee" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="AdminFeePercentage" Type="Decimal" Precision="18" Scale="2" />
+
           <Property Name="CustID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+
           <Property Name="CreditResult" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BackGroungResult" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
@@ -7732,6 +7748,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+
           <EntitySetMapping Name="tbl_OnlinePayment">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_OnlinePayment">
               <MappingFragment StoreEntitySet="tbl_OnlinePayment">
@@ -7746,16 +7763,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+       
           <EntitySetMapping Name="tbl_BackgroundScreening">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
               <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
-                <ScalarProperty Name="SSNNumber" ColumnName="SSNNumber" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="PDFUrl" ColumnName="PDFUrl" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="ApplicantScore" ColumnName="ApplicantScore" />
+                <ScalarProperty Name="ApplicationDecision" ColumnName="ApplicationDecision" />
+                <ScalarProperty Name="ApplicantDecision" ColumnName="ApplicantDecision" />
+                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+                <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="ReportType" ColumnName="ReportType" />
+                <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
+                <ScalarProperty Name="ApplyNowId" ColumnName="ApplyNowId" />
+
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -7765,7 +7787,9 @@
               <MappingFragment StoreEntitySet="tbl_Applicant">
                 <ScalarProperty Name="BackGroungResult" ColumnName="BackGroungResult" />
                 <ScalarProperty Name="CreditResult" ColumnName="CreditResult" />
+
                 <ScalarProperty Name="CustID" ColumnName="CustID" />
+
                 <ScalarProperty Name="AdminFeePercentage" ColumnName="AdminFeePercentage" />
                 <ScalarProperty Name="AdminFee" ColumnName="AdminFee" />
                 <ScalarProperty Name="BackGroundPaid" ColumnName="BackGroundPaid" />

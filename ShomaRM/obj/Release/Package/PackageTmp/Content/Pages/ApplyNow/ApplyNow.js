@@ -131,6 +131,7 @@ $(document).ready(function () {
             $('#btnsaveappl').addClass('hidden');
             //modal.find('.modal-content').css("height", "760px");
             $('#divCreditCheckPayment').removeClass('hidden');
+           
         }
         else {
             //$("#popCCPay").modal("hide");
@@ -242,129 +243,6 @@ $(document).ready(function () {
         }
 
     });
-    document.getElementById('fileUploadTaxReturn1').onchange = function () {
-        var fileUploadTaxReturn1Bool = restrictFileUpload($(this).val());
-        if (fileUploadTaxReturn1Bool == true) {
-            taxReturnFileUpload1();
-        }
-        else {
-            document.getElementById('fileUploadTaxReturn1').value = '';
-            $('#fileUploadTaxReturn1Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
-    document.getElementById('fileUploadTaxReturn2').onchange = function () {
-        var fileUploadTaxReturn2Bool = restrictFileUpload($(this).val());
-        if (fileUploadTaxReturn2Bool == true) {
-            taxReturnFileUpload2();
-        }
-        else {
-            document.getElementById('fileUploadTaxReturn2').value = '';
-            $('#fileUploadTaxReturn2Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
-    document.getElementById('fileUploadTaxReturn3').onchange = function () {
-        var fileUploadTaxReturn3Bool = restrictFileUpload($(this).val());
-        if (fileUploadTaxReturn3Bool == true) {
-            taxReturnFileUpload3();
-        }
-        else {
-            document.getElementById('fileUploadTaxReturn3').value = '';
-            $('#fileUploadTaxReturn3Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
-
-    //Sachin M 11 may
-    document.getElementById('fileUploadTaxReturn4').onchange = function () {
-        var fileUploadTaxReturn4Bool = restrictFileUpload($(this).val());
-        if (fileUploadTaxReturn4Bool == true) {
-            taxReturnFileUpload4();
-        }
-        else {
-            document.getElementById('fileUploadTaxReturn4').value = '';
-            $('#fileUploadTaxReturn4Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
-    document.getElementById('fileUploadTaxReturn5').onchange = function () {
-        var fileUploadTaxReturn5Bool = restrictFileUpload($(this).val());
-        if (fileUploadTaxReturn5Bool == true) {
-            taxReturnFileUpload5();
-        }
-        else {
-            document.getElementById('fileUploadTaxReturn5').value = '';
-            $('#fileUploadTaxReturn5Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
-
-    document.getElementById('fileBankState1').onchange = function () {
-        var fileUploadBankState1Bool = restrictFileUpload($(this).val());
-        if (fileUploadBankState1Bool == true) {
-            bankstateFileUpload1();
-        }
-        else {
-            document.getElementById('fileBankState1').value = '';
-            $('#fileBankState1Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
-    document.getElementById('fileBankState2').onchange = function () {
-        var fileUploadBankState2Bool = restrictFileUpload($(this).val());
-        if (fileUploadBankState2Bool == true) {
-            bankstateFileUpload2();
-        }
-        else {
-            document.getElementById('fileBankState2').value = '';
-            $('#fileBankState2Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
-    document.getElementById('fileBankState3').onchange = function () {
-        var fileUploadBankState3Bool = restrictFileUpload($(this).val());
-        if (fileUploadBankState3Bool == true) {
-            bankstateFileUpload3();
-        }
-        else {
-            document.getElementById('fileBankState3').value = '';
-            $('#fileBankState3Show').html('Choose a file...');
-            $.alert({
-                title: "",
-                content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
-                type: 'blue'
-            });
-        }
-    };
 
     document.getElementById('fileUploadPassport').onchange = function () {
         var fileUploadPassportBool = restrictFileUpload($(this).val());
@@ -397,7 +275,179 @@ $(document).ready(function () {
         }
 
     };
-    
+
+    // New Upload Code Start //
+
+    // new code paystub file upload
+    document.getElementById('fileUploadPaystub').onchange = function () {
+        var paystubFile = document.getElementById('fileUploadPaystub');
+
+        if (paystubFile.files.length == 3) {
+            for (var i = 0; i < paystubFile.files.length; i++) {
+
+                var name1 = paystubFile.files[0].name;
+                var name2 = paystubFile.files[1].name;
+                var name3 = paystubFile.files[2].name;
+
+                var filePaystubBool1 = restrictFileUpload(name1);
+                var filePaystubBool2 = restrictFileUpload(name2);
+                var filePaystubBool3 = restrictFileUpload(name3);
+
+                if (filePaystubBool1 == false) {
+                    document.getElementById('fileUploadPaystub').value = '';
+                    $('#fileUploadPaystubShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                else if (filePaystubBool2 == false) {
+                    document.getElementById('fileUploadPaystub').value = '';
+                    $('#fileUploadPaystubShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                else if (filePaystubBool3 == false) {
+                    document.getElementById('fileUploadPaystub').value = '';
+                    $('#fileUploadPaystubShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+            }
+            paystubFileUpload();
+        }
+        else {
+            document.getElementById('fileUploadPaystub').value = '';
+            $('#fileUploadPaystubShow').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Select number of 3 files to upload",
+                type: 'blue'
+            });
+            return;
+        }
+    };
+
+    // new code fedral file upload
+    document.getElementById('fileUploadFedral').onchange = function () {
+        var fedralFile = document.getElementById('fileUploadFedral');
+
+        if (fedralFile.files.length == 2) {
+            for (var i = 0; i < fedralFile.files.length; i++) {
+
+                var name1 = fedralFile.files[0].name;
+                var name2 = fedralFile.files[1].name;
+
+                var fileFedralBool1 = restrictFileUpload(name1);
+                var fileFedralBool2 = restrictFileUpload(name2);
+                
+                if (fileFedralBool1 == false) {
+                    document.getElementById('fileUploadFedral').value = '';
+                    $('#fileUploadFedralShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                else if (fileFedralBool2 == false) {
+                    document.getElementById('fileUploadFedral').value = '';
+                    $('#fileUploadFedralShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+            }
+            fedralFileUpload();
+        }
+        else {
+            document.getElementById('fileUploadFedral').value = '';
+            $('#fileUploadFedralShow').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Select number of 2 files to upload",
+                type: 'blue'
+            });
+            return;
+        }
+    };
+
+    // new code bankstatement file upload
+    document.getElementById('fileUploadBankStatement').onchange = function () {
+        var bankstatementFile = document.getElementById('fileUploadBankStatement');
+
+        if (bankstatementFile.files.length == 3) {
+            for (var i = 0; i < bankstatementFile.files.length; i++) {
+
+                var name1 = bankstatementFile.files[0].name;
+                var name2 = bankstatementFile.files[1].name;
+                var name3 = bankstatementFile.files[2].name;
+
+                var fileBankstatementBool1 = restrictFileUpload(name1);
+                var fileBankstatementBool2 = restrictFileUpload(name2);
+                var fileBankstatementBool3 = restrictFileUpload(name3);
+
+                if (fileBankstatementBool1 == false) {
+                    document.getElementById('fileUploadBankStatement').value = '';
+                    $('#fileUploadBankStatementShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                else if (fileBankstatementBool2 == false) {
+                    document.getElementById('fileUploadBankStatement').value = '';
+                    $('#fileUploadBankStatementShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                else if (fileBankstatementBool3 == false) {
+                    document.getElementById('fileUploadBankStatement').value = '';
+                    $('#fileUploadBankStatementShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+            }
+            bankstatementFileUpload();
+        }
+        else {
+            document.getElementById('fileUploadBankStatement').value = '';
+            $('#fileUploadBankStatementShow').html('Choose a file...');
+            $.alert({
+                title: "",
+                content: "Select number of 3 files to upload",
+                type: 'blue'
+            });
+            return;
+        }
+    };
+
+    // New Upload Code End //
+
     if ($("#chkAgreeTermsPolicy").is(":checked")) {
         $("#policyStart").attr("disabled", true);
         InnerPolicyCheck();
@@ -733,18 +783,18 @@ $(document).ready(function () {
     };
     $("#ddlRentOwn").on("change", function () {
         if (this.value == '1') {
-            $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone").addClass("star");
+            $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone,#lblProperNoticeLeaseAgreement").addClass("star");
         }
         else if (this.value == '2') {
-            $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone").removeClass("star");
+            $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone,#lblProperNoticeLeaseAgreement").removeClass("star");
         }
     });
     $("#ddlRentOwn2").on("change", function () {
         if (this.value == '1') {
-            $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2").addClass("star");
+            $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2,#lblProperNoticeLeaseAgreement2").addClass("star");
         }
         else if (this.value == '2') {
-            $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2").removeClass("star");
+            $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2,#lblProperNoticeLeaseAgreement2").removeClass("star");
         }
     });
     $("#txtpetWeight").keypress(function (event) { return nonNegDecimal(event, $(this)); });
@@ -920,7 +970,7 @@ var goToStep = function (stepid, id, calldataupdate) {
             var ubitIdSearch = $("#hndUID").val();
 
             if (ubitIdSearch != 0 && buildingSearch != "" && floorNoSearch > 0) {
-                showFloorPlan(floorNoSearch, bedRoomSearch, buildingSearch);
+                showFloorPlanApplicant(floorNoSearch, bedRoomSearch, buildingSearch);
             }
 
             $("#subMenu").addClass("hidden");
@@ -962,6 +1012,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                // $("#listUnitNew tr").trigger("click");
                 var selectedID = $("#listUnitNew tr").attr("id");
                 var selectedIDNew = selectedID.split('_')
+                console.log(selectedIDNew[1]);
                 getPropertyUnitDetails(selectedIDNew[1]);
             }
             
@@ -1013,7 +1064,7 @@ var goToStep = function (stepid, id, calldataupdate) {
                             var ubitIdSearch = 0;
 
                             if (ubitIdSearch != 0 && buildingSearch != "" && floorNoSearch > 0) {
-                                showFloorPlan(floorNoSearch, bedRoomSearch, buildingSearch);
+                                showFloorPlanApplicant(floorNoSearch, bedRoomSearch, buildingSearch);
                             }
                             getPropertyUnitList(buildingSearch);
                             $("#popUnitPlan").empty();
@@ -1833,59 +1884,28 @@ var goToStep = function (stepid, id, calldataupdate) {
                     msg += "Please Upload last 3 paystubs or if self-employed last 2 year's Federal Tax Returns or 3 consecutive bank statements</br>";
                 }
             }
+            nofup = 0;
             if ($("#rbtnPaystub").is(":checked")) {
-                if ($("#hndHasTaxReturnFile4").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn4').files.length == '0') {
-                        var upLabel44 = $('#lblUpload4').text();
-                        msg += "Please Upload " + upLabel44 + " </br>";
-                    }
-                }
-                if ($("#hndHasTaxReturnFile5").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn5').files.length == '0') {
-                        var upLabel25 = $('#lblUpload5').text();
-                        msg += "Please Upload " + upLabel25 + " </br>";
-                    }
-                }
-                if ($("#hndHasTaxReturnFile3").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn3').files.length == '0') {
-                        var upLabel3 = $('#lblUpload3').text();
-                        msg += "Please Upload " + upLabel3 + " </br>";
+                if (($("#hndHasTaxReturnFile3").val() == "0") && ($("#hndHasTaxReturnFile4").val() == "0") && ($("#hndHasTaxReturnFile5").val() == "0")) {
+                    
+                    if (document.getElementById('fileUploadPaystub').files.length == '0') {
+                        msg += "Please Upload Paystub </br>";
                     }
                 }
                 nofup+=1;
             }
             if ($("#rbtnFedralTax").is(":checked")) {
-                if ($("#hndHasTaxReturnFile1").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn1').files.length == '0') {
-                        var upLabel4 = $('#lblUpload1').text();
-                        msg += "Please Upload " + upLabel4 + " </br>";
-                    }
-                }
-                if ($("#hndHasTaxReturnFile2").val() == "0") {
-                    if (document.getElementById('fileUploadTaxReturn2').files.length == '0') {
-                        var upLabel5 = $('#lblUpload2').text();
-                        msg += "Please Upload " + upLabel5 + " </br>";
+                if (($("#hndHasTaxReturnFile1").val() == "0") && ($("#hndHasTaxReturnFile2").val() == "0")) {
+                    if (document.getElementById('fileUploadFedral').files.length == '0') {
+                        msg += "Please Upload Fedral </br>";
                     }
                 }
                 nofup += 1;
             }
             if ($("#rbtnBankStatement").is(":checked")) {
-                if ($("#hndHasBankStateFile1").val() == "0") {
-                    if (document.getElementById('fileBankState1').files.length == '0') {
-                        var upLabel6 = $('#lblUploadBankState1').text();
-                        msg += "Please Upload " + upLabel6 + " </br>";
-                    }
-                }
-                if ($("#hndHasBankStateFile2").val() == "0") {
-                    if (document.getElementById('fileBankState2').files.length == '0') {
-                        var upLabel7 = $('#lblUploadBankState2').text();
-                        msg += "Please Upload " + upLabel7 + " </br>";
-                    }
-                }
-                if ($("#hndHasBankStateFile3").val() == "0") {
-                    if (document.getElementById('fileBankState3').files.length == '0') {
-                        var upLabel8 = $('#lblUploadBankState3').text();
-                        msg += "Please Upload " + upLabel8 + " </br>";
+                if (($("#hndHasBankStateFile1").val() == "0") && ($("#hndHasBankStateFile2").val() == "0") && ($("#hndHasBankStateFile3").val() == "0")) {
+                    if (document.getElementById('fileUploadBankStatement').files.length == '0') {
+                        msg += "Please Upload Bankstatement </br>";
                     }
                 }
                 nofup += 1;
@@ -3100,7 +3120,7 @@ var SaveOnlineProspect = function () {
                 var ubitIdSearch = 0;
 
                 if (ubitIdSearch != 0 && buildingSearch != "" && floorNoSearch > 0) {
-                    showFloorPlan(floorNoSearch, bedRoomSearch, buildingSearch);
+                    showFloorPlanApplicant(floorNoSearch, bedRoomSearch, buildingSearch);
                 }
                 getPropertyUnitList(buildingSearch);
                 $("#popUnitPlan").empty();
@@ -4866,17 +4886,17 @@ var saveupdatePetPlace = function () {
                     $("#spanPetDNAFee4").text("Pet DNA Fee (1 Pet):");
 
                     $("#lblPetDeposit").text(formatMoney("500.00"));
-                    $("#spPetNRDeposit").text("Pet Non-refundable Deposit (1 Pet):");
+                    $("#spPetNRDeposit").text("Pet Deposit:");
 
                     $("#lblPetDNAAmt").text(parseFloat(response.petDNAFees).toFixed(2));
                     $("#lbpetdna6").text(parseFloat(response.petDNAFees).toFixed(2));
                     $("#fpetdna").text("$"+parseFloat(response.petDNAFees).toFixed(2));
 
                     $("#fpetd").text("$500.00");
-                    $("#spfpetd").text("Pet Non-refundable Deposit (1 Pet):");
+                    $("#spfpetd").text("Pet Deposit:");
 
                     $("#lbpetd6").text("500.00");
-                    $("#spPetNRDep6").text("Pet Non-refundable Deposit (1 Pet):");
+                    $("#spPetNRDep6").text("Pet Deposit:");
 
                     $("#hndPetPlaceID").val(1);
                     $("#btnAddPet").removeAttr("disabled");
@@ -4890,7 +4910,7 @@ var saveupdatePetPlace = function () {
                     $("#spanPetDNAFee4").text("Pet DNA Fee (2 Pets):");
 
                     $("#lblPetDeposit").text(formatMoney("750.00"));
-                    $("#spPetNRDeposit").text("Pet Non-refundable Deposit (2 Pets):");
+                    $("#spPetNRDeposit").text("Pet Deposit:");
 
                     $("#lblPetDNAAmt").text((parseFloat(response.petDNAFees) * parseInt(response.numOfPet)).toFixed(2));
 
@@ -4898,10 +4918,10 @@ var saveupdatePetPlace = function () {
                     $("#fpetdna").text("$"+(parseFloat(response.petDNAFees) * parseInt(response.numOfPet)).toFixed(2));
 
                     $("#fpetd").text("$750.00");
-                    $("#spPetNRDep6").text("Pet Non-refundable Deposit (2 Pets):");
+                    $("#spPetNRDep6").text("Pet Deposit:");
 
                     $("#lbpetd6").text("750.00");
-                    $("#spfpetd").text("Pet Non-refundable Deposit (2 Pets):");
+                    $("#spfpetd").text("Pet Deposit:");
 
                     $("#hndPetPlaceID").val(2);
                     $("#btnAddPet").removeAttr("disabled");
@@ -4913,9 +4933,9 @@ var saveupdatePetPlace = function () {
                     $("#spanPetDNAFee3").text("Pet DNA Fee:");
                     $("#spanPetDNAFee4").text("Pet DNA Fee:");
 
-                    $("#spPetNRDeposit").text("Pet Non-Refundable Deposit:");
-                    $("#spPetNRDep6").text("Pet Non-refundable Deposit:");
-                    $("#spfpetd").text("Pet Non-refundable Deposit:");
+                    $("#spPetNRDeposit").text("Pet Deposit:");
+                    $("#spPetNRDep6").text("Pet Deposit:");
+                    $("#spfpetd").text("Pet Deposit:");
 
                     $("#hndPetPlaceID").val(0);
                     $("#btnAddPet").css("background-color", "#B4ADA5").attr("disabled", "disabled");
@@ -5112,8 +5132,7 @@ var addApplicant = function (at) {
     clearApplicant();
     $("#popApplicant").modal("show");
 };
-var saveupdateApplicant = function () {
-
+var saveupdateApplicant = function (callFrom) {
     $("#divLoader").show();
     var checkEmail = 0;
     var msg = "";
@@ -5254,17 +5273,89 @@ var saveupdateApplicant = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            $("#divLoader").hide();
-            $.alert({
-                title: "",
-                content: "Progress Saved.",
-                type: 'blue',
-            });
-            getApplicantLists();
-            $("#popApplicant").modal("hide");
+            if (callFrom == 1) {
+                $("#divLoader").hide();
+                $.alert({
+                    title: "",
+                    content: "Progress Saved.",
+                    type: 'blue',
+                });
+                getApplicantLists();
+                $("#popApplicant").modal("hide");
+            }
+            else {
+                if ($("#hndTransMethod1").val() == "2") {
+                    var paymentMethod = 2;
+                    var propertyId = $("#hndUID").val();
+                    var nameonCard = $("#txtNameonCard1").val();
+                    var cardNumber = $("#txtCardNumber1").val();
+                    var cardMonth = $("#ddlcardmonth1").val();
+                    var cardYear = $("#ddlcardyear1").val();
+                    var ccvNumber = $("#txtCCVNumber1").val();
+                    var prospectID = $("#hdnOPId").val();
+                    var amounttoPay = unformatText($("#sppayFees").text());
+                    var description = $("#lblpopcctitle").text();
+                    var routingNumber = $("#txtRoutingNumber1").val();
+                    var bankName = $("#txtBankName1").val();
+                } else {
+                    var paymentMethod = 1;
+                    var nameonCard = $("#txtAccountName1").val();
+                    var cardNumber = $("#txtAccountNumber1").val();
+                    var cardMonth = 0;
+                    var cardYear = 0;
+                    var ccvNumber = 0;
+                    var routingNumber = $("#txtRoutingNumber1").val();
+                    var bankName = $("#txtBankName1").val();
+                    var amounttoPay = unformatText($("#sppayFees").text());
+                    var description = $("#lblpopcctitle").text();
+                    var prospectID = $("#hdnOPId").val();
+                    var propertyId = $("#hndUID").val();
+                }
+                var model = {
+                    PID: propertyId,
+                    Name_On_Card: nameonCard,
+                    CardNumber: cardNumber,
+                    CardMonth: cardMonth,
+                    CardYear: cardYear,
+                    CCVNumber: ccvNumber,
+                    Charge_Amount: amounttoPay,
+                    Charge_Type: "4",
+                    ProspectID: prospectID,
+                    Description: description,
+                    GL_Trans_Description: description,
+                    RoutingNumber: routingNumber,
+                    BankName: bankName,
+                    PaymentMethod: paymentMethod,
+                    AID: $("#hndApplicantID").val(),
+                    FromAcc: $("#hndFromAcc").val(),
+                    IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
+                };
+                $.ajax({
+                    url: "/ApplyNow/saveCoAppPayment/",
+                    type: "post",
+                    contentType: "application/json utf-8",
+                    data: JSON.stringify(model),
+                    dataType: "JSON",
+                    success: function (response) {
+                        if (response.Msg != "") {
+                            if (response.Msg == "1") {
+                                $("#ResponseMsg1").html("Payment successfull");
+                                window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
+                            } else {
+                                $.alert({
+                                    title: "",
+                                    content: "Payment failed",
+                                    type: 'red'
+                                });
+                            }
+                        }
+                    }
+                });
+            }
         }
     });
 }
+
 
 var totpaid = 0;
 var totnotpaid = 0;
@@ -7171,6 +7262,7 @@ var getTenantOnlineList = function (id) {
 
 
             //To Display File Name On Uploader
+            
             if (response.model.UploadOriginalPassportName != '') {
                 $("#fileUploadPassportShow").text(response.model.UploadOriginalPassportName);
             }
@@ -7226,15 +7318,17 @@ var getTenantOnlineList = function (id) {
             if (response.model.IsPaystub == 1) {
                 $("#rbtnPaystub").iCheck('check');
                 $('#divUpload3').removeClass('hidden');
+                $("#fileUploadPaystubShow").text("3 files selected");
             }
             if (response.model.IsFedralTax == 1) {
                 $("#rbtnFedralTax").iCheck('check');
+                $("#fileUploadFedralShow").text("2 files selected");
             }
             if (response.model.IsBankState == 1) {
                 $("#rbtnBankStatement").iCheck('check');
                 $('#divBankUpload').removeClass('hidden');
+                $("#fileUploadBankStatementShow").text("3 files selected");
             }
-
             $("#divLoaderFullData").hide();
             var modelstep = $("#hdnStepCompleted").val();
             var stepcompleted = parseInt(response.model.StepCompleted);
@@ -7369,7 +7463,7 @@ var delApplicant = function (appliId) {
 
 }
 
-function showFloorPlan(flid, numbedroom, modelname) {
+function showFloorPlanApplicant(flid, numbedroom, modelname) {
     $("#divLoaderFloorData").show();
     setTimeout(function () { $("#returnButton").removeClass("hidden"); $("#returnButton").html("Return to List View"); }, 1000);
     $("#UnitListDesc").text("Choose any unit in green to see more information including a video and complete layout of your unit. ");
@@ -8111,6 +8205,156 @@ var havePet = function () {
         }
     });
 };
+
+// New Upload Code Start //
+
+// New Paystub file Upload Method
+var paystubFileUpload = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var paystubUpload = document.getElementById('fileUploadPaystub');
+
+    for (var i = 0; i < paystubUpload.files.length; i++) {
+        $formData.append('file-' + i, paystubUpload.files[i]);
+    }
+
+    $.ajax({
+        url: '/ApplyNow/PaystubUpload',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            var fileName = [];
+            var originalFileName = [];
+            $.each(response.model.PaystubFiles, function (index, elementValue) {
+                fileName.push(elementValue);
+            });
+            $.each(response.model.PaystubOriginalFiles, function (index, elementValue) {
+                originalFileName.push(elementValue);
+            });
+
+            //1
+            $('#hndFileUploadName4').val(fileName[0]);
+            $('#hndOriginalFileUploadName4').val(originalFileName[0]);
+            //2
+            $('#hndFileUploadName5').val(fileName[1]);
+            $('#hndOriginalFileUploadName5').val(originalFileName[1]);
+            //3
+            $('#hndFileUploadName3').val(fileName[2]);
+            $('#hndOriginalFileUploadName3').val(originalFileName[2]);
+
+            $("#fileUploadPaystubShow").text("3 files selected");
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'blue'
+            });
+        }
+    });
+};
+
+// New Fedral file Upload Method
+var fedralFileUpload = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var fedralUpload = document.getElementById('fileUploadFedral');
+
+    for (var i = 0; i < fedralUpload.files.length; i++) {
+        $formData.append('file-' + i, fedralUpload.files[i]);
+    }
+
+    $.ajax({
+        url: '/ApplyNow/FedralUpload',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            var fileName = [];
+            var originalFileName = [];
+            $.each(response.model.FedralFiles, function (index, elementValue) {
+                fileName.push(elementValue);
+            });
+            $.each(response.model.FedralOriginalFiles, function (index, elementValue) {
+                originalFileName.push(elementValue);
+            });
+
+            //1
+            $('#hndFileUploadName1').val(fileName[0]);
+            $('#hndOriginalFileUploadName1').val(originalFileName[0]);
+            //2
+            $('#hndFileUploadName2').val(fileName[1]);
+            $('#hndOriginalFileUploadName2').val(originalFileName[1]);
+            $("#fileUploadFedralShow").text("2 files selected");
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'blue'
+            });
+        }
+    });
+};
+
+// New Paystub file Upload Method
+var bankstatementFileUpload = function () {
+    $("#divLoader").show();
+    $formData = new FormData();
+
+    var bankstatementUpload = document.getElementById('fileUploadBankStatement');
+
+    for (var i = 0; i < bankstatementUpload.files.length; i++) {
+        $formData.append('file-' + i, bankstatementUpload.files[i]);
+    }
+
+    $.ajax({
+        url: '/ApplyNow/BankStatementUpload',
+        type: 'post',
+        data: $formData,
+        contentType: 'application/json; charset=utf-8',
+        contentType: false,
+        processData: false,
+        dataType: 'json',
+        success: function (response) {
+            $("#divLoader").hide();
+            var fileName = [];
+            var originalFileName = [];
+            $.each(response.model.BankStatementFiles, function (index, elementValue) {
+                fileName.push(elementValue);
+            });
+            $.each(response.model.BankStatementOriginalFiles, function (index, elementValue) {
+                originalFileName.push(elementValue);
+            });
+
+            //1
+            $('#hndFileUploadNameBankState1').val(fileName[0]);
+            $('#hndOriginalFileUploadNameBankState1').val(originalFileName[0]);
+            //2
+            $('#hndFileUploadNameBankState2').val(fileName[1]);
+            $('#hndOriginalFileUploadNameBankState2').val(originalFileName[1]);
+            //3
+            $('#hndFileUploadNameBankState3').val(fileName[2]);
+            $('#hndOriginalFileUploadNameBankState3').val(originalFileName[2]);
+            $("#fileUploadBankStatementShow").text("3 files selected");
+            $.alert({
+                title: "",
+                content: "File uploaded Successfully.",
+                type: 'blue'
+            });
+        }
+    });
+};
+
+// New Upload Code End //
+
 //Upload 1,2,3
 var taxReturnFileUpload1 = function () {
     $("#divLoader").show();
@@ -8645,9 +8889,12 @@ var getTenantPetPlaceData = function () {
                 $("#spanPetDNAFee3").text("Pet DNA Fee (1 Pet):");
                 $("#spanPetDNAFee4").text("Pet DNA Fee (1 Pet):");
 
-                $("#spPetNRDeposit").text("Pet Non-refundable Deposit (1 Pet):");
-                $("#spfpetd").text("Pet Non-refundable Deposit (1 Pet):");
-                $("#spPetNRDep6").text("Pet Non-refundable Deposit (1 Pet):");
+                //$("#spPetNRDeposit").text("Pet Non-refundable Deposit (1 Pet):");
+                //$("#spfpetd").text("Pet Non-refundable Deposit (1 Pet):");
+                //$("#spPetNRDep6").text("Pet Non-refundable Deposit (1 Pet):");
+                $("#spPetNRDeposit").text("Pet Deposit:");
+                $("#spfpetd").text("Pet Deposit:");
+                $("#spPetNRDep6").text("Pet Deposit:");
 
 
             } else if (parseInt(response.model.NumberOfPets) == 2) {
@@ -8656,9 +8903,9 @@ var getTenantPetPlaceData = function () {
                 $("#spanPetDNAFee3").text("Pet DNA Fee (2 Pets):");
                 $("#spanPetDNAFee4").text("Pet DNA Fee (2 Pets):");
 
-                $("#spPetNRDeposit").text("Pet Non-refundable Deposit (2 Pets):");
-                $("#spfpetd").text("Pet Non-refundable Deposit (2 Pets):");
-                $("#spPetNRDep6").text("Pet Non-refundable Deposit (2 Pets):");
+                $("#spPetNRDeposit").text("Pet Deposit:");
+                $("#spfpetd").text("Pet Deposit:");
+                $("#spPetNRDep6").text("Pet Deposit:");
 
             }
             else {
@@ -8667,9 +8914,9 @@ var getTenantPetPlaceData = function () {
                 $("#spanPetDNAFee3").text("Pet DNA Fee:");
                 $("#spanPetDNAFee4").text("Pet DNA Fee:");
 
-                $("#spPetNRDeposit").text("Pet Non-refundable Deposit:");
-                $("#spfpetd").text("Pet Non-refundable Deposit:");
-                $("#spPetNRDep6").text("Pet Non-refundable Deposit:");
+                $("#spPetNRDeposit").text("Pet  Deposit:");
+                $("#spfpetd").text("Pet Deposit:");
+                $("#spPetNRDep6").text("Pet Deposit:");
             }
 
             if ($("#chkDontHavePet").is(':checked')) {
@@ -10140,12 +10387,10 @@ var clearCard2 = function () {
 }
 function saveCoAppPayment() {
 
+    
     $("#divLoader").show();
-
-   
     var checkEmail = 0;
     var msg = "";
-
     var fname = $("#txtApplicantFirstName").val();
     var mname = $("#txtApplicantMiddleName").val();
     var lname = $("#txtApplicantLastName").val();
@@ -10165,7 +10410,6 @@ function saveCoAppPayment() {
     var applicantCountry = $("#txtApplicantCountry").val();
     var applicantCity = $("#txtApplicantCity").val();
     var applicantApplicantZip2 = $("#txtApplicantZip2").val();
-
 
     if (type == "Co-Applicant") {
         checkEmail = 1;
@@ -10249,7 +10493,6 @@ function saveCoAppPayment() {
         msg += "Please accept Terms & Condition </br>";
     }
     
-    
     if ($("#hndTransMethod1").val() == "2") {
         var paymentMethod = 2;
         var propertyId = $("#hndUID").val();
@@ -10316,25 +10559,26 @@ function saveCoAppPayment() {
         });
         return;
     }
-    var model = {
-        PID: propertyId,
-        Name_On_Card: nameonCard,
-        CardNumber: cardNumber,
-        CardMonth: cardMonth,
-        CardYear: cardYear,
-        CCVNumber: ccvNumber,
-        Charge_Amount: amounttoPay,
-        Charge_Type: "4",
-        ProspectID: prospectID,
-        Description: description,
-        GL_Trans_Description: description,
-        RoutingNumber: routingNumber,
-        BankName: bankName,
-        PaymentMethod: paymentMethod,
-        AID: $("#hndApplicantID").val(),
-        FromAcc: $("#hndFromAcc").val(),
-        IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
-    };
+
+    //var model = {
+    //    PID: propertyId,
+    //    Name_On_Card: nameonCard,
+    //    CardNumber: cardNumber,
+    //    CardMonth: cardMonth,
+    //    CardYear: cardYear,
+    //    CCVNumber: ccvNumber,
+    //    Charge_Amount: amounttoPay,
+    //    Charge_Type: "4",
+    //    ProspectID: prospectID,
+    //    Description: description,
+    //    GL_Trans_Description: description,
+    //    RoutingNumber: routingNumber,
+    //    BankName: bankName,
+    //    PaymentMethod: paymentMethod,
+    //    AID: $("#hndApplicantID").val(),
+    //    FromAcc: $("#hndFromAcc").val(),
+    //    IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
+    //};
 
     $.alert({
         title: "",
@@ -10344,29 +10588,30 @@ function saveCoAppPayment() {
             yes: {
                 text: 'Yes',
                 action: function (yes) {
-                    $.ajax({
-                        url: "/ApplyNow/saveCoAppPayment/",
-                        type: "post",
-                        contentType: "application/json utf-8",
-                        data: JSON.stringify(model),
-                        dataType: "JSON",
-                        success: function (response) {
-                            if (response.Msg != "") {
-                                if (response.Msg == "1") {
-                                    $("#ResponseMsg1").html("Payment successfull");
-                                    saveupdateApplicant();
-                                    window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
+                    saveupdateApplicant(2);
 
-                                } else {
-                                    $.alert({
-                                        title: "",
-                                        content: "Payment failed",
-                                        type: 'red'
-                                    });
-                                }
-                            }
-                        }
-                    });
+                    //$.ajax({
+                    //    url: "/ApplyNow/saveCoAppPayment/",
+                    //    type: "post",
+                    //    contentType: "application/json utf-8",
+                    //    data: JSON.stringify(model),
+                    //    dataType: "JSON",
+                    //    success: function (response) {
+                    //        if (response.Msg != "") {
+                    //            if (response.Msg == "1") {
+                    //                $("#ResponseMsg1").html("Payment successfull");
+                                    
+                    //                //window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
+                    //            } else {
+                    //                $.alert({
+                    //                    title: "",
+                    //                    content: "Payment failed",
+                    //                    type: 'red'
+                    //                });
+                    //            }
+                    //        }
+                    //    }
+                    //});
                 }
             },
             no: {
@@ -10716,7 +10961,7 @@ var btnApplyNowLeaseCurrent = function () {
             $("#lblBath32").text(response.model.Bathroom);
             $("#lblDeposit3").text("$" + (formatMoney(response.model.Deposit)));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
 
             //new code for price table
             $('#priceTableUnit').text(response.model.UnitNo);
@@ -10885,7 +11130,7 @@ var btnApplyNowLeaseBest = function () {
             $("#lblBath32").text(response.model.Bathroom);
             $("#lblDeposit3").text("$" + (formatMoney(response.model.Deposit)));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
 
             //new code for price table
             $('#priceTableUnit').text(response.model.UnitNo);
@@ -11057,7 +11302,7 @@ var btnApplyNowLeaseGreat = function () {
             $("#lblBath32").text(response.model.Bathroom);
             $("#lblDeposit3").text("$" + (formatMoney(response.model.Deposit)));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
 
             //new code for price table
             $('#priceTableUnit').text(response.model.UnitNo);
@@ -11159,6 +11404,7 @@ var getPropertyModelUnitList = function (stype, pid) {
 }
 
 var getPropertyUnitDetails = function (uid) {
+    console.log(uid);
     $("#listUnitNew tr").removeClass("select-unit");
     //$("#unitdiv_" + $("#hndOldUID").val()).removeClass("select-unit");
     $("#divLoader").show();
@@ -11473,7 +11719,7 @@ var getPropertyUnitDetails = function (uid) {
             //console.log(parseFloat($("#lblRFPPestControl").text()));
             //console.log(parseFloat($("#lblRFPConvergentbillingfee").text()));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
 
             $("#divLoader").hide();
         }
@@ -11709,7 +11955,7 @@ var applyFromFloorPlanDetails = function () {
             $("#lblBath32").text(response.model.Bathroom);
             $("#lblDeposit3").text("$" + (formatMoney(response.model.Deposit)));
 
-            showFloorPlan(response.model.FloorNo, response.model.Bedroom, response.model.Building);
+            showFloorPlanApplicant(response.model.FloorNo, response.model.Bedroom, response.model.Building);
             $("#popAvailableFloorPlanDetailss").modal('hide');
             $("#divLoader").hide();
             $('#divPriceTable').removeClass('hidden');

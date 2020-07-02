@@ -15,7 +15,7 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using System.IO;
 using System.Text.RegularExpressions;
-
+using System.Runtime.InteropServices;
 
 namespace ShomaRM.Controllers
 {
@@ -173,11 +173,11 @@ namespace ShomaRM.Controllers
 
         }
 
-        public ActionResult SavePaymentDetails(ApplyNowModel model)
+        public async System.Threading.Tasks.Task<ActionResult> SavePaymentDetails(ApplyNowModel model)
         {
             try
             {
-                return Json(new { Msg = (new ApplyNowModel().SavePaymentDetails(model)) }, JsonRequestBehavior.AllowGet);
+                return Json(new { Msg = await (new ApplyNowModel().SavePaymentDetails(model)) }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -201,6 +201,7 @@ namespace ShomaRM.Controllers
         {
             try
             {
+
                 string msg = await (new ApplyNowModel().SaveNewPayment(model));
                 return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
             }
@@ -215,6 +216,7 @@ namespace ShomaRM.Controllers
             try
             {
                 string msg = await (new ApplyNowModel().SaveNewPaymentFinal(model));
+
                 return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -236,11 +238,11 @@ namespace ShomaRM.Controllers
             }
         }
         //Sachin M 25 June 2020
-        public async System.Threading.Tasks.Task<ActionResult> saveListPaymentFinalStep(ApplyNowModel model)
+        public async System.Threading.Tasks.Task<ActionResult>  saveListPaymentFinalStep(ApplyNowModel model)
         {
             try
             {
-                string msg = await (new ApplyNowModel().saveListPaymentFinalStep(model));
+                string msg =await (new ApplyNowModel().saveListPaymentFinalStep(model));
                 return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -602,6 +604,69 @@ namespace ShomaRM.Controllers
             }
         }
 
+        // New Upload Code Start //
+
+        // New Paystub File Upload
+        public ActionResult PaystubUpload()
+        {
+            try
+            {
+                List<HttpPostedFileBase> filePaystubUpload = new List<HttpPostedFileBase>();
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    filePaystubUpload.Add(Request.Files[i]);
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SavePaystubUpload(filePaystubUpload) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // New Fedral File Upload
+        public ActionResult FedralUpload()
+        {
+            try
+            {
+                List<HttpPostedFileBase> fileFedralUpload = new List<HttpPostedFileBase>();                
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileFedralUpload.Add(Request.Files[i]);
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SaveFedralUpload(fileFedralUpload) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // New BankStatement File Upload
+        public ActionResult BankStatementUpload()
+        {
+            try
+            {
+                List<HttpPostedFileBase> fileBankStatementUpload = new List<HttpPostedFileBase>();
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    fileBankStatementUpload.Add(Request.Files[i]);
+
+                }
+
+                return Json(new { model = new TenantOnlineModel().SaveBankStatementUpload(fileBankStatementUpload) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // New Upload Code End //
 
         //sachin m 11 may
         public ActionResult TaxFileUpload6(TenantOnlineModel model)
