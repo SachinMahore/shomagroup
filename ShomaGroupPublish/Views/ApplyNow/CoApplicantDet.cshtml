@@ -3807,7 +3807,7 @@
                                                         <th><b>Total Payble Amount</b></th>
                                                         <th><b><label id="totalFinalFees" style="font-weight: bold;"></label></b></th>
 
-                                                        <th><input type="button" class='btn-alltype' onclick="payFeePop(@Model.ApplicantID,5)" value="Pay Now"></th>
+                                                        <th><input type="button" class='btn-alltype' onclick="payFeePop(@Model.ApplicantID,1)" value="Pay Now"></th>
                                                         <th></th>
 
 
@@ -4655,8 +4655,7 @@
                                 <tr>
                                     <th style="background-color: #c7cdd5;color:#3d3939">Payment Method</th>
                                     <th style="background-color: #c7cdd5;color:#3d3939">Account Name</th>
-                                    <th style="background-color: #c7cdd5;color:#3d3939">Account/Card Number</th>
-
+                                 
                                     <th style="background-color: #c7cdd5;color:#3d3939">Select</th>
                                 </tr>
                             </thead>
@@ -4750,12 +4749,13 @@
                             <label for="txtCcvNumber2" class="star">CVV Number</label>
                             <input type="password" class="form-control" id="txtCCVNumber2" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
                         </div>
-                        <div class="col-sm-12" id="divChkSaveAcc" style="margin-left: -15px;">
-                            <input type="checkbox" id="chkSaveAcc">
-                            <span class="chektext">
-                                Save Account Information
-                            </span>
-                        </div>
+                     
+                    </div>
+                    <div class="col-sm-12" id="divChkSaveAcc" style="margin-left: -15px;">
+                        <input type="checkbox" id="chkSaveAcc">
+                        <span class="chektext">
+                            Save Account Information
+                        </span>
                     </div>
                 </div>
 
