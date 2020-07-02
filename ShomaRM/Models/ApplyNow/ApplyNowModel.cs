@@ -511,15 +511,13 @@ namespace ShomaRM.Models
 
                 // var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
                 var GetApplicantData = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
-
-                var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
-                var GetTenantOnlineDet = db.tbl_TenantOnline.Where(c => c.ParentTOID == GetCoappDet.UserID).FirstOrDefault();
-                var GetLeaseDet = db.tbl_LeaseTerms.Where(c => c.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
-                var GetState = db.tbl_State.Where(s => s.ID == GetTenantOnlineDet.StateHome).FirstOrDefault();
-
-                var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
                 var UserData = db.tbl_TenantOnline.Where(p => p.ParentTOID == GetApplicantData.UserID).FirstOrDefault();
 
+                var GetLeaseDet = db.tbl_LeaseTerms.Where(c => c.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
+                var GetState = db.tbl_State.Where(s => s.ID == UserData.StateHome).FirstOrDefault();
+
+                var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+               
                 string encrytpedCardNumber = new EncryptDecrypt().EncryptText(model.CardNumber);                
                 
                 decimal processingFees = 0;
@@ -730,20 +728,20 @@ namespace ShomaRM.Models
                             var applicant = new Applicant();
                             applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
                             applicant.ApplyNowID = GetProspectData.ID.ToString();
-                            applicant.CustomerID = GetCoappDet.ApplicantID.ToString();
+                            applicant.CustomerID = GetApplicantData.ApplicantID.ToString();
                             applicant.ConsentObtained = "Yes";
-                            applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income??0).ToString("0.00");
-                            applicant.ApplicantIdentifier = GetCoappDet.ApplicantID.ToString();
+                            applicant.EmploymentGrossIncome = (UserData.Income??0).ToString("0.00");
+                            applicant.ApplicantIdentifier = GetApplicantData.ApplicantID.ToString();
                             applicant.ApplicantType = "Applicant";
-                            applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
-                            applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
-                            applicant.FirstName = GetTenantOnlineDet.FirstName;
-                            applicant.LastName = GetTenantOnlineDet.LastName;
-                            applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
-                            applicant.City = GetTenantOnlineDet.CityHome;
+                            applicant.Birthdate = (UserData.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                            applicant.SocSecNumber = !string.IsNullOrWhiteSpace(UserData.SSN) ? new EncryptDecrypt().DecryptText(UserData.SSN) : "";
+                            applicant.FirstName = UserData.FirstName;
+                            applicant.LastName = UserData.LastName;
+                            applicant.Address1 = UserData.HomeAddress1 + (!string.IsNullOrWhiteSpace(UserData.HomeAddress2) ? " " + UserData.HomeAddress2 : "");
+                            applicant.City = UserData.CityHome;
                             applicant.State = (GetState != null ? GetState.Abbreviation : "");
-                            applicant.PostalCode = GetTenantOnlineDet.ZipHome;
-                            applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                            applicant.PostalCode = UserData.ZipHome;
+                            applicant.UnparsedAddress = UserData.HomeAddress1 + (!string.IsNullOrWhiteSpace(UserData.HomeAddress2) ? " " + UserData.HomeAddress2 : "");
 
                             string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
 
@@ -752,8 +750,8 @@ namespace ShomaRM.Models
 
                             string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRD", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
 
-                            GetCoappDet.CreditPaid = 1;
-                            GetCoappDet.CreditResult = result;
+                            GetApplicantData.CreditPaid = 1;
+                            GetApplicantData.CreditResult = result;
                             db.SaveChanges();
 
 
@@ -816,9 +814,7 @@ namespace ShomaRM.Models
                             if (model != null)
                             {
 
-                                string emailBody = "";
-                                emailBody += "<p style=\"margin-bottom: 0px;\">Dear "+ GetApplicantData.FirstName + " " + GetApplicantData.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
-
+                              
                                 CoreLogicHelper _corelogichelper = new CoreLogicHelper();
                                 var LeaseTermsModel = new LeaseTermsModel();
                                 LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
@@ -827,20 +823,20 @@ namespace ShomaRM.Models
                                 var applicant = new Applicant();
                                 applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
                                 applicant.ApplyNowID = GetProspectData.ID.ToString();
-                                applicant.CustomerID = GetCoappDet.ApplicantID.ToString();
+                                applicant.CustomerID = GetApplicantData.ApplicantID.ToString();
                                 applicant.ConsentObtained = "Yes";
-                                applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
-                                applicant.ApplicantIdentifier = GetCoappDet.ApplicantID.ToString();
+                                applicant.EmploymentGrossIncome = (UserData.Income ?? 0).ToString("0.00");
+                                applicant.ApplicantIdentifier = GetApplicantData.ApplicantID.ToString();
                                 applicant.ApplicantType = "Applicant";
-                                applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
-                                applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
-                                applicant.FirstName = GetTenantOnlineDet.FirstName;
-                                applicant.LastName = GetTenantOnlineDet.LastName;
-                                applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
-                                applicant.City = GetTenantOnlineDet.CityHome;
+                                applicant.Birthdate = (UserData.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                                applicant.SocSecNumber = !string.IsNullOrWhiteSpace(UserData.SSN) ? new EncryptDecrypt().DecryptText(UserData.SSN) : "";
+                                applicant.FirstName = UserData.FirstName;
+                                applicant.LastName = UserData.LastName;
+                                applicant.Address1 = UserData.HomeAddress1 + (!string.IsNullOrWhiteSpace(UserData.HomeAddress2) ? " " + UserData.HomeAddress2 : "");
+                                applicant.City = UserData.CityHome;
                                 applicant.State = (GetState != null ? GetState.Abbreviation : "");
-                                applicant.PostalCode = GetTenantOnlineDet.ZipHome;
-                                applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                                applicant.PostalCode = UserData.ZipHome;
+                                applicant.UnparsedAddress = UserData.HomeAddress1 + (!string.IsNullOrWhiteSpace(UserData.HomeAddress2) ? " " + UserData.HomeAddress2 : "");
 
                                 string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
 
@@ -849,13 +845,13 @@ namespace ShomaRM.Models
 
                                 string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRM", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
 
-                                GetCoappDet.BackGroundPaid = 1;
-                                GetCoappDet.Paid = 1;
-                                GetCoappDet.BackGroungResult = result;
+                                GetApplicantData.BackGroundPaid = 1;
+                                GetApplicantData.Paid = 1;
+                                GetApplicantData.BackGroungResult = result;
                                 db.SaveChanges();
 
                                 string emailBody = "";
-                                emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
+                                emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
 
                                 emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
@@ -1601,8 +1597,6 @@ namespace ShomaRM.Models
                 var GetLeaseDet = db.tbl_LeaseTerms.Where(c => c.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
                 var GetState = db.tbl_State.Where(s => s.ID == GetTenantOnlineDet.StateHome).FirstOrDefault();
 
-
-                var UserData = db.tbl_Login.Where(p => p.UserID == GetCoappDet.UserID).FirstOrDefault();
                 
                 var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ID == model.PAID).FirstOrDefault();
 
