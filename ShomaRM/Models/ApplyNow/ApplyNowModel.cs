@@ -62,6 +62,7 @@ namespace ShomaRM.Models
         public int FromAcc { get; set; }
         public int PAID { get; set; }
         public int IsSaveAcc { get; set; }
+        public string CustID { set; get; }
         // Sachin M added 28 Apr
         public List<ApplicantModel> lstApp { get; set; }
         string message = "";
@@ -147,18 +148,16 @@ namespace ShomaRM.Models
                         }
                     }
                     long opid = 0;
-                    var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ApplicantID == GetApplicantData.ApplicantID && P.CardNumber == encrytpedCardNumber && P.CardMonth == encrytpedCardMonth && P.CardYear == encrytpedCardYear).FirstOrDefault();
+                    var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ApplicantID == GetApplicantData.ApplicantID && P.PaymentID == encrytpedCardNumber).FirstOrDefault();
 
                     if (GetPayDetails == null)
                     {
                         var savePaymentDetails = new tbl_OnlinePayment()
                         {
                             PID = model.PID,
-                            Name_On_Card = model.Name_On_Card,
-                            CardNumber = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "",
-                            CardMonth = !string.IsNullOrWhiteSpace(model.CardMonth) ? new EncryptDecrypt().EncryptText(model.CardMonth) : "",
-                            CardYear = !string.IsNullOrWhiteSpace(model.CardYear) ? new EncryptDecrypt().EncryptText(model.CardYear) : "",
-                            CCVNumber = !string.IsNullOrWhiteSpace(model.RoutingNumber) ? new EncryptDecrypt().EncryptText(model.RoutingNumber) : "",
+                            PaymentName = model.Name_On_Card,
+                            PaymentID = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "",
+                          
                             ProspectId = model.ProspectId,
                             PaymentMethod = model.PaymentMethod,
                             ApplicantID = GetApplicantData.ApplicantID,
@@ -386,7 +385,7 @@ namespace ShomaRM.Models
                 string encrytpedRoutingNumber = new EncryptDecrypt().EncryptText(model.CCVNumber);
                 string decryptedPayemntCardNumber = new EncryptDecrypt().DecryptText(encrytpedCardNumber);
 
-                var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ApplicantID == model.AID && P.CardNumber== encrytpedCardNumber && P.CardMonth==encrytpedCardMonth && P.CardYear==encrytpedCardYear).FirstOrDefault();
+                var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ApplicantID == model.AID && P.PaymentID== encrytpedCardNumber).FirstOrDefault();
 
                 string transStatus = "";
                 string cardaccnum = "";
@@ -415,12 +414,9 @@ namespace ShomaRM.Models
                         var savePaymentDetails = new tbl_OnlinePayment()
                         {
                             PID = model.PID,
-                            Name_On_Card = model.Name_On_Card,
-                            CardNumber = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "",
-                            CardMonth = !string.IsNullOrWhiteSpace(model.CardMonth) ? new EncryptDecrypt().EncryptText(model.CardMonth) : "",
-                            CardYear = !string.IsNullOrWhiteSpace(model.CardYear) ? new EncryptDecrypt().EncryptText(model.CardYear) : "",
-                            CCVNumber = !string.IsNullOrWhiteSpace(model.CCVNumber) ? new EncryptDecrypt().EncryptText(model.CCVNumber) : "",
-                            ProspectId = model.ProspectId,
+                            PaymentName = model.Name_On_Card,
+                            PaymentID = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "",
+                             ProspectId = model.ProspectId,
                             PaymentMethod = model.PaymentMethod,
                             ApplicantID = model.AID,
                         };
@@ -503,7 +499,8 @@ namespace ShomaRM.Models
             return msg;
         }
 
-        public async System.Threading.Tasks.Task<string> saveCoAppPayment(ApplyNowModel model)
+        public async Task<string> SaveNewPayment(ApplyNowModel model)
+
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
@@ -511,20 +508,20 @@ namespace ShomaRM.Models
             if (model.ProspectId != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
+
+                // var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
+                var GetApplicantData = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
+
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
                 var GetTenantOnlineDet = db.tbl_TenantOnline.Where(c => c.ParentTOID == GetCoappDet.UserID).FirstOrDefault();
                 var GetLeaseDet = db.tbl_LeaseTerms.Where(c => c.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
                 var GetState = db.tbl_State.Where(s => s.ID == GetTenantOnlineDet.StateHome).FirstOrDefault();
+
                 var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
-                var UserData = db.tbl_Login.Where(p => p.UserID == GetCoappDet.UserID).FirstOrDefault();
+                var UserData = db.tbl_TenantOnline.Where(p => p.ParentTOID == GetApplicantData.UserID).FirstOrDefault();
 
-                string encrytpedCardNumber = new EncryptDecrypt().EncryptText(model.CardNumber);
-                string encrytpedCardMonth = new EncryptDecrypt().EncryptText(model.CardMonth);
-                string encrytpedCardYear = new EncryptDecrypt().EncryptText(model.CardYear);
-                string encrytpedRoutingNumber = new EncryptDecrypt().EncryptText(model.CCVNumber);
-
-                string decryptedPayemntCardNumber = new EncryptDecrypt().DecryptText(encrytpedCardNumber);
-
+                string encrytpedCardNumber = new EncryptDecrypt().EncryptText(model.CardNumber);                
+                
                 decimal processingFees = 0;
 
                 if (GePropertyData != null)
@@ -533,27 +530,89 @@ namespace ShomaRM.Models
                 }
 
                 string transStatus = "";
-                string cardaccnum = "";
+                string pmid = "";
+                string custID = "";
+                long paid = 0;
+                string cardaccnum = model.CardNumber.Substring(model.CardNumber.Length - 4);
 
-                model.Email = GetCoappDet.Email;
+                model.Email = GetApplicantData.Email;
                 model.ProcessingFees = processingFees;
-                if (model.PaymentMethod == 2)
+
+                if (GetApplicantData.CustID == "" || GetApplicantData.CustID ==null)
                 {
-                    cardaccnum = model.CardNumber.Substring(model.CardNumber.Length - 4);
-                    transStatus = new UsaePayModel().ChargeCard(model);
+                    TenantOnlineModel tm = new TenantOnlineModel();
+                    tm.FirstName = UserData.FirstName;
+                    tm.LastName = UserData.LastName;
+                    tm.Email = UserData.Email;
+                    tm.HomeAddress1 = UserData.HomeAddress1;
+                    tm.HomeAddress2 = UserData.HomeAddress2;
+                    tm.CityHome = UserData.CityHome;
+                    tm.ZipHome = UserData.ZipHome;
+                    if (UserData.StateHome != 0)
+                    {
+                        var statename = db.tbl_State.Where(p => p.ID == UserData.StateHome).FirstOrDefault();
+                        tm.StateString = statename.StateName;
+                    }
+                    int cid = Convert.ToInt32(UserData.Country);
+                    var countdet = db.tbl_Country.Where(p => p.ID ==cid).FirstOrDefault();
+                    tm.CountryString = countdet.CountryName;
+                    custID = new UsaePayWSDLModel().CreateUsaePayAccount(tm);
+                    GetApplicantData.CustID = custID;
+                    db.SaveChanges();
                 }
-                else if (model.PaymentMethod == 1)
+                else
                 {
-                    model.AccountNumber = model.CardNumber;
-                    cardaccnum = model.AccountNumber.Substring(model.AccountNumber.Length - 4);
-                    transStatus = new UsaePayModel().ChargeACH(model);
+                    custID = GetApplicantData.CustID;
                 }
+                model.CustID = custID;
+
+                if (custID!="" || custID != null)
+                {
+                    
+                 
+                    if (model.IsSaveAcc == 1)
+                    {
+                       
+                        var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ApplicantID == model.AID && P.PaymentName == model.Name_On_Card).FirstOrDefault();
+
+                        if (GetPayDetails == null)
+                        {
+                            pmid = new UsaePayWSDLModel().AddCustPaymentMethod(model);
+                            var savePaymentDetails = new tbl_OnlinePayment()
+                            {
+                                PID = model.PID,
+                                PaymentName = model.Name_On_Card,
+                                PaymentID = !string.IsNullOrWhiteSpace(pmid) ? new EncryptDecrypt().EncryptText(pmid) : "",
+                                ProspectId = model.ProspectId,
+                                PaymentMethod = model.PaymentMethod,
+                                ApplicantID = model.AID,
+                            };
+                            db.tbl_OnlinePayment.Add(savePaymentDetails);
+                            db.SaveChanges();
+                            paid = savePaymentDetails.ID;
+                        }
+                        else
+                        {
+                            paid = GetPayDetails.ID;
+                            pmid = new EncryptDecrypt().DecryptText(GetPayDetails.PaymentID);
+                        }
+                        if (custID != "" & pmid != "")
+                        {
+                            transStatus = new UsaePayWSDLModel().PayUsingCustomerNum(custID, pmid, Convert.ToDecimal(model.Charge_Amount), model.Description);
+                        }
+                    }
+                    else
+                    {
+                        transStatus = new UsaePayWSDLModel().ChargeCardSoap(model);
+                    }
+                }
+              
 
                 String[] spearator = { "|" };
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 string bat = "";
 
-                if (strlist[1] != "000000")
+                if (strlist[0] == "Approved")
                 {
                     if (model.FromAcc == 1)
                     {
@@ -582,35 +641,9 @@ namespace ShomaRM.Models
                     {
                         bat = "3";
                     }
-                    long paid = 0;
+                    
 
-                    if (model.IsSaveAcc == 1)
-                    {
-                        var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ApplicantID == model.AID && P.CardNumber == encrytpedCardNumber && P.CardMonth == encrytpedCardMonth && P.CardYear == encrytpedCardYear).FirstOrDefault();
-
-                        if (GetPayDetails == null)
-                        {
-                            var savePaymentDetails = new tbl_OnlinePayment()
-                            {
-                                PID = model.PID,
-                                Name_On_Card = model.Name_On_Card,
-                                CardNumber = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "",
-                                CardMonth = !string.IsNullOrWhiteSpace(model.CardMonth) ? new EncryptDecrypt().EncryptText(model.CardMonth) : "",
-                                CardYear = !string.IsNullOrWhiteSpace(model.CardYear) ? new EncryptDecrypt().EncryptText(model.CardYear) : "",
-                                CCVNumber = !string.IsNullOrWhiteSpace(model.RoutingNumber) ? new EncryptDecrypt().EncryptText(model.RoutingNumber) : "",
-                                ProspectId = model.ProspectId,
-                                PaymentMethod = model.PaymentMethod,
-                                ApplicantID = model.AID,
-                            };
-                            db.tbl_OnlinePayment.Add(savePaymentDetails);
-                            db.SaveChanges();
-                            paid = savePaymentDetails.ID;
-                        }
-                        else
-                        {
-                            paid = GetPayDetails.ID;
-                        }
-                    }
+                    
                     var saveTransaction = new tbl_Transaction()
                     {
                         TenantID = Convert.ToInt64(GetProspectData.UserId),
@@ -627,8 +660,10 @@ namespace ShomaRM.Models
                         Accounting_Date = DateTime.Now,
                         Batch = bat,
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
-                        UserID = GetCoappDet.UserID,
-                        RefNum = strlist[2],
+
+                        UserID = GetApplicantData.UserID,
+                        RefNum= strlist[2],
+
                     };
                     db.tbl_Transaction.Add(saveTransaction);
                     db.SaveChanges();
@@ -644,7 +679,7 @@ namespace ShomaRM.Models
                     reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
                     string message = "";
-                    string phonenumber = GetCoappDet.Phone;
+                    string phonenumber = GetApplicantData.Phone;
                     string sub = "";
                     if (model != null)
                     {
@@ -653,10 +688,13 @@ namespace ShomaRM.Models
                             GetProspectData.IsApplyNow = 2;
                             db.SaveChanges();
 
+
                             sub = "Sanctuary Payment Confirmation";
 
                             string emailBody = "";
-                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
+
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: "+ GetApplicantData.FirstName + " " + GetApplicantData.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
+
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
@@ -670,7 +708,7 @@ namespace ShomaRM.Models
                             string body = reportHTML;
 
                             //sachin m 01 may 2020
-                            new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
+                            new EmailSendModel().SendEmail(GetApplicantData.Email, sub, body);
                             message = "Sanctuary Payment Confirmation. Please check the email for detail.";
                             if (SendMessage == "yes")
                             {
@@ -683,6 +721,7 @@ namespace ShomaRM.Models
                         }
                         else if (model.FromAcc == 4)
                         {
+
                             CoreLogicHelper _corelogichelper = new CoreLogicHelper();
                             var LeaseTermsModel = new LeaseTermsModel();
                             LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
@@ -717,10 +756,13 @@ namespace ShomaRM.Models
                             GetCoappDet.CreditResult = result;
                             db.SaveChanges();
 
+
                             sub = "Payment Confirmation, Application agreement and Rental Qualifications";
 
                             string emailBody = "";
-                            emailBody += "<p style=\"margin-bottom: 0px;\">It’s all happening, " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "! You’ve submitted the required information for your credit check and accepted the “Application Agreement & Rental Qualifications” document in the prospect portal. We’ve attached documents for your review. Please contact us with any questions.</p>";
+
+                            emailBody += "<p style=\"margin-bottom: 0px;\">It’s all happening, "+ GetApplicantData.FirstName + " " + GetApplicantData.LastName+"! You’ve submitted the required information for your credit check and accepted the “Application Agreement & Rental Qualifications” document in the prospect portal. We’ve attached documents for your review. Please contact us with any questions.</p>";
+
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
@@ -740,7 +782,7 @@ namespace ShomaRM.Models
                             filePaths.Add(rulepolicy);
                             filePaths.Add(rentalqualification);
 
-                            new EmailSendModel().SendEmailWithAttachment(GetCoappDet.Email, sub, body, filePaths);
+                            new EmailSendModel().SendEmailWithAttachment(GetApplicantData.Email, sub, body, filePaths);
                             message = "Payment Confirmation, Application agreement and Rental Qualifications";
                             if (SendMessage == "yes")
                             {
@@ -750,22 +792,33 @@ namespace ShomaRM.Models
                                 }
                             }
 
-                            string pass = "";
-                            pass = new EncryptDecrypt().DecryptText(UserData.Password);
+
+                            GetApplicantData.CreditPaid = 1;
+                            db.SaveChanges();
+
+
                             msg = "1";
                         }
                         else if (model.FromAcc == 5)
                         {
-                            
+
+                            GetApplicantData.BackGroundPaid = 1;
+                            GetApplicantData.Paid = 1;
+                            db.SaveChanges();
+
 
                             filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
                             reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                             reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
                             message = "";
-                            phonenumber = GetCoappDet.Phone;
+                            phonenumber = GetApplicantData.Phone;
                             if (model != null)
                             {
+
+                                string emailBody = "";
+                                emailBody += "<p style=\"margin-bottom: 0px;\">Dear "+ GetApplicantData.FirstName + " " + GetApplicantData.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
+
                                 CoreLogicHelper _corelogichelper = new CoreLogicHelper();
                                 var LeaseTermsModel = new LeaseTermsModel();
                                 LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
@@ -803,9 +856,10 @@ namespace ShomaRM.Models
 
                                 string emailBody = "";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
+
                                 emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
-                                emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
+                               // emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Payment date:" + DateTime.Now.ToString("MM/dd/yyyy hh:mm tt") + "</p>";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Payment amount:$" + (model.Charge_Amount ?? 0).ToString("0.00") + "</p>";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Service fee:$" + processingFees.ToString("0.00") + "</p>";
@@ -828,7 +882,7 @@ namespace ShomaRM.Models
                             filePaths.Add(rulepolicy);
                             filePaths.Add(rentalqualification);
 
-                            new EmailSendModel().SendEmailWithAttachment(GetCoappDet.Email, "Your Sanctuary Rental Application and Rules and Policies", body, filePaths);
+                            new EmailSendModel().SendEmailWithAttachment(GetApplicantData.Email, "Your Sanctuary Rental Application and Rules and Policies", body, filePaths);
                             message = "Your Sanctuary Rental Application and Rules and Policies. Please check the email for detail.";
                             if (SendMessage == "yes")
                             {
@@ -844,11 +898,12 @@ namespace ShomaRM.Models
                             GetProspectData.IsApplyNow = 2;
                             db.SaveChanges();
 
+
                             sub = "Sanctuary Payment Confirmation";
 
                             reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
                             string emailBody = "";
-                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
@@ -861,7 +916,9 @@ namespace ShomaRM.Models
                             reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
                             string body = reportHTML;
 
-                            new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
+                            
+                            new EmailSendModel().SendEmail(GetApplicantData.Email, sub, body);
+
                             message = "Sanctuary Payment Confirmation. Please check the email for detail.";
 
                             if (SendMessage == "yes")
@@ -897,7 +954,255 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
+        //Sachin M 29 June 2020
+        public async Task<string> SaveNewPaymentFinal(ApplyNowModel model)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            string msg = "";
+            int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
+            if (model.PID != 0)
+            {
+                var GetApplicantData = db.tbl_Applicant.Where(p => p.UserID == userid).FirstOrDefault();
+                var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
+                var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                var UserData = db.tbl_TenantOnline.Where(p => p.ParentTOID == GetApplicantData.UserID).FirstOrDefault();
 
+                decimal processingFees = 0;
+                if (GetProspectData != null)
+                {
+                    processingFees = GePropertyData.ProcessingFees ?? 0;
+                }
+
+                string encrytpedCardNumber = new EncryptDecrypt().EncryptText(model.CardNumber);
+                string encrytpedCardMonth = new EncryptDecrypt().EncryptText(model.CardMonth);
+                string encrytpedCardYear = new EncryptDecrypt().EncryptText(model.CardYear);
+                string encrytpedRoutingNumber = new EncryptDecrypt().EncryptText(model.CCVNumber);
+
+                string decryptedPayemntCardNumber = new EncryptDecrypt().DecryptText(encrytpedCardNumber);
+
+                string transStatus = "";
+                
+                List<string> filePaths = new List<string>();
+                string emailBody = "";
+                string sub = "";
+                int chargeType = 4;
+                model.Email = GetProspectData.Email;
+                model.ProcessingFees = processingFees;
+                
+                string pmid = "";
+                string custID = "";
+                long paid = 0;
+                string cardaccnum = model.CardNumber.Substring(model.CardNumber.Length - 4);
+
+                model.Email = GetApplicantData.Email;
+                model.ProcessingFees = processingFees;
+
+                if (GetApplicantData.CustID == "" || GetApplicantData.CustID == null)
+                {
+                    TenantOnlineModel tm = new TenantOnlineModel();
+                    tm.FirstName = UserData.FirstName;
+                    tm.LastName = UserData.LastName;
+                    tm.Email = UserData.Email;
+                    tm.HomeAddress1 = UserData.HomeAddress1;
+                    tm.HomeAddress2 = UserData.HomeAddress2;
+                    tm.CityHome = UserData.CityHome;
+                    tm.ZipHome = UserData.ZipHome;
+                    var statename = db.tbl_State.Where(p => p.ID == UserData.StateHome).FirstOrDefault();
+                    tm.StateString = statename.StateName;
+                    int cid = Convert.ToInt32(UserData.Country);
+                    var countdet = db.tbl_Country.Where(p => p.ID == cid).FirstOrDefault();
+                    tm.CountryString = countdet.CountryName;
+                    custID = new UsaePayWSDLModel().CreateUsaePayAccount(tm);
+                    GetApplicantData.CustID = custID;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    custID = GetApplicantData.CustID;
+                }
+                model.CustID = custID;
+
+                if (custID != "" || custID != null)
+                {
+                   
+                    if (model.IsSaveAcc == 1)
+                    {
+                        pmid = new UsaePayWSDLModel().AddCustPaymentMethod(model);
+                        var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ApplicantID == model.AID && P.PaymentName == model.Name_On_Card).FirstOrDefault();
+
+                        if (GetPayDetails == null)
+                        {
+                            var savePaymentDetails = new tbl_OnlinePayment()
+                            {
+                                PID = model.PID,
+                                PaymentName = model.Name_On_Card,
+                                PaymentID = !string.IsNullOrWhiteSpace(pmid) ? new EncryptDecrypt().EncryptText(pmid) : "",
+                                ProspectId = model.ProspectId,
+                                PaymentMethod = model.PaymentMethod,
+                                ApplicantID = model.AID,
+                            };
+                            db.tbl_OnlinePayment.Add(savePaymentDetails);
+                            db.SaveChanges();
+                            paid = savePaymentDetails.ID;
+                        }
+                        else
+                        {
+                            paid = GetPayDetails.ID;
+                        }
+                        if (custID != "" & pmid != "")
+                        {
+                            transStatus = new UsaePayWSDLModel().PayUsingCustomerNum(custID, pmid, Convert.ToDecimal(model.Charge_Amount), model.Description);
+                        }
+                    }
+                    else
+                    {
+                        transStatus = new UsaePayWSDLModel().ChargeCardSoap(model);
+                    }
+                }
+                
+                String[] spearator = { "|" };
+                String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+                if (strlist[0] == "Approved")
+                {
+                    if (model.lstApp != null)
+                    {
+                        foreach (var coapp in model.lstApp)
+                        { //Added by Sachin M 28 Apr 7:26PM
+                            var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == coapp.ApplicantID).FirstOrDefault();
+                            if (coappliList != null)
+                            {
+                                if (coapp.Type == "4")
+                                {
+                                    chargeType = 4;
+                                    coappliList.CreditPaid = 1;
+                                }
+                                if (coapp.Type == "5")
+                                {
+                                    chargeType = 5;
+                                    coappliList.BackGroundPaid = 1;
+                                }
+                                if ((coappliList.CreditPaid ?? 0) == 1 && (coappliList.BackGroundPaid ?? 0) == 1)
+                                {
+                                    coappliList.Paid = 1;
+                                }
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+                    
+                    var saveTransaction = new tbl_Transaction()
+                    {
+                        TenantID = userid,
+                        PAID = paid.ToString(),
+                        Transaction_Date = DateTime.Now,
+                        CreatedDate = DateTime.Now,
+                        Credit_Amount = model.Charge_Amount,
+                        Description = model.Description + "| TransID: " + strlist[2],
+                        Charge_Date = DateTime.Now,
+                        Charge_Type = chargeType,
+                        Authcode = strlist[1],
+                        Charge_Amount = model.Charge_Amount,
+                        Miscellaneous_Amount = processingFees,
+                        Accounting_Date = DateTime.Now,
+                        Batch = "1",
+                        CreatedBy = Convert.ToInt32(GetProspectData.UserId),
+                        UserID = userid,
+                        RefNum = strlist[2],
+                    };
+                    db.tbl_Transaction.Add(saveTransaction);
+                    db.SaveChanges();
+
+                    var TransId = saveTransaction.TransID;
+                    MyTransactionModel mm = new MyTransactionModel();
+                    mm.CreateTransBill(TransId, Convert.ToDecimal(model.Charge_Amount), model.Description);
+
+                    GetProspectData.IsApplyNow = 2;
+                    GetProspectData.AcceptSummary = 1;
+                    db.SaveChanges();
+
+                    string reportHTML = "";
+                    string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    string message = "";
+                    string phonenumber = GetProspectData.Phone;
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                    if (model != null)
+                    {
+                        if (chargeType == 4)
+                        {
+                            sub = "Payment Confirmation, Application agreement and Rental Qualifications";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">It’s all happening, " + GetProspectData.FirstName + " " + GetProspectData.LastName + "! You’ve submitted the required information for your credit check and accepted the “Application Agreement & Rental Qualifications” document in the prospect portal. We’ve attached documents for your review. Please contact us with any questions.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment date:" + DateTime.Now.ToString("MM/dd/yyyy hh:mm tt") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment amount:$" + (model.Charge_Amount ?? 0).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Service fee:$" + processingFees.ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Total payment:$" + ((model.Charge_Amount ?? 0) + processingFees).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Application fees are non refundable, even if the application is denied except to the extent otherwise required by applicable law</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">In meantime, if you have any questions about the application process please contact us</p>";
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                            string rulepolicy = HttpContext.Current.Server.MapPath("~/Content/assets/img/Policy/Rules_Policies_fragmented.pdf"); ;
+                            string rentalqualification = HttpContext.Current.Server.MapPath("~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf"); ;
+
+                            filePaths.Add(rulepolicy);
+                            filePaths.Add(rentalqualification);
+                            message = "Payment Confirmation, Application agreement and Rental Qualifications";
+                        }
+                        if (chargeType == 5)
+                        {
+                            sub = "Your Sanctuary Rental Application and Rules and Policies";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetProspectData.FirstName + " " + GetProspectData.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment date:" + DateTime.Now.ToString("MM/dd/yyyy hh:mm tt") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Payment amount:$" + (model.Charge_Amount ?? 0).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Service fee:$" + processingFees.ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Total payment:$" + ((model.Charge_Amount ?? 0) + processingFees).ToString("0.00") + "</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">*The service fee is collected by the payment agent not the property management company and will not display your ledger. Service fee is non Refundable.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Application fees are non refundable, even if the application is denied except to the extent otherwise required by applicable law</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">In meantime, if you have any questions about the application process please contact us at <a style=\"text-decoration:none;\" href=\"tel:+1-786-684-7634\">(786) 648-7634</a></p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Please click here for Login to edit application</p>";
+                            emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/Account/login\" class=\"link-button\" target=\"_blank\">Login</a></p>";
+                            reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                            string rulepolicy = HttpContext.Current.Server.MapPath("~/Content/assets/img/Policy/Rules_Policies_fragmented.pdf"); ;
+                            string rentalqualification = HttpContext.Current.Server.MapPath("~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf"); ;
+                            string appSummary = new ApplyNowModel().PrintApplicationForm(GetProspectData.ID);
+
+                            filePaths.Add(appSummary);
+                            filePaths.Add(rulepolicy);
+                            filePaths.Add(rentalqualification);
+
+                            message = "Your Sanctuary Rental Application and Rules and Policies. Please check the email for detail.";
+                        }
+                        
+                    }
+                    string body = reportHTML;
+                    new EmailSendModel().SendEmailWithAttachment(GetProspectData.Email, sub, body, filePaths);
+
+                    if (SendMessage == "yes")
+                    {
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
+                    }
+                    msg = "1";
+                }
+                else
+                {
+                    msg = "0";
+                }
+            }
+
+            db.Dispose();
+            return msg;
+        }
         // Sachin M 09 june 2020
         public async System.Threading.Tasks.Task<string> saveListPayment(ApplyNowModel model)
         {
@@ -907,20 +1212,23 @@ namespace ShomaRM.Models
             if (model.ProspectId != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
+
+                var GetApplicantData = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
+                var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                var UserData = db.tbl_Login.Where(p => p.UserID == GetApplicantData.UserID).FirstOrDefault();
+
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
                 var GetTenantOnlineDet = db.tbl_TenantOnline.Where(c => c.ParentTOID == GetCoappDet.UserID).FirstOrDefault();
-                var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+       
                 var GetLeaseDet = db.tbl_LeaseTerms.Where(c => c.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
                 var GetState = db.tbl_State.Where(s => s.ID == GetTenantOnlineDet.StateHome).FirstOrDefault();
 
-                var UserData = db.tbl_Login.Where(p => p.UserID == GetCoappDet.UserID).FirstOrDefault();
+             
 
                 var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ID == model.PAID).FirstOrDefault();
 
-                string decrytpedCardNumber = new EncryptDecrypt().DecryptText(GetPayDetails.CardNumber);
-                string decrytpedCardMonth = new EncryptDecrypt().DecryptText(GetPayDetails.CardMonth);
-                string decrytpedCardYear = new EncryptDecrypt().DecryptText(GetPayDetails.CardYear);
-                string decryptedPayemntCardNumber = new EncryptDecrypt().DecryptText(GetPayDetails.CardNumber);
+                string decrytpedPMID = new EncryptDecrypt().DecryptText(GetPayDetails.PaymentID);
+              
 
                 decimal processingFees = 0;
 
@@ -931,30 +1239,16 @@ namespace ShomaRM.Models
 
                 string transStatus = "";
                 string cardaccnum = "";
-                model.Email = GetCoappDet.Email;
+                model.Email = GetApplicantData.Email;
                 model.ProcessingFees = processingFees;
-                model.Name_On_Card = GetPayDetails.Name_On_Card;
-                if (GetPayDetails.PaymentMethod == 2)
-                {
-                    model.CardNumber = decryptedPayemntCardNumber;
-                    model.CardMonth = decrytpedCardMonth;
-                    model.CardYear = decrytpedCardYear;
-                    cardaccnum = model.CardNumber.Substring(model.CardNumber.Length - 4);
-                    transStatus = new UsaePayModel().ChargeCard(model);
-                }
-                else if (GetPayDetails.PaymentMethod == 1)
-                {
-                    model.AccountNumber = decrytpedCardNumber;
-                    model.RoutingNumber = model.CCVNumber;
-                    cardaccnum = model.AccountNumber.Substring(model.AccountNumber.Length - 4);
-                    transStatus = new UsaePayModel().ChargeACH(model);
-                }
+
+                transStatus = new UsaePayWSDLModel().PayUsingCustomerNum(GetApplicantData.CustID, decrytpedPMID, Convert.ToDecimal(model.Charge_Amount), model.Description);
 
                 String[] spearator = { "|" };
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 string bat = "";
 
-                if (strlist[1] != "000000")
+                if (strlist[0] == "Approved")
                 {
                     if (model.FromAcc == 1)
                     {
@@ -999,7 +1293,7 @@ namespace ShomaRM.Models
                         Accounting_Date = DateTime.Now,
                         Batch = bat,
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
-                        UserID = GetCoappDet.UserID,
+                        UserID = GetApplicantData.UserID,
                         RefNum = strlist[2],
                     };
                     db.tbl_Transaction.Add(saveTransaction);
@@ -1016,7 +1310,7 @@ namespace ShomaRM.Models
                     reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
                     string message = "";
-                    string phonenumber = GetCoappDet.Phone;
+                    string phonenumber = GetApplicantData.Phone;
                     string sub = "";
                     if (model != null)
                     {
@@ -1028,7 +1322,7 @@ namespace ShomaRM.Models
                             sub = "Sanctuary Payment Confirmation";
 
                             string emailBody = "";
-                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
@@ -1042,7 +1336,7 @@ namespace ShomaRM.Models
                             string body = reportHTML;
 
                             //sachin m 01 may 2020
-                            new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
+                            new EmailSendModel().SendEmail(GetApplicantData.Email, sub, body);
                             message = "Sanctuary Payment Confirmation. Please check the email for detail.";
                             if (SendMessage == "yes")
                             {
@@ -1055,6 +1349,7 @@ namespace ShomaRM.Models
                         }
                         else if (model.FromAcc == 4)
                         {
+
                             CoreLogicHelper _corelogichelper = new CoreLogicHelper();
                             var LeaseTermsModel = new LeaseTermsModel();
                             LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
@@ -1089,10 +1384,11 @@ namespace ShomaRM.Models
                             GetCoappDet.CreditResult = result;
                             db.SaveChanges();
 
+
                             sub = "Payment Confirmation, Application agreement and Rental Qualifications";
 
                             string emailBody = "";
-                            emailBody += "<p style=\"margin-bottom: 0px;\">It’s all happening, " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "! You’ve submitted the required information for your credit check and accepted the “Application Agreement & Rental Qualifications” document in the prospect portal. We’ve attached documents for your review. Please contact us with any questions.</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">It’s all happening, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! You’ve submitted the required information for your credit check and accepted the “Application Agreement & Rental Qualifications” document in the prospect portal. We’ve attached documents for your review. Please contact us with any questions.</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
@@ -1112,7 +1408,7 @@ namespace ShomaRM.Models
                             filePaths.Add(rulepolicy);
                             filePaths.Add(rentalqualification);
 
-                            new EmailSendModel().SendEmailWithAttachment(GetCoappDet.Email, sub, body, filePaths);
+                            new EmailSendModel().SendEmailWithAttachment(GetApplicantData.Email, sub, body, filePaths);
                             message = "Payment Confirmation, Application agreement and Rental Qualifications";
                             if (SendMessage == "yes")
                             {
@@ -1125,10 +1421,19 @@ namespace ShomaRM.Models
                             string pass = "";
                             pass = new EncryptDecrypt().DecryptText(UserData.Password);
 
+
+                            GetApplicantData.CreditPaid = 1;
+                            db.SaveChanges();
+
+                         
                             msg = "1";
                         }
                         else if (model.FromAcc == 5)
                         {
+
+                            GetApplicantData.BackGroundPaid = 1;
+                            GetApplicantData.Paid = 1;
+
                             CoreLogicHelper _corelogichelper = new CoreLogicHelper();
                             var LeaseTermsModel = new LeaseTermsModel();
                             LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
@@ -1162,6 +1467,7 @@ namespace ShomaRM.Models
                             GetCoappDet.BackGroundPaid = 1;
                             GetCoappDet.Paid = 1;
                             GetCoappDet.BackGroungResult = result;
+
                             db.SaveChanges();
 
                             filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
@@ -1169,11 +1475,12 @@ namespace ShomaRM.Models
                             reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                             reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
                             message = "";
-                            phonenumber = GetCoappDet.Phone;
+                            phonenumber = GetApplicantData.Phone;
                             if (model != null)
                             {
+
                                 string emailBody = "";
-                                emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
+                                emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
@@ -1199,7 +1506,7 @@ namespace ShomaRM.Models
                             filePaths.Add(rulepolicy);
                             filePaths.Add(rentalqualification);
 
-                            new EmailSendModel().SendEmailWithAttachment(GetCoappDet.Email, "Your Sanctuary Rental Application and Rules and Policies", body, filePaths);
+                            new EmailSendModel().SendEmailWithAttachment(GetApplicantData.Email, "Your Sanctuary Rental Application and Rules and Policies", body, filePaths);
                             message = "Your Sanctuary Rental Application and Rules and Policies. Please check the email for detail.";
                             if (SendMessage == "yes")
                             {
@@ -1219,7 +1526,7 @@ namespace ShomaRM.Models
 
                             reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
                             string emailBody = "";
-                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
@@ -1233,7 +1540,7 @@ namespace ShomaRM.Models
                             string body = reportHTML;
 
                             //sachin m 01 may 2020
-                            new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
+                            new EmailSendModel().SendEmail(GetApplicantData.Email, sub, body);
                             message = "Sanctuary Payment Confirmation. Please check the email for detail.";
 
                             if (SendMessage == "yes")
@@ -1272,29 +1579,35 @@ namespace ShomaRM.Models
         }
 
         // Sachin M 25 june 2020
-        public async System.Threading.Tasks.Task<string> saveListPaymentFinalStep(ApplyNowModel model)
-        {
+
+        // Sachin M 29 june 2020 wsdl
+        public async Task<string> saveListPaymentFinalStep(ApplyNowModel model)
+
+            {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
 
             if (model.ProspectId != 0)
             {
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
+
+                var GetApplicantData = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
+                var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                var UserData = db.tbl_Login.Where(p => p.UserID == GetApplicantData.UserID).FirstOrDefault();
+
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
                 var GetTenantOnlineDet = db.tbl_TenantOnline.Where(c => c.ParentTOID == GetCoappDet.UserID).FirstOrDefault();
-                var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+            
                 var GetLeaseDet = db.tbl_LeaseTerms.Where(c => c.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
                 var GetState = db.tbl_State.Where(s => s.ID == GetTenantOnlineDet.StateHome).FirstOrDefault();
+
 
                 var UserData = db.tbl_Login.Where(p => p.UserID == GetCoappDet.UserID).FirstOrDefault();
                 
                 var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ID == model.PAID).FirstOrDefault();
 
-                string decrytpedCardNumber = new EncryptDecrypt().DecryptText(GetPayDetails.CardNumber);
-                string decrytpedCardMonth = new EncryptDecrypt().DecryptText(GetPayDetails.CardMonth);
-                string decrytpedCardYear = new EncryptDecrypt().DecryptText(GetPayDetails.CardYear);
-                string decryptedPayemntCardNumber = new EncryptDecrypt().DecryptText(GetPayDetails.CardNumber);
-
+                string decrytpedPMID = new EncryptDecrypt().DecryptText(GetPayDetails.PaymentID);
+               
                 decimal processingFees = 0;
 
                 if (GePropertyData != null)
@@ -1304,30 +1617,16 @@ namespace ShomaRM.Models
 
                 string transStatus = "";
                 string cardaccnum = "";
-                model.Email = GetCoappDet.Email;
+                model.Email = GetApplicantData.Email;
                 model.ProcessingFees = processingFees;
-                model.Name_On_Card = GetPayDetails.Name_On_Card;
-                if (GetPayDetails.PaymentMethod == 2)
-                {
-                    model.CardNumber = decryptedPayemntCardNumber;
-                    model.CardMonth = decrytpedCardMonth;
-                    model.CardYear = decrytpedCardYear;
-                    cardaccnum = model.CardNumber.Substring(model.CardNumber.Length - 4);
-                    transStatus = new UsaePayModel().ChargeCard(model);
-                }
-                else if (GetPayDetails.PaymentMethod == 1)
-                {
-                    model.AccountNumber = decrytpedCardNumber;
-                    model.RoutingNumber = model.CCVNumber;
-                    cardaccnum = model.AccountNumber.Substring(model.AccountNumber.Length - 4);
-                    transStatus = new UsaePayModel().ChargeACH(model);
-                }
+
+                transStatus = new UsaePayWSDLModel().PayUsingCustomerNum(GetApplicantData.CustID, decrytpedPMID,Convert.ToDecimal(model.Charge_Amount),model.Description);
 
                 String[] spearator = { "|" };
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 string bat = "";
 
-                if (strlist[1] != "000000")
+                if (strlist[0] == "Approved")
                 {
                     if (model.FromAcc == 1)
                     {
@@ -1365,7 +1664,7 @@ namespace ShomaRM.Models
                         Accounting_Date = DateTime.Now,
                         Batch = bat,
                         CreatedBy = Convert.ToInt32(GetProspectData.UserId),
-                        UserID = GetCoappDet.UserID,
+                        UserID = GetApplicantData.UserID,
                         RefNum = strlist[2],
                     };
                     db.tbl_Transaction.Add(saveTransaction);
@@ -1382,7 +1681,7 @@ namespace ShomaRM.Models
                     reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
                     string message = "";
-                    string phonenumber = GetCoappDet.Phone;
+                    string phonenumber = GetApplicantData.Phone;
                     string sub = "";
 
                     if (model.lstApp != null)
@@ -1477,12 +1776,13 @@ namespace ShomaRM.Models
                         if (model.FromAcc == 1 || model.FromAcc == 2)
                         {
                             GetProspectData.IsApplyNow = 2;
+
                             db.SaveChanges();
 
                             sub = "Sanctuary Payment Confirmation";
 
                             string emailBody = "";
-                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
@@ -1495,7 +1795,8 @@ namespace ShomaRM.Models
                             reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
                             string body = reportHTML;
 
-                            new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
+                            new EmailSendModel().SendEmail(GetApplicantData.Email, sub, body);
+
                             message = "Sanctuary Payment Confirmation. Please check the email for detail.";
                             if (SendMessage == "yes")
                             {
@@ -1515,7 +1816,7 @@ namespace ShomaRM.Models
 
                             reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
                             string emailBody = "";
-                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetCoappDet.FirstName + " " + GetCoappDet.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
+                            emailBody += "<p style=\"margin-bottom: 0px;\">Dear: " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + " this email confirmation is a notice that you have submitted a payment in the resident portal, this is not a confirmation that the payment has been processed at your bank. It may take 2-3 days before the funds have been debited from you account. Please review the payment information below and keep this email for your personal records</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment confirmation# " + strlist[2] + "</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Payment account:XXXX-" + cardaccnum + "</p>";
@@ -1529,7 +1830,7 @@ namespace ShomaRM.Models
                             string body = reportHTML;
 
                             //sachin m 01 may 2020
-                            new EmailSendModel().SendEmail(GetCoappDet.Email, sub, body);
+                            new EmailSendModel().SendEmail(GetApplicantData.Email, sub, body);
                             message = "Sanctuary Payment Confirmation. Please check the email for detail.";
 
                             if (SendMessage == "yes")
@@ -1566,6 +1867,7 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
+
         public ApplyNowModel ForgetPassword(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -2965,13 +3267,34 @@ namespace ShomaRM.Models
                     BankCCModel model = new BankCCModel();
                     model.PaymentMethod = bc.PaymentMethod;
                     model.PaymentMethodString = bc.PaymentMethod == 1 ? "Bank Account" : "Credit Card";
-                    model.Name_On_Card = bc.Name_On_Card;
-                    string decryptedBankCC = new EncryptDecrypt().DecryptText(bc.CardNumber);
-                    string decryptedMM = new EncryptDecrypt().DecryptText(bc.CardMonth);
-                    string decryptedYY= new EncryptDecrypt().DecryptText(bc.CardYear);
-                    model.CardNumber = decryptedBankCC;
-                    model.CardMonth =decryptedMM;
-                    model.CardYear = decryptedYY;
+                    model.Name_On_Card = bc.PaymentName;
+                    
+                    model.ID = bc.ID;
+                    listBankCC.Add(model);
+                }
+
+
+            }
+
+            return listBankCC;
+        }
+
+        //Sachin Mahore 08 June 2020
+        public List<BankCCModel> GetBankCCListTenant(long TenantID)
+        {
+            List<BankCCModel> listBankCC = new List<BankCCModel>();
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            var getBankCCList = db.tbl_OnlinePayment.Where(p => p.TenantID == TenantID).ToList();
+            if (getBankCCList != null)
+            {
+                foreach (var bc in getBankCCList)
+                {
+                    BankCCModel model = new BankCCModel();
+                    model.PaymentMethod = bc.PaymentMethod;
+                    model.PaymentMethodString = bc.PaymentMethod == 1 ? "Bank Account" : "Credit Card";
+                    model.Name_On_Card = bc.PaymentName;
+
                     model.ID = bc.ID;
                     listBankCC.Add(model);
                 }

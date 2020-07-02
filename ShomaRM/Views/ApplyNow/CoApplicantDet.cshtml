@@ -3829,7 +3829,7 @@
                                                         <th><b>Total Payble Amount</b></th>
                                                         <th><b><label id="totalFinalFees" style="font-weight: bold;"></label></b></th>
 
-                                                        <th><input type="button" class='btn-alltype' onclick="payFeePop(@Model.ApplicantID,5)" value="Pay Now"></th>
+                                                        <th><input type="button" class='btn-alltype' onclick="payFeePop(@Model.ApplicantID,1)" value="Pay Now"></th>
                                                         <th></th>
 
 
@@ -3947,7 +3947,7 @@
                                         <input type="checkbox" id="chkTermsAndCondition">
                                         <span class="chektext">
                                             I agree to the
-                                            <span class="span1"><a id="ShowTermsAndCondition" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <button type="submit" class="btn-alltype" id="btnpaynow" onclick="savePayment()" disabled>Pay Now</button>
+                                            <span class="span1"><a id="ShowTermsAndCondition" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <button type="submit" class="btn-alltype" id="btnpaynow" onclick="saveNewPayment()" disabled>Pay Now</button>
                                         </span>
                                     </div>
                                 </div>
@@ -4677,7 +4677,6 @@
                                 <tr>
                                     <th style="background-color: #c7cdd5;color:#3d3939">Payment Method</th>
                                     <th style="background-color: #c7cdd5;color:#3d3939">Account Name</th>
-                                    <th style="background-color: #c7cdd5;color:#3d3939">Account/Card Number</th>
 
                                     <th style="background-color: #c7cdd5;color:#3d3939">Select</th>
                                 </tr>

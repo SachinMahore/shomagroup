@@ -1136,11 +1136,9 @@ namespace ShomaRM.Models
 
                     if (GetPaymentProspectData != null)
                     {
-                        model.Name_On_Card = GetPaymentProspectData.Name_On_Card;
-                        model.CardNumber = !string.IsNullOrWhiteSpace( GetPaymentProspectData.CardNumber)?new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardNumber) :"";
-                        model.CardMonth = !string.IsNullOrWhiteSpace(GetPaymentProspectData.CardMonth) ? new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardMonth) : "";
-                        model.CardYear = !string.IsNullOrWhiteSpace(GetPaymentProspectData.CardYear) ? new EncryptDecrypt().DecryptText(GetPaymentProspectData.CardYear) : "";
-                        model.CCVNumber = !string.IsNullOrWhiteSpace(GetPaymentProspectData.CCVNumber) ? new EncryptDecrypt().DecryptText(GetPaymentProspectData.CCVNumber) : "";
+                        model.Name_On_Card = GetPaymentProspectData.PaymentName;
+                        model.CardNumber = !string.IsNullOrWhiteSpace( GetPaymentProspectData.PaymentID)?new EncryptDecrypt().DecryptText(GetPaymentProspectData.PaymentID) :"";
+
 
                     }
                     if (GetDocumentVerificationData != null)

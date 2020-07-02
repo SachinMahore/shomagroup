@@ -250,9 +250,11 @@ namespace ShomaRM.Models
 
             if (model.PID != 0)
             {
+                int userid = ShomaRM.Models.ShomaGroupWebSession.CurrentUser != null ? ShomaRM.Models.ShomaGroupWebSession.CurrentUser.UserID : 0;
                 var GetProspectData = db.tbl_ApplyNow.Where(p => p.ID == model.ProspectId).FirstOrDefault();
-                var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ProspectId == model.ProspectId).FirstOrDefault();
-                var GetPropertyDetails = db.tbl_Properties.Where(P => P.PID == 8).FirstOrDefault();
+                var GetApplicantData = db.tbl_Applicant.Where(c => c.UserID==userid).FirstOrDefault();
+                var GetPropertyDetails = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                var UserData = db.tbl_TenantOnline.Where(p => p.ParentTOID == userid).FirstOrDefault();
                 decimal processingFees = 0;
 
                 if(GetPropertyDetails!=null)
@@ -261,60 +263,92 @@ namespace ShomaRM.Models
                 }
 
                 string transStatus = "";
-                string cardaccnum = "";
-                string phonenumber = "";
-                model.Email = GetProspectData.Email;
+                string pmid = "";
+                string custID = "";
+                long paid = 0;
+                string cardaccnum = model.CardNumber.Substring(model.CardNumber.Length - 4);
+
+                model.Email = GetApplicantData.Email;
                 model.ProcessingFees = processingFees;
-                if (model.PaymentMethod == 2)
+
+                if (GetApplicantData.CustID == "" || GetApplicantData.CustID == null)
                 {
-                    cardaccnum = model.CardNumber.Substring(model.CardNumber.Length - 4);
-                    transStatus = new UsaePayModel().ChargeCard(model);
+                    TenantOnlineModel tm = new TenantOnlineModel();
+                    tm.FirstName = UserData.FirstName;
+                    tm.LastName = UserData.LastName;
+                    tm.Email = UserData.Email;
+                    tm.HomeAddress1 = UserData.HomeAddress1;
+                    tm.HomeAddress2 = UserData.HomeAddress2;
+                    tm.CityHome = UserData.CityHome;
+                    tm.ZipHome = UserData.ZipHome;
+                    if (UserData.StateHome != 0)
+                    {
+                        var statename = db.tbl_State.Where(p => p.ID == UserData.StateHome).FirstOrDefault();
+                        tm.StateString = statename.StateName;
+                    }
+                    int cid = Convert.ToInt32(UserData.Country);
+                    var countdet = db.tbl_Country.Where(p => p.ID == cid).FirstOrDefault();
+                    tm.CountryString = countdet.CountryName;
+                    custID = new UsaePayWSDLModel().CreateUsaePayAccount(tm);
+                    GetApplicantData.CustID = custID;
+                    db.SaveChanges();
                 }
-                else if (model.PaymentMethod == 1)
+                else
                 {
-                    model.AccountNumber = model.CardNumber;
-                    cardaccnum = model.AccountNumber.Substring(model.AccountNumber.Length - 4);
-                    transStatus = new UsaePayModel().ChargeACH(model);
+                    custID = GetApplicantData.CustID;
                 }
+                model.CustID = custID;
+
+                if (custID != "" || custID != null)
+                {
+
+
+                    if (model.IsSaveAcc == 1)
+                    {
+
+                        var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ApplicantID == model.AID && P.PaymentName == model.Name_On_Card).FirstOrDefault();
+
+                        if (GetPayDetails == null)
+                        {
+                            pmid = new UsaePayWSDLModel().AddCustPaymentMethod(model);
+                            var savePaymentDetails = new tbl_OnlinePayment()
+                            {
+                                PID = model.PID,
+                                PaymentName = model.Name_On_Card,
+                                PaymentID = !string.IsNullOrWhiteSpace(pmid) ? new EncryptDecrypt().EncryptText(pmid) : "",
+                                ProspectId = model.ProspectId,
+                                PaymentMethod = model.PaymentMethod,
+                                ApplicantID = model.AID,
+                            };
+                            db.tbl_OnlinePayment.Add(savePaymentDetails);
+                            db.SaveChanges();
+                            paid = savePaymentDetails.ID;
+                        }
+                        else
+                        {
+                            paid = GetPayDetails.ID;
+                            pmid = new EncryptDecrypt().DecryptText(GetPayDetails.PaymentID);
+                        }
+                        if (custID != "" & pmid != "")
+                        {
+                            transStatus = new UsaePayWSDLModel().PayUsingCustomerNum(custID, pmid, Convert.ToDecimal(model.Charge_Amount), model.Description);
+                        }
+                    }
+                    else
+                    {
+                        transStatus = new UsaePayWSDLModel().ChargeCardSoap(model);
+                    }
+                }
+
                 String[] spearator = { "|" };
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 if (strlist[1] != "000000")
                 {
-                    string opid = "1";
-                    if (GetPayDetails != null)
-                    {
-                        GetPayDetails.Name_On_Card = model.Name_On_Card;
-                        GetPayDetails.CardNumber = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "";
-                        GetPayDetails.CardMonth = !string.IsNullOrWhiteSpace(model.CardMonth) ? new EncryptDecrypt().EncryptText(model.CardMonth) : "";
-                        GetPayDetails.CardYear = !string.IsNullOrWhiteSpace(model.CardYear) ? new EncryptDecrypt().EncryptText(model.CardYear) : "";
-                        GetPayDetails.CCVNumber = !string.IsNullOrWhiteSpace(model.CCVNumber) ? new EncryptDecrypt().EncryptText(model.CCVNumber) : "";
-                        GetPayDetails.ProspectId = model.ProspectId;
-                        GetPayDetails.PaymentMethod = model.PaymentMethod;
-
-                        db.SaveChanges();
-                        opid = GetPayDetails.ID.ToString();
-                    }
-                    else
-                    {
-                        var savePaymentDetails = new tbl_OnlinePayment()
-                        {
-                            PID = model.PID,
-                            Name_On_Card = model.Name_On_Card,
-                            CardNumber = !string.IsNullOrWhiteSpace(model.CardNumber) ? new EncryptDecrypt().EncryptText(model.CardNumber) : "",
-                            CardMonth = !string.IsNullOrWhiteSpace(model.CardMonth) ? new EncryptDecrypt().EncryptText(model.CardMonth) : "",
-                            CardYear = !string.IsNullOrWhiteSpace(model.CardYear) ? new EncryptDecrypt().EncryptText(model.CardYear) : "",
-                            CCVNumber = !string.IsNullOrWhiteSpace(model.CCVNumber) ? new EncryptDecrypt().EncryptText(model.CCVNumber) : "",
-                            ProspectId = model.ProspectId,
-                            PaymentMethod = model.PaymentMethod,
-                        };
-                        db.tbl_OnlinePayment.Add(savePaymentDetails);
-                        db.SaveChanges();
-                        opid = savePaymentDetails.ID.ToString();
-                    }
+           
                     var saveTransaction = new tbl_Transaction()
                     {
                         TenantID = Convert.ToInt64(GetProspectData.UserId),
-                        PAID = opid,
+                        PAID = paid.ToString(),
                         Transaction_Date = DateTime.Now,
                         CreatedDate = DateTime.Now,
                         Credit_Amount = model.Charge_Amount,
@@ -336,7 +370,7 @@ namespace ShomaRM.Models
 
                     MyTransactionModel mm = new MyTransactionModel();
                     mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.Prorated_Rent)*model.MoveInPercentage)/100), "Prorated Rent");
-                    mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.AdministrationFee) * model.MoveInPercentage) / 100), "Administration Fee");
+                    //mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.AdministrationFee) * model.MoveInPercentage) / 100), "Administration Fee");
                     mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.Deposit) * model.MoveInPercentage) / 100), "Security Deposit");
                     mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.PetDeposit) * model.MoveInPercentage) / 100), "Pet Deposit");
                     mm.CreateTransBill(TransId, Convert.ToDecimal(((GetProspectData.VehicleRegistration) * model.MoveInPercentage) / 100), "Vehicle Registration Charges");
@@ -355,7 +389,7 @@ namespace ShomaRM.Models
 
                     reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
-                    phonenumber = GetProspectData.Phone;
+                   
                     if (model != null)
                     {
                         string emailBody = "";
@@ -383,9 +417,9 @@ namespace ShomaRM.Models
                     string message = "Sanctuary Payment Confirmation. Please check the email for detail.";
                     if (SendMessage == "yes")
                     {
-                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        if (!string.IsNullOrWhiteSpace(GetApplicantData.Phone))
                         {
-                            new TwilioService().SMS(phonenumber, message);
+                            new TwilioService().SMS(GetApplicantData.Phone, message);
                         }
                     }
                 }

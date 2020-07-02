@@ -195,11 +195,14 @@ namespace ShomaRM.Controllers
                 return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public async System.Threading.Tasks.Task<ActionResult> saveCoAppPayment(ApplyNowModel model)
+        
+        //Sachin M 26 June 2020
+        public async System.Threading.Tasks.Task<ActionResult> SaveNewPayment(ApplyNowModel model)
         {
             try
             {
-                string msg = await (new ApplyNowModel()).saveCoAppPayment(model);
+
+                string msg = await (new ApplyNowModel().SaveNewPayment(model));
                 return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -207,7 +210,20 @@ namespace ShomaRM.Controllers
                 return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        //Sachin M 29 June 2020
+        public async System.Threading.Tasks.Task<ActionResult> SaveNewPaymentFinal(ApplyNowModel model)
+        {
+            try
+            {
+                string msg = await (new ApplyNowModel().SaveNewPaymentFinal(model));
 
+                return Json(new { Msg = msg }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Msg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         //Sachin M 09 June 2020
         public async System.Threading.Tasks.Task<ActionResult> saveListPayment(ApplyNowModel model)
         {
@@ -1465,6 +1481,20 @@ namespace ShomaRM.Controllers
 
         }
 
+        //Sachin Mahore 01 July 2020
+        public ActionResult GetBankCCListTenant(long TenantID)
+        {
+            try
+            {
+                return Json(new { model = new BankCCModel().GetBankCCListTenant(TenantID) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { model = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+
+        }
         public JsonResult GetStaticApplicantValues(long id, long UID)
         {
             try

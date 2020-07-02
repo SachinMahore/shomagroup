@@ -131,7 +131,7 @@ $(document).ready(function () {
             $('#btnsaveappl').addClass('hidden');
             //modal.find('.modal-content').css("height", "760px");
             $('#divCreditCheckPayment').removeClass('hidden');
-           
+
         }
         else {
             //$("#popCCPay").modal("hide");
@@ -3569,7 +3569,7 @@ var SaveCheckPolicy = function (stepcompleted) {
         }
     });
 }
-function savePayment() {
+function saveNewPaymentFinal() {
   
     if ($("#chkTermsAndCondition2").is(':unchecked')) {
         $("#divLoader").hide();
@@ -3695,7 +3695,9 @@ function savePayment() {
             RoutingNumber: routingNumber,
             BankName: bankName,
             PaymentMethod: paymentMethod,
-          
+            AID: $("#hndApplicantID").val(),
+            FromAcc: $("#hndFromAcc").val(),
+            IsSaveAcc: $("#chkSaveAcc").is(":checked") ? "1" : "0",
             lstApp: addApplicntArray,
         };
         $.alert({
@@ -3707,7 +3709,7 @@ function savePayment() {
                     text: 'Yes',
                     action: function (yes) {
                         $.ajax({
-                            url: "/ApplyNow/SavePaymentDetails/",
+                            url: "/ApplyNow/SaveNewPaymentFinal/",
                             type: "post",
                             contentType: "application/json utf-8",
                             data: JSON.stringify(model),
@@ -5273,6 +5275,7 @@ var saveupdateApplicant = function (callFrom) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
+
             if (callFrom == 1) {
                 $("#divLoader").hide();
                 $.alert({
@@ -5330,28 +5333,32 @@ var saveupdateApplicant = function (callFrom) {
                     FromAcc: $("#hndFromAcc").val(),
                     IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
                 };
-                $.ajax({
-                    url: "/ApplyNow/saveCoAppPayment/",
-                    type: "post",
-                    contentType: "application/json utf-8",
-                    data: JSON.stringify(model),
-                    dataType: "JSON",
-                    success: function (response) {
-                        if (response.Msg != "") {
-                            if (response.Msg == "1") {
-                                $("#ResponseMsg1").html("Payment successfull");
-                                window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
-                            } else {
-                                $.alert({
-                                    title: "",
-                                    content: "Payment failed",
-                                    type: 'red'
-                                });
+                        $.ajax({
+                        url: "/ApplyNow/SaveNewPayment/",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            if (response.Msg != "") {
+                                if (response.Msg == "1") {
+                                    $("#ResponseMsg1").html("Payment successfull");
+                                   
+                                    window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
+
+                                } else {
+                                    $.alert({
+                                        title: "",
+                                        content: "Payment failed",
+                                        type: 'red'
+                                    });
+                                }
                             }
                         }
-                    }
-                });
+                    });
+
             }
+
         }
     });
 }
@@ -10588,30 +10595,10 @@ function saveCoAppPayment() {
             yes: {
                 text: 'Yes',
                 action: function (yes) {
+
                     saveupdateApplicant(2);
 
-                    //$.ajax({
-                    //    url: "/ApplyNow/saveCoAppPayment/",
-                    //    type: "post",
-                    //    contentType: "application/json utf-8",
-                    //    data: JSON.stringify(model),
-                    //    dataType: "JSON",
-                    //    success: function (response) {
-                    //        if (response.Msg != "") {
-                    //            if (response.Msg == "1") {
-                    //                $("#ResponseMsg1").html("Payment successfull");
-                                    
-                    //                //window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
-                    //            } else {
-                    //                $.alert({
-                    //                    title: "",
-                    //                    content: "Payment failed",
-                    //                    type: 'red'
-                    //                });
-                    //            }
-                    //        }
-                    //    }
-                    //});
+  
                 }
             },
             no: {
@@ -10624,7 +10611,7 @@ function saveCoAppPayment() {
     });
 }
 
-function saveCoAppPaymentPopup() {
+function saveNewPayment() {
     if ($("#chkTermsAndCondition2").is(':unchecked')) {
         $("#divLoader").hide();
         $.alert({
@@ -10763,7 +10750,7 @@ function saveCoAppPaymentPopup() {
                 text: 'Yes',
                 action: function (yes) {
                     $.ajax({
-                        url: "/ApplyNow/saveCoAppPayment/",
+                        url: "/ApplyNow/SaveNewPayment/",
                         type: "post",
                         contentType: "application/json utf-8",
                         data: JSON.stringify(model),
@@ -12068,8 +12055,7 @@ var getBankCCLists = function () {
                 var html = "<tr id='tr_" + elementValue.ID + "' data-value='" + elementValue.ID + "'>";
                 html += "<td>" + elementValue.PaymentMethodString + "</td>";
                 html += "<td>" + elementValue.Name_On_Card + "</td>";
-                html += "<td>" + MaskCardNumber(elementValue.CardNumber) + "</td>";
-                                          
+                                      
                 html += "<td><input style='background: transparent; margin-right:10px' type='radio' name='rdpay' onclick='selectPay(" + elementValue.ID + ")'></a>";
                 html += "</tr>";
                 $("#tblBankCC>tbody").append(html);
@@ -12083,9 +12069,9 @@ function savePayNewEx() {
     if ($("#hndNeEx").val() == 1) {
         if ($("#hndFinalPaybutton").val() == 1)
         {
-            savePayment();
+            saveNewPaymentFinal();
         } else {
-            saveCoAppPaymentPopup();
+            saveNewPayment();
         }
         
     } else if ($("#hndNeEx").val() == 2){

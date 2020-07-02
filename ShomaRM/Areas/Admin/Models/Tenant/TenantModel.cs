@@ -1097,6 +1097,7 @@ namespace ShomaRM.Areas.Admin.Models
                 getAppldata.IsPaystub = getAppldata1.IsPaystub;
                 getAppldata.HaveVehicle = getAppldata1.HaveVehicle;
                 getAppldata.HavePet = getAppldata1.HavePet;
+                getAppldata.ParentTenantID = getAppldata1.ParentTOID;
                 db.tbl_TenantInfo.Add(getAppldata);
                 db.SaveChanges();
                 model.TenantID = getAppldata.TenantID;
@@ -1200,7 +1201,8 @@ namespace ShomaRM.Areas.Admin.Models
                             IsPaystub = coappDet.IsPaystub,
                             HaveVehicle = coappDet.HaveVehicle,
                             HavePet = coappDet.HavePet,
-                        };
+                            ParentTenantID = coappDet.ParentTOID,
+                    };
                         db.tbl_TenantInfo.Add(createCoappTenant);
                         db.SaveChanges();
 
@@ -1288,49 +1290,46 @@ namespace ShomaRM.Areas.Admin.Models
                         {
                             foreach (var getCoappPayMeth in getCoappPaLst)
                             {
-                                if (getCoappPayMeth.PaymentMethod == 2)
-                                {
-                                    var addPaymentMethod = new tbl_PaymentAccounts()
-                                    {
+                                getCoappPayMeth.TenantID = createCoappTenant.TenantID;
+                                db.SaveChanges();
+                                //if (getCoappPayMeth.PaymentMethod == 2)
+                                //{
+                                //    var addPaymentMethod = new tbl_PaymentAccounts()
+                                //    {
 
-                                        NameOnCard = getCoappPayMeth.Name_On_Card,
-                                        CardNumber = getCoappPayMeth.CardNumber,
-                                        CardType = 1,
-                                        Month = getCoappPayMeth.CardMonth,
-                                        Year = getCoappPayMeth.CardYear,
-                                        TenantId = createCoappTenant.TenantID,
-                                        NickName = getCoappPayMeth.Name_On_Card,
-                                        AccountName = getCoappPayMeth.Name_On_Card,
-                                        PayMethod = 1,
-                                        Default = 1,
-                                        BankName = getCoappPayMeth.Name_On_Card
-                                    };
-                                    db.tbl_PaymentAccounts.Add(addPaymentMethod);
-                                    db.SaveChanges();
-                                    coapppaid = addPaymentMethod.PAID;
-                                }
-                                else
-                                {
-                                    var addPaymentMethod = new tbl_PaymentAccounts()
-                                    {
+                                //        NameOnCard = getCoappPayMeth.PaymentName,
+                                //        CardNumber = getCoappPayMeth.PaymentID,
+                                //        CardType = 1,
+                                       
+                                //        TenantId = createCoappTenant.TenantID,
+                                       
+                                //        PayMethod = 1,
+                                //        Default = 1,
+                                       
+                                //    };
+                                //    db.tbl_PaymentAccounts.Add(addPaymentMethod);
+                                //    db.SaveChanges();
+                                //    coapppaid = addPaymentMethod.PAID;
+                                //}
+                                //else
+                                //{
+                                //    var addPaymentMethod = new tbl_PaymentAccounts()
+                                //    {
 
-                                        NameOnCard = getCoappPayMeth.Name_On_Card,
-                                        AccountNumber = getCoappPayMeth.CardNumber,
-                                        CardType = 0,
-                                        Month = "",
-                                        Year = "",
-                                        TenantId = createCoappTenant.TenantID,
-                                        NickName = getCoappPayMeth.Name_On_Card,
-                                        AccountName = getCoappPayMeth.Name_On_Card,
-                                        PayMethod = 2,
-                                        Default = 1,
-                                        BankName = getCoappPayMeth.Name_On_Card,
-                                        RoutingNumber = getCoappPayMeth.CCVNumber
-                                    };
-                                    db.tbl_PaymentAccounts.Add(addPaymentMethod);
-                                    db.SaveChanges();
-                                    coapppaid = addPaymentMethod.PAID;
-                                }
+                                //        NameOnCard = getCoappPayMeth.PaymentName,
+                                //        AccountNumber = getCoappPayMeth.PaymentID,
+                                //        CardType = 0,
+                                       
+                                //        TenantId = createCoappTenant.TenantID,
+                                     
+                                //        PayMethod = 2,
+                                //        Default = 1,
+                                        
+                                //    };
+                                //    db.tbl_PaymentAccounts.Add(addPaymentMethod);
+                                //    db.SaveChanges();
+                                //    coapppaid = addPaymentMethod.PAID;
+                                //}
                             }
                         }
                         var coApptransList = db.tbl_Transaction.Where(p => p.TenantID == loginDet.UserID && p.UserID ==tl.UserID).ToList();
@@ -1388,49 +1387,8 @@ namespace ShomaRM.Areas.Admin.Models
                 long paid = 0;
                 if (getPayMeth != null)
                 {
-                    if (getPayMeth.PaymentMethod == 2)
-                    {
-                        var addPaymentMethod = new tbl_PaymentAccounts()
-                        {
-
-                            NameOnCard = getPayMeth.Name_On_Card,
-                            CardNumber = getPayMeth.CardNumber,
-                            CardType = 1,
-                            Month = getPayMeth.CardMonth,
-                            Year = getPayMeth.CardYear,
-                            TenantId = getAppldata.TenantID,
-                            NickName = getPayMeth.Name_On_Card,
-                            AccountName = getPayMeth.Name_On_Card,
-                            PayMethod = 1,
-                            Default = 1,
-                            BankName = getPayMeth.Name_On_Card
-                        };
-                        db.tbl_PaymentAccounts.Add(addPaymentMethod);
-                        db.SaveChanges();
-                        paid = addPaymentMethod.PAID;
-                    }
-                    else
-                    {
-                        var addPaymentMethod = new tbl_PaymentAccounts()
-                        {
-
-                            NameOnCard = getPayMeth.Name_On_Card,
-                            AccountNumber = getPayMeth.CardNumber,
-                            CardType = 0,
-                            Month = "",
-                            Year = "",
-                            TenantId = getAppldata.TenantID,
-                            NickName = getPayMeth.Name_On_Card,
-                            AccountName = getPayMeth.Name_On_Card,
-                            PayMethod = 2,
-                            Default = 1,
-                            BankName = getPayMeth.Name_On_Card,
-                            RoutingNumber = getPayMeth.CCVNumber
-                        };
-                        db.tbl_PaymentAccounts.Add(addPaymentMethod);
-                        db.SaveChanges();
-                        paid = addPaymentMethod.PAID;
-                    }
+                    getPayMeth.TenantID = getAppldata.TenantID;
+                    db.SaveChanges();
                 }
                 var transList = db.tbl_Transaction.Where(p => p.TenantID == loginDet.UserID).ToList();
                 if (transList != null)
