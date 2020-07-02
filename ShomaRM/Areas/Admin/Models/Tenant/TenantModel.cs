@@ -1097,6 +1097,7 @@ namespace ShomaRM.Areas.Admin.Models
                 getAppldata.IsPaystub = getAppldata1.IsPaystub;
                 getAppldata.HaveVehicle = getAppldata1.HaveVehicle;
                 getAppldata.HavePet = getAppldata1.HavePet;
+                getAppldata.ParentTenantID = getAppldata1.ParentTOID;
                 db.tbl_TenantInfo.Add(getAppldata);
                 db.SaveChanges();
                 model.TenantID = getAppldata.TenantID;
@@ -1200,7 +1201,8 @@ namespace ShomaRM.Areas.Admin.Models
                             IsPaystub = coappDet.IsPaystub,
                             HaveVehicle = coappDet.HaveVehicle,
                             HavePet = coappDet.HavePet,
-                        };
+                            ParentTenantID = coappDet.ParentTOID,
+                    };
                         db.tbl_TenantInfo.Add(createCoappTenant);
                         db.SaveChanges();
 

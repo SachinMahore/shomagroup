@@ -2960,23 +2960,7 @@ function makeOneTimePaymentSaveUpdate() {
         PAID: $('#ddlPaymentMethod').val()
     };
 
-    $.ajax({
-        url: '/PaymentAccounts/EditPaymentsAccounts',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            cardName = response.model.NameOnCard,
-                cardNumber = response.model.CardNumber,
-                cardMonth = response.model.Month,
-                cardYear = response.model.Year,
-                accountName = response.model.AccountName,
-                bankName = response.model.BankName,
-                accountNumber = response.model.AccountNumber,
-                routingNumber = response.model.RoutingNumber
-        }
-    });
+
 
     var msg = "";
     var transid = $("#hndTransID").val();
@@ -2984,8 +2968,7 @@ function makeOneTimePaymentSaveUpdate() {
     var unitid = $("#ddlUnit").val();
     var tenantid = $("#hndTenantID").val();
     var leaseId = $("#hndLID").val();
-    var revision_num = 1;
-    var transtype = $("#ddlPaymentMethod").val();
+   
     var chargeDate = $("#txtPrefarredDate").val();
     var chargeType = $("#hndChargeType").val();
     var chargeAmount = unformatText($("#txtChargeAmount").val());
@@ -3039,20 +3022,13 @@ function makeOneTimePaymentSaveUpdate() {
         PropertyID: propertyid,
         UnitID: unitid,
         TenantID: tenantid,
-        LeaseID: leaseId,
-        Revision_Num: revision_num,
-        Transaction_Type: transtype,
+ 
         Charge_Date: chargeDate,
-        Charge_Type: chargeType,
+      
         Charge_Amount: amount,
         Summary_Charge_Type: summaryCharge,
         Description: desc,
-        NameOnCardString: cardName,
-        NumberOnCardString: cardNumber,
-        ExpirationMonthOnCardString: cardMonth,
-        ExpirationYearOnCardString: cardYear,
-        BankName: bankName,
-        RoutingNumber: routingNumber,
+
         CCVNumber: CVVFromPayMethod,
         Batch: $("#hdnARId").val(),
         TMPID: $("#hndRecId").val(),
