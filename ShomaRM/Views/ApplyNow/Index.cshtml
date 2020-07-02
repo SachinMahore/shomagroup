@@ -1,5 +1,4 @@
 ﻿@using ShomaRM.Models
-@using ShomaRM.Models
 @model OnlineProspectModule
 @{
     ViewBag.Title = "Apply Now";
@@ -153,7 +152,7 @@
                             <div class="form-group">
                                 <div class="col-md-2">
                                 </div>
-                                <h5 class="col-md-4 cust-black">Compare floor plans : Select up to three to compare</h5>
+                                <h5 class="col-md-4">Compare floor plans : Select up to three to compare</h5>
                                 <div class="col-md-4"><a href="javascript:void(0);" data-toggle="modal" data-target="#popModelCompare" style="padding: 5px;" class="btn-success btn" id="btncompare"></a>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-cancle btn" style="margin-top: 0px;" id="btncompCancel" onclick="getPropertyModelUnitList()"> Cancel</button></div>
                                 <div class="col-md-2">
                                 </div>
@@ -506,7 +505,7 @@
                                 <div class="panel-heading">
                                     <p style="font-size: 12px; padding-top:10px;">We are now ready to select your personalized options. But before we do,<br>let's make sure you are registered so you don't loose all your information.</p>
                                     <p style="font-size: 12px; padding-top:10px;">Enter and register your information and a quote will then be provided to you.</p>
-                                    <p style="font-size: 12px; padding-top:10px;">REGISTER BELOW OR <a class="cust-link" href="javascript:void(0);" id="btnsignInAppl">SIGN IN</a></p>
+                                    <p style="font-size: 12px; padding-top:10px;">REGISTER BELOW OR <a href="javascript:void(0);" id="btnsignInAppl">SIGN IN</a></p>
 
                                 </div>
                             </div>
@@ -1453,7 +1452,7 @@
                         <p>
                             <i>
                                 *The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved.
-                                <br />**The Security Deposit may be bonded using the SureDeposit Program. Please contact by phone (866) 312-3090 or email <a class="cust-link" href="mailto:SelectDeposit@Assurant.com">SelectDeposit@Assurant.com</a>. The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.
+                                <br />**The Security Deposit may be bonded using the SureDeposit Program. Please contact by phone (866) 312-3090 or email <a href="mailto:SelectDeposit@Assurant.com">SelectDeposit@Assurant.com</a>. The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.
                             </i>
                         </p>
                         <p>
@@ -1528,7 +1527,6 @@
                                                 <table class="table" cellspacing="0" style="width:100%;overflow-x:scroll">
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rental qualifications</span></td>
-
                                                         <td><a href="javascript:void(0)" id="rentalQulification" onclick="createESignPolicyAndAgreement(true)"><span>Sign</span></a></td>
                                                         <td><a href="javascript:void(0)" onclick="getESignAgreePolicyDownloadData(true)" >Download</a></td>
                                                         <td><a href="javascript:void(0)" onclick="getESignAgreePolicyPrintData(true)">Print</a></td>
@@ -1538,7 +1536,6 @@
                                                         <td><a href="javascript:void(0)" id="rulesPolicy" onclick="createESignPolicyAndAgreement(false)"><span>Sign</span></a></td>
                                                         <td><a href="javascript:void(0)" onclick="getESignAgreePolicyDownloadData(false)">Download</a></td>
                                                         <td><a href="javascript:void(0)" onclick="getESignAgreePolicyPrintData(false)">Print</a></td>
-
                                                     </tr>
                                                 </table>
                                                 <input id="hdnAgreePoli" type="hidden" value="" />
@@ -1639,33 +1636,19 @@
                                 </div>
                             </div>
                         </div>
-                        @*<div id="divAppWarning" class="col-sm-12 @(Model.CreditResult == "Accept" ? "hidden" : "") pt-4">
-            @if (Model.CreditResult == "")
-            {
-                <h3 class="panel-title pull-right">Please click on ‘Edit/Complete Information’, located on the Primary Application card, to proceed to the Credit Check.</h3>
-            }
-            else if (Model.CreditResult == "Conditional")
-            {
-                <h3 class="panel-title pull-right">Your Credit Check result is conditional. Please contact Administrator.</h3>
-            }
-            else if (Model.CreditResult == "Pending")
-            {
-                <h3 class="panel-title pull-right">Your Credit Check result is pending please wait.</h3>
-            }
-        </div>
-        <div class="row m-t-30">
-            <div class="col-sm-12 button-box-wrapper ">
-                <div class="pull-left text-center">
-                    <button type="submit" class="btn-alltype wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
-                </div>
-                <div class="pull-right text-center">
-                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>
-                    <button type="submit" class="btn-alltype @(Model.CreditResult != "Accept" ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
-                </div>
-            </div>
-        </div>*@
-                        <div id="divAppWarning" class="col-sm-12 @(Model.CreditPaid != 0 ? "hidden" : "") pt-4">
-                            <h3 class="panel-title pull-right">Please click on ‘Edit/Complete Information’, located on the Primary Application card, to proceed to the Credit Check.</h3>
+                        <div id="divAppWarning" class="col-sm-12 @(Model.CreditResult == "Accept" ? "hidden" : "") pt-4">
+                            @if (Model.CreditResult == "")
+                            {
+                                <h3 class="panel-title pull-right">Please click on ‘Edit/Complete Information’, located on the Primary Application card, to proceed to the Credit Check.</h3>
+                            }
+                            else if (Model.CreditResult == "Conditional")
+                            {
+                                <h3 class="panel-title pull-right">Your Credit Check result is conditional. Please contact Administrator.</h3>
+                            }
+                            else if (Model.CreditResult == "Pending")
+                            {
+                                <h3 class="panel-title pull-right">Your Credit Check result is pending please wait.</h3>
+                            }
                         </div>
                         <div class="row m-t-30">
                             <div class="col-sm-12 button-box-wrapper ">
@@ -1674,7 +1657,7 @@
                                 </div>
                                 <div class="pull-right text-center">
                                     @*<button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>*@
-                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
+                                    <button type="submit" class="btn-alltype @(Model.CreditResult != "Accept" ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2964,8 +2947,7 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
-                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(9,9,0)">Edit</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(9,9,0)">&nbsp;&nbsp;Edit</a></a>
                                                 </h3>
                                             </div>
                                             <div id="collapse3" class="panel-collapse collapse">
@@ -2989,8 +2971,7 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
-                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(8,8,0)">Edit</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(8,8,0)">&nbsp;&nbsp;Edit</a></a>
                                                 </h3>
                                             </div>
                                             <div id="collapse2" class="panel-collapse collapse">
@@ -3020,8 +3001,7 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
-                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
                                                 </h3>
                                             </div>
                                             <div id="collapse4" class="panel-collapse collapse" style="padding-left:15px;padding-right: 15px;">
@@ -3095,16 +3075,14 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
-                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(11,11,0)">Edit</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(11,11,0)">&nbsp;&nbsp;Edit</a></a>
                                                 </h3>
                                             </div>
                                             <div id="collapse5" class="panel-collapse collapse">
                                                 <div class="panel panel-default accordian-border-group" style="padding-left:15px;padding-right: 15px;margin-top: 6px;">
                                                     <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                         <h3 class="panel-title">
-                                                            <a class="cust-link" data-parent="#accordion">Current Employment & Income<i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
-                                                            <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a>
+                                                            <a data-parent="#accordion">Current Employment & Income<i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
                                                         </h3>
                                                     </div>
                                                     <div id="collapse51">
@@ -3143,8 +3121,7 @@
                                                 <div class="panel panel-default accordian-border-group" style="padding-left:15px;padding-right: 15px;margin-top: 6px;">
                                                     <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                         <h3 class="panel-title">
-                                                            <a class="cust-link" data-parent="#accordion">Previous Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
-                                                            <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a>
+                                                            <a data-parent="#accordion">Previous Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
                                                         </h3>
                                                     </div>
                                                     <div id="collapse52">
@@ -3176,8 +3153,7 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
-                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(12,12,0)">Edit</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(12,12,0)">&nbsp;&nbsp;Edit</a></a>
                                                 </h3>
                                             </div>
                                             <div id="collapse6" class="panel-collapse collapse">
@@ -3198,8 +3174,7 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
-                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(13,13,0)">Edit</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(13,13,0)">&nbsp;&nbsp;Edit</a></a>
                                                 </h3>
                                             </div>
                                             <div id="collapse7" class="panel-collapse collapse">
@@ -3227,8 +3202,7 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
-                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(14,14,0)">Edit</a>
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(14,14,0)">&nbsp;&nbsp;Edit</a></a>
                                                 </h3>
                                             </div>
                                             <div id="collapse8" class="panel-collapse collapse">
@@ -4329,7 +4303,108 @@
                                     </div>
 
                                 </div>
-                         
+                                <div class="col-sm-12 hidden">
+                                    <input type="hidden" id="hndTransID" value="0" />
+                                    <input type="hidden" id="hndTransMethod" value="2" />
+                                    <div class="col-sm-12">
+                                        <div class="dot-hr"></div>
+                                        <br />
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="button" class='btn-alltype' id="chkBank" onclick="clearBank()" value="Bank Account">
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="button" class='btn-alltype active' id="chkACH" onclick="clearCard()" value="Credit Card">
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <br />
+                                        <div class="dot-hr"></div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label id="lblPaymentDet">Enter Credit Card Details.</label>
+
+                                    </div>
+                                    <div class="col-sm-12 hidden" id="divBank">
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label class="star">Bank Name</label>
+                                                <input id="txtBankName" type="text" class="form-control" placeholder="Bank Name" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label id="lblAccCardname" class="star">Account Name</label>
+                                                <input id="txtAccountName" type="text" class="form-control" placeholder="Account Name" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label id="lblAccCardnum" class="star">Account Number</label>
+                                                <input id="txtAccountNumber" type="text" class="form-control" placeholder="Account Number" onkeypress="return isOnlyNumber(event)" maxlength="29" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label>Routing Number</label>
+                                                <input id="txtRoutingNumber" type="text" class="form-control" placeholder="Routing Number" maxlength="9" onkeypress="return isNumber(event)" value="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12" id="divCard">
+                                        <div class="form-group col-sm-3">
+                                            <label for="name" class="star">Name on Card</label>
+                                            <input type="text" class="form-control" id="txtNameonCard" placeholder="Name on Card" value="">
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <label for="cardnumber" class="star">Card Number</label>
+                                            <input type="text" class="form-control" id="txtCardNumber" placeholder="Card Number" onkeypress="return isOnlyNumber(event)" maxlength="16" value="">
+                                        </div>
+                                        <div class="form-group col-sm-2">
+                                            <label for="cardmonth">Card Month</label>
+                                            <select id="ddlcardmonth" class="form-control form-control-small">
+                                                <option value='01'>01</option>
+                                                <option value='02'>02</option>
+                                                <option value='03'>03</option>
+                                                <option value='04'>04</option>
+                                                <option value='05'>05</option>
+                                                <option value='06'>06</option>
+                                                <option value='07'>07</option>
+                                                <option value='08'>08</option>
+                                                <option value='09'>09</option>
+                                                <option value='10'>10</option>
+                                                <option value='11'>11</option>
+                                                <option value='12'>12</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-2">
+                                            <label for="cardyear">Card Year</label>
+                                            <select id="ddlcardyear" class="form-control form-control-small">
+                                                @for (int i = DateTime.Now.Year; i <= DateTime.Now.AddYears(5).Year; i++)
+                                            {
+                                                    <option value="@(i.ToString().Substring(2,2))">@i</option>
+
+                                            }
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-2">
+                                            <label for="txtCcvNumber" class="star">CVV Number</label>
+                                            <input type="password" class="form-control" id="txtCCVNumber" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <div class="dot-hr"></div>
+                                    </div>
+                                    <div class="col-sm-12" style="margin-bottom:20px">
+                                        <input type="checkbox" id="chkTermsAndCondition">
+                                        <span class="chektext">
+                                            I agree to the
+                                            <span class="span1"><a id="ShowTermsAndCondition" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <button type="submit" class="btn-alltype" id="btnpaynow" onclick="savePayment()" disabled>Pay Now</button>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-sm-12 hidden" id="Divtranslist">
                                 <br />
@@ -4706,7 +4781,7 @@
                     <div class="pull-left text-center">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="chkAgreePetTerms" style="margin-top: 7PX; margin-left: -179px;"> <a class="cust-link" id="btnShowPetPolicy" href="javascript:void(0);" style="color:#4d738a !important"> I have read and agree to Sanctuary Doral's <u>Pet Policy.</u></a>
+                                <input type="checkbox" id="chkAgreePetTerms" style="margin-top: 7PX; margin-left: -179px;"> <a id="btnShowPetPolicy" href="javascript:void(0);" style="color:black !important"> I have read and agree to Sanctuary Doral's <u>Pet Policy.</u></a>
                             </label>
                         </div>
                     </div>
@@ -5053,7 +5128,8 @@
                                 <tr>
                                     <th style="background-color: #c7cdd5;color:#3d3939">Payment Method</th>
                                     <th style="background-color: #c7cdd5;color:#3d3939">Account Name</th>
-                                    
+                                    <th style="background-color: #c7cdd5;color:#3d3939">Account/Card Number</th>
+
                                     <th style="background-color: #c7cdd5;color:#3d3939">Select</th>
                                 </tr>
                             </thead>
@@ -5147,16 +5223,15 @@
                             <label for="txtCcvNumber2" class="star">CVV Number</label>
                             <input type="password" class="form-control" id="txtCCVNumber2" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
                         </div>
-                      
-                    </div>
-                    <div class="col-sm-12" id="divChkSaveAcc" style="margin-left: -15px;">
-                        <input type="checkbox" id="chkSaveAcc">
-                        <span class="chektext">
-                            Save Account Information
-                        </span>
+                        <div class="col-sm-12" id="divChkSaveAcc" style="margin-left: -15px;">
+                            <input type="checkbox" id="chkSaveAcc">
+                            <span class="chektext">
+                                Save Account Information
+                            </span>
+                        </div>
                     </div>
                 </div>
-            
+                
                 <div class="col-sm-12" style="margin-bottom:20px;margin-left: 15px;">
                     <input type="checkbox" id="chkTermsAndCondition2">
                     <span class="chektext">
@@ -5620,7 +5695,7 @@
 
                             <p style="font-size:large; color:#838383;"><b><u><span style="color:black; font-weight:600;">RENTAL QUALIFICATION STANDARDS :</span></u> </b> <span style="font-size:small">(Please note that although these are significant in the decision making, they are not all-inclusive.)</span></p>
                             <p style="font-size:small;">
-                                <ul type="1" style="color:#000;">
+                                <ul type="1" style="color:#838383;">
                                     <li><span style="color:black; font-weight:600;">LEGAL AGE :</span>   All applicants must be of legal age (with exception of proof of emancipation as defined by the state).  Every person 18 years of age or older who will be residing in the apartment must complete an application.  Additional residents under the age of 18 years of age will be named on the lease as a minor.</li>
                                     <li><span style="color:black; font-weight:600;">IDENTIFICATION :</span>   All applicants will be required to show a driver’s license, passport, and/or government-issued photo identification AND a valid United States Social Security Number or ITIN (Individual Taxpayer Identification Number).  Minors will be required to show proof of age. </li>
                                     <li><span style="color:black; font-weight:600;">INCOME :</span>   All applicants must have a combined verifiable source of income in an amount equal to at least 3 times the monthly payment.  If applicants do not meet this criterion, they may provide a Guarantor which must have a combined verifiable source of income in an amount equal to at least 5 times the monthly payment.  Guarantor must sign the Guarantor Addendum to the lease. In order to verify income, applicant/co-applicant/guarantor will be asked to provide the last three pay stubs from your current employment.  If unemployed with passive income or self-employed, they will be required to provide the last 2 years of the personal income tax return.</li>
@@ -5662,7 +5737,7 @@
                             <p style="font-size:large"><b>PET POLICY</b> </p>
                             <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">PET POLICY :</span> We are a pet friendly community and allow two (2) pets (dog or cat) per unit not to exceed a combined weight of forty pounds (40 lbs.) Ferrets, snakes and other reptiles, rabbits and some birds are not allowed on the community’s premises. Assistive animals are not subject to the weight restriction.  </p>
                             <p style="font-size:small; color:#838383;">
-                                <ul type="" style="color:#000;">
+                                <ul type="" style="color:#838383;">
                                     <li>A $500 non-refundable pet fee for one pet or $750 for two pets will be required to be paid prior to move in.   </li>
                                     <li>A one-time DNA per pet fee of $@((Model.PetDNAAmt ?? 0).ToString("0.00")) is due at the time of move in. </li>
                                     <li>A monthly pet rent of $20.00 for 1 pet and $40 for 2 pets will be charged for the term of the lease while the pet(s) occupy the apartment. </li>
@@ -6316,7 +6391,6 @@
     </div>
 </div>
 
-
 <div class="modal" id="modalAgreementPolicy">
     <div class="modal-dialog  modal-xl">
         <div class="modal-content">
@@ -6332,7 +6406,6 @@
         </div>
     </div>
 </div>
-
 <style>
     @@media (min-width: 768px) {
         .modal-dialog {
