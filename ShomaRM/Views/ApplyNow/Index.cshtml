@@ -153,7 +153,7 @@
                             <div class="form-group">
                                 <div class="col-md-2">
                                 </div>
-                                <h5 class="col-md-4">Compare floor plans : Select up to three to compare</h5>
+                                <h5 class="col-md-4 cust-black">Compare floor plans : Select up to three to compare</h5>
                                 <div class="col-md-4"><a href="javascript:void(0);" data-toggle="modal" data-target="#popModelCompare" style="padding: 5px;" class="btn-success btn" id="btncompare"></a>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn-cancle btn" style="margin-top: 0px;" id="btncompCancel" onclick="getPropertyModelUnitList()"> Cancel</button></div>
                                 <div class="col-md-2">
                                 </div>
@@ -506,7 +506,7 @@
                                 <div class="panel-heading">
                                     <p style="font-size: 12px; padding-top:10px;">We are now ready to select your personalized options. But before we do,<br>let's make sure you are registered so you don't loose all your information.</p>
                                     <p style="font-size: 12px; padding-top:10px;">Enter and register your information and a quote will then be provided to you.</p>
-                                    <p style="font-size: 12px; padding-top:10px;">REGISTER BELOW OR <a href="javascript:void(0);" id="btnsignInAppl">SIGN IN</a></p>
+                                    <p style="font-size: 12px; padding-top:10px;">REGISTER BELOW OR <a class="cust-link" href="javascript:void(0);" id="btnsignInAppl">SIGN IN</a></p>
 
                                 </div>
                             </div>
@@ -1453,7 +1453,7 @@
                         <p>
                             <i>
                                 *The Administration fee is due to reserve your apartment for a maximum of 30 days, once approved.
-                                <br />**The Security Deposit may be bonded using the SureDeposit Program. Please contact by phone (866) 312-3090 or email <a href="mailto:SelectDeposit@Assurant.com">SelectDeposit@Assurant.com</a>. The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.
+                                <br />**The Security Deposit may be bonded using the SureDeposit Program. Please contact by phone (866) 312-3090 or email <a class="cust-link" href="mailto:SelectDeposit@Assurant.com">SelectDeposit@Assurant.com</a>. The Client Support Team is available Monday through Friday 9am-6pm ET to assist you.
                             </i>
                         </p>
                         <p>
@@ -1528,15 +1528,15 @@
                                                 <table class="table" cellspacing="0" style="width:100%;overflow-x:scroll">
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rental qualifications</span></td>
-                                                        <td><label style="color: #1F1F1F;font-weight: bold;cursor:default;">Sign</label></td>
-                                                        <td><a href="javascript:void(0)" onclick="saveToDiskPDF('/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf','RentalQualifications.pdf')" >Download</a></td>
-                                                        <td><a data-toggle="modal" data-target="#modalRentalQualificationPolicy" href="javascript:void(0);" id="printRentalQualificationPolicy">Print</a></td>
+                                                        <td><a class="cust-link" href="javascript:void(0)" id="rentalQulification" onclick="createESignPolicyAndAgreement(true)"><span>Sign</span></a></td>
+                                                        <td><a class="cust-link" href="javascript:void(0)" onclick="saveToDiskPDF('/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf','RentalQualifications.pdf')" >Download</a></td>
+                                                        <td><a class="cust-link" data-toggle="modal" data-target="#modalRentalQualificationPolicy" href="javascript:void(0);" id="printRentalQualificationPolicy">Print</a></td>
                                                     </tr>
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rules and Policies</span></td>
-                                                        <td><label style="color: #1F1F1F;font-weight: bold;cursor:default;">Sign</label></td>
-                                                        <td><a href="javascript:void(0)" onclick="saveToDiskPDF('/Content/assets/img/Policy/Rules_Policies_fragmented.pdf','RulesPolicies.pdf')" >Download</a></td>
-                                                        <td><a data-toggle="modal" data-target="#modalRulesAndPolicy" href="javascript:void(0);" id="print">Print</a></td>
+                                                        <td><a class="cust-link" href="javascript:void(0)" id="rulesPolicy" onclick="createESignPolicyAndAgreement(false)"><span>Sign</span></a></td>
+                                                        <td><a class="cust-link" href="javascript:void(0)" onclick="saveToDiskPDF('/Content/assets/img/Policy/Rules_Policies_fragmented.pdf','RulesPolicies.pdf')" >Download</a></td>
+                                                        <td><a class="cust-link" data-toggle="modal" data-target="#modalRulesAndPolicy" href="javascript:void(0);" id="print">Print</a></td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -2965,7 +2965,8 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(9,9,0)">&nbsp;&nbsp;Edit</a></a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
+                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(9,9,0)">Edit</a>
                                                 </h3>
                                             </div>
                                             <div id="collapse3" class="panel-collapse collapse">
@@ -2989,7 +2990,8 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(8,8,0)">&nbsp;&nbsp;Edit</a></a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Responsibility <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
+                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(8,8,0)">Edit</a>
                                                 </h3>
                                             </div>
                                             <div id="collapse2" class="panel-collapse collapse">
@@ -3019,7 +3021,8 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse4">Residence History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
+                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a>
                                                 </h3>
                                             </div>
                                             <div id="collapse4" class="panel-collapse collapse" style="padding-left:15px;padding-right: 15px;">
@@ -3093,14 +3096,16 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(11,11,0)">&nbsp;&nbsp;Edit</a></a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
+                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(11,11,0)">Edit</a>
                                                 </h3>
                                             </div>
                                             <div id="collapse5" class="panel-collapse collapse">
                                                 <div class="panel panel-default accordian-border-group" style="padding-left:15px;padding-right: 15px;margin-top: 6px;">
                                                     <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                         <h3 class="panel-title">
-                                                            <a data-parent="#accordion">Current Employment & Income<i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
+                                                            <a class="cust-link" data-parent="#accordion">Current Employment & Income<i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
+                                                            <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a>
                                                         </h3>
                                                     </div>
                                                     <div id="collapse51">
@@ -3139,7 +3144,8 @@
                                                 <div class="panel panel-default accordian-border-group" style="padding-left:15px;padding-right: 15px;margin-top: 6px;">
                                                     <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                         <h3 class="panel-title">
-                                                            <a data-parent="#accordion">Previous Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
+                                                            <a class="cust-link" data-parent="#accordion">Previous Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
+                                                            <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a>
                                                         </h3>
                                                     </div>
                                                     <div id="collapse52">
@@ -3171,7 +3177,8 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(12,12,0)">&nbsp;&nbsp;Edit</a></a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse6">Emergency Contact <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
+                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(12,12,0)">Edit</a>
                                                 </h3>
                                             </div>
                                             <div id="collapse6" class="panel-collapse collapse">
@@ -3192,7 +3199,8 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(13,13,0)">&nbsp;&nbsp;Edit</a></a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse7">Vehicle Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
+                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(13,13,0)">Edit</a>
                                                 </h3>
                                             </div>
                                             <div id="collapse7" class="panel-collapse collapse">
@@ -3220,7 +3228,8 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(14,14,0)">&nbsp;&nbsp;Edit</a></a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse8">Pet Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i></a>
+                                                    <a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(14,14,0)">Edit</a>
                                                 </h3>
                                             </div>
                                             <div id="collapse8" class="panel-collapse collapse">
@@ -4799,7 +4808,7 @@
                     <div class="pull-left text-center">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="chkAgreePetTerms" style="margin-top: 7PX; margin-left: -179px;"> <a id="btnShowPetPolicy" href="javascript:void(0);" style="color:black !important"> I have read and agree to Sanctuary Doral's <u>Pet Policy.</u></a>
+                                <input type="checkbox" id="chkAgreePetTerms" style="margin-top: 7PX; margin-left: -179px;"> <a class="cust-link" id="btnShowPetPolicy" href="javascript:void(0);" style="color:#4d738a !important"> I have read and agree to Sanctuary Doral's <u>Pet Policy.</u></a>
                             </label>
                         </div>
                     </div>
@@ -5713,7 +5722,7 @@
 
                             <p style="font-size:large; color:#838383;"><b><u><span style="color:black; font-weight:600;">RENTAL QUALIFICATION STANDARDS :</span></u> </b> <span style="font-size:small">(Please note that although these are significant in the decision making, they are not all-inclusive.)</span></p>
                             <p style="font-size:small;">
-                                <ul type="1" style="color:#838383;">
+                                <ul type="1" style="color:#000;">
                                     <li><span style="color:black; font-weight:600;">LEGAL AGE :</span>   All applicants must be of legal age (with exception of proof of emancipation as defined by the state).  Every person 18 years of age or older who will be residing in the apartment must complete an application.  Additional residents under the age of 18 years of age will be named on the lease as a minor.</li>
                                     <li><span style="color:black; font-weight:600;">IDENTIFICATION :</span>   All applicants will be required to show a driver’s license, passport, and/or government-issued photo identification AND a valid United States Social Security Number or ITIN (Individual Taxpayer Identification Number).  Minors will be required to show proof of age. </li>
                                     <li><span style="color:black; font-weight:600;">INCOME :</span>   All applicants must have a combined verifiable source of income in an amount equal to at least 3 times the monthly payment.  If applicants do not meet this criterion, they may provide a Guarantor which must have a combined verifiable source of income in an amount equal to at least 5 times the monthly payment.  Guarantor must sign the Guarantor Addendum to the lease. In order to verify income, applicant/co-applicant/guarantor will be asked to provide the last three pay stubs from your current employment.  If unemployed with passive income or self-employed, they will be required to provide the last 2 years of the personal income tax return.</li>
@@ -5755,7 +5764,7 @@
                             <p style="font-size:large"><b>PET POLICY</b> </p>
                             <p style="font-size:small; color:#838383;"><span style="color:black; font-weight:600;">PET POLICY :</span> We are a pet friendly community and allow two (2) pets (dog or cat) per unit not to exceed a combined weight of forty pounds (40 lbs.) Ferrets, snakes and other reptiles, rabbits and some birds are not allowed on the community’s premises. Assistive animals are not subject to the weight restriction.  </p>
                             <p style="font-size:small; color:#838383;">
-                                <ul type="" style="color:#838383;">
+                                <ul type="" style="color:#000;">
                                     <li>A $500 non-refundable pet fee for one pet or $750 for two pets will be required to be paid prior to move in.   </li>
                                     <li>A one-time DNA per pet fee of $@((Model.PetDNAAmt ?? 0).ToString("0.00")) is due at the time of move in. </li>
                                     <li>A monthly pet rent of $20.00 for 1 pet and $40 for 2 pets will be charged for the term of the lease while the pet(s) occupy the apartment. </li>
@@ -6408,6 +6417,7 @@
         </div>
     </div>
 </div>
+
 <style>
     @@media (min-width: 768px) {
         .modal-dialog {

@@ -106,7 +106,7 @@ a {
 p {
     font-size: 14px;
     font-weight: 400;
-    color: #8d8d90;
+    color: black!important;
     margin-bottom: 24px;
     margin-top: 10px;
     font-family: 'Oxygen', sans-serif;
@@ -233,7 +233,7 @@ h3, .h3 {
 
     .panel.sidebar-menu .panel-heading h1, .panel.sidebar-menu .panel-heading h2, .panel.sidebar-menu .panel-heading h3, .panel.sidebar-menu .panel-heading h4, .panel.sidebar-menu .panel-heading h5 {
         display: inline-block;
-        border-bottom: solid 3px #6C6E72;
+        border-bottom: solid 3px black !important;
         line-height: 1.1;
         margin-bottom: 0;
         padding-bottom: 10px;
@@ -241,7 +241,7 @@ h3, .h3 {
         text-transform: capitalize;
         letter-spacing: 2px;
         font-weight: 400;
-        color: #8d8d90;
+        color: black !important;
         font-family: 'Oxygen', sans-serif;
         font-size: 22px;
     }
@@ -1271,4 +1271,8 @@ li.nav-item-sub {
 
 .custPad {
     padding: 4px !important;
+}
+
+.h2.cust-black{
+    color:black!important;
 }
