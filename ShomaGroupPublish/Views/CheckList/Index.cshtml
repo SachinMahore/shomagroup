@@ -342,8 +342,7 @@
                                 <tr>
                                     <th style="background-color: #c7cdd5;color:#3d3939">Payment Method</th>
                                     <th style="background-color: #c7cdd5;color:#3d3939">Account Name</th>
-                                    <th style="background-color: #c7cdd5;color:#3d3939">Account/Card Number</th>
-
+                                   
                                     <th style="background-color: #c7cdd5;color:#3d3939">Select</th>
                                 </tr>
                             </thead>
@@ -1657,8 +1656,7 @@
                     var html = "<tr id='tr_" + elementValue.ID + "' data-value='" + elementValue.ID + "'>";
                     html += "<td>" + elementValue.PaymentMethodString + "</td>";
                     html += "<td>" + elementValue.Name_On_Card + "</td>";
-                    html += "<td>" + MaskCardNumber(elementValue.CardNumber) + "</td>";
-
+                   
                     html += "<td><input style='background: transparent; margin-right:10px' type='radio' name='rdpay' onclick='selectPay(" + elementValue.ID + ")'></a>";
                     html += "</tr>";
                     $("#tblBankCC>tbody").append(html);
@@ -1724,7 +1722,7 @@
             ProspectID: prospectID,
             Description: description,
             AID: $("#hndAID").val(),
-            FromAcc: $("#hndFromAcc").val(),
+            FromAcc:2,
             PAID: $("#hndPAID").val(),
         };
 
@@ -1756,7 +1754,7 @@
                                         $("#divLoader").hide();
                                         $.alert({
                                             title: "",
-                                            content: response.Msg,
+                                            content: "Payment Successfull",
                                             type: 'red'
                                         });
                                         $("#popPayNow").modal("hide");

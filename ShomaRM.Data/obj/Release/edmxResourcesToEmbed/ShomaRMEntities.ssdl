@@ -84,6 +84,7 @@
     <Property Name="BackGroundPaid" Type="int" />
     <Property Name="AdminFee" Type="decimal" Precision="18" Scale="2" />
     <Property Name="AdminFeePercentage" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CustID" Type="varchar" MaxLength="10" />
     <Property Name="CreditResult" Type="varchar" MaxLength="50" />
     <Property Name="BackGroungResult" Type="varchar" MaxLength="50" />
   </EntityType>
@@ -401,6 +402,21 @@
     <Property Name="DateSigned" Type="varchar" MaxLength="100" />
     <Property Name="IsLeaseExecuted" Type="int" />
     <Property Name="DateDocumentCreated" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbl_ESignPolicyAgreement">
+    <Key>
+      <PropertyRef Name="ESPAID" />
+    </Key>
+    <Property Name="ESPAID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenantID" Type="bigint" />
+    <Property Name="ApplicantID" Type="bigint" />
+    <Property Name="Key" Type="varchar(max)" />
+    <Property Name="EsignatureId" Type="nvarchar(max)" />
+    <Property Name="DateSigned" Type="varchar" MaxLength="100" />
+    <Property Name="LeaseID" Type="bigint" />
+    <Property Name="Type" Type="varchar" MaxLength="100" />
+    <Property Name="IsAgreementOrPolicy" Type="int" />
+    <Property Name="UserID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_Estimate">
     <Key>
@@ -755,14 +771,12 @@
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PID" Type="bigint" />
-    <Property Name="Name_On_Card" Type="nvarchar" MaxLength="29" />
-    <Property Name="CardNumber" Type="nvarchar" MaxLength="255" />
-    <Property Name="CardMonth" Type="nvarchar" MaxLength="255" />
-    <Property Name="CardYear" Type="nvarchar" MaxLength="255" />
-    <Property Name="CCVNumber" Type="nvarchar" MaxLength="255" />
+    <Property Name="PaymentName" Type="nvarchar" MaxLength="29" />
+    <Property Name="PaymentID" Type="nvarchar" MaxLength="255" />
     <Property Name="ProspectId" Type="bigint" />
     <Property Name="PaymentMethod" Type="int" />
     <Property Name="ApplicantID" Type="bigint" />
+    <Property Name="TenantID" Type="bigint" />
   </EntityType>
   <EntityType Name="tbl_Parking">
     <Key>
@@ -2582,6 +2596,7 @@
     <EntitySet Name="tbl_DocumentVerification" EntityType="Self.tbl_DocumentVerification" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_EmployerHistory" EntityType="Self.tbl_EmployerHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_ESignatureKeys" EntityType="Self.tbl_ESignatureKeys" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_ESignPolicyAgreement" EntityType="Self.tbl_ESignPolicyAgreement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Estimate" EntityType="Self.tbl_Estimate" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_Event" EntityType="Self.tbl_Event" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbl_EventBooking" EntityType="Self.tbl_EventBooking" Schema="dbo" store:Type="Tables" />

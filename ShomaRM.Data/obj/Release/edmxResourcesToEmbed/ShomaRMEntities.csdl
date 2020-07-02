@@ -40,7 +40,6 @@
     <EntitySet Name="tbl_MoveInPayment" EntityType="ShomaRMEntitiesModel.tbl_MoveInPayment" />
     <EntitySet Name="tbl_Notes" EntityType="ShomaRMEntitiesModel.tbl_Notes" />
     <EntitySet Name="tbl_Notice" EntityType="ShomaRMEntitiesModel.tbl_Notice" />
-    <EntitySet Name="tbl_OnlinePayment" EntityType="ShomaRMEntitiesModel.tbl_OnlinePayment" />
     <EntitySet Name="tbl_PaymentAccounts" EntityType="ShomaRMEntitiesModel.tbl_PaymentAccounts" />
     <EntitySet Name="tbl_PetPlace" EntityType="ShomaRMEntitiesModel.tbl_PetPlace" />
     <EntitySet Name="tbl_PremiumType" EntityType="ShomaRMEntitiesModel.tbl_PremiumType" />
@@ -391,12 +390,14 @@
       <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
       <End Role="tbl_TenantOnline" EntitySet="tbl_TenantOnline" />
     </AssociationSet>
+    <EntitySet Name="tbl_OnlinePayment" EntityType="ShomaRMEntitiesModel.tbl_OnlinePayment" />
     <EntitySet Name="tbl_BackgroundScreening" EntityType="ShomaRMEntitiesModel.tbl_BackgroundScreening" />
     <EntitySet Name="tbl_Applicant" EntityType="ShomaRMEntitiesModel.tbl_Applicant" />
     <AssociationSet Name="FK_tbl_Applicant_tbl_ApplyNow" Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow">
       <End Role="tbl_ApplyNow" EntitySet="tbl_ApplyNow" />
       <End Role="tbl_Applicant" EntitySet="tbl_Applicant" />
     </AssociationSet>
+    <EntitySet Name="tbl_ESignPolicyAgreement" EntityType="ShomaRMEntitiesModel.tbl_ESignPolicyAgreement" />
   </EntityContainer>
   <EntityType Name="tbl_AcutraqScrenning">
     <Key>
@@ -983,21 +984,6 @@
     <NavigationProperty Name="tbl_Lease" Relationship="ShomaRMEntitiesModel.FK_tbl_Notice_tbl_Lease" FromRole="tbl_Notice" ToRole="tbl_Lease" />
     <NavigationProperty Name="tbl_Tenant" Relationship="ShomaRMEntitiesModel.FK_tbl_Notice_tbl_Tenant" FromRole="tbl_Notice" ToRole="tbl_Tenant" />
     <NavigationProperty Name="tbl_Properties" Relationship="ShomaRMEntitiesModel.FK_tbl_Notice_tbl_Properties" FromRole="tbl_Notice" ToRole="tbl_Properties" />
-  </EntityType>
-  <EntityType Name="tbl_OnlinePayment">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="PID" Type="Int64" />
-    <Property Name="Name_On_Card" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
-    <Property Name="CardNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="CardMonth" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="CardYear" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="CCVNumber" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-    <Property Name="ProspectId" Type="Int64" />
-    <Property Name="PaymentMethod" Type="Int32" />
-    <Property Name="ApplicantID" Type="Int64" />
   </EntityType>
   <EntityType Name="tbl_PaymentAccounts">
     <Key>
@@ -3050,6 +3036,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="tbl_OnlinePayment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PID" Type="Int64" />
+    <Property Name="PaymentName" Type="String" MaxLength="29" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentID" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProspectId" Type="Int64" />
+    <Property Name="PaymentMethod" Type="Int32" />
+    <Property Name="ApplicantID" Type="Int64" />
+    <Property Name="TenantID" Type="Int64" />
+  </EntityType>
   <EntityType Name="tbl_BackgroundScreening">
     <Key>
       <PropertyRef Name="Id" />
@@ -3092,6 +3091,7 @@
     <Property Name="BackGroundPaid" Type="Int32" />
     <Property Name="AdminFee" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="AdminFeePercentage" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CustID" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="CreditResult" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="BackGroungResult" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" FromRole="tbl_Applicant" ToRole="tbl_ApplyNow" />
@@ -3108,4 +3108,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="tbl_ESignPolicyAgreement">
+    <Key>
+      <PropertyRef Name="ESPAID" />
+    </Key>
+    <Property Name="ESPAID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenantID" Type="Int64" />
+    <Property Name="ApplicantID" Type="Int64" />
+    <Property Name="Key" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="EsignatureId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateSigned" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="LeaseID" Type="Int64" />
+    <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IsAgreementOrPolicy" Type="Int32" />
+    <Property Name="UserID" Type="Int64" />
+  </EntityType>
 </Schema>

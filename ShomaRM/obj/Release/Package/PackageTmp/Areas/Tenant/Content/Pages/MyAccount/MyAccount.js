@@ -4,7 +4,8 @@
     onFocusMyAccount();
     breakdownPaymentFunctionMyAcc();
 
-    getPaymentAccountsCreditCard();
+    //getPaymentAccountsCreditCard();
+    getBankCCLists();
     getTransationLists();
     getUpTransationLists();
     getRecurringPayLists();
@@ -896,6 +897,7 @@ var goToStep = function (stepid, id) {
         //getAllDues();
         //getTransationLists();
         //getPaymentAccountsCreditCard();
+        getBankCCLists();
         $("#li3").addClass("active");
         $("#li2").removeClass("active");
         $("#li1").removeClass("active");
@@ -1796,7 +1798,8 @@ var savePaymentAccounts = function () {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            getPaymentAccountsCreditCard();
+            //getPaymentAccountsCreditCard();
+            getBankCCLists();
             $.alert({
                 title: '',
                 content: response.model,
@@ -1808,7 +1811,34 @@ var savePaymentAccounts = function () {
         }
     });
 };
+//Sachin M 01 July 2020
+var getBankCCLists = function () {
+    $("#divLoader").show();
+    var model = {
+        TenantID: $("#hndTenantID").val(),
+    }
+    $.ajax({
+        url: "/ApplyNow/GetBankCCListTenant",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#tblBankCC>tbody").empty();
+            $.each(response.model, function (elementType, elementValue) {
+                var html = "<tr id='tr_" + elementValue.ID + "' data-value='" + elementValue.ID + "'>";
+                html += "<td>" + elementValue.PaymentMethodString + "</td>";
+                html += "<td>" + elementValue.Name_On_Card + "</td>";
 
+                html += "<td><input style='background: transparent; margin-right:10px' type='radio' name='rdpay' onclick='selectPay(" + elementValue.ID + ")'></a>";
+                html += "</tr>";
+                $("#tblBankCC>tbody").append(html);
+
+
+            });
+        }
+    });
+}
 var getPaymentAccountsCreditCard = function () {
     var tenantId = $("#hndTenantID").val();
     var model = {
@@ -1985,7 +2015,8 @@ var deletePaymentAccounts = function (id) {
                                 content: response.model,
                                 type: 'blue'
                             });
-                            getPaymentAccountsCreditCard();
+                           // getPaymentAccountsCreditCard();
+                            getBankCCLists();
                         }
                     });
                 }
@@ -2601,7 +2632,8 @@ var fromDashboardGoToMakePayment = function () {
             getUpTransationLists();
             getAllDues();
             getTransationLists();
-            getPaymentAccountsCreditCard();
+            //getPaymentAccountsCreditCard();
+            getBankCCLists();
             $("#li1").removeClass("active");
             $("#li2").removeClass("active");
             $("#li3").addClass("active");
@@ -2646,7 +2678,8 @@ var fromDashboardGoToRecurringPayment = function () {
             getUpTransationLists();
             getAllDues();
             getTransationLists();
-            getPaymentAccountsCreditCard();
+            //getPaymentAccountsCreditCard();
+            getBankCCLists();
             $("#li3").addClass("active");
             $("#li2").removeClass("active");
             $("#li1").removeClass("active");
@@ -2694,7 +2727,8 @@ var fromDashboardGoToRegisterGuest = function () {
             getUpTransationLists();
             getAllDues();
             getTransationLists();
-            getPaymentAccountsCreditCard();
+           // getPaymentAccountsCreditCard();
+            getBankCCLists();
             $("#li3").removeClass("active");
             $("#li2").removeClass("active");
             $("#li1").removeClass("active");
@@ -2877,8 +2911,9 @@ var makeDefaultPayment = function (id) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
-            getPaymentAccountsCreditCard();
-            getPaymentAccountsBankAccount();
+           // getPaymentAccountsCreditCard();
+            //getPaymentAccountsBankAccount();
+            getBankCCLists();
             $.alert({
                 title: "",
                 content: response.model,
@@ -2920,35 +2955,12 @@ var recPayment = function () {
 };
 
 function makeOneTimePaymentSaveUpdate() {
-    var cardName = '';
-    var cardNumber = '';
-    var cardMonth = '';
-    var cardYear = '';
-    var accountName = '';
-    var bankName = '';
-    var accountNumber = '';
-    var routingNumber = '';
+
     var model = {
         PAID: $('#ddlPaymentMethod').val()
     };
 
-    $.ajax({
-        url: '/PaymentAccounts/EditPaymentsAccounts',
-        type: "post",
-        contentType: "application/json utf-8",
-        data: JSON.stringify(model),
-        dataType: "JSON",
-        success: function (response) {
-            cardName = response.model.NameOnCard,
-                cardNumber = response.model.CardNumber,
-                cardMonth = response.model.Month,
-                cardYear = response.model.Year,
-                accountName = response.model.AccountName,
-                bankName = response.model.BankName,
-                accountNumber = response.model.AccountNumber,
-                routingNumber = response.model.RoutingNumber
-        }
-    });
+
 
     var msg = "";
     var transid = $("#hndTransID").val();
@@ -2956,8 +2968,7 @@ function makeOneTimePaymentSaveUpdate() {
     var unitid = $("#ddlUnit").val();
     var tenantid = $("#hndTenantID").val();
     var leaseId = $("#hndLID").val();
-    var revision_num = 1;
-    var transtype = $("#ddlPaymentMethod").val();
+   
     var chargeDate = $("#txtPrefarredDate").val();
     var chargeType = $("#hndChargeType").val();
     var chargeAmount = unformatText($("#txtChargeAmount").val());
@@ -3011,20 +3022,13 @@ function makeOneTimePaymentSaveUpdate() {
         PropertyID: propertyid,
         UnitID: unitid,
         TenantID: tenantid,
-        LeaseID: leaseId,
-        Revision_Num: revision_num,
-        Transaction_Type: transtype,
+ 
         Charge_Date: chargeDate,
-        Charge_Type: chargeType,
+      
         Charge_Amount: amount,
         Summary_Charge_Type: summaryCharge,
         Description: desc,
-        NameOnCardString: cardName,
-        NumberOnCardString: cardNumber,
-        ExpirationMonthOnCardString: cardMonth,
-        ExpirationYearOnCardString: cardYear,
-        BankName: bankName,
-        RoutingNumber: routingNumber,
+
         CCVNumber: CVVFromPayMethod,
         Batch: $("#hdnARId").val(),
         TMPID: $("#hndRecId").val(),
@@ -3183,7 +3187,8 @@ var goToRecurringPaymentFromMyHome = function () {
     getUpTransationLists();
     getAllDues();
     getTransationLists();
-    getPaymentAccountsCreditCard();
+    //getPaymentAccountsCreditCard();
+    getBankCCLists();
     $("#li3").addClass("active");
     $("#li2").removeClass("active");
     $("#li1").removeClass("active");
@@ -4705,7 +4710,7 @@ var ddlBankAccountListShow = function () {
 var ddlPaymentMethod = function () {
     var model = { TenantId: $("#hndTenantID").val() };
     $.ajax({
-        url: '/PaymentAccounts/GetPaymentMethods',
+        url: "/ApplyNow/GetBankCCListTenant",
         type: "post",
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
@@ -4716,10 +4721,10 @@ var ddlPaymentMethod = function () {
             var html = '';
             $.each(response.model, function (elementType, elementValue) {
                 if (elementValue.Default == '1') {
-                    html = "<option value='" + elementValue.PAID + "' selected='selected' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
+                    html = "<option value='" + elementValue.ID + "' selected='selected' data-value='" + elementValue.PaymentMethodString + "'>" + elementValue.Name_On_Card + "</option>";
                 }
                 else {
-                    html = "<option value='" + elementValue.PAID + "' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
+                    html = "<option value='" + elementValue.ID + "' data-value='" + elementValue.PaymentMethodString + "'>" + elementValue.Name_On_Card + "</option>";
                 }
                 $('#ddlPaymentMethod').append(html);
                 $('#ddlPaymentMethodR').append(html);

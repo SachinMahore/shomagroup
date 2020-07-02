@@ -35,6 +35,7 @@
 <input type="hidden" id="hndAppBackgroundFees" value="@((Model.GuaBGCheckFees??0).ToString("0.00"))" />
 <input type="hidden" id="hndStepGotosummary" value="" />
 <input type="hidden" id="hndCurrentUserId" value="@ShomaGroupWebSession.CurrentUser.UserID" />
+<input type="hidden" id="hdnAgreePoli" value="true" />
 @*Sachin Mahore 21 Apr 2020*@
 <div class="content-area submit-property sanctuary-background-img">
     &nbsp;
@@ -1479,19 +1480,19 @@
                                                 <table class="table" cellspacing="0" style="width:100%;overflow-x:scroll">
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rental qualifications</span></td>
-                                                        <td><label style="color: #1F1F1F;font-weight: bold;cursor:default;">Sign</label></td>
-                                                        <td><a href="javascript:void(0)" onclick="saveToDiskPDF('/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf','RentalQualifications.pdf')">Download</a></td>
-                                                        <td><a data-toggle="modal" data-target="#modalRentalQualificationPolicy" href="javascript:void(0);" id="printRentalQualificationPolicy">Print</a></td>
+                                                        <td><a href="javascript:void(0)" id="rentalQulification" onclick="createESignPolicyAndAgreementGuarantor(true)"><span>Sign</span></a></td>
+                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyDownloadDataGuarantor(true)">Download</a></td>
+                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyPrintDataGuarantor(true)">Print</a></td>
                                                     </tr>
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rules and Policies</span></td>
-                                                        <td><label style="color: #1F1F1F;font-weight: bold;cursor:default;">Sign</label></td>
-                                                        <td><a href="javascript:void(0)" onclick="saveToDiskPDF('/Content/assets/img/Policy/Rules_Policies_fragmented.pdf','RulesPolicies.pdf')">Download</a></td>
-                                                        <td><a data-toggle="modal" data-target="#modalRulesAndPolicy" href="javascript:void(0);" id="print">Print</a></td>
+                                                        <td><a href="javascript:void(0)" id="rulesPolicy" onclick="createESignPolicyAndAgreementGuarantor(false)"><span>Sign</span></a></td>
+                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyDownloadDataGuarantor(false)">Download</a></td>
+                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyPrintDataGuarantor(false)">Print</a></td>
                                                     </tr>
                                                 </table>
                                             </div>
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-12 hidden">
 
                                                 <div class="chekbox-wrapper">
 
@@ -1584,19 +1585,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="divAppWarning" class="col-sm-12 @(Model.CreditResult == "Accept" ? "hidden" : "") pt-4">
-                            @if (Model.CreditResult == "")
-                            {
+                        <div id="divAppWarning" class="col-sm-12 @(Model.CreditPaid != 0 ? "hidden" : "") pt-4">
                                 <h3 class="panel-title pull-right">Please click on ‘Edit/Complete Information’, located on the Gaurantor card, to proceed to the Credit Check.</h3>
-                            }
-                            else if (Model.CreditResult == "Conditional")
-                            {
-                                <h3 class="panel-title pull-right">Your Credit Check result is conditional. Please contact Administrator.</h3>
-                            }
-                            else if (Model.CreditResult == "Pending")
-                            {
-                                <h3 class="panel-title pull-right">Your Credit Check result is pending please wait.</h3>
-                            }
                         </div>
                         <div class="row m-t-30">
                             <div class="col-sm-12 button-box-wrapper ">
@@ -1604,8 +1594,8 @@
                                     <button type="submit" class="btn-alltype wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    @*<button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>*@
-                                    <button type="submit" class="btn-alltype @(Model.CreditResult != "Accept" ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
+                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>
+                                    @*<button type="submit" class="btn-alltype @(Model.CreditResult != "Accept" ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>*@
                                 </div>
                             </div>
                         </div>
@@ -5916,6 +5906,22 @@
                         </div>
 
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalAgreementPolicy">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header" style="border-top:none">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;" onclick="checkEsignPolicyAgreementStatusGuarantor()"><i class="fa fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div><iframe id="iframeAgreementPolicy" src="" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
                 </div>
             </div>
         </div>

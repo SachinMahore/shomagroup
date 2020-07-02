@@ -584,22 +584,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_OnlinePayment">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_OnlinePayment">
-        <MappingFragment StoreEntitySet="tbl_OnlinePayment">
-          <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
-          <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
-          <ScalarProperty Name="ProspectId" ColumnName="ProspectId" />
-          <ScalarProperty Name="CCVNumber" ColumnName="CCVNumber" />
-          <ScalarProperty Name="CardYear" ColumnName="CardYear" />
-          <ScalarProperty Name="CardMonth" ColumnName="CardMonth" />
-          <ScalarProperty Name="CardNumber" ColumnName="CardNumber" />
-          <ScalarProperty Name="Name_On_Card" ColumnName="Name_On_Card" />
-          <ScalarProperty Name="PID" ColumnName="PID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_PaymentAccounts">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_PaymentAccounts">
         <MappingFragment StoreEntitySet="tbl_PaymentAccounts">
@@ -1674,6 +1658,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tbl_OnlinePayment">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_OnlinePayment">
+        <MappingFragment StoreEntitySet="tbl_OnlinePayment">
+          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+          <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+          <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+          <ScalarProperty Name="ProspectId" ColumnName="ProspectId" />
+          <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+          <ScalarProperty Name="PaymentName" ColumnName="PaymentName" />
+          <ScalarProperty Name="PID" ColumnName="PID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="tbl_BackgroundScreening">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
         <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
@@ -1696,6 +1694,7 @@
         <MappingFragment StoreEntitySet="tbl_Applicant">
           <ScalarProperty Name="BackGroungResult" ColumnName="BackGroungResult" />
           <ScalarProperty Name="CreditResult" ColumnName="CreditResult" />
+          <ScalarProperty Name="CustID" ColumnName="CustID" />
           <ScalarProperty Name="AdminFeePercentage" ColumnName="AdminFeePercentage" />
           <ScalarProperty Name="AdminFee" ColumnName="AdminFee" />
           <ScalarProperty Name="BackGroundPaid" ColumnName="BackGroundPaid" />
@@ -1718,6 +1717,22 @@
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_ESignPolicyAgreement">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_ESignPolicyAgreement">
+        <MappingFragment StoreEntitySet="tbl_ESignPolicyAgreement">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="IsAgreementOrPolicy" ColumnName="IsAgreementOrPolicy" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="LeaseID" ColumnName="LeaseID" />
+          <ScalarProperty Name="DateSigned" ColumnName="DateSigned" />
+          <ScalarProperty Name="EsignatureId" ColumnName="EsignatureId" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+          <ScalarProperty Name="TenantID" ColumnName="TenantID" />
+          <ScalarProperty Name="ESPAID" ColumnName="ESPAID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

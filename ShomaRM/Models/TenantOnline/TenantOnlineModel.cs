@@ -204,8 +204,10 @@ namespace ShomaRM.Models
         public List<string> BankStatementOriginalFiles { get; set; }
 
         string message = "";
+
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
+        string sendAptly = WebConfigurationManager.AppSettings["SendAptly"];
         public string SaveHavePet(long id, bool PetValue)
         {
             string msg = "";
@@ -748,7 +750,10 @@ namespace ShomaRM.Models
                         {
                             tenantData.StepCompleted = stepcomp;
                             db.SaveChanges();
-                            CallAptly(applyNow.ID);
+                            if (sendAptly == "yes")
+                            {
+                                CallAptly(applyNow.ID);
+                            }
                         }
                     }
                 }
@@ -890,8 +895,10 @@ namespace ShomaRM.Models
                     getAppldata.IsBankState = model.IsBankState;
 
                     db.SaveChanges();
-
-                    CallAptly(applyNow.ID);
+                    if (sendAptly == "yes")
+                    {
+                        CallAptly(applyNow.ID);
+                    }
                 }
 
                 var saveApplicantGender = db.tbl_Applicant.Where(p => p.Email == model.Email).FirstOrDefault();

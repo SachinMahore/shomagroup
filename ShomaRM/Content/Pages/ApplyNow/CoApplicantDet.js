@@ -5285,7 +5285,7 @@ var saveupdateApplicantCoApplicant = function (callFrom) {
                     IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
                 };
                 $.ajax({
-                    url: "/ApplyNow/saveCoAppPayment/",
+                    url: "/ApplyNow/SaveNewPayment/",
                     type: "post",
                     contentType: "application/json utf-8",
                     data: JSON.stringify(model),
@@ -9944,7 +9944,7 @@ function saveCoAppPayment() {
                 action: function (yes) {
                     saveupdateApplicantCoApplicant(2);
                     //$.ajax({
-                    //    url: "/ApplyNow/saveCoAppPayment/",
+                    //    url: "/ApplyNow/SaveNewPayment/",
                     //    type: "post",
                     //    contentType: "application/json utf-8",
                     //    data: JSON.stringify(model),
@@ -10106,7 +10106,7 @@ function saveCoAppPaymentPopup() {
                 text: 'Yes',
                 action: function (yes) {
                     $.ajax({
-                        url: "/ApplyNow/saveCoAppPayment/",
+                        url: "/ApplyNow/SaveNewPayment/",
                         type: "post",
                         contentType: "application/json utf-8",
                         data: JSON.stringify(model),

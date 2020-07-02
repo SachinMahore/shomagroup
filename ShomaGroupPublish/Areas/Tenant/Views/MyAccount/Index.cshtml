@@ -548,7 +548,7 @@
                         <option value='2'>Bank Account List</option>
                     </select>
                 </div>*@
-            <div class="panel-heading col-md-12 pading-box">
+            <div class="panel-heading col-md-12 pading-box hidden">
                 <h3 class="headding-sub-text col-md-9 pading-box">Saved Payment Accounts</h3>
                 <div class="col-sm-3 pull-right">
                     <select id="ddlBankAccountList" class="form-control">
@@ -561,7 +561,7 @@
             <div class="col-md-12 pading-box tableboxscroll">
                 <div class="panel-body search-widget panel-bodybox">
                     <div class="col-md-12 clear tableboxscroll m-b30">
-                        <table id="tblPaymentAccountsCreditCard" class="borderlessTable tbale-box">
+                        @*<table id="tblPaymentAccountsCreditCard" class="borderlessTable tbale-box">
                             <thead>
                                 <tr>
                                     <th width="20%" scope="row" class="border-box border-box2 text-payment tabletr">Bank Name</th>
@@ -572,12 +572,23 @@
                                 </tr>
                             </thead>
                             <tbody></tbody>
+                        </table>*@
+                        <table id="tblBankCC" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th width="20%" scope="row" class="border-box border-box2 text-payment tabletr">Payment Method</th>
+                                    <th width="20%" scope="row" class="border-box border-box2 text-payment tabletr">Account Name</th>
+
+                                    <th width="20%" scope="row" class="border-box border-box2 text-payment tabletr">Default Pay</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-12 clear m-b30">
+            @*<div class="col-md-12 clear m-b30">
                 <table id="tblPaymentAccountsBankAccount" class="borderlessTable tbale-box" width="100%">
                     <thead>
                         <tr>
@@ -593,7 +604,7 @@
                     </thead>
                     <tbody></tbody>
                 </table>
-            </div>
+            </div>*@
             @*<div class="col-sm-3">
                     <div class="form-group">
                         <button id="btnAddNewPaymentAccount" type="button" class="btn btn-primary" data-toggle="modal" data-target="#popAddNewAccount" onclick="clearSavePaymentAccounts();" style="font-size: 11pt;">Add New Payment Accounts</button>

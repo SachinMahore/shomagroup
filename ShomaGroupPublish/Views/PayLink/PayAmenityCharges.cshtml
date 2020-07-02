@@ -544,7 +544,7 @@
     var ddlPaymentMethodPaymentLink = function () {
         var model = { TenantId: $("#hndTenantID").val() };
         $.ajax({
-            url: '/PaymentAccounts/GetPaymentMethods',
+            url: '/ApplyNow/GetBankCCListTenant',
             type: "post",
             contentType: "application/json utf-8",
             data: JSON.stringify(model),
@@ -554,7 +554,7 @@
                 var html = '';
                 $.each(response.model, function (elementType, elementValue) {
                     if (elementValue.Default == '1') {
-                        html = "<option value='" + elementValue.PAID + "' selected='selected' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
+                        html = "<option value='" + elementValue.ID + "' selected='selected' data-value='" + elementValue.PaymentMethodString + "'>" + elementValue.Name_On_Card + "</option>";
                         if (elementValue.PayMethod == 1) {
                             $("#trcvvnumberpl").removeClass("hidden");
                         }
@@ -564,7 +564,7 @@
 
                     }
                     else {
-                        html = "<option value='" + elementValue.PAID + "' data-value='" + elementValue.PayMethod + "'>" + elementValue.AccountName + "</option>";
+                        html = "<option value='" + elementValue.ID + "' data-value='" + elementValue.PaymentMethodString + "'>" + elementValue.Name_On_Card + "</option>";
                     }
                     $('#ddlPaymentMethodPaymentLink').append(html);
                 });

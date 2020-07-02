@@ -68,7 +68,7 @@ namespace ShomaRM.Models
         string message = "";
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
         string serverURL = WebConfigurationManager.AppSettings["ServerURL"];
-
+        string sendAptly = WebConfigurationManager.AppSettings["SendAptly"];
         public async System.Threading.Tasks.Task<string> SavePaymentDetails(ApplyNowModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
@@ -500,7 +500,6 @@ namespace ShomaRM.Models
         }
 
         public async Task<string> SaveNewPayment(ApplyNowModel model)
-
         {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
@@ -2015,7 +2014,12 @@ namespace ShomaRM.Models
                 stepcomp = StepCompleted;
             }
             TenantOnlineModel mm = new TenantOnlineModel();
-            mm.CallAptly(ID);
+
+
+            if (sendAptly == "yes")
+            {
+                mm.CallAptly(ID);
+            }
             if (onlineProspectData != null)
             {
                 if (applicantData.Type == "Primary Applicant ")

@@ -5285,7 +5285,7 @@ var saveupdateApplicantCoApplicant = function (callFrom) {
                     IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
                 };
                 $.ajax({
-                    url: "/ApplyNow/saveCoAppPayment/",
+                    url: "/ApplyNow/SaveNewPayment/",
                     type: "post",
                     contentType: "application/json utf-8",
                     data: JSON.stringify(model),
@@ -9944,7 +9944,7 @@ function saveCoAppPayment() {
                 action: function (yes) {
                     saveupdateApplicantCoApplicant(2);
                     //$.ajax({
-                    //    url: "/ApplyNow/saveCoAppPayment/",
+                    //    url: "/ApplyNow/SaveNewPayment/",
                     //    type: "post",
                     //    contentType: "application/json utf-8",
                     //    data: JSON.stringify(model),
@@ -10106,7 +10106,7 @@ function saveCoAppPaymentPopup() {
                 text: 'Yes',
                 action: function (yes) {
                     $.ajax({
-                        url: "/ApplyNow/saveCoAppPayment/",
+                        url: "/ApplyNow/SaveNewPayment/",
                         type: "post",
                         contentType: "application/json utf-8",
                         data: JSON.stringify(model),
@@ -10149,13 +10149,11 @@ var goToSummaryPageCoapp = function () {
     else if (id == 10) {
         getApplicantHistoryList();
         saveupdateTenantOnlineCoapplicant(10);
-
-    } else if (id == 11) {
+} else if (id == 11) {
         saveupdateTenantOnlineCoapplicant(11);
     } else if (id == 12) {
         saveupdateTenantOnlineCoapplicant(12);
         getTenantPetPlaceDataCoapp();
-
     } else if (id == 13) {
         saveupdateTenantOnlineCoapplicant(15);
         getTenantPetPlaceDataCoapp();
@@ -10676,5 +10674,148 @@ var bankstatementFileUploadCoapplicant = function () {
         }
     });
 };
-
 // New Upload Code End //
+
+var createESignPolicyAndAgreementCoApplicant = function (appAgree) {
+    $("#divLoader").show();
+    var userid = $("#hndCurrentUserId").val();
+    console.log(appAgree);
+    if (appAgree) {
+        $("#hdnAgreePoli").val(true);
+    }
+    else {
+        $("#hdnAgreePoli").val(false);
+    }
+    var model = { uid: userid, AppAgree: appAgree };
+
+    $.ajax({
+        url: '/ApplyNow/CreateESignPolicyAgreement',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            console.log(JSON.stringify(response));
+            $("#divLoader").hide();
+            if (!response.DateSigned) {
+                $("#modalAgreementPolicy").modal("show");
+                $("#iframeAgreementPolicy").attr("src", "https://www-new.bluemoonforms.com/esignature/" + response.model);
+            }
+            else {
+
+                $.alert({
+                    title: "",
+                    content: "You have already Signed. Please Download or Print",
+                    type: 'blue'
+                });
+            }
+
+
+        }
+    });
+};
+
+var checkEsignPolicyAgreementStatusCoApplicant = function () {
+    $("#divLoader").show();
+    var userid = $("#hndCurrentUserId").val();
+    var appAgree = $("#hdnAgreePoli").val();
+    var model = { uid: userid, AppAgree: appAgree };
+
+    $.ajax({
+        url: '/ApplyNow/CheckESignPolicyAgreementStatus',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            //console.log(JSON.stringify(response));
+
+            if (response.AllSigned == 1) {
+                $("#policyStart").attr("disabled", false);
+            } else {
+                $("#policyStart").attr("disabled", true);
+            }
+
+        }
+    });
+};
+
+var getESignAgreePolicyDownloadDataCoApplicant = function (appAgree) {
+    $("#divLoader").show();
+    var userid = $("#hndCurrentUserId").val();
+    var model = { uid: userid, AppAgree: appAgree };
+    var fileName = "";
+    if (appAgree) {
+        fileName = "Agreement";
+    }
+    else {
+        fileName = "RulesAndPolicy"
+    }
+    $.ajax({
+        url: '/ApplyNow/GetESignAgreePolicyDownloadData',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            console.log(JSON.stringify(response));
+            if (response.DateSigned != "") {
+                saveToDiskPDF("/Content/assets/img/Document/AgreementRulePolicy_" + response.model + ".pdf", "Agreement.pdf");
+            }
+            else {
+
+                $.alert({
+                    title: "",
+                    content: "Please Signed the doc to Download",
+                    type: 'blue'
+                });
+            }
+        }
+    });
+};
+
+var getESignAgreePolicyPrintDataCoApplicant = function (appAgree) {
+    $("#modalRentalQualificationPolicy").modal("hide");
+    $("#modalRulesAndPolicy").modal("hide");
+    $("#divLoader").show();
+    var userid = $("#hndCurrentUserId").val();
+    var model = { uid: userid, AppAgree: appAgree };
+    var fileName = "";
+    if (appAgree) {
+        fileName = "Agreement";
+    }
+    else {
+        fileName = "RulesAndPolicy"
+    }
+    $.ajax({
+        url: '/ApplyNow/GetESignAgreePolicyDownloadData',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            console.log(JSON.stringify(response));
+            if (response.DateSigned != "") {
+                if (appAgree) {
+                    $("#iframeRental").attr("src", webURL() + "/Content/assets/img/Document/AgreementRulePolicy_" + response.model + ".pdf");
+                    $("#modalRentalQualificationPolicy").modal("show");
+                } else {
+                    $("#iframeRules").attr("src", webURL() + "/Content/assets/img/Document/AgreementRulePolicy_" + response.model + ".pdf");
+                    $("#modalRulesAndPolicy").modal("show");
+                }
+            }
+            else {
+
+                $.alert({
+                    title: "",
+                    content: "Please Signed the doc to Download",
+                    type: 'blue'
+                });
+            }
+        }
+    });
+};
+
