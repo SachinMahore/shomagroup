@@ -17,6 +17,8 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 
+using ShomaRM.Models.Bluemoon;
+
 namespace ShomaRM.Controllers
 {
     public class ApplyNowController : Controller
@@ -1489,6 +1491,257 @@ namespace ShomaRM.Controllers
             }
 
 
+        }
+
+        public async System.Threading.Tasks.Task<ActionResult> CreateESignPolicyAgreement(int uid, bool AppAgree)
+        {
+            long applicantID = 0;
+            int isAgreePolicy = 0;
+            string type = string.Empty;
+            string eKey = string.Empty;
+            string dateSigned = string.Empty;
+            if (AppAgree == true)
+            {
+                type = "Agreement";
+                isAgreePolicy = 1;
+            }
+            else
+            {
+                type = "Policy";
+                isAgreePolicy = 0;
+            }
+            ShomaRMEntities db = new ShomaRMEntities();
+            var esingExists = db.tbl_ESignPolicyAgreement.Where(p => p.UserID == uid && p.IsAgreementOrPolicy == isAgreePolicy).FirstOrDefault();
+
+            if (esingExists != null)
+            {
+                if (esingExists.DateSigned != null)
+                {
+                    dateSigned = esingExists.DateSigned;
+                }
+                eKey = esingExists.Key;
+            }
+            else
+            {
+
+                var bmservice = new BluemoonService();
+                LeaseResponseModel authenticateData = await bmservice.CreateSession();
+                LeaseRequestModel leaseRequestModel = new LeaseRequestModel();
+
+                var getTenantData = db.tbl_TenantOnline.Where(p => p.ParentTOID == uid).FirstOrDefault();
+
+                string TenantName = string.Empty;
+                string moveInDateBegin = string.Empty;
+                string moveInDateEnd = string.Empty;
+                string email = string.Empty;
+                string phoneNo = string.Empty;
+
+
+                if (getTenantData != null)
+                {
+                    TenantName = $"{getTenantData.FirstName} {getTenantData.LastName}";
+                    DateTime dt1 = Convert.ToDateTime(getTenantData.MoveInDate);
+                    moveInDateBegin = dt1.ToString("MM-dd-yyyy");
+                    moveInDateEnd = dt1.AddYears(1).ToString("MM-dd-yyyy");
+                    email = getTenantData.Email;
+                    phoneNo = getTenantData.Mobile;
+                    var getApplicantData = db.tbl_Applicant.Where(p => p.UserID == uid).FirstOrDefault();
+                    if (getApplicantData != null)
+                    {
+                        applicantID = getApplicantData.ApplicantID;
+                    }
+                }
+
+                leaseRequestModel.LEASE_BEGIN_DATE = moveInDateBegin;//Move-in-date
+                leaseRequestModel.LEASE_END_DATE = moveInDateEnd;//+1yr
+                leaseRequestModel.RESIDENT_1 = TenantName;
+
+                LeaseResponseModel leaseCreateResponse = await bmservice.CreateLeaseCustomForm(leaseRequestModel: leaseRequestModel, PropertyId: "112154", sessionId: authenticateData.SessionId);
+                //var onlineProspectData = db.tbl_ApplyNow.Where(p => p.ID == tid).FirstOrDefault();
+
+                //onlineProspectData.EnvelopeID = leaseCreateResponse.LeaseId;
+                //db.SaveChanges();
+
+                var leaseid = leaseCreateResponse.LeaseId;
+                List<EsignatureParty> esignatureParties = new List<EsignatureParty>();
+                esignatureParties.Add(new EsignatureParty()
+                {
+                    Email = "info@sanctuarydoral.com",
+                    IsOwner = true,
+                    Name = "Sanctuary Doral",
+                    Phone = "786-437-8658"
+                });
+
+
+                esignatureParties.Add(new EsignatureParty()
+                {
+                    Email = email,
+                    IsOwner = false,
+                    Name = TenantName,
+                    Phone = phoneNo
+                });
+
+
+                //for true =SHOMA_APPAGREE  AND FALSE SHOMA_RULESPOL
+                LeaseResponseModel EsignatureResponse = await bmservice.RequestCustomEsignature(leaseId: leaseid, sessionId: authenticateData.SessionId, esignatureParties: esignatureParties, AppAgree: true);
+                var saveEsignData = new tbl_ESignPolicyAgreement()
+                {
+                    TenantID = getTenantData.ID,
+                    ApplicantID = applicantID,
+                    Key = EsignatureResponse.EsignatureKey,
+                    EsignatureId = EsignatureResponse.EsignatureId,
+                    LeaseID = Convert.ToInt64(EsignatureResponse.LeaseId),
+                    Type = type,
+                    IsAgreementOrPolicy = isAgreePolicy,
+                    UserID = getTenantData.ParentTOID
+                };
+                db.tbl_ESignPolicyAgreement.Add(saveEsignData);
+                db.SaveChanges();
+
+                if(AppAgree==true)
+                {
+                    getTenantData.IsRentalQualification = 1;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    getTenantData.IsRentalPolicy = 1;
+                    db.SaveChanges();
+                }
+                eKey = saveEsignData.Key;
+                dateSigned = saveEsignData.DateSigned;
+            }
+
+            return Json(new { model = eKey, DateSigned = dateSigned }, JsonRequestBehavior.AllowGet);
+        }
+
+        public async System.Threading.Tasks.Task<ActionResult> CheckESignPolicyAgreementStatus(int uid, bool AppAgree)
+        {
+            try
+            {
+                int isAgreePolicy = 0;
+                string esignatureid = "";
+                ShomaRMEntities db = new ShomaRMEntities();
+                if (AppAgree == true)
+                {
+                    isAgreePolicy = 1;
+                }
+                else
+                {
+                    isAgreePolicy = 0;
+                }
+                var esignData = db.tbl_ESignPolicyAgreement.Where(p => p.UserID == uid && p.IsAgreementOrPolicy == isAgreePolicy).FirstOrDefault();
+                if (esignData != null)
+                {
+                    esignatureid = !string.IsNullOrWhiteSpace(esignData.EsignatureId) ? esignData.EsignatureId: "";
+                    if (esignatureid != "")
+                    {
+                        var bmservice = new BluemoonService();
+                        LeaseResponseModel authenticateData = await bmservice.CreateSession();
+                        LeaseResponseModel leaseKeys = await bmservice.GetEsignnatureDetails(SessionId: authenticateData.SessionId, EsignatureId: esignatureid);
+
+                        foreach (var lks in leaseKeys.EsigneResidents)
+                        {
+                            if (esignData != null)
+                            {
+                                esignData.DateSigned = lks.DateSigned;
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+                }
+                
+                var esignDataChecked = db.tbl_ESignPolicyAgreement.Where(p => p.UserID == uid ).ToList();
+                int allSigned = 1;
+                if (esignDataChecked.Count()==2)
+                {
+                    foreach (var edc in esignDataChecked)
+                    {
+                        if (string.IsNullOrWhiteSpace(edc.DateSigned))
+                        {
+                            allSigned = 0;
+                        }
+                    }
+                }
+                else
+                {
+                    allSigned = 0;
+                }
+                
+                db.Dispose();
+                return Json(new { result = "1", AllSigned=allSigned }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { result = "0" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public async System.Threading.Tasks.Task<ActionResult> GetESignAgreePolicyDownloadData(int uid, bool AppAgree)
+        {
+            int isAgreePolicy = 0;
+            string eSinatureID = string.Empty;
+            string leasedID = string.Empty;
+            string dateSigned = string.Empty;
+
+
+            if (AppAgree == true)
+            {
+                isAgreePolicy = 1;
+            }
+            else
+            {
+                isAgreePolicy = 0;
+            }
+            ShomaRMEntities db = new ShomaRMEntities();
+            var esingExists = db.tbl_ESignPolicyAgreement.Where(p => p.UserID == uid && p.IsAgreementOrPolicy == isAgreePolicy).FirstOrDefault();
+
+            if (esingExists != null)
+            {
+                eSinatureID = esingExists.EsignatureId;
+                leasedID = Convert.ToString(esingExists.LeaseID);
+                dateSigned = esingExists.DateSigned;
+
+            }
+            var getSignDocBlumoon = await GetSignDocBlumoon(leasedID, eSinatureID);
+            return Json(new {model = leasedID, DateSigned = dateSigned }, JsonRequestBehavior.AllowGet);
+        }
+
+        public async System.Threading.Tasks.Task<ActionResult> GetSignDocBlumoon(string LeaseId, string EsignatureId)
+        {
+            try
+            {
+                var data = await GetSignDocBlumoonAsync(LeaseId, EsignatureId);
+                if (data != null)
+                {
+                    System.IO.File.WriteAllBytes(Server.MapPath("/Content/assets/img/Document/AgreementRulePolicy_" + data.LeaseId + ".pdf"), data.leasePdf);
+                }
+                return Json(new { LeaseId = data.LeaseId }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { LeaseId = "0" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public async System.Threading.Tasks.Task<LeaseResponseModel> GetSignDocBlumoonAsync(string LeaseId, string EsignatureId)
+        {
+            var bmservice = new BluemoonService();
+            LeaseResponseModel authenticateData = await bmservice.CreateSession();
+            if (!string.IsNullOrWhiteSpace(EsignatureId))
+            {
+                LeaseResponseModel leaseDocumentWithEsignature = await bmservice.GetLeaseDocumentWithEsignature(SessionId: authenticateData.SessionId, EsignatureId: EsignatureId);
+                await bmservice.CloseSession(sessionId: authenticateData.SessionId);
+                leaseDocumentWithEsignature.LeaseId = LeaseId;
+                return leaseDocumentWithEsignature;
+            }
+            else
+            {
+                LeaseResponseModel leasePdfResponse = await bmservice.GenerateLeasePdf(sessionId: authenticateData.SessionId, leaseId: LeaseId);
+                await bmservice.CloseSession(sessionId: authenticateData.SessionId);
+                leasePdfResponse.LeaseId = LeaseId;
+                return leasePdfResponse;
+            }
         }
     }
 }

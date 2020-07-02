@@ -142,6 +142,9 @@
     <Compile Include="tbl_ESignatureKeys.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="tbl_ESignPolicyAgreement.cs">
+      <DependentUpon>ShomaRMEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="tbl_Estimate.cs">
       <DependentUpon>ShomaRMEntities.tt</DependentUpon>
     </Compile>

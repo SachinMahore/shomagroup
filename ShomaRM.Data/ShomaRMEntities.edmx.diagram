@@ -172,6 +172,7 @@
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_BackgroundScreening" Width="1.5" PointX="19.375" PointY="10.75" />
         <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_Applicant" Width="1.5" PointX="23" PointY="18.375" />
         <AssociationConnector Association="ShomaRMEntitiesModel.FK_tbl_Applicant_tbl_ApplyNow" />
+        <EntityTypeShape EntityType="ShomaRMEntitiesModel.tbl_ESignPolicyAgreement" Width="1.5" PointX="11.375" PointY="20.75" />
 
         </Diagram>
     </edmx:Diagrams>

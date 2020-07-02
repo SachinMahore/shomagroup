@@ -9262,3 +9262,25 @@ var bankstatementFileUploadGuarantor = function () {
 };
 
 // New Upload Code End //
+
+var createESignPolicyAndAgreementGuarantor = function (appAgree) {
+    $("#divLoader").show();
+    var userid = $("#hndCurrentUserId").val();
+    console.log(appAgree);
+    var model = { uid: userid, AppAgree: appAgree };
+
+    $.ajax({
+        url: '/ApplyNow/CreateESignPolicyAgreement',
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            console.log(JSON.stringify(response));
+            $("#modalAgreementPolicy").modal("show");
+            $("#iframeAgreementPolicy").attr("src", "https://www-new.bluemoonforms.com/esignature/" + response.model);
+
+        }
+    });
+};
