@@ -1274,19 +1274,33 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="divAppWarning" class="col-sm-12 @(Model.CreditResult == "Accept" ? "hidden" : "") pt-4">
-                            @if (Model.CreditResult == "")
-                            {
-                                <h3 class="panel-title pull-right">Please click on ‘Edit/Complete Information’, located on the Co-Applicant card, to proceed to the Credit Check.</h3>
-                            }
-                            else if (Model.CreditResult == "Conditional")
-                            {
-                                <h3 class="panel-title pull-right">Your Credit Check result is conditional. Please contact Administrator.</h3>
-                            }
-                            else if (Model.CreditResult == "Pending")
-                            {
-                                <h3 class="panel-title pull-right">Your Credit Check result is pending please wait.</h3>
-                            }
+                        @*<div id="divAppWarning" class="col-sm-12 @(Model.CreditResult == "Accept" ? "hidden" : "") pt-4">
+            @if (Model.CreditResult == "")
+            {
+                <h3 class="panel-title pull-right">Please click on ‘Edit/Complete Information’, located on the Co-Applicant card, to proceed to the Credit Check.</h3>
+            }
+            else if (Model.CreditResult == "Conditional")
+            {
+                <h3 class="panel-title pull-right">Your Credit Check result is conditional. Please contact Administrator.</h3>
+            }
+            else if (Model.CreditResult == "Pending")
+            {
+                <h3 class="panel-title pull-right">Your Credit Check result is pending please wait.</h3>
+            }
+        </div>
+        <div class="row m-t-30">
+            <div class="col-sm-12 button-box-wrapper ">
+                <div class="pull-left text-center">
+                    <button type="submit" class="btn-alltype wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
+                </div>
+                <div class="pull-right text-center">
+                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>
+                    <button type="submit" class="btn-alltype @(Model.CreditResult != "Accept" ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
+                </div>
+            </div>
+        </div>*@
+                        <div id="divAppWarning" class="col-sm-12 @(Model.CreditPaid != 0 ? "hidden" : "") pt-4">
+                            <h3 class="panel-title pull-right">Please click on ‘Edit/Complete Information’, located on the Co-Applicant card, to proceed to the Credit Check.</h3>
                         </div>
                         <div class="row m-t-30">
                             <div class="col-sm-12 button-box-wrapper ">
@@ -1295,7 +1309,7 @@
                                 </div>
                                 <div class="pull-right text-center">
                                     @*<button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>*@
-                                    <button type="submit" class="btn-alltype @(Model.CreditResult != "Accept" ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
+                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>

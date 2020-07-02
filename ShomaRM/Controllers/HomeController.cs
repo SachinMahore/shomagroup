@@ -52,17 +52,14 @@ namespace ShomaRM.Controllers
             ViewBag.ActiveMenu = "home";
             return View(model);
         }
-        public async System.Threading.Tasks.Task<ActionResult> IndexAsync()
+        public async System.Threading.Tasks.Task<ActionResult> CreateESignPolicyAgreement(int uid, bool AppAgree)
         {
-
-
             var bmservice = new BluemoonService();
             LeaseResponseModel authenticateData = await bmservice.CreateSession();
             LeaseRequestModel leaseRequestModel = new LeaseRequestModel();
 
-            leaseRequestModel.LEASE_BEGIN_DATE = "";
-            leaseRequestModel.LEASE_END_DATE = "";
-
+            leaseRequestModel.LEASE_BEGIN_DATE = "02-02-2020";
+            leaseRequestModel.LEASE_END_DATE = "02-02-2021";
             leaseRequestModel.RESIDENT_1 = "Lalut";
 
             LeaseResponseModel leaseCreateResponse = await bmservice.CreateLeaseCustomForm(leaseRequestModel: leaseRequestModel, PropertyId: "112154", sessionId: authenticateData.SessionId);
@@ -81,6 +78,16 @@ namespace ShomaRM.Controllers
                 Phone = "786-437-8658"
             });
 
+
+            esignatureParties.Add(new EsignatureParty()
+            {
+                Email = "info@sanctuarydoral.com",
+                IsOwner = false,
+                Name = "Lalut",
+                Phone = "786-437-8658"
+            });
+
+
             //for true =SHOMA_APPAGREE  AND FALSE SHOMA_RULESPOL
             LeaseResponseModel EsignatureResponse = await bmservice.RequestCustomEsignature(leaseId: leaseid, sessionId: authenticateData.SessionId, esignatureParties: esignatureParties, AppAgree: true);
 
@@ -89,34 +96,8 @@ namespace ShomaRM.Controllers
             // Note. please save the esignature id for downloading document 
 
             LeaseResponseModel leaseDocumentWithEsignature = await bmservice.GetLeaseDocumentWithEsignature(SessionId: authenticateData.SessionId, EsignatureId: EsignatureResponse.EsignatureId);
-
-
-
-            if (Session["DelDatAll"] != null)
-            {
-                if (Session["DelDatAll"].ToString() == "Del")
-                {
-                    ViewBag.DelAData = Session["DelDatAll"].ToString();
-                }
-                else
-                {
-                    ViewBag.DelAData = "";
-                }
-            }
-            else
-            {
-                ViewBag.DelAData = "";
-            }
-            Session["DelDatAll"] = null;
-            var model = new HomeModel().GetLeaseTerms();
-            ////To get Server url            
-            //var serverURL = Request.Url;
-            ////Change key in WebConfig file
-            //Configuration AppConfigSettings = WebConfigurationManager.OpenWebConfiguration("~");
-            //AppConfigSettings.AppSettings.Settings["ServerURL"].Value = serverURL.ToString();
-            //AppConfigSettings.Save();
-            ViewBag.ActiveMenu = "home";
-            return View(model);
+            
+            return View();
         }
 
         public async System.Threading.Tasks.Task<ActionResult> About()
