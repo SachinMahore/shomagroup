@@ -3226,7 +3226,6 @@
             <End Role="tbl_WorkOrder" EntitySet="tbl_WorkOrder" />
           </AssociationSet>
           <EntitySet Name="tbl_TenantInfo" EntityType="ShomaRMEntitiesModel.tbl_TenantInfo" />
-          <EntitySet Name="tbl_BackgroundScreening" EntityType="ShomaRMEntitiesModel.tbl_BackgroundScreening" />
           <EntitySet Name="tbl_Vehicle" EntityType="ShomaRMEntitiesModel.tbl_Vehicle" />
           <EntitySet Name="tbl_Login" EntityType="ShomaRMEntitiesModel.tbl_Login" />
           <AssociationSet Name="FK_tbl_CashReceipts_tbl_Login" Association="ShomaRMEntitiesModel.FK_tbl_CashReceipts_tbl_Login">
@@ -3356,6 +3355,7 @@
             <End Role="tbl_TenantOnline" EntitySet="tbl_TenantOnline" />
           </AssociationSet>
           <EntitySet Name="tbl_OnlinePayment" EntityType="ShomaRMEntitiesModel.tbl_OnlinePayment" />
+          <EntitySet Name="tbl_BackgroundScreening" EntityType="ShomaRMEntitiesModel.tbl_BackgroundScreening" />
 
           </EntityContainer>
         <EntityType Name="tbl_AcutraqScrenning">
@@ -5280,19 +5280,6 @@
           <Property Name="ParentTenantID" Type="Int64" />
           <NavigationProperty Name="tbl_ApplyNow" Relationship="ShomaRMEntitiesModel.FK_tbl_TenantInfo_tbl_ApplyNow" FromRole="tbl_TenantInfo" ToRole="tbl_ApplyNow" />
         </EntityType>
-        <EntityType Name="tbl_BackgroundScreening">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenantId" Type="Int32" Nullable="false" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PDFUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SSNNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="tbl_Vehicle">
           <Key>
             <PropertyRef Name="Vehicle_ID" />
@@ -6063,6 +6050,19 @@
           <Property Name="PaymentMethod" Type="Int32" />
           <Property Name="ApplicantID" Type="Int64" />
           <Property Name="TenantID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="tbl_BackgroundScreening">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenantId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PDFUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SSNNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
 
         </Schema>
@@ -7371,20 +7371,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tbl_BackgroundScreening">
-            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
-              <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
-                <ScalarProperty Name="SSNNumber" ColumnName="SSNNumber" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="PDFUrl" ColumnName="PDFUrl" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbl_Vehicle">
             <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Vehicle">
               <MappingFragment StoreEntitySet="tbl_Vehicle">
@@ -7782,6 +7768,20 @@
                 <ScalarProperty Name="PaymentName" ColumnName="PaymentName" />
                 <ScalarProperty Name="PID" ColumnName="PID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_BackgroundScreening">
+            <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
+              <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
+                <ScalarProperty Name="SSNNumber" ColumnName="SSNNumber" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="PDFUrl" ColumnName="PDFUrl" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
