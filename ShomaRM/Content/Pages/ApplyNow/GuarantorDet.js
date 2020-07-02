@@ -2065,18 +2065,7 @@ function savePayment() {
                 type: 'red'
             });
             return;
-
         }
-
-        //if (isSummarychecked != "1") {
-        //    $("#divLoader").hide();
-        //    $.alert({
-        //        title: "",
-        //        content: "Please ACCEPT AGREEMENTS </br>",
-        //        type: 'red'
-        //    });
-        //    return;
-        //}
         if ($("#hndTransMethod").val() == 2) {
             var paymentMethod = 2;
             var propertyId = $("#hndUID").val();
@@ -4357,7 +4346,7 @@ var getApplicantListsGuarantor = function () {
                     html += "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>";
                     html += "<label> " + elementValue.Type + " </label><br/>";
                     if (elementValue.Type == "Guarantor") {
-                        html += "<label><a class='cust-link' href='javascript:void(0)' onclick='goToEditApplicantGuarantor(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
+                        html += "<label><a href='javascript:void(0)' onclick='goToEditApplicantGuarantor(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
                         if (parseInt(elementValue.CreditPaid) == 0 ) {
                             $("#editApplicantFees").text("Credit Check Fees");
                             $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
