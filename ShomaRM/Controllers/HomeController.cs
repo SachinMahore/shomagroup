@@ -58,8 +58,8 @@ namespace ShomaRM.Controllers
             LeaseResponseModel authenticateData = await bmservice.CreateSession();
             LeaseRequestModel leaseRequestModel = new LeaseRequestModel();
 
-            leaseRequestModel.LEASE_BEGIN_DATE = "";
-            leaseRequestModel.LEASE_END_DATE = "";
+            leaseRequestModel.LEASE_BEGIN_DATE = "02-02-2020";
+            leaseRequestModel.LEASE_END_DATE = "02-02-2021";
             leaseRequestModel.RESIDENT_1 = "Lalut";
 
             LeaseResponseModel leaseCreateResponse = await bmservice.CreateLeaseCustomForm(leaseRequestModel: leaseRequestModel, PropertyId: "112154", sessionId: authenticateData.SessionId);
@@ -77,6 +77,16 @@ namespace ShomaRM.Controllers
                 Name = "Sanctuary Doral",
                 Phone = "786-437-8658"
             });
+
+
+            esignatureParties.Add(new EsignatureParty()
+            {
+                Email = "info@sanctuarydoral.com",
+                IsOwner = false,
+                Name = "Lalut",
+                Phone = "786-437-8658"
+            });
+
 
             //for true =SHOMA_APPAGREE  AND FALSE SHOMA_RULESPOL
             LeaseResponseModel EsignatureResponse = await bmservice.RequestCustomEsignature(leaseId: leaseid, sessionId: authenticateData.SessionId, esignatureParties: esignatureParties, AppAgree: true);
