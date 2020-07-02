@@ -84,6 +84,8 @@
     <Property Name="BackGroundPaid" Type="int" />
     <Property Name="AdminFee" Type="decimal" Precision="18" Scale="2" />
     <Property Name="AdminFeePercentage" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="CreditResult" Type="varchar" MaxLength="50" />
+    <Property Name="BackGroungResult" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="tbl_ApplicantHistory">
     <Key>

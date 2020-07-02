@@ -19,30 +19,15 @@ namespace ShomaRM.Models.Bluemoon
             try
             {
                 //SOAP Body Request  
-                body.LoadXml(@"<?xml version = ""1.0"" encoding=""utf - 8""?>
-                            <ApplicantScreening xmlns: MITS = ""http://my-company.com/namespace"">
-                            <Request xmlns: xsi = ""http://www.w3.org/2001/XMLSchema-instance"" >
-                             <PropertyID>
-                                    <MITS:Identification Type = ""other"" >
-                                    <MITS:PrimaryID/>
-                                    <MITS:MarketingName/> 
-                                    <MITS:WebSite> https://office.yourwebsite.com</MITS:WebSite>
-                                    </MITS:Identification>
-                                    </PropertyID>
-                                     <RequestType> New </RequestType>
-                                      <ReportOptions >
-                                    <ReportName> CRD </ReportName>
-                                   </ReportOptions>
-                                    <OriginatorID > 501214 </OriginatorID>
-                                    <UserAccount> 1M898 </UserAccount>
-                                    <UserName> APIShomatest </UserName>
-                                    <UserPassword> Shomatest1! </UserPassword>
-                                    </Request>
-                                 " + Body + @"
-
-                                </ApplicantScreening>");
-
-
+                body.LoadXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
+                                    <SOAP-ENV:Envelope 
+                                    xmlns:SOAP-ENV=""http://schemas.xmlsoap.org/soap/envelope/""
+                                    xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
+                                    xmlns:ns1=""https://www.bluemoonforms.com/services/lease.php"">
+                                    <SOAP-ENV:Body>
+                                        " + Body + @"
+                                    </SOAP-ENV:Body>
+                                    </SOAP-ENV:Envelope>");
             }
             catch (Exception ex)
             {
@@ -990,7 +975,7 @@ namespace ShomaRM.Models.Bluemoon
                             var resultGetEsignaturePdfDetails = resultEsignatureResendRequestData
                              .Descendants("ResendEsignatureRequestResult")
                              .ToList();
-
+                            leaseResponseModel.EsignatureKey = item.Value;
                             leaseResponseModel.EsignatureId = resultCloseSessionDetails[0].Value;
 
                         }
