@@ -1528,27 +1528,26 @@
                                                 <table class="table" cellspacing="0" style="width:100%;overflow-x:scroll">
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rental qualifications</span></td>
-                                                        <td><a class="cust-link" href="javascript:void(0)" id="rentalQulification" onclick="createESignPolicyAndAgreement(true)"><span>Sign</span></a></td>
-                                                        <td><a class="cust-link" href="javascript:void(0)" onclick="saveToDiskPDF('/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf','RentalQualifications.pdf')" >Download</a></td>
-                                                        <td><a class="cust-link" data-toggle="modal" data-target="#modalRentalQualificationPolicy" href="javascript:void(0);" id="printRentalQualificationPolicy">Print</a></td>
+
+                                                        <td><a href="javascript:void(0)" id="rentalQulification" onclick="createESignPolicyAndAgreement(true)"><span>Sign</span></a></td>
+                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyDownloadData(true)" >Download</a></td>
+                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyPrintData(true)">Print</a></td>
                                                     </tr>
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rules and Policies</span></td>
-                                                        <td><a class="cust-link" href="javascript:void(0)" id="rulesPolicy" onclick="createESignPolicyAndAgreement(false)"><span>Sign</span></a></td>
-                                                        <td><a class="cust-link" href="javascript:void(0)" onclick="saveToDiskPDF('/Content/assets/img/Policy/Rules_Policies_fragmented.pdf','RulesPolicies.pdf')" >Download</a></td>
-                                                        <td><a class="cust-link" data-toggle="modal" data-target="#modalRulesAndPolicy" href="javascript:void(0);" id="print">Print</a></td>
+                                                        <td><a href="javascript:void(0)" id="rulesPolicy" onclick="createESignPolicyAndAgreement(false)"><span>Sign</span></a></td>
+                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyDownloadData(false)">Download</a></td>
+                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyPrintData(false)">Print</a></td>
+
                                                     </tr>
                                                 </table>
+                                                <input id="hdnAgreePoli" type="hidden" value="" />
                                             </div>
                                             <div class="col-sm-12">
-
-                                                <div class="chekbox-wrapper">
-
+                                                <div class="chekbox-wrapper hidden">
                                                     <input class="form-control" type="checkbox" id="chkAgreeTermsPolicy" /> <span class="agree-text"> I agree with Sanctuary terms & conditions. </span>
                                                 </div>
                                             </div>
-
-
                                         </div>
                                         <div class="col-sm-2"></div>
                                     </div>
@@ -6312,6 +6311,23 @@
             </div>
             <div class="modal-footer" style="border-top:none">
                 <button id="policyRulesPrint" class="btn btn-primary" onclick="printiframe('iframeRules')"> Print</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="modalAgreementPolicy">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header" style="border-top:none">
+                <button type="button" class="close" data-dismiss="modal" style="color:#000000;" onclick="checkEsignPolicyAgreementStatus()"><i class="fa fa-times-circle"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <div><iframe id="iframeAgreementPolicy" src="" width="100%" height="600" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+                </div>
             </div>
         </div>
     </div>

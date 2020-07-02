@@ -1,5 +1,6 @@
 ﻿using LoggerEngine;
 using Microsoft.Graph;
+using ShomaRM.Data;
 using ShomaRM.Models;
 using ShomaRM.Models.Bluemoon;
 using ShomaRM.Models.Corelogic;
@@ -52,7 +53,9 @@ namespace ShomaRM.Controllers
             ViewBag.ActiveMenu = "home";
             return View(model);
         }
+
         public async System.Threading.Tasks.Task<ActionResult> CreateESignPolicyAgreement(int uid, bool AppAgree)
+
         {
             var bmservice = new BluemoonService();
             LeaseResponseModel authenticateData = await bmservice.CreateSession();

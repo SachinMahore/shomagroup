@@ -115,5 +115,6 @@ namespace ShomaRM.Data
 
         public virtual DbSet<tbl_BackgroundScreening> tbl_BackgroundScreening { get; set; }
         public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
+        public virtual DbSet<tbl_ESignPolicyAgreement> tbl_ESignPolicyAgreement { get; set; }
     }
 }

@@ -20,7 +20,9 @@ namespace ShomaRM.Models.Bluemoon
             {
                 //SOAP Body Request  
                 body.LoadXml(@"<?xml version=""1.0"" encoding=""utf-8""?>
-                                    <SOAP-ENV:Envelope 
+
+                                    <SOAP-ENV:Envelope
+
                                     xmlns:SOAP-ENV=""http://schemas.xmlsoap.org/soap/envelope/""
                                     xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""
                                     xmlns:ns1=""https://www.bluemoonforms.com/services/lease.php"">
@@ -33,7 +35,6 @@ namespace ShomaRM.Models.Bluemoon
             {
 
             }
-
             return body;
         }
 
@@ -452,7 +453,7 @@ namespace ShomaRM.Models.Bluemoon
             LeaseResponseModel leaseResponseModel = new LeaseResponseModel();
             string sessionId = "";
             string leaseId = "";
-            var bodyForAuth = CreateXMLDocument(@" <ns1:AuthenticateUser>
+            var bodyForAuth = CreateXMLDocument(@"<ns1:AuthenticateUser>
                                                     <SerialNumber>FL19100803</SerialNumber>
                                                     <UserId>MasmarMgmt</UserId>
                                                     <Password>$homa123</Password>
@@ -468,7 +469,7 @@ namespace ShomaRM.Models.Bluemoon
 
                 if (Convert.ToBoolean(resultOrderDetail[0].Value) == true)
                 {
-                    var bodyForSession = CreateXMLDocument(@"   <ns1:CreateSession>
+                    var bodyForSession = CreateXMLDocument(@"<ns1:CreateSession>
                                                                     <SerialNumber>FL19100803</SerialNumber>
                                                                     <UserId>MasmarMgmt</UserId>
                                                                     <Password>$homa123</Password>
@@ -662,7 +663,7 @@ namespace ShomaRM.Models.Bluemoon
                     int i = 0;
                     foreach (var item in keys)
                     {
-                        var bodyEsignResendRequest = CreateXMLDocument(@" <ns1:ResendEsignatureRequest>
+                        var bodyEsignResendRequest = CreateXMLDocument(@"<ns1:ResendEsignatureRequest>
                                                                         <SessionId>" + sessionId + @"</SessionId>
                                                                          <SignerKey>" + item.Value + @"</SignerKey>
                                                                         <Email>" + emails[i].Value + @"</Email>
@@ -977,6 +978,7 @@ namespace ShomaRM.Models.Bluemoon
                              .ToList();
                             leaseResponseModel.EsignatureKey = item.Value;
                             leaseResponseModel.EsignatureId = resultCloseSessionDetails[0].Value;
+                            leaseResponseModel.EsignatureKey = item.Value;
 
                         }
                         i++;
