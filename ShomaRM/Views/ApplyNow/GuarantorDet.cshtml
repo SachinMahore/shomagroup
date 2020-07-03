@@ -34,7 +34,7 @@
 <input type="hidden" id="hndAppCreditFees" value="@((Model.GuaCCCheckFees??0).ToString("0.00"))" />
 <input type="hidden" id="hndAppBackgroundFees" value="@((Model.GuaBGCheckFees??0).ToString("0.00"))" />
 <input type="hidden" id="hndStepGotosummary" value="" />
-<input type="hidden" id="hndCurrentUserId" value="@ShomaGroupWebSession.CurrentUser.UserID" />
+<input type="hidden" id="hndCurrentUserId" value="@(ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0)" />
 <input type="hidden" id="hdnAgreePoli" value="true" />
 @*Sachin Mahore 21 Apr 2020*@
 <div class="content-area submit-property sanctuary-background-img">
@@ -1480,15 +1480,15 @@
                                                 <table class="table" cellspacing="0" style="width:100%;overflow-x:scroll">
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rental qualifications</span></td>
-                                                        <td><a href="javascript:void(0)" id="rentalQulification" onclick="createESignPolicyAndAgreementGuarantor(true)"><span>Sign</span></a></td>
-                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyDownloadDataGuarantor(true)">Download</a></td>
-                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyPrintDataGuarantor(true)">Print</a></td>
+                                                        <td><a class="cust-link" href="javascript:void(0)" id="rentalQulification" onclick="createESignPolicyAndAgreementGuarantor(true)"><span>Sign</span></a></td>
+                                                        <td><a class="cust-link" href="javascript:void(0)" onclick="getESignAgreePolicyDownloadDataGuarantor(true)">Download</a></td>
+                                                        <td><a class="cust-link" href="javascript:void(0)" onclick="getESignAgreePolicyPrintDataGuarantor(true)">Print</a></td>
                                                     </tr>
                                                     <tr class="text-justify">
                                                         <td><span class="star" style="font:bold">Rules and Policies</span></td>
-                                                        <td><a href="javascript:void(0)" id="rulesPolicy" onclick="createESignPolicyAndAgreementGuarantor(false)"><span>Sign</span></a></td>
-                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyDownloadDataGuarantor(false)">Download</a></td>
-                                                        <td><a href="javascript:void(0)" onclick="getESignAgreePolicyPrintDataGuarantor(false)">Print</a></td>
+                                                        <td><a class="cust-link" href="javascript:void(0)" id="rulesPolicy" onclick="createESignPolicyAndAgreementGuarantor(false)"><span>Sign</span></a></td>
+                                                        <td><a class="cust-link" href="javascript:void(0)" onclick="getESignAgreePolicyDownloadDataGuarantor(false)">Download</a></td>
+                                                        <td><a class="cust-link" href="javascript:void(0)" onclick="getESignAgreePolicyPrintDataGuarantor(false)">Print</a></td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -1594,8 +1594,9 @@
                                     <button type="submit" class="btn-alltype wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>
+                                    @*<button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>*@
                                     @*<button type="submit" class="btn-alltype @(Model.CreditResult != "Accept" ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>*@
+                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(9,9,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
@@ -2667,7 +2668,7 @@
                                         <div class="panel panel-default accordian-border-group">
                                             <div class="panel-heading accordian-border" style="background-color: #f5f5f5;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(9,9,0)">&nbsp;&nbsp;Edit</a></a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Personal Information <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(9,9,0)">Edit</a></a>
                                                 </h3>
                                             </div>
                                             <div id="collapse3" class="panel-collapse collapse">
@@ -2689,16 +2690,16 @@
                                         </div>
 
                                         <div class="panel panel-default accordian-border-group">
-                                            <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
+                                            <div class="panel-heading accordian-border" style="background-color: #f5f5f5;margin-top:0px">
                                                 <h3 class="panel-title">
-                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(11,11,0)">&nbsp;&nbsp;Edit</a></a>
+                                                    <a class="cust-link" data-toggle="collapse" data-parent="#accordion" href="#collapse5">Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(11,11,0)">Edit</a></a>
                                                 </h3>
                                             </div>
                                             <div id="collapse5" class="panel-collapse collapse">
                                                 <div class="panel panel-default accordian-border-group" style="padding-left:15px;padding-right: 15px;margin-top: 6px;">
                                                     <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                         <h3 class="panel-title">
-                                                            <a data-parent="#accordion">Current Employment & Income<i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
+                                                            <a class="cust-link" data-parent="#accordion">Current Employment & Income<i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a></a>
                                                         </h3>
                                                     </div>
                                                     <div id="collapse51">
@@ -2737,7 +2738,7 @@
                                                 <div class="panel panel-default accordian-border-group" style="padding-left:15px;padding-right: 15px;margin-top: 6px;">
                                                     <div class="panel-heading accordian-border" style="background-color: #f5f5f5;;margin-top:0px">
                                                         <h3 class="panel-title">
-                                                            <a data-parent="#accordion">Previous Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
+                                                            <a class="cust-link" data-parent="#accordion">Previous Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a></a>
                                                         </h3>
                                                     </div>
                                                     <div id="collapse52">
@@ -4639,7 +4640,7 @@
                         <input type="checkbox" id="chkTermsAndCondition1">
                         <span class="chektext">
                             I agree to the
-                            <span class="span1"><a id="ShowTermsAndCondition1" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <span class="span1"><a class="cust-link" id="ShowTermsAndCondition1" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                         </span>
                     </div>
                 </div>

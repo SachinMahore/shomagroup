@@ -1570,9 +1570,20 @@ namespace ShomaRM.Controllers
                 if (getTenantData != null)
                 {
                     TenantName = $"{getTenantData.FirstName} {getTenantData.LastName}";
-                    DateTime dt1 = Convert.ToDateTime(getTenantData.MoveInDate);
-                    moveInDateBegin = dt1.ToString("MM-dd-yyyy");
-                    moveInDateEnd = dt1.AddYears(1).ToString("MM-dd-yyyy");
+                    if(getTenantData.MoveInDate != null)
+                    {
+                        DateTime dt1 = Convert.ToDateTime(getTenantData.MoveInDate);
+                        moveInDateBegin = dt1.ToString("MM-dd-yyyy");
+                        moveInDateEnd = dt1.AddYears(1).ToString("MM-dd-yyyy");
+                    }
+                    else
+                    {
+                        DateTime dt1 = DateTime.Now;
+                        moveInDateBegin = dt1.ToString("MM-dd-yyyy");
+                        moveInDateEnd = dt1.AddYears(1).ToString("MM-dd-yyyy");
+                    }
+                    
+                    
                     email = getTenantData.Email;
                     phoneNo = getTenantData.Mobile;
                     var getApplicantData = db.tbl_Applicant.Where(p => p.UserID == uid).FirstOrDefault();
