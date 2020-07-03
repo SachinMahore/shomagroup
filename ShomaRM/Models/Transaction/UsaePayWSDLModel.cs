@@ -105,8 +105,7 @@ namespace ShomaRM.Models
                 payMethod.MethodType = "CreditCard";
                 payMethod.CardExpiration = model.CardMonth + model.CardYear;
                 payMethod.CardNumber = model.CardNumber;
-                payMethod.AvsStreet = "Nagpur";
-                payMethod.AvsZip = "90046";
+                
             }
             else
             {
