@@ -959,54 +959,43 @@ var goToStep = function (stepid, id, calldataupdate) {
     if (stepid == "7") {
 
         if (id == "7") {
-            var check = $('#chkAgreeTermsPolicy').is(':checked') ? "1" : "0";
-            if (check == "0") {
-                $.alert({
-                    title: "",
-                    content: 'Please check "I agree with Sanctuary terms and conditions" before proceeding...',
-                    type: 'blue'
-                });
-                return;
-            }
-            else {
-                $("#popApplicantContinue").modal("hide");
-                $("#subMenu").removeClass("hidden");
-                SaveCheckPolicy(7);
-                $("#as6").removeAttr("onclick");
-                $("#as6").attr("onclick", "goToStep(7,7,0)");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").removeClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
-                $("#step17").addClass("hidden");
+            $("#popApplicantContinue").modal("hide");
+            $("#subMenu").removeClass("hidden");
+            SaveCheckPolicy(7);
+            $("#as6").removeAttr("onclick");
+            $("#as6").attr("onclick", "goToStep(7,7,0)");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").removeClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
+            $("#step17").addClass("hidden");
 
-                $("#li7").addClass("active");
-                $("#li8").removeClass("active");
-                $("#li9").removeClass("active");
-                $("#li10").removeClass("active");
-                $("#li11").removeClass("active");
-                $("#li12").removeClass("active");
-                $("#li13").removeClass("active");
-                $("#li14").removeClass("active");
-                $("#li15").removeClass("active");
-                $("#li16").removeClass("active");
-                $("#li17").removeClass("active");
-                $("#hndGotoSummary").val(7);
-                if ($("#hdnOPId").val() != '0') {
-                    getStaticApplicantValuesCoApplicant();
-                }
+            $("#li7").addClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+            $("#li13").removeClass("active");
+            $("#li14").removeClass("active");
+            $("#li15").removeClass("active");
+            $("#li16").removeClass("active");
+            $("#li17").removeClass("active");
+            $("#hndGotoSummary").val(7);
+            if ($("#hdnOPId").val() != '0') {
+                getStaticApplicantValuesCoApplicant();
             }
         }
     }
