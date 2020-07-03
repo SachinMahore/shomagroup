@@ -6133,3 +6133,11 @@ h2.cust-black {
 h5.cust-black {
     color: black !important;
 }
+div .main_pro h5 {
+    color: black !important;
+}
+
+div .unit-txt1 span {
+    color: black !important;
+}
+
