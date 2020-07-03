@@ -9103,7 +9103,6 @@ function MaskCardNumber(number) {
 };
 
 // New Upload Code Start //
-
 // New Paystub file Upload Method
 var paystubFileUploadGuarantor = function () {
     $("#divLoader").show();
@@ -9153,7 +9152,6 @@ var paystubFileUploadGuarantor = function () {
         }
     });
 };
-
 // New Fedral file Upload Method
 var fedralFileUploadGuarantor = function () {
     $("#divLoader").show();
@@ -9199,7 +9197,6 @@ var fedralFileUploadGuarantor = function () {
         }
     });
 };
-
 // New Paystub file Upload Method
 var bankstatementFileUploadGuarantor = function () {
     $("#divLoader").show();
@@ -9248,7 +9245,6 @@ var bankstatementFileUploadGuarantor = function () {
         }
     });
 };
-
 // New Upload Code End //
 
 var createESignPolicyAndAgreementGuarantor = function (appAgree) {
@@ -9289,7 +9285,6 @@ var createESignPolicyAndAgreementGuarantor = function (appAgree) {
         }
     });
 };
-
 var checkEsignPolicyAgreementStatusGuarantor = function () {
     $("#divLoader").show();
     var userid = $("#hndCurrentUserId").val();
@@ -9315,7 +9310,6 @@ var checkEsignPolicyAgreementStatusGuarantor = function () {
         }
     });
 };
-
 var getESignAgreePolicyDownloadDataGuarantor = function (appAgree) {
     $("#divLoader").show();
     var userid = $("#hndCurrentUserId").val();
@@ -9350,7 +9344,6 @@ var getESignAgreePolicyDownloadDataGuarantor = function (appAgree) {
         }
     });
 };
-
 var getESignAgreePolicyPrintDataGuarantor = function (appAgree) {
     $("#modalRentalQualificationPolicy").modal("hide");
     $("#modalRulesAndPolicy").modal("hide");

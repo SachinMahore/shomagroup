@@ -6480,10 +6480,12 @@
                 showCurrentStep(@Model.StepCompleted, @Model.StepCompleted);
                 $("#hndShowTermPolicy").val(0);
                 $("#chkAgreeTermsPolicy").iCheck('check');
+                $("#policyStart").attr("disabled", false);
             }
             else {
                 $("#hdnStepCompleted").val(6);
                 $("#hndShowTermPolicy").val(1);
+                $("#policyStart").attr("disabled", true);
                 showCurrentStep(6, 6);
             }
 

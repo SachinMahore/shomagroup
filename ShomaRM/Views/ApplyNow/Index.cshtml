@@ -1541,9 +1541,7 @@
                                                 </table>
                                             </div>
                                             <div class="col-sm-12">
-
                                                 <div class="chekbox-wrapper hidden">
-
                                                     <input class="form-control" type="checkbox" id="chkAgreeTermsPolicy" /> <span class="agree-text"> I agree with Sanctuary terms & conditions. </span>
                                                 </div>
                                             </div>
@@ -6999,9 +6997,11 @@
                 showCurrentStep(7, 7);
                 $("#hndShowTermPolicy").val(0);
                 $("#chkAgreeTermsPolicy").iCheck('check');
+                $("#policyStart").attr("disabled", false);
             }
             else {
                 $("#hndShowTermPolicy").val(1);
+                $("#policyStart").attr("disabled", true);
                 showCurrentStep(3, 3);
             }
 

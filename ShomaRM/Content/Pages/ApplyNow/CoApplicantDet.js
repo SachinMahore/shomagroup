@@ -10675,7 +10675,6 @@ var createESignPolicyAndAgreementCoApplicant = function (appAgree) {
         }
     });
 };
-
 var checkEsignPolicyAgreementStatusCoApplicant = function () {
     $("#divLoader").show();
     var userid = $("#hndCurrentUserId").val();
@@ -10701,7 +10700,6 @@ var checkEsignPolicyAgreementStatusCoApplicant = function () {
         }
     });
 };
-
 var getESignAgreePolicyDownloadDataCoApplicant = function (appAgree) {
     $("#divLoader").show();
     var userid = $("#hndCurrentUserId").val();
@@ -10736,7 +10734,6 @@ var getESignAgreePolicyDownloadDataCoApplicant = function (appAgree) {
         }
     });
 };
-
 var getESignAgreePolicyPrintDataCoApplicant = function (appAgree) {
     $("#modalRentalQualificationPolicy").modal("hide");
     $("#modalRulesAndPolicy").modal("hide");

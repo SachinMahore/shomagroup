@@ -1208,6 +1208,11 @@ namespace ShomaRM.Models
                             }
                         }
                     }
+                    else
+                    {
+                        model.IsRentalQualification = Convert.ToInt32(tenantOnlineData.IsRentalQualification ?? 0);
+                        model.IsRentalPolicy = Convert.ToInt32(tenantOnlineData.IsRentalPolicy ?? 0);
+                    }
                 }
             }
             model.lstPropertyFloor = new PropertyFloor().GetFloorList(8, Convert.ToDateTime(dtMoveInDate), 0, 10000);

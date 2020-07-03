@@ -1613,7 +1613,7 @@ namespace ShomaRM.Controllers
 
 
                 //for true =SHOMA_APPAGREE  AND FALSE SHOMA_RULESPOL
-                LeaseResponseModel EsignatureResponse = await bmservice.RequestCustomEsignature(leaseId: leaseid, sessionId: authenticateData.SessionId, esignatureParties: esignatureParties, AppAgree: true);
+                LeaseResponseModel EsignatureResponse = await bmservice.RequestCustomEsignature(leaseId: leaseid, sessionId: authenticateData.SessionId, esignatureParties: esignatureParties, AppAgree: AppAgree);
                 var saveEsignData = new tbl_ESignPolicyAgreement()
                 {
                     TenantID = getTenantData.ID,
