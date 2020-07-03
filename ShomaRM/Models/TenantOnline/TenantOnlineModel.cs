@@ -202,7 +202,8 @@ namespace ShomaRM.Models
         public List<string> FedralOriginalFiles { get; set; }
         public List<string> BankStatementFiles { get; set; }
         public List<string> BankStatementOriginalFiles { get; set; }
-
+        public string CreditResult { get; set; }
+        public string BackgroundResult { get; set; }
         string message = "";
 
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -2124,7 +2125,8 @@ namespace ShomaRM.Models
                     ahm.stringIsProprNoticeLeaseAgreement = ahm.IsProprNoticeLeaseAgreement == 1 ? "Yes" : "No";
                     ahm.ResidenceStatus = cl.ResidenceStatus==null?0: cl.ResidenceStatus;
                     ahm.ResidenceNotes = cl.ResidenceNotes==null?"":cl.ResidenceNotes;
-                    
+                    ahm.CreditResult = !string.IsNullOrWhiteSpace(ahm.CreditResult) ? ahm.CreditResult : "";
+                    ahm.BackgroundResult = !string.IsNullOrWhiteSpace(ahm.BackgroundResult) ? ahm.BackgroundResult : "";
                     lstpr.Add(ahm);
                 }
 
@@ -2187,6 +2189,8 @@ namespace ShomaRM.Models
                 
                     ahm.EmpStatus = cl.EmpStatus == null ? 0 : cl.EmpStatus;
                     ahm.EmpNotes = cl.EmpNotes==null ? "" : cl.EmpNotes;
+                    ahm.CreditResult = !string.IsNullOrWhiteSpace(ahm.CreditResult) ? ahm.CreditResult : "";
+                    ahm.BackgroundResult = !string.IsNullOrWhiteSpace(ahm.BackgroundResult) ? ahm.BackgroundResult : "";
                     lstpr.Add(ahm);
                 }
 
