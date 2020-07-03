@@ -202,7 +202,8 @@ namespace ShomaRM.Models
         public List<string> FedralOriginalFiles { get; set; }
         public List<string> BankStatementFiles { get; set; }
         public List<string> BankStatementOriginalFiles { get; set; }
-
+        public string CreditResult { get; set; }
+        public string BackgroundResult { get; set; }
         string message = "";
 
         string SendMessage = WebConfigurationManager.AppSettings["SendMessage"];
@@ -2124,7 +2125,8 @@ namespace ShomaRM.Models
                     ahm.stringIsProprNoticeLeaseAgreement = ahm.IsProprNoticeLeaseAgreement == 1 ? "Yes" : "No";
                     ahm.ResidenceStatus = cl.ResidenceStatus==null?0: cl.ResidenceStatus;
                     ahm.ResidenceNotes = cl.ResidenceNotes==null?"":cl.ResidenceNotes;
-                    
+                    ahm.CreditResult = !string.IsNullOrWhiteSpace(ahm.CreditResult) ? ahm.CreditResult : "";
+                    ahm.BackgroundResult = !string.IsNullOrWhiteSpace(ahm.BackgroundResult) ? ahm.BackgroundResult : "";
                     lstpr.Add(ahm);
                 }
 
@@ -2187,6 +2189,8 @@ namespace ShomaRM.Models
                 
                     ahm.EmpStatus = cl.EmpStatus == null ? 0 : cl.EmpStatus;
                     ahm.EmpNotes = cl.EmpNotes==null ? "" : cl.EmpNotes;
+                    ahm.CreditResult = !string.IsNullOrWhiteSpace(ahm.CreditResult) ? ahm.CreditResult : "";
+                    ahm.BackgroundResult = !string.IsNullOrWhiteSpace(ahm.BackgroundResult) ? ahm.BackgroundResult : "";
                     lstpr.Add(ahm);
                 }
 
@@ -2197,7 +2201,7 @@ namespace ShomaRM.Models
         }
 
         //Sachin Mahore 13 may 2020
-        public string UpdateResStatus(long ID, int ResidenceStatus, string ResidenceNotes)
+        public string UpdateResStatus(long ID, string ResidenceStatus, string ResidenceNotes)
         {
 
             string msg = "";
@@ -2205,17 +2209,17 @@ namespace ShomaRM.Models
 
             if (ID != 0)
             {
-
-                var getdata = db.tbl_TenantOnline.Where(p => p.ID == ID).FirstOrDefault();
+                var getApldata = db.tbl_TenantOnline.Where(p => p.ID == ID).FirstOrDefault();
+                var getdata = db.tbl_Applicant.Where(p => p.UserID == getApldata.ParentTOID).FirstOrDefault();
                 if (getdata != null)
                 {
-                    getdata.ResidenceStatus = ResidenceStatus;
-                    getdata.ResidenceNotes = ResidenceNotes;
+                    getdata.CreditResult = ResidenceStatus;
+                    //getdata.ResidenceNotes = ResidenceNotes;
                 }
                 db.SaveChanges();
-                if (ResidenceStatus == 2)
+                if (ResidenceStatus == "Denied")
                 {
-                    var log = db.tbl_Login.Where(p => p.UserID == getdata.ParentTOID).FirstOrDefault();
+                    var log = db.tbl_Login.Where(p => p.UserID == getApldata.ParentTOID).FirstOrDefault();
                     log.IsActive = 0;
                     db.SaveChanges();
                 }
@@ -2228,14 +2232,14 @@ namespace ShomaRM.Models
                     reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
                     string message = "";
-                    var applist = db.tbl_TenantOnline.Where(p => p.ProspectID == getdata.ProspectID).ToList();
-                    var prospdata = db.tbl_ApplyNow.Where(v => v.ID == getdata.ProspectID && (v.Status == "Approved" || v.Status == "Conditional")).FirstOrDefault();
+                    var applist = db.tbl_TenantOnline.Where(p => p.ProspectID == getApldata.ProspectID).ToList();
+                    var prospdata = db.tbl_ApplyNow.Where(v => v.ID == getApldata.ProspectID && (v.Status == "Approved" || v.Status == "Conditional")).FirstOrDefault();
                     int approveCount = 0;
                     if (prospdata != null)
                     {
                         foreach (var aapl in applist)
                         {
-                            var getStatus = db.tbl_TenantOnline.Where(p => p.ID == aapl.ID && (p.ResidenceStatus == 1 || p.ResidenceStatus == 3) && (p.EmpStatus == 1 || p.EmpStatus == 3)).FirstOrDefault();
+                            var getStatus = db.tbl_Applicant.Where(p => p.UserID == aapl.ParentTOID && (p.CreditResult == "Approved" || p.CreditResult == "Conditional") && (p.BackGroungResult == "Approved" || p.BackGroungResult == "Conditional")).FirstOrDefault();
                             if (getStatus != null)
                             {
                                 approveCount += 1;
@@ -2246,7 +2250,7 @@ namespace ShomaRM.Models
                         {
 
                             //Sachin Mahore 18 june 2020
-                            var adminFeeApplList = db.tbl_Applicant.Where(c => c.TenantID == getdata.ProspectID && c.Type != "Guarantor").ToList();
+                            var adminFeeApplList = db.tbl_Applicant.Where(c => c.TenantID == getApldata.ProspectID && c.Type != "Guarantor").ToList();
                             foreach (var adfee in adminFeeApplList)
                             {
                                 string reportHTMLAdf = "";
@@ -2346,24 +2350,25 @@ namespace ShomaRM.Models
             db.Dispose();
             return msg;
         }
-        public string UpdateEmpStatus(long ID, int EmpStatus, string EmpNotes)
+        public string UpdateEmpStatus(long ID, string EmpStatus, string EmpNotes)
         {
             string msg = "";
             ShomaRMEntities db = new ShomaRMEntities();
 
             if (ID != 0)
             {
-
-                var getdata = db.tbl_TenantOnline.Where(p => p.ID == ID).FirstOrDefault();
+                
+                var getApldata = db.tbl_TenantOnline.Where(p => p.ID == ID).FirstOrDefault();
+                var getdata = db.tbl_Applicant.Where(p => p.UserID == getApldata.ParentTOID).FirstOrDefault();
                 if (getdata != null)
                 {
-                    getdata.EmpStatus = EmpStatus;
-                    getdata.EmpNotes = EmpNotes;
+                    getdata.BackGroungResult = EmpStatus;
+                    //getdata.EmpNotes = EmpNotes;
                 }
                 db.SaveChanges();
-                if (EmpStatus == 2)
+                if (EmpStatus == "Denied")
                 {
-                    var log = db.tbl_Login.Where(p => p.UserID == getdata.ParentTOID).FirstOrDefault();
+                    var log = db.tbl_Login.Where(p => p.UserID == getApldata.ParentTOID).FirstOrDefault();
                     log.IsActive = 0;
                     db.SaveChanges();
                 }
@@ -2377,14 +2382,14 @@ namespace ShomaRM.Models
                     reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
                     string message = "";
-                    var applist = db.tbl_TenantOnline.Where(p => p.ProspectID == getdata.ProspectID).ToList();
-                    var prospdata = db.tbl_ApplyNow.Where(v => v.ID == getdata.ProspectID && (v.Status == "Approved" || v.Status == "Conditional")).FirstOrDefault();
+                    var applist = db.tbl_TenantOnline.Where(p => p.ProspectID == getApldata.ProspectID).ToList();
+                    var prospdata = db.tbl_ApplyNow.Where(v => v.ID == getApldata.ProspectID && (v.Status == "Approved" || v.Status == "Conditional")).FirstOrDefault();
                     int approveCount = 0;
                     if (prospdata != null)
                     {
                         foreach (var aapl in applist)
                         {
-                            var getStatus = db.tbl_TenantOnline.Where(p => p.ID == aapl.ID && (p.ResidenceStatus == 1 || p.ResidenceStatus == 3) && (p.EmpStatus == 1 || p.EmpStatus == 3)).FirstOrDefault();
+                            var getStatus = db.tbl_Applicant.Where(p => p.UserID == aapl.ParentTOID && (p.CreditResult == "Approved" || p.CreditResult == "Conditional") && (p.BackGroungResult == "Approved" || p.BackGroungResult == "Conditional")).FirstOrDefault();
                             if (getStatus != null)
                             {
                                 approveCount += 1;
@@ -2395,7 +2400,7 @@ namespace ShomaRM.Models
                         {
 
                             //Sachin Mahore 18 june 2020
-                            var adminFeeApplList = db.tbl_Applicant.Where(c => c.TenantID == getdata.ProspectID && c.Type != "Guarantor").ToList();
+                            var adminFeeApplList = db.tbl_Applicant.Where(c => c.TenantID == getApldata.ProspectID && c.Type != "Guarantor").ToList();
                             foreach (var adfee in adminFeeApplList)
                             {
                                 string reportHTMLAdf = "";

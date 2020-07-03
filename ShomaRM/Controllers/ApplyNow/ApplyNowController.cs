@@ -1098,7 +1098,7 @@ namespace ShomaRM.Controllers
             }
         }
         //sachin m 13 may
-        public ActionResult UpdateResStatus(long ID, int ResidenceStatus,string ResidenceNotes)
+        public ActionResult UpdateResStatus(long ID, string ResidenceStatus,string ResidenceNotes)
         {
             try
             {
@@ -1109,7 +1109,7 @@ namespace ShomaRM.Controllers
                 return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult UpdateEmpStatus(long ID, int EmpStatus, string EmpNotes)
+        public ActionResult UpdateEmpStatus(long ID, string EmpStatus, string EmpNotes)
         {
             try
             {
