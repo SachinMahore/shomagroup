@@ -441,20 +441,20 @@ namespace ShomaRM.Areas.Admin.Models
                 var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
 
                 //sachin 13 may
-                var saveBGCC = new tbl_BackgroundScreening()
-                {
-                    TransactionNumber = "",
-                    SSN= tenantData.SSN,
-                    ReportDate=DateTime.Now.ToString("yyyy-MM-dd"),
-                    ApplyNowId = Convert.ToInt32(tenantData.ID),
-                    ReportType = "",
-                    ApplicantId = Convert.ToInt32(ProspectId),
-                    ApplicantDecision = Status,
-                    ApplicationDecision = Status,
-                    Notes = Notes,
-                };
-                db.tbl_BackgroundScreening.Add(saveBGCC);
-                db.SaveChanges();
+                //var saveBGCC = new tbl_BackgroundScreening()
+                //{
+                //    TransactionNumber = "",
+                //    SSN= tenantData.SSN,
+                //    ReportDate=DateTime.Now.ToString("yyyy-MM-dd"),
+                //    ApplyNowId = Convert.ToInt32(tenantData.ID),
+                //    ReportType = "",
+                //    ApplicantId = Convert.ToInt32(ProspectId),
+                //    ApplicantDecision = Status,
+                //    ApplicationDecision = Status,
+                //    Notes = Notes,
+                //};
+                //db.tbl_BackgroundScreening.Add(saveBGCC);
+                //db.SaveChanges();
 
 
                 if (Status == "Approved" || Status == "Conditional")
