@@ -5348,7 +5348,7 @@ var saveupdatePrimaryApplicant = function (callFrom) {
 
                                 $("#ResponseMsg1").html("Payment successfull");
                                 $("#divLoader").hide();
-                                window.open("/ApplyNow/Index/" + $("#hdnUserId").val());
+                                window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
                             } else {
                                 $("#divLoader").hide();
                                 $.alert({
