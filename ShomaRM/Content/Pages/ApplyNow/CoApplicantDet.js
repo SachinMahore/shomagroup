@@ -297,15 +297,15 @@ $(document).ready(function () {
 
     // New Upload Code End //
 
-    if ($("#chkAgreeTermsPolicy").is(":checked")) {
-        $("#policyStart").attr("disabled", true);
-        InnerPolicyCheckCoApplicant();
-    }
-    else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
-        $("#policyStart").attr("disabled", true);
-        $("#popRentalQualification").modal("hide");
-        InnerPolicyCheckCoApplicant();
-    }
+    //if ($("#chkAgreeTermsPolicy").is(":checked")) {
+    //    $("#policyStart").attr("disabled", true);
+    //    InnerPolicyCheckCoApplicant();
+    //}
+    //else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
+    //    $("#policyStart").attr("disabled", true);
+    //    $("#popRentalQualification").modal("hide");
+    //    InnerPolicyCheckCoApplicant();
+    //}
 
     //Sachin M 17 June
     //Modified By Amit 24 June
@@ -10677,7 +10677,7 @@ var createESignPolicyAndAgreementCoApplicant = function (appAgree) {
 };
 var checkEsignPolicyAgreementStatusCoApplicant = function () {
     $("#divLoader").show();
-    var userid = $("#hndCurrentUserId").val();
+    var userid = $("#hndCoAppUserId").val();
     var appAgree = $("#hdnAgreePoli").val();
     var model = { uid: userid, AppAgree: appAgree };
 
@@ -10702,7 +10702,7 @@ var checkEsignPolicyAgreementStatusCoApplicant = function () {
 };
 var getESignAgreePolicyDownloadDataCoApplicant = function (appAgree) {
     $("#divLoader").show();
-    var userid = $("#hndCurrentUserId").val();
+    var userid = $("#hndCoAppUserId").val();
     var model = { uid: userid, AppAgree: appAgree };
     var fileName = "";
     if (appAgree) {
@@ -10738,7 +10738,7 @@ var getESignAgreePolicyPrintDataCoApplicant = function (appAgree) {
     $("#modalRentalQualificationPolicy").modal("hide");
     $("#modalRulesAndPolicy").modal("hide");
     $("#divLoader").show();
-    var userid = $("#hndCurrentUserId").val();
+    var userid = $("#hndCoAppUserId").val();
     var model = { uid: userid, AppAgree: appAgree };
     var fileName = "";
     if (appAgree) {

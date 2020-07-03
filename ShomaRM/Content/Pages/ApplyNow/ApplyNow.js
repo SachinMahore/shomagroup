@@ -448,15 +448,15 @@ $(document).ready(function () {
 
     // New Upload Code End //
 
-    if ($("#chkAgreeTermsPolicy").is(":checked")) {
-        $("#policyStart").attr("disabled", true);
-        InnerPolicyCheck();
-    }
-    else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
-        $("#policyStart").attr("disabled", true);
-        $("#popRentalQualification").modal("hide");
-        InnerPolicyCheck();
-    }
+    //if ($("#chkAgreeTermsPolicy").is(":checked")) {
+    //    $("#policyStart").attr("disabled", true);
+    //    InnerPolicyCheck();
+    //}
+    //else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
+    //    $("#policyStart").attr("disabled", true);
+    //    $("#popRentalQualification").modal("hide");
+    //    InnerPolicyCheck();
+    //}
 
     $("#chkAgreeTermsPolicy").on('ifChanged', function (event) {
         if ($("#chkAgreeTermsPolicy").is(":checked")) {
@@ -1363,7 +1363,7 @@ var goToStep = function (stepid, id, calldataupdate) {
         if (id == "7") {
             $("#popApplicantContinue").modal("hide");
             $("#subMenu").removeClass("hidden");
-            SaveCheckPolicy(7);
+            SaveCheckPolicyApplicant(7);
             $("#as6").removeAttr("onclick");
             $("#as6").attr("onclick", "goToStep(7,7,0)");
             $("#step2").addClass("hidden");
@@ -3525,7 +3525,7 @@ var updateCalculation = function () {
     $("#lbltotalAmount").text(formatMoney(totalAmount));
     getApplicantLists();
 }
-var SaveCheckPolicy = function (stepcompleted) {
+var SaveCheckPolicyApplicant = function (stepcompleted) {
     $("#divLoader").show();
     var msg = "";
     var ProspectId = $("#hdnOPId").val();
@@ -3565,6 +3565,7 @@ var SaveCheckPolicy = function (stepcompleted) {
             var stepcomp = parseInt($("#hdnStepCompleted").val());
             if (stepcomp < stepcompleted) {
                 $("#hdnStepCompleted").val(stepcompleted);
+                
             }
         }
     });
@@ -5132,7 +5133,7 @@ var addApplicant = function (at) {
     clearApplicant();
     $("#popApplicant").modal("show");
 };
-var saveupdateApplicant = function (callFrom) {
+var saveupdatePrimaryApplicant = function (callFrom) {
     $("#divLoader").show();
     var checkEmail = 0;
     var msg = "";
@@ -5273,6 +5274,7 @@ var saveupdateApplicant = function (callFrom) {
         data: JSON.stringify(model),
         dataType: "JSON",
         success: function (response) {
+            $("#divLoader").show();
             if (callFrom == 1) {
                 $("#divLoader").hide();
                 $.alert({
@@ -5284,8 +5286,9 @@ var saveupdateApplicant = function (callFrom) {
                 $("#popApplicant").modal("hide");
             }
             else {
-                $("#divLoader").show();
+                
                 if ($("#hndTransMethod1").val() == "2") {
+                    $("#divLoader").show();
                     var paymentMethod = 2;
                     var propertyId = $("#hndUID").val();
                     var nameonCard = $("#txtNameonCard1").val();
@@ -5299,6 +5302,7 @@ var saveupdateApplicant = function (callFrom) {
                     var routingNumber = $("#txtRoutingNumber1").val();
                     var bankName = $("#txtBankName1").val();
                 } else {
+                    $("#divLoader").show();
                     var paymentMethod = 1;
                     var nameonCard = $("#txtAccountName1").val();
                     var cardNumber = $("#txtAccountNumber1").val();
@@ -5338,18 +5342,22 @@ var saveupdateApplicant = function (callFrom) {
                     data: JSON.stringify(model),
                     dataType: "JSON",
                     success: function (response) {
-                        $("#divLoader").hide();
+                        $("#divLoader").show();
                         if (response.Msg != "") {
                             if (response.Msg == "1") {
+
                                 $("#ResponseMsg1").html("Payment successfull");
-                                window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
+                                $("#divLoader").hide();
+                                window.open("/ApplyNow/Index/" + $("#hdnUserId").val());
                             } else {
+                                $("#divLoader").hide();
                                 $.alert({
                                     title: "",
                                     content: "Payment failed",
                                     type: 'red'
                                 });
                             }
+                            
                         }
                     }
                 });
@@ -10385,9 +10393,7 @@ var clearCard2 = function () {
     $("#divBank2").addClass("hidden");
     $("#lblPaymentDet2").text("Enter Credit Card Details.");
 }
-function saveCoAppPayment() {
-
-    
+function savePrimaryApplicantPayment() {
     $("#divLoader").show();
     var checkEmail = 0;
     var msg = "";
@@ -10494,6 +10500,7 @@ function saveCoAppPayment() {
     }
     
     if ($("#hndTransMethod1").val() == "2") {
+        $("#divLoader").show();
         var paymentMethod = 2;
         var propertyId = $("#hndUID").val();
         var nameonCard = $("#txtNameonCard1").val();
@@ -10588,7 +10595,8 @@ function saveCoAppPayment() {
             yes: {
                 text: 'Yes',
                 action: function (yes) {
-                    saveupdateApplicant(2);
+                    $("#divLoader").show();
+                    saveupdatePrimaryApplicant(2);
 
                     //$.ajax({
                     //    url: "/ApplyNow/saveCoAppPayment/",
@@ -13040,7 +13048,7 @@ var getESignAgreePolicyPrintData = function (appAgree) {
 
                 $.alert({
                     title: "",
-                    content: "Please Signed the document to Download",
+                    content: "Please Signed the document to Print",
                     type: 'blue'
                 });
             }

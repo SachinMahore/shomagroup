@@ -25,7 +25,7 @@
 <input type="hidden" id="hndProcessingFees" value="@(Model.ProcessingFees)" />
 <input type="hidden" id="hndAdditionalParking" value="@(Model.AdditionalParking)" />
 <input type="hidden" id="hndDocumentTypePersonal" value="0" />
-<input type="hidden" id="hndCoAppUserId" value="@ShomaGroupWebSession.CurrentUser.UserID" />
+<input type="hidden" id="hndCoAppUserId" value="@(ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0)" />
 <input type="hidden" id="hndNewCoApp" value="0" />
 <input type="hidden" id="hndCreditPaid" value="@Model.CreditPaid" />
 <input type="hidden" id="hndAppCreditFees" value="@((Model.AppCCCheckFees??0).ToString("0.00"))" />
@@ -1286,8 +1286,9 @@
                                     <button type="submit" class="btn-alltype wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>
+                                    @*<button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>*@
                                     @*<button type="submit" class="btn-alltype @(Model.CreditResult != "Accept" ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>*@
+                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo"onclick="goToStep(8,8,0)"> Continue</button>
                                 </div>
                             </div>
                         </div>
