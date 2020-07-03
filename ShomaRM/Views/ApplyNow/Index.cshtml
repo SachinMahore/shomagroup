@@ -1647,8 +1647,10 @@
                                     <button type="submit" class="btn-alltype wow elvetica-font" onclick="goToStep(6,6,0)"> Back</button>
                                 </div>
                                 <div class="pull-right text-center">
-                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>
+                                    @*<button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" data-toggle="modal" data-target="#popApplicantContinue"> Continue</button>*@
                                     @*<button type="submit" class="btn-alltype @(Model.CreditResult != "Accept" ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>*@
+                                    <button type="submit" class="btn-alltype @(Model.CreditPaid == 0 ? "hidden" : "")" id="btnnextAppinfo" onclick="goToStep(8,8,0)"> Continue</button>
+
                                 </div>
                             </div>
                         </div>
@@ -5078,8 +5080,8 @@
 
             <!-- Modal footer -->
             <div class="modal-footer" style="border-top:none">
-                <button type="submit" class="btn-alltype" id="btnsaveappl" onclick="saveupdateApplicant(1)">Save</button>
-                <button type="submit" class="btn-alltype hidden" id="btnsaveapplandpay" onclick="saveCoAppPayment()">Save & Pay</button>
+                <button type="submit" class="btn-alltype" id="btnsaveappl" onclick="saveupdatePrimaryApplicant(1)">Save</button>
+                <button type="submit" class="btn-alltype hidden" id="btnsaveapplandpay" onclick="savePrimaryApplicantPayment()">Save & Pay</button>
             </div>
 
         </div>
