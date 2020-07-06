@@ -430,16 +430,16 @@ $(document).ready(function () {
             $("#hndNeEx").val(1);
         }
     });
-    function InnerPolicyCheckCoApplicant() {
+    //function InnerPolicyCheckCoApplicant() {
 
-        if ($("#chkRentalQual").is(":checked") && $("#chkRentalPolicy").is(":checked")) {
-            $("#policyStart").attr("disabled", false);
-            $("#popRentalQualification").modal("hide");
-        }
-        else if ($("#chkRentalQual").is(":not(:checked)") || $("#chkRentalPolicy").is(":not(:checked)")) {
-            $("#policyStart").attr("disabled", true);
-        }
-    }
+    //    if ($("#chkRentalQual").is(":checked") && $("#chkRentalPolicy").is(":checked")) {
+    //        $("#policyStart").attr("disabled", false);
+    //        $("#popRentalQualification").modal("hide");
+    //    }
+    //    else if ($("#chkRentalQual").is(":not(:checked)") || $("#chkRentalPolicy").is(":not(:checked)")) {
+    //        $("#policyStart").attr("disabled", true);
+    //    }
+    //}
 
     if ($("#chkDontHaveVehicle").is(":checked")) {
         $("#btnAddVehicle").attr("disabled", true);
@@ -6843,14 +6843,14 @@ var getTenantOnlineListCoApplicant = function (id) {
             }
 
             $("#divLoaderFullData").hide();
-            //var modelstep = $("#hdnStepCompleted").val();
-            //var stepcompleted = parseInt(response.model.StepCompleted);
-            //if (modelstep < stepcompleted) {
-            //    $("#hdnStepCompleted").val(stepcompleted);
-            //} else {
-            //    stepcompleted = modelstep;
-            //}
-            //showCurrentStep(stepcompleted, stepcompleted);
+            var modelstep = $("#hdnStepCompleted").val();
+            var stepcompleted = parseInt(response.model.StepCompleted);
+            if (modelstep < stepcompleted) {
+                $("#hdnStepCompleted").val(stepcompleted);
+            } else {
+                stepcompleted = modelstep;
+            }
+            showCurrentStep(stepcompleted, stepcompleted);
         }
     });
 };
@@ -9890,7 +9890,7 @@ function saveCoAppPayment() {
                 text: 'Yes',
                 action: function (yes) {
                     saveupdateApplicantCoApplicant(2);
-                    
+                    showCurrentStep(7, 7);
                 }
             },
             no: {
@@ -10637,11 +10637,10 @@ var checkEsignPolicyAgreementStatusCoApplicant = function () {
         success: function (response) {
             $("#divLoader").hide();
             //console.log(JSON.stringify(response));
-
             if (response.AllSigned == 1) {
-                $("#policyStart").attr("disabled", false);
+                $("#policyStartCoapplicant").attr("disabled", false);
             } else {
-                $("#policyStart").attr("disabled", true);
+                $("#policyStartCoapplicant").attr("disabled", true);
             }
 
         }
