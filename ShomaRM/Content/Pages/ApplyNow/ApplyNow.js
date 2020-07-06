@@ -4737,7 +4737,7 @@ var saveupdateParking = function () {
     $("#divLoader").show();
     var tenantID = $("#hdnOPId").val();
     var uid = $("#hndUID").val();
-    var param = { TenantID: tenantID, lstTParking: addParkingArrayCoApplicant, UID: uid };
+    var param = { TenantID: tenantID, lstTParking: addParkingArray, UID: uid };
     $.ajax({
         url: "/Parking/SaveUpdateTenantParking",
         method: "post",
@@ -4747,68 +4747,87 @@ var saveupdateParking = function () {
         async: false,//Expected data format from server
         success: function (response) { $("#divLoader").show(); }
     }).done(function (response) {
-
+       
         //$("#popParking").PopupWindow("close");
         $('#popParking').modal('hide');
-        $("#divLoader").hide();
-        totalAmt = parseFloat(totalAmt) - unformatTextCoApplicant($("#lblAdditionalParking").text());
-        $("#lblVehicleFees").text("0.00");
+        
+        totalAmt = parseFloat(totalAmt) - unformatText($("#lblAdditionalParking").text());
+        $("#lblVehicleFees").text("$0.00");
         $("#lblVehicleFees1").text("0.00");
-        $("#lblAdditionalParking").text(formatMoneyCoApplicant(parseFloat(response.totalParkingAmt).toFixed(2)));
-        $("#lblMonthly_AditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
-        $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDaysCoApplicant) * remainingdayCoApplicant).toFixed(2));
-        $("#lblparkingplace").text(addParkingArrayCoApplicant.length > 0 ? addParkingArrayCoApplicant[0].ParkingID : 0);
-        fillUnitParkingListCoApp();
+        $("#lblAdditionalParking").text(formatMoney(parseFloat(response.totalParkingAmt).toFixed(2)));
+        $("#lblMonthly_AditionalParking").text("$" + parseFloat(response.totalParkingAmt).toFixed(2));
+        $("#lblProrated_AditionalParking").text("$" + parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+        $("#lblProrated_AditionalParking_Print").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+        $("#lblparkingplace").text(addParkingArray.length > 0 ? addParkingArray[0].ParkingID : 0);
+        fillUnitParkingList();
         if (parseInt(response.numOfParking) == 1) {
-            $("#lblVehicleFees").text("15.00");
-            $("#lblVehicleFees1").text("15.00");
             $("#hndParkingID").val(0);
-            if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
+            if ($("#lblBed").text() == "1") {
                 $("#hndNumberOfParking").val(2);
-            } else if ($("#lblBed").text() == "3") {
-                $("#hndNumberOfParking").val(3);
+                $("#lblVehicleFees").text("$30.00");
+                $("#lblVehicleFees1").text("30.00");
+                $("#spanVechReg").text("Vehicle Registration (2 Vehicles):");
+                $("#spanVechReg1").text("Vehicle Registration (2 Vehicles):");
+
+                $("#HndAddParkingCount").val(1);
             }
-            else {
-                $("#hndNumberOfParking").val(1);
+            else if ($("#lblBed").text() == "2") {
+                $("#hndNumberOfParking").val(2);
+                $("#lblVehicleFees").text("30.00");
+                $("#lblVehicleFees1").text("30.00");
+                $("#spanVechReg").text("Vehicle Registration (2 Vehicles)");
+                $("#spanVechReg1").text("Vehicle Registration (2 Vehicles)");
+                $("#HndAddParkingCount").val(1);
+            }
+            else if ($("#lblBed").text() == "3") {
+
+                $("#hndNumberOfParking").val(3);
+                $("#lblVehicleFees").text("$45.00");
+                $("#lblVehicleFees1").text("45.00");
+                $("#spanVechReg").text("Vehicle Registration (3 Vehicles):");
+                $("#spanVechReg1").text("Vehicle Registration (3 Vehicles):");
+                $("#HndAddParkingCount").val(1);
             }
         } else if (parseInt(response.numOfParking) == 2) {
-            $("#lblVehicleFees").text("30.00");
-            $("#lblVehicleFees1").text("30.00");
             $("#hndParkingID").val(0);
-            if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
-                $("#hndNumberOfParking").val(2);
-            } else if ($("#lblBed").text() == "3") {
+            if ($("#lblBed").text() == "3") {
                 $("#hndNumberOfParking").val(4);
-            }
-            else {
-                $("#hndNumberOfParking").val(1);
+                $("#lblVehicleFees").text("60.00");
+                $("#lblVehicleFees1").text("60.00");
+                $("#spanVechReg").text("Vehicle Registration (4 Vehicles):");
+                $("#spanVechReg1").text("Vehicle Registration (4 Vehicles):");
+                $("#HndAddParkingCount").val(1);
             }
         }
         else {
             $("#hndParkingID").val(0);
-            if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
-                $("#hndNumberOfParking").val(1);
-            } else if ($("#lblBed").text() == "3") {
-                $("#hndNumberOfParking").val(2);
-            }
-            else {
-                $("#hndNumberOfParking").val(1);
-            }
+            $("#hndNumberOfParking").val(0);
+            $("#lblVehicleFees").text("$00.00");
+            $("#lblVehicleFees1").text("00.00");
+            $("#HndAddParkingCount").val(0);
+            $("#spanVechReg").text("Vehicle Registration:");
+            $("#spanVechReg1").text("Vehicle Registration:");
         }
-        $("#lbltotalAmount").text(formatMoneyCoApplicant((parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2)));
+        $("#lbltotalAmount").text(formatMoney((parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2)));
         totalAmt = (parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2);
-        $("#lblMonthly_TotalRent").text(formatMoneyCoApplicant(totalAmt));
-        $("#lblProrated_TotalRent").text(formatMoneyCoApplicant(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDaysCoApplicant) * remainingdayCoApplicant).toFixed(2)));
-        $("#lblProratedRent").text(formatMoneyCoApplicant(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDaysCoApplicant) * remainingdayCoApplicant).toFixed(2)));
-        $("#lblProratedRent6").text(formatMoneyCoApplicant(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDaysCoApplicant) * remainingdayCoApplicant).toFixed(2)));
+        $("#lblMonthly_TotalRent").text("$" + formatMoney(totalAmt));
+        $("#lblMonthly_TotalRent_print").text(formatMoney(totalAmt));
+        $("#lblProrated_TotalRent").text("$" + formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+        $("#lblProrated_TotalRent_print").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+        $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+        $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
 
-        $("#ftotal").text(formatMoneyCoApplicant((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDaysCoApplicant) * remainingdayCoApplicant), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-        $("#lbtotdueatmov6").text(formatMoneyCoApplicant((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDaysCoApplicant) * remainingdayCoApplicant), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+        $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(unformatText($("#fdepo").text()), 10) + parseFloat(unformatText($("#fpetd").text()), 10) + parseFloat(unformatText($("#lblVehicleFees").text()), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+        $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat(unformatText($("#fdepo").text()), 10) + parseFloat(unformatText($("#fpetd").text()), 10) + parseFloat(unformatText($("#lblVehicleFees").text()), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+        if (response.mas != "Progress saved") {
+            addParkingArray = [];
+            $("#lblparkingplace").text("0");
+        }
         $.alert({
             title: "",
-            content: "Progress Saved.",
+            content: response.mas,
             type: 'red'
-        })
+        });
         $("#divLoader").hide();
     });
 }
