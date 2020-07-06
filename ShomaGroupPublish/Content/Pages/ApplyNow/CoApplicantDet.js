@@ -297,15 +297,15 @@ $(document).ready(function () {
 
     // New Upload Code End //
 
-    if ($("#chkAgreeTermsPolicy").is(":checked")) {
-        $("#policyStart").attr("disabled", true);
-        InnerPolicyCheckCoApplicant();
-    }
-    else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
-        $("#policyStart").attr("disabled", true);
-        $("#popRentalQualification").modal("hide");
-        InnerPolicyCheckCoApplicant();
-    }
+    //if ($("#chkAgreeTermsPolicy").is(":checked")) {
+    //    $("#policyStart").attr("disabled", true);
+    //    InnerPolicyCheckCoApplicant();
+    //}
+    //else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
+    //    $("#policyStart").attr("disabled", true);
+    //    $("#popRentalQualification").modal("hide");
+    //    InnerPolicyCheckCoApplicant();
+    //}
 
     //Sachin M 17 June
     //Modified By Amit 24 June
@@ -325,26 +325,26 @@ $(document).ready(function () {
         }
     });
 
-    $("#chkAgreeTermsPolicy").on('ifChanged', function (event) {
-        if ($("#chkAgreeTermsPolicy").is(":checked")) {
-            InnerPolicyCheckCoApplicant();
-            if ($("#hndShowTermPolicy").val() == 1) {
-                $("#popRentalQualification").modal("show");
-            }
-            else {
-                $("#hndShowTermPolicy").val(1);
-            }
-        }
-        else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
-            $("#policyStart").attr("disabled", true);
-            $("#popRentalQualification").modal("hide");
-            InnerPolicyCheckCoApplicant();
-        }
-    });
+    //$("#chkAgreeTermsPolicy").on('ifChanged', function (event) {
+    //    if ($("#chkAgreeTermsPolicy").is(":checked")) {
+    //        InnerPolicyCheckCoApplicant();
+    //        if ($("#hndShowTermPolicy").val() == 1) {
+    //            $("#popRentalQualification").modal("show");
+    //        }
+    //        else {
+    //            $("#hndShowTermPolicy").val(1);
+    //        }
+    //    }
+    //    else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
+    //        $("#policyStart").attr("disabled", true);
+    //        $("#popRentalQualification").modal("hide");
+    //        InnerPolicyCheckCoApplicant();
+    //    }
+    //});
 
-    $("#chkRentalQual,#chkRentalPolicy").on('ifChanged', function (event) {
-        InnerPolicyCheckCoApplicant();
-    });
+    //$("#chkRentalQual,#chkRentalPolicy").on('ifChanged', function (event) {
+    //    InnerPolicyCheckCoApplicant();
+    //});
 
 
     $("#chkAgreeSummarry").on('ifChanged', function (event) {
@@ -959,54 +959,43 @@ var goToStep = function (stepid, id, calldataupdate) {
     if (stepid == "7") {
 
         if (id == "7") {
-            var check = $('#chkAgreeTermsPolicy').is(':checked') ? "1" : "0";
-            if (check == "0") {
-                $.alert({
-                    title: "",
-                    content: 'Please check "I agree with Sanctuary terms and conditions" before proceeding...',
-                    type: 'blue'
-                });
-                return;
-            }
-            else {
-                $("#popApplicantContinue").modal("hide");
-                $("#subMenu").removeClass("hidden");
-                SaveCheckPolicy(7);
-                $("#as6").removeAttr("onclick");
-                $("#as6").attr("onclick", "goToStep(7,7,0)");
-                $("#step2").addClass("hidden");
-                $("#step1").addClass("hidden");
-                $("#step4").addClass("hidden");
-                $("#step3").addClass("hidden");
-                $("#step5").addClass("hidden");
-                $("#step6").addClass("hidden");
-                $("#step7").removeClass("hidden");
-                $("#step8").addClass("hidden");
-                $("#step9").addClass("hidden");
-                $("#step10").addClass("hidden");
-                $("#step11").addClass("hidden");
-                $("#step12").addClass("hidden");
-                $("#step13").addClass("hidden");
-                $("#step14").addClass("hidden");
-                $("#step15").addClass("hidden");
-                $("#step16").addClass("hidden");
-                $("#step17").addClass("hidden");
+            $("#popApplicantContinue").modal("hide");
+            $("#subMenu").removeClass("hidden");
+            SaveCheckPolicy(7);
+            $("#as6").removeAttr("onclick");
+            $("#as6").attr("onclick", "goToStep(7,7,0)");
+            $("#step2").addClass("hidden");
+            $("#step1").addClass("hidden");
+            $("#step4").addClass("hidden");
+            $("#step3").addClass("hidden");
+            $("#step5").addClass("hidden");
+            $("#step6").addClass("hidden");
+            $("#step7").removeClass("hidden");
+            $("#step8").addClass("hidden");
+            $("#step9").addClass("hidden");
+            $("#step10").addClass("hidden");
+            $("#step11").addClass("hidden");
+            $("#step12").addClass("hidden");
+            $("#step13").addClass("hidden");
+            $("#step14").addClass("hidden");
+            $("#step15").addClass("hidden");
+            $("#step16").addClass("hidden");
+            $("#step17").addClass("hidden");
 
-                $("#li7").addClass("active");
-                $("#li8").removeClass("active");
-                $("#li9").removeClass("active");
-                $("#li10").removeClass("active");
-                $("#li11").removeClass("active");
-                $("#li12").removeClass("active");
-                $("#li13").removeClass("active");
-                $("#li14").removeClass("active");
-                $("#li15").removeClass("active");
-                $("#li16").removeClass("active");
-                $("#li17").removeClass("active");
-                $("#hndGotoSummary").val(7);
-                if ($("#hdnOPId").val() != '0') {
-                    getStaticApplicantValuesCoApplicant();
-                }
+            $("#li7").addClass("active");
+            $("#li8").removeClass("active");
+            $("#li9").removeClass("active");
+            $("#li10").removeClass("active");
+            $("#li11").removeClass("active");
+            $("#li12").removeClass("active");
+            $("#li13").removeClass("active");
+            $("#li14").removeClass("active");
+            $("#li15").removeClass("active");
+            $("#li16").removeClass("active");
+            $("#li17").removeClass("active");
+            $("#hndGotoSummary").val(7);
+            if ($("#hdnOPId").val() != '0') {
+                getStaticApplicantValuesCoApplicant();
             }
         }
     }
@@ -2939,7 +2928,7 @@ var getApplicantListsCoApplicant = function () {
                         "<img src='/Content/assets/img/user.png'></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                         "<label> " + elementValue.Type + " </label><br/>" +
-                        "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
+                        "<label><a class='cust-link' href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;<br/>";
                     if (parseInt(elementValue.CreditPaid) == 0) {
                         $("#editApplicantFees").text("Credit Check Fees");
                         $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
@@ -2957,8 +2946,8 @@ var getApplicantListsCoApplicant = function () {
                         "<img src='/Content/assets/img/user.png'></div>" +
                         "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                         "<label> " + elementValue.Type + " </label><br/>" +
-                        "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
-                        "<label><a href='javascript:void(0)' onclick='delApplicantCoApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
+                        "<label><a class='cust-link' href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
+                        "<label><a class='cust-link' href='javascript:void(0)' onclick='delApplicantCoApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
                         "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
                 }
                 else if (elementValue.Type != "Primary Applicant") {
@@ -2968,8 +2957,8 @@ var getApplicantListsCoApplicant = function () {
                             "<img src='/Content/assets/img/user.png'></div>" +
                             "<div class='form-group col-sm-9' style='margin-top: 10px !important;'><b>" + elementValue.FirstName + " " + elementValue.LastName + "</b><br/>" +
                             "<label> " + elementValue.Type + " </label><br/>" +
-                            "<label><a href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
-                            "<label><a href='javascript:void(0)' onclick='delApplicantCoApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
+                            "<label><a class='cust-link' href='javascript:void(0)' onclick='goToEditApplicant(" + elementValue.ApplicantID + ")'>Edit/Complete Information</a></label>&nbsp;&nbsp;&nbsp;&nbsp;" +
+                            "<label><a class='cust-link' href='javascript:void(0)' onclick='delApplicantCoApplicant(" + elementValue.ApplicantID + ")'><span class='fa fa-trash' ></span></a></label>" +
                             "</div><div><center><label><b>Status:  " + elementValue.ComplStatus + "</b></label></center></div></div>"
                     }
                     else {
@@ -5081,29 +5070,7 @@ var saveupdateApplicantCoApplicant = function (callFrom) {
     }
     else if (type == "Guarantor") {
         dob = $("#txtGDateOfBirth").val();
-        //if (!applicantSSNNumber) {
-        //    msg += "Enter SSN Number</br>";
-        //}
-        //if (!applicantIDNumber) {
-        //    msg += "Enter ID Number</br>";
-        //}
-        //if (applicantIDType <= 0) {
-        //    msg += "Select ID Type</br>";
-        //}
-        //if (applicantStateDoc <= 0) {
-        //    msg += "Select State of issuence</br>";
-        //}
-        //if (!addressLine1) {
-        //    msg += "Enter Address Line 1</br>";
-        //} if (!applicantState) {
-        //    msg += "Enter State </br>";
-        //} if (applicantCountry <= 0) {
-        //    msg += "Select Country</br>";
-        //} if (applicantCity <= 0) {
-        //    msg += "Enter the City</br>";
-        //} if (applicantApplicantZip2 <= 0) {
-        //    msg += "Select Zip</br>";
-        //}
+
     }
     else {
         checkEmail = 1;
@@ -5157,29 +5124,7 @@ var saveupdateApplicantCoApplicant = function (callFrom) {
         else {
             $('#txtOtherGender').val('');
         }
-        //if (!applicantSSNNumber) {
-        //    msg += "Enter SSN Number</br>";
-        //}
-        //if (!applicantIDNumber) {
-        //    msg += "Enter ID Number</br>";
-        //}
-        //if (applicantIDType <= 0) {
-        //    msg += "Select ID Type</br>";
-        //}
-        //if (applicantStateDoc <= 0) {
-        //    msg += "Select State of issuence</br>";
-        //}
-        //if (!addressLine1) {
-        //    msg += "Enter Address Line 1</br>";
-        //} if (!applicantState) {
-        //    msg += "Enter State </br>";
-        //} if (applicantCountry <= 0) {
-        //    msg += "Select Country</br>";
-        //} if (applicantCity <= 0) {
-        //    msg += "Enter the City</br>";
-        //} if (applicantApplicantZip2 <= 0) {
-        //    msg += "Select Zip</br>";
-        //}
+       
     }
     if (msg != "") {
         $("#divLoader").hide();
@@ -5238,6 +5183,7 @@ var saveupdateApplicantCoApplicant = function (callFrom) {
                 $("#popApplicant").modal("hide");
             }
             else {
+                $("#divLoader").show();
                 if ($("#hndTransMethod1").val() == "2") {
                     var paymentMethod = 2;
                     var propertyId = $("#hndUID").val();
@@ -5292,6 +5238,7 @@ var saveupdateApplicantCoApplicant = function (callFrom) {
                     dataType: "JSON",
                     success: function (response) {
                         if (response.Msg != "") {
+                            $("#divLoader").hide();
                             if (response.Msg == "1") {
                                 $("#ResponseMsg1").html("Payment successfull");
                                 window.location = "/ApplyNow/CoApplicantDet/" + $("#hdnUserId").val() + "-" + $("#hndPTOID").val();
@@ -10639,7 +10586,7 @@ var bankstatementFileUploadCoapplicant = function () {
 
 var createESignPolicyAndAgreementCoApplicant = function (appAgree) {
     $("#divLoader").show();
-    var userid = $("#hndCurrentUserId").val();
+    var userid = $("#hndCoAppUserId").val();
     console.log(appAgree);
     if (appAgree) {
         $("#hdnAgreePoli").val(true);
@@ -10675,10 +10622,9 @@ var createESignPolicyAndAgreementCoApplicant = function (appAgree) {
         }
     });
 };
-
 var checkEsignPolicyAgreementStatusCoApplicant = function () {
     $("#divLoader").show();
-    var userid = $("#hndCurrentUserId").val();
+    var userid = $("#hndCoAppUserId").val();
     var appAgree = $("#hdnAgreePoli").val();
     var model = { uid: userid, AppAgree: appAgree };
 
@@ -10701,10 +10647,9 @@ var checkEsignPolicyAgreementStatusCoApplicant = function () {
         }
     });
 };
-
 var getESignAgreePolicyDownloadDataCoApplicant = function (appAgree) {
     $("#divLoader").show();
-    var userid = $("#hndCurrentUserId").val();
+    var userid = $("#hndCoAppUserId").val();
     var model = { uid: userid, AppAgree: appAgree };
     var fileName = "";
     if (appAgree) {
@@ -10736,12 +10681,11 @@ var getESignAgreePolicyDownloadDataCoApplicant = function (appAgree) {
         }
     });
 };
-
 var getESignAgreePolicyPrintDataCoApplicant = function (appAgree) {
     $("#modalRentalQualificationPolicy").modal("hide");
     $("#modalRulesAndPolicy").modal("hide");
     $("#divLoader").show();
-    var userid = $("#hndCurrentUserId").val();
+    var userid = $("#hndCoAppUserId").val();
     var model = { uid: userid, AppAgree: appAgree };
     var fileName = "";
     if (appAgree) {

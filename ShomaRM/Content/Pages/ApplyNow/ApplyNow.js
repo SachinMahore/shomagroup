@@ -458,26 +458,26 @@ $(document).ready(function () {
     //    InnerPolicyCheck();
     //}
 
-    $("#chkAgreeTermsPolicy").on('ifChanged', function (event) {
-        if ($("#chkAgreeTermsPolicy").is(":checked")) {
-            InnerPolicyCheck();
-            if ($("#hndShowTermPolicy").val() == 1) {
-                $("#popRentalQualification").modal("show");
-            }
-            else {
-                $("#hndShowTermPolicy").val(1);
-            }
-        }
-        else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
-            $("#policyStart").attr("disabled", true);
-            $("#popRentalQualification").modal("hide");
-            InnerPolicyCheck();
-        }
-    });
+    //$("#chkAgreeTermsPolicy").on('ifChanged', function (event) {
+    //    if ($("#chkAgreeTermsPolicy").is(":checked")) {
+    //        InnerPolicyCheck();
+    //        if ($("#hndShowTermPolicy").val() == 1) {
+    //            $("#popRentalQualification").modal("show");
+    //        }
+    //        else {
+    //            $("#hndShowTermPolicy").val(1);
+    //        }
+    //    }
+    //    else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
+    //        $("#policyStart").attr("disabled", true);
+    //        $("#popRentalQualification").modal("hide");
+    //        InnerPolicyCheck();
+    //    }
+    //});
 
-    $("#chkRentalQual,#chkRentalPolicy").on('ifChanged', function (event) {
-        InnerPolicyCheck();
-    });
+    //$("#chkRentalQual,#chkRentalPolicy").on('ifChanged', function (event) {
+    //    InnerPolicyCheck();
+    //});
 
 
     $("#chkAgreeSummarry").on('ifChanged', function (event) {

@@ -325,26 +325,26 @@ $(document).ready(function () {
         }
     });
 
-    $("#chkAgreeTermsPolicy").on('ifChanged', function (event) {
-        if ($("#chkAgreeTermsPolicy").is(":checked")) {
-            InnerPolicyCheckCoApplicant();
-            if ($("#hndShowTermPolicy").val() == 1) {
-                $("#popRentalQualification").modal("show");
-            }
-            else {
-                $("#hndShowTermPolicy").val(1);
-            }
-        }
-        else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
-            $("#policyStart").attr("disabled", true);
-            $("#popRentalQualification").modal("hide");
-            InnerPolicyCheckCoApplicant();
-        }
-    });
+    //$("#chkAgreeTermsPolicy").on('ifChanged', function (event) {
+    //    if ($("#chkAgreeTermsPolicy").is(":checked")) {
+    //        InnerPolicyCheckCoApplicant();
+    //        if ($("#hndShowTermPolicy").val() == 1) {
+    //            $("#popRentalQualification").modal("show");
+    //        }
+    //        else {
+    //            $("#hndShowTermPolicy").val(1);
+    //        }
+    //    }
+    //    else if ($("#chkAgreeTermsPolicy").is(":not(:checked)")) {
+    //        $("#policyStart").attr("disabled", true);
+    //        $("#popRentalQualification").modal("hide");
+    //        InnerPolicyCheckCoApplicant();
+    //    }
+    //});
 
-    $("#chkRentalQual,#chkRentalPolicy").on('ifChanged', function (event) {
-        InnerPolicyCheckCoApplicant();
-    });
+    //$("#chkRentalQual,#chkRentalPolicy").on('ifChanged', function (event) {
+    //    InnerPolicyCheckCoApplicant();
+    //});
 
 
     $("#chkAgreeSummarry").on('ifChanged', function (event) {

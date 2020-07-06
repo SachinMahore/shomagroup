@@ -4728,14 +4728,14 @@ var getPreviousAddressInfo = function () {
                 html += "<td>" + elementValue.ManagementCompanyPhone + "</td>";
                 html += "<td>" + elementValue.HomeAddress1 + "," + elementValue.HomeAddress2 +", " + elementValue.CountryString + " - " + elementValue.ZipHome + "</td>";
              
-                html += "<td><select id='ddlResidanceStatus" + elementValue.ID + "' class='form-control'><option value='0'>Select</option><option value='1'>Approved</option><option value='2'>Denied</option><option value='3'>Conditional</option></select></td>";
+                html += "<td><select id='ddlResidanceStatus" + elementValue.ID + "' class='form-control'><option value=''>Select</option><option value='Approved'>Approved</option><option value='Denied'>Denied</option><option value='Conditional'>Conditional</option></select></td>";
                 html += "<td><input type='text' id='txtResNotes" + elementValue.ID + "' class='form-control' value='" + elementValue.ResidenceNotes + "' /></td>";
 
                 html += "<td class='text-center'>";
                 html += "<button  id='btnupdateResStatus' class='btn btn-primary' onclick='updateResStatus(" + elementValue.ID + ")'>Save</button>";
                 html += "</tr>";
                 $("#tblResidenceStatus>tbody").append(html);
-                //$("#ddlResidanceStatus" + id).val(elementValue.ResidenceStatus)
+                $("#ddlResidanceStatus" + id).val(elementValue.CreditResult)
             });
         }
     });
@@ -4765,13 +4765,14 @@ var getPreviousEmpInfo = function () {
                 html += "<td>" + elementValue.JobTitle + "</td>";
                 html += "<td>$" + elementValue.Income + "</td>";
                 html += "<td>$" + elementValue.AdditionalIncome + "</td>";
-                html += "<td><select id='ddlEmpStatus" + elementValue.ID + "' class='form-control'><option value='0'>Select</option><option value='1'>Approved</option><option value='2'>Denied</option><option value='3'>Conditional</option></select></td>";
+                html += "<td><select id='ddlEmpStatus" + elementValue.ID + "' class='form-control'><option value=''>Select</option><option value='Approved'>Approved</option><option value='Denied'>Denied</option><option value='Conditional'>Conditional</option></select></td>";
                 html += "<td><input type='text' id='txtEmpNotes" + elementValue.ID + "' class='form-control' value='" + elementValue.EmpNotes + "' /></td>";
 
                 html += "<td class='text-center'>";
                 html += "<button  id='btnupdateResStatus' class='btn btn-primary' onclick='updateEmpStatus(" + elementValue.ID + ")'>Save</button>";
                 html += "</tr>";
                 $("#tblEmpStatus>tbody").append(html);
+                $("#ddlEmpStatus" + id).val(elementValue.BackgroundResult)
             });
         }
     });
