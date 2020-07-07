@@ -158,12 +158,16 @@ namespace ShomaRM.Models.Corelogic
                         try { applicantScore = xDoc.Descendants("ApplicantScore").FirstOrDefault().Value; } catch { }
 
                         ShomaRMEntities db = new ShomaRMEntities();
-                        var bsExists = db.tbl_BackgroundScreening.Where(p => p.TransactionNumber == transactionNumber).FirstOrDefault();
+
+                        int applynowid = Convert.ToInt32(ApplyNowId);
+                        int applicantid = Convert.ToInt32(ApplicationId);
+
+                        var bsExists = db.tbl_BackgroundScreening.Where(p => p.ApplyNowId == applynowid && p.ApplicantId== applicantid  && p.ReportType==ReportType).FirstOrDefault();
                         if (bsExists != null)
                         {
                             bsExists.ApplicantDecision = applicationDecision;
                             bsExists.ApplicationDecision = applicationDecision;
-                            bsExists.ApplicantScore = applicantScore;
+                            bsExists.ApplicantScore = applicantScore; 
                             db.SaveChanges();
                             result = applicationDecision;
                         }

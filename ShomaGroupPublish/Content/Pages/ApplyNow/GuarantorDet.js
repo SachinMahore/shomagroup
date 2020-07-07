@@ -3351,83 +3351,83 @@ function selectAddPetPlace(cont) {
     });
 }
 
-var saveupdateParking = function () {
-    $("#divLoader").show();
-    var tenantID = $("#hdnOPId").val();
-    var uid = $("#hndUID").val();
-    var param = { TenantID: tenantID, lstTParking: addParkingArray, UID: uid };
-    $.ajax({
-        url: "/Parking/SaveUpdateTenantParking",
-        method: "post",
-        data: JSON.stringify(param),
-        contentType: "application/json; charset=utf-8", // content type sent to server
-        dataType: "json", //Expected data format from server
-        success: function (response) {
-            $.alert({
-                title: "",
-                content: "Progress Saved.",
-                type: 'red'
-            })
-            //$("#popParking").PopupWindow("close");
-            $('#popParking').modal('hide');
-            $("#divLoader").hide();
-            totalAmt = parseFloat(totalAmt) - unformatText($("#lblAdditionalParking").text());
-            $("#lblVehicleFees").text("0.00");
-            $("#lblVehicleFees1").text("0.00");
-            $("#lblAdditionalParking").text(formatMoney(parseFloat(response.totalParkingAmt).toFixed(2)));
-            $("#lblMonthly_AditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
-            $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
-            $("#lblparkingplace").text(addParkingArray.length > 0 ? addParkingArray[0].ParkingID : 0);
-            fillUnitParkingList();
-            if (parseInt(response.numOfParking) == 1) {
-                $("#lblVehicleFees").text("15.00");
-                $("#lblVehicleFees1").text("15.00");
-                $("#hndParkingID").val(0);
-                if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
-                    $("#hndNumberOfParking").val(2);
-                } else if ($("#lblBed").text() == "3") {
-                    $("#hndNumberOfParking").val(3);
-                }
-                else {
-                    $("#hndNumberOfParking").val(1);
-                }
-            } else if (parseInt(response.numOfParking) == 2) {
-                $("#lblVehicleFees").text("30.00");
-                $("#lblVehicleFees1").text("30.00");
-                $("#hndParkingID").val(0);
-                if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
-                    $("#hndNumberOfParking").val(2);
-                } else if ($("#lblBed").text() == "3") {
-                    $("#hndNumberOfParking").val(4);
-                }
-                else {
-                    $("#hndNumberOfParking").val(1);
-                }
-            }
-            else {
-                $("#hndParkingID").val(0);
-                if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
-                    $("#hndNumberOfParking").val(1);
-                } else if ($("#lblBed").text() == "3") {
-                    $("#hndNumberOfParking").val(2);
-                }
-                else {
-                    $("#hndNumberOfParking").val(1);
-                }
-            }
-            $("#lbltotalAmount").text(formatMoney((parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2)));
-            totalAmt = (parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2);
-            $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
-            $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
-            $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+var saveupdateParkingGaurantor = function () {
+    //$("#divLoader").show();
+    //var tenantID = $("#hdnOPId").val();
+    //var uid = $("#hndUID").val();
+    //var param = { TenantID: tenantID, lstTParking: addParkingArray, UID: uid };
+    //$.ajax({
+    //    url: "/Parking/SaveUpdateTenantParking",
+    //    method: "post",
+    //    data: JSON.stringify(param),
+    //    contentType: "application/json; charset=utf-8", // content type sent to server
+    //    dataType: "json", //Expected data format from server
+    //    success: function (response) {
+    //        $.alert({
+    //            title: "",
+    //            content: "Progress Saved.",
+    //            type: 'red'
+    //        })
+    //        //$("#popParking").PopupWindow("close");
+    //        $('#popParking').modal('hide');
+    //        $("#divLoader").hide();
+    //        totalAmt = parseFloat(totalAmt) - unformatText($("#lblAdditionalParking").text());
+    //        $("#lblVehicleFees").text("0.00");
+    //        $("#lblVehicleFees1").text("0.00");
+    //        $("#lblAdditionalParking").text(formatMoney(parseFloat(response.totalParkingAmt).toFixed(2)));
+    //        $("#lblMonthly_AditionalParking").text(parseFloat(response.totalParkingAmt).toFixed(2));
+    //        $("#lblProrated_AditionalParking").text(parseFloat(parseFloat(response.totalParkingAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2));
+    //        $("#lblparkingplace").text(addParkingArray.length > 0 ? addParkingArray[0].ParkingID : 0);
+    //        fillUnitParkingList();
+    //        if (parseInt(response.numOfParking) == 1) {
+    //            $("#lblVehicleFees").text("15.00");
+    //            $("#lblVehicleFees1").text("15.00");
+    //            $("#hndParkingID").val(0);
+    //            if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
+    //                $("#hndNumberOfParking").val(2);
+    //            } else if ($("#lblBed").text() == "3") {
+    //                $("#hndNumberOfParking").val(3);
+    //            }
+    //            else {
+    //                $("#hndNumberOfParking").val(1);
+    //            }
+    //        } else if (parseInt(response.numOfParking) == 2) {
+    //            $("#lblVehicleFees").text("30.00");
+    //            $("#lblVehicleFees1").text("30.00");
+    //            $("#hndParkingID").val(0);
+    //            if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
+    //                $("#hndNumberOfParking").val(2);
+    //            } else if ($("#lblBed").text() == "3") {
+    //                $("#hndNumberOfParking").val(4);
+    //            }
+    //            else {
+    //                $("#hndNumberOfParking").val(1);
+    //            }
+    //        }
+    //        else {
+    //            $("#hndParkingID").val(0);
+    //            if ($("#lblBed").text() == "1" || $("#lblBed").text() == "2") {
+    //                $("#hndNumberOfParking").val(1);
+    //            } else if ($("#lblBed").text() == "3") {
+    //                $("#hndNumberOfParking").val(2);
+    //            }
+    //            else {
+    //                $("#hndNumberOfParking").val(1);
+    //            }
+    //        }
+    //        $("#lbltotalAmount").text(formatMoney((parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2)));
+    //        totalAmt = (parseFloat(response.totalParkingAmt) + parseFloat(totalAmt)).toFixed(2);
+    //        $("#lblMonthly_TotalRent").text(formatMoney(totalAmt));
+    //        $("#lblProrated_TotalRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+    //        $("#lblProratedRent").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
+    //        $("#lblProratedRent6").text(formatMoney(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday).toFixed(2)));
 
-            $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
-            $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+    //        $("#ftotal").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
+    //        $("#lbtotdueatmov6").text(formatMoney((parseFloat(parseFloat(parseFloat(totalAmt) / parseFloat(numberOfDays) * remainingday), 10) + parseFloat($("#fdepo").text(), 10) + parseFloat($("#fpetd").text(), 10) + parseFloat($("#lblVehicleFees").text(), 10) + parseFloat($("#lblPetDNAAmt").text(), 10)).toFixed(2)));
 
 
-        }
-    });
+    //    }
+    //});
 }
 var saveupdateFOB = function () {
     //$("#divLoader").show();

@@ -1181,7 +1181,7 @@
 
                                                 <div class="chekbox-wrapper">
 
-                                                    <input class="form-control" type="checkbox" id="chkAgreeTermsPolicy" /> <span class="agree-text"> I agree with Sanctuary terms & conditions. </span>
+                                                    <input class="form-control" type="checkbox" id="chkAgreeTermsPolicyCoapp" /> <span class="agree-text"> I agree with Sanctuary terms & conditions. </span>
                                                 </div>
                                             </div>
 
@@ -1193,7 +1193,7 @@
                                         <div class="col-sm-4"></div>
                                         <div class="col-sm-4">
                                             @*<button class="nav-button wow bounceInRight login animated" id="policyStart" onclick="goToStep(7,7,0)"> Start</button>*@
-                                            <button class="nav-button wow bounceInRight login animated" id="policyStart" data-toggle="modal" data-target="#popApplicantContinue"> Start</button>
+                                            <button class="nav-button wow bounceInRight login animated" id="policyStartCoapplicant" data-toggle="modal" data-target="#popApplicantContinue"> Start</button>
                                         </div>
                                         <div class="col-sm-4"></div>
                                     </div>
@@ -2525,7 +2525,7 @@
                                                 <div class="panel panel-default accordian-border-group" style="padding-left:15px;padding-right: 15px;margin-top: 6px;">
                                                     <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                         <h3 class="panel-title">
-                                                            <a class="cust-link" data-parent="#accordion">Current History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a></a>
+                                                            <a class="cust-bllnk" data-parent="#accordion">Current History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a></a>
                                                         </h3>
                                                     </div>
                                                     <div id="collapse41">
@@ -2562,7 +2562,7 @@
                                                 <div class="panel panel-default accordian-border-group" style="padding-left:15px;padding-right: 15px;margin-top: 6px;">
                                                     <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                         <h3 class="panel-title">
-                                                            <a class="cust-link" data-parent="#accordion">Previous History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a></a>
+                                                            <a class="cust-bllnk" data-parent="#accordion">Previous History <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a></a>
                                                         </h3>
                                                     </div>
                                                     <div id="collapse42">
@@ -2599,7 +2599,7 @@
                                                 <div class="panel panel-default accordian-border-group" style="padding-left:15px;padding-right: 15px;margin-top: 6px;">
                                                     <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                         <h3 class="panel-title">
-                                                            <a class="cust-link" data-parent="#accordion">Current Employment & Income<i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
+                                                            <a class="cust-bllnk" data-parent="#accordion">Current Employment & Income<i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a></a>
                                                         </h3>
                                                     </div>
                                                     <div id="collapse51">
@@ -2638,7 +2638,7 @@
                                                 <div class="panel panel-default accordian-border-group" style="padding-left:15px;padding-right: 15px;margin-top: 6px;">
                                                     <div class="panel-heading accordian-border" style="background-color: #f5f5f5;">
                                                         <h3 class="panel-title">
-                                                            <a class="cust-link" data-parent="#accordion">Previous Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">&nbsp;&nbsp;Edit</a></a>
+                                                            <a class="cust-bllnk" data-parent="#accordion">Previous Employment & Income <i class="fa fa-angle-down pull-right" style="margin-left:10px"></i><a href="javascript:void(0);" class="pull-right cust-link" onclick="goToStep(10,10,0)">Edit</a></a>
                                                         </h3>
                                                     </div>
                                                     <div id="collapse52">
@@ -3952,7 +3952,7 @@
                                         <tbody></tbody>
                                     </table>
                                 </div>
-                                <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsg"></b></p></div>
+                                <div class="col-sm-12"><p style="color:green!important;margin:10px;font-size:medium" class="text-center"><b id="ResponseMsg"></b></p></div>
 
                             </div>
                             <div class="col-sm-12">
@@ -6143,6 +6143,19 @@
     .pl-6, .px-6 {
         padding-left: 0rem !important;
     }
+    .panel a .cust-bllnk {
+        color: #000 !important;
+        font-weight: bold !important;
+        text-decoration: none !important;
+        cursor: default !important;
+    }
+
+        .panel a .cust-bllnk :hover {
+            color: #000 !important;
+            font-weight: bold !important;
+            text-decoration: none !important;
+            cursor: default !important;
+        }
 </style>
 <script>
     function printFloorPlanDetails(divName) {
@@ -6362,13 +6375,13 @@
             if (@Model.IsRentalPolicy== "1" && @Model.IsRentalQualification== "1") {
                 showCurrentStep(@Model.StepCompleted, @Model.StepCompleted);
                 $("#hndShowTermPolicy").val(0);
-                $("#chkAgreeTermsPolicy").iCheck('check');
-                $("#policyStart").attr("disabled", false);
+                $("#chkAgreeTermsPolicyCoapp").iCheck('check');
+                //$("#policyStartCoapplicant").attr("disabled", false);
             }
             else {
                 $("#hdnStepCompleted").val(6);
                 $("#hndShowTermPolicy").val(1);
-                $("#policyStart").attr("disabled", true);
+                //$("#policyStartCoapplicant").attr("disabled", true);
                 showCurrentStep(6, 6);
             }
             if (('@Model.EnvelopeID') != "") {
