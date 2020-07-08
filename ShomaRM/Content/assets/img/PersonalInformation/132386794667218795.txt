@@ -1,0 +1,68 @@
+01. Application Started by Co-applicant/Guarantor
+=================================================
+Online Application is started by (FirstName LastName) (Co-applicant/Guarantor)
+
+02. Application Finished by co-applicant/Guarantor
+==================================================
+(Co-applicant/Guarantor) ((FirstName LastName)) has finished the application on " + DateTime.Now +
+
+03. Application Statred by Main Applicant
+==========================================
+We noticed you begun your application process. Please note for your convenience, the application remains active until three days after you initially started the application; however, if the application is not completed and submitted before midnight of the third day, you will need to start over.
+If you have any questions or need assistance in completing the application, please do not hesitate to call us. We are here to assist you!
+We know you will love your new home and are excited to have you reside here.
+
+04. Service Request Assign
+===========================
+We hereby assign your service of (ProblemCategory) (facility) on (servicedate) (date) at (servicetime) to (Service person Full name)
+
+05. Service Request Assign Notification Tenant
+==============================================
+Same Mail As 04. with subject change --Service Request --(Tenant Name) 
+
+06. Estimate of Repair
+========================
+We hereby send the  Estimate of Repair of Amount: $(amount) for Vendor: (vendor name),  with Description: (description). Please Accept or Deny the status on click of following link.
+
+07. Invoice of Repair
+======================
+We hereby send the  Estimate of Repair of Amount: $(Amount) for Vendor: (Vendor),  with Description: (Description). Click here to pay the Invoice. 
+
+08. Pet Vaccination Certificate Expiry Remainder
+================================================
+Dear (Tenant Name) your pet (pet name) vaccination is Expired / Expiring . Please submit new vaccination Certificate
+
+09. Co-Applicant/Guarantor Adding
+===================================
+Your Online Application Added by (Primary Applicant Name) for Sanctuary Doral. Fill your Details by clicking below link
+
+10. Payment Link For Credit/Background Fees
+=============================================
+Please pay your fees $(Amount) for credit check to continue the Online Application Process.
+
+11. Monthly Charges (Recurring)
+================================
+Monthly charges received/failed
+
+Your monthly charges received/failed $(monthly charge) on (scheduledatetime). Transaction ID : TransID.
+
+12. Amenity Reservation Fees & Deposit Paid
+============================================
+Your Reservation Fee payment in the Amount of $(Reservation Fee Amount) and your Deposit Fee in the Amount of $(Deposit Fee Amount) for your reservation of the (Reservation) on (Reservation Date) from (Reservation Time From) to (Reservation Time To) has been received. Your Reservation is now confirmed. Please print the attached “Clubhouse/Licensed Space Agreement” for your records. Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your refund will be processed within 7-10 days. After the 3-day deadline, your reservation fee will not be refunded.” 
+
+13. Amenity Reservation Fees
+=============================
+Your Reservation Fee payment in the Amount of $(Reservation Fee Amount) for your reservation of the (Reservation) on (Reservation Date) from (Reservation Time From) to (Reservation Time To) has been received. Your Reservation is now confirmed. Please print the attached “Clubhouse/Licensed Space Agreement” for your records. Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your refund will be processed within 7-10 days. After the 3-day deadline, your reservation fee will not be refunded.” 
+
+14. Amenity Reservation Deposit Paid
+====================================
+Your Reservation Deposit payment in the Amountof $(Reservation Fee Amount) and your Deposit Fee in the Amount of $(Deposit Fee Amount) for your reservation of the (Reservation) on (Reservation Date) from (Reservation Time From) to (Reservation Time To) has been received. Your Reservation is now confirmed. Please print the attached “Clubhouse/Licensed Space Agreement” for your records. Please note you can cancel your reservation online free of charge up to 3 Business Days prior to the date of your event. Your refund will be processed within 7-10 days. After the 3-day deadline, your reservation fee will not be refunded.” 
+
+15. Service Repair Charges Paid
+===============================
+Your Service Repair charges in the Amount of $(Estimated Amount) for your service of the (Service Description) on (Service Date) has been received. Your Service Repair is now confirmed.
+
+16. Service Repair Estimate Status
+==================================
+Service Repair Estimate of Amount: $(Amount) for Vendor: (Vendor Name) with Description: (Service Description). 
+STATUS: ACCEPTED/DENIED
