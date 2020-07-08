@@ -752,7 +752,40 @@ namespace ShomaRM.Models
                             GetApplicantData.CreditPaid = 1;
                             GetApplicantData.CreditResult = result;
                             db.SaveChanges();
+                            //Email Code after getting result in corelogichelper
+                            if(result != "")
+                            {
+                                string subCore = string.Empty;
+                                string reportHTMLCore = "";
+                                string emailBodyCore = string.Empty;
+                                reportHTMLCore = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                                reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
+                                reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
+                                if (result == "Approved")
+                                {
+                                    subCore = " Sanctuary application Approved";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Good news! You’re in! This is a champagne popping moment! Welcome to your new community and your new lifestyle.</p>";
+                                }
+                                else if (result == "Conditional")
+                                {
+                                    subCore = "Sanctuary application conditionally approved";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application conditionally approved</p>";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Your application has been approved. Sort of.  There are some conditions. Just call or email us so we can assist you in getting your application approved.  We’re excited about having you join our community!</p>";
+                                }
+                                else if (result == "Denied")
+                                {
+                                    subCore = "Santuary application denied";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                }
+                                reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
+                                string bodyCore = reportHTMLCore;
+
+                                new EmailSendModel().SendEmail(GetApplicantData.Email, subCore, bodyCore);
+                            }
+                            
 
                             sub = "Payment Confirmation, Application agreement and Rental Qualifications";
 
@@ -772,8 +805,8 @@ namespace ShomaRM.Models
                             reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
                             string body = reportHTML;
 
-                            string rulepolicy = HttpContext.Current.Server.MapPath("~/Content/assets/img/Policy/Rules_Policies_fragmented.pdf"); ;
-                            string rentalqualification = HttpContext.Current.Server.MapPath("~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf"); ;
+                            string rulepolicy = HttpContext.Current.Server.MapPath("~/Content/assets/img/Policy/Rules_Policies_fragmented.pdf");
+                            string rentalqualification = HttpContext.Current.Server.MapPath("~/Content/assets/img/Policy/Rental_qualifications_fragmented.pdf");
 
                             List<string> filePaths = new List<string>();
                             filePaths.Add(rulepolicy);
@@ -848,6 +881,39 @@ namespace ShomaRM.Models
                                 GetApplicantData.Paid = 1;
                                 GetApplicantData.BackGroungResult = result;
                                 db.SaveChanges();
+
+                                if (result != "")
+                                {
+                                    string subCore = string.Empty;
+                                    string reportHTMLCore = "";
+                                    string emailBodyCore = string.Empty;
+                                    reportHTMLCore = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                                    reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
+                                    reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                                    if (result == "Approved")
+                                    {
+                                        subCore = " Sanctuary application Approved";
+                                        emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
+                                        emailBodyCore += "<p style=\"margin-bottom: 0px;\">Good news! You’re in! This is a champagne popping moment! Welcome to your new community and your new lifestyle. Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move-in. Once you process your Administration fee payment, you will be sent your lease.</p>";
+                                    }
+                                    else if (result == "Conditional")
+                                    {
+                                        subCore = "Sanctuary application conditionally approved";
+                                        emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application conditionally approved</p>";
+                                        emailBodyCore += "<p style=\"margin-bottom: 0px;\">Your application has been approved. Sort of.  There are some conditions. Just call or email us so we can assist you in getting your application approved.  We’re excited about having you join our community!</p>";
+                                    }
+                                    else if (result == "Denied")
+                                    {
+                                        subCore = "Santuary application denied";
+                                        emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
+                                        emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                    }
+                                    reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
+                                    string bodyCore = reportHTMLCore;
+
+                                    new EmailSendModel().SendEmail(GetApplicantData.Email, subCore, bodyCore);
+                                }
 
                                 string emailBody = "";
                                 emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
@@ -1379,6 +1445,39 @@ namespace ShomaRM.Models
                             GetCoappDet.CreditResult = result;
                             db.SaveChanges();
 
+                            if (result != "")
+                            {
+                                string subCore = string.Empty;
+                                string reportHTMLCore = "";
+                                string emailBodyCore = string.Empty;
+                                reportHTMLCore = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                                reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
+                                reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                                if (result == "Approved")
+                                {
+                                    subCore = " Sanctuary application Approved";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Good news! You’re in! This is a champagne popping moment! Welcome to your new community and your new lifestyle.</p>";
+                                }
+                                else if (result == "Conditional")
+                                {
+                                    subCore = "Sanctuary application conditionally approved";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application conditionally approved</p>";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Your application has been approved. Sort of.  There are some conditions. Just call or email us so we can assist you in getting your application approved.  We’re excited about having you join our community!</p>";
+                                }
+                                else if (result == "Denied")
+                                {
+                                    subCore = "Santuary application denied";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                }
+                                reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
+                                string bodyCore = reportHTMLCore;
+
+                                new EmailSendModel().SendEmail(GetApplicantData.Email, subCore, bodyCore);
+                            }
+
 
                             sub = "Payment Confirmation, Application agreement and Rental Qualifications";
 
@@ -1460,6 +1559,39 @@ namespace ShomaRM.Models
                             GetCoappDet.BackGroungResult = result;
 
                             db.SaveChanges();
+
+                            if (result != "")
+                            {
+                                string subCore = string.Empty;
+                                string reportHTMLCore = "";
+                                string emailBodyCore = string.Empty;
+                                reportHTMLCore = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                                reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
+                                reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                                if (result == "Approved")
+                                {
+                                    subCore = " Sanctuary application Approved";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Good news! You’re in! This is a champagne popping moment! Welcome to your new community and your new lifestyle. Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move-in. Once you process your Administration fee payment, you will be sent your lease.</p>";
+                                }
+                                else if (result == "Conditional")
+                                {
+                                    subCore = "Sanctuary application conditionally approved";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application conditionally approved</p>";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Your application has been approved. Sort of.  There are some conditions. Just call or email us so we can assist you in getting your application approved.  We’re excited about having you join our community!</p>";
+                                }
+                                else if (result == "Denied")
+                                {
+                                    subCore = "Santuary application denied";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                }
+                                reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
+                                string bodyCore = reportHTMLCore;
+
+                                new EmailSendModel().SendEmail(GetApplicantData.Email, subCore, bodyCore);
+                            }
 
                             filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
                             reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
@@ -1714,6 +1846,39 @@ namespace ShomaRM.Models
 
                                     coappliList.CreditPaid = 1;
                                     coappliList.CreditResult = result;
+
+                                    if (result != "")
+                                    {
+                                        string subCore = string.Empty;
+                                        string reportHTMLCore = "";
+                                        string emailBodyCore = string.Empty;
+                                        reportHTMLCore = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                                        reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
+                                        reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                                        if (result == "Approved")
+                                        {
+                                            subCore = " Sanctuary application Approved";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Good news! You’re in! This is a champagne popping moment! Welcome to your new community and your new lifestyle.</p>";
+                                        }
+                                        else if (result == "Conditional")
+                                        {
+                                            subCore = "Sanctuary application conditionally approved";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application conditionally approved</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Your application has been approved. Sort of.  There are some conditions. Just call or email us so we can assist you in getting your application approved.  We’re excited about having you join our community!</p>";
+                                        }
+                                        else if (result == "Denied")
+                                        {
+                                            subCore = "Santuary application denied";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                        }
+                                        reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
+                                        string bodyCore = reportHTMLCore;
+
+                                        new EmailSendModel().SendEmail(GetApplicantData.Email, subCore, bodyCore);
+                                    }
                                 }
                                 if (coapp.Type == "5")
                                 {
@@ -1749,6 +1914,39 @@ namespace ShomaRM.Models
 
                                     coappliList.BackGroundPaid = 1;
                                     coappliList.BackGroungResult = result;
+
+                                    if (result != "")
+                                    {
+                                        string subCore = string.Empty;
+                                        string reportHTMLCore = "";
+                                        string emailBodyCore = string.Empty;
+                                        reportHTMLCore = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                                        reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
+                                        reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                                        if (result == "Approved")
+                                        {
+                                            subCore = " Sanctuary application Approved";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Good news! You’re in! This is a champagne popping moment! Welcome to your new community and your new lifestyle. Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move-in. Once you process your Administration fee payment, you will be sent your lease.</p>";
+                                        }
+                                        else if (result == "Conditional")
+                                        {
+                                            subCore = "Sanctuary application conditionally approved";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application conditionally approved</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Your application has been approved. Sort of.  There are some conditions. Just call or email us so we can assist you in getting your application approved.  We’re excited about having you join our community!</p>";
+                                        }
+                                        else if (result == "Denied")
+                                        {
+                                            subCore = "Santuary application denied";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                        }
+                                        reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
+                                        string bodyCore = reportHTMLCore;
+
+                                        new EmailSendModel().SendEmail(GetApplicantData.Email, subCore, bodyCore);
+                                    }
 
                                 }
                                 if ((coappliList.CreditPaid ?? 0) == 1 && (coappliList.BackGroundPaid ?? 0) == 1)

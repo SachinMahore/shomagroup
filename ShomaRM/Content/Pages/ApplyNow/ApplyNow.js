@@ -5341,7 +5341,7 @@ var saveupdatePrimaryApplicant = function (callFrom) {
                     IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
                 };
                 $.ajax({
-                    url: "/ApplyNow/saveNewPayment/",
+                    url: "/ApplyNow/SaveNewPayment/",
                     type: "post",
                     contentType: "application/json utf-8",
                     data: JSON.stringify(model),
