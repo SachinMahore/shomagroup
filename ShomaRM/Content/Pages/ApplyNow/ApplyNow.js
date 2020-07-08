@@ -1,4 +1,4 @@
-﻿var remainingday = 0;
+var remainingday = 0;
 var numberOfDays = 0;
 var QuoteExpires = "";
 var tenantOnlineID = 0;
