@@ -361,10 +361,10 @@ namespace ShomaRM.Areas.Admin.Models
             ShomaRMEntities db = new ShomaRMEntities();
             //var tenantData = db.tbl_TenantOnline.Where(p => p.ProspectID == ProspectId).FirstOrDefault();
             ShomaRM.Models.TenantOnlineModel model = new ShomaRM.Models.TenantOnlineModel();
-
-            var tenantData = model.GetTenantOnlineList(Convert.ToInt32(ProspectId));
+            
+           
             var GetTenantDet = db.tbl_ApplyNow.Where(p => p.ID == ProspectId).FirstOrDefault();
-
+            var tenantData = model.GetTenantDet(Convert.ToInt32(ProspectId),Convert.ToInt64(GetTenantDet.UserId));
             model.FirstName = tenantData.FirstName;
             model.MiddleInitial = tenantData.MiddleInitial;
             model.LastName = tenantData.LastName;
@@ -440,22 +440,31 @@ namespace ShomaRM.Areas.Admin.Models
 
                 var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
 
-                //sachin 13 may
-                var saveBGCC = new tbl_BackgroundScreening()
+                //Sachin M 09 july
+                var mainStstus = db.tbl_BackgroundScreening.Where(p => p.ApplicantId == ProspectId).FirstOrDefault();
+                if (mainStstus != null)
                 {
-                    TransactionNumber = "",
-                    SSN = tenantData.SSN,
-                    ReportDate = DateTime.Now.ToString("yyyy-MM-dd"),
-                    ApplyNowId = Convert.ToInt32(tenantData.ID),
-                    ReportType = "",
-                    ApplicantId = Convert.ToInt32(ProspectId),
-                    ApplicantDecision = Status,
-                    ApplicationDecision = Status,
-                    Notes = Notes,
-                };
-                db.tbl_BackgroundScreening.Add(saveBGCC);
-                db.SaveChanges();
+                    mainStstus.ApprovedDate = DateTime.Now;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    var saveBGCC = new tbl_BackgroundScreening()
+                    {
+                        TransactionNumber = "",
+                        SSN = tenantData.SSN,
+                        ReportDate = DateTime.Now.ToString("yyyy-MM-dd"),
+                        ApplyNowId = Convert.ToInt32(tenantData.ID),
+                        ReportType = "1",
+                        ApplicantId = Convert.ToInt32(ProspectId),
+                        ApplicantDecision = Status,
+                        ApplicationDecision = Status,
+                        Notes = Notes,
 
+                    };
+                    db.tbl_BackgroundScreening.Add(saveBGCC);
+                    db.SaveChanges();
+                }
 
                 if (Status == "Approved" || Status == "Conditional")
                 {
@@ -472,6 +481,8 @@ namespace ShomaRM.Areas.Admin.Models
 
                     if (approveCount == applist.Count)
                     {
+                        
+
                         var adminFeeApplList = db.tbl_Applicant.Where(c => c.TenantID == ProspectId && c.Type != "Guarantor").ToList();
                         foreach (var adfee in adminFeeApplList)
                         {
@@ -661,8 +672,8 @@ namespace ShomaRM.Areas.Admin.Models
                 //string body = reportHTML;
                 //new EmailSendModel().SendEmail(Email, sub, body);
             }
-            string body = reportHTML;
-            new EmailSendModel().SendEmail(Email, sub, body);
+            //string body = reportHTML;
+            //new EmailSendModel().SendEmail(Email, sub, body);
             msg = "Email Send Successfully";
             return msg;
         }
@@ -770,6 +781,7 @@ namespace ShomaRM.Areas.Admin.Models
             msg = "Email Send Successfully";
             return msg;
         }
+
         public void SaveScreeningStatusList(string Email, long UserId, string Status)
         {
             ShomaRMEntities db = new ShomaRMEntities();

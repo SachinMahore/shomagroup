@@ -110,11 +110,9 @@ namespace ShomaRM.Data
         public virtual DbSet<tbl_SureDeposit> tbl_SureDeposit { get; set; }
         public virtual DbSet<tbl_ESignatureKeys> tbl_ESignatureKeys { get; set; }
         public virtual DbSet<tbl_TenantOnline> tbl_TenantOnline { get; set; }
-
         public virtual DbSet<tbl_OnlinePayment> tbl_OnlinePayment { get; set; }
-
-        public virtual DbSet<tbl_BackgroundScreening> tbl_BackgroundScreening { get; set; }
         public virtual DbSet<tbl_Applicant> tbl_Applicant { get; set; }
+        public virtual DbSet<tbl_BackgroundScreening> tbl_BackgroundScreening { get; set; }
         public virtual DbSet<tbl_ESignPolicyAgreement> tbl_ESignPolicyAgreement { get; set; }
     }
 }
