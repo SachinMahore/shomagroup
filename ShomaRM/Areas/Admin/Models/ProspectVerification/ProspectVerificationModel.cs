@@ -441,10 +441,10 @@ namespace ShomaRM.Areas.Admin.Models
                 var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
 
                 //Sachin M 09 july
-                var mainStstus = db.tbl_BackgroundScreening.Where(p => p.ApplyNowId == ProspectID).FirstOrDefault();
+                var mainStstus = db.tbl_BackgroundScreening.Where(p => p.ApplicantId == ProspectId).FirstOrDefault();
                 if (mainStstus != null)
                 {
-                    mainStstus.ReportDate = DateTime.Now.ToString("yyyy-MM-dd");
+                    mainStstus.ApprovedDate = DateTime.Now;
                     db.SaveChanges();
                 }
                 else
@@ -460,6 +460,7 @@ namespace ShomaRM.Areas.Admin.Models
                         ApplicantDecision = Status,
                         ApplicationDecision = Status,
                         Notes = Notes,
+
                     };
                     db.tbl_BackgroundScreening.Add(saveBGCC);
                     db.SaveChanges();
@@ -780,6 +781,7 @@ namespace ShomaRM.Areas.Admin.Models
             msg = "Email Send Successfully";
             return msg;
         }
+
         public void SaveScreeningStatusList(string Email, long UserId, string Status)
         {
             ShomaRMEntities db = new ShomaRMEntities();

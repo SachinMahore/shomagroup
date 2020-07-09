@@ -2578,7 +2578,7 @@ namespace ShomaRM.Models
                             var mainStstus = db.tbl_BackgroundScreening.Where(p => p.ApplyNowId == ProspectID).FirstOrDefault();
                             if(mainStstus!=null)
                             {
-                                mainStstus.ReportDate = DateTime.Now.ToString("yyyy-MM-dd");
+                                mainStstus.ApprovedDate = DateTime.Now;
                                 db.SaveChanges();
                             }
                           
@@ -2735,7 +2735,7 @@ namespace ShomaRM.Models
                             var mainStstus = db.tbl_BackgroundScreening.Where(p => p.ApplyNowId == ProspectID).FirstOrDefault();
                             if (mainStstus != null)
                             {
-                                mainStstus.ReportDate = DateTime.Now.ToString("yyyy-MM-dd");
+                                mainStstus.ApprovedDate = DateTime.Now;
                                 db.SaveChanges();
                             }
                             //Sachin Mahore 18 june 2020
