@@ -7,9 +7,14 @@ var addApplicntArrayCoapplicant = [];
 var addUpArray = [];
 var nofup = 0;
 var rbtnClick = "";
-
+var paystubFileArray = [];
+var fedralFileArray = [];
+var bankstatementFileArray = [];
 //Sachin Mahore 21 Apr 2020
 $(document).ready(function () {
+    $("#hndForPaystub").val("0");
+    $("#hndForFedral").val("0");
+    $("#hndForBankStatement").val("0");
     onFocusCoApplicant();
     //isCreditPaidBackgroundPaid();
     localStorage.removeItem("CheckReload");
@@ -130,8 +135,155 @@ $(document).ready(function () {
     // new code paystub file upload
     document.getElementById('fileUploadPaystub').onchange = function () {
         var paystubFile = document.getElementById('fileUploadPaystub');
+        var uploadFileCount = 0;
+        var remainUploadFileCount = 0;
+        uploadFileCount = paystubFile.files.length;
+        remainUploadFileCount = parseInt(3 - paystubFileArray.length);
+        if (uploadFileCount > remainUploadFileCount) {
+            if (remainUploadFileCount == 0) {
+                $('#fileUploadPaystubShow').html('3 files selected');
+                $.alert({
+                    title: "",
+                    content: "You can not upload more than 3 files",
+                    type: 'blue'
+                });
+                return;
+            }
+            else {
+                $.alert({
+                    title: "",
+                    content: "You can select only number of " + remainUploadFileCount + " files to upload",
+                    type: 'blue'
+                });
+                return;
+            }
 
-        if (paystubFile.files.length == 3) {
+        }
+        if (paystubFile.files.length == 1) {
+            for (var i = 0; i < paystubFile.files.length; i++) {
+
+                var name1 = paystubFile.files[0].name;
+
+                var filePaystubBool1 = restrictFileUpload(name1);
+
+                if (filePaystubBool1 == false) {
+                    document.getElementById('fileUploadPaystub').value = '';
+                    $('#fileUploadPaystubShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                if (paystubFileArray.length < 3) {
+                    paystubFileArray.push(paystubFile.files[i]);
+                    if (paystubFileArray.length == 1) {
+                        $('#mpayFile1').removeClass('hidden');
+                        $('#apayFile1').removeClass('hidden');
+                        $('#spayFile1').text(paystubFile.files[i].name);
+                        $('#fileUploadPaystubShow').html('1 file selected');
+                        $('#spayFile2').text('');
+                        $('#spayFile3').text('');
+                        $('#mpayFile2').addClass('hidden');
+                        $('#mpayFile3').addClass('hidden');
+                        $('#hndForPaystub').val('1');
+                    }
+                    else if (paystubFileArray.length == 2) {
+                        $('#mpayFile2').removeClass('hidden');
+                        $('#apayFile2').removeClass('hidden');
+                        $('#spayFile2').text(paystubFile.files[i].name);
+                        $('#fileUploadPaystubShow').html('2 files selected');
+                    }
+                    else if (paystubFileArray.length == 3) {
+                        $('#mpayFile3').removeClass('hidden');
+                        $('#apayFile3').removeClass('hidden');
+                        $('#spayFile3').text(paystubFile.files[i].name);
+                        $('#fileUploadPaystubShow').html('3 files selected');
+                    }
+                }
+                else {
+                    $.alert({
+                        title: "",
+                        content: "You can select only number of 3 files to upload",
+                        type: 'blue'
+                    });
+                    return;
+                }
+            }
+            if (paystubFileArray.length == 3) {
+                paystubFileUploadCoapplicant(paystubFileArray);
+            }
+        }
+        else if (paystubFile.files.length == 2) {
+            for (var i = 0; i < paystubFile.files.length; i++) {
+
+                var name1 = paystubFile.files[0].name;
+                var name2 = paystubFile.files[1].name;
+
+                var filePaystubBool1 = restrictFileUpload(name1);
+                var filePaystubBool2 = restrictFileUpload(name2);
+
+                if (filePaystubBool1 == false) {
+                    document.getElementById('fileUploadPaystub').value = '';
+                    $('#fileUploadPaystubShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                if (filePaystubBool2 == false) {
+                    document.getElementById('fileUploadPaystub').value = '';
+                    $('#fileUploadPaystubShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                if (paystubFileArray.length < 3) {
+                    paystubFileArray.push(paystubFile.files[i]);
+                    if (paystubFileArray.length == 1) {
+                        $('#mpayFile1').removeClass('hidden');
+                        $('#apayFile1').removeClass('hidden');
+                        $('#spayFile1').text(paystubFile.files[i].name);
+                        $('#fileUploadPaystubShow').html('1 file selected');
+                        $('#spayFile2').text('');
+                        $('#spayFile3').text('');
+                        $('#mpayFile2').addClass('hidden');
+                        $('#mpayFile3').addClass('hidden');
+                        $('#hndForPaystub').val('1');
+                    }
+                    else if (paystubFileArray.length == 2) {
+                        $('#mpayFile2').removeClass('hidden');
+                        $('#apayFile2').removeClass('hidden');
+                        $('#spayFile2').text(paystubFile.files[i].name);
+                        $('#fileUploadPaystubShow').html('2 files selected');
+                    }
+                    else if (paystubFileArray.length == 3) {
+                        $('#mpayFile3').removeClass('hidden');
+                        $('#apayFile3').removeClass('hidden');
+                        $('#spayFile3').text(paystubFile.files[i].name);
+                        $('#fileUploadPaystubShow').html('3 files selected');
+                    }
+                }
+                else {
+                    $.alert({
+                        title: "",
+                        content: "You can select only number of 3 files to upload",
+                        type: 'blue'
+                    });
+                    return;
+                }
+            }
+            if (paystubFileArray.length == 3) {
+                paystubFileUploadCoapplicant(paystubFileArray);
+            }
+        }
+        else if (paystubFile.files.length == 3) {
             for (var i = 0; i < paystubFile.files.length; i++) {
 
                 var name1 = paystubFile.files[0].name;
@@ -152,7 +304,7 @@ $(document).ready(function () {
                     });
                     return;
                 }
-                else if (filePaystubBool2 == false) {
+                if (filePaystubBool2 == false) {
                     document.getElementById('fileUploadPaystub').value = '';
                     $('#fileUploadPaystubShow').html('Choose a file...');
                     $.alert({
@@ -162,36 +314,210 @@ $(document).ready(function () {
                     });
                     return;
                 }
-                else if (filePaystubBool3 == false) {
+                if (filePaystubBool3 == false) {
                     document.getElementById('fileUploadPaystub').value = '';
                     $('#fileUploadPaystubShow').html('Choose a file...');
                     $.alert({
                         title: "",
                         content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                if (paystubFileArray.length < 3) {
+                    paystubFileArray.push(paystubFile.files[i]);
+                    if (paystubFileArray.length == 1) {
+                        $('#mpayFile1').removeClass('hidden');
+                        $('#apayFile1').removeClass('hidden');
+                        $('#spayFile1').text(paystubFile.files[i].name);
+                        $('#fileUploadPaystubShow').html('1 file selected');
+                        $('#spayFile2').text('');
+                        $('#spayFile3').text('');
+                        $('#mpayFile2').addClass('hidden');
+                        $('#mpayFile3').addClass('hidden');
+                        $('#hndForPaystub').val('1');
+                    }
+                    else if (paystubFileArray.length == 2) {
+                        $('#mpayFile2').removeClass('hidden');
+                        $('#apayFile2').removeClass('hidden');
+                        $('#spayFile2').text(paystubFile.files[i].name);
+                        $('#fileUploadPaystubShow').html('2 files selected');
+                    }
+                    else if (paystubFileArray.length == 3) {
+                        $('#mpayFile3').removeClass('hidden');
+                        $('#apayFile3').removeClass('hidden');
+                        $('#spayFile3').text(paystubFile.files[i].name);
+                        $('#fileUploadPaystubShow').html('3 files selected');
+                    }
+                }
+                else {
+                    $.alert({
+                        title: "",
+                        content: "You can select only number of 3 files to upload",
                         type: 'blue'
                     });
                     return;
                 }
             }
-            paystubFileUploadCoapplicant();
+            if (paystubFileArray.length == 3) {
+                paystubFileUploadCoapplicant(paystubFileArray);
+            }
         }
         else {
             document.getElementById('fileUploadPaystub').value = '';
             $('#fileUploadPaystubShow').html('Choose a file...');
             $.alert({
                 title: "",
-                content: "Select number of 3 files to upload",
+                content: "You can select only number of 3 files to upload",
                 type: 'blue'
             });
             return;
         }
     };
+    $('#apayFile1').on('click', function () {
+        paystubFileArray.pop();
+        if (paystubFileArray.length == 2) {
+            $('#mpayFile1').removeClass('hidden');
+            $('#apayFile1').removeClass('hidden');
+            $('#spayFile1').text($('#spayFile2').text());
+            $('#mpayFile2').removeClass('hidden');
+            $('#apayFile2').removeClass('hidden');
+            $('#spayFile2').text($('#spayFile3').text());
+            $('#mpayFile3').addClass('hidden');
+            $('#apayFile3').addClass('hidden');
+            $('#fileUploadPaystubShow').html('2 files selected');
+        }
+        else if (paystubFileArray.length == 0) {
+            $('#mpayFile1').addClass('hidden');
+            $('#apayFile1').addClass('hidden');
+            $('#mpayFile2').addClass('hidden');
+            $('#apayFile2').addClass('hidden');
+            $('#mpayFile3').addClass('hidden');
+            $('#apayFile3').addClass('hidden');
+            $('#fileUploadPaystubShow').html('Choose a file...');
+        }
+        else if (paystubFileArray.length == 1) {
+            $('#mpayFile1').removeClass('hidden');
+            $('#apayFile1').removeClass('hidden');
+            $('#spayFile1').text($('#spayFile2').text());
+            $('#mpayFile2').addClass('hidden');
+            $('#apayFile2').addClass('hidden');
+            $('#mpayFile3').addClass('hidden');
+            $('#apayFile3').addClass('hidden');
+            $('#fileUploadPaystubShow').html('1 file selected');
+        }
+
+    });
+    $('#apayFile2').on('click', function () {
+        if (paystubFileArray.length == 3) {
+            paystubFileArray.splice(1, 1);
+            $('#mpayFile2').removeClass('hidden');
+            $('#apayFile2').removeClass('hidden');
+            $('#spayFile2').text($('#spayFile3').text());
+            $('#mpayFile3').addClass('hidden');
+            $('#apayFile3').addClass('hidden');
+            $('#fileUploadPaystubShow').html('2 file selected');
+        }
+        if (paystubFileArray.length == 2) {
+            paystubFileArray.shift();
+            $('#mpayFile1').removeClass('hidden');
+            $('#apayFile1').removeClass('hidden');
+            $('#mpayFile2').addClass('hidden');
+            $('#apayFile2').addClass('hidden');
+            $('#mpayFile3').addClass('hidden');
+            $('#apayFile3').addClass('hidden');
+            $('#fileUploadPaystubShow').html('1 file selected');
+        }
+    });
+    $('#apayFile3').on('click', function () {
+        paystubFileArray.shift();
+        $('#mpayFile3').addClass('hidden');
+        $('#apayFile3').addClass('hidden');
+        $('#fileUploadPaystubShow').html('2 files selected');
+    });
 
     // new code fedral file upload
     document.getElementById('fileUploadFedral').onchange = function () {
         var fedralFile = document.getElementById('fileUploadFedral');
+        var uploadFileCount = 0;
+        var remainUploadFileCount = 0;
+        uploadFileCount = fedralFile.files.length;
+        remainUploadFileCount = parseInt(2 - fedralFileArray.length);
+        if (uploadFileCount > remainUploadFileCount) {
+            if (remainUploadFileCount == 0) {
+                $('#fileUploadFedralShow').html('2 files selected');
+                $.alert({
+                    title: "",
+                    content: "You can not upload more than 2 files",
+                    type: 'blue'
+                });
+                return;
+            }
+            else {
+                $.alert({
+                    title: "",
+                    content: "You can select only number of " + remainUploadFileCount + " files to upload",
+                    type: 'blue'
+                });
+                return;
+            }
 
-        if (fedralFile.files.length == 2) {
+        }
+        if (fedralFile.files.length == 1) {
+            for (var i = 0; i < fedralFile.files.length; i++) {
+
+                var name1 = fedralFile.files[0].name;
+
+                var fileFedralBool1 = restrictFileUpload(name1);
+
+                if (fileFedralBool1 == false) {
+                    document.getElementById('fileUploadFedral').value = '';
+                    $('#fileUploadFedralShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                if (fedralFileArray.length < 2) {
+                    fedralFileArray.push(fedralFile.files[i]);
+                    if (fedralFileArray.length == 1) {
+                        $('#mfedFile1').removeClass('hidden');
+                        $('#afedFile1').removeClass('hidden');
+                        $('#sfedFile1').text(fedralFile.files[0].name);
+                        $('#fileUploadFedralShow').html('1 file selected');
+                        $('#sfedFile2').text("");
+                        $('#mfedFile2').addClass('hidden');
+                        $('#afedFile2').removeClass('hidden');
+                        $('#hndForFedral').val('1');
+                    }
+                    else if (fedralFileArray.length == 0) {
+                        $('#mfedFile1').addClass('hidden');
+                        $('#afedFile1').addClass('hidden');
+                        $('#fileUploadFedralShow').html('Choose a file...');
+                    }
+                    else if (fedralFileArray.length == 2) {
+                        $('#mfedFile2').removeClass('hidden');
+                        $('#afedFile2').removeClass('hidden');
+                        $('#sfedFile2').text(fedralFile.files[0].name);
+                        $('#fileUploadFedralShow').html('2 files selected');
+                    }
+                }
+                else {
+                    $.alert({
+                        title: "",
+                        content: "You can select only number of 2 files to upload",
+                        type: 'blue'
+                    });
+                    return;
+                }
+            }
+            if (fedralFileArray.length == 2) {
+                fedralFileUploadCoapplicant(fedralFileArray);
+            }
+        }
+        else if (fedralFile.files.length == 2) {
             for (var i = 0; i < fedralFile.files.length; i++) {
 
                 var name1 = fedralFile.files[0].name;
@@ -210,7 +536,7 @@ $(document).ready(function () {
                     });
                     return;
                 }
-                else if (fileFedralBool2 == false) {
+                if (fileFedralBool2 == false) {
                     document.getElementById('fileUploadFedral').value = '';
                     $('#fileUploadFedralShow').html('Choose a file...');
                     $.alert({
@@ -220,26 +546,234 @@ $(document).ready(function () {
                     });
                     return;
                 }
+                if (fedralFileArray.length < 2) {
+                    fedralFileArray.push(fedralFile.files[i]);
+                    if (fedralFileArray.length == 1) {
+                        $('#mfedFile1').removeClass('hidden');
+                        $('#afedFile1').removeClass('hidden');
+                        $('#sfedFile1').text(fedralFile.files[i].name);
+                        $('#fileUploadFedralShow').html('1 file selected');
+                        $('#sfedFile2').text("");
+                        $('#mfedFile2').addClass('hidden');
+                        $('#afedFile2').removeClass('hidden');
+                        $('#hndForFedral').val('1');
+                    }
+                    else if (fedralFileArray.length == 0) {
+                        $('#mfedFile1').addClass('hidden');
+                        $('#afedFile1').addClass('hidden');
+                        $('#fileUploadFedralShow').html('Choose a file...');
+                    }
+                    else if (fedralFileArray.length == 2) {
+                        $('#mfedFile2').removeClass('hidden');
+                        $('#afedFile2').removeClass('hidden');
+                        $('#sfedFile2').text(fedralFile.files[i].name);
+                        $('#fileUploadFedralShow').html('2 files selected');
+                    }
+                }
+                else {
+                    $.alert({
+                        title: "",
+                        content: "You can select only number of 2 files to upload",
+                        type: 'blue'
+                    });
+                    return;
+                }
             }
-            fedralFileUploadCoapplicant();
+            if (fedralFileArray.length == 2) {
+                fedralFileUploadCoapplicant(fedralFileArray);
+            }
         }
         else {
-            document.getElementById('fileUploadFedral').value = '';
-            $('#fileUploadFedralShow').html('Choose a file...');
             $.alert({
                 title: "",
-                content: "Select number of 2 files to upload",
+                content: "You can select only number of 2 files to upload",
                 type: 'blue'
             });
             return;
         }
     };
+    $('#afedFile1').on('click', function () {
+        $('#mfedFile1').addClass('hidden');
+        fedralFileArray.pop();
+        if (fedralFileArray.length == 0) {
+            $('#mfedFile1').addClass('hidden');
+            $('#afedFile1').addClass('hidden');
+            $('#mfedFile2').addClass('hidden');
+            $('#afedFile2').addClass('hidden');
+            $('#fileUploadFedralShow').html('Choose a file...');
+        }
+        else if (fedralFileArray.length == 1) {
+            $('#mfedFile1').removeClass('hidden');
+            $('#afedFile1').removeClass('hidden');
+            $('#sfedFile1').text($('#sfedFile2').text());
+            $('#mfedFile2').addClass('hidden');
+            $('#afedFile2').addClass('hidden');
+            $('#fileUploadFedralShow').html('1 file selected');
+        }
+    });
+    $('#afedFile2').on('click', function () {
+        fedralFileArray.shift();
+        $('#mfedFile2').addClass('hidden');
+        $('#afedFile2').addClass('hidden');
+        $('#fileUploadFedralShow').html('1 files selected');
+    });
 
     // new code bankstatement file upload
     document.getElementById('fileUploadBankStatement').onchange = function () {
         var bankstatementFile = document.getElementById('fileUploadBankStatement');
+        var uploadFileCount = 0;
+        var remainUploadFileCount = 0;
+        uploadFileCount = bankstatementFile.files.length;
+        remainUploadFileCount = parseInt(3 - bankstatementFileArray.length);
+        if (uploadFileCount > remainUploadFileCount) {
+            if (remainUploadFileCount == 0) {
+                $('#fileUploadBankStatementShow').html('3 files selected');
+                $.alert({
+                    title: "",
+                    content: "You can not upload more than 3 files",
+                    type: 'blue'
+                });
+                return;
+            }
+            else {
+                $.alert({
+                    title: "",
+                    content: "You can select only number of " + remainUploadFileCount + " files to upload",
+                    type: 'blue'
+                });
+                return;
+            }
 
-        if (bankstatementFile.files.length == 3) {
+        }
+        if (bankstatementFile.files.length == 1) {
+            for (var i = 0; i < bankstatementFile.files.length; i++) {
+
+                var name1 = bankstatementFile.files[0].name;
+
+                var fileBankstatementBool1 = restrictFileUpload(name1);
+
+                if (fileBankstatementBool1 == false) {
+                    document.getElementById('fileUploadBankStatement').value = '';
+                    $('#fileUploadBankStatementShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                if (bankstatementFileArray.length < 3) {
+                    bankstatementFileArray.push(bankstatementFile.files[i]);
+                    if (bankstatementFileArray.length == 1) {
+                        $('#mbankstateFile1').removeClass('hidden');
+                        $('#abankstateFile1').removeClass('hidden');
+                        $('#sbankstateFile1').text(bankstatementFile.files[0].name);
+                        $('#fileUploadBankStatementShow').html('1 file selected');
+                        $('#sbankstateFile2').text("");
+                        $('#sbankstateFile3').text("");
+                        $('#mbankstateFile2').addClass('hidden');
+                        $('#abankstateFile2').removeClass('hidden');
+                        $('#mbankstateFile3').addClass('hidden');
+                        $('#abankstateFile3').removeClass('hidden');
+                        $('#hndForBankStatement').val('1');
+                    }
+                    else if (bankstatementFileArray.length == 2) {
+                        $('#mbankstateFile2').removeClass('hidden');
+                        $('#abankstateFile2').removeClass('hidden');
+                        $('#sbankstateFile2').text(bankstatementFile.files[0].name);
+                        $('#fileUploadBankStatementShow').html('2 files selected');
+                    }
+                    else if (bankstatementFileArray.length == 3) {
+                        $('#mbankstateFile3').removeClass('hidden');
+                        $('#abankstateFile3').removeClass('hidden');
+                        $('#sbankstateFile3').text(bankstatementFile.files[0].name);
+                        $('#fileUploadBankStatementShow').html('3 files selected');
+                    }
+                }
+                else {
+                    $.alert({
+                        title: "",
+                        content: "You can select only number of 3 files to upload",
+                        type: 'blue'
+                    });
+                    return;
+                }
+            }
+            if (bankstatementFileArray.length == 3) {
+                bankstatementFileUploadCoapplicant(bankstatementFileArray);
+            }
+        }
+        else if (bankstatementFile.files.length == 2) {
+            for (var i = 0; i < bankstatementFile.files.length; i++) {
+
+                var name1 = bankstatementFile.files[0].name;
+                var name2 = bankstatementFile.files[1].name;
+
+                var fileBankstatementBool1 = restrictFileUpload(name1);
+                var fileBankstatementBool2 = restrictFileUpload(name2);
+
+                if (fileBankstatementBool1 == false) {
+                    document.getElementById('fileUploadBankStatement').value = '';
+                    $('#fileUploadBankStatementShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                if (fileBankstatementBool2 == false) {
+                    document.getElementById('fileUploadBankStatement').value = '';
+                    $('#fileUploadBankStatementShow').html('Choose a file...');
+                    $.alert({
+                        title: "",
+                        content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                if (bankstatementFileArray.length < 3) {
+                    bankstatementFileArray.push(bankstatementFile.files[i]);
+                    if (bankstatementFileArray.length == 1) {
+                        $('#mbankstateFile1').removeClass('hidden');
+                        $('#abankstateFile1').removeClass('hidden');
+                        $('#sbankstateFile1').text(bankstatementFile.files[i].name);
+                        $('#fileUploadBankStatementShow').html('1 file selected');
+                        $('#sbankstateFile2').text("");
+                        $('#sbankstateFile3').text("");
+                        $('#mbankstateFile2').addClass('hidden');
+                        $('#abankstateFile2').removeClass('hidden');
+                        $('#mbankstateFile3').addClass('hidden');
+                        $('#abankstateFile3').removeClass('hidden');
+                        $('#hndForBankStatement').val('1');
+                    }
+                    else if (bankstatementFileArray.length == 2) {
+                        $('#mbankstateFile2').removeClass('hidden');
+                        $('#abankstateFile2').removeClass('hidden');
+                        $('#sbankstateFile2').text(bankstatementFile.files[i].name);
+                        $('#fileUploadBankStatementShow').html('2 files selected');
+                    }
+                    else if (bankstatementFileArray.length == 3) {
+                        $('#mbankstateFile3').removeClass('hidden');
+                        $('#abankstateFile3').removeClass('hidden');
+                        $('#sbankstateFile3').text(bankstatementFile.files[i].name);
+                        $('#fileUploadBankStatementShow').html('3 files selected');
+                    }
+                }
+                else {
+                    $.alert({
+                        title: "",
+                        content: "You can select only number of 3 files to upload",
+                        type: 'blue'
+                    });
+                    return;
+                }
+            }
+            if (bankstatementFileArray.length == 3) {
+                bankstatementFileUploadCoapplicant(bankstatementFileArray);
+            }
+        }
+        else if (bankstatementFile.files.length == 3) {
             for (var i = 0; i < bankstatementFile.files.length; i++) {
 
                 var name1 = bankstatementFile.files[0].name;
@@ -260,7 +794,7 @@ $(document).ready(function () {
                     });
                     return;
                 }
-                else if (fileBankstatementBool2 == false) {
+                if (fileBankstatementBool2 == false) {
                     document.getElementById('fileUploadBankStatement').value = '';
                     $('#fileUploadBankStatementShow').html('Choose a file...');
                     $.alert({
@@ -270,30 +804,129 @@ $(document).ready(function () {
                     });
                     return;
                 }
-                else if (fileBankstatementBool3 == false) {
+                if (fileBankstatementBool3 == false) {
                     document.getElementById('fileUploadBankStatement').value = '';
                     $('#fileUploadBankStatementShow').html('Choose a file...');
                     $.alert({
                         title: "",
                         content: "Only the following file extensions are allowed...</br>'gif', 'png', 'jpg', 'jpeg', 'bmp', 'psd', 'xls', 'doc', 'docx', 'pdf', 'rtf', 'tex', 'txt', 'wpd'",
+                        type: 'blue'
+                    });
+                    return;
+                }
+                if (bankstatementFileArray.length < 3) {
+                    bankstatementFileArray.push(bankstatementFile.files[i]);
+                    if (bankstatementFileArray.length == 1) {
+                        $('#mbankstateFile1').removeClass('hidden');
+                        $('#abankstateFile1').removeClass('hidden');
+                        $('#sbankstateFile1').text(bankstatementFile.files[i].name);
+                        $('#fileUploadBankStatementShow').html('1 file selected');
+                        $('#sbankstateFile2').text("");
+                        $('#sbankstateFile3').text("");
+                        $('#mbankstateFile2').addClass('hidden');
+                        $('#abankstateFile2').removeClass('hidden');
+                        $('#mbankstateFile3').addClass('hidden');
+                        $('#abankstateFile3').removeClass('hidden');
+                        $('#hndForBankStatement').val('1');
+                    }
+                    else if (bankstatementFileArray.length == 2) {
+                        $('#mbankstateFile2').removeClass('hidden');
+                        $('#abankstateFile2').removeClass('hidden');
+                        $('#sbankstateFile2').text(bankstatementFile.files[i].name);
+                        $('#fileUploadBankStatementShow').html('2 files selected');
+                    }
+                    else if (bankstatementFileArray.length == 3) {
+                        $('#mbankstateFile3').removeClass('hidden');
+                        $('#abankstateFile3').removeClass('hidden');
+                        $('#sbankstateFile3').text(bankstatementFile.files[i].name);
+                        $('#fileUploadBankStatementShow').html('3 files selected');
+                    }
+                }
+                else {
+                    $.alert({
+                        title: "",
+                        content: "You can select only number of 3 files to upload",
                         type: 'blue'
                     });
                     return;
                 }
             }
-            bankstatementFileUploadCoapplicant();
+            if (bankstatementFileArray.length == 3) {
+                bankstatementFileUploadCoapplicant(bankstatementFileArray);
+            }
         }
         else {
-            document.getElementById('fileUploadBankStatement').value = '';
-            $('#fileUploadBankStatementShow').html('Choose a file...');
             $.alert({
                 title: "",
-                content: "Select number of 3 files to upload",
+                content: "You can select only number of 3 files to upload",
                 type: 'blue'
             });
             return;
         }
     };
+
+    $('#abankstateFile1').on('click', function () {
+        bankstatementFileArray.pop();
+        if (bankstatementFileArray.length == 2) {
+            $('#mbankstateFile1').removeClass('hidden');
+            $('#abankstateFile1').removeClass('hidden');
+            $('#sbankstateFile1').text($('#sbankstateFile2').text());
+            $('#mbankstateFile2').removeClass('hidden');
+            $('#abankstateFile2').removeClass('hidden');
+            $('#sbankstateFile2').text($('#sbankstateFile3').text());
+            $('#mbankstateFile3').addClass('hidden');
+            $('#abankstateFile1').addClass('hidden');
+            $('#fileUploadBankStatementShow').html('2 files selected');
+        }
+        else if (bankstatementFileArray.length == 0) {
+            $('#mbankstateFile1').addClass('hidden');
+            $('#abankstateFile1').addClass('hidden');
+            $('#mbankstateFile2').addClass('hidden');
+            $('#abankstateFile2').addClass('hidden');
+            $('#mbankstateFile3').addClass('hidden');
+            $('#abankstateFile3').addClass('hidden');
+            $('#fileUploadBankStatementShow').html('Choose a file...');
+        }
+        else if (bankstatementFileArray.length == 1) {
+            $('#mbankstateFile1').removeClass('hidden');
+            $('#abankstateFile1').removeClass('hidden');
+            $('#sbankstateFile1').text($('#sbankstateFile2').text());
+            $('#mbankstateFile2').addClass('hidden');
+            $('#abankstateFile2').addClass('hidden');
+            $('#mbankstateFile3').addClass('hidden');
+            $('#abankstateFile3').addClass('hidden');
+            $('#fileUploadBankStatementShow').html('1 file selected');
+        }
+
+    });
+    $('#abankstateFile2').on('click', function () {
+        if (bankstatementFileArray.length == 3) {
+            bankstatementFileArray.splice(1, 1);
+            $('#mbankstateFile2').removeClass('hidden');
+            $('#abankstateFile2').removeClass('hidden');
+            $('#sbankstateFile2').text($('#sbankstateFile3').text());
+            $('#mbankstateFile3').addClass('hidden');
+            $('#abankstateFile3').addClass('hidden');
+            $('#fileUploadBankStatementShow').html('2 file selected');
+        }
+        else if (bankstatementFileArray.length == 2) {
+            bankstatementFileArray.shift();
+            $('#mbankstateFile1').removeClass('hidden');
+            $('#abankstateFile1').removeClass('hidden');
+            $('#mbankstateFile2').addClass('hidden');
+            $('#abankstateFile2').addClass('hidden');
+            $('#mbankstateFile3').addClass('hidden');
+            $('#abankstateFile3').addClass('hidden');
+            $('#fileUploadBankStatementShow').html('2 file selected');
+        }
+
+    });
+    $('#abankstateFile3').on('click', function () {
+        bankstatementFileArray.shift();
+        $('#mbankstateFile3').addClass('hidden');
+        $('#abankstateFile3').addClass('hidden');
+        $('#fileUploadBankStatementShow').html('2 files selected');
+    });
 
     // New Upload Code End //
 
@@ -820,6 +1453,9 @@ $(document).ready(function () {
         if ($("#rbtnPaystub").is(":checked")) {
             if (nofup < 3) {
                 $('#divUpload3').removeClass('hidden');
+                $("#mpayFile1").removeClass("hidden");
+                $("#mpayFile2").removeClass("hidden");
+                $("#mpayFile3").removeClass("hidden");
             } else {
                 if (rbtnClick == "Paystub") {
                     setTimeout(function () {
@@ -837,10 +1473,16 @@ $(document).ready(function () {
         }
         else {
             $('#divUpload3').addClass('hidden');
+            $("#mpayFile1").addClass("hidden");
+            $("#mpayFile2").addClass("hidden");
+            $("#mpayFile3").addClass("hidden");
         }
         if ($("#rbtnBankStatement").is(":checked")) {
             if (nofup < 3) {
                 $('#divBankUpload').removeClass('hidden');
+                $("#mbankstateFile1").removeClass("hidden");
+                $("#mbankstateFile2").removeClass("hidden");
+                $("#mbankstateFile3").removeClass("hidden");
             } else {
                 if (rbtnClick == "BankStatement") {
                     setTimeout(function () {
@@ -857,10 +1499,15 @@ $(document).ready(function () {
             }
         } else {
             $('#divBankUpload').addClass('hidden');
+            $("#mbankstateFile1").addClass("hidden");
+            $("#mbankstateFile2").addClass("hidden");
+            $("#mbankstateFile3").addClass("hidden");
         }
         if ($("#rbtnFedralTax").is(":checked")) {
             if (nofup < 3) {
                 $('#divFederalTax').removeClass('hidden');
+                $("#mfedFile1").removeClass("hidden");
+                $("#mfedFile2").removeClass("hidden");
             } else {
                 if (rbtnClick == "FedralTax") {
                     setTimeout(function () {
@@ -877,6 +1524,8 @@ $(document).ready(function () {
             }
         } else {
             $('#divFederalTax').addClass('hidden');
+            $("#mfedFile1").addClass("hidden");
+            $("#mfedFile2").addClass("hidden");
         }
     });
 
@@ -1446,15 +2095,25 @@ var goToStep = function (stepid, id, calldataupdate) {
             }
             nofup = 0;
             if ($("#rbtnPaystub").is(":checked")) {
+                if ($("#hndForPaystub").val() == '1') {
+                    if (paystubFileArray.length < 3) {
+                        msg += "Please Upload Paystub " + parseInt(3 - paystubFileArray.length) + " file</br>";
+                    }
+                }
                 if (($("#hndHasTaxReturnFile3").val() == "0") && ($("#hndHasTaxReturnFile4").val() == "0") && ($("#hndHasTaxReturnFile5").val() == "0")) {
-                    
+
                     if (document.getElementById('fileUploadPaystub').files.length == '0') {
                         msg += "Please Upload Paystub </br>";
                     }
                 }
-                nofup+=1;
+                nofup += 1;
             }
             if ($("#rbtnFedralTax").is(":checked")) {
+                if ($("#hndForFedral").val() == '1') {
+                    if (fedralFileArray.length < 2) {
+                        msg += "Please Upload Fedral " + parseInt(2 - fedralFileArray.length) + " file</br>";
+                    }
+                }
                 if (($("#hndHasTaxReturnFile1").val() == "0") && ($("#hndHasTaxReturnFile2").val() == "0")) {
                     if (document.getElementById('fileUploadFedral').files.length == '0') {
                         msg += "Please Upload Fedral </br>";
@@ -1463,6 +2122,11 @@ var goToStep = function (stepid, id, calldataupdate) {
                 nofup += 1;
             }
             if ($("#rbtnBankStatement").is(":checked")) {
+                if ($("#hndForBankStatement").val() == '1') {
+                    if (bankstatementFileArray.length < 3) {
+                        msg += "Please Upload Bankstatement " + parseInt(3 - bankstatementFileArray.length) + " file</br>";
+                    }
+                }
                 if (($("#hndHasBankStateFile1").val() == "0") && ($("#hndHasBankStateFile2").val() == "0") && ($("#hndHasBankStateFile3").val() == "0")) {
                     if (document.getElementById('fileUploadBankStatement').files.length == '0') {
                         msg += "Please Upload Bankstatement </br>";
@@ -6757,6 +7421,36 @@ var getTenantOnlineListCoApplicant = function (id) {
             } else {
                 $("#hndHasTaxReturnFile5").val("0");
             }
+            if (response.model.TaxReturn6 != "") {
+                if (response.model.TaxReturn6 == "0") {
+                    $("#hndHasBankStateFile1").val("0");
+                }
+                else {
+                    $("#hndHasBankStateFile1").val("1");
+                }
+            } else {
+                $("#hndHasBankStateFile1").val("0");
+            }
+            if (response.model.TaxReturn7 != "") {
+                if (response.model.TaxReturn7 == "0") {
+                    $("#hndHasBankStateFile2").val("0");
+                }
+                else {
+                    $("#hndHasBankStateFile2").val("1");
+                }
+            } else {
+                $("#hndHasBankStateFile2").val("0");
+            }
+            if (response.model.TaxReturn8 != "") {
+                if (response.model.TaxReturn8 == "0") {
+                    $("#hndHasBankStateFile3").val("0");
+                }
+                else {
+                    $("#hndHasBankStateFile3").val("1");
+                }
+            } else {
+                $("#hndHasBankStateFile3").val("0");
+            }
             //alert(response.model.haveVehicleCoApplicant + "  " + response.model.HavePet);
             if (response.model.HaveVehicle == true) {
                 $("#chkDontHaveVehicle").iCheck('check');
@@ -6850,15 +7544,39 @@ var getTenantOnlineListCoApplicant = function (id) {
                 $("#rbtnPaystub").iCheck('check');
                 $('#divUpload3').removeClass('hidden');
                 $("#fileUploadPaystubShow").text("3 files selected");
+                $("#mpayFile1").removeClass("hidden");
+                $("#mpayFile2").removeClass("hidden");
+                $("#mpayFile3").removeClass("hidden");
+                $("#apayFile1").addClass("hidden");
+                $("#apayFile2").addClass("hidden");
+                $("#apayFile3").addClass("hidden");
+                $("#spayFile1").text(response.model.UploadOriginalFileName3);
+                $("#spayFile2").text(response.model.UploadOriginalFileName4);
+                $("#spayFile3").text(response.model.UploadOriginalFileName5);
             }
             if (response.model.IsFedralTax == 1) {
                 $("#rbtnFedralTax").iCheck('check');
                 $("#fileUploadFedralShow").text("2 files selected");
+                $("#mfedFile1").removeClass("hidden");
+                $("#mfedFile2").removeClass("hidden");
+                $("#afedFile1").addClass("hidden");
+                $("#afedFile2").addClass("hidden");
+                $("#sfedFile1").text(response.model.UploadOriginalFileName1);
+                $("#sfedFile2").text(response.model.UploadOriginalFileName2);
             }
             if (response.model.IsBankState == 1) {
                 $("#rbtnBankStatement").iCheck('check');
                 $('#divBankUpload').removeClass('hidden');
                 $("#fileUploadBankStatementShow").text("3 files selected");
+                $("#mbankstateFile1").removeClass("hidden");
+                $("#mbankstateFile2").removeClass("hidden");
+                $("#mbankstateFile3").removeClass("hidden");
+                $("#abankstateFile1").addClass("hidden");
+                $("#abankstateFile2").addClass("hidden");
+                $("#abankstateFile3").addClass("hidden");
+                $("#sbankstateFile1").text(response.model.UploadOriginalFileName6);
+                $("#sbankstateFile2").text(response.model.UploadOriginalFileName7);
+                $("#sbankstateFile3").text(response.model.UploadOriginalFileName8);
             }
 
             $("#divLoaderFullData").hide();
@@ -10458,14 +11176,14 @@ function saveListPaymentFinal() {
 // New Upload Code Start //
 
 // New Paystub file Upload Method
-var paystubFileUploadCoapplicant = function () {
+var paystubFileUploadCoapplicant = function (pArray) {
     $("#divLoader").show();
     $formData = new FormData();
 
     var paystubUpload = document.getElementById('fileUploadPaystub');
 
-    for (var i = 0; i < paystubUpload.files.length; i++) {
-        $formData.append('file-' + i, paystubUpload.files[i]);
+    for (var i = 0; i < paystubFileArray.length; i++) {
+        $formData.append('file-' + i, paystubFileArray[i]);
     }
 
     $.ajax({
@@ -10498,6 +11216,8 @@ var paystubFileUploadCoapplicant = function () {
             $('#hndOriginalFileUploadName3').val(originalFileName[2]);
 
             $("#fileUploadPaystubShow").text("3 files selected");
+
+
             $.alert({
                 title: "",
                 content: "File uploaded Successfully.",
@@ -10508,14 +11228,13 @@ var paystubFileUploadCoapplicant = function () {
 };
 
 // New Fedral file Upload Method
-var fedralFileUploadCoapplicant = function () {
+var fedralFileUploadCoapplicant = function (fArray) {
     $("#divLoader").show();
     $formData = new FormData();
-
     var fedralUpload = document.getElementById('fileUploadFedral');
 
-    for (var i = 0; i < fedralUpload.files.length; i++) {
-        $formData.append('file-' + i, fedralUpload.files[i]);
+    for (var i = 0; i < fedralFileArray.length; i++) {
+        $formData.append('file-' + i, fedralFileArray[i]);
     }
 
     $.ajax({
@@ -10537,6 +11256,7 @@ var fedralFileUploadCoapplicant = function () {
                 originalFileName.push(elementValue);
             });
 
+
             //1
             $('#hndFileUploadName1').val(fileName[0]);
             $('#hndOriginalFileUploadName1').val(originalFileName[0]);
@@ -10544,6 +11264,8 @@ var fedralFileUploadCoapplicant = function () {
             $('#hndFileUploadName2').val(fileName[1]);
             $('#hndOriginalFileUploadName2').val(originalFileName[1]);
             $("#fileUploadFedralShow").text("2 files selected");
+
+
             $.alert({
                 title: "",
                 content: "File uploaded Successfully.",
@@ -10554,14 +11276,14 @@ var fedralFileUploadCoapplicant = function () {
 };
 
 // New Paystub file Upload Method
-var bankstatementFileUploadCoapplicant = function () {
+var bankstatementFileUploadCoapplicant = function (bsArray) {
     $("#divLoader").show();
     $formData = new FormData();
 
     var bankstatementUpload = document.getElementById('fileUploadBankStatement');
 
-    for (var i = 0; i < bankstatementUpload.files.length; i++) {
-        $formData.append('file-' + i, bankstatementUpload.files[i]);
+    for (var i = 0; i < bankstatementFileArray.length; i++) {
+        $formData.append('file-' + i, bankstatementFileArray[i]);
     }
 
     $.ajax({
@@ -10593,6 +11315,8 @@ var bankstatementFileUploadCoapplicant = function () {
             $('#hndFileUploadNameBankState3').val(fileName[2]);
             $('#hndOriginalFileUploadNameBankState3').val(originalFileName[2]);
             $("#fileUploadBankStatementShow").text("3 files selected");
+
+
             $.alert({
                 title: "",
                 content: "File uploaded Successfully.",
