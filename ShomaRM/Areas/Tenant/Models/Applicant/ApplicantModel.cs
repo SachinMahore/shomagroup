@@ -1235,13 +1235,44 @@ namespace ShomaRM.Areas.Tenant.Models
             {
                 var appliData = db.tbl_Applicant.Where(p => p.ApplicantID == AID).FirstOrDefault();
                 var tenData = db.tbl_TenantOnline.Where(p => p.Email == appliData.Email && p.ProspectID == appliData.TenantID).FirstOrDefault();
-               
-
-                
 
                 if (appliData != null)
                 {
-                    db.tbl_Applicant.Remove(appliData);
+                    if (appliData.AddedBy != null)
+                    {
+                        var mainAppli = db.tbl_ApplyNow.Where(p => p.UserId == appliData.AddedBy).FirstOrDefault();
+                        
+                        if(mainAppli != null)
+                        {
+                            var mainAppliData = db.tbl_Applicant.Where(p => p.UserID == mainAppli.UserId).FirstOrDefault();
+                            if (mainAppliData != null)
+                            {
+                                mainAppliData.MoveInCharge = mainAppli.MoveInCharges;
+                                mainAppliData.MoveInPercentage = 100;
+                                mainAppliData.MonthlyPayment = mainAppli.MonthlyCharges;
+                                mainAppliData.MonthlyPercentage = 100;
+                                mainAppliData.AdminFee = mainAppli.AdministrationFee;
+                                mainAppliData.AdminFeePercentage = 100;
+                                db.SaveChanges();
+                            }
+                        }
+
+                        var allCoAppli = db.tbl_Applicant.Where(p => p.AddedBy == appliData.AddedBy).ToList();
+                        if (allCoAppli != null)
+                        {
+                            foreach (var Coap in allCoAppli)
+                            {
+                                Coap.MoveInCharge = 0;
+                                Coap.MoveInPercentage = 0;
+                                Coap.MonthlyPayment = 0;
+                                Coap.MonthlyPercentage = 0;
+                                Coap.AdminFee = 0;
+                                Coap.AdminFeePercentage = 0;
+                                db.SaveChanges();
+                            }
+                        }
+                    }
+                        db.tbl_Applicant.Remove(appliData);
                     db.SaveChanges();
                 }
                 if (tenData != null)
