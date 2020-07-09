@@ -196,6 +196,13 @@ $(document).ready(function () {
         }
     });
 
+
+    //Sachin M 09 July
+    if ($("#hndCreditPaid").val() == 1) {
+        $('#divCreditCheckPayment').addClass('hidden');
+        $('#divchkCCPay').addClass('hidden');
+        
+    }
     $("#mainApplName").text($("#txtFirstNamePersonal").val() + " " + ((!$("#txtMiddleInitial").val()) ? "" : $("#txtMiddleInitial").val() + " ") + $("#txtLastNamePersonal").val());
 
     $("#listUnit tbody").on("click", "tr", function (e) {
@@ -5017,7 +5024,15 @@ var saveupdateStorage = function () {
 var addApplicant = function (at) {
     
     var modal = $("#popApplicant");
-    $("#divchkCCPay").removeClass("hidden");
+    //Sachin M 09 July
+    if ($("#hndCreditPaid").val() == 1) {
+        $('#divCreditCheckPayment').addClass('hidden');
+        $('#divchkCCPay').addClass('hidden');
+
+    } else {
+        $("#divchkCCPay").removeClass("hidden");
+    }
+ 
     if (at == 1) {
         $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").addClass("hidden");
         //modal.find('.modal-content').css("height", "375px");
@@ -5442,8 +5457,8 @@ var getApplicantLists = function () {
                         $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
                         //html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a></label>";
                     } else if (parseInt(elementValue.CreditPaid) == 1 && parseInt(elementValue.BackGroundPaid) == 0) {
-                        $("#editApplicantFees").text("Background Check Fees");
-                        $("#editApplicantFeesVal").text($("#hndAppBackgroundFees").val());
+                        //$("#editApplicantFees").text("Background Check Fees");
+                        //$("#editApplicantFeesVal").text($("#hndAppBackgroundFees").val());
                         //html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a></label>";
                     }
                     html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
@@ -5463,8 +5478,8 @@ var getApplicantLists = function () {
                         $("#editApplicantFeesVal").text($("#hndAppCreditFees").val());
                         //html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",4)'>Pay Credit Check Fees</a></label>";
                     } else if (parseInt(elementValue.CreditPaid) == 1 && parseInt(elementValue.BackGroundPaid) == 0) {
-                        $("#editApplicantFees").text("Background Check Fees");
-                        $("#editApplicantFeesVal").text($("#hndAppBackgroundFees").val());
+                        //$("#editApplicantFees").text("Background Check Fees");
+                        //$("#editApplicantFeesVal").text($("#hndAppBackgroundFees").val());
                         ///html += "<label><a href='javascript:void(0)' onclick='payFeePop(" + elementValue.ApplicantID + ",5)'>Pay Background Check Fees</a></label>";
                     }
                     html += "</div><div><center><label><b>Status: " + elementValue.ComplStatus + "</b></label></center></div></div>";
@@ -5937,7 +5952,14 @@ var goToEditApplicant = function (aid) {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip").removeClass("hidden");
 
                     modal.find('.modal-title').text('Edit Primary Applicant');
-                    $("#divchkCCPay").removeClass("hidden");
+                    //Sachin M 09 July
+                    if ($("#hndCreditPaid").val() == 1) {
+                        $('#divCreditCheckPayment').addClass('hidden');
+                        $('#divchkCCPay').addClass('hidden');
+
+                    } else {
+                        $("#divchkCCPay").removeClass("hidden");
+                    }
                     $("#popApplicant").modal("show");
                     $("#ddlApplicantType").text("Primary Applicant");
                     $("#ddlARelationship").empty();
@@ -9138,7 +9160,9 @@ var onFocusApplyNow = function () {
             return;
         } else {
             if ($("#hndCreditPaid").val() != "1") {
-                $("#divchkCCPay").removeClass("hidden");
+            
+                    $("#divchkCCPay").removeClass("hidden");
+               
             }
             var modal = $("#popApplicant");
             //modal.find('.modal-content').css("height", "560px");

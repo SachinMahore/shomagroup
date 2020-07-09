@@ -2138,6 +2138,117 @@ namespace ShomaRM.Models
             return msg;
 
         }
+
+        //Sachin Mahore 09 July 2020
+
+        public string SendeAdminFeeReminder()
+        {
+            string msg = "";
+            string reportHTML = "";
+            string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+            string body = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            DateTime threeday1 = DateTime.Now.AddHours(12);
+            DateTime threeday2 = DateTime.Now.AddHours(10);
+            var GetStatusDet = db.tbl_BackgroundScreening.Where(p => p.ApprovedDate >= threeday1 && p.ApprovedDate <= threeday2).FirstOrDefault();
+            var phonenumber = "";
+            if (GetStatusDet != null)
+            {
+                var getApplilist = db.tbl_Applicant.Where(k => k.TenantID == GetStatusDet.ApplyNowId).ToList();
+                foreach (var cd in getApplilist)
+                {
+                    var GetTenantDet = db.tbl_TenantOnline.Where(p => p.ID == cd.TenantID).FirstOrDefault();
+                    phonenumber = GetTenantDet.Mobile;
+                    body = "";
+                    reportHTML = "";
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                    var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                    string payid = new EncryptDecrypt().EncryptText(cd.ApplicantID.ToString() + ",3," + propertDet.AdminFees.Value.ToString("0.00"));
+
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Hello <b>" + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "</b>! Your Online application submitted successfully. Please click below to Pay Application fees.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Congratulations ! Your Application is Approved and Pay your Administration Fees.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Good news!You have been approved.We welcome you to our community.Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move -in. Once you process your payment, you will be directed to prepare your lease.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Please click here to Pay</p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" class=\"link-button\" target=\"_blank\">Pay Now</a></p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                    string appSummary = new ApplyNowModel().PrintApplicationForm(GetTenantDet.ID);
+
+                    List<string> filePaths = new List<string>();
+                    filePaths.Add(appSummary);
+
+                    body = reportHTML;
+
+                    new EmailSendModel().SendEmailWithAttachment(GetTenantDet.Email, "Pay your Administration Fees Only 48 Hrs Left to expire link ", body, filePaths);
+
+                    message = "Pay your Administration Fees Only 48 Hrs Left to expire link . Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        if (!string.IsNullOrWhiteSpace(phonenumber))
+                        {
+                            new TwilioService().SMS(phonenumber, message);
+                        }
+                    }
+                }
+            }
+
+            DateTime day1 = DateTime.Now.AddHours(24);
+            DateTime day2 = DateTime.Now.AddHours(22);
+            var GetStatusDet1 = db.tbl_BackgroundScreening.Where(p => p.ApprovedDate >= threeday1 && p.ApprovedDate <= threeday2).FirstOrDefault();
+            var phonenumber1 = "";
+            if (GetStatusDet1 != null)
+            {
+                var getApplilist = db.tbl_Applicant.Where(k => k.TenantID == GetStatusDet1.ApplyNowId).ToList();
+                foreach (var cd in getApplilist)
+                {
+                    var GetTenantDet = db.tbl_TenantOnline.Where(p => p.ID == cd.TenantID).FirstOrDefault();
+                    phonenumber = GetTenantDet.Mobile;
+                    body = "";
+                    reportHTML = "";
+                    reportHTML = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
+                    reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                    var propertDet = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
+                    string payid = new EncryptDecrypt().EncryptText(cd.ApplicantID.ToString() + ",3," + propertDet.AdminFees.Value.ToString("0.00"));
+
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Hello <b>" + GetTenantDet.FirstName + " " + GetTenantDet.LastName + "</b>! Your Online application submitted successfully. Please click below to Pay Application fees.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Congratulations ! Your Application is Approved and Pay your Administration Fees.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Good news!You have been approved.We welcome you to our community.Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move -in. Once you process your payment, you will be directed to prepare your lease.</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Please click here to Pay</p>";
+                    emailBody += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href=\"" + serverURL + "/PayLink/?pid=" + payid + "\" class=\"link-button\" target=\"_blank\">Pay Now</a></p>";
+                    reportHTML = reportHTML.Replace("[%EmailBody%]", emailBody);
+
+                    string appSummary = new ApplyNowModel().PrintApplicationForm(GetTenantDet.ID);
+
+                    List<string> filePaths = new List<string>();
+                    filePaths.Add(appSummary);
+
+                    body = reportHTML;
+
+                    new EmailSendModel().SendEmailWithAttachment(GetTenantDet.Email, "Pay your Administration Fees Only 24 Hrs Left to expire link ", body, filePaths);
+
+                    message = "Pay your Administration Fees Only 24 Hrs Left to expire link . Please check the email for detail.";
+                    if (SendMessage == "yes")
+                    {
+                        if (!string.IsNullOrWhiteSpace(phonenumber1))
+                        {
+                            new TwilioService().SMS(phonenumber1, message);
+                        }
+                    }
+                }
+            }
+
+            msg = "Email Send Successfully";
+            return msg;
+
+        }
     }
 
     public class DocumentVerificationModule

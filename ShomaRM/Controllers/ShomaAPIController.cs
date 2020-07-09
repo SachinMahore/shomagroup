@@ -102,5 +102,20 @@ namespace ShomaRM.Controllers
                 return Json(new { msg = "Fail" }, JsonRequestBehavior.AllowGet);
             }
         }
+        //sachin M 09 July
+        [AllowCrossJson]
+        public ActionResult SendeAdminFeeReminder()
+        {
+
+            try
+            {
+                string result = new OnlineProspectModule().SendeAdminFeeReminder();
+                return Json(new { msg = "Success" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { msg = "Fail" }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
