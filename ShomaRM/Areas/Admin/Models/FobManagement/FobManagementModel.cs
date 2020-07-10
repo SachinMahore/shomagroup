@@ -51,6 +51,8 @@ namespace ShomaRM.Areas.Admin.Models
         public Nullable<System.DateTime> MoveInDate { get; set; }
         public string MoveInDateString { get; set; }
         public string MoveInTime { get; set; }
+        public string PreMoveInDateString { get; set; }
+        public string PreMoveInTime { get; set; }
         public string InsuranceDoc { get; set; }
         public string ElectricityDoc { get; set; }
         public Nullable<int> IsCheckPO { get; set; }
@@ -564,6 +566,8 @@ namespace ShomaRM.Areas.Admin.Models
                             Type = item.Type,
                             MoveInDateString = getMoveInchecklist == null ? "" : getMoveInchecklist.MoveInDate.HasValue ? getMoveInchecklist.MoveInDate.Value.ToString("MM/dd/yyyy") : "",
                             MoveInTime = getMoveInchecklist == null ? "" : !string.IsNullOrWhiteSpace(getMoveInchecklist.MoveInTime) ? getMoveInchecklist.MoveInTime : "",
+                            PreMoveInDateString = getMoveInchecklist == null ? "" : getMoveInchecklist.PreMoveInDate.HasValue ? getMoveInchecklist.PreMoveInDate.Value.ToString("MM/dd/yyyy") : "",
+                            PreMoveInTime = getMoveInchecklist == null ? "" : !string.IsNullOrWhiteSpace(getMoveInchecklist.PreMoveInTime) ? getMoveInchecklist.PreMoveInTime : "",
                             MoveInCharges = getMoveInchecklist == null ? "" : getMoveInchecklist.MoveInCharges.HasValue ? getMoveInchecklist.MoveInCharges.Value.ToString("0.00") : "",
                             InsuranceDoc = getMoveInchecklist == null ? "" : !string.IsNullOrWhiteSpace(getMoveInchecklist.InsuranceDoc) ? getMoveInchecklist.InsuranceDoc : "",
                             ElectricityDoc = getMoveInchecklist == null ? "" : !string.IsNullOrWhiteSpace(getMoveInchecklist.ElectricityDoc) ? getMoveInchecklist.ElectricityDoc : "",
@@ -883,6 +887,20 @@ namespace ShomaRM.Areas.Admin.Models
                 db.Database.Connection.Close();
                 throw ex;
             }
+        }
+        public string saveMoveInTime(string MoveInTime, long TenantID)
+        {
+            string msg = string.Empty;
+            ShomaRMEntities db = new ShomaRMEntities();
+            var saveMovInTim = db.tbl_MoveInChecklist.Where(co => co.ProspectID == TenantID).FirstOrDefault();
+            if (saveMovInTim != null)
+            {
+                saveMovInTim.MoveInTime = MoveInTime;
+                db.SaveChanges();
+                msg = "Move In Time Updated Successfully";
+            }
+            db.Dispose();
+            return msg;
         }
     }
 }
