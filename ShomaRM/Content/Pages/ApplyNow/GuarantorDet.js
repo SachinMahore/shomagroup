@@ -4728,7 +4728,7 @@ var goToEditApplicantGuarantor = function (aid) {
 
                     $("#ddlApplicantGender").val(response.model.Gender);
                     $("#ddlApplicantGender").trigger('change');
-                    if (response.model.OtherGender == '3') {
+                    if (response.model.Gender == '3') {
                         $("#txtApplicantOtherGender").val(response.model.OtherGender);
                     }
                     else {
@@ -4781,7 +4781,7 @@ var goToEditApplicantGuarantor = function (aid) {
 
                     $("#ddlApplicantGender").val(response.model.Gender);
                     $("#ddlApplicantGender").trigger('change');
-                    if (response.model.OtherGender == '3') {
+                    if (response.model.Gender == '3') {
                         $("#txtApplicantOtherGender").val(response.model.OtherGender);
                     }
                     else {
@@ -4852,7 +4852,7 @@ var goToEditApplicantGuarantor = function (aid) {
 
                     $("#ddlApplicantGender").val(response.model.Gender);
                     $("#ddlApplicantGender").trigger('change');
-                    if (response.model.OtherGender == '3') {
+                    if (response.model.Gender == '3') {
                         $("#txtApplicantOtherGender").val(response.model.OtherGender);
                     }
                     else {
@@ -4901,7 +4901,7 @@ var goToEditApplicantGuarantor = function (aid) {
 
                     $("#ddlApplicantGender").val(response.model.Gender);
                     $("#ddlApplicantGender").trigger('change');
-                    if (response.model.OtherGender == '3') {
+                    if (response.model.Gender == '3') {
                         $("#txtApplicantOtherGender").val(response.model.OtherGender);
                     }
                     else {
@@ -9787,8 +9787,8 @@ var paystubFileUploadGuarantor = function (pArray) {
 
     var paystubUpload = document.getElementById('fileUploadPaystub');
 
-    for (var i = 0; i < paystubUpload.files.length; i++) {
-        $formData.append('file-' + i, paystubUpload.files[i]);
+    for (var i = 0; i < paystubFileArray.length; i++) {
+        $formData.append('file-' + i, paystubFileArray[i]);
     }
 
     $.ajax({
@@ -9809,26 +9809,17 @@ var paystubFileUploadGuarantor = function (pArray) {
             $.each(response.model.PaystubOriginalFiles, function (index, elementValue) {
                 originalFileName.push(elementValue);
             });
-            if (fileName.length == 1) {
-                //1
-                $('#hndFileUploadName4').val(fileName[0]);
-                $('#hndOriginalFileUploadName4').val(originalFileName[0]);
+            //1
+            $('#hndFileUploadName4').val(fileName[0]);
+            $('#hndOriginalFileUploadName4').val(originalFileName[0]);
+            //2
+            $('#hndFileUploadName5').val(fileName[1]);
+            $('#hndOriginalFileUploadName5').val(originalFileName[1]);
+            //3
+            $('#hndFileUploadName3').val(fileName[2]);
+            $('#hndOriginalFileUploadName3').val(originalFileName[2]);
 
-                $("#fileUploadPaystubShow").text("1 file selected");
-            }
-            else {
-                //1
-                $('#hndFileUploadName4').val(fileName[0]);
-                $('#hndOriginalFileUploadName4').val(originalFileName[0]);
-                //2
-                $('#hndFileUploadName5').val(fileName[1]);
-                $('#hndOriginalFileUploadName5').val(originalFileName[1]);
-                //3
-                $('#hndFileUploadName3').val(fileName[2]);
-                $('#hndOriginalFileUploadName3').val(originalFileName[2]);
-
-                $("#fileUploadPaystubShow").text("3 files selected");
-            }
+            $("#fileUploadPaystubShow").text("3 files selected");
             $.alert({
                 title: "",
                 content: "File uploaded Successfully.",
@@ -9844,8 +9835,8 @@ var fedralFileUploadGuarantor = function (fArray) {
 
     var fedralUpload = document.getElementById('fileUploadFedral');
 
-    for (var i = 0; i < fedralUpload.files.length; i++) {
-        $formData.append('file-' + i, fedralUpload.files[i]);
+    for (var i = 0; i < fedralFileArray.length; i++) {
+        $formData.append('file-' + i, fedralFileArray[i]);
     }
 
     $.ajax({
@@ -9866,22 +9857,13 @@ var fedralFileUploadGuarantor = function (fArray) {
             $.each(response.model.FedralOriginalFiles, function (index, elementValue) {
                 originalFileName.push(elementValue);
             });
-            if (fileName.length == 1) {
-                //1
-                $('#hndFileUploadName1').val(fileName[0]);
-                $('#hndOriginalFileUploadName1').val(originalFileName[0]);
-
-                $("#fileUploadFedralShow").text("1 file selected");
-            }
-            else {
-                //1
-                $('#hndFileUploadName1').val(fileName[0]);
-                $('#hndOriginalFileUploadName1').val(originalFileName[0]);
-                //2
-                $('#hndFileUploadName2').val(fileName[1]);
-                $('#hndOriginalFileUploadName2').val(originalFileName[1]);
-                $("#fileUploadFedralShow").text("2 files selected");
-            }
+            //1
+            $('#hndFileUploadName1').val(fileName[0]);
+            $('#hndOriginalFileUploadName1').val(originalFileName[0]);
+            //2
+            $('#hndFileUploadName2').val(fileName[1]);
+            $('#hndOriginalFileUploadName2').val(originalFileName[1]);
+            $("#fileUploadFedralShow").text("2 files selected");
             $.alert({
                 title: "",
                 content: "File uploaded Successfully.",
@@ -9897,8 +9879,8 @@ var bankstatementFileUploadGuarantor = function (bsArray) {
 
     var bankstatementUpload = document.getElementById('fileUploadBankStatement');
 
-    for (var i = 0; i < bankstatementUpload.files.length; i++) {
-        $formData.append('file-' + i, bankstatementUpload.files[i]);
+    for (var i = 0; i < bankstatementFileArray.length; i++) {
+        $formData.append('file-' + i, bankstatementFileArray[i]);
     }
 
     $.ajax({
@@ -9919,25 +9901,16 @@ var bankstatementFileUploadGuarantor = function (bsArray) {
             $.each(response.model.BankStatementOriginalFiles, function (index, elementValue) {
                 originalFileName.push(elementValue);
             });
-            if (fileName.length == 1) {
-                //1
-                $('#hndFileUploadNameBankState1').val(fileName[0]);
-                $('#hndOriginalFileUploadNameBankState1').val(originalFileName[0]);
-
-                $("#fileUploadBankStatementShow").text("1 file selected");
-            }
-            else {
-                //1
-                $('#hndFileUploadNameBankState1').val(fileName[0]);
-                $('#hndOriginalFileUploadNameBankState1').val(originalFileName[0]);
-                //2
-                $('#hndFileUploadNameBankState2').val(fileName[1]);
-                $('#hndOriginalFileUploadNameBankState2').val(originalFileName[1]);
-                //3
-                $('#hndFileUploadNameBankState3').val(fileName[2]);
-                $('#hndOriginalFileUploadNameBankState3').val(originalFileName[2]);
-                $("#fileUploadBankStatementShow").text("3 files selected");
-            }
+            //1
+            $('#hndFileUploadNameBankState1').val(fileName[0]);
+            $('#hndOriginalFileUploadNameBankState1').val(originalFileName[0]);
+            //2
+            $('#hndFileUploadNameBankState2').val(fileName[1]);
+            $('#hndOriginalFileUploadNameBankState2').val(originalFileName[1]);
+            //3
+            $('#hndFileUploadNameBankState3').val(fileName[2]);
+            $('#hndOriginalFileUploadNameBankState3').val(originalFileName[2]);
+            $("#fileUploadBankStatementShow").text("3 files selected");
             $.alert({
                 title: "",
                 content: "File uploaded Successfully.",
