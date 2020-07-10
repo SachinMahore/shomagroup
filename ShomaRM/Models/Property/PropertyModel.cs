@@ -405,7 +405,14 @@ namespace ShomaRM.Models
                     {
 
                     }
-
+                    if (AvailableDate.AddDays(30)<availableDate)
+                    {
+                        pr.IsDisable = 1;
+                    }
+                    else
+                    {
+                        pr.IsDisable = 0;
+                    }
                     pr.PID = Convert.ToInt32(dr["PID"].ToString());
                     pr.UID = Convert.ToInt32(dr["UID"].ToString());
                     pr.UnitNo = dr["UnitNo"].ToString();
@@ -972,6 +979,7 @@ namespace ShomaRM.Models
         public int? LeaseName { get; set; }
         public string LeasePrice { get; set; }
         public List<PropertyUnits> LeaseTerms { get; set; }
+        public int IsDisable { get; set; }
     }
     public partial class PropertyFloor
     {
@@ -1204,7 +1212,14 @@ namespace ShomaRM.Models
                     {
 
                     }
-
+                    if (AvailableDate.AddDays(30) < availableDate)
+                    {
+                        pr.IsDisable = 1;
+                    }
+                    else
+                    {
+                        pr.IsDisable = 0;
+                    }
                     //pr.PID = Convert.ToInt32(dr["PID"].ToString());
                     pr.UID = Convert.ToInt32(dr["UID"].ToString());
                     pr.UnitNo = dr["UnitNo"].ToString();
