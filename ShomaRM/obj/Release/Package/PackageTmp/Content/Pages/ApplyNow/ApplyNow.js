@@ -1,4 +1,4 @@
-﻿var remainingday = 0;
+var remainingday = 0;
 var numberOfDays = 0;
 var QuoteExpires = "";
 var tenantOnlineID = 0;
@@ -3501,18 +3501,19 @@ var SaveQuote = function (stepcompleted) {
         data: JSON.stringify(model),
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
-        success: function (response) {
-            $("#divLoader").hide();
-            var idmsg = response.msg.split('|');
-            var hasUnitChange = idmsg[1];
-            if (hasUnitChange == 1) {
-                updateCalculation();
-            }
-            $("#lblFNLQuote").text(idmsg[0]);
-            var stepcomp = parseInt($("#hdnStepCompleted").val());
-            if (stepcomp < stepcompleted) {
-                $("#hdnStepCompleted").val(stepcompleted);
-            }
+        async: false,
+        success: function (response) { $("#divLoader").show(); }
+    }).done(function (response) {
+        $("#divLoader").hide();
+        var idmsg = response.msg.split('|');
+        var hasUnitChange = idmsg[1];
+        if (hasUnitChange == 1) {
+            updateCalculation();
+        }
+        $("#lblFNLQuote").text(idmsg[0]);
+        var stepcomp = parseInt($("#hdnStepCompleted").val());
+        if (stepcomp < stepcompleted) {
+            $("#hdnStepCompleted").val(stepcompleted);
         }
     });
 };
@@ -5230,7 +5231,8 @@ var saveupdatePrimaryApplicant = function (callFrom) {
             msg += "Enter Address Line 1</br>";
         } if (!applicantState) {
             msg += "Enter State </br>";
-        } if (applicantCountry <= 0) {0
+        } if (applicantCountry <= 0) {
+            0
             msg += "Select Country</br>";
         } if (applicantCity <= 0) {
             msg += "Enter the City</br>";
@@ -5278,95 +5280,89 @@ var saveupdatePrimaryApplicant = function (callFrom) {
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
         dataType: "JSON",
-        success: function (response) {
-            $("#divLoader").show();
-            if (callFrom == 1) {
-                $("#divLoader").hide();
-                $.alert({
-                    title: "",
-                    content: "Progress Saved.",
-                    type: 'blue',
-                });
-                getApplicantLists();
-                $("#popApplicant").modal("hide");
+        async: false,
+        success: function (response) { $("#divLoader").show(); }
+    }).done(function (response) {
+        if (callFrom == 1) {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: "Progress Saved.",
+                type: 'blue',
+            });
+            getApplicantLists();
+            $("#popApplicant").modal("hide");
+        }
+        else {
+            if ($("#hndTransMethod1").val() == "2") {
+                var paymentMethod = 2;
+                var propertyId = $("#hndUID").val();
+                var nameonCard = $("#txtNameonCard1").val();
+                var cardNumber = $("#txtCardNumber1").val();
+                var cardMonth = $("#ddlcardmonth1").val();
+                var cardYear = $("#ddlcardyear1").val();
+                var ccvNumber = $("#txtCCVNumber1").val();
+                var prospectID = $("#hdnOPId").val();
+                var amounttoPay = unformatText($("#sppayFees").text());
+                var description = $("#lblpopcctitle").text();
+                var routingNumber = $("#txtRoutingNumber1").val();
+                var bankName = $("#txtBankName1").val();
+            } else {
+                var paymentMethod = 1;
+                var nameonCard = $("#txtAccountName1").val();
+                var cardNumber = $("#txtAccountNumber1").val();
+                var cardMonth = 0;
+                var cardYear = 0;
+                var ccvNumber = 0;
+                var routingNumber = $("#txtRoutingNumber1").val();
+                var bankName = $("#txtBankName1").val();
+                var amounttoPay = unformatText($("#sppayFees").text());
+                var description = $("#lblpopcctitle").text();
+                var prospectID = $("#hdnOPId").val();
+                var propertyId = $("#hndUID").val();
             }
-            else {
-                
-                if ($("#hndTransMethod1").val() == "2") {
-                    $("#divLoader").show();
-                    var paymentMethod = 2;
-                    var propertyId = $("#hndUID").val();
-                    var nameonCard = $("#txtNameonCard1").val();
-                    var cardNumber = $("#txtCardNumber1").val();
-                    var cardMonth = $("#ddlcardmonth1").val();
-                    var cardYear = $("#ddlcardyear1").val();
-                    var ccvNumber = $("#txtCCVNumber1").val();
-                    var prospectID = $("#hdnOPId").val();
-                    var amounttoPay = unformatText($("#sppayFees").text());
-                    var description = $("#lblpopcctitle").text();
-                    var routingNumber = $("#txtRoutingNumber1").val();
-                    var bankName = $("#txtBankName1").val();
-                } else {
-                    $("#divLoader").show();
-                    var paymentMethod = 1;
-                    var nameonCard = $("#txtAccountName1").val();
-                    var cardNumber = $("#txtAccountNumber1").val();
-                    var cardMonth = 0;
-                    var cardYear = 0;
-                    var ccvNumber = 0;
-                    var routingNumber = $("#txtRoutingNumber1").val();
-                    var bankName = $("#txtBankName1").val();
-                    var amounttoPay = unformatText($("#sppayFees").text());
-                    var description = $("#lblpopcctitle").text();
-                    var prospectID = $("#hdnOPId").val();
-                    var propertyId = $("#hndUID").val();
-                }
-                var model = {
-                    PID: propertyId,
-                    Name_On_Card: nameonCard,
-                    CardNumber: cardNumber,
-                    CardMonth: cardMonth,
-                    CardYear: cardYear,
-                    CCVNumber: ccvNumber,
-                    Charge_Amount: amounttoPay,
-                    Charge_Type: "4",
-                    ProspectID: prospectID,
-                    Description: description,
-                    GL_Trans_Description: description,
-                    RoutingNumber: routingNumber,
-                    BankName: bankName,
-                    PaymentMethod: paymentMethod,
-                    AID: $("#hndApplicantID").val(),
-                    FromAcc: $("#hndFromAcc").val(),
-                    IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
-                };
-                $.ajax({
-                    url: "/ApplyNow/saveNewPayment/",
-                    type: "post",
-                    contentType: "application/json utf-8",
-                    data: JSON.stringify(model),
-                    dataType: "JSON",
-                    success: function (response) {
-                        $("#divLoader").show();
-                        if (response.Msg != "") {
-                            if (response.Msg == "1") {
-
-                                $("#ResponseMsg1").html("Payment successfull");
-                                $("#divLoader").hide();
-                                window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
-                            } else {
-                                $("#divLoader").hide();
-                                $.alert({
-                                    title: "",
-                                    content: "Payment failed",
-                                    type: 'red'
-                                });
-                            }
-                            
-                        }
+            var model = {
+                PID: propertyId,
+                Name_On_Card: nameonCard,
+                CardNumber: cardNumber,
+                CardMonth: cardMonth,
+                CardYear: cardYear,
+                CCVNumber: ccvNumber,
+                Charge_Amount: amounttoPay,
+                Charge_Type: "4",
+                ProspectID: prospectID,
+                Description: description,
+                GL_Trans_Description: description,
+                RoutingNumber: routingNumber,
+                BankName: bankName,
+                PaymentMethod: paymentMethod,
+                AID: $("#hndApplicantID").val(),
+                FromAcc: $("#hndFromAcc").val(),
+                IsSaveAcc: $("#chkSaveAcc0").is(":checked") ? "1" : "0",
+            };
+            $.ajax({
+                url: "/ApplyNow/saveNewPayment/",
+                type: "post",
+                contentType: "application/json utf-8",
+                data: JSON.stringify(model),
+                dataType: "JSON",
+                success: function (response) { $("#divLoader").show(); }
+            }).done(function (response) {
+                if (response.Msg != "") {
+                    if (response.Msg == "1") {
+                        $("#divLoader").hide();
+                        $("#ResponseMsg1").html("Payment successfull");
+                        window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
+                    } else {
+                        $("#divLoader").hide();
+                        $.alert({
+                            title: "",
+                            content: "Payment failed",
+                            type: 'red'
+                        });
                     }
-                });
-            }
+                }
+            });
         }
     });
 }
@@ -10153,11 +10149,12 @@ var printQuotationPrint = function () {
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
         dataType: "JSON",
-        success: function (response) {
-            $("#divLoader").hide();
-            $("#ifrmQuotationPrint").attr("src", response.filename);
-            $("#modalQuotationPrint").show();
-        }
+        async: false,
+        success: function (response) { $("#divLoader").show(); }
+    }).done(function (response) {
+        $("#divLoader").hide();
+        $("#ifrmQuotationPrint").attr("src", response.filename);
+        $("#modalQuotationPrint").show();
     });
 };
 var getEncDecValue = function (txtBox, encdec) {
@@ -10503,7 +10500,7 @@ function savePrimaryApplicantPayment() {
     if ($("#chkTermsAndCondition1").is(':unchecked')) {
         msg += "Please accept Terms & Condition </br>";
     }
-    
+
     if ($("#hndTransMethod1").val() == "2") {
         $("#divLoader").show();
         var paymentMethod = 2;
@@ -10514,7 +10511,7 @@ function savePrimaryApplicantPayment() {
         var cardYear = $("#ddlcardyear1").val();
         var ccvNumber = $("#txtCCVNumber1").val();
         var prospectID = $("#hdnOPId").val();
-        var amounttoPay = unformatText( $("#sppayFees").text());
+        var amounttoPay = unformatText($("#sppayFees").text());
         var description = $("#lblpopcctitle").text();
 
         var routingNumber = $("#txtRoutingNumber1").val();
@@ -10551,7 +10548,7 @@ function savePrimaryApplicantPayment() {
         var ccvNumber = 0;
         var routingNumber = $("#txtRoutingNumber1").val();
         var bankName = $("#txtBankName1").val();
-        var amounttoPay = unformatText( $("#sppayFees").text()); 
+        var amounttoPay = unformatText($("#sppayFees").text());
         var description = $("#lblpopcctitle").text();
         var prospectID = $("#hdnOPId").val();
         var propertyId = $("#hndUID").val();
@@ -10600,7 +10597,6 @@ function savePrimaryApplicantPayment() {
             yes: {
                 text: 'Yes',
                 action: function (yes) {
-                    $("#divLoader").show();
                     saveupdatePrimaryApplicant(2);
 
                     //$.ajax({
@@ -10613,7 +10609,7 @@ function savePrimaryApplicantPayment() {
                     //        if (response.Msg != "") {
                     //            if (response.Msg == "1") {
                     //                $("#ResponseMsg1").html("Payment successfull");
-                                    
+
                     //                //window.location = "/ApplyNow/Index/" + $("#hdnUserId").val();
                     //            } else {
                     //                $.alert({
@@ -12316,11 +12312,10 @@ var ddlAvailableFloorPlanLeaseTermOnChange = function () {
 /*SOHAN 12062020 START */
 
 var getPropertyFloarListRebind = function (modelname, filldata) {
+    $("#divLoader").show();
     $("#imgFloorCoordinate").attr("src", "");
     $("#imgFloorCoordinateDiv").empty();
     $('#popUnitPlan').empty();
-    $("#divLoader").show();
-
     var maxrent = 0;
     if ($("#txtMaxRent").val() == "0") {
         maxrent = 100000;
@@ -12349,28 +12344,92 @@ var getPropertyFloarListRebind = function (modelname, filldata) {
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
         dataType: "JSON",
-        success: function (response) {
-            $("#divLoader").hide();
-            if (response != null) {
-                $("#floorImgdiv").empty();
+        async: false,
+        success: function (response) { $("#divLoader").show(); }
+    }).done(function (response) {
+        $("#divLoader").hide();
+        if (response != null) {
+            $("#floorImgdiv").empty();
 
-                var html = "";
+            var html = "";
 
-                $.each(response, function (elementType, value) {
-                    html += "<area id='fa_" + value.FloorID + "' data-aval=" + value.IsAvail + " data-floorid=" + value.FloorID + " shape='poly' class='tooltip buildplan' href='javascript:void(0);' coords=" + value.Coordinates + " onclick= 'getPropertyUnitListByFloor(" + value.FloorID + ")'/>";
-                    html += "<div id='dfa_" + value.FloorID + "' class='hidden divtooltip'>";
-                    html += "</div>";
-                    $("#floorImgdiv").append(html);
-                });
+            $.each(response, function (elementType, value) {
+                html += "<area id='fa_" + value.FloorID + "' data-aval=" + value.IsAvail + " data-floorid=" + value.FloorID + " shape='poly' class='tooltip buildplan' href='javascript:void(0);' coords=" + value.Coordinates + " onclick= 'getPropertyUnitListByFloor(" + value.FloorID + ")'/>";
+                html += "<div id='dfa_" + value.FloorID + "' class='hidden divtooltip'>";
+                html += "</div>";
+                $("#floorImgdiv").append(html);
+            });
 
-                $('#popUnitPlan').empty();
-                $("#apartimg_2").maphilight();
-                $('area').click(function () {
-                    $("#hndSelectedFloor").val($(this).attr("id"));
-                    $("#hndSelectedAval").val($(this).attr("data-aval"));
-                    var floorid = $(this).attr("data-floorid");
-                    $("#dfa_" + floorid).addClass("hidden");
-                    var isAval = $(this).attr("data-aval");
+            $('#popUnitPlan').empty();
+            $("#apartimg_2").maphilight();
+            $('area').click(function () {
+                $("#hndSelectedFloor").val($(this).attr("id"));
+                $("#hndSelectedAval").val($(this).attr("data-aval"));
+                var floorid = $(this).attr("data-floorid");
+                $("#dfa_" + floorid).addClass("hidden");
+                var isAval = $(this).attr("data-aval");
+                var color = "ff6347";
+                if (isAval == 1) {
+                    color = "0af11c";
+                }
+                else if (isAval == 2) {
+                    color = "ffff00";
+                }
+                $('.active_area').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
+                $(this).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: color, strokeColor: color }).trigger('alwaysOn.maphilight');
+            });
+            $("area").mouseout(function (e) {
+                $(".divtooltip").addClass("hidden");
+            });
+
+            $("area").mouseover(function (e) {
+                var offset = $(this).offset();
+                var X = (e.pageX - offset.left);
+                var Y = (e.pageY - offset.top);
+
+                // console.log("X:" + X + ", Y:" + Y);
+
+                if (Y < 0) {
+                    Y = Y + 200;
+                }
+                else {
+                    Y = Y - 75;
+                }
+
+                var floorid = $(this).attr("data-floorid");
+                $(".divtooltip").addClass("hidden");
+                $("#dfa_" + floorid).removeClass("hidden");
+
+                $("#dfa_" + floorid).css({ top: Y, left: X, position: 'absolute' });
+
+                var isAval = $(this).attr("data-aval");
+                var color = "ff6347";
+                if (isAval == 1) {
+                    color = "0af11c";
+                }
+                else if (isAval == 2) {
+                    color = "ffff00";
+                }
+                $(this).addClass('active_mouse').data('maphilight', { alwaysOn: true, fillColor: color, strokeColor: color }).trigger('alwaysOn.maphilight');
+                if ($("#hndSelectedFloor").val()) {
+                    var cont = $("#hndSelectedFloor").val();
+                    var isAvalFill = $("#hndSelectedAval").val();
+                    var colorfill = "ff6347";
+                    if (isAvalFill == 1) {
+                        colorfill = "0af11c";
+                    }
+                    else if (isAvalFill == 2) {
+                        colorfill = "ffff00";
+                    }
+                    $("#" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: colorfill, strokeColor: colorfill }).trigger('alwaysOn.maphilight');
+                }
+            });
+            $(".buildplan").mouseout(function () {
+                $(".buildplan").removeClass('active_mouse').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
+
+                if ($("#hndSelectedFloor").val()) {
+                    var cont = $("#hndSelectedFloor").val();
+                    var isAval = $("#hndSelectedAval").val();
                     var color = "ff6347";
                     if (isAval == 1) {
                         color = "0af11c";
@@ -12378,72 +12437,9 @@ var getPropertyFloarListRebind = function (modelname, filldata) {
                     else if (isAval == 2) {
                         color = "ffff00";
                     }
-                    $('.active_area').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
-                    $(this).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: color, strokeColor: color }).trigger('alwaysOn.maphilight');
-                });
-                $("area").mouseout(function (e) {
-                    $(".divtooltip").addClass("hidden");
-                });
-
-                $("area").mouseover(function (e) {
-                    var offset = $(this).offset();
-                    var X = (e.pageX - offset.left);
-                    var Y = (e.pageY - offset.top);
-
-                   // console.log("X:" + X + ", Y:" + Y);
-
-                    if (Y < 0) {
-                        Y = Y + 200;
-                    }
-                    else {
-                        Y = Y - 75;
-                    }
-
-                    var floorid = $(this).attr("data-floorid");
-                    $(".divtooltip").addClass("hidden");
-                    $("#dfa_" + floorid).removeClass("hidden");
-
-                    $("#dfa_" + floorid).css({ top: Y, left: X, position: 'absolute' });
-
-                    var isAval = $(this).attr("data-aval");
-                    var color = "ff6347";
-                    if (isAval == 1) {
-                        color = "0af11c";
-                    }
-                    else if (isAval == 2) {
-                        color = "ffff00";
-                    }
-                    $(this).addClass('active_mouse').data('maphilight', { alwaysOn: true, fillColor: color, strokeColor: color }).trigger('alwaysOn.maphilight');
-                    if ($("#hndSelectedFloor").val()) {
-                        var cont = $("#hndSelectedFloor").val();
-                        var isAvalFill = $("#hndSelectedAval").val();
-                        var colorfill = "ff6347";
-                        if (isAvalFill == 1) {
-                            colorfill = "0af11c";
-                        }
-                        else if (isAvalFill == 2) {
-                            colorfill = "ffff00";
-                        }
-                        $("#" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: colorfill, strokeColor: colorfill }).trigger('alwaysOn.maphilight');
-                    }
-                });
-                $(".buildplan").mouseout(function () {
-                    $(".buildplan").removeClass('active_mouse').data('maphilight', { alwaysOn: false }).trigger('alwaysOn.maphilight');
-
-                    if ($("#hndSelectedFloor").val()) {
-                        var cont = $("#hndSelectedFloor").val();
-                        var isAval = $("#hndSelectedAval").val();
-                        var color = "ff6347";
-                        if (isAval == 1) {
-                            color = "0af11c";
-                        }
-                        else if (isAval == 2) {
-                            color = "ffff00";
-                        }
-                        $("#" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: color, strokeColor: color }).trigger('alwaysOn.maphilight');
-                    }
-                });
-            }
+                    $("#" + cont).addClass('active_area').data('maphilight', { alwaysOn: true, fillColor: color, strokeColor: color }).trigger('alwaysOn.maphilight');
+                }
+            });
         }
     });
 }
@@ -12949,9 +12945,10 @@ var createESignPolicyAndAgreement = function (appAgree) {
             if (!response.DateSigned) {
                 $("#modalAgreementPolicy").modal("show");
                 $("#iframeAgreementPolicy").attr("src", "https://www-new.bluemoonforms.com/esignature/" + response.model);
+                $("#divLoader").hide();
             }
             else {
-
+                $("#divLoader").hide();
                 $.alert({
                     title: "",
                     content: "You have already Signed. Please Download or Print",
@@ -12959,7 +12956,7 @@ var createESignPolicyAndAgreement = function (appAgree) {
                 });
             }
 
-            $("#divLoader").hide();
+            
         });
 };
 var checkEsignPolicyAgreementStatus = function () {
@@ -12977,16 +12974,15 @@ var checkEsignPolicyAgreementStatus = function () {
         async: false,
         success: function (response) { $("#divLoader").show(); }
     }).done(function (response) {
-            
-            //console.log(JSON.stringify(response));
-
-            if (response.AllSigned == 1) {
-                $("#policyStart").attr("disabled", false);
-            } else {
-                $("#policyStart").attr("disabled", true);
-        }
+        if (response.AllSigned == 1) {
+            $("#policyStart").attr("disabled", false);
             $("#divLoader").hide();
-        });
+        } else {
+            $("#divLoader").hide();
+            $("#policyStart").attr("disabled", true);
+        }
+            
+    });
 };
 var getESignAgreePolicyDownloadData = function (appAgree) {
     $("#divLoader").show();
@@ -13011,14 +13007,16 @@ var getESignAgreePolicyDownloadData = function (appAgree) {
             //console.log(JSON.stringify(response));
             if (response.DateSigned != "") {
                 saveToDiskPDF("/Content/assets/img/Document/AgreementRulePolicy_" + response.model + ".pdf", "Agreement.pdf");
+                $("#divLoader").hide();
             }
             else {
+                $("#divLoader").hide();
                 $.alert({
                     title: "",
                     content: "Please Signed the document to Download",
                     type: 'blue'
                 });
-            } $("#divLoader").hide();
+            } 
         });
 };
 var getESignAgreePolicyPrintData = function (appAgree) {
@@ -13049,9 +13047,11 @@ var getESignAgreePolicyPrintData = function (appAgree) {
                 if (appAgree) {
                     $("#iframeRental").attr("src", webURL() + "/Content/assets/img/Document/AgreementRulePolicy_" + response.model + ".pdf");
                     $("#modalRentalQualificationPolicy").modal("show");
+                    $("#divLoader").hide();
                 } else {
                     $("#iframeRules").attr("src", webURL() + "/Content/assets/img/Document/AgreementRulePolicy_" + response.model + ".pdf");
                     $("#modalRulesAndPolicy").modal("show");
+                    $("#divLoader").hide();
                 }
             }
             else {
@@ -13061,7 +13061,8 @@ var getESignAgreePolicyPrintData = function (appAgree) {
                     content: "Please Signed the document to Print",
                     type: 'blue'
                 });
-        }
-            $("#divLoader").hide();
-        });
+                $("#divLoader").hide();
+            }
+            
+    });
 };
