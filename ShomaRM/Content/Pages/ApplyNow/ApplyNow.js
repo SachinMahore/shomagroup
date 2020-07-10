@@ -168,18 +168,19 @@ $(document).ready(function () {
      //Sachin M 17 June
     //Modified By Amit 24 June
     $("#chkNoSSN").on('ifChanged', function (event) {
+        $("#divloader").show();
         var checked = $(this).is(":checked");
         if (checked == true) {
-            $("#txtApplicantSSNNumber").focus().val("000000000");
+            $("#txtApplicantSSNNumber").val("000000000");
+            getEncDecValue("#txtApplicantSSNNumber", 2);
+            $("#txtApplicantSSNNumber").val("***-**-0000");
+            $("#chkCCPay").prop("disabled", false);
         }
         else {
-            $("#chkCCPay").prop("disabled", true);
+            $("#chkCCPay").iCheck("uncheck").prop("disabled", true);
             $("#txtApplicantSSNNumber").attr("data-value", "");
             $("#txtApplicantSSNNumber").val("");
-            $("#txtApplicantSSNNumber").focusin(function () {
-                $("#txtApplicantSSNNumber").val("");
-                $("#txtApplicantSSNNumber").attr("data-value", "");
-            });
+            $('#divCreditCheckPayment').addClass('hidden');
         }
     });
 
@@ -9892,12 +9893,12 @@ var onFocusApplyNow = function () {
         if (ssn.length < 9) {
             alert("SSN must be 9 digit");
             // $("#divchkCCPay").addClass("hidden");
+            $("#chkCCPay").iCheck("uncheck").prop("disabled", true);
+            $('#divCreditCheckPayment').addClass('hidden');
             return;
         } else {
             if ($("#hndCreditPaid").val() != "1") {
-            
-                    $("#divchkCCPay").removeClass("hidden");
-               
+                $("#divchkCCPay").removeClass("hidden");  
             }
             var modal = $("#popApplicant");
             //modal.find('.modal-content').css("height", "560px");
@@ -11177,7 +11178,17 @@ function savePrimaryApplicantPayment() {
     var applicantCountry = $("#txtApplicantCountry").val();
     var applicantCity = $("#txtApplicantCity").val();
     var applicantApplicantZip2 = $("#txtApplicantZip2").val();
+    var ssnCheck = $("#txtApplicantSSNNumber").val();
 
+    console.log(ssnCheck.length)
+    if (ssnCheck) {
+        if (ssnCheck.length < 9) {
+            msg += "SSN# must be 9 digit</br>";
+        }
+    }
+    else {
+        msg += "Please enter SSN# </br>";
+    }
     if (type == "Co-Applicant") {
         checkEmail = 1;
         var dob = $("#txtADateOfBirth").val();
