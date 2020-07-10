@@ -6968,10 +6968,11 @@ var saveupdateTenantOnlineCoapplicant = function (stepcompleted) {
     if ($("#rbtnPaystub").is(":checked")) {
         $formData.append('IsPaystub', 1);
     }
-    else if ($("#rbtnFedralTax").is(":checked")) {
-        $formData.append('IsPaystub', 0);
-    } else if ($("#rbtnBankStatement").is(":checked")) {
-        $formData.append('IsPaystub', 2);
+    if ($("#rbtnFedralTax").is(":checked")) {
+        $formData.append('IsFedralTax', 1);
+    }
+    if ($("#rbtnBankStatement").is(":checked")) {
+        $formData.append('IsBankState', 1);
     }
 
     $.ajax({
