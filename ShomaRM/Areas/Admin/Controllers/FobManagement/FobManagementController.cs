@@ -144,5 +144,17 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult saveMoveInTime(string MoveInTime, long TenantID)
+        {
+            try
+            {
+                return Json(new FobManagementModel().saveMoveInTime(MoveInTime, TenantID), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

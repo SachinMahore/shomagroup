@@ -25,5 +25,6 @@ namespace ShomaRM.Data
         public string ApplicationDecision { get; set; }
         public string ApplicantScore { get; set; }
         public string Notes { get; set; }
+        public Nullable<System.DateTime> ApprovedDate { get; set; }
     }
 }
