@@ -6634,7 +6634,7 @@ var goToEditApplicant = function (aid) {
 
                     $("#ddlApplicantGender").val(response.model.Gender);
                     $("#ddlApplicantGender").trigger('change');
-                    if (response.model.OtherGender == '3') {
+                    if (response.model.Gender == '3') {
                         $("#txtApplicantOtherGender").val(response.model.OtherGender);
                     }
                     else {
@@ -6696,7 +6696,7 @@ var goToEditApplicant = function (aid) {
 
                     $("#ddlApplicantGender").val(response.model.Gender);
                     $("#ddlApplicantGender").trigger('change');
-                    if (response.model.OtherGender == '3') {
+                    if (response.model.Gender == '3') {
                         $("#txtApplicantOtherGender").val(response.model.OtherGender);
                     }
                     else {
@@ -6744,7 +6744,7 @@ var goToEditApplicant = function (aid) {
 
                     $("#ddlApplicantGender").val(response.model.Gender);
                     $("#ddlApplicantGender").trigger('change');
-                    if (response.model.OtherGender == '3') {
+                    if (response.model.Gender == '3') {
                         $("#txtApplicantOtherGender").val(response.model.OtherGender);
                     }
                     else {
@@ -6793,7 +6793,7 @@ var goToEditApplicant = function (aid) {
 
                     $("#ddlApplicantGender").val(response.model.Gender);
                     $("#ddlApplicantGender").trigger('change');
-                    if (response.model.OtherGender == '3') {
+                    if (response.model.Gender == '3') {
                         $("#txtApplicantOtherGender").val(response.model.OtherGender);
                     }
                     else {
