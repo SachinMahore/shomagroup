@@ -2438,11 +2438,17 @@ namespace ShomaRM.Models
                     ahm.MoveInDateFromTxt = stdtFrom == null ? "" : stdtFrom.Value.ToString("MM/dd/yyy");
                     ahm.MonthlyPayment = !string.IsNullOrWhiteSpace(cl.MonthlyPayment) ? cl.MonthlyPayment : "";
                     ahm.Reason = !string.IsNullOrWhiteSpace(cl.Reason) ? cl.Reason : "";
-                    var stateStr = db.tbl_State.Where(co => co.ID == cl.StateHome).FirstOrDefault();
-                    ahm.StateString = stateStr.StateName;
-                    int ctryString = Convert.ToInt32(ahm.Country);
-                    var countryStr = db.tbl_Country.Where(co => co.ID == ctryString).FirstOrDefault();
-                    ahm.CountryString = countryStr.CountryName;
+                    if (cl.State != 0)
+                    {
+                        var stateStr = db.tbl_State.Where(co => co.ID == cl.State).FirstOrDefault();
+                        ahm.StateString = stateStr.StateName;
+                    }
+                    if (ahm.Country != "")
+                    {
+                        int ctryString = Convert.ToInt32(ahm.Country);
+                        var countryStr = db.tbl_Country.Where(co => co.ID == ctryString).FirstOrDefault();
+                        ahm.CountryString = countryStr.CountryName;
+                    }
                     ahm.RentOwnString = ahm.RentOwn == 1 ? "Rent" : ahm.RentOwn == 2 ? "Own" : "";
                     ahm.ApartmentCommunity = !string.IsNullOrWhiteSpace(cl.ApartmentCommunity) ? cl.ApartmentCommunity : "";
                     ahm.ManagementCompany = !string.IsNullOrWhiteSpace(cl.ManagementCompany) ? cl.ManagementCompany : "";

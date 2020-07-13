@@ -5718,6 +5718,10 @@ var saveupdateApplicantCoApplicant = function (callFrom) {
         if (!($("#txtApplicantOtherGender").val())) {
             msg += "Enter The Other Gender </br>";
         }
+    } else if (agender == "2") {
+        if (!mname) {
+            msg += "Please Fill The Middle Name </br>";
+        }
     }
     if (type == 'Primary Applicant') {
         $('#txtDateOfBirth').val(dob);
@@ -10441,6 +10445,10 @@ function saveCoAppPayment() {
     else if (agender == "3") {
         if (!aotherGender) {
             msg += "Please Fill The Other Gender </br>";
+        }
+    } else if (agender == "2") {
+        if (!mname) {
+            msg += "Please Fill The Middle Name </br>";
         }
     }
     if (type == 'Co-Applicant') {

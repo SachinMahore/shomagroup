@@ -5915,7 +5915,7 @@ var saveupdatePrimaryApplicant = function (callFrom) {
         if (!aotherGender) {
             msg += "Please Fill The Other Gender </br>";
         }
-    }
+    } 
     if (type == 'Primary Applicant') {
         $('#txtDateOfBirth').val(dob);
         $('#ddlGender').val(agender);
@@ -5925,6 +5925,11 @@ var saveupdatePrimaryApplicant = function (callFrom) {
         else {
             $('#txtOtherGender').val('');
         }
+        if (agender == "2") {
+        if (!mname) {
+            msg += "Please Fill The Middle Name </br>";
+        }
+    }
         if (!addressLine1) {
             msg += "Enter Address Line 1</br>";
         } if (!applicantState) {
@@ -11255,6 +11260,10 @@ function savePrimaryApplicantPayment() {
     else if (agender == "3") {
         if (!aotherGender) {
             msg += "Please Fill The Other Gender </br>";
+        }
+    } else if (agender == "2") {
+        if (!mname) {
+            msg += "Please Fill The Middle Name </br>";
         }
     }
     if (type == 'Primary Applicant') {
