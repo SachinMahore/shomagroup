@@ -197,6 +197,7 @@
     <Property Name="ApplicationDecision" Type="nvarchar(max)" />
     <Property Name="ApplicantScore" Type="nvarchar(max)" />
     <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="ApprovedDate" Type="datetime" />
   </EntityType>
   <EntityType Name="tbl_BankAccount">
     <Key>

@@ -4735,7 +4735,7 @@ var getPreviousAddressInfo = function () {
                 html += "<button  id='btnupdateResStatus' class='btn btn-primary' onclick='updateResStatus(" + elementValue.ID + ")'>Save</button>";
                 html += "</tr>";
                 $("#tblResidenceStatus>tbody").append(html);
-                $("#ddlResidanceStatus" + id).val(elementValue.CreditResult)
+               // $("#ddlResidanceStatus" + id).val(elementValue.CreditResult)
             });
         }
     });
@@ -4772,7 +4772,7 @@ var getPreviousEmpInfo = function () {
                 html += "<button  id='btnupdateResStatus' class='btn btn-primary' onclick='updateEmpStatus(" + elementValue.ID + ")'>Save</button>";
                 html += "</tr>";
                 $("#tblEmpStatus>tbody").append(html);
-                $("#ddlEmpStatus" + id).val(elementValue.BackgroundResult)
+               // $("#ddlEmpStatus" + id).val(elementValue.BackgroundResult)
             });
         }
     });

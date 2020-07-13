@@ -1,5 +1,73 @@
 ﻿$(document).ready(function () {
     getApplicantListForFob();
+    $("#chkMoveinCL").on('ifChanged', function (event) {
+        var msg = "";
+        if ($("#chkInsCL").is(":not(:checked)")) {
+            msg += "Upload proof of insurance<br />";
+        }
+        if ($("#chkEleCL").is(":not(:checked)")) {
+            msg += "Upload proof of electricity<br />";
+        }
+        if ($("#chkAtCL").is(":not(:checked)")) {
+            msg += "Check AT&T call check box<br />";
+        }
+        if ($("#chkWaterCL").is(":not(:checked)")) {
+            msg += "Check water cl check box<br />";
+        }
+        if ($("#chkSDP").is(":not(:checked)")) {
+            msg += "Check Deposit Alternative check box<br />";
+        }
+        if ($("#chkPayCL").is(":not(:checked)")) {
+            msg += "Pay your 100% Move-in charges<br />";
+        }
+        if ($("#hndIsPreMoveInSchedule").val() == "0") {
+            msg += "Schedule your Pre-move-in date appointment<br />";
+        }
+        if ($("#ddlPreMoveInTimeCL").val() == "") {
+            msg += "Schedule your Pre-move-in time appointment<br />";
+        }
+        if ($("#ddlMoveInTimeCL").val() == "") {
+            msg += "Schedule your move-in time appointment<br />";
+        }
+        if (msg != "") {
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            $("#hndIsMoveInSchedule").val('0');
+            setTimeout(function () {
+                $("#chkMoveinCL").prop("checked", false);
+                $("#chkMoveinCL").parent().removeClass("checked");
+            }, 200);
+        }
+        else {
+            $("#chkInsCL").prop("disabled", "disabled");
+            $("#chkInsCL").parent().addClass("checked");
+            $("#chkEleCL").prop("disabled", "disabled");
+            $("#chkEleCL").parent().addClass("checked");
+            $("#chkAtCL").prop("disabled", "disabled");
+            $("#chkAtCL").parent().addClass("checked");
+            $("#chkWaterCL").prop("disabled", "disabled");
+            $("#chkWaterCL").parent().addClass("checked");
+            $("#chkSDP").prop("disabled", "disabled");
+            $("#chkSDP").parent().addClass("checked");
+            $("#chkPayCL").prop("disabled", "disabled");
+            $("#chkPayCL").parent().addClass("checked");
+            $("#chkPreMoveinCL").prop("disabled", "disabled");
+            $("#chkPreMoveinCL").parent().addClass("checked");
+            $("#ddlPreMoveInTimeCL").prop("disabled", "disabled");
+            $("#ddlMoveInTimeCL").prop("disabled", "disabled");
+
+            $("#chkMoveinCL").attr("checked", true);
+            $("#chkMoveinCL").prop("disabled", "disabled");
+            $("#chkMoveinCL").parent().addClass("checked");
+            $("#hndIsMoveInSchedule").val('1');
+            Calendly.initPopupWidget({ url: 'https://calendly.com/shoma-resident-team/move-in' });
+            return false;
+        }
+    });
+    saveMoveInTime();
 });
 var viewApplicantDetails = function (id) {
     
@@ -424,4 +492,90 @@ var downloadElectricDoc = function (id) {
             type: 'red'
         })
     }
+};
+
+function showMoveInDateCLCalendly() {
+    var msg = "";
+    if ($("#chkInsCL").is(":not(:checked)")) {
+        msg += "Upload proof of insurance<br />";
+    }
+    if ($("#chkEleCL").is(":not(:checked)")) {
+        msg += "Upload proof of electricity<br />";
+    }
+    if ($("#chkAtCL").is(":not(:checked)")) {
+        msg += "Check AT&T call check box<br />";
+    }
+    if ($("#chkWaterCL").is(":not(:checked)")) {
+        msg += "Check water cl check box<br />";
+    }
+    if ($("#chkSDP").is(":not(:checked)")) {
+        msg += "Check Deposit Alternative check box<br />";
+    }
+    if ($("#chkPayCL").is(":not(:checked)")) {
+        msg += "Pay your 100% Move-in charges<br />";
+    }
+    if ($("#hndIsPreMoveInSchedule").val() == "0") {
+        msg += "Schedule your Pre-move-in date appointment<br />";
+    }
+    if ($("#ddlPreMoveInTimeCL").val() == "") {
+        msg += "Schedule your Pre-move-in time appointment<br />";
+    }
+    if ($("#ddlMoveInTimeCL").val() == "") {
+        msg += "Schedule your move-in time appointment<br />";
+    }
+    if (msg != "") {
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'red'
+        });
+        $("#hndIsMoveInSchedule").val('0');
+        setTimeout(function () {
+            $("#chkMoveinCL").prop("checked", false);
+            $("#chkMoveinCL").parent().removeClass("checked");
+        }, 200);
+    }
+    else {
+        $("#chkInsCL").prop("disabled", "disabled");
+        $("#chkInsCL").parent().addClass("checked");
+        $("#chkEleCL").prop("disabled", "disabled");
+        $("#chkEleCL").parent().addClass("checked");
+        $("#chkAtCL").prop("disabled", "disabled");
+        $("#chkAtCL").parent().addClass("checked");
+        $("#chkWaterCL").prop("disabled", "disabled");
+        $("#chkWaterCL").parent().addClass("checked");
+        $("#chkSDP").prop("disabled", "disabled");
+        $("#chkSDP").parent().addClass("checked");
+        $("#chkPayCL").prop("disabled", "disabled");
+        $("#chkPayCL").parent().addClass("checked");
+        $("#chkPreMoveinCL").prop("disabled", "disabled");
+        $("#chkPreMoveinCL").parent().addClass("checked");
+        $("#ddlPreMoveInTimeCL").prop("disabled", "disabled");
+        $("#ddlMoveInTimeCL").prop("disabled", "disabled");
+
+        $("#chkMoveinCL").attr("checked", true);
+        $("#chkMoveinCL").prop("disabled", "disabled");
+        $("#chkMoveinCL").parent().addClass("checked");
+        $("#hndIsMoveInSchedule").val('1');
+        Calendly.initPopupWidget({ url: 'https://calendly.com/shoma-resident-team/move-in' });
+        return false;
+    }
+}
+
+var saveMoveInTime = function () {
+    $('#ddlMoveInTimeCL').on('change', function () {
+        if ($(this).val() != "") {
+            var model = { MoveInTime: $(this).val(), TenantID: $("#hdnTenantId").val() };
+            $.ajax({
+                url: '/Admin/FobManagement/saveMoveInTime',
+                type: "post",
+                contentType: "application/json utf-8",
+                data: JSON.stringify(model),
+                dataType: "JSON",
+                success: function (response) {
+
+                }
+            });
+        }
+    });
 };

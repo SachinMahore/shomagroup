@@ -1672,23 +1672,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tbl_BackgroundScreening">
-      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
-        <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
-          <ScalarProperty Name="Notes" ColumnName="Notes" />
-          <ScalarProperty Name="ApplicantScore" ColumnName="ApplicantScore" />
-          <ScalarProperty Name="ApplicationDecision" ColumnName="ApplicationDecision" />
-          <ScalarProperty Name="ApplicantDecision" ColumnName="ApplicantDecision" />
-          <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
-          <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
-          <ScalarProperty Name="SSN" ColumnName="SSN" />
-          <ScalarProperty Name="ReportType" ColumnName="ReportType" />
-          <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
-          <ScalarProperty Name="ApplyNowId" ColumnName="ApplyNowId" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbl_Applicant">
       <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_Applicant">
         <MappingFragment StoreEntitySet="tbl_Applicant">
@@ -1717,6 +1700,24 @@
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="ApplicantID" ColumnName="ApplicantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_BackgroundScreening">
+      <EntityTypeMapping TypeName="ShomaRMEntitiesModel.tbl_BackgroundScreening">
+        <MappingFragment StoreEntitySet="tbl_BackgroundScreening">
+          <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="ApplicantScore" ColumnName="ApplicantScore" />
+          <ScalarProperty Name="ApplicationDecision" ColumnName="ApplicationDecision" />
+          <ScalarProperty Name="ApplicantDecision" ColumnName="ApplicantDecision" />
+          <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+          <ScalarProperty Name="TransactionNumber" ColumnName="TransactionNumber" />
+          <ScalarProperty Name="SSN" ColumnName="SSN" />
+          <ScalarProperty Name="ReportType" ColumnName="ReportType" />
+          <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
+          <ScalarProperty Name="ApplyNowId" ColumnName="ApplyNowId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

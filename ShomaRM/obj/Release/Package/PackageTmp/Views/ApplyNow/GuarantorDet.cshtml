@@ -36,6 +36,9 @@
 <input type="hidden" id="hndStepGotosummary" value="" />
 <input type="hidden" id="hndCurrentUserId" value="@(ShomaGroupWebSession.CurrentUser != null ? ShomaGroupWebSession.CurrentUser.UserID : 0)" />
 <input type="hidden" id="hdnAgreePoli" value="true" />
+<input type="hidden" id="hndForPaystub" value="0" />
+<input type="hidden" id="hndForFedral" value="0" />
+<input type="hidden" id="hndForBankStatement" value="0" />
 @*Sachin Mahore 21 Apr 2020*@
 <div class="content-area submit-property sanctuary-background-img">
     &nbsp;
@@ -2231,7 +2234,7 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <div class="col-sm-2">
+                                <div class="col-sm-3">
                                     <input id="rbtnPaystub" class="form-control form-control-small empup" type="checkbox" name="tax" />
                                     <label for="rbtnPaystub">Paystub (3 files)</label>
                                 </div>
@@ -2262,7 +2265,16 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <div class="col-sm-2">
+                                <div class="col-sm-12 mb-3" style="margin-top: -19px;">
+                                    <span class="hidden" id="mpayFile1" style="margin-right: 7px;font-size: 14px;"><a class="hidden" style="color: red !important;margin-right: 5px;cursor:pointer;" id="apayFile1">x</a><span id="spayFile1"></span><span> ,</span></span>
+                                    <span class="hidden" id="mpayFile2" style="margin-right: 7px;font-size: 14px;"><a class="hidden" style="color: red !important;margin-right: 5px;cursor:pointer;" id="apayFile2">x</a><span id="spayFile2"></span><span> ,</span></span>
+                                    <span class="hidden" id="mpayFile3" style="margin-right: 7px;font-size: 14px;"><a class="hidden" style="color: red !important;margin-right: 5px;cursor:pointer;" id="apayFile3">x</a><span id="spayFile3"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="col-sm-3">
                                     <input id="rbtnFedralTax" class="form-control form-control-small empup" type="checkbox" name="tax" checked="checked" />
                                     <label for="rbtnFedralTax">Fedral Tax Return (2 files)</label>
                                 </div>
@@ -2290,7 +2302,15 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <div class="col-sm-2">
+                                <div class="col-sm-12 mb-3" style="margin-top: -19px;">
+                                    <span class="hidden" id="mfedFile1" style="margin-right: 7px;font-size: 14px;"><a class="hidden" style="color: red !important;margin-right: 5px;cursor:pointer;" id="afedFile1">x</a><span id="sfedFile1"></span><span> ,</span></span>
+                                    <span class="hidden" id="mfedFile2" style="margin-right: 7px;font-size: 14px;"><a class="hidden" style="color: red !important;margin-right: 5px;cursor:pointer;" id="afedFile2">x</a><span id="sfedFile2"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="col-sm-3">
                                     <input id="rbtnBankStatement" class="form-control form-control-small empup" type="checkbox" name="tax" />
                                     <label for="rbtnBankStatement">Bank Statements (3 files)</label>
                                 </div>
@@ -2320,9 +2340,20 @@
                             </div>
                         </div>
                         <div class="col-sm-12">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    Note : You can select multiple files.
+                            <div class="form-group">
+                                <div class="col-sm-12 mb-3" style="margin-top: -19px;">
+                                    <span class="hidden" id="mbankstateFile1" style="margin-right: 7px;font-size: 14px;"><a class="hidden" style="color: red !important;margin-right: 5px;cursor:pointer;" id="abankstateFile1">x</a><span id="sbankstateFile1"></span><span> ,</span></span>
+                                    <span class="hidden" id="mbankstateFile2" style="margin-right: 7px;font-size: 14px;"><a class="hidden" style="color: red !important;margin-right: 5px;cursor:pointer;" id="abankstateFile2">x</a><span id="sbankstateFile2"></span><span> ,</span></span>
+                                    <span class="hidden" id="mbankstateFile3" style="margin-right: 7px;font-size: 14px;"><a class="hidden" style="color: red !important;margin-right: 5px;cursor:pointer;" id="abankstateFile3">x</a><span id="sbankstateFile3"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        Note : You can select multiple files.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -4806,7 +4837,7 @@
                         <span class="span1"><a class="cust-link" id="ShowTermsAndCondition2" data-toggle="modal" data-target="#modalTermsCondition" href="javascript:void(0);">Terms &amp; Condition </a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                     </span>
                 </div>
-                <div class="col-sm-12"><p style="color:green;margin:10px;font-size:medium;text-align:center" class="text-center"><b id="ResponseMsg2"></b></p></div>
+                <div class="col-sm-12"><p style="color:green!important;margin:10px;font-size:medium;text-align:center" class="text-center"><b id="ResponseMsg2"></b></p></div>
             </div>
 
             <div class="modal-footer" style="border-top:none">
