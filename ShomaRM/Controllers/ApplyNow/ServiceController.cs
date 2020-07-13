@@ -39,15 +39,17 @@ namespace ShomaRM.Controllers.ApplyNow
                     string reportHTMLAgent = "";
                     string filePathAg = HttpContext.Server.MapPath("~/Content/Templates/");
                     reportHTMLAgent = System.IO.File.ReadAllText(filePathAg + "EmailTemplateAmenity.html");
-
                     reportHTMLAgent = reportHTMLAgent.Replace("[%ServerURL%]", ServerURL);
+                    reportHTMLAgent = reportHTMLAgent.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                    reportHTMLAgent = reportHTMLAgent.Replace("[%TenantName%]", salesPersonnInfo.FirstName + " " + salesPersonnInfo.LastName);
+                    string emailBody = "";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Hello <b>" + salesPersonnInfo.FirstName + " " + salesPersonnInfo.LastName + "</b>!</p>";
+                    emailBody += "<p style=\"margin-bottom: 0px;\">Service Repair Estimate of Amount: $" + GetServiceData.Amount + " for Vendor: " + GetServiceData.Vendor + " with Description: " + GetServiceData.Description + ". </p><p><h2>STATUS: " + (Status == 1 ? "ACCEPTED" : "DENIED") + ".</p>";
+                    reportHTMLAgent = reportHTMLAgent.Replace("[%EmailBody%]", emailBody);
 
-                    reportHTMLAgent = reportHTMLAgent.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Service Repair Estimate of Amount: $" + GetServiceData.Amount + " for Vendor: " + GetServiceData.Vendor + " with Description: " + GetServiceData.Description + ". </p><p><h2>STATUS: " + (Status == 1 ? "ACCEPTED" : "DENIED") + "</h2></p>");
-
-
-                    reportHTMLAgent = reportHTMLAgent.Replace("[%LeaseNowButton%]", "");
+                    //reportHTMLAgent = reportHTMLAgent.Replace("[%TenantName%]", salesPersonnInfo.FirstName + " " + salesPersonnInfo.LastName);
+                    //reportHTMLAgent = reportHTMLAgent.Replace("[%EmailBody%]", " <p style='font-size: 14px; line-height: 21px; text-align: justify; margin: 0;'>&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; Service Repair Estimate of Amount: $" + GetServiceData.Amount + " for Vendor: " + GetServiceData.Vendor + " with Description: " + GetServiceData.Description + ". </p><p><h2>STATUS: " + (Status == 1 ? "ACCEPTED" : "DENIED") + "</h2></p>");
+                    //reportHTMLAgent = reportHTMLAgent.Replace("[%LeaseNowButton%]", "");
 
                     string bodyAg = reportHTMLAgent;
 

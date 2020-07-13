@@ -672,8 +672,8 @@ namespace ShomaRM.Areas.Admin.Models
                 //string body = reportHTML;
                 //new EmailSendModel().SendEmail(Email, sub, body);
             }
-            //string body = reportHTML;
-            //new EmailSendModel().SendEmail(Email, sub, body);
+            string body = reportHTML;
+            new EmailSendModel().SendEmail(Email, sub, body);
             msg = "Email Send Successfully";
             return msg;
         }
