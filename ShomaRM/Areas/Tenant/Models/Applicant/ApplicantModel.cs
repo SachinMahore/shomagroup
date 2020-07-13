@@ -1824,8 +1824,8 @@ namespace ShomaRM.Areas.Tenant.Models
                             {
                                 string reportCoappHTML = "";
                                 string coappfilePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
-                                reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect5.html");
-                                reportCoappHTML = reportCoappHTML.Replace("[%ServerURL%]", serverURL);
+                                //reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect5.html");
+                                //reportCoappHTML = reportCoappHTML.Replace("[%ServerURL%]", serverURL);
 
                                 reportCoappHTML = System.IO.File.ReadAllText(coappfilePath + "EmailTemplateProspect.html");
                                 reportCoappHTML = reportCoappHTML.Replace("[%ServerURL%]", serverURL);
