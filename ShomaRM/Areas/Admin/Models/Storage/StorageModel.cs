@@ -94,20 +94,7 @@ namespace ShomaRM.Areas.Admin.Models
         public long SaveUpdateStorage(StorageModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
-                if (model.StorageID == 0)
-                {
-                    //var StorageData = new tbl_Storage()
-                    //{
-                    //    PropertyID = model.PropertyID,
-                    //    StorageName = model.StorageName,
-                    //    Charges = model.Charges,
-                    //    Description = model.Description
-                    //};
-                    //db.tbl_Storage.Add(StorageData);
-                    //db.SaveChanges();
-                    //model.StorageID = StorageData.StorageID;
-                }
-                else
+                if (model.StorageID != 0)
                 {
                     var StorageInfo = db.tbl_Storage.Where(p => p.StorageID == model.StorageID).FirstOrDefault();
                     if (StorageInfo != null)

@@ -22,6 +22,13 @@
     
     btnSaveUpdate();
     getPropertyList();
+    if ($("#hndStorageID").val() == 0) {
+        $("#divStorageUpdate").addClass("hidden");
+    }
+    else {
+        $("#divStorageUpdate").removeClass("hidden");
+    }
+   
 });
 
 
@@ -29,9 +36,11 @@ var goToStorage = function (id) {
     var ID = id;
     if (ID != null) {
         $("#hndStorageID").val(ID);
-
-        window.location.replace("/Admin/Storage/Index/" + ID);
-
+        $("#divStorageUpdate").removeClass("hidden");
+        window.location = "/Admin/Storage/Index/" + ID;
+    }
+    else {
+        $("#divStorageUpdate").addClass("hidden");
     }
 }
 var fillRPP_Storage = function () {
@@ -107,8 +116,8 @@ var fillStorageSearchGrid = function (pagenumber, sortby, orderby) {
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.StorageName + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">$ ' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.Description + '</td>';
-                    html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goToStorage(' + elementValue.StorageID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delStorage(' + elementValue.StorageID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
-                    //html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goToStorage(' + elementValue.StorageID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button></td>';
+                   // html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goToStorage(' + elementValue.StorageID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delStorage(' + elementValue.StorageID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
+                    html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary text-center" style="padding: 5px 8px !important;margin-right:7px" onclick="goToStorage(' + elementValue.StorageID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button></td>';
                     html += '</tr>';
                     $("#tblStorage>tbody").append(html);
                 });
@@ -141,8 +150,8 @@ var fillStorageList = function () {
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.StorageName + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">$ ' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.Description + '</td>';
-                    html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goToStorage(' + elementValue.StorageID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delStorage(' + elementValue.StorageID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
-                    //html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goToStorage(' + elementValue.StorageID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button></td>';
+                   // html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary" style="padding: 5px 8px !important;margin-right:7px" onclick="goToStorage(' + elementValue.StorageID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button><button class="btn btn-danger" style="padding: 5px 8px !important;" onclick="delStorage(' + elementValue.StorageID + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
+                    html += '<td class="" style="color:#3d3939;" ><button class="btn btn-primary text-center" style="padding: 5px 8px !important;margin-right:7px" onclick="goToStorage(' + elementValue.StorageID + ')"><i class="fa fa-edit" aria-hidden="true"></i></button></td>';
                     html += '</tr>';
                     $("#tblStorage>tbody").append(html);
                 });
@@ -157,7 +166,7 @@ var clearStorageData = function () {
     $("#txtStorageName").val("");
     btnSaveUpdate();
 }
-var saveUpdateStorage = function () {
+var saveUpdateStorageData = function () {
     $("#divLoader").show();
     var msg = "";
     if ($.trim($("#ddlProperty").val()).length == 0) {
@@ -214,9 +223,9 @@ var saveUpdateStorage = function () {
                     $("#hndStorageID").val(response.ID);
                     $("#spanSaveUpdate").text("Save");
                     fillStorageList();
-                    setInterval(function () {
-                        window.location.replace("/Admin/Storage/Index/" + 0);
-                    }, 1200)
+                    //setInterval(function () {
+                    //    window.location.replace("/Admin/Storage/Index/" + 0);
+                    //}, 1200)
                 }
                 else {
                     //showMessage("Error!", response.error);
