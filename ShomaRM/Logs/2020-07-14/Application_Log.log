@@ -1,0 +1,1141 @@
+
+Date - 14 Jul 2020 16:08:24
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_477.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_477.pdf'.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access)
+   at ShomaRM.Models.Web.AttachFiles(ISendGrid message, MultipartFormDataContent content) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\Web.cs:line 111
+   at ShomaRM.Models.Web.Deliver(ISendGrid message) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\Web.cs:line 69
+   at ShomaRM.Models.EmailSendModel.SendAsync(SendGridMessage message, String SGUserName, String SGPassword) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs:line 91
+
+Date - 14 Jul 2020 16:08:24
+Level - ERROR
+UserAgent - 
+Message - 
+Error Message: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_477.pdf'.
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+Logger: mscorlib
+
+Debug Object Details: 
+
+
+System.IO.DirectoryNotFoundException: Could not find a part of the path 'C:\Content\assets\img\Document\ApplicationSummary_477.pdf'.
+   at ShomaRM.Models.EmailSendModel.SendEmailWithAttachment(String ToEmail, String Subject, String Body, List`1 FilePath) in E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs:line 76
+
+Date - 14 Jul 2020 16:18:43
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:18:43
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:25:11
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:25:11
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:29:16
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:29:16
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:29:50
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:29:51
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:30:51
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:30:51
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:33:40
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:38:08
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:38:08
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:47:26
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:47:26
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 16:51:31
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 17:08:55
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 17:16:05
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 17:19:53
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 17:21:24
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 17:27:01
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 17:27:01
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 17:45:29
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 17:45:29
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 17:46:05
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 17:53:18
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 17:59:29
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 17:59:29
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:01:47
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:01:47
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:02:36
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:02:36
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:02:58
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:02:58
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:03:11
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:03:11
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:03:42
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:03:42
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:05:45
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:05:45
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:06:05
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:06:05
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:06:23
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:06:50
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:06:50
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:10:16
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:10:16
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:11:24
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:13:30
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:13:30
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:14:17
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:14:17
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:14:43
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:16:30
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 14 Jul 2020 18:16:30
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
