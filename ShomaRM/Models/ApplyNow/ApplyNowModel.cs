@@ -1047,6 +1047,9 @@ namespace ShomaRM.Models
                 string emailBody = "";
                 string sub = "";
                 int chargeType = 4;
+                string desc = "";
+                string bat = "";
+                model.Description = "";
                 model.Email = GetProspectData.Email;
                 model.ProcessingFees = processingFees;
                 
@@ -1134,23 +1137,32 @@ namespace ShomaRM.Models
                             {
                                 if (coapp.Type == "4")
                                 {
-                                    chargeType = 4;
-                                    coappliList.CreditPaid = 1;
+                                     coappliList.CreditPaid = 1;
+                                    desc += "4";
                                 }
                                 if (coapp.Type == "5")
                                 {
-                                    chargeType = 5;
                                     coappliList.BackGroundPaid = 1;
+                                    desc +="5";
                                 }
                                 if ((coappliList.CreditPaid ?? 0) == 1 && (coappliList.BackGroundPaid ?? 0) == 1)
                                 {
                                     coappliList.Paid = 1;
+                                  
                                 }
                                 db.SaveChanges();
                             }
                         }
                     }
-                    
+                    if (desc.Contains("4"))
+                    {
+                        model.Description = " Credit Check Fees";
+                        bat += "4";
+                    }
+                    if(desc.Contains("5")){
+                        model.Description += " Background Check Fees";
+                        bat +="5";
+                    }
                     var saveTransaction = new tbl_Transaction()
                     {
                         TenantID = userid,
@@ -1160,7 +1172,7 @@ namespace ShomaRM.Models
                         Credit_Amount = model.Charge_Amount,
                         Description = model.Description + "| TransID: " + strlist[2],
                         Charge_Date = DateTime.Now,
-                        Charge_Type = chargeType,
+                        Charge_Type = Convert.ToInt32(bat),
                         Authcode = strlist[1],
                         Charge_Amount = model.Charge_Amount,
                         Miscellaneous_Amount = processingFees,
@@ -1746,28 +1758,69 @@ namespace ShomaRM.Models
                 String[] spearator = { "|" };
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
                 string bat = "";
+                string desc = "";
+                model.Description = "";
 
                 if (strlist[0] == "Approved")
                 {
-                    if (model.FromAcc == 1)
+                    //if (model.FromAcc == 1)
+                    //{
+                    //    bat = model.AID.ToString();
+                    //}
+                    //else
+                    //{
+                    //    bat = "1";
+                    //}
+                    //if (model.FromAcc == 4)
+                    //{
+                    //    bat = "4";
+                    //}
+                    //if (model.FromAcc == 5)
+                    //{
+                    //    bat = "5";
+                    //}
+                    //if (model.FromAcc == 3)
+                    //{
+                    //    bat = "3";
+                    //}
+
+                    if (model.lstApp != null)
                     {
-                        bat = model.AID.ToString();
+                        foreach (var coapp in model.lstApp)
+                        { 
+                            var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == coapp.ApplicantID).FirstOrDefault();
+                            if (coappliList != null)
+                            {
+                                if (coapp.Type == "4")
+                                {
+                                   
+                                    coappliList.CreditPaid = 1;
+                                    desc += "4";
+                                }
+                                if (coapp.Type == "5")
+                                {
+                                   
+                                    coappliList.BackGroundPaid = 1;
+                                    desc += "5";
+                                }
+                                if ((coappliList.CreditPaid ?? 0) == 1 && (coappliList.BackGroundPaid ?? 0) == 1)
+                                {
+                                    coappliList.Paid = 1;
+                                    
+                                }
+                                db.SaveChanges();
+                            }
+                        }
                     }
-                    else
+                    if (desc.Contains("4"))
                     {
-                        bat = "1";
-                    }
-                    if (model.FromAcc == 4)
-                    {
+                        model.Description = " Credit Check Fees";
                         bat = "4";
                     }
-                    if (model.FromAcc == 5)
+                    if (desc.Contains("5"))
                     {
-                        bat = "5";
-                    }
-                    if (model.FromAcc == 3)
-                    {
-                        bat = "3";
+                        model.Description += " Background Check Fees";
+                        bat += "5";
                     }
                     var saveTransaction = new tbl_Transaction()
                     {
