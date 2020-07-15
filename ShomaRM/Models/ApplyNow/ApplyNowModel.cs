@@ -762,13 +762,13 @@ namespace ShomaRM.Models
                                 reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
                                 reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                                if (result == "Approved")
+                                if (result == "Accept")
                                 {
                                     subCore = " Sanctuary application Approved";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Good news! You’re in! This is a champagne popping moment! Welcome to your new community and your new lifestyle.</p>";
                                 }
-                                else if (result == "Conditional")
+                                else if (result == "Pending")
                                 {
                                     subCore = "Sanctuary application conditionally approved";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application conditionally approved</p>";
@@ -1026,8 +1026,7 @@ namespace ShomaRM.Models
                 var GePropertyData = db.tbl_Properties.Where(p => p.PID == 8).FirstOrDefault();
                 var UserData = db.tbl_TenantOnline.Where(p => p.ParentTOID == GetApplicantData.UserID).FirstOrDefault();
                 var GetLeaseDet = db.tbl_LeaseTerms.Where(c => c.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
-                var GetState = db.tbl_State.Where(s => s.ID == UserData.State).FirstOrDefault();
-
+              
                 decimal processingFees = 0;
                 if (GetProspectData != null)
                 {
@@ -1046,7 +1045,7 @@ namespace ShomaRM.Models
                 List<string> filePaths = new List<string>();
                 string emailBody = "";
                 string sub = "";
-                int chargeType = 4;
+                int chargeType = 0;
                 string desc = "";
                 string bat = "";
                 model.Description = "";
@@ -1201,77 +1200,168 @@ namespace ShomaRM.Models
                     reportHTML = reportHTML.Replace("[%ServerURL%]", serverURL);
                     reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
+
+                    if (model.lstApp != null)
+                    {
+                        foreach (var coapp in model.lstApp)
+                        {
+                            var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == coapp.ApplicantID).FirstOrDefault();
+                            var GetTenantOnlineDet = db.tbl_TenantOnline.Where(c => c.ParentTOID == coappliList.UserID).FirstOrDefault();
+                            var GetState = db.tbl_State.Where(s => s.ID == GetTenantOnlineDet.StateHome).FirstOrDefault();
+
+
+                            if (coappliList != null)
+                            {
+                                if (coapp.Type == "4")
+                                {
+                                    CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+                                    var LeaseTermsModel = new LeaseTermsModel();
+                                    LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                                    LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
+                                    LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
+                                    var applicant = new Applicant();
+                                    applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                                    applicant.ApplyNowID = GetProspectData.ID.ToString();
+                                    applicant.CustomerID = coappliList.ApplicantID.ToString();
+                                    applicant.ConsentObtained = "Yes";
+                                    applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                                    applicant.ApplicantIdentifier = coappliList.ApplicantID.ToString();
+                                    applicant.ApplicantType = "Applicant";
+                                    applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                                    applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
+                                    applicant.FirstName = GetTenantOnlineDet.FirstName;
+                                    applicant.LastName = GetTenantOnlineDet.LastName;
+                                    applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                                    applicant.City = GetTenantOnlineDet.CityHome;
+                                    applicant.State = (GetState != null ? GetState.Abbreviation : "");
+                                    applicant.PostalCode = GetTenantOnlineDet.ZipHome;
+                                    applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+
+                                    string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+
+                                    var keyValues = new List<KeyValuePair<string, string>>();
+                                    keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+
+                                    string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRD", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
+
+                                    coappliList.CreditPaid = 1;
+                                    coappliList.CreditResult = result;
+
+                                    if (result != "")
+                                    {
+                                        string subCore = string.Empty;
+                                        string reportHTMLCore = "";
+                                        string emailBodyCore = string.Empty;
+                                        reportHTMLCore = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                                        reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
+                                        reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                                        if (result == "Approved")
+                                        {
+                                            subCore = " Sanctuary application Approved";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Good news! You’re in! This is a champagne popping moment! Welcome to your new community and your new lifestyle.</p>";
+                                        }
+                                        else if (result == "Conditional")
+                                        {
+                                            subCore = "Sanctuary application conditionally approved";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application conditionally approved</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Your application has been approved. Sort of.  There are some conditions. Just call or email us so we can assist you in getting your application approved.  We’re excited about having you join our community!</p>";
+                                        }
+                                        else if (result == "Denied")
+                                        {
+                                            subCore = "Santuary application denied";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                        }
+                                        reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
+                                        string bodyCore = reportHTMLCore;
+
+                                        new EmailSendModel().SendEmail(GetApplicantData.Email, subCore, bodyCore);
+                                    }
+                                }
+                                if (coapp.Type == "5")
+                                {
+                                    CoreLogicHelper _corelogichelper = new CoreLogicHelper();
+                                    var LeaseTermsModel = new LeaseTermsModel();
+                                    LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                                    LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
+                                    LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
+                                    var applicant = new Applicant();
+                                    applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
+                                    applicant.ApplyNowID = GetProspectData.ID.ToString();
+                                    applicant.CustomerID = coappliList.ApplicantID.ToString();
+                                    applicant.ConsentObtained = "Yes";
+                                    applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                                    applicant.ApplicantIdentifier = coappliList.ApplicantID.ToString();
+                                    applicant.ApplicantType = "Applicant";
+                                    applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
+                                    applicant.SocSecNumber = !string.IsNullOrWhiteSpace(GetTenantOnlineDet.SSN) ? new EncryptDecrypt().DecryptText(GetTenantOnlineDet.SSN) : "";
+                                    applicant.FirstName = GetTenantOnlineDet.FirstName;
+                                    applicant.LastName = GetTenantOnlineDet.LastName;
+                                    applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+                                    applicant.City = GetTenantOnlineDet.CityHome;
+                                    applicant.State = (GetState != null ? GetState.Abbreviation : "");
+                                    applicant.PostalCode = GetTenantOnlineDet.ZipHome;
+                                    applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
+
+                                    string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
+
+                                    var keyValues = new List<KeyValuePair<string, string>>();
+                                    keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+
+                                    string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRM", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
+
+                                    coappliList.BackGroundPaid = 1;
+                                    coappliList.BackGroungResult = result;
+
+                                    if (result != "")
+                                    {
+                                        string subCore = string.Empty;
+                                        string reportHTMLCore = "";
+                                        string emailBodyCore = string.Empty;
+                                        reportHTMLCore = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                                        reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
+                                        reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+
+                                        if (result == "Approved")
+                                        {
+                                            subCore = " Sanctuary application Approved";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Good news! You’re in! This is a champagne popping moment! Welcome to your new community and your new lifestyle. Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move-in. Once you process your Administration fee payment, you will be sent your lease.</p>";
+                                        }
+                                        else if (result == "Conditional")
+                                        {
+                                            subCore = "Sanctuary application conditionally approved";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application conditionally approved</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Your application has been approved. Sort of.  There are some conditions. Just call or email us so we can assist you in getting your application approved.  We’re excited about having you join our community!</p>";
+                                        }
+                                        else if (result == "Denied")
+                                        {
+                                            subCore = "Santuary application denied";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                        }
+                                        reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
+                                        string bodyCore = reportHTMLCore;
+
+                                        new EmailSendModel().SendEmail(GetApplicantData.Email, subCore, bodyCore);
+                                    }
+
+                                }
+                                if ((coappliList.CreditPaid ?? 0) == 1 && (coappliList.BackGroundPaid ?? 0) == 1)
+                                {
+                                    coappliList.Paid = 1;
+                                }
+                                db.SaveChanges();
+                            }
+                        }
+                    }
                     if (model != null)
                     {
                         if (chargeType == 4)
                         {
-                            //Sachin M 15 July 2020
-                            CoreLogicHelper _corelogichelper = new CoreLogicHelper();
-                            var LeaseTermsModel = new LeaseTermsModel();
-                            LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
-                            LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
-                            LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
-                            var applicant = new Applicant();
-                            applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
-                            applicant.ApplyNowID = GetProspectData.ID.ToString();
-                            applicant.CustomerID = GetApplicantData.ApplicantID.ToString();
-                            applicant.ConsentObtained = "Yes";
-                            applicant.EmploymentGrossIncome = (UserData.Income ?? 0).ToString("0.00");
-                            applicant.ApplicantIdentifier = GetApplicantData.ApplicantID.ToString();
-                            applicant.ApplicantType = "Applicant";
-                            applicant.Birthdate = (UserData.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
-                            applicant.SocSecNumber = !string.IsNullOrWhiteSpace(UserData.SSN) ? new EncryptDecrypt().DecryptText(UserData.SSN) : "";
-                            applicant.FirstName = UserData.FirstName;
-                            applicant.LastName = UserData.LastName;
-                            applicant.Address1 = UserData.HomeAddress1 + (!string.IsNullOrWhiteSpace(UserData.HomeAddress2) ? " " + UserData.HomeAddress2 : "");
-                            applicant.City = UserData.CityHome;
-                            applicant.State = (GetState != null ? GetState.Abbreviation : "");
-                            applicant.PostalCode = UserData.ZipHome;
-                            applicant.UnparsedAddress = UserData.HomeAddress1 + (!string.IsNullOrWhiteSpace(UserData.HomeAddress2) ? " " + UserData.HomeAddress2 : "");
-
-                            string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
-
-                            var keyValues = new List<KeyValuePair<string, string>>();
-                            keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
-
-                            string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRD", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
-
-                            GetApplicantData.CreditPaid = 1;
-                            GetApplicantData.CreditResult = result;
-                            db.SaveChanges();
-                            //Email Code after getting result in corelogichelper
-                            if (result != "")
-                            {
-                                string subCore = string.Empty;
-                                string reportHTMLCore = "";
-                                string emailBodyCore = string.Empty;
-                                reportHTMLCore = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
-                                reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
-                                reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
-
-                                if (result == "Approved")
-                                {
-                                    subCore = " Sanctuary application Approved";
-                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
-                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Good news! You’re in! This is a champagne popping moment! Welcome to your new community and your new lifestyle.</p>";
-                                }
-                                else if (result == "Conditional")
-                                {
-                                    subCore = "Sanctuary application conditionally approved";
-                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application conditionally approved</p>";
-                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Your application has been approved. Sort of.  There are some conditions. Just call or email us so we can assist you in getting your application approved.  We’re excited about having you join our community!</p>";
-                                }
-                                else if (result == "Denied")
-                                {
-                                    subCore = "Santuary application denied";
-                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
-                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
-                                }
-                                reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
-                                string bodyCore = reportHTMLCore;
-
-                                new EmailSendModel().SendEmail(GetApplicantData.Email, subCore, bodyCore);
-                            }
+                           
                             sub = "Payment Confirmation, Application agreement and Rental Qualifications";
                             emailBody += "<p style=\"margin-bottom: 0px;\">It’s all happening, " + GetProspectData.FirstName + " " + GetProspectData.LastName + "! You’ve submitted the required information for your credit check and accepted the “Application Agreement & Rental Qualifications” document in the prospect portal. We’ve attached documents for your review. Please contact us with any questions.</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
@@ -1294,73 +1384,7 @@ namespace ShomaRM.Models
                         }
                         if (chargeType == 5)
                         {
-                            CoreLogicHelper _corelogichelper = new CoreLogicHelper();
-                            var LeaseTermsModel = new LeaseTermsModel();
-                            LeaseTermsModel.MonthlyRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
-                            LeaseTermsModel.LeaseMonths = (GetLeaseDet.LeaseTerms ?? 12).ToString();
-                            LeaseTermsModel.SecurityDeposit = (GetProspectData.Deposit ?? 0).ToString("0.00");
-                            var applicant = new Applicant();
-                            applicant.CurrentRent = (GetProspectData.MonthlyCharges ?? 0).ToString("0.00");
-                            applicant.ApplyNowID = GetProspectData.ID.ToString();
-                            applicant.CustomerID = GetApplicantData.ApplicantID.ToString();
-                            applicant.ConsentObtained = "Yes";
-                            applicant.EmploymentGrossIncome = (UserData.Income ?? 0).ToString("0.00");
-                            applicant.ApplicantIdentifier = GetApplicantData.ApplicantID.ToString();
-                            applicant.ApplicantType = "Applicant";
-                            applicant.Birthdate = (UserData.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
-                            applicant.SocSecNumber = !string.IsNullOrWhiteSpace(UserData.SSN) ? new EncryptDecrypt().DecryptText(UserData.SSN) : "";
-                            applicant.FirstName = UserData.FirstName;
-                            applicant.LastName = UserData.LastName;
-                            applicant.Address1 = UserData.HomeAddress1 + (!string.IsNullOrWhiteSpace(UserData.HomeAddress2) ? " " + UserData.HomeAddress2 : "");
-                            applicant.City = UserData.CityHome;
-                            applicant.State = (GetState != null ? GetState.Abbreviation : "");
-                            applicant.PostalCode = UserData.ZipHome;
-                            applicant.UnparsedAddress = UserData.HomeAddress1 + (!string.IsNullOrWhiteSpace(UserData.HomeAddress2) ? " " + UserData.HomeAddress2 : "");
-
-                            string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
-
-                            var keyValues = new List<KeyValuePair<string, string>>();
-                            keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
-
-                            string result = await _corelogichelper.PostFormUrlEncoded<string>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, "CRM", applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber);
-
-                            GetApplicantData.BackGroundPaid = 1;
-                            GetApplicantData.Paid = 1;
-                            GetApplicantData.BackGroungResult = result;
-                            db.SaveChanges();
-
-                            if (result != "")
-                            {
-                                string subCore = string.Empty;
-                                string reportHTMLCore = "";
-                                string emailBodyCore = string.Empty;
-                                reportHTMLCore = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
-                                reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
-                                reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
-
-                                if (result == "Approved")
-                                {
-                                    subCore = " Sanctuary application Approved";
-                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
-                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Good news! You’re in! This is a champagne popping moment! Welcome to your new community and your new lifestyle. Your next step is to pay the Administration fee of $350.00 to ensure your unit is reserved until you move-in. Once you process your Administration fee payment, you will be sent your lease.</p>";
-                                }
-                                else if (result == "Conditional")
-                                {
-                                    subCore = "Sanctuary application conditionally approved";
-                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application conditionally approved</p>";
-                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Your application has been approved. Sort of.  There are some conditions. Just call or email us so we can assist you in getting your application approved.  We’re excited about having you join our community!</p>";
-                                }
-                                else if (result == "Denied")
-                                {
-                                    subCore = "Santuary application denied";
-                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
-                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
-                                }
-                                reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
-                                string bodyCore = reportHTMLCore;
-
-                                new EmailSendModel().SendEmail(GetApplicantData.Email, subCore, bodyCore);
-                            }
+                          
                             sub = "Your Sanctuary Rental Application and Rules and Policies";
                             emailBody += "<p style=\"margin-bottom: 0px;\">Dear " + GetProspectData.FirstName + " " + GetProspectData.LastName + "<br/>Thank you for submitting your application to sanctuary Doral.We are excited that you are interested in joining our community.This email confirms we have received your online application fees payment, please save this email for your personal records.</p>";
                             emailBody += "<p style=\"margin-bottom: 0px;\">PAYMENT INFORMATION</p>";
@@ -1861,11 +1885,9 @@ namespace ShomaRM.Models
                 var UserData = db.tbl_Login.Where(p => p.UserID == GetApplicantData.UserID).FirstOrDefault();
 
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
-                var GetTenantOnlineDet = db.tbl_TenantOnline.Where(c => c.ParentTOID == GetCoappDet.UserID).FirstOrDefault();
-            
+               
                 var GetLeaseDet = db.tbl_LeaseTerms.Where(c => c.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
-                var GetState = db.tbl_State.Where(s => s.ID == GetTenantOnlineDet.StateHome).FirstOrDefault();
-
+                
                 
                 var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ID == model.PAID).FirstOrDefault();
 
@@ -1993,6 +2015,9 @@ namespace ShomaRM.Models
                         foreach (var coapp in model.lstApp)
                         {
                             var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == coapp.ApplicantID).FirstOrDefault();
+                            var GetTenantOnlineDet = db.tbl_TenantOnline.Where(c => c.ParentTOID == coappliList.UserID).FirstOrDefault();
+                            var GetState = db.tbl_State.Where(s => s.ID == GetTenantOnlineDet.StateHome).FirstOrDefault();
+
                             if (coappliList != null)
                             {
                                 if (coapp.Type == "4")
@@ -2107,7 +2132,7 @@ namespace ShomaRM.Models
                                         reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
                                         reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                                        if (result == "Approved")
+                                        if (result == "Accepted")
                                         {
                                             subCore = " Sanctuary application Approved";
                                             emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
