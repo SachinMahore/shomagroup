@@ -293,12 +293,8 @@
                             <label>Location</label>
                             <select id="ddlLocation" class="form-control form-control-small">
                                 <option value="0">Please Select</option>
-                                <option value="1" data-search="E-3">E-3</option>
-                                <option value="2" data-search="E-4">E-4</option>
-                                <option value="3" data-search="E-5">E-5</option>
-                                <option value="4" data-search="W-3">W-3</option>
-                                <option value="5" data-search="W-4">W-4</option>
-                                <option value="6" data-search="W-5">W-5</option>
+                                <option value="1" data-list="GARAGE-1">GARAGE 1</option>
+                                <option value="2" data-list="GARAGE-2">GARAGE 2</option>
                             </select>
                             @*<select id="ddlLocation" class="form-control form-control-small">
                     @foreach (var item in Model.LocationList)
@@ -555,6 +551,7 @@
 <!--  End step 4 -->
 <script>
     $(document).ready(function () {
+        //console.log('@Model.Description');
         //getFloorList();
         $("#ddlModel").on('change', function (evt, params) {
             var selected = $(this).val();
@@ -675,6 +672,7 @@
             $("#txtLease_" + ltid).val(rent);
         });
     });
+    
 </script>
 
 <style>

@@ -193,5 +193,17 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { models = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult GetSelectedParkingData(long PropertyId)
+        {
+            try
+            {
+                return Json((new ParkingModel()).GetSelectedParkingData(PropertyId), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
