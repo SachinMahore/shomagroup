@@ -54,9 +54,9 @@ namespace ShomaRM.Models.Corelogic
             string leasebody = LeaseXMLData(leaseRequestModel);
             string applicatnt = ApplicantXMLData(applicant);
             string strxml = CreateXMLDocument(leasebody + applicatnt, ReportType, TransactionId, IsNew);
-            var keyValues = new List<KeyValuePair<string, string>>();
-            keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
-            Task.Run(() => PostFormUrlEncoded<List<XElement>>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, ReportType, applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber));
+            //var keyValues = new List<KeyValuePair<string, string>>();
+            //keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
+            //Task.Run(() => PostFormUrlEncoded<List<XElement>>("https://vendors.residentscreening.net/b2b/demits.aspx", keyValues, ReportType, applicant.ApplyNowID, applicant.CustomerID, applicant.SocSecNumber));
             return strxml;
         }
         private string LeaseXMLData(LeaseTermsModel leaseRequestModel)
@@ -139,7 +139,7 @@ namespace ShomaRM.Models.Corelogic
                     // <Response>
                     // <TransactionNumber>5825858 </TransactionNumber>
                     // <ReportDate>2020-06-24</ ReportDate>
-                    // <ApplicantDecision>Accept with Conditions</ApplicantDecision>
+                    // <ApplicantDecision>Accept with Conditions</ApplicantDeciīsion>
                     // <ApplicationDecision>Conditional</ApplicationDecision>
                     // <ApplicantScore>340</ApplicantScore>
 
@@ -148,6 +148,9 @@ namespace ShomaRM.Models.Corelogic
                     string aplicantDecision = "";
                     string applicationDecision = "";
                     string applicantScore = "";
+
+                    string sss = xDoc.ToString();
+
 
                     if (xDoc.ToString().Contains("TransactionNumber"))
                     {
