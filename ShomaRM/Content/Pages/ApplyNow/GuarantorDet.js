@@ -3960,7 +3960,7 @@ var fillPetPlaceList = function () {
                     html += '<tr data-value="' + elementValue.PetPlaceID + '">';
                     html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.PetPlaceID + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.PetPlace + '</td>';
-                    html += '<td class="pds-firstname" style="color:#3d3939;">$' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
+                    html += '<td class="pds-firstname" style="color:#3d3939;">$' + parseFloat(elementValue.Charges).toFixed(2) + '/mo</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;"><input type="checkbox" name="chkpet id="chkAddPetPlace"  class="addpet" value=' + elementValue.PetPlaceID + ' onclick="selectAddPetPlace(this)" ' + ($("#lblpetplace").text() == elementValue.PetPlaceID ? "checked='checked'" : "") + '></td>';
                     html += '</tr>';
                     if ($("#lblpetplace").text() == elementValue.PetPlaceID) {
@@ -9169,6 +9169,7 @@ var clearBank1 = function () {
     $("#divCard1").addClass("hidden");
     $("#divBank1").removeClass("hidden");
     $("#lblPaymentDet1").text("Enter Bank Account Details.");
+    $("#lblSaveAccountInformation1").text("Save Bank Information");
 }
 var clearCard1 = function () {
     var year = new Date().getFullYear().toString().substr(-2);
@@ -9188,6 +9189,7 @@ var clearCard1 = function () {
     $("#divCard1").removeClass("hidden");
     $("#divBank1").addClass("hidden");
     $("#lblPaymentDet1").text("Enter Credit Card Details.");
+    $("#lblSaveAccountInformation1").text("Save Credit Card Information");
 }
 var clearBank2 = function () {
     var year = new Date().getFullYear().toString().substr(-2);
@@ -9207,6 +9209,7 @@ var clearBank2 = function () {
     $("#divCard2").addClass("hidden");
     $("#divBank2").removeClass("hidden");
     $("#lblPaymentDet2").text("Enter Bank Account Details.");
+    $("#lblSaveAccountInformation2").text("Save Bank Information");
 }
 var clearCard2 = function () {
     var year = new Date().getFullYear().toString().substr(-2);
@@ -9226,6 +9229,7 @@ var clearCard2 = function () {
     $("#divCard2").removeClass("hidden");
     $("#divBank2").addClass("hidden");
     $("#lblPaymentDet2").text("Enter Credit Card Details.");
+    $("#lblSaveAccountInformation2").text("Save Credit Card Information");
 }
 function saveCoAppPayment() {
     $("#divLoader").show();
