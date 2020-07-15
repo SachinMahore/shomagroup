@@ -5955,14 +5955,14 @@ var goToEditApplicant = function (aid) {
                 $("#txtApplicantFirstName").val(response.model.FirstName);
                 $("#txtApplicantMiddleName").val(response.model.MiddleName);
                 $("#txtApplicantLastName").val(response.model.LastName);
-                if (response.model.IsInternational == 1) {
-                    $("#chkNoSSN").iCheck('uncheck');
-                    $("#txtApplicantSSNNumber").prop("disabled", false);
+                //if (response.model.IsInternational == 1) {
+                //    $("#chkNoSSN").iCheck('uncheck');
+                //    $("#txtApplicantSSNNumber").prop("disabled", false);
 
-                } else {
-                    $("#chkNoSSN").iCheck('check');
-                    $("#txtApplicantSSNNumber").prop("disabled", true);
-                }
+                //} else {
+                //    $("#chkNoSSN").iCheck('check');
+                //    $("#txtApplicantSSNNumber").prop("disabled", true);
+                //}
                 if (response.model.Type == "Primary Applicant") {
                     $("#divPopSSN,#divPopIDType,#divPopIDState,#divPopIDNumber,#divPopCountry,#divPopAddressLine1,#divPopAddressLine2,#divPopState,#divPopCity,#divPopZip,#divchkCCPay").removeClass("hidden");
                  

@@ -56,10 +56,10 @@
                             <table id="tblStorage" class="table table-bordered table-hover table-striped" cellspacing="0" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th class="pds-cityname" style="background-color:#c7cdd566;color:#3d3939;width:75px;cursor:pointer;" title="Sort" onclick="sortTableStorage('StorageName')">Storage <i id="sortStorageIcon" class=""></i></th>
-                                        <th class="pds-cityname" style="background-color:#c7cdd566;color:#3d3939;width:75px;cursor:pointer;" title="Sort" onclick="sortTableStorage('ChargesName')">Charges <i id="sortChargesIcon" class=""></i></th>
-                                        <th class="pds-cityname" style="background-color:#c7cdd566;color:#3d3939;width:170px;">Description</th>
-                                        <th class="pds-cityname" style="background-color:#c7cdd566;color:#3d3939;width:60px;">Action</th>
+                                        <th class="pds-cityname" style="background-color:#c7cdd566;color:#3d3939;width:20%;cursor:pointer;" title="Sort" onclick="sortTableStorage('StorageName')">Storage <i id="sortStorageIcon" class=""></i></th>
+                                        <th class="pds-cityname" style="background-color:#c7cdd566;color:#3d3939;width:15%;cursor:pointer;" title="Sort" onclick="sortTableStorage('ChargesName')">Charges <i id="sortChargesIcon" class=""></i></th>
+                                        <th class="pds-cityname" style="background-color:#c7cdd566;color:#3d3939;width:50%;">Description</th>
+                                        <th class="pds-cityname" style="background-color:#c7cdd566;color:#3d3939;width:10%;">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -69,11 +69,11 @@
                     <div class="col-md-5">
                         <div class="col-md-12 padding-5">
                             <div class="form-group pull-right clearfix">
-                                <button type="button" class="btn btn-primary" id="btnStorage" style="text-transform:uppercase!important" onclick="NewStorage()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-plus"></i> New</button>
-                                <button type="button" class="btn btn-primary" id="btnSaveStorage" style="text-transform:uppercase!important" onclick="saveUpdateStorage()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">Save</span></button>
+                                @*<button type="button" class="btn btn-primary" id="btnStorage" style="text-transform:uppercase!important" onclick="NewStorage()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-plus"></i> New</button>*@
+                                <button type="button" class="btn btn-primary" id="btnSaveStorage" style="text-transform:uppercase!important" onclick="saveUpdateStorageData()"><i class="fa fa-spinner fa-spin hidden"></i><i class="fa fa-save"></i> <span id="spanSaveUpdate">Update</span></button>
                             </div>
                         </div>
-                        <div class="form-group clearfix padding-5">
+                        <div class="form-group clearfix padding-5" id="divStorageUpdate">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
