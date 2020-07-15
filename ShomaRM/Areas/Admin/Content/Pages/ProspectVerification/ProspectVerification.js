@@ -3158,8 +3158,8 @@ var getApplicantLists = function () {
                         "</div>" +
                         "<div class='col-sm-12 custResponsibility'>&nbsp;</div>" +
                         "<div class='col-lg-12'>" +
-                        "<span class='input-box-span custPad'><b>$</b></span>" +
                         "<input class='input-box' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "' type='text' id='txtpayamt" + elementValue.ApplicantID + "' disabled/>" +
+                        "<span class='input-box-span custPad'><b>$</b></span>" +
                         "</div>" +
                         "</div>" +
                         "</div>" +
@@ -3172,8 +3172,8 @@ var getApplicantLists = function () {
                         "</div>" +
                         "<div class='col-sm-12 custResponsibility'>&nbsp;</div>" +
                         "<div class='col-lg-12'>" +
-                        "<span class='input-box-span custPad'><b>$</b></span>" +
                         "<input class='input-box' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "' type='text' id='txtpayamtMo" + elementValue.ApplicantID + "' disabled/>" +
+                        "<span class='input-box-span custPad'><b>$</b></span>" +
                         "</div>" +
                         "</div>" +
                         "</div>" +
@@ -3186,8 +3186,8 @@ var getApplicantLists = function () {
                         "</div>" +
                         "<div class='col-sm-12 custResponsibility'>&nbsp;</div>" +
                         "<div class='col-lg-12'>" +
-                        "<span class='input-box-span custPad'><b>$</b></span>" +
                         "<input class='input-box' value='" + parseFloat(elementValue.AdminFee).toFixed(2) + "' type='text' id='txtpayamtAF" + elementValue.ApplicantID + "' disabled/>" +
+                        "<span class='input-box-span custPad'><b>$</b></span>" +
                         "</div>" +
                         "</div>" +
                         "</div>" +
