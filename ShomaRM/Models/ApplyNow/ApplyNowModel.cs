@@ -762,13 +762,13 @@ namespace ShomaRM.Models
                                 reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
                                 reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                                if (result == "Accept")
+                                if (result == "Approved")
                                 {
                                     subCore = " Sanctuary application Approved";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Good news! You’re in! This is a champagne popping moment! Welcome to your new community and your new lifestyle.</p>";
                                 }
-                                else if (result == "Pending")
+                                else if (result == "Conditional")
                                 {
                                     subCore = "Sanctuary application conditionally approved";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application conditionally approved</p>";
@@ -2132,7 +2132,7 @@ namespace ShomaRM.Models
                                         reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
                                         reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                                        if (result == "Accepted")
+                                        if (result == "Approved")
                                         {
                                             subCore = " Sanctuary application Approved";
                                             emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
