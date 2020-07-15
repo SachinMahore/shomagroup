@@ -762,7 +762,7 @@ namespace ShomaRM.Models
                                 reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
                                 reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                                if (result == "Approved")
+                                if (result == "Accepted")
                                 {
                                     subCore = " Sanctuary application Approved";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
@@ -779,6 +779,12 @@ namespace ShomaRM.Models
                                     subCore = "Santuary application denied";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                }
+                                else if (result == "Pending")
+                                {
+                                    subCore = "Santuary application pending";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application pending.</p>";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been Pending. If you have any questions, just call or email us.</p>";
                                 }
                                 reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
                                 string bodyCore = reportHTMLCore;
@@ -889,7 +895,7 @@ namespace ShomaRM.Models
                                     reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
                                     reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                                    if (result == "Approved")
+                                    if (result == "Accepted")
                                     {
                                         subCore = " Sanctuary application Approved";
                                         emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
@@ -906,6 +912,12 @@ namespace ShomaRM.Models
                                         subCore = "Santuary application denied";
                                         emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
                                         emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                    }
+                                    else if (result == "Pending")
+                                    {
+                                        subCore = "Santuary application pending";
+                                        emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application pending.</p>";
+                                        emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been Pending. If you have any questions, just call or email us.</p>";
                                     }
                                     reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
                                     string bodyCore = reportHTMLCore;
@@ -1256,7 +1268,7 @@ namespace ShomaRM.Models
                                         reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
                                         reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                                        if (result == "Approved")
+                                        if (result == "Accepted")
                                         {
                                             subCore = " Sanctuary application Approved";
                                             emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
@@ -1273,6 +1285,12 @@ namespace ShomaRM.Models
                                             subCore = "Santuary application denied";
                                             emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
                                             emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                        }
+                                        else if (result == "Pending")
+                                        {
+                                            subCore = "Santuary application pending";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application pending.</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been Pending. If you have any questions, just call or email us.</p>";
                                         }
                                         reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
                                         string bodyCore = reportHTMLCore;
@@ -1324,7 +1342,7 @@ namespace ShomaRM.Models
                                         reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
                                         reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                                        if (result == "Approved")
+                                        if (result == "Accepted")
                                         {
                                             subCore = " Sanctuary application Approved";
                                             emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
@@ -1341,6 +1359,12 @@ namespace ShomaRM.Models
                                             subCore = "Santuary application denied";
                                             emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
                                             emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                        }
+                                        else if (result == "Pending")
+                                        {
+                                            subCore = "Santuary application pending";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application pending.</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been Pending. If you have any questions, just call or email us.</p>";
                                         }
                                         reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
                                         string bodyCore = reportHTMLCore;
@@ -1621,7 +1645,7 @@ namespace ShomaRM.Models
                                 reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
                                 reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                                if (result == "Approved")
+                                if (result == "Accepted")
                                 {
                                     subCore = " Sanctuary application Approved";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
@@ -1638,6 +1662,12 @@ namespace ShomaRM.Models
                                     subCore = "Santuary application denied";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                }
+                                else if (result == "Pending")
+                                {
+                                    subCore = "Santuary application pending";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application pending.</p>";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been Pending. If you have any questions, just call or email us.</p>";
                                 }
                                 reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
                                 string bodyCore = reportHTMLCore;
@@ -1736,7 +1766,7 @@ namespace ShomaRM.Models
                                 reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
                                 reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                                if (result == "Approved")
+                                if (result == "Accepted")
                                 {
                                     subCore = " Sanctuary application Approved";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
@@ -1753,6 +1783,12 @@ namespace ShomaRM.Models
                                     subCore = "Santuary application denied";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                }
+                                else if (result == "Pending")
+                                {
+                                    subCore = "Santuary application pending";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application pending.</p>";
+                                    emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been Pending. If you have any questions, just call or email us.</p>";
                                 }
                                 reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
                                 string bodyCore = reportHTMLCore;
@@ -2064,7 +2100,7 @@ namespace ShomaRM.Models
                                         reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
                                         reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                                        if (result == "Approved")
+                                        if (result == "Accepted")
                                         {
                                             subCore = " Sanctuary application Approved";
                                             emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
@@ -2081,6 +2117,12 @@ namespace ShomaRM.Models
                                             subCore = "Santuary application denied";
                                             emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
                                             emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                        }
+                                        else if (result == "Pending")
+                                        {
+                                            subCore = "Santuary application pending";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application pending.</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been Pending. If you have any questions, just call or email us.</p>";
                                         }
                                         reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
                                         string bodyCore = reportHTMLCore;
@@ -2132,7 +2174,7 @@ namespace ShomaRM.Models
                                         reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
                                         reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                                        if (result == "Approved")
+                                        if (result == "Accepted")
                                         {
                                             subCore = " Sanctuary application Approved";
                                             emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
@@ -2149,6 +2191,12 @@ namespace ShomaRM.Models
                                             subCore = "Santuary application denied";
                                             emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application denied.</p>";
                                             emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been denied.  If your situation changes in the future, we would love the opportunity to welcome you into our community. If you have any questions, just call or email us.</p>";
+                                        }
+                                        else if (result == "Pending")
+                                        {
+                                            subCore = "Santuary application pending";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Sorry ! Santuary application pending.</p>";
+                                            emailBodyCore += "<p style=\"margin-bottom: 0px;\">Unfortunately your application has been Pending. If you have any questions, just call or email us.</p>";
                                         }
                                         reportHTMLCore = reportHTMLCore.Replace("[%EmailBody%]", emailBodyCore);
                                         string bodyCore = reportHTMLCore;
