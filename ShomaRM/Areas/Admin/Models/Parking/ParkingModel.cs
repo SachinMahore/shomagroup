@@ -502,6 +502,24 @@ namespace ShomaRM.Areas.Admin.Models
             return msg;
 
         }
+
+        public ParkingModel GetSelectedParkingData(long PropertyId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            ParkingModel model = new ParkingModel();
+            
+            var ParkingInfo = db.tbl_Parking.Where(p => p.PropertyID == PropertyId).FirstOrDefault();
+            if (ParkingInfo != null)
+            {
+                model.ParkingID = ParkingInfo.ParkingID;
+                model.PropertyID = ParkingInfo.PropertyID;
+                model.ParkingName = ParkingInfo.ParkingName;
+                model.Charges = ParkingInfo.Charges;
+                model.Description = ParkingInfo.Description;
+            }
+
+            return model;
+        }
     }
     
     public class TenantParkingModel

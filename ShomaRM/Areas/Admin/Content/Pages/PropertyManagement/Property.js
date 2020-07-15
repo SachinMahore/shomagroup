@@ -901,14 +901,14 @@ var goToStep = function (stepid, id) {
     }
     if (stepid == "6") {
         $("#hndUID").val(id);
-
+        
         $("#divLoader").show();
         clearUnit();
         $.get("../../PropertyManagement/EditPropUnit/?id=" + id, function (data) {
             $("#step6").html(data);
             $("#divLoader").hide();
         });
-
+        getSelectedParkingData(id);
         $("#li1").removeClass("active");
         $("#li2").removeClass("active");
         $("#li3").removeClass("active");
@@ -2129,4 +2129,31 @@ var checkUnitAvailability = function (id) {
         }
     });
 
+};
+
+var getSelectedParkingData = function (propid) {
+    $("#divLoader").show();
+    model = {
+        PropertyID: propid
+    };
+    $.ajax({
+        url: "/Admin/Parking/GetSelectedParkingData",
+        type: "post",
+        data: JSON.stringify(model),
+        contentType: "application/json utf-8",
+        dataType: "JSON",
+        async: false,
+        success: function (response) { $("#divLoader").show(); }
+    }).done(function (response) {
+        $("#divLoader").hide();
+        console.log(response.Description);
+        $("#ddlLocation option").each(function () {
+            if (response.Description == $(this).data('list')) {
+                $(this).prop("selected", true);
+            }
+            else {
+                $(this).prop("selected", false);
+            }
+        });
+    });
 };
