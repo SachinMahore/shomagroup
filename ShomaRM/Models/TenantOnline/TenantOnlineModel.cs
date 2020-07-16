@@ -2455,10 +2455,10 @@ namespace ShomaRM.Models
                     ahm.ManagementCompanyPhone = !string.IsNullOrWhiteSpace(cl.ManagementCompanyPhone) ? cl.ManagementCompanyPhone : "";
                     ahm.IsProprNoticeLeaseAgreement = cl.IsProprNoticeLeaseAgreement;
                     ahm.stringIsProprNoticeLeaseAgreement = ahm.IsProprNoticeLeaseAgreement == 1 ? "Yes" : "No";
-                    ahm.ResidenceStatus = cl.ResidenceStatus==null?0: cl.ResidenceStatus;
-                    ahm.ResidenceNotes = cl.ResidenceNotes==null?"":cl.ResidenceNotes;
-                    ahm.CreditResult = !string.IsNullOrWhiteSpace(ahm.CreditResult) ? ahm.CreditResult : "";
-                    ahm.BackgroundResult = !string.IsNullOrWhiteSpace(ahm.BackgroundResult) ? ahm.BackgroundResult : "";
+                    ahm.ResidenceStatus = cl.ResidenceStatus == null ? 0 : cl.ResidenceStatus;
+                    ahm.ResidenceNotes = cl.ResidenceNotes == null ? "" : cl.ResidenceNotes;
+                    ahm.CreditResult = !string.IsNullOrWhiteSpace(apptype.CreditResult) ? apptype.CreditResult : "";
+                    ahm.BackgroundResult = !string.IsNullOrWhiteSpace(apptype.BackGroungResult) ? apptype.BackGroungResult : "";
                     lstpr.Add(ahm);
                 }
 
@@ -2518,11 +2518,11 @@ namespace ShomaRM.Models
 
                     ahm.CountryString = countryName != null ? countryName.CountryName : "";
                     ahm.StateHomeString = StateName != null ? StateName.StateName : "";
-                
-                    ahm.EmpStatus = cl.EmpStatus == null ? 0 : cl.EmpStatus;
-                    ahm.EmpNotes = cl.EmpNotes==null ? "" : cl.EmpNotes;
-                    ahm.CreditResult = !string.IsNullOrWhiteSpace(ahm.CreditResult) ? ahm.CreditResult : "";
-                    ahm.BackgroundResult = !string.IsNullOrWhiteSpace(ahm.BackgroundResult) ? ahm.BackgroundResult : "";
+
+                    ahm.ResidenceStatus = cl.ResidenceStatus == null ? 0 : cl.ResidenceStatus;
+                    ahm.ResidenceNotes = cl.ResidenceNotes == null ? "" : cl.ResidenceNotes;
+                    ahm.CreditResult = !string.IsNullOrWhiteSpace(apptype.CreditResult) ? apptype.CreditResult : "";
+                    ahm.BackgroundResult = !string.IsNullOrWhiteSpace(apptype.BackGroungResult) ? apptype.BackGroungResult : "";
                     lstpr.Add(ahm);
                 }
 

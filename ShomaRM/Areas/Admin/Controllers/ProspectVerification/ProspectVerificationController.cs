@@ -233,5 +233,17 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        //sachin m 16 July
+        public ActionResult UpdateFees(long ID, decimal AdminFee, decimal Deposit)
+        {
+            try
+            {
+                return Json(new { msg = (new ProspectVerificationModel().UpdateFees(ID,AdminFee,Deposit)) }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
