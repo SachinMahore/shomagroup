@@ -762,7 +762,7 @@ namespace ShomaRM.Models
                                 reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
                                 reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
 
-                                if (result == "Accepted")
+                                if (result == "Approved")
                                 {
                                     subCore = " Sanctuary application Approved";
                                     emailBodyCore += "<p style=\"margin-bottom: 0px;\">Hello, " + GetApplicantData.FirstName + " " + GetApplicantData.LastName + "! Congratulations ! Sanctuary application approved</p>";
