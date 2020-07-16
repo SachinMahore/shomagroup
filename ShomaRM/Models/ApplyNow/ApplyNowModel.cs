@@ -761,7 +761,7 @@ namespace ShomaRM.Models
                                 reportHTMLCore = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
                                 reportHTMLCore = reportHTMLCore.Replace("[%ServerURL%]", serverURL);
                                 reportHTMLCore = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
-
+                                //Aschi nm 15 july
                                 if (result == "Accepted")
                                 {
                                     subCore = " Sanctuary application Approved";
