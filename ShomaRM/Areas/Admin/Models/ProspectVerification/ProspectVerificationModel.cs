@@ -841,6 +841,72 @@ namespace ShomaRM.Areas.Admin.Models
             db.Dispose();
             return msg;
         }
+        public string UpdateFees(long ID, decimal AdminFee, decimal Deposit)
+        {
+
+            string msg = "";
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            if (ID != 0)
+            {
+                decimal newMoveincharge = 0;
+                var getdata = db.tbl_ApplyNow.Where(p => p.ID == ID).FirstOrDefault();
+                if (getdata != null)
+                {
+                    decimal olddepp =Convert.ToDecimal(getdata.Deposit);
+                    decimal oldmoveincharge = Convert.ToDecimal(getdata.MoveInCharges);
+                    getdata.AdministrationFee = AdminFee;
+                    getdata.Deposit = Deposit;
+
+                    getdata.MoveInCharges = (oldmoveincharge - olddepp + Deposit);
+                    newMoveincharge = (oldmoveincharge - olddepp + Deposit);
+                    db.SaveChanges();
+                }
+                
+
+                var tenList = db.tbl_Applicant.Where(c => c.TenantID == ID).ToList();
+                if (tenList != null)
+                {
+                    foreach(var tn in tenList)
+                    {
+                        tn.AdminFee = ((AdminFee * tn.AdminFeePercentage) / 100);
+                        tn.MoveInCharge = (newMoveincharge * tn.MoveInPercentage) / 100;
+                        db.SaveChanges();
+                    }
+                }
+                string filePath = HttpContext.Current.Server.MapPath("~/Content/Templates/");
+                var adminFeeApplList = db.tbl_Applicant.Where(c => c.TenantID == ID && c.Type != "Guarantor").ToList();
+                foreach (var adfee in adminFeeApplList)
+                {
+                    string reportHTMLAdf = "";
+                    string emailBodyAdf = "";
+                    reportHTMLAdf = System.IO.File.ReadAllText(filePath + "EmailTemplateProspect.html");
+                    string payid = new EncryptDecrypt().EncryptText(adfee.ApplicantID.ToString() + ",3," + ((adfee.AdminFee).Value.ToString("0.00")));
+                    reportHTMLAdf = reportHTMLAdf.Replace("[%ServerURL%]", serverURL);
+                    reportHTMLAdf = reportHTMLAdf.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
+                    emailBodyAdf += "<p style=\"margin-bottom: 0px;\">Hello, " + adfee.FirstName + " " + adfee.LastName + "! Congratulations ! Sanctuary application conditionally approved</p>";
+                    emailBodyAdf += "<p style=\"margin-bottom: 0px;\">Good news! You’re in! This is a champagne popping moment! Welcome to your new community and your new lifestyle. Your next step is to pay the Administration fee of $" + ((adfee.AdminFee).Value.ToString("0.00")) + " to ensure your unit is reserved until you move-in. Once you process your Administration fee payment, you will be sent your lease.</p>";
+                    emailBodyAdf += "<p style=\"margin-bottom: 0px;\">Please click here for Pay Now</p>";
+                    emailBodyAdf += "<p style=\"margin-bottom: 20px;text-align: center;\"><a href =\"" + serverURL + "/PayLink/?pid=" + payid + "\" class=\"link-button\" target=\"_blank\">PAY NOW</a></p>";
+                    reportHTMLAdf = reportHTMLAdf.Replace("[%EmailBody%]", emailBodyAdf);
+
+                    
+                    message = "Notification: Your Application is Approved and pay your Administration Fees. Please check the email for detail.";
+                    string bodyNew = reportHTMLAdf;
+                    new EmailSendModel().SendEmail(adfee.Email, "Your Application is Approved and pay your Administration Fees", bodyNew);
+                    if (SendMessage == "yes")
+                    {
+                        if (!string.IsNullOrWhiteSpace(adfee.Phone))
+                        {
+                            new TwilioService().SMS(adfee.Phone, message);
+                        }
+                    }
+                }
+                msg = "Fees Updated Successfully";
+            }
+            db.Dispose();
+            return msg;
+        }
         public class ProspectVerifySearchModel
         {
             public long ID { get; set; }
@@ -954,6 +1020,9 @@ namespace ShomaRM.Areas.Admin.Models
 
                     model.Notes = GetProspectData.Notes == null ? "" : GetProspectData.Notes;
                     //model.LeaseTerm = GetProspectData.LeaseTerm ?? 12;
+
+                    model.Deposit = GetProspectData.Deposit;
+                    model.AdminFees = GetProspectData.AdministrationFee;
 
                     var leaseDet = db.tbl_LeaseTerms.Where(p => p.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
                     if (leaseDet != null)
@@ -1074,8 +1143,8 @@ namespace ShomaRM.Areas.Admin.Models
                 model.ConvergentAmt = propDet.ConversionBillFees;
                 model.PestAmt = propDet.PestControlFees;
                 model.TrashAmt = propDet.TrashFees;
-                model.AdminFees = propDet.AdminFees;
-                model.ApplicationFees = propDet.ApplicationFees;
+                //model.AdminFees = propDet.AdminFees;
+               model.ApplicationFees = propDet.ApplicationFees;
 
                 model.GuarantorFees = propDet.GuarantorFees;
             }

@@ -59,7 +59,7 @@
                             <li id="li12"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(12,12)">f. Emergency Contacts </a></li>
                             <li id="li13"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(13,13)">g. Vehicle Info</a></li>
                             <li id="li14"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(14,14)">h. Pet Info</a></li>
-                            <@*li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15)">i. Lease</a></li>*@
+                            @*<li id="li15"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(15,15)">i. Lease</a></li>*@
                             <li id="li16"><a class="submenu-padding" href="javascript:void(0);" onclick="goToStep(16,16)">i. Payment </a></li>
                         </ul>
                     </div>
@@ -2538,7 +2538,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-sm-12 hidden">
                             <table class="table-bordered hidden" width="100%" id="tblBCCCStatus">
                                 <thead>
                                     <tr>
@@ -2577,8 +2577,45 @@
                                 </div>
                             </div>
                         </div>
+
+                        @*Sachin M 16 July*@
+                        <div class="col-sm-12">
+                           
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="">Admin Fee</label>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                        </span>
+                                        <input id="txtAdminFeeUp" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@(Model.AdminFees.Value.ToString("0.00"))" />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="">Security Deposit</label>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary search" type="button"><i class="fa-dollar fa"></i></button>
+                                        </span>
+                                        <input id="txtDepositUp" class="form-control form-control-small" style="width: 140px;color:#000" type="text" value="@(Model.Deposit.Value.ToString("0.00"))" />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-sm-2 form-inline">
+                                <div style="margin-top:30px"></div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-primary" id="btnUpFees" onclick="updateFees()">Update Fees</button>
+                         
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-12">
                             <div class="">
+
                                 <div style="background-color: #c7cdd5;color:#3d3939 ;padding: 6px 5px;text-align:center;">
                                     <h3 class="panel-title">
                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><b> Residence Status</b></a>

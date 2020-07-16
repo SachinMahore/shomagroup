@@ -2113,6 +2113,7 @@ var getPropertyUnitDetails = function (uid) {
             $("#txtActualMoveInDate").val(response.model.ActualMoveInDateText);
 
             $("#lbldeposit1").text(formatMoney(parseFloat(response.model.Deposit).toFixed(2)));
+           // $("#txtDepositUp").val(formatMoney(parseFloat(response.model.Deposit).toFixed(2)));
             $("#lbdepo6").text(parseFloat(response.model.Deposit).toFixed(2));
 
             $("#lblFMRent").text(formatMoney(parseFloat(response.model.Current_Rent).toFixed(2)));
@@ -4716,28 +4717,34 @@ var getPreviousAddressInfo = function () {
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
         dataType: "JSON",
-        success: function (response) {
-            //console.log(JSON.stringify(response))
-            $("#tblResidenceStatus>tbody").empty();
-            $.each(response.model, function (elementType, elementValue) {
-                var html = "<tr id='tr_" + elementValue.ID + "' data-value='" + elementValue.ID + "'>";
-                html += "<td>" + elementValue.FirstName + " (" + elementValue.AppType +")</td>";
-                html += "<td>" + elementValue.MoveInDateFromTxt + "</td>";
-                html += "<td>$" + elementValue.MonthlyPayment + "</td>";
-                html += "<td>" + elementValue.ManagementCompany + "</td>";
-                html += "<td>" + elementValue.ManagementCompanyPhone + "</td>";
-                html += "<td>" + elementValue.HomeAddress1 + "," + elementValue.HomeAddress2 +", " + elementValue.CountryString + " - " + elementValue.ZipHome + "</td>";
-             
-                html += "<td><select id='ddlResidanceStatus" + elementValue.ID + "' class='form-control'><option value=''>Select</option><option value='Approved'>Approved</option><option value='Denied'>Denied</option><option value='Conditional'>Conditional</option></select></td>";
-                html += "<td><input type='text' id='txtResNotes" + elementValue.ID + "' class='form-control' value='" + elementValue.ResidenceNotes + "' /></td>";
+        async: false,
+        success: function (response) { $("#divLoader").show(); }
+    }).done(function (response) {
+        $("#divLoader").hide();
+        //console.log(JSON.stringify(response))
+        $("#tblResidenceStatus>tbody").empty();
+        $.each(response.model, function (elementType, elementValue) {
+            var html = "<tr id='tr_" + elementValue.ID + "' data-value='" + elementValue.ID + "'>";
+            html += "<td>" + elementValue.FirstName + " (" + elementValue.AppType + ")</td>";
+            html += "<td>" + elementValue.MoveInDateFromTxt + "</td>";
+            html += "<td>$" + elementValue.MonthlyPayment + "</td>";
+            html += "<td>" + elementValue.ManagementCompany + "</td>";
+            html += "<td>" + elementValue.ManagementCompanyPhone + "</td>";
+            html += "<td>" + elementValue.HomeAddress1 + "," + elementValue.HomeAddress2 + ", " + elementValue.CountryString + " - " + elementValue.ZipHome + "</td>";
 
-                html += "<td class='text-center'>";
-                html += "<button  id='btnupdateResStatus' class='btn btn-primary' onclick='updateResStatus(" + elementValue.ID + ")'>Save</button>";
-                html += "</tr>";
-                $("#tblResidenceStatus>tbody").append(html);
-               // $("#ddlResidanceStatus" + id).val(elementValue.CreditResult)
-            });
-        }
+            html += "<td><select id='ddlResidanceStatus" + elementValue.ID + "' class='form-control'><option value=''>Select</option><option value='Accepted' data-list='Accepted'>Accepted</option><option value='Denied' data-list='Denied'>Denied</option><option value='Conditional' data-list='Conditional'>Conditional</option><option value='Pending' data-list='Pending'>Pending</option></select></td>";
+            html += "<td><input type='text' id='txtResNotes" + elementValue.ID + "' class='form-control' value='" + elementValue.ResidenceNotes + "' /></td>";
+
+            html += "<td class='text-center'>";
+            html += "<button  id='btnupdateResStatus' class='btn btn-primary' onclick='updateResStatus(" + elementValue.ID + ")'>Save</button>";
+            html += "</tr>";
+            $("#tblResidenceStatus>tbody").append(html);
+            // $("#ddlResidanceStatus" + id).val(elementValue.CreditResult)
+            //console.log(elementValue.BackgroundResult);
+            setTimeout(function () {
+                $("#ddlResidanceStatus" + elementValue.ID).val(elementValue.BackgroundResult);
+            }, 1000);
+        });
     });
 };
 var getPreviousEmpInfo = function () {
@@ -4751,7 +4758,10 @@ var getPreviousEmpInfo = function () {
         contentType: "application/json utf-8",
         data: JSON.stringify(model),
         dataType: "JSON",
-        success: function (response) {
+        async: false,
+        success: function (response) { $("#divLoader").show(); }
+    }).done(function (response) {
+        $("#divLoader").hide();
             //console.log(JSON.stringify(response))
             $("#tblEmpStatus>tbody").empty();
             $.each(response.model, function (elementType, elementValue) {
@@ -4765,16 +4775,18 @@ var getPreviousEmpInfo = function () {
                 html += "<td>" + elementValue.JobTitle + "</td>";
                 html += "<td>$" + elementValue.Income + "</td>";
                 html += "<td>$" + elementValue.AdditionalIncome + "</td>";
-                html += "<td><select id='ddlEmpStatus" + elementValue.ID + "' class='form-control'><option value=''>Select</option><option value='Approved'>Approved</option><option value='Denied'>Denied</option><option value='Conditional'>Conditional</option></select></td>";
+                html += "<td><select id='ddlEmpStatus" + elementValue.ID + "' class='form-control'><option value=''>Select</option><option value='Accept'  data-list='Accept'>Accepted</option><option value='Denied' data-list='Denied'>Denied</option><option value='Conditional' data-list='Conditional'>Conditional</option><option value='Pending' data-list='Pending'>Pending</option></select></td>";
                 html += "<td><input type='text' id='txtEmpNotes" + elementValue.ID + "' class='form-control' value='" + elementValue.EmpNotes + "' /></td>";
 
                 html += "<td class='text-center'>";
                 html += "<button  id='btnupdateResStatus' class='btn btn-primary' onclick='updateEmpStatus(" + elementValue.ID + ")'>Save</button>";
                 html += "</tr>";
                 $("#tblEmpStatus>tbody").append(html);
-               // $("#ddlEmpStatus" + id).val(elementValue.BackgroundResult)
+               
+                setTimeout(function () {
+                    $("#ddlEmpStatus" + elementValue.ID).val(elementValue.CreditResult);
+                }, 1000);
             });
-        }
     });
 };
 var updateResStatus = function (id) {
@@ -5978,4 +5990,72 @@ var updateScreeNotes = function (id) {
 
         }
     });
+};
+
+//Sachin M 16 July
+
+var updateFees = function () {
+    $("#divLoader").show();
+    var msg = '';
+    var id = $("#hdnOPId").val();
+    var admfee = $("#txtAdminFeeUp").val();
+    var depofee = $("#txtDepositUp").val();
+
+    if ($("#txtDepositUp" + id).val() == '') {
+        msg += 'Please Enter Deposit Amount</br>';
+    }
+    if ($("#txtAdminFeeUp" + id).val() == '') {
+        msg += 'Please Enter Admin Fee Amount</br>';
+    }
+    if (msg != '') {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'blue'
+        });
+        return
+    }
+    var model = {
+        ID: id,
+        AdminFee: admfee,
+        Deposit: depofee,
+    };
+
+    $.alert({
+        title: "",
+        content: "Are you sure to update Fees?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: "/ProspectVerification/UpdateFees",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $("#divLoader").hide();
+
+                            $.alert({
+                                title: "",
+                                content: "Progress Saved.",
+                                type: 'blue'
+                            });
+
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                }
+            }
+        }
+    });
+
+  
 };
