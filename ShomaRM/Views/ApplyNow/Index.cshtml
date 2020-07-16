@@ -947,7 +947,7 @@
                                 <div class="row line-height-text">
                                     <div class="col-mr-45  col-xs-6 col-sm-4 col-lg-4">
 
-                                        <span id="">Pet Fees </span><span class="hidden" id="lblpetplace">@Model.PetPlaceID</span>
+                                        <span id="">Pet Rent </span><span class="hidden" id="lblpetplace">@Model.PetPlaceID</span>
                                     </div>
                                     <div class="col-mr-45  col-xs-6 col-sm-3 col-lg-2">
                                         $<span id="lblPetFee">@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span><span>/mo</span>
@@ -1381,7 +1381,7 @@
 
                                         <div class="row">
                                             <div class="col-md-4 col-sm-4 col-xs-4">
-                                                <span> Pet Fees </span>
+                                                <span> Pet Rent </span>
                                             </div>
                                             <div class="col-md-2 col-sm-2 col-xs-2">
                                                 <span style="text-decoration:underline;font-weight:bold;">&nbsp;</span>
@@ -1805,7 +1805,7 @@
                                             <div class="col-sm-12">
                                                 <div class="row line-height-text">
                                                     <div class="col-mr-70  col-sm-6 col-lg-8">
-                                                        <span id="">Pet Fees : </span>
+                                                        <span id="">Pet Rent : </span>
                                                     </div>
                                                     <div class="col-mr-25 col-sm-6 col-lg-4">
                                                         $<span id="lblRFPPetRent">$@((Model.PetPlaceAmt ?? 0).ToString("0.00"))</span><span>/mo</span>
@@ -4794,7 +4794,7 @@
                         <thead>
                             <tr>
                                 <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Pet </th>
-                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Charges</th>
+                                <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Pet Rent</th>
                                 <th class="pds-cityname" style="background-color: #c7cdd5;color:#3d3939">Add</th>
                             </tr>
                         </thead>
@@ -5101,8 +5101,8 @@
                     </div>
                     <div class="col-sm-12">
                         <input type="checkbox" id="chkSaveAcc0">
-                        <span class="chektext">
-                            Save Account Information
+                        <span class="chektext" id="lblSaveAccountInformation1">
+                            Save Credit Card Information
                         </span>
                     </div>
                     <div class="col-sm-12" style="margin:2px"></div>
@@ -5257,8 +5257,8 @@
                     </div>
                     <div class="col-sm-12" id="divChkSaveAcc">
                         <input type="checkbox" id="chkSaveAcc">
-                        <span class="chektext">
-                            Save Account Information
+                        <span class="chektext" id="lblSaveAccountInformation2">
+                            Save Credit Card Information
                         </span>
                     </div>
                 </div>
