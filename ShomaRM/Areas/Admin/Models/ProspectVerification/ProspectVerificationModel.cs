@@ -907,6 +907,46 @@ namespace ShomaRM.Areas.Admin.Models
             db.Dispose();
             return msg;
         }
+
+        public List<ApplicantModel> AdminFeeList(long TenantId)
+        {
+            ShomaRMEntities db = new ShomaRMEntities();
+            var applidy = db.tbl_Applicant.Where(a => a.TenantID == TenantId).ToList();
+         
+            List<ApplicantModel> bgScrLIst = new List<ApplicantModel>();
+            try
+            {
+                foreach (var adlst in applidy)
+                {
+                    var translst = db.tbl_Transaction.Where(a =>  a.UserID==adlst.UserID && a.Charge_Type == 3).FirstOrDefault();
+                    ApplicantModel bgScr = new ApplicantModel();
+                        bgScr.FirstName = adlst.FirstName;
+                        bgScr.LastName = adlst.LastName; ;
+                        bgScr.AdminFee = adlst.AdminFee;
+                        bgScr.ApplicantID = adlst.ApplicantID;
+                        if(translst!=null )
+                        {
+                            bgScr.ComplStatus = "Paid";
+                            bgScr.DateTransTxt = translst.Transaction_Date.ToString("MM/dd/yyyy");
+                        }
+                        else
+                        {
+                            bgScr.ComplStatus = "UnPaid";
+                        bgScr.DateTransTxt = "";
+                        }
+                        bgScrLIst.Add(bgScr);
+
+                    
+                }
+                db.Dispose();
+                return bgScrLIst;
+            }
+            catch (Exception ex)
+            {
+                db.Database.Connection.Close();
+                throw ex;
+            }
+        }
         public class ProspectVerifySearchModel
         {
             public long ID { get; set; }

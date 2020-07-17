@@ -2434,7 +2434,7 @@ namespace ShomaRM.Models
                     ahm.ZipHome = cl.ZipHome;
                     ahm.RentOwn = cl.RentOwn;
                     ahm.HomeAddress1 = cl.HomeAddress1;
-                    ahm.HomeAddress2 = cl.HomeAddress2;
+                    ahm.HomeAddress2 = cl.HomeAddress2 == null ? "" : cl.HomeAddress2;
                     ahm.MoveInDateFromTxt = stdtFrom == null ? "" : stdtFrom.Value.ToString("MM/dd/yyy");
                     ahm.MonthlyPayment = !string.IsNullOrWhiteSpace(cl.MonthlyPayment) ? cl.MonthlyPayment : "";
                     ahm.Reason = !string.IsNullOrWhiteSpace(cl.Reason) ? cl.Reason : "";

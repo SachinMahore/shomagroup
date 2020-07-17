@@ -72,6 +72,7 @@ namespace ShomaRM.Areas.Tenant.Models
         public Nullable<decimal> AdminFee { get; set; }
         public Nullable<decimal> AdminFeePercentage { get; set; }
         public int IsInternational { get; set; }
+        public string DateTransTxt { get; set; }
         public string SaveUpdateApplicant(ApplicantModel model)
         {
             ShomaRMEntities db = new ShomaRMEntities();
