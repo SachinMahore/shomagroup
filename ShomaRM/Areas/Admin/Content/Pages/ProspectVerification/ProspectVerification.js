@@ -2407,7 +2407,7 @@ var getTransationLists = function (userid) {
         success: function (response) {
             
             $("#tblTransaction>tbody").empty();
-            $("#tblAdminFee>tbody").empty();
+         
             var adminFeesPaid = 0;
             $.each(response.model, function (elementType, elementValue) {
                 totPaid = totPaid+parseFloat(elementValue.Credit_Amount);
@@ -2422,30 +2422,22 @@ var getTransationLists = function (userid) {
                 html += "<td>" + elementValue.Description + "</td>";
                 //html += "<td>" + elementValue.CreatedDateString + "</td>";
                 html += "</tr>";
-                if (elementValue.Transaction_Type == "Administrative Fee" || elementValue.Transaction_Type =="Application Fees") {
-                    adminFeesPaid = 1;
-                    var adhtml = "<tr data-value=" + elementValue.TransID + ">";
-                    adhtml += "<td>" + $("#hndPriAppFullName").val() + "</td>";
-                    adhtml += "<td>" + elementValue.Description + "</td>";
-                    adhtml += "<td style='text-align: center;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
-                    adhtml += "<td style='text-align: center;'>" + elementValue.Transaction_DateString + "</td>";
-                    adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)' disabled='disabled'><span>Send Reminder to Pay Administration Fees </span></button></td>";
-                    $("#tblAdminFee>tbody").append(adhtml);
+                //if (elementValue.Transaction_Type == "Administrative Fee" || elementValue.Transaction_Type =="Application Fees") {
+                //    adminFeesPaid = 1;
+                //    var adhtml = "<tr data-value=" + elementValue.TransID + ">";
+                //    adhtml += "<td>" + $("#hndPriAppFullName").val() + "</td>";
+                //    adhtml += "<td>" + elementValue.Description + "</td>";
+                //    adhtml += "<td style='text-align: center;'>$" + formatMoney(elementValue.Charge_Amount) + "</td>";
+                //    adhtml += "<td style='text-align: center;'>" + elementValue.Transaction_DateString + "</td>";
+                //    //adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)' disabled='disabled'><span>Send Reminder to Pay Administration Fees </span></button></td>";
+                //    $("#tblAdminFee>tbody").append(adhtml);
 
-                    $("#btnSendRemSign").removeAttr("disabled");
+                //    $("#btnSendRemSign").removeAttr("disabled");
                     
-                }
+                //}
                 $("#tblTransaction>tbody").append(html);
             });
-            if (adminFeesPaid == 0) {
-                var adhtml = "<tr data-value='0'>";
-                adhtml += "<td>" + $("#hndPriAppFullName").val() + "</td>";
-                adhtml += "<td>Admin Fees</td>";
-                adhtml += "<td style='text-align: center;'>$" + formatMoney($("#lblAdminFees").text()) + "</td>";
-                adhtml += "<td style='text-align: center;'></td>";
-                adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)' disabled='disabled'xds><span>Send Reminder to Pay Administration Fees </span></button></td>";
-                $("#tblAdminFee>tbody").append(adhtml);
-            }
+          
             if (totPaid >= parseFloat($("#txtPayment").val()))
             {
                 $("#btnC2Tenant").removeAttr("disabled");
@@ -2454,6 +2446,7 @@ var getTransationLists = function (userid) {
         }
     });
 }
+
 var clearBank = function () {
     $("#hndTransMethod").val(1);
     $("#chkBank").addClass("active");
@@ -4730,7 +4723,7 @@ var getPreviousAddressInfo = function () {
             html += "<td>$" + elementValue.MonthlyPayment + "</td>";
             html += "<td>" + elementValue.ManagementCompany + "</td>";
             html += "<td>" + elementValue.ManagementCompanyPhone + "</td>";
-            html += "<td>" + elementValue.HomeAddress1 + "," + elementValue.HomeAddress2 + ", " + elementValue.CountryString + " - " + elementValue.ZipHome + "</td>";
+            html += "<td>" + elementValue.HomeAddress1 + "" + elementValue.HomeAddress2 + ", " + elementValue.CityHome + ", " + elementValue.CountryString + " - " + elementValue.ZipHome + "</td>";
 
             html += "<td><select id='ddlResidanceStatus" + elementValue.ID + "' class='form-control'><option value=''>Select</option><option value='Accepted' data-list='Accepted'>Accepted</option><option value='Denied' data-list='Denied'>Denied</option><option value='Conditional' data-list='Conditional'>Conditional</option><option value='Pending' data-list='Pending'>Pending</option></select></td>";
             html += "<td><input type='text' id='txtResNotes" + elementValue.ID + "' class='form-control' value='" + elementValue.ResidenceNotes + "' /></td>";
@@ -5792,6 +5785,7 @@ var refreshStatuses = function () {
         success: function (response) {
             $("#divLoader").hide();
             getTransationLists($("#hdnUserId").val());
+            adminFeeList();
             getSignedLists($("#hdnOPId").val());
         }
     });
@@ -6059,3 +6053,41 @@ var updateFees = function () {
 
   
 };
+
+var adminFeeList = function () {
+    var model = {
+        TenantId: $("#hdnOPId").val()
+    };
+    $.ajax({
+        url: "/ProspectVerification/AdminFeeList",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+
+            $("#tblAdminFee>tbody").empty();
+            $.each(response, function (elementType, elementValue) {
+                var html = "<tr id='tr_" + elementValue.ApplicantID + "' data-value='" + elementValue.ApplicantID + "'>";
+                html += "<td>" + elementValue.FirstName + " " + elementValue.LastName + " </td>";
+                html += "<td>Administrative Fee</td>";
+                html += "<td>$" + formatMoney(elementValue.AdminFee) + "</td>";
+                html += "<td>" + elementValue.DateTransTxt + "</td>";
+                html += "<td>" + elementValue.ComplStatus + "</td>";
+                html += "<td class='text-center'>";
+                html += "<button  id='btnSendRemtr' class='btn btn-primary hidden' onclick='SendReminderEmail(" + elementValue.Id + ")'>Save</button></td></tr>";
+
+                $("#tblAdminFee>tbody").append(html);
+
+            });
+        }
+    });
+
+    var adhtml = "<tr data-value='0'>";
+    adhtml += "<td>" + $("#hndPriAppFullName").val() + "</td>";
+    adhtml += "<td>Admin Fees</td>";
+    adhtml += "<td style='text-align: center;'>$" + formatMoney($("#lblAdminFees").text()) + "</td>";
+    adhtml += "<td style='text-align: center;'></td>";
+    adhtml += "<td><button type='button' class='btn btn-primary' id='btnSendRemtr' onclick='SendReminderEmail(1,0)' disabled='disabled'xds><span>Send Reminder to Pay Administration Fees </span></button></td>";
+    $("#tblAdminFee>tbody").append(adhtml);
+}

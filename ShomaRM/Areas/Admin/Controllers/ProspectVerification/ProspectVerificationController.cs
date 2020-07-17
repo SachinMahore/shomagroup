@@ -245,5 +245,17 @@ namespace ShomaRM.Areas.Admin.Controllers
                 return Json(new { Ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+        //Sachin M 17 July
+        public ActionResult AdminFeeList(long TenantId)
+        {
+            try
+            {
+                return Json((new ProspectVerificationModel()).AdminFeeList(TenantId), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
