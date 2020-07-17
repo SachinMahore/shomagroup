@@ -169,69 +169,71 @@ var clearStorageData = function () {
 var saveUpdateStorageData = function () {
     $("#divLoader").show();
     var msg = "";
-    if ($.trim($("#ddlProperty").val()).length == 0) {
-        msg = msg + "Property is required.</br>"
-    }
-    if ($.trim($("#txtStorageName").val()).length <= 0) {
-        msg = msg + "Storage Name is required.</br>"
-    }
-    if ($.trim($("#txtCharges").val()).length <= 0) {
-        msg = msg + "Charges is required.</br>"
-    }
-    if (msg != "") {
-        $("#divLoader").hide();
-        msg = "Following field(s) is/are required</br>" + msg;
-        $.alert({
-            title: 'Message!',
-            content: msg,
-            type: 'red',
-        });
-    }
-    else {
-        var model = {
-            StorageID: $("#hndStorageID").val(),
-            PropertyID: $("#ddlProperty").val(),
-            StorageName: $("#txtStorageName").val(),
-            Charges: $("#txtCharges").val(),
-            Description: $("#txtDescription").val()
-        };
-        $.ajax({
-            url: "/Storage/SaveUpdateStorage",
-            method: "post",
-            data: JSON.stringify(model),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            async: false,
-            success: function (response) {
-                //hideProgress('#btnSaveUpdate');
-                if (response.result == "1") {
-                    $("#divLoader").hide();
-                    if ($("#hndStorageID").val() == 0) {
-                        $.alert({
-                            title: 'Message!',
-                            content: "Data Saved Successfully",
-                            type: 'blue',
-                        });
+    if ($("#hndStorageID").val() != 0) {
+        if ($.trim($("#ddlProperty").val()).length == 0) {
+            msg = msg + "Property is required.</br>"
+        }
+        if ($.trim($("#txtStorageName").val()).length <= 0) {
+            msg = msg + "Storage Name is required.</br>"
+        }
+        if ($.trim($("#txtCharges").val()).length <= 0) {
+            msg = msg + "Charges is required.</br>"
+        }
+        if (msg != "") {
+            $("#divLoader").hide();
+            msg = "Following field(s) is/are required</br>" + msg;
+            $.alert({
+                title: 'Message!',
+                content: msg,
+                type: 'red',
+            });
+        }
+        else {
+            var model = {
+                StorageID: $("#hndStorageID").val(),
+                PropertyID: $("#ddlProperty").val(),
+                StorageName: $("#txtStorageName").val(),
+                Charges: $("#txtCharges").val(),
+                Description: $("#txtDescription").val()
+            };
+            $.ajax({
+                url: "/Storage/SaveUpdateStorage",
+                method: "post",
+                data: JSON.stringify(model),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: false,
+                success: function (response) {
+                    //hideProgress('#btnSaveUpdate');
+                    if (response.result == "1") {
+                        $("#divLoader").hide();
+                        if ($("#hndStorageID").val() == 0) {
+                            $.alert({
+                                title: 'Message!',
+                                content: "Data Saved Successfully",
+                                type: 'blue',
+                            });
+                        }
+                        else {
+                            $.alert({
+                                title: 'Message!',
+                                content: "Data Update Successfully",
+                                type: 'blue',
+                            });
+                        }
+                        $("#hndStorageID").val(response.ID);
+                        $("#spanSaveUpdate").text("Save");
+                        fillStorageList();
+                        //setInterval(function () {
+                        //    window.location.replace("/Admin/Storage/Index/" + 0);
+                        //}, 1200)
                     }
                     else {
-                        $.alert({
-                            title: 'Message!',
-                            content: "Data Update Successfully",
-                            type: 'blue',
-                        });
+                        //showMessage("Error!", response.error);
                     }
-                    $("#hndStorageID").val(response.ID);
-                    $("#spanSaveUpdate").text("Save");
-                    fillStorageList();
-                    //setInterval(function () {
-                    //    window.location.replace("/Admin/Storage/Index/" + 0);
-                    //}, 1200)
                 }
-                else {
-                    //showMessage("Error!", response.error);
-                }
-            }
-        });
+            });
+        }
     }
 }
 var btnSaveUpdate = function () {

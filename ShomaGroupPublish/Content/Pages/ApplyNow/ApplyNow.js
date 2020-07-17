@@ -1443,17 +1443,27 @@ $(document).ready(function () {
     $("#ddlRentOwn").on("change", function () {
         if (this.value == '1') {
             $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone,#lblProperNoticeLeaseAgreement").addClass("star");
+            $('#ddlProperNoticeLeaseAgreement').empty();
+            $('#ddlProperNoticeLeaseAgreement').append('<option value="1">Yes</option>');
+            $('#ddlProperNoticeLeaseAgreement').append('<option value="2">No</option>');
         }
         else if (this.value == '2') {
             $("#lbl_txtApartmentCommunity,#lbl_txtManagementCompany,#lbl_txtManagementCompanyPhone,#lblProperNoticeLeaseAgreement").removeClass("star");
+            $('#ddlProperNoticeLeaseAgreement').empty();
+            $('#ddlProperNoticeLeaseAgreement').append('<option value="1">N/A</option>');
         }
     });
     $("#ddlRentOwn2").on("change", function () {
         if (this.value == '1') {
             $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2,#lblProperNoticeLeaseAgreement2").addClass("star");
+            $('#ddlProperNoticeLeaseAgreement2').empty();
+            $('#ddlProperNoticeLeaseAgreement2').append('<option value="1">Yes</option>');
+            $('#ddlProperNoticeLeaseAgreement2').append('<option value="2">No</option>');
         }
         else if (this.value == '2') {
             $("#lbl_txtApartmentCommunity2,#lbl_txtManagementCompany2,#lbl_txtManagementCompanyPhone2,#lblProperNoticeLeaseAgreement2").removeClass("star");
+            $('#ddlProperNoticeLeaseAgreement2').empty();
+            $('#ddlProperNoticeLeaseAgreement2').append('<option value="1">N/A</option>');
         }
     });
     $("#txtpetWeight").keypress(function (event) { return nonNegDecimal(event, $(this)); });
@@ -5359,7 +5369,7 @@ var fillPetPlaceList = function () {
                     html += '<tr data-value="' + elementValue.PetPlaceID + '">';
                     html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.PetPlaceID + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.PetPlace + '</td>';
-                    html += '<td class="pds-firstname" style="color:#3d3939;">$' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
+                    html += '<td class="pds-firstname" style="color:#3d3939;">$' + parseFloat(elementValue.Charges).toFixed(2) + '/mo</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;"><input type="checkbox" name="chkpet id="chkAddPetPlace"  class="addpet" value=' + elementValue.PetPlaceID + ' onclick="selectAddPetPlace(this)" ' + ($("#lblpetplace").text() == elementValue.PetPlaceID ? "checked='checked'" : "") + '></td>';
                     html += '</tr>';
                     if ($("#lblpetplace").text() == elementValue.PetPlaceID) {
@@ -6201,8 +6211,8 @@ var getApplicantListsPrimary = function () {
                     "<div class='col-sm-12 custResponsibility'>&nbsp;</div>" +
 
                     "<div class='col-lg-12'>" +
-                    "<span class='input-box-span'><b>$</b></span>" +
                     "<input class='input-box' value='" + parseFloat(elementValue.MoveInCharge).toFixed(2) + "' type='text' id='txtpayamt" + elementValue.ApplicantID + "' />" +
+                    "<span class='input-box-span'><b>$</b></span>" +
                     "</div>" +
                     "</div>" +
                     "</div>" +
@@ -6217,8 +6227,8 @@ var getApplicantListsPrimary = function () {
                     "<div class='col-sm-12 custResponsibility'>&nbsp;</div>" +
 
                     "<div class='col-lg-12'>" +
-                    "<span class='input-box-span'><b>$</b></span>" +
                     "<input class='input-box' value='" + parseFloat(elementValue.MonthlyPayment).toFixed(2) + "' type='text' id='txtpayamtMo" + elementValue.ApplicantID + "' />" +
+                    "<span class='input-box-span'><b>$</b></span>" +
                     "</div>" +
                     "</div>" +
                     "</div>" +
@@ -6233,8 +6243,8 @@ var getApplicantListsPrimary = function () {
                     "<div class='col-sm-12 custResponsibility'>&nbsp;</div>" +
 
                     "<div class='col-lg-12'>" +
-                    "<span class='input-box-span'><b>$</b></span>" +
                     "<input class='input-box' value='" + parseFloat(elementValue.AdminFee).toFixed(2) + "' type='text' id='txtpayamtAF" + elementValue.ApplicantID + "' />" +
+                    "<span class='input-box-span'><b>$</b></span>" +
                     "</div>" +
                     "</div>" +
                     "</div>" +
@@ -7796,7 +7806,7 @@ var getTenantOnlineList = function (id) {
 
             $("#txtZip").val(response.model.ZipHome);
             $("#txtZipReg").val(response.model.ZipHome);
-            $("#ddlRentOwn").val(response.model.RentOwn).change();;
+            $("#ddlRentOwn").val(response.model.RentOwn).change();
             $("#txtMonthlyPayment").val(formatMoney(response.model.MonthlyPayment));
             $("#txtReasonforleaving").val(response.model.Reason);
             $("#txtEmployerName").val(response.model.EmployerName);
@@ -11118,6 +11128,7 @@ var clearBank1 = function () {
     $("#divCard1").addClass("hidden");
     $("#divBank1").removeClass("hidden");
     $("#lblPaymentDet1").text("Enter Bank Account Details.");
+    $("#lblSaveAccountInformation1").text("Save Bank Information");
 }
 var clearCard1 = function () {
     var year = new Date().getFullYear().toString().substr(-2);
@@ -11137,6 +11148,7 @@ var clearCard1 = function () {
     $("#divCard1").removeClass("hidden");
     $("#divBank1").addClass("hidden");
     $("#lblPaymentDet1").text("Enter Credit Card Details.");
+    $("#lblSaveAccountInformation1").text("Save Credit Card Information");
 }
 var clearBank2 = function () {
     var year = new Date().getFullYear().toString().substr(-2);
@@ -11156,6 +11168,7 @@ var clearBank2 = function () {
     $("#divCard2").addClass("hidden");
     $("#divBank2").removeClass("hidden");
     $("#lblPaymentDet2").text("Enter Bank Account Details.");
+    $("#lblSaveAccountInformation2").text("Save Bank Information");
 }
 var clearCard2 = function () {
     var year = new Date().getFullYear().toString().substr(-2);
@@ -11175,6 +11188,7 @@ var clearCard2 = function () {
     $("#divCard2").removeClass("hidden");
     $("#divBank2").addClass("hidden");
     $("#lblPaymentDet2").text("Enter Credit Card Details.");
+    $("#lblSaveAccountInformation2").text("Save Credit Card Information");
 }
 function savePrimaryApplicantPayment() {
     $("#divLoader").show();

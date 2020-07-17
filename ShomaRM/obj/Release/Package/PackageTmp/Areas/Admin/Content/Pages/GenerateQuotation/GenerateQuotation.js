@@ -2455,7 +2455,7 @@ var fillPetPlaceList = function () {
                     html += '<tr data-value="' + elementValue.PetPlaceID + '">';
                     html += '<td class="pds-id hidden" style="color:#3d3939;">' + elementValue.PetPlaceID + '</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;">' + elementValue.PetPlace + '</td>';
-                    html += '<td class="pds-firstname" style="color:#3d3939;">$' + parseFloat(elementValue.Charges).toFixed(2) + '</td>';
+                    html += '<td class="pds-firstname" style="color:#3d3939;">$' + parseFloat(elementValue.Charges).toFixed(2) + '/mo</td>';
                     html += '<td class="pds-firstname" style="color:#3d3939;"><input type="checkbox" name="chkpet id="chkAddPetPlace"  class="addpet" value=' + elementValue.PetPlaceID + ' onclick="selectAddPetPlace(this)" ' + ($("#lblpetplace").text() == elementValue.PetPlaceID ? "checked='checked'" : "") + '></td>';
                     html += '</tr>';
                     if ($("#lblpetplace").text() == elementValue.PetPlaceID) {

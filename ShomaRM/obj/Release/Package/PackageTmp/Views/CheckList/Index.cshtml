@@ -220,7 +220,7 @@
                                                 </span>
                                                 <button class="btn-alltype pull-left" id="btnPreMoveInDateCL" onclick="showPreMoveInDateCLCalendly();">Schedule Pre Move In</button>
                                                 @* <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;" type="text" />*@
-                                                <select id="ddlPreMoveInTimeCL" class="form-control" style="width: 140px;margin-left: 54px;">
+                                                <select id="ddlPreMoveInTimeCL" class="form-control hidden" style="width: 140px;margin-left: 54px;">
                                                     <option value="">Select a time</option>
                                                     <option value="9:00-10:00">9:00-10:00</option>
                                                     <option value="10:00-11:00">10:00-11:00</option>
@@ -251,7 +251,7 @@
                                                 </span>
                                                 <button class="btn-alltype pull-left" id="btnMoveInDateCL" onclick="showMoveInDateCLCalendly();">Schedule Move In</button>
                                                 @* <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;" type="text" />*@
-                                                <select id="ddlMoveInTimeCL" class="form-control" style="width: 140px;margin-left: 54px;">
+                                                <select id="ddlMoveInTimeCL" class="form-control hidden" style="width: 140px;margin-left: 54px;">
                                                     <option value="">Select a time</option>
                                                     <option value="9:00-10:00">9:00-10:00</option>
                                                     <option value="10:00-11:00">10:00-11:00</option>
@@ -439,14 +439,13 @@
                             <label for="txtCCVNumberCL" class="star">CVV Number</label>
                             <input type="password" class="form-control" id="txtCCVNumberCL" placeholder="CVV Number" onkeypress="return isOnlyNumber(event)" maxlength="3" value="">
                         </div>
-                        <div class="col-sm-12" id="divChkSaveAcc">
-                            <input type="checkbox" id="chkSaveAcc">
-                            <span class="chektext">
-                                Save Account Information
-                            </span>
-                        </div>
                     </div>
-               
+                    <div class="col-sm-12" id="divChkSaveAcc" style="margin-left: -15px;">
+                        <input type="checkbox" id="chkSaveAcc">
+                        <span class="chektext" id="lblSaveAccountInformation1">
+                            Save Credit Card Information
+                        </span>
+                    </div>
                 </div>
                 <div class="col-sm-12" style="margin-bottom:20px">
                     <input type="checkbox" id="chkTermsAndCondition">
@@ -1317,6 +1316,7 @@
         $("#divBank").removeClass("hidden");
 
         $("#lblPaymentDetCL").text("Enter Bank Account Details.");
+        $("#lblSaveAccountInformation1").text("Save Bank Information");
     }
     var clearCard = function () {
         $("#hndTransMethod").val("2");
@@ -1326,6 +1326,7 @@
         $("#divBank").addClass("hidden");
 
         $("#lblPaymentDetCL").text("Enter Credit Card Details.");
+        $("#lblSaveAccountInformation1").text("Save Credit Card Information");
     }
 
     var saveMoveInCheckList = function () {
