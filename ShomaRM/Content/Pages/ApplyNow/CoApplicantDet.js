@@ -6318,8 +6318,8 @@ var saveupdatePetCoApplicant = function () {
     if (!weight) {
         msg += "Enter Pet Weight</br>";
     }
-    if (weight > 40) {
-        msg += "Weight must be upto 40 lbs</br>";
+    if (weight > 20) {
+        msg += "Weight must be upto 20 lbs</br>";
     }
     if (msg != "") {
         $("#divLoader").hide();
