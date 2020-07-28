@@ -1909,7 +1909,7 @@ namespace ShomaRM.Models
 
         // Sachin M 29 june 2020 wsdl
         public async Task<string> saveListPaymentFinalStep(ApplyNowModel model)
-            {
+        {
             ShomaRMEntities db = new ShomaRMEntities();
             string msg = "";
 
@@ -1922,14 +1922,14 @@ namespace ShomaRM.Models
                 var UserData = db.tbl_Login.Where(p => p.UserID == GetApplicantData.UserID).FirstOrDefault();
 
                 var GetCoappDet = db.tbl_Applicant.Where(c => c.ApplicantID == model.AID).FirstOrDefault();
-               
+
                 var GetLeaseDet = db.tbl_LeaseTerms.Where(c => c.LTID == GetProspectData.LeaseTerm).FirstOrDefault();
-                
-                
+
+
                 var GetPayDetails = db.tbl_OnlinePayment.Where(P => P.ID == model.PAID).FirstOrDefault();
 
                 string decrytpedPMID = new EncryptDecrypt().DecryptText(GetPayDetails.PaymentID);
-               
+
                 decimal processingFees = 0;
 
                 if (GePropertyData != null)
@@ -1942,7 +1942,7 @@ namespace ShomaRM.Models
                 model.Email = GetApplicantData.Email;
                 model.ProcessingFees = processingFees;
 
-                transStatus = new UsaePayWSDLModel().PayUsingCustomerNum(GetApplicantData.CustID, decrytpedPMID,Convert.ToDecimal(model.Charge_Amount),model.Description);
+                transStatus = new UsaePayWSDLModel().PayUsingCustomerNum(GetApplicantData.CustID, decrytpedPMID, Convert.ToDecimal(model.Charge_Amount), model.Description);
 
                 String[] spearator = { "|" };
                 String[] strlist = transStatus.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
@@ -1976,26 +1976,26 @@ namespace ShomaRM.Models
                     if (model.lstApp != null)
                     {
                         foreach (var coapp in model.lstApp)
-                        { 
+                        {
                             var coappliList = db.tbl_Applicant.Where(pp => pp.ApplicantID == coapp.ApplicantID).FirstOrDefault();
                             if (coappliList != null)
                             {
                                 if (coapp.Type == "4")
                                 {
-                                   
+
                                     coappliList.CreditPaid = 1;
                                     desc += "4";
                                 }
                                 if (coapp.Type == "5")
                                 {
-                                   
+
                                     coappliList.BackGroundPaid = 1;
                                     desc += "5";
                                 }
                                 if ((coappliList.CreditPaid ?? 0) == 1 && (coappliList.BackGroundPaid ?? 0) == 1)
                                 {
                                     coappliList.Paid = 1;
-                                    
+
                                 }
                                 db.SaveChanges();
                             }

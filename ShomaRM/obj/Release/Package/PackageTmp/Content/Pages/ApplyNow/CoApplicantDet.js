@@ -6318,8 +6318,8 @@ var saveupdatePetCoApplicant = function () {
     if (!weight) {
         msg += "Enter Pet Weight</br>";
     }
-    if (weight > 40) {
-        msg += "Weight must be upto 40 lbs</br>";
+    if (weight > 20) {
+        msg += "Weight must be upto 20 lbs</br>";
     }
     if (msg != "") {
         $("#divLoader").hide();
@@ -11375,7 +11375,7 @@ var getESignAgreePolicyDownloadDataCoApplicant = function (appAgree) {
             $("#divLoader").hide();
             console.log(JSON.stringify(response));
             if (response.DateSigned != "") {
-                saveToDiskPDF("/Content/assets/img/Document/AgreementRulePolicy_" + response.model + ".pdf", "Agreement.pdf");
+                saveToDiskPDFCoApplicant("/Content/assets/img/Document/AgreementRulePolicy_" + response.model + ".pdf", "Agreement.pdf");
             }
             else {
 
@@ -11793,5 +11793,27 @@ function savePayNewEx() {
     } else if ($("#hndNeEx").val() == 2) {
 
         saveListPaymentFinal();
+    }
+}
+var saveToDiskPDFCoApplicant = function (filePath, fileName) {
+    var saveUrl = filePath;
+    saveUrl = webURL() + saveUrl;
+    var downloadFileName = fileName;
+    var hyperlink = document.createElement('a');
+    hyperlink.href = saveUrl;
+    hyperlink.target = '_blank';
+    hyperlink.download = downloadFileName;
+    (document.body || document.documentElement).appendChild(hyperlink);
+    hyperlink.onclick = function () {
+        (document.body || document.documentElement).removeChild(hyperlink);
+    };
+    var mouseEvent = new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+    });
+    hyperlink.dispatchEvent(mouseEvent);
+    if (!navigator.mozGetUserMedia) {
+        window.URL.revokeObjectURL(hyperlink.href);
     }
 }

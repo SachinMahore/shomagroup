@@ -962,21 +962,21 @@ $(document).ready(function () {
     });
 
     //Sachin M 10 June
-    //$("#chkExeAcc").on('ifChanged', function (event) {
+    $("#chkExeAcc").on('ifChanged', function (event) {
 
-    //    if ($(this).is(":checked")) {
-    //        $('#divExeAcc').removeClass('hidden');
-    //        $('#divNewAcc').addClass('hidden');
+        if ($(this).is(":checked")) {
+            $('#divExeAcc').removeClass('hidden');
+            $('#divNewAcc').addClass('hidden');
 
-    //        $("#chkNewAcc").iCheck('uncheck');
-    //        $("#hndNeEx").val(2);
-    //    }
-    //    else {
-    //        $('#divNewAcc').removeClass('hidden');
-    //        $('#divExeAcc').addClass('hidden');
-    //        $("#hndNeEx").val(1);
-    //    }
-    //});
+            $("#chkNewAcc").iCheck('uncheck');
+            $("#hndNeEx").val(2);
+        }
+        else {
+            $('#divNewAcc').removeClass('hidden');
+            $('#divExeAcc').addClass('hidden');
+            $("#hndNeEx").val(1);
+        }
+    });
     //if ($("#chkAgreeTermsPolicy").is(":checked")) {
     //    $("#policyStart").attr("disabled", true);
     //    InnerPolicyCheck();
@@ -2830,7 +2830,7 @@ function savePayment() {
         };
         $.alert({
             title: "",
-            content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFees()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFees())).toFixed(2) + ". Do you want to Pay Now?",
+            content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesGuarantor()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesGuarantor())).toFixed(2) + ". Do you want to Pay Now?",
             type: 'blue',
             buttons: {
                 yes: {
@@ -8965,7 +8965,7 @@ var checkAndDeletePet = function (noofpetdelete) {
     });
 };
 
-var getProcessingFees = function () {
+var getProcessingFeesGuarantor = function () {
     return $("#hndProcessingFees").val();
 };
 
@@ -9427,7 +9427,7 @@ function saveCoAppPayment() {
 
     $.alert({
         title: "",
-        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFees()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFees())).toFixed(2) + ". Do you want to Pay Now?",
+        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesGuarantor()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesGuarantor())).toFixed(2) + ". Do you want to Pay Now?",
         type: 'blue',
         buttons: {
             yes: {
@@ -9591,7 +9591,7 @@ function saveCoAppPaymentPopup() {
 
     $.alert({
         title: "",
-        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFees()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFees())).toFixed(2) + ". Do you want to Pay Now?",
+        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesGuarantor()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesGuarantor())).toFixed(2) + ". Do you want to Pay Now?",
         type: 'blue',
         buttons: {
             yes: {
@@ -9678,13 +9678,463 @@ var getBankCCLists = function () {
         }
     });
 }
+function saveNewPayment() {
+    if ($("#chkTermsAndCondition2").is(':unchecked')) {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Please accept Terms & Condition </br>",
+            type: 'red'
+        });
+        return;
+    }
+    $("#divLoader").show();
+    var msg = "";
+    if ($("#hndTransMethod2").val() == "0") {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Please Select Payment Method</br>",
+            type: 'red'
+        });
+        return;
+    }
 
+    var paymentMethod = 2;
+    var propertyId = 0;
+    var nameonCard = "";
+    var cardNumber = "";
+    var cardMonth = 0;
+    var cardYear = 0;
+    var ccvNumber = "";
+    var prospectID = 0;
+    var amounttoPay = 0;
+    var description = "";
+
+    if ($("#hndTransMethod2").val() == "2") {
+        paymentMethod = 2;
+        propertyId = $("#hndUID").val();
+        nameonCard = $("#txtNameonCard2").val();
+        cardNumber = $("#txtCardNumber2").val();
+        cardMonth = $("#ddlcardmonth2").val();
+        cardYear = $("#ddlcardyear2").val();
+        ccvNumber = $("#txtCCVNumber2").val();
+        prospectID = $("#hdnOPId").val();
+        amounttoPay = unformatText($("#sppayFees2").text());
+        description = $("#lblpopcctitle").text();
+
+        routingNumber = $("#txtRoutingNumber2").val();
+        bankName = $("#txtBankName1").val();
+
+        if (!nameonCard) {
+            msg += "Please Enter Name on Card</br>";
+        }
+        if (cardNumber == "" || cardNumber.length != 16) {
+            msg += "Please enter your 16 digit Card Number</br>";
+        }
+        if (cardMonth == "0") {
+            msg += "Please enter Card Month</br>";
+        }
+        if (cardYear == "0") {
+            msg += "Please enter Card Year</br>";
+        }
+
+        var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
+        var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+
+        GivenDate = new Date(GivenDate);
+        CurrentDate = new Date(CurrentDate);
+
+        if (GivenDate <= CurrentDate) {
+            msg += "Your Credit Card Expired..</br>";
+        }
+
+        if (msg != "") {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+    } else {
+        paymentMethod = 1;
+        nameonCard = $("#txtAccountName2").val();
+        cardNumber = $("#txtAccountNumber2").val();
+        cardMonth = 0;
+        cardYear = 0;
+        ccvNumber = 0;
+        routingNumber = $("#txtRoutingNumber2").val();
+        bankName = $("#txtBankName2").val();
+        amounttoPay = unformatText($("#sppayFees2").text());
+        description = $("#lblpopcctitle").text();
+        prospectID = $("#hdnOPId").val();
+        propertyId = $("#hndUID").val();
+        if (nameonCard == "") {
+            msg += "Please Enter Account Name</br>";
+        }
+        if (cardNumber == "") {
+            msg += "Please Enter Account Number</br>";
+        }
+
+        if (msg != "") {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+    }
+    var model = {
+        PID: propertyId,
+        Name_On_Card: nameonCard,
+        CardNumber: cardNumber,
+        CardMonth: cardMonth,
+        CardYear: cardYear,
+        CCVNumber: ccvNumber,
+        Charge_Amount: amounttoPay,
+        Charge_Type: "4",
+        ProspectID: prospectID,
+        Description: description,
+        GL_Trans_Description: description,
+        RoutingNumber: routingNumber,
+        BankName: bankName,
+        PaymentMethod: paymentMethod,
+        AID: $("#hndApplicantID").val(),
+        FromAcc: $("#hndFromAcc").val(),
+        IsSaveAcc: $("#chkSaveAcc").is(":checked") ? "1" : "0",
+    };
+
+    $.alert({
+        title: "",
+        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesGuarantor()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesGuarantor())).toFixed(2) + ". Do you want to Pay Now?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: "/ApplyNow/SaveNewPayment/",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            if (response.Msg != "") {
+                                if (response.Msg == "1") {
+                                    $("#ResponseMsg2").html("Payment successfull");
+                                    if (parseInt($("#hndFromAcc").val()) == 4) {
+                                        $("#divAppWarning").addClass("hidden");
+                                        $("#btnnextAppinfo").removeClass("hidden");
+                                        $("#hndCreditPaid").val(1);
+                                    }
+                                    getApplicantListsCoApplicant();
+                                    $("#popCCPay").modal("hide");
+                                } else {
+                                    $("#ResponseMsg2").html("Payment failed");
+                                }
+                            }
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                    $("#divLoader").hide();
+                }
+            }
+        }
+    });
+}
+function saveNewPaymentFinal() {
+
+    if ($("#chkTermsAndCondition2").is(':unchecked')) {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Please accept Terms & Condition </br>",
+            type: 'red'
+        });
+        return;
+    }
+    $("#divLoader").show();
+    var msg = "";
+    if ($("#hndTransMethod2").val() == "0") {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Please Select Payment Method</br>",
+            type: 'red'
+        });
+        return;
+    }
+
+    var paymentMethod = 2;
+    var propertyId = 0;
+    var nameonCard = "";
+    var cardNumber = "";
+    var cardMonth = 0;
+    var cardYear = 0;
+    var ccvNumber = "";
+    var prospectID = 0;
+    var amounttoPay = 0;
+    var description = "";
+
+    if ($("#hndTransMethod2").val() == "2") {
+        paymentMethod = 2;
+        propertyId = $("#hndUID").val();
+        nameonCard = $("#txtNameonCard2").val();
+        cardNumber = $("#txtCardNumber2").val();
+        cardMonth = $("#ddlcardmonth2").val();
+        cardYear = $("#ddlcardyear2").val();
+        ccvNumber = $("#txtCCVNumber2").val();
+        prospectID = $("#hdnOPId").val();
+        amounttoPay = unformatText($("#sppayFees2").text());
+        description = $("#lblpopcctitle").text();
+
+        routingNumber = $("#txtRoutingNumber2").val();
+        bankName = $("#txtBankName1").val();
+
+        if (!nameonCard) {
+            msg += "Please Enter Name on Card</br>";
+        }
+        if (cardNumber == "" || cardNumber.length != 16) {
+            msg += "Please enter your 16 digit Card Number</br>";
+        }
+        if (cardMonth == "0") {
+            msg += "Please enter Card Month</br>";
+        }
+        if (cardYear == "0") {
+            msg += "Please enter Card Year</br>";
+        }
+
+        var GivenDate = '20' + cardYear + '-' + cardMonth + '-' + new Date().getDate();
+        var CurrentDate = new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate();
+
+        GivenDate = new Date(GivenDate);
+        CurrentDate = new Date(CurrentDate);
+
+        if (GivenDate <= CurrentDate) {
+            msg += "Your Credit Card Expired..</br>";
+        }
+
+        if (msg != "") {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+    } else {
+        paymentMethod = 1;
+        nameonCard = $("#txtAccountName2").val();
+        cardNumber = $("#txtAccountNumber2").val();
+        cardMonth = 0;
+        cardYear = 0;
+        ccvNumber = 0;
+        routingNumber = $("#txtRoutingNumber2").val();
+        bankName = $("#txtBankName2").val();
+        amounttoPay = unformatText($("#sppayFees2").text());
+        description = $("#lblpopcctitle").text();
+        prospectID = $("#hdnOPId").val();
+        propertyId = $("#hndUID").val();
+        if (nameonCard == "") {
+            msg += "Please Enter Account Name</br>";
+        }
+        if (cardNumber == "") {
+            msg += "Please Enter Account Number</br>";
+        }
+
+        if (msg != "") {
+            $("#divLoader").hide();
+            $.alert({
+                title: "",
+                content: msg,
+                type: 'red'
+            });
+            return;
+        }
+    }
+    var model = {
+        PID: propertyId,
+        Name_On_Card: nameonCard,
+        CardNumber: cardNumber,
+        AccountNumber: cardNumber,
+        CardMonth: cardMonth,
+        CardYear: cardYear,
+        CCVNumber: ccvNumber,
+        Charge_Amount: amounttoPay,
+        ProspectID: prospectID,
+        Description: description,
+
+        RoutingNumber: routingNumber,
+        BankName: bankName,
+        PaymentMethod: paymentMethod,
+        AID: $("#hndApplicantID").val(),
+        FromAcc: $("#hndFromAcc").val(),
+        IsSaveAcc: $("#chkSaveAcc").is(":checked") ? "1" : "0",
+        lstApp: addApplicntArrayGuarantor,
+    };
+    $.alert({
+        title: "",
+        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesGuarantor()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesGuarantor())).toFixed(2) + ". Do you want to Pay Now?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: "/ApplyNow/SaveNewPaymentFinal/",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            $("#divLoader").hide();
+                            if (response.Msg == "1") {
+                                //$("#carddetails").addClass("hidden");
+                                $(".payNext").removeAttr("disabled");
+                                $("#ResponseMsg").html("Payment Successfull");
+                                $.alert({
+                                    title: "",
+                                    content: "Payment Successfull",
+                                    type: 'red'
+                                });
+                                getTransationLists($("#hdnUserId").val());
+                                getApplicantListsCoApplicant();
+                            } else {
+                                $.alert({
+                                    title: "",
+                                    content: "Payment Failed",
+                                    type: 'red'
+                                });
+                            }
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                    $("#divLoader").hide();
+                }
+            }
+        }
+    });
+
+}
 function savePayNewEx() {
     if ($("#hndNeEx").val() == 1) {
-        saveCoAppPaymentPopup();
+        if ($("#hndFinalPaybutton").val() == 1) {
+            saveNewPaymentFinal();
+        } else {
+            saveNewPayment();
+        }
+
     } else if ($("#hndNeEx").val() == 2) {
-        saveListPayment();
+
+        saveListPaymentFinal();
     }
+}
+function saveListPaymentFinal() {
+    if ($("#chkTermsAndCondition2").is(':unchecked')) {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Please accept Terms & Condition </br>",
+            type: 'red'
+        });
+        return;
+    }
+    $("#divLoader").show();
+    var msg = "";
+    if ($("#hndPAID").val() == 0) {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Please Select Payment Account</br>",
+            type: 'red'
+        });
+        return;
+    }
+    if ($("#txtCVVList").val() == "") {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: "Please Enter CVV / Routing Number</br>",
+            type: 'red'
+        });
+        return;
+    }
+
+
+    var propertyId = $("#hndUID").val();
+    var prospectID = $("#hdnOPId").val();
+    var amounttoPay = unformatText($("#sppayFees2").text());
+    var description = $("#lblpopcctitle").text();
+    var cvvroutingNumber = $("#txtCVVList").val();
+
+    var model = {
+        PID: propertyId,
+        CCVNumber: cvvroutingNumber,
+        Charge_Amount: amounttoPay,
+        ProspectID: prospectID,
+        Description: description,
+        AID: $("#hndApplicantID").val(),
+        FromAcc: $("#hndFromAcc").val(),
+        PAID: $("#hndPAID").val(),
+
+        lstApp: addApplicntArrayGuarantor,
+    };
+
+    $.alert({
+        title: "",
+        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesGuarantor()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesGuarantor())).toFixed(2) + ". Do you want to Pay Now?",
+        type: 'blue',
+        buttons: {
+            yes: {
+                text: 'Yes',
+                action: function (yes) {
+                    $.ajax({
+                        url: "/ApplyNow/saveListPaymentFinalStep/",
+                        type: "post",
+                        contentType: "application/json utf-8",
+                        data: JSON.stringify(model),
+                        dataType: "JSON",
+                        success: function (response) {
+                            if (response.Msg != "") {
+                                if (response.Msg == "1") {
+                                    $("#ResponseMsg2").html("Payment successfull");
+                                    if (parseInt($("#hndFromAcc").val()) == 4) {
+                                        $("#divAppWarning").addClass("hidden");
+                                        $("#btnnextAppinfo").removeClass("hidden");
+                                        $("#hndCreditPaid").val(1);
+                                    }
+                                    getApplicantListsCoApplicant();
+                                    getTransationLists($("#hdnUserId").val());
+                                    $("#popCCPay").modal("hide");
+                                } else {
+                                    $("#ResponseMsg2").html("Payment failed");
+                                }
+                            }
+                        }
+                    });
+                }
+            },
+            no: {
+                text: 'No',
+                action: function (no) {
+                    $("#divLoader").hide();
+                }
+            }
+        }
+    });
 }
 function selectPay(paid) {
     $("#hndPAID").val(paid);
@@ -9740,7 +10190,7 @@ function saveListPayment() {
 
     $.alert({
         title: "",
-        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFees()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFees())).toFixed(2) + ". Do you want to Pay Now?",
+        content: "You have chosen to pay $" + amounttoPay + " plus a $" + parseFloat(getProcessingFeesGuarantor()).toFixed(2) + " processing fee, your total will be $" + parseFloat(parseFloat(amounttoPay) + parseFloat(getProcessingFeesGuarantor())).toFixed(2) + ". Do you want to Pay Now?",
         type: 'blue',
         buttons: {
             yes: {
@@ -10015,7 +10465,7 @@ var getESignAgreePolicyDownloadDataGuarantor = function (appAgree) {
             $("#divLoader").hide();
             console.log(JSON.stringify(response));
             if (response.DateSigned != "") {
-                saveToDiskPDF("/Content/assets/img/Document/AgreementRulePolicy_" + response.model + ".pdf", "Agreement.pdf");
+                saveToDiskPDFGuarantor("/Content/assets/img/Document/AgreementRulePolicy_" + response.model + ".pdf", "Agreement.pdf");
             }
             else {
 
@@ -10070,3 +10520,25 @@ var getESignAgreePolicyPrintDataGuarantor = function (appAgree) {
         }
     });
 };
+var saveToDiskPDFGuarantor = function (filePath, fileName) {
+    var saveUrl = filePath;
+    saveUrl = webURL() + saveUrl;
+    var downloadFileName = fileName;
+    var hyperlink = document.createElement('a');
+    hyperlink.href = saveUrl;
+    hyperlink.target = '_blank';
+    hyperlink.download = downloadFileName;
+    (document.body || document.documentElement).appendChild(hyperlink);
+    hyperlink.onclick = function () {
+        (document.body || document.documentElement).removeChild(hyperlink);
+    };
+    var mouseEvent = new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+    });
+    hyperlink.dispatchEvent(mouseEvent);
+    if (!navigator.mozGetUserMedia) {
+        window.URL.revokeObjectURL(hyperlink.href);
+    }
+}

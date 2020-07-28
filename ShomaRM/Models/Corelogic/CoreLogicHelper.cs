@@ -53,6 +53,20 @@ namespace ShomaRM.Models.Corelogic
         {
             string leasebody = LeaseXMLData(leaseRequestModel);
             string applicatnt = ApplicantXMLData(applicant);
+            ShomaRMEntities db = new ShomaRMEntities();
+
+            int applynowid = Convert.ToInt32(applicant.ApplyNowID);
+            int applicantid = Convert.ToInt32(applicant.CustomerID);
+
+            var bsExists = db.tbl_BackgroundScreening.Where(p => p.ApplyNowId == applynowid && p.ApplicantId == applicantid && p.ReportType == ReportType).FirstOrDefault();
+            if (bsExists != null)
+            {
+                if(!string.IsNullOrWhiteSpace(bsExists.TransactionNumber))
+                {
+                    TransactionId = bsExists.TransactionNumber;
+                    IsNew = false;
+                }
+            }
             string strxml = CreateXMLDocument(leasebody + applicatnt, ReportType, TransactionId, IsNew);
             //var keyValues = new List<KeyValuePair<string, string>>();
             //keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
