@@ -397,5 +397,40 @@ namespace ShomaRM.Areas.Tenant.Models
             }
             return lstProp;
         }
+        public string CheckPetWeight(long TenantId,int PetWeight)
+        {
+            string msg = string.Empty;
+            int petWt = 0;
+            ShomaRMEntities db = new ShomaRMEntities();
+            var petWeight = db.tbl_TenantPet.Where(co => co.TenantID == TenantId).ToList();
+            if (petWeight != null)
+            {
+                foreach (var item in petWeight)
+                {
+                    petWt += Convert.ToInt32(item.Weight);
+                }
+                petWt = petWt + PetWeight;
+            }
+            if (petWeight.Count == 0)
+            {
+                if (PetWeight>25)
+                {
+                    msg = "Pet Weight must be upto 25 lbs";
+                }
+            }
+            else if (petWeight.Count == 1)
+            {
+                if (petWt > 40)
+                {
+                    int totalWeight = petWt - PetWeight;
+                    msg = "Two Pet's Weight must be upto 40 lbs";
+                }
+            }
+            else
+            {
+                msg = "";
+            }
+            return msg;
+        }
     }
 }
