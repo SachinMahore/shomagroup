@@ -278,3 +278,451 @@ Line Number: 92
 Logger: EmailSendModel.cs
 
 
+
+Date - 04 Aug 2020 18:02:10
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 04 Aug 2020 18:02:10
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 04 Aug 2020 18:02:27
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 04 Aug 2020 18:02:27
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 04 Aug 2020 18:04:49
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 04 Aug 2020 18:04:49
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 04 Aug 2020 18:06:06
+Level - INFO
+UserAgent - 
+Message - 
+Method SaveNewPayment -
+===================
+Data Before Send To CoreLogic(CRD)===================
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\ApplyNow\ApplyNowModel.cs
+
+Method Name: SaveNewPayment
+
+Line Number: 756
+
+Logger: ApplyNowModel.cs
+
+
+
+Date - 04 Aug 2020 18:06:06
+Level - INFO
+UserAgent - 
+Message - 
+Method SaveNewPayment -<?xml version="1.0" encoding="utf-8"?>
+                                <ApplicantScreening xmlns:MITS="http://my-company.com/namespace" >
+                                <Request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                <PropertyID>
+                                <MITS:Identification Type="other">
+                                <MITS:PrimaryID/>
+                                <MITS:MarketingName/>
+                                <MITS:WebSite>https://office.yourwebsite.com</MITS:WebSite>
+                                </MITS:Identification>
+                                </PropertyID>
+                             <RequestType>
+                              New</RequestType>
+                             <ReportOptions>
+                            <ReportName>
+                              CRD</ReportName>                           
+                             </ReportOptions>
+                              
+                          
+                             <OriginatorID>501214</OriginatorID>
+                             <UserAccount>1M898</UserAccount>
+                             <UserName>APIShomatest</UserName>
+                             <UserPassword>Shomatest1!</UserPassword>
+                             </Request><LeaseTerms>
+                             <MonthlyRent>1976.50</MonthlyRent>
+                             <LeaseMonths>12</LeaseMonths>
+		                      <SecurityDeposit>500.00</SecurityDeposit>
+                               </LeaseTerms><Applicant>
+                                <Other>
+                                      <CurrentRent>1976.50</CurrentRent>
+                                      <ConsentObtained>YES</ConsentObtained>
+                                </Other>
+                                <Income>
+                                       <EmploymentGrossIncome>1</EmploymentGrossIncome>
+                                </Income>
+                                <AS_Information>
+                                       <ApplicantIdentifier>35</ApplicantIdentifier>
+                                       <ApplicantType>Applicant</ApplicantType>
+			                           <Birthdate>2002-08-04</Birthdate>								 
+			                           <SocSecNumber>111111111</SocSecNumber>
+                                </AS_Information>
+                                <Customers>
+                               <MITS:Customer Type="applicant">
+                               <MITS:CustomerID>35 </MITS:CustomerID>     
+                                <MITS:Name>      
+                                         <MITS:FirstName>Test</MITS:FirstName>           
+                                         <MITS:MiddleName></MITS:MiddleName>              
+                                         <MITS:LastName> Test</MITS:LastName>                   
+                                </MITS:Name>                    
+                                  <MITS:Address Type="current">                     
+                                         <MITS:Address1>test</MITS:Address1>                         
+                                         <MITS:City>test</MITS:City>                              
+                                         <MITS:State>IA</MITS:State>                                   
+                                         <MITS:PostalCode>36254</MITS:PostalCode>                                        
+                                         <MITS:UnparsedAddress>test</MITS:UnparsedAddress>                                            
+                                    </MITS:Address>                                             
+                                  </MITS:Customer>                                             
+                                  </Customers>                                             
+                                </Applicant></ApplicantScreening>
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\ApplyNow\ApplyNowModel.cs
+
+Method Name: SaveNewPayment
+
+Line Number: 757
+
+Logger: ApplyNowModel.cs
+
+
+
+Date - 04 Aug 2020 18:06:49
+Level - INFO
+UserAgent - 
+Message - 
+Method SaveNewPayment -
+===================
+Data Before Send To CoreLogic(CRD)===================
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\ApplyNow\ApplyNowModel.cs
+
+Method Name: SaveNewPayment
+
+Line Number: 756
+
+Logger: ApplyNowModel.cs
+
+
+
+Date - 04 Aug 2020 18:06:50
+Level - INFO
+UserAgent - 
+Message - 
+Method SaveNewPayment -<?xml version="1.0" encoding="utf-8"?>
+                                <ApplicantScreening xmlns:MITS="http://my-company.com/namespace" >
+                                <Request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                <PropertyID>
+                                <MITS:Identification Type="other">
+                                <MITS:PrimaryID/>
+                                <MITS:MarketingName/>
+                                <MITS:WebSite>https://office.yourwebsite.com</MITS:WebSite>
+                                </MITS:Identification>
+                                </PropertyID>
+                             <RequestType>
+                              New</RequestType>
+                             <ReportOptions>
+                            <ReportName>
+                              CRD</ReportName>                           
+                             </ReportOptions>
+                              
+                          
+                             <OriginatorID>501214</OriginatorID>
+                             <UserAccount>1M898</UserAccount>
+                             <UserName>APIShomatest</UserName>
+                             <UserPassword>Shomatest1!</UserPassword>
+                             </Request><LeaseTerms>
+                             <MonthlyRent>1976.50</MonthlyRent>
+                             <LeaseMonths>12</LeaseMonths>
+		                      <SecurityDeposit>500.00</SecurityDeposit>
+                               </LeaseTerms><Applicant>
+                                <Other>
+                                      <CurrentRent>1976.50</CurrentRent>
+                                      <ConsentObtained>YES</ConsentObtained>
+                                </Other>
+                                <Income>
+                                       <EmploymentGrossIncome>1</EmploymentGrossIncome>
+                                </Income>
+                                <AS_Information>
+                                       <ApplicantIdentifier>35</ApplicantIdentifier>
+                                       <ApplicantType>Applicant</ApplicantType>
+			                           <Birthdate>2002-08-04</Birthdate>								 
+			                           <SocSecNumber>111111111</SocSecNumber>
+                                </AS_Information>
+                                <Customers>
+                               <MITS:Customer Type="applicant">
+                               <MITS:CustomerID>35 </MITS:CustomerID>     
+                                <MITS:Name>      
+                                         <MITS:FirstName>Test</MITS:FirstName>           
+                                         <MITS:MiddleName></MITS:MiddleName>              
+                                         <MITS:LastName> Test</MITS:LastName>                   
+                                </MITS:Name>                    
+                                  <MITS:Address Type="current">                     
+                                         <MITS:Address1>test</MITS:Address1>                         
+                                         <MITS:City>test</MITS:City>                              
+                                         <MITS:State>IA</MITS:State>                                   
+                                         <MITS:PostalCode>36254</MITS:PostalCode>                                        
+                                         <MITS:UnparsedAddress>test</MITS:UnparsedAddress>                                            
+                                    </MITS:Address>                                             
+                                  </MITS:Customer>                                             
+                                  </Customers>                                             
+                                </Applicant></ApplicantScreening>
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\ApplyNow\ApplyNowModel.cs
+
+Method Name: SaveNewPayment
+
+Line Number: 757
+
+Logger: ApplyNowModel.cs
+
+
+
+Date - 04 Aug 2020 18:07:35
+Level - INFO
+UserAgent - 
+Message - 
+Method PostFormUrlEncoded -
+===================
+Data After Send To CoreLogic(CRD)===================
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\Corelogic\CoreLogicHelper.cs
+
+Method Name: PostFormUrlEncoded
+
+Line Number: 168
+
+Logger: CoreLogicHelper.cs
+
+
+
+Date - 04 Aug 2020 18:07:35
+Level - INFO
+UserAgent - 
+Message - 
+Method PostFormUrlEncoded -<ApplicantScreening xmlns:MITS="http://my-company.com/namespace">
+  <Request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <PropertyID>
+      <MITS:Identification Type="other">
+        <MITS:PrimaryID />
+        <MITS:MarketingName />
+        <MITS:WebSite>https://office.yourwebsite.com</MITS:WebSite>
+      </MITS:Identification>
+    </PropertyID>
+    <RequestType>
+                              New</RequestType>
+    <ReportOptions>
+      <ReportName>
+                              CRD</ReportName>
+    </ReportOptions>
+    <OriginatorID>501214</OriginatorID>
+    <UserAccount>1M898</UserAccount>
+    <UserName>APIShomatest</UserName>
+    <UserPassword>Shomatest1!</UserPassword>
+  </Request>
+  <LeaseTerms>
+    <MonthlyRent>1976.50</MonthlyRent>
+    <LeaseMonths>12</LeaseMonths>
+    <SecurityDeposit>500.00</SecurityDeposit>
+  </LeaseTerms>
+  <Applicant>
+    <Other>
+      <CurrentRent>1976.50</CurrentRent>
+      <ConsentObtained>YES</ConsentObtained>
+    </Other>
+    <Income>
+      <EmploymentGrossIncome>1</EmploymentGrossIncome>
+    </Income>
+    <AS_Information>
+      <ApplicantIdentifier>35</ApplicantIdentifier>
+      <ApplicantType>Applicant</ApplicantType>
+      <Birthdate>2002-08-04</Birthdate>
+      <SocSecNumber>111111111</SocSecNumber>
+    </AS_Information>
+    <Customers>
+      <MITS:Customer Type="applicant">
+        <MITS:CustomerID>35 </MITS:CustomerID>
+        <MITS:Name>
+          <MITS:FirstName>Test</MITS:FirstName>
+          <MITS:MiddleName />
+          <MITS:LastName> Test</MITS:LastName>
+        </MITS:Name>
+        <MITS:Address Type="current">
+          <MITS:Address1>test</MITS:Address1>
+          <MITS:City>test</MITS:City>
+          <MITS:State>IA</MITS:State>
+          <MITS:PostalCode>36254</MITS:PostalCode>
+          <MITS:UnparsedAddress>test</MITS:UnparsedAddress>
+        </MITS:Address>
+      </MITS:Customer>
+    </Customers>
+  </Applicant>
+  <Response>
+    <TransactionNumber></TransactionNumber>
+    <ReportDate></ReportDate>
+    <ApplicantDecision></ApplicantDecision>
+    <ApplicationDecision></ApplicationDecision>
+    <ApplicantScore></ApplicantScore>
+    <BackgroundReport />
+    <ErrorCode>5000</ErrorCode>
+    <ErrorDescription>Invalid City, State, Postal Code combination in Address : test IA 36254. Please correct and resubmit.</ErrorDescription>
+    <Status></Status>
+  </Response>
+</ApplicantScreening>
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\Corelogic\CoreLogicHelper.cs
+
+Method Name: PostFormUrlEncoded
+
+Line Number: 169
+
+Logger: CoreLogicHelper.cs
+
+
+
+Date - 04 Aug 2020 18:08:11
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+

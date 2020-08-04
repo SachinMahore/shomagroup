@@ -60,7 +60,7 @@ namespace ShomaRM.Controllers
         {
             if (ModelState.IsValid)
             {
-                //string dec = new EncryptDecrypt().DecryptText("NCM2B4dAzCFueiZKQytVtg");
+                //string dec = new EncryptDecrypt().DecryptText("Hdo5nJ5ObOs5lXHLGwq24A");
                 string encryptedPassword = new EncryptDecrypt().EncryptText(model.Password);
                 var user = db.tbl_Login.Where(p => p.Username == model.UserName && p.Password == encryptedPassword && p.IsActive == 1).FirstOrDefault();
                 if (user != null)
