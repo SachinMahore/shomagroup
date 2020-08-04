@@ -6298,7 +6298,7 @@ var saveupdatePetCoApplicant = function () {
     var hiddenPetVaccinationCertificate = $("#hndPetVaccinationCertificate").val();
     var hiddenOriginalPetPicture = $("#hndOriginalPetPicture").val();
     var hiddenOriginalPetVaccinationCertificate = $("#hndOriginalPetVaccinationCertificate").val();
-    var hiddenCurrentUserId = $("#hndCurrentUserId").val();
+    var hiddenCurrentUserId = $("#hndCoAppUserId").val();
     if (!petName) {
         msg += "Enter Pet Name</br>";
     }
@@ -6317,9 +6317,6 @@ var saveupdatePetCoApplicant = function () {
     }
     if (!weight) {
         msg += "Enter Pet Weight</br>";
-    }
-    if (weight > 20) {
-        msg += "Weight must be upto 20 lbs</br>";
     }
     if (msg != "") {
         $("#divLoader").hide();
@@ -6369,6 +6366,65 @@ var saveupdatePetCoApplicant = function () {
                 type: 'blue'
             });
             $("#popPet").modal("hide");
+        }
+    });
+};
+var checkPetWeightCoApplicant = function () {
+    $("#divLoader").show();
+    var prospectID = $("#hdnProspectId").val();
+    var petName = $("#txtpetName").val();
+    var breed = $("#txtpetBreed").val();
+    var weight = $("#txtpetWeight").val();
+    var hiddenPetPicture = $("#hndPetPicture").val();
+    var hiddenPetVaccinationCertificate = $("#hndPetVaccinationCertificate").val();
+    var msg = '';
+    if (!petName) {
+        msg += "Enter Pet Name</br>";
+    }
+    if (!breed) {
+        msg += "Enter Pet Breed</br>";
+    }
+    if (!weight) {
+        msg += "Enter Pet Weight</br>";
+    }
+    if (hiddenPetPicture == '0') {
+        if (document.getElementById('pet-picture').files.length == '0') {
+            msg += "Please Upload Pet Picture</br>";
+        }
+    }
+    if (hiddenPetVaccinationCertificate == '0') {
+        if (document.getElementById('filePetVaccinationCertificate').files.length == '0') {
+            msg += "Please Upload Pet Vaccination Certificate</br>";
+        }
+    }
+
+    if (msg != "") {
+        $("#divLoader").hide();
+        $.alert({
+            title: "",
+            content: msg,
+            type: 'red'
+        });
+        return;
+    }
+    var model = { TenantId: prospectID, PetWeight: weight };
+    $.ajax({
+        url: "/Tenant/Pet/CheckPetWeight/",
+        type: "post",
+        contentType: "application/json utf-8",
+        data: JSON.stringify(model),
+        dataType: "JSON",
+        success: function (response) {
+            $("#divLoader").hide();
+            if (response == "Pet Weight must be upto 25 lbs") {
+                alert(response);
+            }
+            else if (response == "Two Pet's Weight must be upto 40 lbs") {
+                alert(response);
+            }
+            else {
+                saveupdatePetCoApplicant();
+            }
         }
     });
 };

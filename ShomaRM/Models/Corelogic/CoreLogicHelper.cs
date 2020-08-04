@@ -163,8 +163,10 @@ namespace ShomaRM.Models.Corelogic
                     string applicationDecision = "";
                     string applicantScore = "";
 
-                    string sss = xDoc.ToString();
+                    string strResult = xDoc.ToString();
 
+                    LoggerEngine.LoggingHelper.LogMessage("\r\n===================\r\nData After Send To CoreLogic(" + ReportType + ")===================\r\n\r\n", System.Diagnostics.TraceLevel.Info);
+                    LoggerEngine.LoggingHelper.LogMessage(strResult, System.Diagnostics.TraceLevel.Info);
 
                     if (xDoc.ToString().Contains("TransactionNumber"))
                     {

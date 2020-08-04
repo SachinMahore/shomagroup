@@ -223,7 +223,8 @@ namespace ShomaRM.Models
                             applicant.ApplyNowID = GetProspectData.ID.ToString();
                             applicant.CustomerID = GetApplicantData.ApplicantID.ToString();
                             applicant.ConsentObtained = "Yes";
-                            applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                            //applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                            applicant.EmploymentGrossIncome = "1";
                             applicant.ApplicantIdentifier = GetApplicantData.ApplicantID.ToString();
                             applicant.ApplicantType = "Applicant";
                             applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
@@ -237,6 +238,9 @@ namespace ShomaRM.Models
                             applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
                             string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+                            
+                            LoggerEngine.LoggingHelper.LogMessage("\r\n===================\r\nData Before Send To CoreLogic(CRD)===================\r\n\r\n", System.Diagnostics.TraceLevel.Info);
+                            LoggerEngine.LoggingHelper.LogMessage(strxml, System.Diagnostics.TraceLevel.Info);
 
                             var keyValues = new List<KeyValuePair<string, string>>();
                             keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
@@ -293,6 +297,9 @@ namespace ShomaRM.Models
                             applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
                             string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
+
+                            LoggerEngine.LoggingHelper.LogMessage("\r\n===================\r\nData Before Send To CoreLogic (CRM)===================\r\n\r\n", System.Diagnostics.TraceLevel.Info);
+                            LoggerEngine.LoggingHelper.LogMessage(strxml, System.Diagnostics.TraceLevel.Info);
 
                             var keyValues = new List<KeyValuePair<string, string>>();
                             keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
@@ -730,7 +737,8 @@ namespace ShomaRM.Models
                             applicant.ApplyNowID = GetProspectData.ID.ToString();
                             applicant.CustomerID = GetApplicantData.ApplicantID.ToString();
                             applicant.ConsentObtained = "Yes";
-                            applicant.EmploymentGrossIncome = (UserData.Income ?? 0).ToString("0.00");
+                            //applicant.EmploymentGrossIncome = (UserData.Income ?? 0).ToString("0.00");
+                            applicant.EmploymentGrossIncome = "1";
                             applicant.ApplicantIdentifier = GetApplicantData.ApplicantID.ToString();
                             applicant.ApplicantType = "Applicant";
                             applicant.Birthdate = (UserData.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
@@ -744,6 +752,9 @@ namespace ShomaRM.Models
                             applicant.UnparsedAddress = UserData.HomeAddress1 + (!string.IsNullOrWhiteSpace(UserData.HomeAddress2) ? " " + UserData.HomeAddress2 : "");
 
                             string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+
+                            LoggerEngine.LoggingHelper.LogMessage("\r\n===================\r\nData Before Send To CoreLogic(CRD)===================\r\n\r\n", System.Diagnostics.TraceLevel.Info);
+                            LoggerEngine.LoggingHelper.LogMessage(strxml, System.Diagnostics.TraceLevel.Info);
 
                             var keyValues = new List<KeyValuePair<string, string>>();
                             keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
@@ -876,6 +887,9 @@ namespace ShomaRM.Models
                                 applicant.UnparsedAddress = UserData.HomeAddress1 + (!string.IsNullOrWhiteSpace(UserData.HomeAddress2) ? " " + UserData.HomeAddress2 : "");
 
                                 string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
+
+                                LoggerEngine.LoggingHelper.LogMessage("\r\n===================\r\nData Before Send To CoreLogic(CRM)===================\r\n\r\n", System.Diagnostics.TraceLevel.Info);
+                                LoggerEngine.LoggingHelper.LogMessage(strxml, System.Diagnostics.TraceLevel.Info);
 
                                 var keyValues = new List<KeyValuePair<string, string>>();
                                 keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
@@ -1237,7 +1251,8 @@ namespace ShomaRM.Models
                                     applicant.ApplyNowID = GetProspectData.ID.ToString();
                                     applicant.CustomerID = coappliList.ApplicantID.ToString();
                                     applicant.ConsentObtained = "Yes";
-                                    applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                                    //applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                                    applicant.EmploymentGrossIncome = "1";
                                     applicant.ApplicantIdentifier = coappliList.ApplicantID.ToString();
                                     applicant.ApplicantType = "Applicant";
                                     applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
@@ -1251,6 +1266,9 @@ namespace ShomaRM.Models
                                     applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
                                     string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+
+                                    LoggerEngine.LoggingHelper.LogMessage("\r\n===================\r\nData Before Send To CoreLogic(CRD)===================\r\n\r\n", System.Diagnostics.TraceLevel.Info);
+                                    LoggerEngine.LoggingHelper.LogMessage(strxml, System.Diagnostics.TraceLevel.Info);
 
                                     var keyValues = new List<KeyValuePair<string, string>>();
                                     keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
@@ -1325,6 +1343,9 @@ namespace ShomaRM.Models
                                     applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
                                     string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
+
+                                    LoggerEngine.LoggingHelper.LogMessage("\r\n===================\r\nData Before Send To CoreLogic(CRM)===================\r\n\r\n", System.Diagnostics.TraceLevel.Info);
+                                    LoggerEngine.LoggingHelper.LogMessage(strxml, System.Diagnostics.TraceLevel.Info);
 
                                     var keyValues = new List<KeyValuePair<string, string>>();
                                     keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
@@ -1613,7 +1634,8 @@ namespace ShomaRM.Models
                             applicant.ApplyNowID = GetProspectData.ID.ToString();
                             applicant.CustomerID = GetCoappDet.ApplicantID.ToString();
                             applicant.ConsentObtained = "Yes";
-                            applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                            //applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                            applicant.EmploymentGrossIncome = "1";
                             applicant.ApplicantIdentifier = GetCoappDet.ApplicantID.ToString();
                             applicant.ApplicantType = "Applicant";
                             applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
@@ -1627,6 +1649,9 @@ namespace ShomaRM.Models
                             applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
                             string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+
+                            LoggerEngine.LoggingHelper.LogMessage("\r\n===================\r\nData Before Send To CoreLogic(CRD)===================\r\n\r\n", System.Diagnostics.TraceLevel.Info);
+                            LoggerEngine.LoggingHelper.LogMessage(strxml, System.Diagnostics.TraceLevel.Info);
 
                             var keyValues = new List<KeyValuePair<string, string>>();
                             keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
@@ -1745,7 +1770,10 @@ namespace ShomaRM.Models
                             applicant.PostalCode = GetTenantOnlineDet.ZipHome;
                             applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
-                            string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+                            string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
+
+                            LoggerEngine.LoggingHelper.LogMessage("\r\n===================\r\nData Before Send To CoreLogic(CRM)===================\r\n\r\n", System.Diagnostics.TraceLevel.Info);
+                            LoggerEngine.LoggingHelper.LogMessage(strxml, System.Diagnostics.TraceLevel.Info);
 
                             var keyValues = new List<KeyValuePair<string, string>>();
                             keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
@@ -2069,7 +2097,8 @@ namespace ShomaRM.Models
                                     applicant.ApplyNowID = GetProspectData.ID.ToString();
                                     applicant.CustomerID = GetCoappDet.ApplicantID.ToString();
                                     applicant.ConsentObtained = "Yes";
-                                    applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                                    //applicant.EmploymentGrossIncome = (GetTenantOnlineDet.Income ?? 0).ToString("0.00");
+                                    applicant.EmploymentGrossIncome = "1";
                                     applicant.ApplicantIdentifier = GetCoappDet.ApplicantID.ToString();
                                     applicant.ApplicantType = "Applicant";
                                     applicant.Birthdate = (GetTenantOnlineDet.DateOfBirth ?? DateTime.Now).ToString("yyyy-MM-dd");
@@ -2083,6 +2112,9 @@ namespace ShomaRM.Models
                                     applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
                                     string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
+
+                                    LoggerEngine.LoggingHelper.LogMessage("\r\n===================\r\nData Before Send To CoreLogic(CRD)===================\r\n\r\n", System.Diagnostics.TraceLevel.Info);
+                                    LoggerEngine.LoggingHelper.LogMessage(strxml, System.Diagnostics.TraceLevel.Info);
 
                                     var keyValues = new List<KeyValuePair<string, string>>();
                                     keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));
@@ -2153,10 +2185,13 @@ namespace ShomaRM.Models
                                     applicant.Address1 = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
                                     applicant.City = GetTenantOnlineDet.CityHome;
                                     applicant.State = (GetState != null ? GetState.Abbreviation : "");
-                                    applicant.PostalCode = GetTenantOnlineDet.ZipHome;
+                                    applicant.PostalCode = GetTenantOnlineDet.ZipHome.Trim();
                                     applicant.UnparsedAddress = GetTenantOnlineDet.HomeAddress1 + (!string.IsNullOrWhiteSpace(GetTenantOnlineDet.HomeAddress2) ? " " + GetTenantOnlineDet.HomeAddress2 : "");
 
                                     string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRM", "", true);
+
+                                    LoggerEngine.LoggingHelper.LogMessage("\r\n===================\r\nData Before Send To CoreLogic(CRM)===================\r\n\r\n", System.Diagnostics.TraceLevel.Info);
+                                    LoggerEngine.LoggingHelper.LogMessage(strxml, System.Diagnostics.TraceLevel.Info);
 
                                     var keyValues = new List<KeyValuePair<string, string>>();
                                     keyValues.Add(new KeyValuePair<string, string>("XMLPost", strxml));

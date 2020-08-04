@@ -862,10 +862,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/13/2020 09:49:42</publishTime>
     </File>
     <File Include="bin/ShomaRM.dll">
-      <publishTime>07/28/2020 16:09:16</publishTime>
+      <publishTime>08/04/2020 17:12:50</publishTime>
     </File>
     <File Include="bin/ShomaRM.pdb">
-      <publishTime>07/28/2020 16:09:16</publishTime>
+      <publishTime>08/04/2020 17:12:50</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
       <publishTime>04/18/2020 15:13:46</publishTime>
@@ -7396,10 +7396,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/23/2019 17:16:58</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/ApplyNow.js">
-      <publishTime>07/27/2020 13:56:43</publishTime>
+      <publishTime>08/04/2020 16:56:23</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/CoApplicantDet.js">
-      <publishTime>07/28/2020 13:56:01</publishTime>
+      <publishTime>08/04/2020 16:56:23</publishTime>
     </File>
     <File Include="Content/Pages/ApplyNow/DocumentVerification.js">
       <publishTime>01/30/2020 13:11:54</publishTime>
@@ -8077,13 +8077,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/31/2020 18:07:55</publishTime>
     </File>
     <File Include="Views/ApplyNow/CoApplicantDet.cshtml">
-      <publishTime>07/15/2020 15:39:54</publishTime>
+      <publishTime>08/04/2020 16:56:23</publishTime>
     </File>
     <File Include="Views/ApplyNow/GuarantorDet.cshtml">
       <publishTime>07/15/2020 15:39:54</publishTime>
     </File>
     <File Include="Views/ApplyNow/Index.cshtml">
-      <publishTime>07/15/2020 15:39:54</publishTime>
+      <publishTime>08/04/2020 16:56:23</publishTime>
     </File>
     <File Include="Views/ApplyNow/PrintSummary.cshtml">
       <publishTime>01/30/2020 13:11:58</publishTime>
@@ -8170,7 +8170,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/30/2020 13:11:58</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/28/2020 16:09:22</publishTime>
+      <publishTime>08/04/2020 17:12:52</publishTime>
     </File>
   </ItemGroup>
 </Project>
