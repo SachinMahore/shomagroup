@@ -28,6 +28,18 @@ namespace ShomaRM.Areas.Tenant.Controllers
             }
         }
 
+        public JsonResult CheckPetWeight(long TenantId,int PetWeight)
+        {
+            try
+            {
+                return Json(new PetModel().CheckPetWeight(TenantId, PetWeight), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(new { model = Ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult GetPetList(long TenantID)
         {
             try
