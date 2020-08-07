@@ -13,6 +13,32 @@ var bankstatementFileArray = [];
 
 //Sachin Mahore 21 Apr 2020
 $(document).ready(function () {
+    $('#txtApplicantSSNNumber').bind("cut copy paste contextmenu", function (e) {
+        e.preventDefault();
+    }).keypress(function (event) {
+        return isPureNumber(event);
+    }).focusin(function () {
+        getEncDecValueGuarantor(this, 1);
+    }).focusout(function () {
+        var ssn = $(this).val();
+        if (ssn.length < 9) {
+            alert("SSN must be 9 digit");
+            $(this).focusin();
+            $("#chkCCPay").prop("disabled", true);
+            $("#chkCCPay").iCheck("uncheck").prop("disabled", true);
+            $('#divCreditCheckPayment').addClass('hidden');
+            return;
+        } else {
+            if ($("#hndCreditPaid").val() != "1") {
+                $("#divchkCCPay").removeClass("hidden");
+            }
+            $("#chkCCPay").prop("disabled", false);
+        }
+        if (ssn.length == 9) {
+            getEncDecValueGuarantor(this, 2);
+            $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+        }
+    });
     $("#hndForPaystub").val("0");
     $("#hndForFedral").val("0");
     $("#hndForBankStatement").val("0");
@@ -32,17 +58,17 @@ $(document).ready(function () {
         }
     });
 
-    $("#txtApplicantSSNNumber").focusout(function () {
-        var ssnLength = $("#txtApplicantSSNNumber").val().length;
-        // console.log(ssnLength);
-        if (ssnLength < 8) {
-            // $("#divchkCCPay").add("hidden");
-            $("#chkCCPay").prop("disabled", true);
-        }
-        else if (ssnLength > 8) {
-            $("#chkCCPay").prop("disabled", false);
-        }
-    });
+    //$("#txtApplicantSSNNumber").focusout(function () {
+    //    var ssnLength = $("#txtApplicantSSNNumber").val().length;
+    //    // console.log(ssnLength);
+    //    if (ssnLength < 8) {
+    //        // $("#divchkCCPay").add("hidden");
+    //        $("#chkCCPay").prop("disabled", true);
+    //    }
+    //    else if (ssnLength > 8) {
+    //        $("#chkCCPay").prop("disabled", false);
+    //    }
+    //});
     //sachin m 15 may
     $("#chkCCPay").on('ifChanged', function (event) {
         var modal = $("#popApplicant");
@@ -1085,7 +1111,7 @@ $(document).ready(function () {
         var checked = $(this).is(":checked");
         if (checked == true) {
             $("#txtApplicantSSNNumber").val("000000000");
-            getEncDecValue("#txtApplicantSSNNumber", 2);
+            getEncDecValueGuarantor("#txtApplicantSSNNumber", 2);
             $("#txtApplicantSSNNumber").val("***-**-0000");
             $("#chkCCPay").prop("disabled", false);
             $("#txtApplicantSSNNumber").prop("disabled", true);
@@ -4420,9 +4446,7 @@ var saveupdateGuarantor = function (callFrom) {
     var type = $("#ddlApplicantType").text();
     var aotherGender = $("#txtApplicantOtherGender").val();
     var applicantSSNNumber = $("#txtApplicantSSNNumber").attr("data-value");
-    //var applicantIDNumber = $("#txtApplicantIDNumber").attr("data-value");
-    //var applicantIDType = $("#ddlApplicantDocumentTypePersonal").val();
-    //var applicantStateDoc = $("#ddlApplicantStateDoc").val();
+    
     var applicantIDNumber = "";
     var applicantIDType = 0;
     var applicantStateDoc = 0;
@@ -4438,21 +4462,18 @@ var saveupdateGuarantor = function (callFrom) {
     if (type == "Co-Applicant") {
         checkEmail = 1;
         var dob = $("#txtADateOfBirth").val();
-        if (!applicantSSNNumber) {
-            msg += "Enter SSN Number</br>";
+        var ssnCheck = $("#txtApplicantSSNNumber").val().replace(/-|\s/g, "");
+        if (ssnCheck) {
+            if (ssnCheck.length < 9) {
+                msg += "SSN# must be 9 digit</br>";
+            }
+        } else if (!applicantSSNNumber) {
+            msg += "Please Fill Valid SSN</br>";
         }
-        //if (!applicantIDNumber) {
-        //    msg += "Enter ID Number</br>";
-        //}
-        //if (applicantIDType <= 0) {
-        //    msg += "Select ID Type</br>";
-        //}
-        //if (applicantStateDoc <= 0) {
-        //    msg += "Select State of issuence</br>";
-        //}
+       
         if (!addressLine1) {
             msg += "Enter Address Line 1</br>";
-        } if (!applicantState) {
+        } if (applicantState <= 0) {
             msg += "Enter State </br>";
         } if (applicantCountry <= 0) {
             msg += "Select Country</br>";
@@ -4466,8 +4487,13 @@ var saveupdateGuarantor = function (callFrom) {
     }
     else if (type == "Guarantor") {
         dob = $("#txtGDateOfBirth").val();
-        if (!applicantSSNNumber) {
-            msg += "Enter SSN Number</br>";
+        var ssnCheck = $("#txtApplicantSSNNumber").val().replace(/-|\s/g, "");
+        if (ssnCheck) {
+            if (ssnCheck.length < 9) {
+                msg += "SSN# must be 9 digit</br>";
+            }
+        } else if (!applicantSSNNumber) {
+            msg += "Please Fill Valid SSN</br>";
         }
         //if (!applicantIDNumber) {
         //    msg += "Enter ID Number</br>";
@@ -4542,8 +4568,13 @@ var saveupdateGuarantor = function (callFrom) {
             $('#txtOtherGender').val('');
         }
 
-        if (!applicantSSNNumber) {
-            msg += "Enter SSN Number</br>";
+        var ssnCheck = $("#txtApplicantSSNNumber").val().replace(/-|\s/g, "");
+        if (ssnCheck) {
+            if (ssnCheck.length < 9) {
+                msg += "SSN# must be 9 digit</br>";
+            }
+        } else if (!applicantSSNNumber) {
+            msg += "Please Fill Valid SSN</br>";
         }
         //if (!applicantIDNumber) {
         //    msg += "Enter ID Number</br>";
@@ -8072,7 +8103,7 @@ var onFocusApplyNow = function () {
     });
 
     $("#txtSSNNumberReg").focusin(function () {
-        getEncDecValue(this, 1);
+        getEncDecValueGuarantor(this, 1);
     }).focusout(function () {
         var ssn = $(this).val();
         if (ssn.length < 9) {
@@ -8080,13 +8111,13 @@ var onFocusApplyNow = function () {
             return;
         }
         if (ssn.length > 4) {
-            getEncDecValue(this, 2);
+            getEncDecValueGuarantor(this, 2);
             $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
         }
     });
 
     $("#txtIDNumberReg").focusin(function () {
-        getEncDecValue(this, 1);
+        getEncDecValueGuarantor(this, 1);
     }).focusout(function () {
         var idnumber = $(this).val();
         if (idnumber.length < 5) {
@@ -8094,7 +8125,7 @@ var onFocusApplyNow = function () {
             return;
         }
         if (idnumber.length > 4) {
-            getEncDecValue(this, 2);
+            getEncDecValueGuarantor(this, 2);
             $(this).val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
         }
     });
@@ -8159,34 +8190,34 @@ var onFocusApplyNow = function () {
         .focus(function () {
             $("#txtManagementCompanyPhone2").val(unformatText($("#txtManagementCompanyPhone2").val()));
         });
-    $("#txtApplicantSSNNumber").focusin(function () {
-        getEncDecValue(this, 1);
-    }).focusout(function () {
-        var ssn = $(this).val();
-        if (ssn.length < 9) {
-            alert("SSN must be 9 digit");
-            //$("#divchkCCPay").addClass("hidden");
-            return;
-        } else {
-            if ($("#hndCreditPaid").val() != "1") {
-                $("#divchkCCPay").removeClass("hidden");
-            }
-            var modal = $("#popApplicant");
-            //modal.find('.modal-content').css("height", "560px");
-        }
-        if (ssn.length > 4) {
-            getEncDecValue(this, 2);
-            $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
-        }
-        if (ssn.length < 9) {
-            $("#chkCCPay").prop("disabled", true);
-        } else if (ssn.length == 9) {
-            $("#chkCCPay").prop("disabled", false);
-        }
-    });
+    //$("#txtApplicantSSNNumber").focusin(function () {
+    //    getEncDecValueGuarantor(this, 1);
+    //}).focusout(function () {
+    //    var ssn = $(this).val();
+    //    if (ssn.length < 9) {
+    //        alert("SSN must be 9 digit");
+    //        //$("#divchkCCPay").addClass("hidden");
+    //        return;
+    //    } else {
+    //        if ($("#hndCreditPaid").val() != "1") {
+    //            $("#divchkCCPay").removeClass("hidden");
+    //        }
+    //        var modal = $("#popApplicant");
+    //        //modal.find('.modal-content').css("height", "560px");
+    //    }
+    //    if (ssn.length > 4) {
+    //        getEncDecValueGuarantor(this, 2);
+    //        $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+    //    }
+    //    if (ssn.length < 9) {
+    //        $("#chkCCPay").prop("disabled", true);
+    //    } else if (ssn.length == 9) {
+    //        $("#chkCCPay").prop("disabled", false);
+    //    }
+    //});
 
     $("#txtApplicantIDNumber").focusin(function () {
-        getEncDecValue(this, 1);
+        getEncDecValueGuarantor(this, 1);
     }).focusout(function () {
         var idnumber = $(this).val();
         if (idnumber.length < 5) {
@@ -8194,7 +8225,7 @@ var onFocusApplyNow = function () {
             return;
         }
         if (idnumber.length > 4) {
-            getEncDecValue(this, 2);
+            getEncDecValueGuarantor(this, 2);
             $(this).val(("*".repeat(idnumber.length - 4) + idnumber.substr(idnumber.length - 4, 4)));
         }
     });
@@ -9093,7 +9124,7 @@ var printSummary = function () {
         }
     });
 }
-var getEncDecValue = function (txtBox, encdec) {
+var getEncDecValueGuarantor = function (txtBox, encdec) {
     var encdecval = "";
     if (encdec == 1) {
         encdecval = $(txtBox).attr("data-value");
@@ -9116,6 +9147,7 @@ var getEncDecValue = function (txtBox, encdec) {
             success: function (response) {
                 if (encdec == 1) {
                     $(txtBox).val(response.result);
+                    $(txtBox).attr("data-value", "");
                 } else {
                     $(txtBox).attr("data-value", response.result);
                 }
@@ -9309,6 +9341,7 @@ function saveCoAppPayment() {
         }
     }
     if (type == 'Guarantor') {
+        var ssnCheck = $("#txtApplicantSSNNumber").val().replace(/-|\s/g, "");
         $('#txtDateOfBirth').val(dob);
         $('#ddlGender').val(agender);
         if (agender == '3') {
@@ -9317,9 +9350,16 @@ function saveCoAppPayment() {
         else {
             $('#txtOtherGender').val('');
         }
+        if (ssnCheck) {
+            if (ssnCheck.length < 9) {
+                msg += "SSN# must be 9 digit</br>";
+            }
+        } else if (!applicantSSNNumber) {
+            msg += "Please Fill Valid SSN</br>";
+        }
         if (!addressLine1) {
             msg += "Enter Address Line 1</br>";
-        } if (!applicantState) {
+        } if (applicantState <=0) {
             msg += "Enter State </br>";
         } if (applicantCountry <= 0) {
             msg += "Select Country</br>";

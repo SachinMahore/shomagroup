@@ -239,7 +239,7 @@ namespace ShomaRM.Models
 
                             string strxml = _corelogichelper.PostCoreLogicData(LeaseTermsModel, applicant, "CRD", "", true);
                             
-                            LoggerEngine.LoggingHelper.LogMessage("\r\n===================\r\nData Before Send To CoreLogic(CRD)===================\r\n\r\n", System.Diagnostics.TraceLevel.Info);
+                            LoggerEngine.LoggingHelper.LogMessage("\r\n===================\r\nData Before Send To CoreLogic(CRD)===================\r\n", System.Diagnostics.TraceLevel.Info);
                             LoggerEngine.LoggingHelper.LogMessage(strxml, System.Diagnostics.TraceLevel.Info);
 
                             var keyValues = new List<KeyValuePair<string, string>>();

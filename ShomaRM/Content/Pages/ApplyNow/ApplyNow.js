@@ -10,6 +10,32 @@ var paystubFileArray = [];
 var fedralFileArray = [];
 var bankstatementFileArray = [];
 $(document).ready(function () {
+    $('#txtApplicantSSNNumber').bind("cut copy paste contextmenu", function (e) {
+        e.preventDefault();
+    }).keypress(function (event) {
+        return isPureNumber(event);
+    }).focusin(function () {
+        getEncDecValue(this, 1);
+    }).focusout(function () {
+        var ssn = $(this).val();
+        if (ssn.length < 9) {
+            alert("SSN must be 9 digit");
+            $(this).focusin();
+            $("#chkCCPay").prop("disabled", true);
+            $("#chkCCPay").iCheck("uncheck").prop("disabled", true);
+            $('#divCreditCheckPayment').addClass('hidden');
+            return;
+        } else {
+            if ($("#hndCreditPaid").val() != "1") {
+                $("#divchkCCPay").removeClass("hidden");  
+            }
+            $("#chkCCPay").prop("disabled", false);
+        }
+        if (ssn.length == 9) {
+            getEncDecValue(this, 2);
+            $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+        }
+    });
     $("#hndForPaystub").val("0");
     $("#hndForFedral").val("0");
     $("#hndForBankStatement").val("0");
@@ -1486,17 +1512,17 @@ $(document).ready(function () {
         }
     });
 
-    $("#txtApplicantSSNNumber").focusout(function () {
-        var ssnLength = $("#txtApplicantSSNNumber").val().length;
-       // console.log(ssnLength);
-        if (ssnLength < 8) {
-           // $("#divchkCCPay").add("hidden");
-            $("#chkCCPay").prop("disabled", true);
-        }
-        else if (ssnLength > 8) {
-            $("#chkCCPay").prop("disabled", false);
-        }
-    });
+    //$("#txtApplicantSSNNumber").focusout(function () {
+    //    var ssnLength = $("#txtApplicantSSNNumber").val().length;
+    //   // console.log(ssnLength);
+    //    if (ssnLength < 8) {
+    //       // $("#divchkCCPay").add("hidden");
+    //        $("#chkCCPay").prop("disabled", true);
+    //    }
+    //    else if (ssnLength > 8) {
+    //        $("#chkCCPay").prop("disabled", false);
+    //    }
+    //});
     ddlAvailableFloorPlanLeaseTermOnChange();
 });
 
@@ -5866,14 +5892,13 @@ var saveupdatePrimaryApplicant = function (callFrom) {
     var applicantCity = $("#txtApplicantCity").val();
     var applicantApplicantZip2 = $("#txtApplicantZip2").val();
     var nossn = " ";
-   
+
     if ($("#chkNoSSN").is(":checked")) {
         nossn = 1;
     }
     else {
         nossn = 0;
     }
-    console.log(nossn + " " + $("#chkNoSSN").is(":checked"));
     if (type == "Co-Applicant") {
         checkEmail = 1;
         var dob = $("#txtADateOfBirth").val();
@@ -5925,10 +5950,12 @@ var saveupdatePrimaryApplicant = function (callFrom) {
         if (!aotherGender) {
             msg += "Please Fill The Other Gender </br>";
         }
-    } 
+    }
     if (type == 'Primary Applicant') {
         $('#txtDateOfBirth').val(dob);
         $('#ddlGender').val(agender);
+
+        var ssnCheck = $("#txtApplicantSSNNumber").val().replace(/-|\s/g, "");
         if (agender == '3') {
             $('#txtOtherGender').val(aotherGender);
         }
@@ -5936,16 +5963,22 @@ var saveupdatePrimaryApplicant = function (callFrom) {
             $('#txtOtherGender').val('');
         }
         if (agender == "2") {
-        if (!mname) {
-            msg += "Please Fill The Middle Name </br>";
+            if (!mname) {
+                msg += "Please Fill The Middle Name </br>";
+            }
         }
-    }
+        if (ssnCheck) {
+            if (ssnCheck.length < 9) {
+                msg += "SSN# must be 9 digit</br>";
+            }
+        } else if (!applicantSSNNumber) {
+            msg += "Please Fill Valid SSN</br>";
+        }
         if (!addressLine1) {
             msg += "Enter Address Line 1</br>";
-        } if (!applicantState) {
+        } if (applicantState <= 0) {
             msg += "Enter State </br>";
         } if (applicantCountry <= 0) {
-            0
             msg += "Select Country</br>";
         } if (applicantCity <= 0) {
             msg += "Enter the City</br>";
@@ -6713,7 +6746,6 @@ var goToEditApplicant = function (aid) {
 
                 var ssnLength = $("#txtApplicantSSNNumber").val().length;
                 if (ssnLength <= 8) {
-                    //$("#divchkCCPay").addClass("hidden");
                     $("#chkCCPay").prop("disabled", true);
                 }
                 else if (ssnLength > 8) {
@@ -9975,34 +10007,34 @@ var onFocusApplyNow = function () {
         }
     });
 
-    $("#txtApplicantSSNNumber").focusin(function () {
-        getEncDecValue(this, 1);
-    }).focusout(function () {
-        var ssn = $(this).val();
-        if (ssn.length < 9) {
-            alert("SSN must be 9 digit");
-            // $("#divchkCCPay").addClass("hidden");
-            $("#chkCCPay").iCheck("uncheck").prop("disabled", true);
-            $('#divCreditCheckPayment').addClass('hidden');
-            return;
-        } else {
-            if ($("#hndCreditPaid").val() != "1") {
-                $("#divchkCCPay").removeClass("hidden");  
-            }
-            var modal = $("#popApplicant");
-            //modal.find('.modal-content').css("height", "560px");
-        }
-        if (ssn.length > 4) {
-            getEncDecValue(this, 2);
-            $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
-        }
+    //$("#txtApplicantSSNNumber").focusin(function () {
+    //    getEncDecValue(this, 1);
+    //}).focusout(function () {
+    //    var ssn = $(this).val();
+    //    if (ssn.length < 9) {
+    //        alert("SSN must be 9 digit");
+    //        // $("#divchkCCPay").addClass("hidden");
+    //        $("#chkCCPay").iCheck("uncheck").prop("disabled", true);
+    //        $('#divCreditCheckPayment').addClass('hidden');
+    //        return;
+    //    } else {
+    //        if ($("#hndCreditPaid").val() != "1") {
+    //            $("#divchkCCPay").removeClass("hidden");  
+    //        }
+    //        var modal = $("#popApplicant");
+    //        //modal.find('.modal-content').css("height", "560px");
+    //    }
+    //    if (ssn.length > 4) {
+    //        getEncDecValue(this, 2);
+    //        $(this).val("***-**-" + ssn.substr(ssn.length - 4, 4));
+    //    }
 
-        if (ssn.length < 9) {
-            $("#chkCCPay").prop("disabled", true);
-        } else if (ssn.length > 8) {
-            $("#chkCCPay").prop("disabled", false);
-        }
-    });
+    //    if (ssn.length < 9) {
+    //        $("#chkCCPay").prop("disabled", true);
+    //    } else if (ssn.length > 8) {
+    //        $("#chkCCPay").prop("disabled", false);
+    //    }
+    //});
 
     $("#txtApplicantIDNumber").focusin(function () {
         getEncDecValue(this, 1);
@@ -11029,6 +11061,7 @@ var getEncDecValue = function (txtBox, encdec) {
             success: function (response) {
                 if (encdec == 1) {
                     $(txtBox).val(response.result);
+                    $(txtBox).attr("data-value", "");
                 } else {
                     $(txtBox).attr("data-value", response.result);
                 }
@@ -11271,17 +11304,16 @@ function savePrimaryApplicantPayment() {
     var applicantCountry = $("#txtApplicantCountry").val();
     var applicantCity = $("#txtApplicantCity").val();
     var applicantApplicantZip2 = $("#txtApplicantZip2").val();
-    var ssnCheck = $("#txtApplicantSSNNumber").val();
+    var ssnCheck = $("#txtApplicantSSNNumber").val().replace(/-|\s/g, "");
 
-    console.log(ssnCheck.length)
     if (ssnCheck) {
         if (ssnCheck.length < 9) {
             msg += "SSN# must be 9 digit</br>";
         }
+    } else if (!applicantSSNNumber) {
+        msg += "Please Fill Valid SSN</br>";
     }
-    else {
-        msg += "Please enter SSN# </br>";
-    }
+
     if (type == "Co-Applicant") {
         checkEmail = 1;
         var dob = $("#txtADateOfBirth").val();
@@ -11349,7 +11381,7 @@ function savePrimaryApplicantPayment() {
         }
         if (!addressLine1) {
             msg += "Enter Address Line 1</br>";
-        } if (!applicantState) {
+        } if (applicantState <= 0) {
             msg += "Enter State </br>";
         } if (applicantCountry <= 0) {
             msg += "Select Country</br>";
