@@ -1353,6 +1353,7 @@ namespace ShomaRM.Controllers
         }
         public ActionResult GetEncDecSSNPassportIDNum(string EncDecVal, int EncDec)
         {
+            CommonModel.ValidateAntiXsrfToken();
             try
             {
                 return Json(new { result = new TenantOnlineModel().GetEncDecSSNPassportIDNum(EncDecVal, EncDec) }, JsonRequestBehavior.AllowGet);

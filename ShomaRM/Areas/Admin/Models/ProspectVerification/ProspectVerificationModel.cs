@@ -391,14 +391,14 @@ namespace ShomaRM.Areas.Admin.Models
             model.ID = ProspectId;
 
 
-            if (GetTenantDet != null)
-            {
-                if ((GetTenantDet.IsApplyNow ?? 0) == 2)
-                {
-                    var test = new AcutraqRequest();
-                    var acuResult = test.PostAqutraqRequest(model);
-                }
-            }
+            //if (GetTenantDet != null)
+            //{
+            //    if ((GetTenantDet.IsApplyNow ?? 0) == 2)
+            //    {
+            //        var test = new AcutraqRequest();
+            //        var acuResult = test.PostAqutraqRequest(model);
+            //    }
+            //}
 
             string msg = "";
             string reportHTML = "";

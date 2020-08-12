@@ -2556,8 +2556,8 @@
                                     <label for="">Select Status</label>
                                     <select id="ddlStatus" class="form-control">
                                         <option value="0" @(Model.Status == "0" ? "selected='selected'" : "")>Select</option>
-                                        <option value="Approved" @(Model.Status == "Approved" ? "selected='selected'" : "")> Approved</option>
-                                        <option value="Denied" @(Model.Status == "Denied" ? "selected='selected'" : "")>Denied</option>
+                                        <option value="Accepted" @(Model.Status == "Accepted" ? "selected='selected'" : "")>Accepted</option>
+                                        <option value="Decline" @(Model.Status == "Decline" ? "selected='selected'" : "")>Decline</option>
                                         <option value="Conditional" @(Model.Status == "Conditional" ? "selected='selected'" : "")>Conditional</option>
 
                                     </select>
@@ -4539,7 +4539,7 @@
             $("#btnleaseDownl").removeAttr("disabled");
         }*@
 
-        if ('@Model.Status' == "Approved")
+        if ('@Model.Status' == "Accepted")
         {
             $("#btnSendRemtr").removeAttr("disabled");
         }

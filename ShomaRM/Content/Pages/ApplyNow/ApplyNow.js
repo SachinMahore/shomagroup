@@ -11053,11 +11053,15 @@ var getEncDecValue = function (txtBox, encdec) {
         };
 
         $.ajax({
+            type: "POST",
             url: '/ApplyNow/GetEncDecSSNPassportIDNum',
-            type: "post",
-            contentType: "application/json utf-8",
             data: JSON.stringify(model),
-            dataType: "JSON",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            dataType: "json",
+            headers: {
+                '__Token': $("input[name='__Token']").val()
+            },
             success: function (response) {
                 if (encdec == 1) {
                     $(txtBox).val(response.result);
@@ -11066,8 +11070,37 @@ var getEncDecValue = function (txtBox, encdec) {
                     $(txtBox).attr("data-value", response.result);
                 }
                 $("#divLoader").hide();
+            },
+            error: function (response) {
+                $("#divLoader").hide();
+                alert("Error");
+                //if (data.status == 401 || data.status == 403)
+                //    window.location.href = "../Common/accessdenied";
+                //else if (data.status == 419) {
+                //    displayUserMessage(commonMessage.RE_SESSIONINFO_NOT_FOUND, true);
+                //    window.location.href = "../Common/logout";
+                //}
+                //else
+                //    displayUserMessage(commonMessage.SERVICE_NOT_RESPONDING, true);
             }
         });
+
+        //$.ajax({
+        //    url: '/ApplyNow/GetEncDecSSNPassportIDNum',
+        //    type: "post",
+        //    contentType: "application/json utf-8",
+        //    data: JSON.stringify(model),
+        //    dataType: "JSON",
+        //    success: function (response) {
+        //        if (encdec == 1) {
+        //            $(txtBox).val(response.result);
+        //            $(txtBox).attr("data-value", "");
+        //        } else {
+        //            $(txtBox).attr("data-value", response.result);
+        //        }
+        //        $("#divLoader").hide();
+        //    }
+        //});
     }
 };
 var ddlDocumentTypePersonal = function (id) {

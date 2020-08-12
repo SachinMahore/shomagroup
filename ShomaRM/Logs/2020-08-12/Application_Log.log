@@ -1,0 +1,1562 @@
+
+Date - 12 Aug 2020 15:23:49
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 12 Aug 2020 15:23:49
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 12 Aug 2020 15:31:07
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 12 Aug 2020 15:31:07
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 12 Aug 2020 15:32:02
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 12 Aug 2020 15:32:02
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 12 Aug 2020 15:34:12
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 12 Aug 2020 15:34:12
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 12 Aug 2020 15:34:27
+Level - INFO
+UserAgent - 
+Message - 
+Method SaveNewPayment -
+===================
+Data Before Send To CoreLogic(CRD)===================
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\ApplyNow\ApplyNowModel.cs
+
+Method Name: SaveNewPayment
+
+Line Number: 860
+
+Logger: ApplyNowModel.cs
+
+
+
+Date - 12 Aug 2020 15:34:27
+Level - INFO
+UserAgent - 
+Message - 
+Method SaveNewPayment -<?xml version="1.0" encoding="utf-8"?>
+                                <ApplicantScreening xmlns:MITS="http://my-company.com/namespace" >
+                                <Request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                <PropertyID>
+                                <MITS:Identification Type="other">
+                                <MITS:PrimaryID/>
+                                <MITS:MarketingName/>
+                                <MITS:WebSite>https://office.yourwebsite.com</MITS:WebSite>
+                                </MITS:Identification>
+                                </PropertyID>
+                             <RequestType>
+                              New</RequestType>
+                             <ReportOptions>
+                            <ReportName>
+                              CRD</ReportName>                           
+                             </ReportOptions>
+                              
+                          
+                             <OriginatorID>501214</OriginatorID>
+                             <UserAccount>1M898</UserAccount>
+                             <UserName>APIShomatest</UserName>
+                             <UserPassword>Shomatest1!</UserPassword>
+                             </Request><LeaseTerms>
+                             <MonthlyRent>1946.50</MonthlyRent>
+                             <LeaseMonths>12</LeaseMonths>
+		                      <SecurityDeposit>500.00</SecurityDeposit>
+                               </LeaseTerms><Applicant>
+                                <Other>
+                                      <CurrentRent>1946.50</CurrentRent>
+                                      <ConsentObtained>YES</ConsentObtained>
+                                </Other>
+                                <Income>
+                                       <EmploymentGrossIncome>1</EmploymentGrossIncome>
+                                </Income>
+                                <AS_Information>
+                                       <ApplicantIdentifier>849</ApplicantIdentifier>
+                                       <ApplicantType>Applicant</ApplicantType>
+			                           <Birthdate>1961-08-10</Birthdate>								 
+			                           <SocSecNumber>888360807</SocSecNumber>
+                                </AS_Information>
+                                <Customers>
+                               <MITS:Customer Type="applicant">
+                               <MITS:CustomerID>849 </MITS:CustomerID>     
+                                <MITS:Name>      
+                                         <MITS:FirstName>ROBERT</MITS:FirstName>           
+                                         <MITS:MiddleName></MITS:MiddleName>              
+                                         <MITS:LastName> AARON</MITS:LastName>                   
+                                </MITS:Name>                    
+                                  <MITS:Address Type="current">                     
+                                         <MITS:Address1>10835 ILEX AVE</MITS:Address1>                         
+                                         <MITS:City>PACOIMA</MITS:City>                              
+                                         <MITS:State>CA</MITS:State>                                   
+                                         <MITS:PostalCode>91331</MITS:PostalCode>                                        
+                                         <MITS:UnparsedAddress>10835 ILEX AVE</MITS:UnparsedAddress>                                            
+                                    </MITS:Address>                                             
+                                  </MITS:Customer>                                             
+                                  </Customers>                                             
+                                </Applicant></ApplicantScreening>
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\ApplyNow\ApplyNowModel.cs
+
+Method Name: SaveNewPayment
+
+Line Number: 861
+
+Logger: ApplyNowModel.cs
+
+
+
+Date - 12 Aug 2020 15:35:28
+Level - INFO
+UserAgent - 
+Message - 
+Method PostFormUrlEncoded -
+===================
+Data After Send To CoreLogic(CRD)===================
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\Corelogic\CoreLogicHelper.cs
+
+Method Name: PostFormUrlEncoded
+
+Line Number: 168
+
+Logger: CoreLogicHelper.cs
+
+
+
+Date - 12 Aug 2020 15:35:28
+Level - INFO
+UserAgent - 
+Message - 
+Method PostFormUrlEncoded -<ApplicantScreening xmlns:MITS="http://my-company.com/namespace">
+  <Request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <PropertyID>
+      <MITS:Identification Type="other">
+        <MITS:PrimaryID />
+        <MITS:MarketingName />
+        <MITS:WebSite>https://office.yourwebsite.com</MITS:WebSite>
+      </MITS:Identification>
+    </PropertyID>
+    <RequestType>
+                              New</RequestType>
+    <ReportOptions>
+      <ReportName>
+                              CRD</ReportName>
+    </ReportOptions>
+    <OriginatorID>501214</OriginatorID>
+    <UserAccount>1M898</UserAccount>
+    <UserName>APIShomatest</UserName>
+    <UserPassword>Shomatest1!</UserPassword>
+  </Request>
+  <LeaseTerms>
+    <MonthlyRent>1946.50</MonthlyRent>
+    <LeaseMonths>12</LeaseMonths>
+    <SecurityDeposit>500.00</SecurityDeposit>
+  </LeaseTerms>
+  <Applicant>
+    <Other>
+      <CurrentRent>1946.50</CurrentRent>
+      <ConsentObtained>YES</ConsentObtained>
+    </Other>
+    <Income>
+      <EmploymentGrossIncome>1</EmploymentGrossIncome>
+    </Income>
+    <AS_Information>
+      <ApplicantIdentifier>849</ApplicantIdentifier>
+      <ApplicantType>Applicant</ApplicantType>
+      <Birthdate>1961-08-10</Birthdate>
+      <SocSecNumber>888360807</SocSecNumber>
+    </AS_Information>
+    <Customers>
+      <MITS:Customer Type="applicant">
+        <MITS:CustomerID>849 </MITS:CustomerID>
+        <MITS:Name>
+          <MITS:FirstName>ROBERT</MITS:FirstName>
+          <MITS:MiddleName />
+          <MITS:LastName> AARON</MITS:LastName>
+        </MITS:Name>
+        <MITS:Address Type="current">
+          <MITS:Address1>10835 ILEX AVE</MITS:Address1>
+          <MITS:City>PACOIMA</MITS:City>
+          <MITS:State>CA</MITS:State>
+          <MITS:PostalCode>91331</MITS:PostalCode>
+          <MITS:UnparsedAddress>10835 ILEX AVE</MITS:UnparsedAddress>
+        </MITS:Address>
+      </MITS:Customer>
+    </Customers>
+  </Applicant>
+  <Response>
+    <TransactionNumber>58667292</TransactionNumber>
+    <ReportDate>2020-08-12</ReportDate>
+    <ApplicantDecision>Accept with Conditions</ApplicantDecision>
+    <ApplicationDecision>Conditional</ApplicationDecision>
+    <ApplicantScore>340</ApplicantScore>
+    <BackgroundReport><![CDATA[
+									<html>
+										<head>
+											
+		
+		
+		
+
+		
+		
+
+    <script type="text/javascript" src="jquery/jquery-1.7.1.min.js" />
+    <script type="text/javascript" src="jquery/ui_controls/ui/jquery-ui-1.8.17.custom.js" />
+
+    <link type="text/css" href="jquery/ui_controls/themes/corelogic/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+    <script type="text/javascript" src="jquery/plugins/jquery.combobox.js" />
+    <script type="text/javascript" src="jquery/plugins/jquery.blockUI.js" />
+    <script type="text/javascript" src="jquery/plugins/jquery.jqPrint.js" />
+    <script type="text/javascript" src="jquery/plugins/jquery.tooltip.js" />
+	<script type="text/javascript" src="js/common.js?v=2" />
+    
+    <style>
+      .b_class {
+        background: #e23d28 url(jquery/ui_controls/themes/corelogic/images/button.png) repeat-x 50% 50% !important;
+        border:1px solid #e6e6e6 !important;
+      }
+      .b_class_hover {
+        background: #e23d28 url(jquery/ui_controls/themes/corelogic/images/button_hover.png) repeat-x 50% 50% !important;
+        border:1px solid #e6e6e6 !important;
+      }
+      .b_removeExtraSpaceForIE {
+        width:0
+      }
+    </style>
+      
+    <script language="javascript">
+      function IECompatibility() {
+        var agentStr = navigator.userAgent;
+        this.IsIE = false;
+        this.IsOn = undefined;  //defined only if IE
+        this.Version = undefined;
+
+        if (agentStr.indexOf("MSIE 7.0") &gt; -1) {
+          this.IsIE = true;
+          this.IsOn = true;
+          if (agentStr.indexOf("Trident/6.0") &gt; -1) {
+            this.Version = 'IE10';
+          } else if (agentStr.indexOf("Trident/5.0") &gt; -1) {
+            this.Version = 'IE9';
+          } else if (agentStr.indexOf("Trident/4.0") &gt; -1) {
+            this.Version = 'IE8';
+          } else {
+            this.IsOn = false; // compatability mimics 7, thus not on
+            this.Version = 'IE7';
+          }
+        } //IE 7
+      }
+      
+      $(document).ready(function() {
+
+        $("button").button();
+        $("button").addClass("b_class");
+        $("button").hover(
+          function () {
+            $(this).removeClass("b_class").addClass("b_class_hover");
+          }, 
+          function () {
+            $(this).removeClass("b_class_hover").addClass("b_class");
+          }
+        );
+          
+        $("#b_print, #b_printresults, #b_printall, #b_printreports, #b_printletters, #b_printpage").button({ icons: { primary: "ui-icon-print" } });
+        $("#b_close").button({ icons: { primary: "ui-icon-close" } });
+        $("#b_save").button({ icons: { primary: "ui-icon-disk" } });
+        $("#b_delete, #b_deleteuser, [id^=delete_]").button({ icons: { primary: "ui-icon-trash" } });
+        $("#b_restore").button({ icons: { primary: "ui-icon-arrowreturnthick-1-w" } });
+        $("#b_associatedusers").button({ icons: { primary: "ui-icon-link" } });
+        $("#b_back").button({ icons: { primary: "ui-icon-arrowthick-1-w" } });
+        $("#b_search").button({ icons: { primary: "ui-icon-search" } });
+        $("#b_continue, #b_goscreeningappliaction").button({ icons: { primary: "ui-icon-arrowthick-1-e" } });
+        $("#b_createnewuser, #b_addapplicant, #b_addguestcard").button({ icons: { primary: "ui-icon-plus" } });
+            
+        $("#includeAll, [id^=includeAll_]").button({ icons: { primary: "ui-icon-seek-next" }, text: false });
+        $("#include, [id^=include_]").button({ icons: { primary: "ui-icon-triangle-1-e" }, text: false });
+				$("#exclude, [id^=exclude_]").button({ icons: { primary: "ui-icon-triangle-1-w" }, text: false });
+				$("#excludeAll, [id^=excludeAll_]").button({ icons: { primary: "ui-icon-seek-prev" }, text: false });
+        
+        if($.browser.msie &amp;&amp; jQuery.browser.version &lt; 10 ) {
+          $("button").addClass("b_removeExtraSpaceForIE");
+        }
+      });
+      </script>
+    
+		
+
+		<link href="css/CoreLogic.css?v=2" rel="stylesheet" type="text/css" />
+
+		
+		
+		<script type="text/javascript">
+			var sessionId = 'ca1b4efd-6883-45be-a1b8-3a15ac9331c3';
+		</script>
+	
+											<link rel="stylesheet" href="css/fadv_application.css"/>
+											<base href="https://vendors.residentscreening.net/b2b/" />
+										</head>
+										<body topmargin="0"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>CoreLogic Rental Property Solutions</title>
+    <link href="css/corelogic.css" rel="stylesheet" type="text/css">
+    <style>
+          .subtextlogo {
+          font-size: 24px;
+          color: #6e6259;
+          margin-top: 12px;
+          }
+
+          .subtextlogo > sup {
+          font-size: 12px;
+          }
+
+          .userDataBar {
+          background-color: #003346;
+          padding: 10px 0;
+          color: #fff;
+          }
+
+          .customTableStyle > thead > tr > th, .customTableStyleWithoutField > thead > tr > th {
+          border-bottom: 2px solid #333;
+          color: #000;
+          border-left: 0px solid #FFFFFF;
+          text-align: left;
+          font-size: 12px;
+          font-weight: normal;
+          text-transform: uppercase;
+          }
+
+          .customTableStyle > tbody > tr > td, .customTableStyleWithoutField > tbody > tr > td {
+          border-left: 0px solid #FFFFFF;
+          /* text-align: left;*/
+          font-size: 12px;
+          vertical-align: middle;
+          padding: 10px 8px;
+          }
+          h1{font-size: 26px; margin: 23px 0 18px; font-weight: 400}
+          h2, .accordianHeading{font-size: 16px}
+          .semibold{font-weight: 600 !important;}
+          .text-nowrap {
+          white-space: nowrap
+          }
+          .body_b {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-style: normal;
+          line-height: 18px;
+          font-weight: normal;
+          font-variant: normal;
+          text-transform: none;
+          color: #666666;
+          }
+          .body_bold {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          line-height: 18px;
+          font-weight: bold;
+          color: #666666;
+
+          }
+          .tabledata {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 8.5pt;
+          font-weight: normal;
+          color: #323532;
+          text-decoration: none;
+          background-color: #ffffff;
+
+          }
+          .tabledata a:link {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-weight: normal;
+          color: #F8862D;
+          text-decoration: none;
+          line-height: 16px;
+
+          }
+          .tabledata a:active {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-weight: normal;
+          color: #336699;
+          text-decoration: underline;
+          line-height: 16px;
+
+          }
+          .tabledata a:visited {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-weight: normal;
+          color: #F8862D;
+          text-decoration: none;
+          line-height: 16px;
+
+          }
+          .tabledata a:hover {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-weight: normal;
+          color: #336699;
+          text-decoration: underline;
+          line-height: 16px;
+
+          }
+          .tableHeading {
+
+
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 12px;
+          font-weight: bold;
+          color: #ffffff;
+          text-decoration: none;
+
+          }
+
+
+          .tr {
+          border: #669acc 1px double;
+          }
+          .tr_left_nav {
+          border: #669acc  1px double;
+          }
+          .tr_all {
+          border: #669acc 1px double;
+          }
+          .td_b_dar {
+          border-bottom: #669acc 1px double;
+          }
+
+
+          .td_l {
+          border-left: #dbdafb 1px double;
+          }
+          .td_t {
+          border-top: #dbdafb 1px double;
+          }
+          .td_r {
+          border-right: #dbdafb 1px double;
+          }
+          .td_b {
+          border-bottom: #dbdafb 1px double;
+          }
+
+          .padded {
+          padding: 2px;
+          }
+          .padded2 {
+          padding: 4px;
+          }
+          .error {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-weight: bold;
+          color: #C4262E;
+          text-decoration: none;
+          }
+
+          .error_b {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          font-weight: bold;
+          color: #C4262E;
+          text-decoration: none;
+          }
+
+          .subheadOrange2 {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 13px;
+          font-style: normal;
+          line-height: 18px;
+          font-weight: bold;
+          font-variant: normal;
+          text-transform: uppercase;
+          color: #f8862d;
+          }
+          .footer {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 9px;
+          font-weight: normal;
+          color: #666666;
+          text-decoration: none;
+          }
+        </style><script>
+          if(window.addEventListener)
+          window.addEventListener("load", init);
+          else
+          window.attachEvent("onload", init);
+
+          window.onload = init;
+
+          function init() {
+          setTimeout("submitRequest()", 5000);
+          }
+
+          function submitRequest() {
+          document.frmMain["anid"].value = 'leasedecision.main';
+          document.frmMain["reports"].value = '58667292';
+
+          document.frmMain.submit();
+          }
+        </script></head>
+  <body topmargin="25" bgcolor="#d0d0d0" marginheight="25">
+    <table width="780" align="center" bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0">
+      <form name="frmMain" method="POST" action="https://vendors.residentscreening.net/b2b/default.aspx?WEBACCESSSESSIONID=ca1b4efd-6883-45be-a1b8-3a15ac9331c3">
+        <tr>
+          <td style="border-left: 1px solid black;width: 100%;" colspan="4" valign="top">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tr height="37">
+                <td colspan="3" class="row userDataBar" style="border-left: 1px solid black; width:100%;"></td>
+              </tr>
+            </table>
+          </td>
+          <td valign="top" width="20"></td>
+        </tr>
+        <tr valign="top" height="151">
+          <td style="border-left: 1px solid black" width="200" height="151">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tr>
+                <td align="center"><img src="images/CL-logo.png" alt="CL Logo" style="margin-top: 40px;"></td>
+              </tr>
+              <td>
+                <div class="subtextlogo" style="margin-left: 25px;">
+                      Rental Property Solutions<sup>®</sup></div>
+              </td>
+            </table>
+          </td>
+          <td width="36" align="left" height="151"></td>
+          <td width="530" align="center" height="151"><br><table width="98%" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td valign="top" align="left">
+                  <h1>Lease Decision</h1>
+                  <table class="table pull-left table-striped mg0px customTableStyle" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <thead style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold; color: #685745; text-decoration: none; background-color: #e8e1d5; line-height: 18px;">
+                      <tr>
+                        <th class="text-nowrap" width="68%" height="35px"><span> SCORE DECISION </span></th>
+                        <th class="text-nowrap" width="32%"><span> CRIMSAFE DECISION </span></th>
+                      </tr>
+                    </thead>
+                  </table>
+                  <table class="table pull-left table-striped mg0px customTableStyle" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr style="font-family: Verdana, Arial, Helvetica, sans-serif;">
+                      <td class="text-nowrap " width="68%">340</td>
+                      <td class="text-nowrap" width="32%"></td>
+                    </tr>
+                  </table>
+                  <table class="table pull-left table-striped mg0px customTableStyle" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr style="font-family: Verdana, Arial, Helvetica, sans-serif;">
+                      <td class="text-nowrap " width="68%">Accept with Conditions</td>
+                      <td class="text-nowrap" width="32%"></td>
+                    </tr>
+                  </table>
+                  <hr>
+                  <h2 class="semibold">APPLICANT(S)</h2>
+                  <table class="table pull-left table-striped mg0px customTableStyle" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <thead style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold; color: #685745; text-decoration: none; background-color: #e8e1d5; line-height: 18px;">
+                      <th width="63%" height="35px">ROBERT  AARON
+                               (***-**-0807)
+                            </th>
+                      <th width="37%"> </th>
+                    </thead>
+                  </table>
+                  <table class="table pull-left table-striped mg0px customTableStyle" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr style="font-family: Verdana, Arial, Helvetica, sans-serif;">
+                      <td valign="top" width="30" align="right"><img src="images/mits/alert_sign_sm.gif"></td>
+                      <td width="105" class="semibold" style="color: #C4262E;">Credit Alert:
+                                </td>
+                      <td style="font-family: Verdana, Arial, Helvetica, sans-serif;" width="376">No credit report at the selected credit bureau matched the information for the applicant.</td>
+                    </tr>
+                  </table><br></td>
+              </tr>
+            </table>
+          </td>
+          <td width="20" height="151"> </td>
+          <td rowspan="4" width="20"> </td>
+        </tr>
+        <tr>
+          <td style="border-left: 1px solid black" valign="top" width="200"> </td>
+          <td valign="top" width="36" align="left" height="80"></td>
+          <td valign="top" width="530" align="center"> </td>
+          <td valign="top" width="20"> </td>
+        </tr>
+        <tr>
+          <td style="border-left: 1px solid black" valign="top" width="200" height="10"> </td>
+          <td valign="top" width="36" align="left" height="10"><img src="images/mits/spacer.gif" width="1" height="1"></td>
+          <td valign="top" width="530" height="10"> </td>
+          <td valign="top" width="20" height="10"> </td>
+        </tr>
+        <tr>
+          <td style="border-left: 1px solid black" valign="top" width="200"> </td>
+          <td valign="top" width="36" align="left" height="80"><img src="images/mits/spacer.gif" width="1" height="1"></td>
+          <td valign="top" width="530" class="body">
+                If you don't automatically get redirected in 15 seconds, click <a href="#" onclick="submitRequest(); return false;">here</a></td>
+          <td valign="top" width="20"></td>
+        </tr>
+        <tr>
+          <td class="footer" valign="middle" colspan="5" style="text-align:center; border-left: 1px solid black">&copy; 2016 CoreLogic, Inc. All rights reserved. 
+              </td>
+        </tr>
+        <tr>
+          <td class="footer" valign="middle" colspan="5" style="text-align:center; border-left: 1px solid black">
+                CORELOGIC and CORELOGIC MARK are registered trademarks of CoreLogic, Inc.
+              </td>
+        </tr>
+        <tr>
+          <td colspan="5" align="left" height="10" style="border-left: 1px solid black"></td>
+        </tr>
+        <tr>
+          <td colspan="5" valign="top" align="left" bgcolor="#d0d0d0" height="15"></td>
+        </tr><input type="hidden" name="anid" value=""><input type="hidden" name="reports" value=""></form>
+    </table>
+  </body>
+</html>
+										</body>
+									</html>
+								]]></BackgroundReport>
+    <Status>READY</Status>
+  </Response>
+</ApplicantScreening>
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\Corelogic\CoreLogicHelper.cs
+
+Method Name: PostFormUrlEncoded
+
+Line Number: 169
+
+Logger: CoreLogicHelper.cs
+
+
+
+Date - 12 Aug 2020 15:35:29
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 12 Aug 2020 15:35:29
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 12 Aug 2020 15:35:30
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 12 Aug 2020 15:39:39
+Level - INFO
+UserAgent - 
+Message - 
+Method saveListPaymentFinalStep -
+===================
+Data Before Send To CoreLogic(CRM)===================
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\ApplyNow\ApplyNowModel.cs
+
+Method Name: saveListPaymentFinalStep
+
+Line Number: 2355
+
+Logger: ApplyNowModel.cs
+
+
+
+Date - 12 Aug 2020 15:39:39
+Level - INFO
+UserAgent - 
+Message - 
+Method saveListPaymentFinalStep -<?xml version="1.0" encoding="utf-8"?>
+                                <ApplicantScreening xmlns:MITS="http://my-company.com/namespace" >
+                                <Request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                <PropertyID>
+                                <MITS:Identification Type="other">
+                                <MITS:PrimaryID/>
+                                <MITS:MarketingName/>
+                                <MITS:WebSite>https://office.yourwebsite.com</MITS:WebSite>
+                                </MITS:Identification>
+                                </PropertyID>
+                             <RequestType>
+                              New</RequestType>
+                             <ReportOptions>
+                            <ReportName>
+                              CRM</ReportName>                           
+                             </ReportOptions>
+                              
+                          
+                             <OriginatorID>501214</OriginatorID>
+                             <UserAccount>1M898</UserAccount>
+                             <UserName>APIShomatest</UserName>
+                             <UserPassword>Shomatest1!</UserPassword>
+                             </Request><LeaseTerms>
+                             <MonthlyRent>1946.50</MonthlyRent>
+                             <LeaseMonths>12</LeaseMonths>
+		                      <SecurityDeposit>500.00</SecurityDeposit>
+                               </LeaseTerms><Applicant>
+                                <Other>
+                                      <CurrentRent>1946.50</CurrentRent>
+                                      <ConsentObtained>YES</ConsentObtained>
+                                </Other>
+                                <Income>
+                                       <EmploymentGrossIncome>50000.00</EmploymentGrossIncome>
+                                </Income>
+                                <AS_Information>
+                                       <ApplicantIdentifier>849</ApplicantIdentifier>
+                                       <ApplicantType>Applicant</ApplicantType>
+			                           <Birthdate>1961-08-10</Birthdate>								 
+			                           <SocSecNumber>888360807</SocSecNumber>
+                                </AS_Information>
+                                <Customers>
+                               <MITS:Customer Type="applicant">
+                               <MITS:CustomerID>849 </MITS:CustomerID>     
+                                <MITS:Name>      
+                                         <MITS:FirstName>ROBERT</MITS:FirstName>           
+                                         <MITS:MiddleName></MITS:MiddleName>              
+                                         <MITS:LastName> AARON</MITS:LastName>                   
+                                </MITS:Name>                    
+                                  <MITS:Address Type="current">                     
+                                         <MITS:Address1>10835 ILEX AVE</MITS:Address1>                         
+                                         <MITS:City>PACOIMA</MITS:City>                              
+                                         <MITS:State>CA</MITS:State>                                   
+                                         <MITS:PostalCode>91331</MITS:PostalCode>                                        
+                                         <MITS:UnparsedAddress>10835 ILEX AVE</MITS:UnparsedAddress>                                            
+                                    </MITS:Address>                                             
+                                  </MITS:Customer>                                             
+                                  </Customers>                                             
+                                </Applicant></ApplicantScreening>
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\ApplyNow\ApplyNowModel.cs
+
+Method Name: saveListPaymentFinalStep
+
+Line Number: 2356
+
+Logger: ApplyNowModel.cs
+
+
+
+Date - 12 Aug 2020 15:39:59
+Level - INFO
+UserAgent - 
+Message - 
+Method PostFormUrlEncoded -
+===================
+Data After Send To CoreLogic(CRM)===================
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\Corelogic\CoreLogicHelper.cs
+
+Method Name: PostFormUrlEncoded
+
+Line Number: 168
+
+Logger: CoreLogicHelper.cs
+
+
+
+Date - 12 Aug 2020 15:39:59
+Level - INFO
+UserAgent - 
+Message - 
+Method PostFormUrlEncoded -<ApplicantScreening xmlns:MITS="http://my-company.com/namespace">
+  <Request xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <PropertyID>
+      <MITS:Identification Type="other">
+        <MITS:PrimaryID />
+        <MITS:MarketingName />
+        <MITS:WebSite>https://office.yourwebsite.com</MITS:WebSite>
+      </MITS:Identification>
+    </PropertyID>
+    <RequestType>
+                              New</RequestType>
+    <ReportOptions>
+      <ReportName>
+                              CRM</ReportName>
+    </ReportOptions>
+    <OriginatorID>501214</OriginatorID>
+    <UserAccount>1M898</UserAccount>
+    <UserName>APIShomatest</UserName>
+    <UserPassword>Shomatest1!</UserPassword>
+  </Request>
+  <LeaseTerms>
+    <MonthlyRent>1946.50</MonthlyRent>
+    <LeaseMonths>12</LeaseMonths>
+    <SecurityDeposit>500.00</SecurityDeposit>
+  </LeaseTerms>
+  <Applicant>
+    <Other>
+      <CurrentRent>1946.50</CurrentRent>
+      <ConsentObtained>YES</ConsentObtained>
+    </Other>
+    <Income>
+      <EmploymentGrossIncome>50000.00</EmploymentGrossIncome>
+    </Income>
+    <CriminalRecord>
+      <Information>
+        <CriminalRecordType>CrimSAFE</CriminalRecordType>
+        <CriminalRecordDescription>ACCEPT</CriminalRecordDescription>
+        <CriminalRecordDate>2020-08-12</CriminalRecordDate>
+      </Information>
+    </CriminalRecord>
+    <AS_Information>
+      <ApplicantIdentifier>849</ApplicantIdentifier>
+      <ApplicantType>Applicant</ApplicantType>
+      <Birthdate>1961-08-10</Birthdate>
+      <SocSecNumber>888360807</SocSecNumber>
+    </AS_Information>
+    <Customers>
+      <MITS:Customer Type="applicant">
+        <MITS:CustomerID>849 </MITS:CustomerID>
+        <MITS:Name>
+          <MITS:FirstName>ROBERT</MITS:FirstName>
+          <MITS:MiddleName />
+          <MITS:LastName> AARON</MITS:LastName>
+        </MITS:Name>
+        <MITS:Address Type="current">
+          <MITS:Address1>10835 ILEX AVE</MITS:Address1>
+          <MITS:City>PACOIMA</MITS:City>
+          <MITS:State>CA</MITS:State>
+          <MITS:PostalCode>91331</MITS:PostalCode>
+          <MITS:UnparsedAddress>10835 ILEX AVE</MITS:UnparsedAddress>
+        </MITS:Address>
+      </MITS:Customer>
+    </Customers>
+  </Applicant>
+  <Response>
+    <TransactionNumber>58667297</TransactionNumber>
+    <ReportDate>2020-08-12</ReportDate>
+    <ApplicantDecision>Accept</ApplicantDecision>
+    <ApplicationDecision>Accepted</ApplicationDecision>
+    <ApplicantScore></ApplicantScore>
+    <BackgroundReport><![CDATA[
+									<html>
+										<head>
+											
+		
+		
+		
+
+		
+		
+
+    <script type="text/javascript" src="jquery/jquery-1.7.1.min.js" />
+    <script type="text/javascript" src="jquery/ui_controls/ui/jquery-ui-1.8.17.custom.js" />
+
+    <link type="text/css" href="jquery/ui_controls/themes/corelogic/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+    <script type="text/javascript" src="jquery/plugins/jquery.combobox.js" />
+    <script type="text/javascript" src="jquery/plugins/jquery.blockUI.js" />
+    <script type="text/javascript" src="jquery/plugins/jquery.jqPrint.js" />
+    <script type="text/javascript" src="jquery/plugins/jquery.tooltip.js" />
+	<script type="text/javascript" src="js/common.js?v=2" />
+    
+    <style>
+      .b_class {
+        background: #e23d28 url(jquery/ui_controls/themes/corelogic/images/button.png) repeat-x 50% 50% !important;
+        border:1px solid #e6e6e6 !important;
+      }
+      .b_class_hover {
+        background: #e23d28 url(jquery/ui_controls/themes/corelogic/images/button_hover.png) repeat-x 50% 50% !important;
+        border:1px solid #e6e6e6 !important;
+      }
+      .b_removeExtraSpaceForIE {
+        width:0
+      }
+    </style>
+      
+    <script language="javascript">
+      function IECompatibility() {
+        var agentStr = navigator.userAgent;
+        this.IsIE = false;
+        this.IsOn = undefined;  //defined only if IE
+        this.Version = undefined;
+
+        if (agentStr.indexOf("MSIE 7.0") &gt; -1) {
+          this.IsIE = true;
+          this.IsOn = true;
+          if (agentStr.indexOf("Trident/6.0") &gt; -1) {
+            this.Version = 'IE10';
+          } else if (agentStr.indexOf("Trident/5.0") &gt; -1) {
+            this.Version = 'IE9';
+          } else if (agentStr.indexOf("Trident/4.0") &gt; -1) {
+            this.Version = 'IE8';
+          } else {
+            this.IsOn = false; // compatability mimics 7, thus not on
+            this.Version = 'IE7';
+          }
+        } //IE 7
+      }
+      
+      $(document).ready(function() {
+
+        $("button").button();
+        $("button").addClass("b_class");
+        $("button").hover(
+          function () {
+            $(this).removeClass("b_class").addClass("b_class_hover");
+          }, 
+          function () {
+            $(this).removeClass("b_class_hover").addClass("b_class");
+          }
+        );
+          
+        $("#b_print, #b_printresults, #b_printall, #b_printreports, #b_printletters, #b_printpage").button({ icons: { primary: "ui-icon-print" } });
+        $("#b_close").button({ icons: { primary: "ui-icon-close" } });
+        $("#b_save").button({ icons: { primary: "ui-icon-disk" } });
+        $("#b_delete, #b_deleteuser, [id^=delete_]").button({ icons: { primary: "ui-icon-trash" } });
+        $("#b_restore").button({ icons: { primary: "ui-icon-arrowreturnthick-1-w" } });
+        $("#b_associatedusers").button({ icons: { primary: "ui-icon-link" } });
+        $("#b_back").button({ icons: { primary: "ui-icon-arrowthick-1-w" } });
+        $("#b_search").button({ icons: { primary: "ui-icon-search" } });
+        $("#b_continue, #b_goscreeningappliaction").button({ icons: { primary: "ui-icon-arrowthick-1-e" } });
+        $("#b_createnewuser, #b_addapplicant, #b_addguestcard").button({ icons: { primary: "ui-icon-plus" } });
+            
+        $("#includeAll, [id^=includeAll_]").button({ icons: { primary: "ui-icon-seek-next" }, text: false });
+        $("#include, [id^=include_]").button({ icons: { primary: "ui-icon-triangle-1-e" }, text: false });
+				$("#exclude, [id^=exclude_]").button({ icons: { primary: "ui-icon-triangle-1-w" }, text: false });
+				$("#excludeAll, [id^=excludeAll_]").button({ icons: { primary: "ui-icon-seek-prev" }, text: false });
+        
+        if($.browser.msie &amp;&amp; jQuery.browser.version &lt; 10 ) {
+          $("button").addClass("b_removeExtraSpaceForIE");
+        }
+      });
+      </script>
+    
+		
+
+		<link href="css/CoreLogic.css?v=2" rel="stylesheet" type="text/css" />
+
+		
+		
+		<script type="text/javascript">
+			var sessionId = 'b7934401-2c83-4890-bc43-2660959908a5';
+		</script>
+	
+											<link rel="stylesheet" href="css/fadv_application.css"/>
+											<base href="https://vendors.residentscreening.net/b2b/" />
+										</head>
+										<body topmargin="0"><html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>CoreLogic Rental Property Solutions</title>
+    <link href="css/corelogic.css" rel="stylesheet" type="text/css">
+    <style>
+          .subtextlogo {
+          font-size: 24px;
+          color: #6e6259;
+          margin-top: 12px;
+          }
+
+          .subtextlogo > sup {
+          font-size: 12px;
+          }
+
+          .userDataBar {
+          background-color: #003346;
+          padding: 10px 0;
+          color: #fff;
+          }
+
+          .customTableStyle > thead > tr > th, .customTableStyleWithoutField > thead > tr > th {
+          border-bottom: 2px solid #333;
+          color: #000;
+          border-left: 0px solid #FFFFFF;
+          text-align: left;
+          font-size: 12px;
+          font-weight: normal;
+          text-transform: uppercase;
+          }
+
+          .customTableStyle > tbody > tr > td, .customTableStyleWithoutField > tbody > tr > td {
+          border-left: 0px solid #FFFFFF;
+          /* text-align: left;*/
+          font-size: 12px;
+          vertical-align: middle;
+          padding: 10px 8px;
+          }
+          h1{font-size: 26px; margin: 23px 0 18px; font-weight: 400}
+          h2, .accordianHeading{font-size: 16px}
+          .semibold{font-weight: 600 !important;}
+          .text-nowrap {
+          white-space: nowrap
+          }
+          .body_b {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-style: normal;
+          line-height: 18px;
+          font-weight: normal;
+          font-variant: normal;
+          text-transform: none;
+          color: #666666;
+          }
+          .body_bold {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          line-height: 18px;
+          font-weight: bold;
+          color: #666666;
+
+          }
+          .tabledata {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 8.5pt;
+          font-weight: normal;
+          color: #323532;
+          text-decoration: none;
+          background-color: #ffffff;
+
+          }
+          .tabledata a:link {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-weight: normal;
+          color: #F8862D;
+          text-decoration: none;
+          line-height: 16px;
+
+          }
+          .tabledata a:active {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-weight: normal;
+          color: #336699;
+          text-decoration: underline;
+          line-height: 16px;
+
+          }
+          .tabledata a:visited {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-weight: normal;
+          color: #F8862D;
+          text-decoration: none;
+          line-height: 16px;
+
+          }
+          .tabledata a:hover {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-weight: normal;
+          color: #336699;
+          text-decoration: underline;
+          line-height: 16px;
+
+          }
+          .tableHeading {
+
+
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 12px;
+          font-weight: bold;
+          color: #ffffff;
+          text-decoration: none;
+
+          }
+
+
+          .tr {
+          border: #669acc 1px double;
+          }
+          .tr_left_nav {
+          border: #669acc  1px double;
+          }
+          .tr_all {
+          border: #669acc 1px double;
+          }
+          .td_b_dar {
+          border-bottom: #669acc 1px double;
+          }
+
+
+          .td_l {
+          border-left: #dbdafb 1px double;
+          }
+          .td_t {
+          border-top: #dbdafb 1px double;
+          }
+          .td_r {
+          border-right: #dbdafb 1px double;
+          }
+          .td_b {
+          border-bottom: #dbdafb 1px double;
+          }
+
+          .padded {
+          padding: 2px;
+          }
+          .padded2 {
+          padding: 4px;
+          }
+          .error {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 11px;
+          font-weight: bold;
+          color: #C4262E;
+          text-decoration: none;
+          }
+
+          .error_b {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 14px;
+          font-weight: bold;
+          color: #C4262E;
+          text-decoration: none;
+          }
+
+          .subheadOrange2 {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 13px;
+          font-style: normal;
+          line-height: 18px;
+          font-weight: bold;
+          font-variant: normal;
+          text-transform: uppercase;
+          color: #f8862d;
+          }
+          .footer {
+          font-family: Verdana, Arial, Helvetica, sans-serif;
+          font-size: 9px;
+          font-weight: normal;
+          color: #666666;
+          text-decoration: none;
+          }
+        </style><script>
+          if(window.addEventListener)
+          window.addEventListener("load", init);
+          else
+          window.attachEvent("onload", init);
+
+          window.onload = init;
+
+          function init() {
+          setTimeout("submitRequest()", 5000);
+          }
+
+          function submitRequest() {
+          document.frmMain["anid"].value = 'leasedecision.main';
+          document.frmMain["reports"].value = '58667297';
+
+          document.frmMain.submit();
+          }
+        </script></head>
+  <body topmargin="25" bgcolor="#d0d0d0" marginheight="25">
+    <table width="780" align="center" bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0">
+      <form name="frmMain" method="POST" action="https://vendors.residentscreening.net/b2b/default.aspx?WEBACCESSSESSIONID=b7934401-2c83-4890-bc43-2660959908a5">
+        <tr>
+          <td style="border-left: 1px solid black;width: 100%;" colspan="4" valign="top">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tr height="37">
+                <td colspan="3" class="row userDataBar" style="border-left: 1px solid black; width:100%;"></td>
+              </tr>
+            </table>
+          </td>
+          <td valign="top" width="20"></td>
+        </tr>
+        <tr valign="top" height="151">
+          <td style="border-left: 1px solid black" width="200" height="151">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tr>
+                <td align="center"><img src="images/CL-logo.png" alt="CL Logo" style="margin-top: 40px;"></td>
+              </tr>
+              <td>
+                <div class="subtextlogo" style="margin-left: 25px;">
+                      Rental Property Solutions<sup>®</sup></div>
+              </td>
+            </table>
+          </td>
+          <td width="36" align="left" height="151"></td>
+          <td width="530" align="center" height="151"><br><table width="98%" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td valign="top" align="left">
+                  <h1>Lease Decision</h1>
+                  <table class="table pull-left table-striped mg0px customTableStyle" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <thead style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold; color: #685745; text-decoration: none; background-color: #e8e1d5; line-height: 18px;">
+                      <tr>
+                        <th class="text-nowrap" width="68%" height="35px"><span> SCORE DECISION </span></th>
+                        <th class="text-nowrap" width="32%"><span> CRIMSAFE DECISION </span></th>
+                      </tr>
+                    </thead>
+                  </table>
+                  <table class="table pull-left table-striped mg0px customTableStyle" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr style="font-family: Verdana, Arial, Helvetica, sans-serif;">
+                      <td class="text-nowrap " width="68%"></td>
+                      <td class="text-nowrap" width="32%">ACCEPT</td>
+                    </tr>
+                  </table>
+                  <table class="table pull-left table-striped mg0px customTableStyle" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tr style="font-family: Verdana, Arial, Helvetica, sans-serif;">
+                      <td class="text-nowrap " width="68%">
+                      </td>
+                      <td class="text-nowrap" width="32%">No disqualifying record(s) found.</td>
+                    </tr>
+                  </table>
+                  <hr>
+                  <h2 class="semibold">APPLICANT(S)</h2>
+                  <table class="table pull-left table-striped mg0px customTableStyle" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <thead style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold; color: #685745; text-decoration: none; background-color: #e8e1d5; line-height: 18px;">
+                      <th width="63%" height="35px">ROBERT  AARON
+                               (***-**-0807)
+                            </th>
+                      <th width="37%"> </th>
+                    </thead>
+                  </table><br></td>
+              </tr>
+            </table>
+          </td>
+          <td width="20" height="151"> </td>
+          <td rowspan="4" width="20"> </td>
+        </tr>
+        <tr>
+          <td style="border-left: 1px solid black" valign="top" width="200"> </td>
+          <td valign="top" width="36" align="left" height="80"></td>
+          <td valign="top" width="530" align="center"> </td>
+          <td valign="top" width="20"> </td>
+        </tr>
+        <tr>
+          <td style="border-left: 1px solid black" valign="top" width="200" height="10"> </td>
+          <td valign="top" width="36" align="left" height="10"><img src="images/mits/spacer.gif" width="1" height="1"></td>
+          <td valign="top" width="530" height="10"> </td>
+          <td valign="top" width="20" height="10"> </td>
+        </tr>
+        <tr>
+          <td style="border-left: 1px solid black" valign="top" width="200"> </td>
+          <td valign="top" width="36" align="left" height="80"><img src="images/mits/spacer.gif" width="1" height="1"></td>
+          <td valign="top" width="530" class="body">
+                If you don't automatically get redirected in 15 seconds, click <a href="#" onclick="submitRequest(); return false;">here</a></td>
+          <td valign="top" width="20"></td>
+        </tr>
+        <tr>
+          <td class="footer" valign="middle" colspan="5" style="text-align:center; border-left: 1px solid black">&copy; 2016 CoreLogic, Inc. All rights reserved. 
+              </td>
+        </tr>
+        <tr>
+          <td class="footer" valign="middle" colspan="5" style="text-align:center; border-left: 1px solid black">
+                CORELOGIC and CORELOGIC MARK are registered trademarks of CoreLogic, Inc.
+              </td>
+        </tr>
+        <tr>
+          <td colspan="5" align="left" height="10" style="border-left: 1px solid black"></td>
+        </tr>
+        <tr>
+          <td colspan="5" valign="top" align="left" bgcolor="#d0d0d0" height="15"></td>
+        </tr><input type="hidden" name="anid" value=""><input type="hidden" name="reports" value=""></form>
+    </table>
+  </body>
+</html>
+										</body>
+									</html>
+								]]></BackgroundReport>
+    <Status>READY</Status>
+  </Response>
+</ApplicantScreening>
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\Corelogic\CoreLogicHelper.cs
+
+Method Name: PostFormUrlEncoded
+
+Line Number: 169
+
+Logger: CoreLogicHelper.cs
+
+
+
+Date - 12 Aug 2020 15:40:01
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 12 Aug 2020 15:40:01
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 12 Aug 2020 15:40:02
+Level - INFO
+UserAgent - 
+Message - 
+Method SendAsync -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendAsync
+
+Line Number: 92
+
+Logger: EmailSendModel.cs
+
+
+
+Date - 12 Aug 2020 15:40:02
+Level - INFO
+UserAgent - 
+Message - 
+Method SendEmail -Success
+
+User Referrer: localhost:53678
+
+Browser Name: Firefox
+
+File Path: E:\ShomaRM_GH\Shoma-RM\ShomaRM\Models\SendGrid\EmailSendModel.cs
+
+Method Name: SendEmail
+
+Line Number: 36
+
+Logger: EmailSendModel.cs
+
+

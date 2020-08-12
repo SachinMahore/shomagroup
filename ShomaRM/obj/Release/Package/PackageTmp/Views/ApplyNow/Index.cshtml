@@ -41,6 +41,7 @@
 <input type="hidden" id="hndForPaystub" value="0" />
 <input type="hidden" id="hndForFedral" value="0" />
 <input type="hidden" id="hndForBankStatement" value="0" />
+<input name="__Token" type="hidden" value="@CommonModel.GetAntiXsrfToken()" />
 
 <div class="content-area submit-property sanctuary-background-img">
     &nbsp;
@@ -4918,7 +4919,7 @@
                     <div class="col-sm-4" id="divPopSSN">
                         <div class="form-group">
                             <label id="lblSSNNumber" class="star">SSN#   &nbsp;&nbsp;&nbsp;<input type="checkbox" id="chkNoSSN"> No SSN</label>
-                            <input class="form-control form-control-small" id="txtApplicantSSNNumber" value="" maxlength="9" onkeypress="return isOnlyNumber(event)" />
+                            <input class="form-control form-control-small" id="txtApplicantSSNNumber"  value="" maxlength="9"  />
                         </div>
                     </div>
                 </div>

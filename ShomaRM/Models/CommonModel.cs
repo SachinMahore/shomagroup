@@ -16,44 +16,40 @@ namespace ShomaRM.Models
 {
     public class CommonModel
     {
-        //public static string GetAntiXsrfToken()
-        //{
-        //    string cookieToken, formToken;
-        //    AntiForgery.GetTokens(null, out cookieToken, out formToken);
-        //    var responseCookie = new HttpCookie("__AJAXAntiXsrfToken")
-        //    {
-        //        HttpOnly = true,
-        //        Value = cookieToken
-        //    };
-        //    if (FormsAuthentication.RequireSSL && HttpContext.Current.Request.IsSecureConnection)
-        //    {
-        //        responseCookie.Secure = true;
-        //    }
-        //    HttpContext.Current.Response.Cookies.Set(responseCookie);
+        public static string GetAntiXsrfToken()
+        {
+            string cookieToken, formToken;
+            AntiForgery.GetTokens(null, out cookieToken, out formToken);
+            var responseCookie = new HttpCookie("__AntiXsrfToken")
+            {
+                HttpOnly = true,
+                Value = cookieToken
+            };
+            if (FormsAuthentication.RequireSSL && HttpContext.Current.Request.IsSecureConnection)
+            {
+                responseCookie.Secure = true;
+            }
+            HttpContext.Current.Response.Cookies.Set(responseCookie);
 
-        //    return formToken;
-        //}
-        //static void ValidateAntiXsrfToken()
-        //{
-        //    string tokenHeader, tokenCookie;
-        //    try
-        //    {
-        //        // get header token                    
-        //        tokenHeader = HttpContext.Current.Request.Headers.Get("__RequestVerificationToken");
-
-        //        // get cookie token
-        //        var requestCookie = HttpContext.Current.Request.Cookies["__AntiXsrfToken"];
-        //        tokenCookie = requestCookie.Value;
-
-        //        AntiForgery.Validate(tokenCookie, tokenHeader);
-        //    }
-        //    catch
-        //    {
-        //        HttpContext.Current.Response.Clear();
-        //        HttpContext.Current.Response.StatusCode = 403;
-        //        HttpContext.Current.Response.End();
-        //    }
-        //}
+            return formToken;
+        }
+        public static void ValidateAntiXsrfToken()
+        {
+            string tokenHeader, tokenCookie;
+            try
+            {
+                tokenHeader = HttpContext.Current.Request.Headers.Get("__Token");
+                var requestCookie = HttpContext.Current.Request.Cookies["__AntiXsrfToken"];
+                tokenCookie = requestCookie.Value;
+                AntiForgery.Validate(tokenCookie, tokenHeader);
+            }
+            catch
+            {
+                HttpContext.Current.Response.Clear();
+                HttpContext.Current.Response.StatusCode = 403;
+                HttpContext.Current.Response.End();
+            }
+        }
         public static string GetUserFirstName()
         {
             return ShomaGroupWebSession.CurrentUser.LoggedInUser;

@@ -2565,13 +2565,13 @@ namespace ShomaRM.Models
                     reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
                     string message = "";
                     var applist = db.tbl_TenantOnline.Where(p => p.ProspectID == getApldata.ProspectID).ToList();
-                    var prospdata = db.tbl_ApplyNow.Where(v => v.ID == getApldata.ProspectID && (v.Status == "Approved" || v.Status == "Conditional")).FirstOrDefault();
+                    var prospdata = db.tbl_ApplyNow.Where(v => v.ID == getApldata.ProspectID && (v.Status == "Accepted" || v.Status == "Conditional")).FirstOrDefault();
                     int approveCount = 0;
                     if (prospdata != null)
                     {
                         foreach (var aapl in applist)
                         {
-                            var getStatus = db.tbl_Applicant.Where(p => p.UserID == aapl.ParentTOID && (p.CreditResult == "Approved" || p.CreditResult == "Conditional") && (p.BackGroungResult == "Approved" || p.BackGroungResult == "Conditional")).FirstOrDefault();
+                            var getStatus = db.tbl_Applicant.Where(p => p.UserID == aapl.ParentTOID && (p.CreditResult == "Accepted" || p.CreditResult == "Conditional") && (p.BackGroungResult == "Accepted" || p.BackGroungResult == "Conditional")).FirstOrDefault();
                             if (getStatus != null)
                             {
                                 approveCount += 1;
@@ -2722,13 +2722,13 @@ namespace ShomaRM.Models
                     reportHTML = reportHTML.Replace("[%TodayDate%]", DateTime.Now.ToString("dddd,dd MMMM yyyy"));
                     string message = "";
                     var applist = db.tbl_TenantOnline.Where(p => p.ProspectID == getApldata.ProspectID).ToList();
-                    var prospdata = db.tbl_ApplyNow.Where(v => v.ID == getApldata.ProspectID && (v.Status == "Approved" || v.Status == "Conditional")).FirstOrDefault();
+                    var prospdata = db.tbl_ApplyNow.Where(v => v.ID == getApldata.ProspectID && (v.Status == "Accepted" || v.Status == "Conditional")).FirstOrDefault();
                     int approveCount = 0;
                     if (prospdata != null)
                     {
                         foreach (var aapl in applist)
                         {
-                            var getStatus = db.tbl_Applicant.Where(p => p.UserID == aapl.ParentTOID && (p.CreditResult == "Approved" || p.CreditResult == "Conditional") && (p.BackGroungResult == "Approved" || p.BackGroungResult == "Conditional")).FirstOrDefault();
+                            var getStatus = db.tbl_Applicant.Where(p => p.UserID == aapl.ParentTOID && (p.CreditResult == "Accepted" || p.CreditResult == "Conditional") && (p.BackGroungResult == "Accepted" || p.BackGroungResult == "Conditional")).FirstOrDefault();
                             if (getStatus != null)
                             {
                                 approveCount += 1;

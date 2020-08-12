@@ -4725,15 +4725,13 @@ var getPreviousAddressInfo = function () {
             html += "<td>" + elementValue.ManagementCompanyPhone + "</td>";
             html += "<td>" + elementValue.HomeAddress1 + "" + elementValue.HomeAddress2 + ", " + elementValue.CityHome + ", " + elementValue.CountryString + " - " + elementValue.ZipHome + "</td>";
 
-            html += "<td><select id='ddlResidanceStatus" + elementValue.ID + "' class='form-control'><option value=''>Select</option><option value='Accepted' data-list='Accepted'>Accepted</option><option value='Denied' data-list='Denied'>Denied</option><option value='Conditional' data-list='Conditional'>Conditional</option><option value='Pending' data-list='Pending'>Pending</option></select></td>";
+            html += "<td><select id='ddlResidanceStatus" + elementValue.ID + "' class='form-control'><option value=''>Select</option><option value='Accepted' data-list='Accepted'>Accepted</option><option value='Decline' data-list='Decline'>Decline</option><option value='Conditional' data-list='Conditional'>Conditional</option><option value='Pending' data-list='Pending'>Pending</option></select></td>";
             html += "<td><input type='text' id='txtResNotes" + elementValue.ID + "' class='form-control' value='" + elementValue.ResidenceNotes + "' /></td>";
 
             html += "<td class='text-center'>";
             html += "<button  id='btnupdateResStatus' class='btn btn-primary' onclick='updateResStatus(" + elementValue.ID + ")'>Save</button>";
             html += "</tr>";
             $("#tblResidenceStatus>tbody").append(html);
-            // $("#ddlResidanceStatus" + id).val(elementValue.CreditResult)
-            //console.log(elementValue.BackgroundResult);
             setTimeout(function () {
                 $("#ddlResidanceStatus" + elementValue.ID).val(elementValue.BackgroundResult);
             }, 1000);
@@ -4768,7 +4766,7 @@ var getPreviousEmpInfo = function () {
                 html += "<td>" + elementValue.JobTitle + "</td>";
                 html += "<td>$" + elementValue.Income + "</td>";
                 html += "<td>$" + elementValue.AdditionalIncome + "</td>";
-                html += "<td><select id='ddlEmpStatus" + elementValue.ID + "' class='form-control'><option value=''>Select</option><option value='Accept'  data-list='Accept'>Accepted</option><option value='Denied' data-list='Denied'>Denied</option><option value='Conditional' data-list='Conditional'>Conditional</option><option value='Pending' data-list='Pending'>Pending</option></select></td>";
+                html += "<td><select id='ddlEmpStatus" + elementValue.ID + "' class='form-control'><option value=''>Select</option><option value='Accepted'  data-list='Accepted'>Accepted</option><option value='Decline' data-list='Decline'>Decline</option><option value='Conditional' data-list='Conditional'>Conditional</option><option value='Pending' data-list='Pending'>Pending</option></select></td>";
                 html += "<td><input type='text' id='txtEmpNotes" + elementValue.ID + "' class='form-control' value='" + elementValue.EmpNotes + "' /></td>";
 
                 html += "<td class='text-center'>";
