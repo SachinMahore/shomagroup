@@ -222,7 +222,7 @@
                                                 @* <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;" type="text" />*@
                                                 <select id="ddlPreMoveInTimeCL" class="form-control hidden" style="width: 140px;margin-left: 54px;">
                                                     <option value="">Select a time</option>
-                                                    <option value="9:00-10:00">9:00-10:00</option>
+                                                    <option selected="selected" value="9:00-10:00">9:00-10:00</option>
                                                     <option value="10:00-11:00">10:00-11:00</option>
                                                     <option value="11:00-12:00">11:00-12:00</option>
                                                     <option value="12:00-13:00">12:00-13:00</option>
@@ -253,7 +253,7 @@
                                                 @* <input id="txtMoveInTime" class="form-control form-control-small" style="width: 140px;" type="text" />*@
                                                 <select id="ddlMoveInTimeCL" class="form-control hidden" style="width: 140px;margin-left: 54px;">
                                                     <option value="">Select a time</option>
-                                                    <option value="9:00-10:00">9:00-10:00</option>
+                                                    <option selected="selected" value="9:00-10:00">9:00-10:00</option>
                                                     <option value="10:00-11:00">10:00-11:00</option>
                                                     <option value="11:00-12:00">11:00-12:00</option>
                                                     <option value="12:00-13:00">12:00-13:00</option>
@@ -295,13 +295,9 @@
                                         </div>
 
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -697,9 +693,9 @@
             if ($("#chkPayCL").is(":not(:checked)")) {
                 msg += "Pay your 100% Move-in charges<br />";
             }
-            if ($("#ddlPreMoveInTimeCL").val() == "") {
-                msg += "Schedule your Pre-move-in time appointment<br />";
-            }
+            //if ($("#ddlPreMoveInTimeCL").val() == "") {
+            //    msg += "Schedule your Pre-move-in time appointment<br />";
+            //}
             if (msg != "") {
                 $.alert({
                     title: "",
@@ -759,9 +755,9 @@
             if ($("#hndIsPreMoveInSchedule").val() == "0") {
                 msg += "Schedule your Pre-move-in date appointment<br />";
             }
-            if ($("#ddlPreMoveInTimeCL").val() == "") {
-                msg += "Schedule your Pre-move-in time appointment<br />";
-            }
+            //if ($("#ddlPreMoveInTimeCL").val() == "") {
+            //    msg += "Schedule your Pre-move-in time appointment<br />";
+            //}
             if ($("#ddlMoveInTimeCL").val() == "") {
                 msg += "Schedule your move-in time appointment<br />";
             }
@@ -1358,9 +1354,9 @@
         //if (!MoveInDate) {
         //    msg += "Please fill the Move In Date</br>";
         //}
-        if ($("#ddlPreMoveInTimeCL").val() == "") {
-            msg += "Please select the Move In Time</br>";
-        }
+        //if ($("#ddlPreMoveInTimeCL").val() == "") {
+        //    msg += "Please select the Move In Time</br>";
+        //}
 
         if (InsuranceDoc == "Upload Proof of Insurance…") {
             InsuranceDoc = "";
@@ -1804,9 +1800,9 @@
         if ($("#chkPayCL").is(":not(:checked)")) {
             msg += "Pay your 100% Move-in charges<br />";
         }
-        if ($("#ddlPreMoveInTimeCL").val() == "") {
-            msg += "Schedule your Pre-move-in time appointment<br />";
-        }
+        //if ($("#ddlPreMoveInTimeCL").val() == "") {
+        //    msg += "Schedule your Pre-move-in time appointment<br />";
+        //}
         if (msg != "") {
             $.alert({
                 title: "",
@@ -1862,15 +1858,15 @@
         if ($("#chkPayCL").is(":not(:checked)")) {
             msg += "Pay your 100% Move-in charges<br />";
         }
-        if ($("#hndIsPreMoveInSchedule").val() == "0") {
-            msg += "Schedule your Pre-move-in date appointment<br />";
-        }
-        if ($("#ddlPreMoveInTimeCL").val() == "") {
-            msg += "Schedule your Pre-move-in time appointment<br />";
-        }
-        if ($("#ddlMoveInTimeCL").val() == "") {
-            msg += "Schedule your move-in time appointment<br />";
-        }
+        //if ($("#hndIsPreMoveInSchedule").val() == "0") {
+        //    msg += "Schedule your Pre-move-in date appointment<br />";
+        //}
+        //if ($("#ddlPreMoveInTimeCL").val() == "") {
+        //    msg += "Schedule your Pre-move-in time appointment<br />";
+        //}
+        //if ($("#ddlMoveInTimeCL").val() == "") {
+        //    msg += "Schedule your move-in time appointment<br />";
+        //}
         if (msg != "") {
             $.alert({
                 title: "",
